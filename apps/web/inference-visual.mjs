@@ -51,5 +51,5 @@ export function mountInferenceVisual(container) {
     const limit=make('p',view.limitation,'inference-visual-limitation');
     container.replaceChildren(head,context,flow,limit);
   }
-  return {update,invalidate(reason='입력이 바뀌었습니다. 추론을 실행해 시각화를 갱신하세요.') {container.replaceChildren(make('p',reason,'inference-visual-limitation'));}};
+  return {update,invalidate(reason='수식을 완성하면 시각화가 자동으로 갱신됩니다.') {container.replaceChildren(make('p',reason,'inference-visual-limitation'));}};
 }

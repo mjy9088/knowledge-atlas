@@ -14,7 +14,7 @@ HTML 미리보기는 입력과 계산된 proof를 고정 복사한 timeline을 �
 
 기존 Scene 1의 `getState/setState/reset/seek` 및 기존 11개 테스트를 보존한다. 새 규칙은 `inference-claims.json`에 별도 ID로 추가하고 기존 3개 주장을 수정하지 않는다. `inference.json`의 schemaVersion 1은 새 경험에만 적용된다. 과학 fixture 수정 없이 신규 검사 및 모형 작성자 외 별도 진리표 검사를 추가한다.
 
-새 추론 장면의 `getState()`는 마지막으로 실행에 성공한 전제·목표·선택 행을 반환한다. 편집 중인 미완성 식은 적용 전 draft이며, `getInspectionSnapshot()`에 확정 상태(`committedState`)와 편집기(`draft`), `stale`을 함께 담는다. 공개 검사 객체는 깊게 복사해 내부 proof를 손상시키지 않게 한다. 입력 수정/오류 시 이전 HTML 재생은 중지·비활성화하고, 유효한 입력을 다시 실행하면 갱신한다. 새 장면의 `seek`는 기본 조건문 연결 예시를 1.8초 단위로 재현하며, 현재 입력의 HTML 재생 timeline과는 별도 API다.
+새 추론 장면의 `getState()`는 마지막으로 유효하게 계산된 전제·목표·선택 행을 반환한다. 편집 중인 미완성 식은 적용 전 draft이며, `getInspectionSnapshot()`에 확정 상태(`committedState`)와 편집기(`draft`), `stale`을 함께 담는다. 공개 검사 객체는 깊게 복사해 내부 proof를 손상시키지 않게 한다. 입력 수정/오류 시 이전 HTML 재생은 중지·비활성화하고, 유효한 입력이 되면 별도 실행 버튼 없이 즉시 갱신한다. IME 조합 중에는 계산을 보류하고 조합 완료 후 반영한다. 새 장면의 `seek`는 기본 조건문 연결 예시를 1.8초 단위로 재현하며, 현재 입력의 HTML 재생 timeline과는 별도 API다.
 
 교재 §17.3/17.4/17.7/17.8의 현재 HTML을 읽었지만 불변 원문 snapshot·등록 revision·rights 검증은 완료하지 않았다. 화면과 재생 결과는 검토 대기 상태를 유지한다. 공개 승인은 이번 구현 요청에 포함되지 않는다.
 

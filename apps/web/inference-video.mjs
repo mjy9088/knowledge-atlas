@@ -36,7 +36,7 @@ export function mountInferenceVideo(container) {
   const doc=container.ownerDocument;
   const make=(tag,text) => {const node=doc.createElement(tag); if(text) node.textContent=text; return node;};
   const heading=make('h3','추론 과정을 재생하기');
-  const note=make('p','같은 추론 결과를 단계별 애니메이션으로 재생합니다. 입력을 수정한 뒤 추론을 실행하면 새 결과로 갱신됩니다. 음성은 없습니다.');
+  const note=make('p','같은 추론 결과를 단계별 애니메이션으로 재생합니다. 전제나 목표를 바꾸면 새 결과로 자동 갱신됩니다. 음성은 없습니다.');
   const canvas=make('canvas'); canvas.width=960;canvas.height=540;canvas.className='inference-video-canvas';canvas.setAttribute('role','img');
   const mobile=make('div');mobile.className='inference-video-mobile';mobile.setAttribute('aria-label','추론 재생 단계');
   const mobileProgress=make('p'),mobileFormula=make('p'),mobileRule=make('p'),mobileDependencies=make('div');
@@ -109,7 +109,7 @@ export function mountInferenceVideo(container) {
     update(input) {pause();revoke();timeline=createVideoTimeline(input);mobileCue=null;invalid=false;canvas.hidden=false;mobile.hidden=false;details.hidden=false;caption.hidden=false;for(const control of [play,restart,seek]) control.disabled=false;seek.max=timeline.durationMs;time=0;
       download(vttLink,new Blob([timelineVtt(timeline)],{type:'text/vtt;charset=utf-8'}),'inference-preview.vtt');
       download(snapshotLink,new Blob([JSON.stringify(timeline,null,2)],{type:'application/json'}),'inference-preview.json');draw();},
-    invalidate(reason='입력이 바뀌었습니다. 추론을 실행해 재생 내용을 갱신하세요.') {pause();invalid=true;canvas.hidden=true;mobile.hidden=true;details.hidden=true;caption.hidden=true;for(const control of [play,restart,seek]) control.disabled=true;status.textContent=reason;},
+    invalidate(reason='수식을 완성하면 재생 내용이 자동으로 갱신됩니다.') {pause();invalid=true;canvas.hidden=true;mobile.hidden=true;details.hidden=true;caption.hidden=true;for(const control of [play,restart,seek]) control.disabled=true;status.textContent=reason;},
     seek(timeMs) {if(invalid) throw new Error('Recompute the proof before playback');if(!timeline) return;frameAt(timeline,timeMs);pause();time=Math.min(timeMs,timeline.durationMs);draw();},
     getSnapshot() {return timeline?clone(timeline):null;},
     dispose() {pause();disposed=true;motion.removeEventListener('change',motionChange);revoke();container.replaceChildren();},

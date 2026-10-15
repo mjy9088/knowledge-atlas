@@ -141,12 +141,20 @@ async function mountInferenceLab() {
   let activeStep = 0;
   let lastGoal = '';
   const editor = $('premise-editor');
-  function markDirty() {
-    inferenceStale = true;
-    video.invalidate('입력이 바뀌었습니다. 추론 펼치기로 새 결과를 확인해 주세요.');
-    if (window.__atlasInference) window.__atlasInference = {...window.__atlasInference, stale: true};
+  function refreshInput(event) {
+    if (event?.isComposing) {
+      invalidateInput('수식 입력 중입니다. 입력이 끝나면 자동으로 갱신됩니다.');
+      return;
+    }
     for (const button of $('inference-presets').children) button.setAttribute('aria-pressed', 'false');
-    $('inference-status').textContent = '입력이 바뀌었습니다. 추론 펼치기를 누르면 결과와 영상이 갱신됩니다.';
+    runInference();
+  }
+  function invalidateInput(message) {
+    inferenceStale = true;
+    video.invalidate(message);
+    visual.invalidate(message);
+    if (window.__atlasInference) window.__atlasInference = {...window.__atlasInference, stale: true};
+    $('inference-status').textContent = message;
     $('inference-status').className = 'inference-status pending';
     $('inference-result').hidden = true;
   }
@@ -166,9 +174,9 @@ async function mountInferenceLab() {
     input.setAttribute('aria-describedby', 'inference-syntax');
     const remove = document.createElement('button'); remove.type = 'button'; remove.className = 'remove-premise';
     remove.textContent = '×'; remove.setAttribute('aria-label', `전제 ${number} 삭제`);
-    remove.addEventListener('click', () => {row.remove(); updateRowLimit(); markDirty(); $('add-premise').focus();});
-    check.addEventListener('change', () => {row.classList.toggle('excluded', !check.checked); input.disabled = !check.checked; markDirty();});
-    bindFormulaInput(input); input.addEventListener('input', markDirty); row.append(checkLabel, input, remove); editor.append(row);
+    remove.addEventListener('click', () => {row.remove(); updateRowLimit(); refreshInput(); $('add-premise').focus();});
+    check.addEventListener('change', () => {row.classList.toggle('excluded', !check.checked); input.disabled = !check.checked; refreshInput();});
+    bindFormulaInput(input); input.addEventListener('input', refreshInput); input.addEventListener('compositionend', refreshInput); row.append(checkLabel, input, remove); editor.append(row);
     updateRowLimit(); return input;
   }
   function focusStep(index, reveal = false) {
@@ -231,12 +239,7 @@ async function mountInferenceLab() {
       inferenceStale = false;
       window.__atlasInference = structuredClone({premises, goal: lastGoal, proof, stale: false});
     } catch (error) {
-      inferenceStale = true;
-      video.invalidate('입력 오류를 고친 뒤 추론 펼치기를 눌러 주세요.');
-      if (window.__atlasInference) window.__atlasInference = {...window.__atlasInference, stale: true};
-      $('inference-result').hidden = true;
-      $('inference-status').className = 'inference-status input-error';
-      $('inference-status').textContent = `식을 읽지 못했습니다. ${displayFormula(error.message)} 대문자 기호와 ¬, ∧, ∨, →, 괄호를 사용해 주세요.`;
+      invalidateInput(`수식을 완성하면 자동으로 갱신됩니다. ${displayFormula(error.message)}`);
     }
   }
   function loadPreset(name) {
@@ -245,9 +248,10 @@ async function mountInferenceLab() {
     for (const button of $('inference-presets').children) button.setAttribute('aria-pressed', String(button.dataset.preset === name));
     runInference();
   }
-  $('add-premise').addEventListener('click', () => {const input = addRow(); markDirty(); input?.focus();});
-  bindFormulaInput($('inference-goal')); $('inference-goal').addEventListener('input', markDirty);
-  $('inference-form').addEventListener('submit', event => {event.preventDefault(); runInference();});
+  $('add-premise').addEventListener('click', () => {const input = addRow(); refreshInput(); input?.focus();});
+  bindFormulaInput($('inference-goal')); $('inference-goal').addEventListener('input', refreshInput);
+  $('inference-goal').addEventListener('compositionend', refreshInput);
+  $('inference-form').addEventListener('submit', event => event.preventDefault());
   $('inference-prev').addEventListener('click', () => focusStep(activeStep - 1, true));
   $('inference-next').addEventListener('click', () => focusStep(activeStep + 1, true));
   for (const button of $('inference-presets').children) button.addEventListener('click', () => loadPreset(button.dataset.preset));
@@ -261,7 +265,7 @@ async function mountInferenceLab() {
     runInference(); focusStep(next.step);
   }
   window.__atlasScenes.inference = {
-    // Scene state is the last successful inference; unsent input is exposed separately as draft.
+    // Scene state is the last valid input; incomplete input is exposed separately as draft.
     getState() { return {premises:[...lastPremises],goal:lastGoal,step:activeStep}; },
     setState: setInferenceState,
     reset() { setInferenceState({...presets.chain, step:0}); },
