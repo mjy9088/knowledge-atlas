@@ -10,6 +10,7 @@ export const PUBLIC_WEB_FILES=[
   'index.html','styles.css','stage-layout.css','app.mjs','slide-deck.mjs','proof-scene.mjs',
   'lesson.html','lesson.css','lesson-page.mjs','lesson-dialogue.mjs',
   'related-page.css','related-page.mjs','related-reader.mjs',
+  'related-models.mjs','inference-explorer.mjs','reader-panels.mjs','reader-frame.css',
   'premise-experiment.mjs','premise-experiment.css','experiment-dialogue.mjs','formula-display.mjs',
   'inference-visual.mjs','inference-video.mjs','inference-presets.mjs','expanded-timeline.mjs','explosion-episode.mjs',
   'shorts.html','shorts.css','shorts.mjs','shorts-frame.mjs','preview.html','preview.css','preview.mjs'

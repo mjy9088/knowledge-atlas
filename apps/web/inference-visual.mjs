@@ -9,7 +9,7 @@ export function visualForStep({premises=[],goal='',proof,step=0}) {
   if(lines.length && (!Number.isInteger(step) || step<0 || step>=lines.length)) throw new RangeError('Step must identify an existing proof line');
   const current=lines[step];
   const overall=proof.goalReached?'전체 탐색에서 목표에 도달했습니다.':proof.limitReached?'탐색 한도에서 멈췄습니다.':'이 탐색에서 목표에 도달하지 못했습니다.';
-  const rule=RULES.find(item=>item.id===current?.rule)?.label ?? current?.rule ?? '표시할 단계 없음';
+  const rule=proof.ruleLabels?.[current?.rule] ?? RULES.find(item=>item.id===current?.rule)?.label ?? current?.rule ?? '표시할 단계 없음';
   const card=line=>({id:line.id,label:lineName(line.id),formula:displayFormula(line.formula)});
   return {
     sceneId:'scene:logic.inference.lab',step:current?step:null,total:lines.length,

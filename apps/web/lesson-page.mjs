@@ -5,8 +5,18 @@ import {createLessonDialogue} from './lesson-dialogue.mjs';
 import {mountPremiseExperiment} from './premise-experiment.mjs';
 import {describeExperiment,EXPERIMENT_RULE_CLAIMS} from './experiment-dialogue.mjs';
 import {RELATED_PAGES,pageURL} from '../../content/formal-logic/explosion/related-pages.mjs';
+import {mountReaderPanels} from './reader-panels.mjs';
 const $=id=>document.getElementById(id),make=(tag,text)=>{const el=document.createElement(tag);if(text)el.textContent=text;return el;};
 const timeline=createExplosionEpisode(),menu=$('lesson-menu'),stage=$('lesson-stage');
+const initialLessonHash=location.hash;
+const evidenceNode=document.querySelector('.lesson-evidence');evidenceNode.id='lesson-evidence';
+const panels=mountReaderPanels([{element:$('related'),title:'연관 지식'},{element:evidenceNode,title:'출처와 근거'}]);
+const endLinks=make('nav');endLinks.className='lesson-end-links';endLinks.hidden=true;
+for(const [href,label]of [['#related','연관 지식 ↗'],['#lesson-evidence','출처와 근거']]){
+  const link=make('a',label);link.href=href;endLinks.append(link);
+  const menuLink=make('a',label);menuLink.href=href;document.querySelector('.lesson-tools').append(menuLink);
+}
+document.querySelector('.dialogue-box').append(endLinks);
 const visual=mountInferenceVisual(stage);
 let navigatingHistory=false,currentView;
 const experiment=mountPremiseExperiment($('lesson-experiment'),{suggestion:timeline.cues[0].presentation.snapshot,idPrefix:'lesson-input',onChange(info){if(currentView)renderExperiment(currentView,info);}});
@@ -17,6 +27,7 @@ function render(view){
   $('lesson-chapter').textContent=view.chapter.title;
   $('lesson-position').textContent=(view.index+1)+' / '+view.total;
   $('lesson-prev').disabled=!view.canPrevious;$('lesson-next').disabled=!view.canNext;
+  endLinks.hidden=view.canNext;
   $('lesson-skip').hidden=!view.nextChapter;
   $('lesson-skip').title=view.nextChapter?'다음 주제: '+view.nextChapter.title:'';
   $('lesson-skip-context').textContent=view.nextChapter?'건너뛸 내용: '+view.chapter.known+' · 다음: '+view.nextChapter.title:'';
@@ -83,7 +94,7 @@ function followSection(){
 window.addEventListener('hashchange',followSection);
 window.__atlasLesson={...dialogue,getState:()=>({...dialogue.getState(),experiment:experiment.getState()}),getInspectionSnapshot(){const reading=dialogue.inspect(),input=experiment.inspect();return {...reading,experiment:input,displayedDialogue:input.customized?describeExperiment(reading.section.id,input):reading.section};},setState(state){if(!EXPLOSION_EPISODE.sections.some(s=>s.id===state?.sectionId))throw new RangeError('Unknown lesson section');if(state.experiment)experiment.setState(state.experiment);dialogue.setState(state);},reset(){dialogue.reset();experiment.reset();}};
 window.__atlasLessonExperiment=experiment;
-render(dialogue.inspect());followSection();
+render(dialogue.inspect());if(initialLessonHash.startsWith('#explanation-'))history.replaceState(null,'',initialLessonHash);followSection();document.documentElement.classList.add('reader-enhanced');window.scrollTo(0,0);
 const read=async path=>{const response=await fetch(path);if(!response.ok)throw new Error(`자료를 읽지 못했습니다: ${response.status}`);return response.json();};
 try{
   const [related,sources,original,inference]=await Promise.all([read('/content/formal-logic/explosion/related.json'),read('/sources/registry.json'),read('/content/formal-logic/explosion/claims.json'),read('/content/formal-logic/explosion/inference-claims.json')]);
@@ -104,5 +115,5 @@ try{
   const usedSources=new Set([...usedClaims].flatMap(id=>claimById.get(id)?.sourceRefs.map(r=>r.sourceId)??[]));
   for(const source of sources.filter(s=>usedSources.has(s.id))){const p=make('p'),a=make('a',source.title);a.href=source.canonicalUrl;a.target='_blank';a.rel='noopener noreferrer';p.append(a,make('span',` · ${source.author} · 확인일 ${source.retrievedAt}`));$('lesson-sources').append(p);}
   for(const claim of claims.filter(c=>usedClaims.has(c.id))){const div=make('div');div.className='lesson-claim';div.append(make('strong',claim.id),make('p',claim.statement),make('p',`범위: ${claim.scope}`),make('p',`조건: ${claim.assumptions.join(' / ')}`),make('p',claim.sourceRefs.map(r=>`${r.sourceId} · ${r.locator}`).join('; ')),make('p',claim.reviewStatus));$('lesson-claims').append(div);}
-  if(location.hash){document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView();}
+  if(location.hash&&!location.hash.startsWith('#explanation-'))panels.openHash(location.hash);
 }catch(error){$('lesson-error').textContent=error.message;}

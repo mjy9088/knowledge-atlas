@@ -147,6 +147,56 @@
         }
       ],
       "reviewStatus": "draft-source-aligned"
+    },
+    {
+      "id": "claim:logic.fde.four-values",
+      "kind": "formal",
+      "statement": "FDE의 ¬·∧·∨ 의미론은 T, F, B, N 네 값을 사용하고 T와 B를 지정값으로 삼는다. 전제가 모두 지정값인데 결론이 비지정값인 평가가 있으면 그 추론은 FDE에서 성립하지 않는다.",
+      "scope": "상수와 조건문이 없는 명제 FDE. 구현은 서로 다른 원자 명제 5개까지 전수 비교한다. 다른 초일관 논리 전체의 의미론으로 일반화하지 않는다.",
+      "assumptions": [
+        "FDE의 네 값과 지정값 보존",
+        "¬, ∧, ∨ 언어"
+      ],
+      "sourceRefs": [
+        {
+          "sourceId": "source:sutcliffe-fde-2018",
+          "locator": "§1 Background, p.116, Figure 1 and Table 1; p.117 discussion of FDE without conditional"
+        }
+      ],
+      "reviewStatus": "draft-source-aligned"
+    },
+    {
+      "id": "claim:set.relations.membership",
+      "kind": "formal",
+      "statement": "X ∈ A와 A ⊆ B이면 X ∈ B이다. A ⊆ B와 B ⊆ C이면 A ⊆ C이다. ∈와 ⊆는 서로 다른 관계다.",
+      "scope": "통상적인 집합론의 부분집합 정의를 사용하는 개별 추론. ZFC의 전체 공리나 일관성을 계산하는 모형이 아니다.",
+      "assumptions": [
+        "A ⊆ B의 정의 ∀x(x ∈ A → x ∈ B)"
+      ],
+      "sourceRefs": [
+        {
+          "sourceId": "source:marks-set-theory-2026",
+          "locator": "§1 printed p.4, subset notation; §2 printed p.10, subset abbreviation"
+        }
+      ],
+      "reviewStatus": "draft-source-aligned"
+    },
+    {
+      "id": "claim:set.relations.extensionality",
+      "kind": "formal",
+      "statement": "집합 A와 B가 서로의 부분집합이면 같은 원소를 가지므로 외연성에 의해 A = B이다.",
+      "scope": "집합에 대한 외연성 공리의 적용. 원소 하나의 소속만으로 집합 전체의 같음을 결론내리지 않는다.",
+      "assumptions": [
+        "집합의 외연성",
+        "A ⊆ B 및 B ⊆ A"
+      ],
+      "sourceRefs": [
+        {
+          "sourceId": "source:marks-set-theory-2026",
+          "locator": "§2 printed p.10, axiom of extensionality"
+        }
+      ],
+      "reviewStatus": "draft-source-aligned"
     }
   ],
   "articles": [
@@ -198,6 +248,27 @@
             "claim:logic.paraconsistent.not-dialetheism",
             "claim:logic.paraconsistent.nonexplosive"
           ]
+        },
+        {
+          "id": "block:related.fde.values",
+          "text": "여기서는 초일관 논리의 한 예인 FDE를 사용합니다. 기호마다 참 쪽만 있는 T, 거짓 쪽만 있는 F, 양쪽 모두 있는 B, 어느 쪽도 없는 N을 구분합니다. 부정은 참 쪽과 거짓 쪽을 맞바꾸므로 B의 부정은 다시 B입니다.",
+          "claimRefs": [
+            "claim:logic.fde.four-values"
+          ]
+        },
+        {
+          "id": "block:related.fde.counterexample",
+          "text": "FDE에서 T와 B는 지정값입니다. 전제들이 모두 지정값인데 목표가 지정값이 아닌 평가 하나를 찾으면 추론이 성립하지 않음을 보여줍니다. 명제 P의 값을 B(양쪽 모두), 명제 Q의 값을 N(어느 쪽도 아님)으로 두면 P와 ¬P는 지정값이어도 목표 Q는 비지정값입니다.",
+          "claimRefs": [
+            "claim:logic.fde.four-values"
+          ]
+        },
+        {
+          "id": "block:related.fde.rules",
+          "text": "모순 폭발이 없다고 모든 추론을 버리는 것은 아닙니다. A ∧ B에서 A를 얻거나 A에서 A ∨ B를 얻는 추론은 이 네 값의 의미론에서도 지정값을 보존합니다. 이 예시는 ¬·∧·∨만 지원하며 고전 조건문 규칙을 그대로 적용하지 않습니다.",
+          "claimRefs": [
+            "claim:logic.fde.four-values"
+          ]
         }
       ],
       "relatedConcepts": [
@@ -225,6 +296,21 @@
           "claimRefs": [
             "claim:logic.consistency.nontrivial",
             "claim:logic.independence.ch"
+          ]
+        },
+        {
+          "id": "block:related.zfc.membership",
+          "text": "X ∈ A는 X가 A의 원소라는 뜻이고, A ⊆ B는 A의 모든 원소가 B에도 속한다는 뜻입니다. 그래서 X ∈ A와 A ⊆ B를 함께 쓰면 X ∈ B를 얻습니다. A ⊆ B만으로 B ⊆ A를 얻을 수는 없습니다.",
+          "claimRefs": [
+            "claim:set.relations.membership"
+          ]
+        },
+        {
+          "id": "block:related.zfc.extensionality",
+          "text": "A ⊆ B와 B ⊆ A가 모두 있으면 두 집합은 같은 원소를 가집니다. 외연성 공리는 이때 A = B임을 말합니다. 아래 도표는 이 관계의 추론을 다루며 ZFC 전체의 공리를 구현하거나 일관성을 판정하지 않습니다.",
+          "claimRefs": [
+            "claim:set.relations.extensionality",
+            "claim:set.zfc.axioms"
           ]
         }
       ],
@@ -259,6 +345,22 @@
           "id": "block:related.ch.boundary",
           "text": "이 결론에는 구성가능 우주와 강제법에 관한 별도의 정리가 쓰인다. 모순 폭발을 한 번 시연하거나 컴퓨터가 증명을 찾지 못한 것만으로 CH의 독립성을 증명할 수는 없다. 여기서는 정리의 조건과 의미를 소개하며 그 정리 전체를 증명하지 않는다.",
           "claimRefs": [
+            "claim:logic.independence.ch"
+          ]
+        },
+        {
+          "id": "block:related.ch.branches",
+          "text": "Con(ZFC)를 출발 가정으로 포함하면 등록된 괴델·코언의 상대일관성 정리가 각각 CH를 더한 확장과 ¬CH를 더한 확장의 일관성으로 연결됩니다. 서로 다른 두 확장을 비교하는 것이며 한 이론에 CH와 ¬CH를 함께 가정하는 것이 아닙니다.",
+          "claimRefs": [
+            "claim:set.ch.relative-consistency",
+            "claim:logic.independence.ch"
+          ]
+        },
+        {
+          "id": "block:related.ch.metaproof",
+          "text": "CH를 더한 확장이 일관적이라면 ZFC가 ¬CH를 증명할 수 없고, ¬CH를 더한 확장이 일관적이라면 ZFC가 CH를 증명할 수 없습니다. 두 방향을 합친 것이 Ind(CH,ZFC), 즉 ZFC로부터의 CH 독립성입니다. 이 도구는 등록된 정리의 연결을 보여주며 구성가능 우주나 강제법의 증명을 대신하지 않습니다.",
+          "claimRefs": [
+            "claim:set.ch.relative-consistency",
             "claim:logic.independence.ch"
           ]
         }

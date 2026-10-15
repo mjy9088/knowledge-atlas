@@ -106,3 +106,5 @@
   #slide-video .inference-video-canvas{display:none}
   .atlas-drawer{max-height:calc(100dvh - 16px)}
 }
+/* The deck is already viewport-sized; exclude its off-screen 1px helper from root scrolling. */
+html{height:100dvh;overflow:hidden}

@@ -11,18 +11,18 @@ export function normalizeExperimentInput(input){
   });
   return {premises,goal:displayFormula(input.goal)};
 }
-export function evaluateExperimentInput(input){
+export function evaluateExperimentInput(input,derive=deriveProof){
   const draft=normalizeExperimentInput(input),premises=draft.premises.filter(row=>row.enabled).map(row=>row.formula.trim()),goal=draft.goal.trim();
   try{
     if(!goal||premises.some(formula=>!formula))throw new SyntaxError('포함한 전제와 목표의 식을 완성하세요.');
-    const proof=deriveProof({premises,goal});
+    const proof=derive({premises,goal});
     return {valid:true,premises,goal:proof.goal,proof,error:null};
   }catch(error){return {valid:false,premises,goal,proof:null,error:displayFormula(error.message)};}
 }
-export function createPremiseExperiment({suggestion,onChange}={}){
+export function createPremiseExperiment({suggestion,onChange,derive=deriveProof}={}){
   let baseline=normalizeExperimentInput(suggestion),input=copy(baseline),customized=false;
   const getState=()=>({...copy(input),customized});
-  const inspect=()=>({...evaluateExperimentInput(input),input:copy(input),suggestion:copy(baseline),customized});
+  const inspect=()=>({...evaluateExperimentInput(input,derive),input:copy(input),suggestion:copy(baseline),customized});
   const notify=()=>onChange?.(inspect());
   return {getState,inspect,
     setState(next){const checked=normalizeExperimentInput(next);if(next.customized!==undefined&&typeof next.customized!=='boolean')throw new TypeError('customized must be boolean');input=checked;customized=next.customized??true;notify();},
@@ -61,7 +61,7 @@ export function mountPremiseEditor({container,goalInput,addButton,syntaxId,onInp
 }
 
 let experimentInstance=0;
-export function mountPremiseExperiment(container,{suggestion,onChange=()=>{},idPrefix=container.id||('experiment-'+(++experimentInstance))}={}){
+export function mountPremiseExperiment(container,{suggestion,derive=deriveProof,syntaxText='P, Q… · ¬ ∧ ∨ → · 괄호 ( )',onChange=()=>{},idPrefix=container.id||('experiment-'+(++experimentInstance))}={}){
   const doc=container.ownerDocument,make=(tag,text)=>{const node=doc.createElement(tag);if(text)node.textContent=text;return node;};
   container.classList.add('premise-experiment');
   const heading=make('div');heading.className='experiment-heading';
@@ -70,10 +70,10 @@ export function mountPremiseExperiment(container,{suggestion,onChange=()=>{},idP
   const goalLabel=make('label','목표'),goal=make('input');goal.type='text';goal.autocomplete='off';goal.spellcheck=false;goal.maxLength=LIMITS.characters;goal.setAttribute('aria-label','목표 명제식');goalLabel.append(goal);goalLabel.className='experiment-goal';
   const reset=make('button','장면 예시로');reset.type='button';reset.className='experiment-reset';
   const status=make('p');status.className='experiment-mode';status.setAttribute('role','status');
-  const syntax=make('p','P, Q… · ¬ ∧ ∨ → · 괄호 ( )');syntax.className='experiment-syntax';syntax.id=`${idPrefix}-syntax`;
+  const syntax=make('p',syntaxText);syntax.className='experiment-syntax';syntax.id=`${idPrefix}-syntax`;
   container.replaceChildren(heading,rows,goalLabel,reset,status,syntax);
   let editor;
-  const model=createPremiseExperiment({suggestion,onChange(info){status.textContent=info.customized?'내 실험 · 장면을 넘겨도 입력 유지':'장면이 제안하는 예시';reset.disabled=!info.customized;onChange(info);}});
+  const model=createPremiseExperiment({suggestion,derive,onChange(info){status.textContent=info.customized?'내 실험 · 장면을 넘겨도 입력 유지':'장면이 제안하는 예시';reset.disabled=!info.customized;onChange(info);}});
   editor=mountPremiseEditor({container:rows,goalInput:goal,addButton:add,syntaxId:syntax.id,onInput(){model.setState(editor.getState());}});
   const sync=()=>editor.setState(model.getState());
   reset.addEventListener('click',()=>{model.reset();sync();});

@@ -88,5 +88,20 @@
     "snapshotStatus": "reference-only; no verbatim third-party text stored",
     "readingScope": "Introduction, §1 Paraconsistency and §1.1 Dialetheism; author/citation information page",
     "note": "Supplementary expert-authored interpretation distinguishing a consequence relation from a truth view, not a primary proof of a new mathematical result. The source archive is externally versioned but no byte-exact local snapshot has been verified."
+  },
+  {
+    "id": "source:sutcliffe-fde-2018",
+    "title": "Making Belnap’s “Useful Four-Valued Logic” Useful",
+    "author": "Geoff Sutcliffe, Francis Jeffry Pelletier, Allen P. Hazen",
+    "kind": "research-paper",
+    "canonicalUrl": "https://cdn.aaai.org/ocs/17599/17599-77711-1-PB.pdf",
+    "providerRevision": "FLAIRS-31 (2018), printed pp.116–121; byte snapshot not frozen",
+    "retrievedAt": "2026-10-16",
+    "contentHash": null,
+    "license": "Copyright 2018 AAAI. All rights reserved; no redistribution permission established",
+    "rightsReview": "pending-publication-audit",
+    "snapshotStatus": "reference-only; no verbatim text or figures copied",
+    "readingScope": "§1 Background / Table 1 / §2 discussion of why classical material implication does not support MP in FDE",
+    "note": "Only base FDE semantics and its limits are used. Conditional extensions proposed later in the paper are not implemented. Source read, no byte-exact snapshot or rights approval claimed."
   }
 ]
