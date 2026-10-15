@@ -2,6 +2,8 @@
 
 2026-10-16 사용자 피드백 `feedback:2026-10-16.focus-and-related`를 반영했다. 범용 추론 실험실 소개로 바뀐 영상의 중심을 원래 질문으로 복원했다. 짧은 설명에서 3분은 채워야 할 길이가 아니라 상한이다. 본편은 **134초(2분 14초)**다. 음성/TTS 시간으로 검증한 길이가 아니라 무음 자막·장면 타임라인이다.
 
+> 후속 피드백으로 `/lesson.html`은 시간 재생 대신 도표·대사창과 버튼/키보드로 읽는다. 134초는 영상용 길이이며 웹 읽기에 시간 제한이나 대기는 없다. [ADR 0007](adr/0007-dialogue-reading.md) 참고.
+
 ## 웹 원본과 경로
 
 `content/formal-logic/explosion/episode.mjs`의 `lesson:logic.explosion.short.ko`를 웹 해설 `/lesson.html`, HTML 세로 재생 `/shorts.html`, 렌더 `/render.html`이 공유한다. 본편 projection ID는 `projection:logic.explosion.short.ko`다. 기존 30초 `projection.json`의 ID와 Scene 1 계약을 교체하지 않는다. 원래 범용 추론 실험과 예시도 보존한다. 기본 렌더는 이제 본편이며 실험 예시는 별도로 선택한다.

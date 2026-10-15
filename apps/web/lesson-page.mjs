@@ -1,17 +1,64 @@
 import {EXPLOSION_EPISODE} from '../../content/formal-logic/explosion/episode.mjs';
 import {createExplosionEpisode} from './explosion-episode.mjs';
-import {mountInferenceVideo} from './inference-video.mjs';
+import {mountInferenceVisual} from './inference-visual.mjs';
+import {createLessonDialogue} from './lesson-dialogue.mjs';
 const $=id=>document.getElementById(id),make=(tag,text)=>{const el=document.createElement(tag);if(text)el.textContent=text;return el;};
-const timeline=createExplosionEpisode(),player=mountInferenceVideo($('episode-player'));
-player.updateTimeline(timeline);
-$('lesson-duration').textContent=`본편 ${Math.floor(timeline.durationMs/60000)}분 ${timeline.durationMs/1000%60}초 · 무음 · 내용 검토 전`;
-for(const [index,section] of EXPLOSION_EPISODE.sections.entries()){
-  const block=make('article');block.className='lesson-block';block.id=`explanation-${section.id}`;
-  const button=make('button',`${Math.floor(timeline.cues[index].startMs/60000)}:${String(timeline.cues[index].startMs/1000%60).padStart(2,'0')} 이 장면 보기`);button.type='button';
-  button.addEventListener('click',()=>{player.seek(timeline.cues[index].startMs);$('episode-player').scrollIntoView({block:'start',behavior:'instant'});});
-  block.dataset.claimRefs=section.claimRefs.join(' ');block.append(make('h3',section.title),make('p',section.text),button);$('episode-transcript').append(block);
+const timeline=createExplosionEpisode(),menu=$('lesson-menu'),stage=$('lesson-stage');
+const visual=mountInferenceVisual(stage);
+let navigatingHistory=false;
+function formulaCard(formula,label){const card=make('div');card.className='story-formula';card.append(make('span',label),make('strong',formula));return card;}
+function render(view){
+  const section=view.section,presentation=timeline.cues[view.index].presentation;
+  $('lesson-chapter').textContent=view.chapter.title;
+  $('lesson-position').textContent=(view.index+1)+' / '+view.total;
+  $('dialogue-title').textContent=section.title;
+  $('dialogue-text').textContent=section.text;
+  $('lesson-dialogue-copy').dataset.claimRefs=section.claimRefs.join(' ');
+  $('lesson-prev').disabled=!view.canPrevious;$('lesson-next').disabled=!view.canNext;
+  $('lesson-skip').hidden=!view.nextChapter;
+  $('lesson-skip').title=view.nextChapter?'다음 주제: '+view.nextChapter.title:'';
+  if(section.phase==='intro'){
+    const pair=make('div');pair.className='story-pair';pair.append(formulaCard('P','문장'),make('span','그리고'),formulaCard('¬P','그 문장의 부정'));
+    stage.replaceChildren(pair);stage.dataset.kind='introduction';
+  }else if(section.scene==='missing'){
+    stage.replaceChildren(formulaCard('P','남아 있는 전제'),make('p','¬P 전제 제외 · 이 모순 폭발 경로는 구성되지 않습니다.'));stage.dataset.kind='missing';
+  }else{
+    visual.update({...presentation.snapshot,step:section.line??presentation.lines.length-1});stage.dataset.kind='proof';
+  }
+  for(const button of $('lesson-jumps').children)button.setAttribute('aria-current',button.dataset.sectionId===section.id?'step':'false');
+  if(!navigatingHistory&&location.hash.startsWith('#explanation-'))history.replaceState(null,'','#explanation-'+section.id);
 }
-window.__atlasLesson={getState:()=>({timeMs:document.querySelector('#episode-player input[type=range]').valueAsNumber}),setState(state){player.seek(state.timeMs);},reset:()=>player.seek(0),seek:time=>player.seek(time)};
+const dialogue=createLessonDialogue({onChange:render});
+for(const section of EXPLOSION_EPISODE.sections){
+  const button=make('button',section.title);button.type='button';button.dataset.sectionId=section.id;
+  button.addEventListener('click',()=>{dialogue.setState({sectionId:section.id});menu.close();});$('lesson-jumps').append(button);
+}
+$('lesson-prev').addEventListener('click',()=>dialogue.previous());
+$('lesson-next').addEventListener('click',()=>dialogue.next());
+$('lesson-skip').addEventListener('click',()=>dialogue.skip());
+$('lesson-reset').addEventListener('click',()=>{dialogue.reset();menu.close();});
+$('lesson-menu-open').addEventListener('click',()=>menu.showModal());
+$('lesson-menu-close').addEventListener('click',()=>menu.close());
+menu.addEventListener('close',()=>$('lesson-menu-open').focus());
+menu.addEventListener('click',event=>{if(event.target===menu)menu.close();});
+document.addEventListener('keydown',event=>{
+  if(event.defaultPrevented||event.repeat||event.altKey||event.ctrlKey||event.metaKey||event.shiftKey||menu.open)return;
+  if(event.target.closest('input,textarea,select,summary,details,dialog,[contenteditable]'))return;
+  const box=$('lesson-dialogue-copy').getBoundingClientRect();if(box.bottom<0||box.top>innerHeight)return;
+  if(event.key==='ArrowLeft'){event.preventDefault();dialogue.previous();}
+  if(event.key==='ArrowRight'){event.preventDefault();dialogue.next();}
+  if([' ','Enter'].includes(event.key)&&!event.target.closest('button,a')){event.preventDefault();dialogue.next();}
+});
+function followSection(){
+  if(!location.hash.startsWith('#explanation-'))return;
+  const id=location.hash.slice('#explanation-'.length);
+  if(!EXPLOSION_EPISODE.sections.some(s=>s.id===id))return;
+  navigatingHistory=true;try{dialogue.setState({sectionId:id});}finally{navigatingHistory=false;}
+  document.querySelector('.dialogue-experience').scrollIntoView({block:'start'});
+}
+window.addEventListener('hashchange',followSection);
+window.__atlasLesson=dialogue;
+render(dialogue.inspect());followSection();
 const read=async path=>{const response=await fetch(path);if(!response.ok)throw new Error(`자료를 읽지 못했습니다: ${response.status}`);return response.json();};
 try{
   const [related,sources,original,inference]=await Promise.all([read('/content/formal-logic/explosion/related.json'),read('/sources/registry.json'),read('/content/formal-logic/explosion/claims.json'),read('/content/formal-logic/explosion/inference-claims.json')]);

@@ -13,7 +13,7 @@ const contract = JSON.parse(await read('content/formal-logic/explosion/inference
 const timeline=createExplosionEpisode(),proof=timeline.snapshot.proof;
 const files = [
   'content/formal-logic/explosion/episode.mjs', 'content/formal-logic/explosion/related.json',
-  'apps/web/explosion-episode.mjs','apps/web/lesson.html','apps/web/lesson.css','apps/web/lesson-page.mjs',
+  'apps/web/lesson-dialogue.mjs','apps/web/explosion-episode.mjs','apps/web/lesson.html','apps/web/lesson.css','apps/web/lesson-page.mjs',
   'packages/models/propositional.mjs', 'apps/web/inference-video.mjs',
   'apps/web/inference-visual.mjs', 'apps/web/formula-display.mjs', 'apps/web/slide-deck.mjs',
   'apps/web/app.mjs', 'apps/web/index.html', 'apps/web/styles.css', 'apps/web/stage-layout.css',

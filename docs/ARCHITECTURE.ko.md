@@ -141,3 +141,5 @@ Astro/React, Remotion, 저장 포맷, TTS 서비스, 데이터베이스, 배포 
 ### 주제별 본편의 독립 상태 (2026-10-16)
 
 `episode.mjs`의 설명 원본에서 `explosion-episode.mjs`가 version 4 타임라인을 만든다. 각 cue의 `presentation`은 전제·목표·기존 모형 proof를 포함하는 완전한 snapshot이다. `frameAt`은 선택 cue의 presentation으로 표시 행을 구성하고 웹/세로/Canvas는 이를 함께 읽는다. 원래 version 2/3 단일 proof 타임라인과 30초 projection 계약은 보존한다. 콘텐츠의 `episodeRef`/`relatedCollectionRef`는 본편과 연관 해설 원본의 stable ID를 참조한다. 이 로컬 후보의 생성은 출판 manifest나 내용 승인 완료를 뜻하지 않는다. 상세는 `FOCUSED-EPISODE.ko.md` 참고.
+
+웹 해설은 후속 피드백으로 시간 상태 대신 `lesson-dialogue.mjs`의 `{sectionId}`를 사용한다. 같은 episode 설명과 cue별 모형 snapshot을 DOM 도표로 읽되, 영상의 시간 진행은 독립적으로 보존한다. 키보드/skip/복원 계약은 [ADR 0007](adr/0007-dialogue-reading.md) 참조.
