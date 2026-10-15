@@ -31,7 +31,9 @@
 
 2026-10-16 사용자 피드백으로 별도 추론 실험과 HTML 재생 미리보기를 추가했다. 동일 proof snapshot의 시간 기반 강조·자막·좁은 화면 카드는 구현했으나, 사용자가 영상 파일 내보내기를 제외했으므로 아래 실제 프레임/미디어 렌더 DoD의 완료로 세지 않는다. 로컬 preview manifest는 출판 manifest가 아니다.
 
-- [ ] 시각/모형 레이어를 공유하는 영상 어댑터 결정(우선 Remotion 평가).
+후속 ‘동영상 렌더러’ 요청으로 추론 실험에 한정한 Canvas/WebCodecs/WebM 어댑터와 mise FFmpeg MP4 변환을 구현했다. 기본 3분 파일과 10초 시험 출력의 검증 기록은 구현 현황을 참조한다. 기존 Scene 1 projection/event schema의 완전한 통합·출판 manifest·환경 간 재렌더 검증은 여전히 남아 있다. 이 초기 기록의 ‘파일 제외’는 현재 로컬 렌더러에 적용되지 않는다.
+
+- [x] 추론 실험의 시각/모형 레이어를 공유하는 로컬 영상 어댑터 결정(Canvas/WebCodecs + mise FFmpeg).
 - [ ] 특정 시점 t/frame에서 장면 상태를 독립적으로 재현, frame export.
 - [ ] projection schema와 event/timeline, camera/highlight layers 분리.
 - [ ] 10~30초짜리 초벌 영상 클립 출력 후 web/snapshot과 의미 비교.

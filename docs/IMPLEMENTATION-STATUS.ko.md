@@ -2,6 +2,20 @@
 
 이 문서는 ‘설계 요구’와 ‘실제 실행 가능한 기능’을 혼동하지 않기 위한 구현 감사표다.
 
+## 로컬 WebM/MP4 렌더러
+
+`feedback:2026-10-16.video-renderer`에 따라 `/render.html`을 추가했다. 같은 proof/lesson/frameAt/visualForStep을 읽는 Canvas 영상 배치와 WebCodecs VP8/WebM 인코딩을 구현했다. 사용자 설치 `mise.toml`을 보존하고 `mise exec -- ffmpeg/ffprobe`로 H.264/yuv420p/faststart MP4를 만든다. 전체 MP4/10초 시험 버튼은 프레임 인코딩부터 MP4 검증까지 연속 실행한다. 브라우저 인코딩 중 취소와 UI 잠금, VTT/입력·타임라인/해시 기록, 기존 WebM 변환도 지원한다. 3:4 1080×1440 및 16:9 1920×1080, 24/30fps를 지원한다. 상세 계약/보안 범위/CLI는 ADR 0006 참조.
+
+실제로 생성·검사한 결과:
+
+- 기본 3분 WebM: 1080×1440, 30fps, 5400프레임, 180초. MP4 변환: H.264, 무음, 180초, 5400프레임, 2,420,382 bytes. CLI와 UI API 변환에서 같은 출력 해시 `911b7399d25d1d784f17aa989211e6b768109567d988c5c7a0c997618cdd8aa5`를 확인했다. 환경 간 비트열 재현성을 보장한다는 뜻은 아니다.
+- FFmpeg/ffprobe 9.0.2를 mise로 실행했다. 20초/111초 구간을 MP4에서 실제 디코드해 기초 설명과 규칙/근거 화면을 확인했다. 브라우저 MP4 재생도 currentTime 74초 이상, readyState 4를 확인했다.
+- 16:9 시험 WebM은 브라우저 미리보기 열기에 실패했으나 ffprobe에서는 정상 VP8/1920×1080/10초였고, UI의 FFmpeg 변환은 H.264/10초/300프레임으로 완료됐다. 미리보기 실패를 성공 검증으로 꾸미지 않으며 실제값은 null/오류로 기록하고 MP4 검증으로 이어간다.
+- 취소 후 재시작을 브라우저에서 확인했다. 좁은 CSS viewport 390px에서 document clientWidth/scrollWidth 모두 376px로 가로 넘침이 없었다. 24fps와 모든 예시의 전체 영상 인코딩은 미실시다.
+- Node 검증과 43개 테스트 통과(npm 부재로 동일 Node 진입점 직접 실행). 새 검사는 프레임 시간 경계, 설정 거부, EBML 크기/헤더/해상도/cue, 패킷 순서/키프레임, MP4 입력 제약을 확인한다. 별도 브라우저 인코딩 회귀 suite나 독립 픽셀/전문 내용 감사는 아니다.
+
+파일은 `artifacts/video-renderer/inference-3min.mp4`, WebM, ffprobe JSON, 디코드한 PNG와 UI 검사 이미지(로컬/Git 제외)에 있다. API 생성물은 `artifacts/video-renders/<uuid>/`에 별도 저장한다. 무음이며 TTS·공개 배포·source snapshot/권리/사람 승인은 여전히 대기 상태다. 원래 Scene 1의 30초 projection을 완성한 것으로 표시하지 않는다. 과학 모형과 기존 의미 fixture는 변경하지 않았다.
+
 ## 처음 읽는 독자를 위한 약 3분 설명
 
 `feedback:2026-10-16.three-minute-lesson`에 따라 웹/세로 재생을 기본 180초 설명으로 확장했다. 처음 60초에 추론·전제·목표·P/Q/R·→·행 번호를 설명하고 가상 예시임을 명시한다. 다음 72초는 같은 proof의 각 행 관찰과 규칙 풀이, 마지막 48초는 결과와 탐색 한계/조작/요약이다. ∧/∨/¬/⊥는 해당 규칙이 나올 때 읽는 법을 풀어 쓴다. 웹 개요의 `block:intro`에도 최소 주제 설명을 추가했다. 새 `claim:logic.inference.proof-structure`는 현재 공식 교재 §17.1을 읽고 대응시켰지만 불변 source snapshot/권리/사람 승인은 대기 상태다. 생성한 가상 예시는 별도 제안으로 표시한다.

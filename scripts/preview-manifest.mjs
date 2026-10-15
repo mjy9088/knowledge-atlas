@@ -21,6 +21,8 @@ const files = [
   'apps/web/shorts.mjs', 'apps/web/shorts-frame.mjs',
   'apps/web/preview.html', 'apps/web/preview.css', 'apps/web/preview.mjs',
   'apps/web/expanded-timeline.mjs', 'content/formal-logic/explosion/lesson.mjs',
+  'apps/web/render.html', 'apps/web/render.css', 'apps/web/render.mjs',
+  'apps/web/video-renderer.mjs', 'apps/web/webm-muxer.mjs', 'scripts/encode-mp4.mjs',
   'content/formal-logic/explosion/inference.json',
   'content/formal-logic/explosion/inference-claims.json',
   'content/formal-logic/explosion/claims.json', 'sources/registry.json',

@@ -1,0 +1,11 @@
+{
+  "id": "feedback:2026-10-16.video-renderer",
+  "targetId": "scene:logic.inference.lab",
+  "contentVersion": "0ad9468",
+  "origin": "human-user-chat",
+  "issue": "동영상 렌더러 추가. 사용자가 mise로 설치한 FFmpeg를 mise exec -- ffmpeg로 사용하도록 안내.",
+  "requestedChange": "같은 3분 타임라인의 Canvas 프레임을 WebCodecs/WebM으로 인코딩하고, 로컬 mise FFmpeg로 H.264 MP4를 생성·ffprobe로 검증한다. UI/CLI, 시험 렌더·취소, 자막·진단·해시를 제공한다.",
+  "invariants": ["웹의 proof/lesson/frameAt을 원본으로 사용", "무음·로컬 검토와 공개/권리/내용 승인을 구별", "로컬 변환 API의 입력·경로·명령 범위 제한", "사용자가 만든 mise.toml을 보존"],
+  "scope": "local-video-rendering",
+  "status": "implementation-candidate"
+}
