@@ -67,7 +67,7 @@ export function mountSlideDeck(doc = document) {
     const hash = location.hash.slice(1);
     let target;try{target=$(decodeURIComponent(hash || 'slide-overview'));}catch{return;}
     const slide=target?.closest('[data-slide]');
-    if (slide) {followingLocation=true;try{deck.setState({slideId:slide.id});}finally{followingLocation=false;}if(menu.open)menu.close();if(contents.open)contents.close();target.scrollIntoView({block:'nearest'});}
+    if (slide) {followingLocation=true;try{deck.setState({slideId:slide.id});}finally{followingLocation=false;}if(menu.open)menu.close();if(contents.open)contents.close();if(window.self===window.top)target.scrollIntoView({block:'nearest'});}
   }
   window.addEventListener('hashchange',followHash);
   window.addEventListener('popstate',followHash);

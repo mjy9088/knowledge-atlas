@@ -125,14 +125,7 @@ async function mountInferenceLab() {
   const video = mountInferenceVideo($('inference-video'));
   const visual = mountInferenceVisual($('inference-visual'));
   document.addEventListener('atlas:slidechange', event => {if (event.detail.slideId !== 'slide-video') video.pause();});
-  const presets = {
-    chain: {premises:['P', 'P -> Q', 'Q -> R'], goal:'R'},
-    and: {premises:['P & Q'], goal:'Q'},
-    explosion: {premises:['P', '!P'], goal:'R'},
-    missing: {premises:['P -> Q'], goal:'Q'},
-    andIntro: {premises:['P', 'Q'], goal:'P & Q'},
-    orIntro: {premises:['P'], goal:'P | Q'}
-  };
+  const {INFERENCE_PRESETS: presets} = await import('./inference-presets.mjs');
   const labels = {'premise':'전제', 'and-elimination':'∧ 제거', 'modus-ponens':'조건문 적용 (→ 제거)', 'contradiction':'모순 도출', 'explosion':'모순 제거 (폭발)', 'and-introduction':'∧ 도입', 'or-introduction':'∨ 도입'};
   let rowNumber = 0;
   let lastProof = null;
@@ -280,7 +273,8 @@ async function mountInferenceLab() {
     scheduleStep();
   });
   for (const button of $('inference-presets').children) button.addEventListener('click', () => loadPreset(button.dataset.preset));
-  loadPreset('chain');
+  const requestedPreset = new URLSearchParams(location.search).get('preset');
+  loadPreset(Object.hasOwn(presets, requestedPreset) ? requestedPreset : 'chain');
   function setInferenceState(next) {
     if (!next || typeof next !== 'object' || !Array.isArray(next.premises) || typeof next.goal !== 'string' || !Number.isInteger(next.step) || next.step < 0) throw new TypeError('State requires premises, goal and a nonnegative integer step');
     const checked = deriveProof({premises: next.premises, goal: next.goal});
