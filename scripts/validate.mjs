@@ -21,11 +21,10 @@ const content=read('content/formal-logic/explosion/content.json');
 const scene=read('content/formal-logic/explosion/scenes/proof.json');
 const narration=read('content/formal-logic/explosion/narration/ko.json');
 const projection=read('content/formal-logic/explosion/projection.json');
-const feedback=[read('feedback/2026-10-16-viewport-rule-adapters.json'),read('feedback/2026-10-16-cli-media-boundary.json'),read('feedback/2026-10-16-related-static-site.json'),read('feedback/2026-10-16-live-dialogue-layout.json'),read('feedback/2026-10-16-inline-experiment.json'),read('feedback/2026-10-16-dialogue-reader.json'),read('feedback/2026-10-16-focus-and-related.json'),...read('feedback/example-feedback.json'),read('feedback/2026-10-16-inference-video.json'),read('feedback/2026-10-16-slide-scenes.json'),read('feedback/2026-10-16-floating-controls.json'),read('feedback/2026-10-16-live-inference.json'),read('feedback/2026-10-16-auto-proof.json'),read('feedback/2026-10-16-three-views.json'),read('feedback/2026-10-16-portrait-progress.json'),read('feedback/2026-10-16-clear-unreached-proof.json'),read('feedback/2026-10-16-three-minute-lesson.json'),read('feedback/2026-10-16-video-renderer.json')];
-for(const [arr,label] of [[sources,'sources'],[concepts,'concepts'],[claims,'claims'],[content.blocks,'content blocks'],[narration.chunks,'narration chunks'],[projection.segments,'projection segments'],[feedback,'feedback']]) uniq(arr,label);
+for(const [arr,label] of [[sources,'sources'],[concepts,'concepts'],[claims,'claims'],[content.blocks,'content blocks'],[narration.chunks,'narration chunks'],[projection.segments,'projection segments']]) uniq(arr,label);
 const sourceIds=new Set(sources.map(x=>x.id)), conceptIds=new Set(concepts.map(x=>x.id)), claimIds=new Set(claims.map(x=>x.id));
 for(const id of Object.values(EXPERIMENT_RULE_CLAIMS))need(claimIds.has(id),'Unknown experiment dialogue claim '+id);
-const blockIds=new Set(content.blocks.map(x=>x.id)), narrationIds=new Set(narration.chunks.map(x=>x.id));
+const narrationIds=new Set(narration.chunks.map(x=>x.id));
 need(LESSON.reviewStatus==='needs-content-review','Lesson must retain content review status');
 need(inference.lessonRef===LESSON.id,'Inference lesson reference mismatch');
 for(const id of LESSON.sourceRefs)need(sourceIds.has(id),`Unknown lesson source ${id}`);
@@ -82,11 +81,6 @@ for(const seg of projection.segments){
  need(seg.sceneRef===scene.id,`${seg.id}: unknown scene`);
  try{deriveExplosion(seg.state);}catch(e){need(false,`${seg.id}: bad state: ${e.message}`)}
  end=seg.startMs+seg.durationMs;
-}
-for(const f of feedback)need(Boolean(f.origin&&f.invariants&&f.targetId&&f.status),`${f.id}: invalid feedback`);
-for(const f of feedback){
- const validTargets=new Set([related.id,...related.articles.map(a=>a.id),scene.id,inference.id,inference.sceneId,...claimIds,...blockIds,...projection.segments.map(x=>x.id)]);
- need(validTargets.has(f.targetId),`${f.id}: nonexistent target`);
 }
 if(errors.length){console.error('Validation failed:\n'+errors.map(e=>' - '+e).join('\n'));process.exit(1)}
 console.log(`VALID: ${sources.length} sources, ${concepts.length} concepts, ${relations.length} relations, ${claims.length} claims, ${projection.segments.length} storyboard segments (${end}ms).`);

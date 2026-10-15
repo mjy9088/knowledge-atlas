@@ -1,86 +1,44 @@
-# Knowledge Atlas — 탐색 가능한 지식 지도
+# Knowledge Atlas
 
-> 지식의 관계를 따라 위키처럼 탐색하고, 필요한 곳에서는 직접 보고 듣고 조작하며 이해할 수 있는 웹 기반 지식 환경. 동영상은 웹 콘텐츠의 한 경로를 재생한 **projection**이다.
+A source-grounded knowledge atlas for freely exploring science through connected explanations, visualizations, and experiments. The web is the canonical source; video is a fixed projection of the same claims, models, and scenes. Formal logic is the pilot, not the platform's subject boundary.
 
-**상태:** 무의존성 웹 프로토타입과 로컬 WebM/MP4 렌더러 제공. 제작·갱신 에이전트, TTS, 출판용 렌더 파이프라인, 출처 동기화와 공개 배포는 **미구현**. 이 저장소는 작업을 시작하기 위한 검증 가능한 계약과 첫 번째 수직 경로를 제공한다.
+## Start locally
 
-`/knowledge/`에서 일관성·초일관 논리·ZFC·연속체 가설/독립성의 독립 해설을 읽는다. 각 페이지는 이전/다음·건너뛰기·목차와 같은 전제·목표 편집기를 제공한다. 고전 논리·FDE·집합 관계·CH 정리 연결의 서로 다른 규칙을 공통 추론 시각화로 실험한다. FHD 가용 화면에서는 장면 전체가 스크롤 없이 보이고, 연관 지식·근거는 메뉴와 마지막 장면의 작은 링크로 확인한다. `npm run build`로 정적 호스트용 `dist/`를 생성한다. 빌드와 공개 승인은 별도다.
+Use Node.js 22+ and pnpm (or prefix commands with mise exec -- in a mise environment).
 
-## 지향점
+~~~sh
+pnpm install --frozen-lockfile
+pnpm exec playwright install chromium
+pnpm dev
+~~~
 
-- 범위는 과학 전반: 수학·논리·컴퓨터과학, 물리·화학·생명·지구·우주과학과 연관 분야를 가로지른다.
-- 이용자는 흥미 있는 것을 하나 열고 관련 항목을 계속 따라간다. 학습 경로·선수과목·퀴즈는 강제하지 않는다.
-- 제작은 **주제의 흥미도/조회수 예상이 아니라** 신뢰할 수 있는 지식·관계·설명 공백을 중심으로 진행한다.
-- 재미는 선정적인 기획이 아니라, 이해·검증·모형 조작·관계 발견에서 생기는 **지적 유희**에 가깝다.
-- 누군가 잘 관리하는 공개 지식을 최대한 활용한다. AI는 원자료에 근거한 설명과 시청각 체험을 **제안·제작·검사·수정**한다. 과학적 근거를 지어내서는 안 된다.
-- 웹이 1차 원본이고 영상은 같은 승인된 콘텐츠·장면·모형의 특정 진행을 담은 재현 가능한 projection이다.
-- 개별 피드백은 수정에 반영하고, 재사용 가능한 개선은 별도 규칙·테스트로 승격한다. 기존 승인 변경은 부분 재생성 시 보존한다.
-- 원자료의 수정과 새로운 연구를 추적하되, 변경 감지와 공개 반영은 분리한다.
+Open http://127.0.0.1:4173/lesson.html for the self-paced explosion explanation, /knowledge/ for four related readers, /shorts.html for the 3:4 HTML projection, or /preview.html for scaled iframe comparison. Premises and goals are editable inside explanations; dialogue and diagrams follow the selected model or invalidate unsupported input.
 
-**개인화 추천/시청시간 최적화, 도파민 자극 위주 연출, 모든 항목의 필수 인터랙션, 매 페이지별 독립 웹앱 생성은 목표가 아니다.**
+~~~sh
+pnpm check        # content validation, unit tests, Chromium regressions
+pnpm build        # validated static review build in dist/
+pnpm preview      # serve dist/ at localhost:4174
+~~~
 
-## 5분 안에 현재 프로토타입 실행
+The public web has no npm runtime dependencies. Playwright is a development dependency. See [Development](docs/DEVELOPMENT.md) for viewport coverage, artifacts, build constraints, and troubleshooting. MP4 conversion is a separate local CLI: pnpm render:mp4 -- input.webm output.mp4, using mise FFmpeg. The development-only WebM helper is not part of the static site.
 
-Node.js 22+ 필요. 설치할 npm 의존성은 없다.
+## Documentation
 
-```bash
-npm run validate
-npm test
-npm run dev
-# http://localhost:4173
-```
+| Document | Responsibility |
+| --- | --- |
+| [Vision](docs/VISION.md) | Platform purpose, knowledge-first priorities, non-goals |
+| [Product](docs/PRODUCT.md) | Reading, inline experiments, viewport and navigation contracts |
+| [Architecture](docs/ARCHITECTURE.md) | Entities, module boundaries, deterministic state, build/media boundary |
+| [Pilot](docs/PILOT.md) | Explosion episode, related model scopes, scientific guardrails |
+| [Source review](docs/SOURCE-REVIEW.md) | Recorded readings, exclusions, exact review limits |
+| [Sources and rights](docs/SOURCES-AND-RIGHTS.md) | Evidence, reuse, and publication policy |
+| [Development](docs/DEVELOPMENT.md) | Setup, commands, browser tests, static build, local media |
+| [Roadmap and status](docs/ROADMAP.md) | Implemented capabilities, unfinished lifecycle, next priorities |
+| [ADRs](docs/adr/README.md) | Numbered design decisions and superseding choices |
+| [Agent instructions](AGENTS.md) | Required working and documentation practices |
 
-현재 구현: 첫 지식 항목의 읽기·상호작용 프로토타입, 몇 개의 지식 링크, 출처/주장/장면/영상 명세에 대한 기초 검증 및 테스트.
+Documentation is English; the pilot's reader-facing content remains Korean. Durable feedback decisions are integrated into these documents; task history is retained in Git rather than duplicate per-turn JSON logs.
 
-Scene 1은 전제·결론 조작, 초기화, 독립 시간 탐색과 출처·주장·판본 패널을 제공한다. [화면 피드백 안내](docs/M1-REVIEW.ko.md)에 따라 보이는 요소부터 검토할 수 있다. 시간 탐색은 기존 30초 스토리보드 초안의 상태 재현이며 실제 영상 렌더는 아니다. 최신 검사 범위와 남은 제한은 [구현 현황](docs/IMPLEMENTATION-STATUS.ko.md)을 확인한다.
+## Review and publication status
 
-추론 실험실에서는 최대 8개의 기호 명제 전제와 목표를 입력하고 규칙·참조 행이 표시된 추론 과정을 살펴볼 수 있다. 같은 결과를 [HTML 애니메이션 미리보기](docs/VIDEO-PREVIEW.ko.md)로 재생·일시정지·시간 이동한다. 일부 규칙만 지원하는 불완전한 탐색이며 일반 정리증명기가 아니다. 음성과 공개 배포는 포함하지 않는다.
-
-해설에서 전제·목표를 바꾸면 대사와 도표를 같은 계산 결과에 맞춘다. 해당 규칙이 현재 경로에 없으면 설명을 무효화하고 실제 도출을 보여준다. 오류·목표 미발견에는 이전 예시 대사가 남지 않으며, 원래 예시는 ‘장면 예시로’에서 복원한다. 늘어난 전제와 긴 대사는 독립된 스크롤 영역으로 수용한다.
-
-웹은 다섯 장면을 이전/다음·목차로 이동하는 슬라이드 형식이다. 지도/상단 정보는 버튼으로 열고, 추론 실험에서는 재생 없이도 근거·규칙·결론의 관계를 큰 도표로 확인한다. 입력한 ASCII 별칭은 논리 기호로 표시하며, 장면을 이동해도 전제와 결과를 유지한다. [탐색 설계](docs/adr/0004-slide-scene-navigation.md) 참고.
-
-연속된 상·하단 막대 없이 로고 자리·목차·이동 버튼만 표시한다. 우선 화면 기준은 CSS viewport 1920×1080, 1920×940, 390×844이며 실제 가용 높이에 맞춰 조절한다.
-
-`/shorts.html`은 모바일 웹과 별개인 3:4 HTML 재생 화면이다. `/preview.html`에서는 데스크톱·모바일 웹·세로 재생을 실제 크기의 iframe으로 만들고 축소 표시해 함께 검토한다. 공통 예시 선택 후 각 화면은 독립적으로 조작한다. 영상 파일 제작 도구는 공개 빌드와 분리하며 업로드는 포함하지 않는다.
-
-`/lesson.html`은 “모순에서 무엇이든 증명할 수 있을까?”를 논리 도표와 대사창으로 읽는 인터랙티브 해설이다. 버튼·방향키로 앞뒤 이동하고, 아는 설명은 다음 주제로 건너뛰거나 목차에서 직접 고른다. 시간 막대나 재생 대기를 요구하지 않는다. 해설 안에서 제안된 전제·목표를 직접 편집하며, 수정한 값은 장면 이동 중 유지한다. 건너뛰는 지식과 도착점도 함께 표시한다. 같은 편집 컴포넌트를 전용 추론 실험실에서 재사용하며 영상에는 같은 체크박스·목표 필드의 상태 변화를 투영한다. 같은 내용의 영상 projection은 134초다. 필요한 기호부터 P·¬P → ⊥ → Q, 목표 변경과 전제 제거, 도출과 현실의 사실, 일관성까지 같은 웹/세로/렌더 원본으로 재생한다. 3분은 채워야 할 길이가 아니라 짧은 영상의 상한이다. 일관성·초일관 논리·ZFC·CH/독립성의 연관 해설 4편과 주장별 출처를 이어 탐색할 수 있다. [현재 본편과 시간표](docs/FOCUSED-EPISODE.ko.md)를 참조한다.
-
-MP4 변환은 공개 웹과 분리된 로컬 CLI다. `npm run render:mp4 -- input.webm output.mp4` 또는 `node scripts/encode-mp4.mjs input.webm output.mp4`로 실행한다. 내부적으로 `mise exec -- ffmpeg/ffprobe`를 사용하고 결과 JSON 진단을 저장한다. `--help` 지원. 렌더 페이지·인코더·변환 안내는 공개 빌드에서 제외한다. 개발 서버의 `/render.html`은 WebM 생성 보조 도구로만 유지하며 MP4 API는 제공하지 않는다. [분리 계약](docs/adr/0010-local-media-cli.md) 참고.
-
-현재 미구현: 외부 자료 자동 수집, 범용 수식/증명 검사기, TTS, 분산/출판용 영상 렌더, 전문 편집기, AI 피드백 실행기, 출판, 갱신 워커. 시연 화면을 과학적 검증이나 완성된 제작 시스템으로 오해하지 않는다.
-
-## 어디서 읽기 시작할까
-
-0. **[통합 프로젝트 요구사항 — 이 문서 하나로 인수인계](docs/PROJECT-SPEC.ko.md)**
-1. [프로젝트의 목적과 비목표](docs/VISION.ko.md) — 기술적인 결정보다 우선하는 원칙.
-2. [제품/UX 요구사항](docs/PRODUCT.ko.md) — 위키 탐색, 관계, 시청각·상호작용, 사람·AI용 편집.
-3. [아키텍처와 데이터 계약](docs/ARCHITECTURE.ko.md) — 콘텐츠 원본과 영상 projection, 두 종류의 그래프.
-4. [제작·갱신 수명주기](docs/LIFECYCLE.ko.md) — 승인, 권리, 근거, 변경, 롤백.
-5. [AI 제작·피드백 워크플로](docs/AGENTS-AND-FEEDBACK.ko.md) — 생성/미리보기/CV/수정/회귀검사.
-6. [첫 콘텐츠 명세](docs/PILOT.ko.md) — 모순 폭발을 이용한 첫 번째 수직 경로.
-7. [구현 백로그와 DoD](docs/ROADMAP.ko.md) — 지금부터 실제로 무엇을 만들지.
-8. [출처·저작권 정책](docs/SOURCES-AND-RIGHTS.ko.md) — 외부 자료와 자체 결과물의 권리 추적.
-9. [실제 구현 현황](docs/IMPLEMENTATION-STATUS.ko.md) — 되어 있는 것과 없는 것.
-10. [에이전트 기여 규칙](AGENTS.md) — 코딩 에이전트에 처음 읽힐 문서.
-
-문서와 샘플 데이터는 **원래 목적과 아직 해결되지 않은 결정사항을 보존하는 기준 문서**다. 현재 구현이 문서의 미래 요구사항을 충족한다는 뜻은 아니다.
-
-## 개발 규칙과 명령
-
-- `npm run dev`: 무의존성 웹 프로토타입 서버 실행.
-- `npm run build`: 검증 후 정적 사이트를 `dist/`에 생성. 연관 지식 4편과 목록은 본문·근거가 포함된 HTML로 출력한다.
-- `npm run preview`: `dist/`를 로컬 정적 서버로 확인(기본 4174). [JAMstack 빌드 안내](docs/JAMSTACK.ko.md) 참고.
-- `npm run validate`: 초기 JSON 계약과 교차 참조 검사.
-- `npm test`: 데이터·논리 예시의 기초 회귀 테스트.
-- `npm run storyboard`: 영상 진행 명세로부터 검토용 이벤트 목록 생성(렌더 아님).
-- 기능 작업 시 **공개된 진술이 바뀌면 claim ID·근거·검사 변경을 함께 검토**한다.
-- 사용자 경험과 과학적 의미는 분리 검증한다. 스크린샷이 일치해도 과학적 결론이 맞다는 뜻은 아니다.
-
-## 첫 작업 권고
-
-[ROADMAP](docs/ROADMAP.ko.md)의 **M0 → M1 → M2** 순서로 구현한다. 먼저 소스 스냅샷과 Claim/Scene 계약을 확정하고, 첫 장면에서 상태 조작·복원·재현 및 자동 검사까지 연결한 다음, 그 장면을 영상 프레임으로 변환한다. 영상 전체나 세계 지식 그래프를 먼저 구현하지 않는다.
-
-## 소유·라이선스
-
-이 초기 저장소 **자체 원본에 대한 공개 라이선스는 아직 지정하지 않았다.** 자동으로 MIT·CC BY 등으로 간주하지 말 것. 외부 자료의 라이선스는 각 자료별로 유지되고, 향후 공개 전에 [권리 정책](docs/SOURCES-AND-RIGHTS.ko.md)에 따라 검토한다. 개인 실험 단계에서는 비공개 저장소를 권장한다.
+This is a local review implementation. Claims and articles retain draft/review-required states. Source-byte snapshots, exact revision verification, independent expert review, rights clearance, audio production, and approved publication manifests remain incomplete. Building a site or rendering a silent video does not imply publication approval. No project-wide open-source license has been selected; external source licenses remain separate.

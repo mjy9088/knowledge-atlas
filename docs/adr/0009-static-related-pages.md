@@ -1,11 +1,8 @@
-# 0009 — 연관 해설의 정적 HTML과 점진적 상호작용
+# ADR 0009 — Static related articles
 
-2026-10-16. 상태: 로컬 구현. 피드백 `feedback:2026-10-16.related-static-site`.
+- Date: 2026-10-16
+- Status: Implemented locally
 
-기존 연관 Article을 독립 URL과 같은 대사식 읽기로 제공한다. 원본 문장을 복제해 별도 대본으로 관리하지 않고 block과 문장 범위를 참조한다. 공유 렌더러가 본문과 근거를 빌드 시 HTML로 만들며, 브라우저 모듈이 장면 이동을 추가한다. 검증된 명제논리 예시가 의미 있는 일관성 페이지만 기존 편집기·모형·동적 대사를 재사용한다. 다른 논리나 집합론을 계산하는 기능은 제안하거나 구현하지 않았다.
+Pre-render related articles and evidence from shared content, block IDs, and sentence ranges; enhance with client-side dialogue navigation and experiments. Development and build use the same HTML renderer. Preserve a static reading fallback rather than rely on SPA routing.
 
-현재 무의존성 Node 구조에서 작은 정적 생성기를 사용한다. Astro/React 도입은 필수 조건이 아니며, 이후 교체해도 Article/Claim ID·공통 모형·정적 HTML·상태 계약을 보존해야 한다. 개발과 정적 생성은 같은 렌더 함수를 사용한다. 도메인 루트의 디렉터리 경로를 사용하며 SPA fallback에 의존하지 않는다.
-
-빌드는 고정 `dist/`만 재생성하고 명시된 자산을 포함한다. 후속 피드백으로 공개 웹에서 렌더 도구와 변환 안내를 모두 제외했다. MP4 변환은 CLI 전용이며 웹 API는 제거했다. WebM 생성 보조 화면은 개발 서버에만 남긴다. 상세 경계는 ADR 0010을 따른다. 출력 manifest는 로컬 검토 산출물이며 내용·권리 승인이나 공개 사실을 나타내지 않는다.
-
-명령·경로·한계·검사 계약은 [JAMSTACK.ko.md](../JAMSTACK.ko.md) 참고. 실제 외부 배포·원문 판본 동결·권리 감사·사람의 내용 승인은 별도 단계로 남긴다.
+Use a small Node builder rather than require Astro/React now. Generate domain-root directory routes and hashes for local review. The original consistency-only experiment was later extended by topic-specific adapters in 0011. Public asset selection and local production tools are governed by 0010. Building files is not deployment or publication approval.

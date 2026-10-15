@@ -1,23 +1,8 @@
-# ADR 0004 — 장면별 슬라이드 탐색과 선택적으로 여는 메뉴
+# ADR 0004 — Scene navigation and scientific state
 
-2026-10-16 / 사용자 피드백 `feedback:2026-10-16.slide-scenes`에 따른 웹 표현 변경.
+- Date: 2026-10-16
+- Status: Implemented locally
 
-## 결정과 범위
+Keep selected slide state separate from premise/goal/model state. Previous/next, direct selection, hashes, and keyboard navigation must not reset experiments. Show static reasoning relationships as well as animation. Format parser-supported ASCII aliases as logical symbols without changing semantics.
 
-개요·추론 실험·HTML 재생·기존 모순 폭발·해석/근거를 별도 장면으로 구성하고, 한 번에 한 장면만 보여준다. 이전/다음과 목차로 이동하며 이 순서를 필수 학습 과정으로 취급하지 않는다. 기존 본문 anchor URL은 해당 장면을 직접 열도록 유지한다. PowerPoint 파일을 만들거나 별도 영상 원본을 만드는 작업은 아니다.
-
-왼쪽 개념 탐색과 상단 정보는 기본적으로 숨기고 명시적인 버튼으로 연다. 장면 이동과 메뉴 열기 버튼은 항상 찾을 수 있게 유지한다. 숨긴 장면은 초점/접근성 탐색에서 제외하며, 메뉴 닫기와 Escape는 초점을 열기 버튼으로 복원한다. 입력칸·선택 목록·슬라이더·편집 영역에서 사용하는 방향키를 장면 이동이 가로채지 않게 한다.
-
-장면은 DOM에서 삭제/재생성하지 않으므로 전제와 결과를 이동 후에도 보존한다. 재생 장면을 떠나면 애니메이션을 일시정지한다. 추론의 정적인 시각화와 재생은 같은 proof의 행 ID·규칙·dependsOn을 표시한다. 전제 행에는 근거에서 새 결론을 도출했다는 화살표를 만들지 않는다.
-
-수식 표시/입력은 기존 파서가 지원하는 ASCII 별칭을 논리 기호로 바꾼다. 이는 단순 표시 변환이며 식의 단순화나 새 규칙 적용이 아니다. 입력 위치와 한글 조합 입력을 보존하고, 잘못된 식을 조용히 올바른 식으로 고치지 않는다. 원본 proof·과학 fixture·주장 ID·출처 검증 상태는 변경하지 않는다.
-
-## 검증과 후속 범위
-
-장면 초기값·경계·hash 복원과 키보드 편집 예외, 기호 변환의 의미/커서 보존, 정적 시각화의 참조 정확성을 검사한다. 데스크톱/좁은 화면의 이동·메뉴·입력·재생을 별도로 확인한다. 보조공학 전문 감사, 완전한 브라우저 자동 회귀, 출처/권리/과학적 승인 및 공개 배포는 별도 작업이다.
-
-## 가용 화면 기준과 막대 제거 (후속 피드백)
-
-`feedback:2026-10-16.floating-controls`에 따라 상단·하단의 연속된 막대는 제거한다. 지도는 작은 로고 자리 버튼, 목차는 아이콘 버튼으로 열며 장면 이동은 독립적인 화살표 버튼과 작은 카운터로 제공한다. 데스크톱 화살표는 좌우 가장자리, 모바일은 하단 모서리에 둔다. 버튼은 44px 터치 영역과 접근 가능한 이름을 유지한다.
-
-우선 기준은 CSS viewport 1920×1080, 1920×940, 390×844다. 1920×940은 주소창/작업 표시줄을 제외한 테스트용 예시이며 브라우저·운영체제의 고정 높이라고 간주하지 않는다. 전체 장면은 실제 가용 높이 `100dvh`를 사용하고, 모바일 safe area를 고려한다. 긴 편집/출처 내용은 장면 내부에서 스크롤한다. 표현 배치는 `apps/web/stage-layout.css`로 분리하며 과학 장면 상태나 계산 규칙을 변경하지 않는다.
+Place navigation/information behind compact controls. Preserve input focus and avoid intercepting typing or native button/link activation. The later self-paced reader (0007) and viewport contract (0011) refine this presentation.

@@ -1,19 +1,8 @@
-# 0007 — 웹 해설을 장면·대사 단위로 읽기
+# ADR 0007 — Self-paced dialogue reading
 
-2026-10-16. 상태: 로컬 구현. 사용자 요청으로 웹 `/lesson.html`의 시간 재생 UI를 대사형 읽기로 교체했다.
+- Date: 2026-10-16
+- Status: Implemented locally
 
-## 결정
+Present /lesson.html as a diagram and dialogue rather than a video player. Support previous/next, direct chapter selection, contextual skipping, and keyboard navigation without time waits. Keep source episode and projection timing unchanged.
 
-- 과학 설명 원본 `episode.mjs`, source/claim ID와 영상 타임라인은 보존한다. 웹은 설명 순서만 사용하는 별도 `lesson-dialogue.mjs` 상태 어댑터를 둔다.
-- 상태는 `{sectionId}`. `getState/setState/reset/next/previous/skip/inspect`를 제공한다. `inspect`는 분리된 복사본을 반환하며 잘못된 ID는 기존 상태를 변경하지 않는다. 기존 검사 도구의 `seek(timeMs)`는 해당 장면 ID로 변환하는 호환 API로 유지한다. 시간에 따른 자동 진행은 없다.
-- 전제·목표·증명은 기존 cue의 완전한 presentation에서 DOM 도표로 표시한다. 키 입력으로 과학 모형을 다시 정의하지 않는다. 전제 제거 장면은 남은 P와 경로 미구성 안내만 표시한다.
-- 이전/다음 버튼과 ←/→, 본문에서 Space/Enter로 이동한다. Space/Enter는 초점이 있는 버튼·링크의 기본 동작을 보존한다. 입력 요소와 열린 목차에서는 전역 이동키가 개입하지 않으며 연관 자료를 읽는 중에도 이동키를 가로채지 않는다.
-- ‘이 설명은 알아요’는 다음 주제의 첫 장면으로 건너뛴다. 목차에서 12장면 중 어디든 직접 선택한다. `#explanation-<sectionId>` 기존 링크는 장면 선택으로 연결한다.
-- 재생/일시정지, 경과 시간, 시간 slider, Canvas·영상 요소는 웹 해설에서 제거한다. 도표 + 대사창으로 구성하고 로고·목차 버튼만 상단에 둔다. 영상 HTML/렌더 링크는 목차에서 접근한다.
-- 연관 해설 4편과 근거 열람, 전제를 직접 바꾸는 기존 웹 장면으로의 이동을 유지한다.
-
-## 검증과 제한
-
-초기/이전/다음/주제 건너뛰기/복원/초기화/지원하지 않는 상태/호환 seek를 단위 검사한다. 기존 과학 fixture는 바꾸지 않는다. UI는 1920×940 및 390×844에서 버튼·방향키·목차 선택과 전제 제거 후 복원을 확인했다. 웹의 설명/도표는 DOM이며 영상 재인코딩은 이번 변경에 필요하지 않다. 완전한 스크린리더 감사는 미실시다.
-
-피드백: `feedback:2026-10-16.dialogue-reader`. 내용·출처·권리·사람 승인·공개 상태는 기존 초안 상태를 유지한다.
+Ignore global navigation keys while editing or using menus/dialogs, and preserve native activation of focused links/buttons. Expose deterministic reading state/reset/inspection; legacy seek maps time to a scene. Full screen-reader review is still pending. ADR 0008 makes suggested premises editable inside this reader.

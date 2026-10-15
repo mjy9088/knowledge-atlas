@@ -1,23 +1,8 @@
-# ADR 0003 — 제한된 명제 추론과 HTML 재생 미리보기
+# ADR 0003 — Bounded inference and HTML preview
 
-상태: 로컬 구현 후보 / 2026-10-16. 관련 피드백: `feedback:2026-10-16.inference-video`.
+- Date: 2026-10-16
+- Status: Implemented locally
 
-## 결정
+Preserve the original explosion scene and add a separate bounded symbolic inference laboratory. Store rule/claim scope independently; display actual rule names and earlier row references. Search failure is not falsity, unprovability, or independence.
 
-기존 `scene:logic.explosion.proof`와 상태 계약을 유지하고, `scene:logic.inference.lab`를 추가한다. 추론은 외부 의존성 없는 순수 모형 `model:logic.propositional.forward`가 수행한다. 파서는 문자열을 실행하지 않고 AST를 만든다. 입력은 대문자 기호 명제, ¬/∧/∨/→/⊥ 및 괄호로 제한한다.
-
-추론은 ∧ 제거·→ 제거·모순 도출·⊥ 제거 및 목표 부분식의 ∧/∨ 도입만 사용한다. 반환 proof는 고유 행 ID, 규칙 ID, 앞선 참조 행, 목표 도달 여부, 탐색 종료/한도 여부를 가진다. 유한 탐색 실패는 거짓 또는 일반적 증명 불가능성 판정이 아니다. 완전한 자연연역이나 일차논리 검사기를 주장하지 않는다.
-
-HTML 미리보기는 입력과 계산된 proof를 고정 복사한 timeline을 사용한다. 시간별 프레임·강조·자막은 그 snapshot에서 결정하고, 별도의 과학 계산이나 설명 원본을 만들지 않는다. 사용자 후속 지시에 따라 WebM 생성·업로드는 도입하지 않는다. Canvas 재생과 실제 MP4, TTS, 출판 manifest는 별개 단계다. 외부 코드·폰트·이미지·음원을 추가하지 않는다.
-
-## 호환성과 근거
-
-기존 Scene 1의 `getState/setState/reset/seek` 및 기존 11개 테스트를 보존한다. 새 규칙은 `inference-claims.json`에 별도 ID로 추가하고 기존 3개 주장을 수정하지 않는다. `inference.json`의 schemaVersion 1은 새 경험에만 적용된다. 과학 fixture 수정 없이 신규 검사 및 모형 작성자 외 별도 진리표 검사를 추가한다.
-
-새 추론 장면의 `getState()`는 마지막으로 유효하게 계산된 전제·목표·선택 행을 반환한다. 편집 중인 미완성 식은 적용 전 draft이며, `getInspectionSnapshot()`에 확정 상태(`committedState`)와 편집기(`draft`), `stale`을 함께 담는다. 공개 검사 객체는 깊게 복사해 내부 proof를 손상시키지 않게 한다. 입력 수정/오류 시 이전 HTML 재생은 중지·비활성화하고, 유효한 입력이 되면 별도 실행 버튼 없이 즉시 갱신한다. IME 조합 중에는 계산을 보류하고 조합 완료 후 반영한다. 새 장면의 `seek`는 기본 조건문 연결 예시를 1.8초 단위로 재현하며, 현재 입력의 HTML 재생 timeline과는 별도 API다.
-
-교재 §17.3/17.4/17.7/17.8의 현재 HTML을 읽었지만 불변 원문 snapshot·등록 revision·rights 검증은 완료하지 않았다. 화면과 재생 결과는 검토 대기 상태를 유지한다. 공개 승인은 이번 구현 요청에 포함되지 않는다.
-
-## 남은 일
-
-보조공학 전문 검토, 완전한 브라우저 회귀 suite, 부분증명/추가 추론 규칙, 출처 불변 snapshot과 사람의 내용 승인, 실제 미디어 렌더·오디오·공개 manifest는 후속 범위다.
+HTML animation projects a detached proof snapshot with time-based frame selection. It does not create a second inference engine. The initial request excluded media export; ADR 0006 later added a local renderer without changing that shared-source contract. Current syntax and model limits are in [Pilot](../PILOT.md).
