@@ -137,3 +137,7 @@ type SceneAdapter<TState, TAction> = {
 ## 9. 추후 바뀔 수 있는 선택
 
 Astro/React, Remotion, 저장 포맷, TTS 서비스, 데이터베이스, 배포 사업자, 작업 오케스트레이터는 교체 가능한 구현 선택이다. 원본의 의미, ID, provenance, scene contract, 피드백/승인 경계는 장기 계약으로 취급한다. 규모가 커질 때까지 GraphDB와 워크플로 엔진 도입을 미룬다.
+
+### 주제별 본편의 독립 상태 (2026-10-16)
+
+`episode.mjs`의 설명 원본에서 `explosion-episode.mjs`가 version 4 타임라인을 만든다. 각 cue의 `presentation`은 전제·목표·기존 모형 proof를 포함하는 완전한 snapshot이다. `frameAt`은 선택 cue의 presentation으로 표시 행을 구성하고 웹/세로/Canvas는 이를 함께 읽는다. 원래 version 2/3 단일 proof 타임라인과 30초 projection 계약은 보존한다. 콘텐츠의 `episodeRef`/`relatedCollectionRef`는 본편과 연관 해설 원본의 stable ID를 참조한다. 이 로컬 후보의 생성은 출판 manifest나 내용 승인 완료를 뜻하지 않는다. 상세는 `FOCUSED-EPISODE.ko.md` 참고.

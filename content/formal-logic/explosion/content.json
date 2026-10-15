@@ -18,7 +18,11 @@
     "claim:logic.explosion.not-reality"
   ],
   "sourceRefs": [
-    "source:forallx-calgary-2026"
+    "source:forallx-calgary-2026",
+    "source:baskent-paraconsistency-2011",
+    "source:marks-set-theory-2026",
+    "source:feferman-bernays-2012",
+    "source:sep-paraconsistent-sum2026"
   ],
   "sceneRefs": [
     "scene:logic.explosion.proof"
@@ -60,5 +64,7 @@
       "text": "이 설명은 일관성, 공리계, 독립성에 관한 설명으로 연결될 수 있습니다. 이 링크를 선행 학습 과정으로 생각할 필요는 없습니다.",
       "claimRefs": []
     }
-  ]
+  ],
+  "relatedCollectionRef": "collection:logic.explosion.related.ko",
+  "episodeRef": "lesson:logic.explosion.short.ko"
 }

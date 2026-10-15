@@ -69,18 +69,22 @@ async function readJson(path) {
 }
 async function populate() {
   try {
-    const [data, concepts, relations, sources, originalClaims, inferenceClaims] = await Promise.all([
+    const [data, concepts, relations, sources, originalClaims, inferenceClaims, related] = await Promise.all([
       readJson('/content/formal-logic/explosion/content.json'), readJson('/knowledge/concepts.json'),
-      readJson('/knowledge/relations.json'), readJson('/sources/registry.json'), readJson('/content/formal-logic/explosion/claims.json'), readJson('/content/formal-logic/explosion/inference-claims.json')
+      readJson('/knowledge/relations.json'), readJson('/sources/registry.json'), readJson('/content/formal-logic/explosion/claims.json'), readJson('/content/formal-logic/explosion/inference-claims.json'), readJson('/content/formal-logic/explosion/related.json')
     ]);
-    const claims = [...originalClaims, ...inferenceClaims];
+    const claims = [...originalClaims, ...inferenceClaims, ...related.claims];
     $('article-title').textContent = data.title;
     $('article-summary').textContent = data.summary;
     $('intro-body').textContent = data.blocks.find(block => block.id === 'block:intro')?.text ?? '';
     $('limits-body').textContent = data.blocks.find(block => block.id === 'block:limits')?.text ?? '';
     const nav = $('concepts-nav'); nav.replaceChildren();
     const available = new Set([...data.conceptRefs, ...relations.filter(relation => relation.from === 'concept:logic.explosion').map(relation => relation.to)]);
+    for(const article of related.articles){available.add(article.conceptId);article.relatedConcepts.forEach(id=>available.add(id));}
     const selectConcept = concept => {
+      const article=related.articles.find(a=>a.conceptId===concept.id)??(concept.id==='concept:logic.independence'?related.articles.find(a=>a.conceptId==='concept:set.ch'):null);
+      const target=$('concept-detail');target.hidden=!article;
+      if(article){target.href='./lesson.html#'+article.id.replaceAll(':','-').replaceAll('.','-');target.textContent=article.title+' ↗';}
       $('concept-title').textContent = concept.title;
       $('concept-summary').textContent = concept.summary;
       for (const button of nav.children) button.setAttribute('aria-expanded', String(button.dataset.conceptId === concept.id));
@@ -298,7 +302,7 @@ async function mountInferenceLab() {
   });
   for (const button of $('inference-presets').children) button.addEventListener('click', () => loadPreset(button.dataset.preset));
   const requestedPreset = new URLSearchParams(location.search).get('preset');
-  loadPreset(Object.hasOwn(presets, requestedPreset) ? requestedPreset : 'chain');
+  loadPreset(requestedPreset==='episode'?'explosion':Object.hasOwn(presets, requestedPreset) ? requestedPreset : 'chain');
   function setInferenceState(next) {
     if (!next || typeof next !== 'object' || !Array.isArray(next.premises) || typeof next.goal !== 'string' || !Number.isInteger(next.step) || next.step < 0) throw new TypeError('State requires premises, goal and a nonnegative integer step');
     const checked = deriveProof({premises: next.premises, goal: next.goal});

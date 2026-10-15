@@ -2,6 +2,7 @@ import {readFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 import {deriveExplosion} from '../packages/models/explosion.mjs';
+import {EXPLOSION_EPISODE} from '../content/formal-logic/explosion/episode.mjs';
 import {LESSON} from '../content/formal-logic/explosion/lesson.mjs';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
@@ -10,13 +11,14 @@ const errors=[];
 function need(ok,message){if(!ok)errors.push(message);}
 function uniq(arr,label){const ids=arr.map(x=>typeof x==='string'?x:x.id); need(new Set(ids).size===ids.length,`duplicate IDs: ${label}`);}
 const sources=read('sources/registry.json'),concepts=read('knowledge/concepts.json'),relations=read('knowledge/relations.json');
-const claims=[...read('content/formal-logic/explosion/claims.json'),...read('content/formal-logic/explosion/inference-claims.json')];
+const related=read('content/formal-logic/explosion/related.json');
+const claims=[...related.claims,...read('content/formal-logic/explosion/claims.json'),...read('content/formal-logic/explosion/inference-claims.json')];
 const inference=read('content/formal-logic/explosion/inference.json');
 const content=read('content/formal-logic/explosion/content.json');
 const scene=read('content/formal-logic/explosion/scenes/proof.json');
 const narration=read('content/formal-logic/explosion/narration/ko.json');
 const projection=read('content/formal-logic/explosion/projection.json');
-const feedback=[...read('feedback/example-feedback.json'),read('feedback/2026-10-16-inference-video.json'),read('feedback/2026-10-16-slide-scenes.json'),read('feedback/2026-10-16-floating-controls.json'),read('feedback/2026-10-16-live-inference.json'),read('feedback/2026-10-16-auto-proof.json'),read('feedback/2026-10-16-three-views.json'),read('feedback/2026-10-16-portrait-progress.json'),read('feedback/2026-10-16-clear-unreached-proof.json'),read('feedback/2026-10-16-three-minute-lesson.json'),read('feedback/2026-10-16-video-renderer.json')];
+const feedback=[read('feedback/2026-10-16-focus-and-related.json'),...read('feedback/example-feedback.json'),read('feedback/2026-10-16-inference-video.json'),read('feedback/2026-10-16-slide-scenes.json'),read('feedback/2026-10-16-floating-controls.json'),read('feedback/2026-10-16-live-inference.json'),read('feedback/2026-10-16-auto-proof.json'),read('feedback/2026-10-16-three-views.json'),read('feedback/2026-10-16-portrait-progress.json'),read('feedback/2026-10-16-clear-unreached-proof.json'),read('feedback/2026-10-16-three-minute-lesson.json'),read('feedback/2026-10-16-video-renderer.json')];
 for(const [arr,label] of [[sources,'sources'],[concepts,'concepts'],[claims,'claims'],[content.blocks,'content blocks'],[narration.chunks,'narration chunks'],[projection.segments,'projection segments'],[feedback,'feedback']]) uniq(arr,label);
 const sourceIds=new Set(sources.map(x=>x.id)), conceptIds=new Set(concepts.map(x=>x.id)), claimIds=new Set(claims.map(x=>x.id));
 const blockIds=new Set(content.blocks.map(x=>x.id)), narrationIds=new Set(narration.chunks.map(x=>x.id));
@@ -27,6 +29,18 @@ uniq([...LESSON.intro,...LESSON.outro],'lesson sections');
 for(const section of [...LESSON.intro,...Object.values(LESSON.rules),...LESSON.outro]){
   need(Boolean(section.text&&section.claimRefs?.length),'Lesson section needs text and claim refs');
   for(const id of section.claimRefs)need(claimIds.has(id),`Unknown lesson claim ${id}`);
+}
+uniq(related.articles,'related articles');
+uniq(related.articles.flatMap(a=>a.blocks),'related blocks');
+uniq(EXPLOSION_EPISODE.sections,'episode sections');
+need(content.relatedCollectionRef===related.id&&content.episodeRef===EXPLOSION_EPISODE.id,'Canonical related/episode references missing');
+for(const id of EXPLOSION_EPISODE.sourceRefs)need(sourceIds.has(id),'Unknown episode source '+id);
+need(EXPLOSION_EPISODE.sections.reduce((sum,s)=>sum+s.durationMs,0)<=180000,'Short episode exceeds 180 seconds');
+for(const section of EXPLOSION_EPISODE.sections)for(const id of section.claimRefs)need(claimIds.has(id),'Unknown episode claim '+id);
+for(const article of related.articles){
+ need(conceptIds.has(article.conceptId)&&article.relatedConcepts.every(id=>conceptIds.has(id)),'Unknown related concept '+article.id);
+ need(article.reviewStatus==='needs-content-review','Related article review missing');
+ for(const block of article.blocks){need(Boolean(block.text&&block.claimRefs.length),'Empty related block');for(const id of block.claimRefs)need(claimIds.has(id),'Unknown related claim '+id);}
 }
 for(const s of sources){
   need(Boolean(s.canonicalUrl?.startsWith('https://')),`${s.id}: needs canonical https URL`);

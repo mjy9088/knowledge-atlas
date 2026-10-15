@@ -1,3 +1,4 @@
+import {createExplosionEpisode} from './explosion-episode.mjs';
 import {INFERENCE_PRESETS} from './inference-presets.mjs';
 import {deriveProof} from '/packages/models/propositional.mjs';
 import {createVideoTimeline,timelineVtt} from './inference-video.mjs';
@@ -8,7 +9,7 @@ const settings=['render-preset','render-format','render-fps','render-seek'];
 const sha=async data=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',data))].map(x=>x.toString(16).padStart(2,'0')).join('');
 function preview(){try{const frame=drawVideoFrame(canvas,timeline,Number($('render-seek').value));$('render-caption').textContent=`${(frame.timeMs/1000).toFixed(1)}초 · ${frame.title} · ${frame.caption}`;canvas.setAttribute('aria-label',frame.caption);}catch(error){$('render-status').textContent=error.message;}}
 function update(){
-  const preset=INFERENCE_PRESETS[$('render-preset').value];timeline=createVideoTimeline({...preset,proof:deriveProof(preset)},{expanded:true});
+  const preset=INFERENCE_PRESETS[$('render-preset').value];timeline=$('render-preset').value==='episode'?createExplosionEpisode():createVideoTimeline({...preset,proof:deriveProof(preset)},{expanded:true});
   const portrait=$('render-format').value==='portrait';plan=renderPlan(timeline,{width:portrait?1080:1920,height:portrait?1440:1080,fps:Number($('render-fps').value)});
   canvas.width=plan.width;canvas.height=plan.height;$('render-seek').max=timeline.durationMs;$('render-seek').value=0;
   $('render-plan').textContent=`${(plan.durationMs/1000).toFixed(1)}초`+` · ${plan.width}×${plan.height} · ${plan.frameCount}프레임 · 무음`;
@@ -36,7 +37,7 @@ async function run(smoke){
     try{actual=await verifyVideo(url);}catch(error){nativePreviewError=error.message;}
     if(controller.signal.aborted)throw new DOMException('렌더를 취소했습니다.','AbortError');
     if(actual&&(actual.width!==jobPlan.width||actual.height!==jobPlan.height||Math.abs(actual.durationSeconds-jobPlan.durationMs/1000)>.15))throw new Error('출력 해상도/길이가 렌더 계획과 일치하지 않습니다.');
-    const manifest={id:'render:logic.inference.local',status:'local-review-candidate',plan:jobPlan,actual,nativePreviewError,packetCount:result.packetCount,outputSha256:await sha(result.bytes),timelineSha256:await sha(new TextEncoder().encode(JSON.stringify(frozenTimeline))),timeline:frozenTimeline,sourceRefs:['source:forallx-calgary-2026'],sourceSnapshotVerified:false,rightsApproved:false,scientificHumanApproval:false,published:false};
+    const manifest={id:'render:logic.inference.local',status:'local-review-candidate',plan:jobPlan,actual,nativePreviewError,packetCount:result.packetCount,outputSha256:await sha(result.bytes),timelineSha256:await sha(new TextEncoder().encode(JSON.stringify(frozenTimeline))),timeline:frozenTimeline,sourceRefs:frozenTimeline.sourceRefs??['source:forallx-calgary-2026'],sourceSnapshotVerified:false,rightsApproved:false,scientificHumanApproval:false,published:false};
     link('render-manifest',new Blob([JSON.stringify(manifest,null,2)],{type:'application/json'}));
     const vttTimeline=smoke?{...frozenTimeline,cues:frozenTimeline.cues.filter(c=>c.startMs<jobPlan.durationMs).map(c=>({...c,endMs:Math.min(c.endMs,jobPlan.durationMs)}))}:frozenTimeline;
     link('render-vtt',new Blob([timelineVtt(vttTimeline)],{type:'text/vtt'}));

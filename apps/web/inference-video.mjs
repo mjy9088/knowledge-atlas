@@ -25,10 +25,11 @@ export function frameAt(timeline,timeMs,{reducedMotion=false}={}) {
   if (typeof timeMs !== 'number' || !Number.isFinite(timeMs) || timeMs<0) throw new RangeError('Time must be finite and non-negative');
   const time = Math.min(timeMs,timeline.durationMs);
   const cue = timeline.cues.find(item => time>=item.startMs && time<item.endMs) ?? timeline.cues.at(-1);
+  const presentation=cue.presentation??timeline;
   const transition = reducedMotion ? 1 : Math.min(1,(time-cue.startMs)/450);
-  return {timeMs:time,activeLine:cue.activeLine,caption:cue.text,title:cue.title??'',cueId:cue.id??String(cue.startMs),phase:cue.phase??(cue.activeLine>=0?'step':time<2500?'intro':'outro'),transition,
+  return {timeMs:time,presentation,activeLine:cue.activeLine,caption:cue.text,title:cue.title??'',cueId:cue.id??String(cue.startMs),phase:cue.phase??(cue.activeLine>=0?'step':time<2500?'intro':'outro'),transition,
     dependencyPulse:reducedMotion ? 1 : 0.5+0.5*Math.sin((time-cue.startMs)/180),
-    visibleLines:cue.activeLine<0 ? ((cue.phase==='intro'||(!cue.phase&&time<2500)) ? [] : timeline.lines) : timeline.lines.slice(0,cue.activeLine+1)};
+    visibleLines:cue.activeLine<0 ? ((cue.phase==='intro'||(!cue.phase&&time<2500)) ? [] : presentation.lines) : presentation.lines.slice(0,cue.activeLine+1)};
 }
 const timestamp = ms => {const sec=Math.floor(ms/1000); return `${String(Math.floor(sec/3600)).padStart(2,'0')}:${String(Math.floor(sec/60)%60).padStart(2,'0')}:${String(sec%60).padStart(2,'0')}.${String(ms%1000).padStart(3,'0')}`;};
 export function timelineVtt(timeline) {return 'WEBVTT\n\n'+timeline.cues.map((cue,index) => `${index+1}\n${timestamp(cue.startMs)} --> ${timestamp(cue.endMs)}\n${cue.text.replace(/-->/g,'→')}\n`).join('\n');}
@@ -38,7 +39,7 @@ export function mountInferenceVideo(container) {
   const doc=container.ownerDocument;
   const make=(tag,text) => {const node=doc.createElement(tag); if(text) node.textContent=text; return node;};
   const heading=make('h3','추론 과정을 재생하기');
-  const note=make('p','추론의 뜻과 기호 읽기부터 근거·규칙·결과까지 약 3분으로 설명합니다. 전제나 목표를 바꾸면 새 결과로 자동 갱신됩니다. 음성은 없습니다.');
+  const note=make('p','같은 전제와 규칙의 근거를 단계별로 살펴봅니다. 설명 길이는 내용에 따라 달라집니다. 음성은 없습니다.');
   const canvas=make('canvas'); canvas.width=960;canvas.height=540;canvas.className='inference-video-canvas';canvas.setAttribute('role','img');
   const mobile=make('div');mobile.className='inference-video-mobile';mobile.setAttribute('aria-label','추론 재생 단계');
   const mobileProgress=make('p'),mobileFormula=make('p'),mobileRule=make('p'),mobileDependencies=make('div');
@@ -64,24 +65,24 @@ export function mountInferenceVideo(container) {
   }
   function draw() {
     if(!timeline || disposed || invalid) return;
-    const frame=frameAt(timeline,time,{reducedMotion:motion.matches});
+    const frame=frameAt(timeline,time,{reducedMotion:motion.matches||!playing}),presentation=frame.presentation;
     if(mobileCue!==frame.caption) {
       mobileCue=frame.caption;
-      const current=timeline.lines[frame.activeLine];
-      mobileProgress.textContent=frame.title||(current?`단계 ${frame.activeLine+1} / ${timeline.lines.length}`:(frame.phase==='intro'?'전제와 목표':'추론 결과'));
+      const current=presentation.lines[frame.activeLine];
+      mobileProgress.textContent=frame.title||(current?`단계 ${frame.activeLine+1} / ${presentation.lines.length}`:(frame.phase==='intro'?'전제와 목표':'추론 결과'));
       mobileFormula.textContent=current?current.formula:frame.caption;
       mobileFormula.classList.toggle('lesson-copy',!current);
       mobileRule.textContent=current?current.rule:(frame.phase==='intro'?'사용할 전제':'지정한 규칙의 제한된 탐색 결과');
       mobileDependencies.replaceChildren();
-      const references=current?current.dependsOn.map(id=>timeline.lines.find(line=>line.id===id)).filter(Boolean):frame.phase==='intro'?timeline.premises.map((formula,index)=>({id:`line-${index+1}`,formula})):[];
+      const references=current?current.dependsOn.map(id=>presentation.lines.find(line=>line.id===id)).filter(Boolean):frame.phase==='intro'?presentation.premises.map((formula,index)=>({id:`line-${index+1}`,formula})):[];
       for(const ref of references) {const chip=make('span',`${current?'참조 ':''}${lineLabel(ref.id)} · ${ref.formula}`);chip.className='inference-video-dependency';mobileDependencies.append(chip);}
     }
     ctx.globalAlpha=1;ctx.fillStyle='#f7f9f3';ctx.fillRect(0,0,960,540);
     fitted(frame.title||'KNOWLEDGE ATLAS · 추론 재생',36,37,888,28,{size:19,bold:true,color:'#23624d'});
-    fitted(`목표  ${timeline.goal}`,36,76,888,44,{size:24,bold:true});
-    fitted(`전제  ${timeline.premises.join(', ') || '없음'}`,36,130,888,44,{size:17,placeholder:'긴 전제 목록 · 전체는 아래 설명/웹 증명에서 확인'});
+    fitted(`목표  ${presentation.goal}`,36,76,888,44,{size:24,bold:true});
+    fitted(`전제  ${presentation.premises.join(', ') || '없음'}`,36,130,888,44,{size:17,placeholder:'긴 전제 목록 · 전체는 아래 설명/웹 증명에서 확인'});
     if(frame.phase==='intro') fitted(frame.caption,40,215,880,190,{size:27,min:18});
-    const lines=frame.visibleLines,start=Math.max(0,lines.length-6),active=timeline.lines[frame.activeLine];
+    const lines=frame.visibleLines,start=Math.max(0,lines.length-6),active=presentation.lines[frame.activeLine];
     lines.slice(start).forEach((line,offset)=>{
       const isActive=start+offset===frame.activeLine,dependency=active?.dependsOn.includes(line.id),y=194+offset*37;
       if(dependency) {ctx.globalAlpha=0.35+frame.dependencyPulse*0.4;ctx.fillStyle='#ecd9a3';ctx.fillRect(28,y-21,904,35);ctx.globalAlpha=1;}
@@ -110,6 +111,7 @@ export function mountInferenceVideo(container) {
   function download(link,blob,name) {const url=URL.createObjectURL(blob);urls.push(url);link.href=url;link.download=name;}
   return {
     pause,
+    updateTimeline(next) {this.update(next.snapshot);timeline=next;heading.textContent=next.title??'추론 과정을 재생하기';seek.max=timeline.durationMs;time=0;mobileCue=null;revoke();download(vttLink,new Blob([timelineVtt(timeline)],{type:'text/vtt;charset=utf-8'}),'lesson.vtt');download(snapshotLink,new Blob([JSON.stringify(timeline,null,2)],{type:'application/json'}),'lesson.json');draw();},
     update(input) {pause();revoke();timeline=createVideoTimeline(input,{expanded:true});mobileCue=null;invalid=false;canvas.hidden=false;mobile.hidden=false;details.hidden=false;caption.hidden=false;for(const control of [play,restart,seek]) control.disabled=false;seek.max=timeline.durationMs;time=0;
       download(vttLink,new Blob([timelineVtt(timeline)],{type:'text/vtt;charset=utf-8'}),'inference-preview.vtt');
       download(snapshotLink,new Blob([JSON.stringify(timeline,null,2)],{type:'application/json'}),'inference-preview.json');draw();},
