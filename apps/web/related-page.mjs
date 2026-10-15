@@ -4,10 +4,12 @@ import {mountPremiseExperiment,normalizeExperimentInput,evaluateExperimentInput}
 import {RELATED_MODELS,relatedNarration} from './related-models.mjs';
 import {mountInferenceExplorer} from './inference-explorer.mjs';
 import {mountReaderPanels} from './reader-panels.mjs';
+import {mountEvaluationFeedback} from './evaluation-feedback.mjs';
 const $=id=>document.getElementById(id),root=document.querySelector('[data-page]');
 const page=RELATED_PAGES.find(page=>page.slug===root.dataset.page),model=RELATED_MODELS[page.model];
 const requestedHash=location.hash,scenes=[...document.querySelectorAll('.reader-scene')];
 const original=scenes.map(node=>({title:node.querySelector('h2').textContent,text:node.querySelector('.scene-prose').textContent,claims:node.dataset.claimRefs}));
+const feedback=scenes.map(node=>mountEvaluationFeedback({content:node.querySelector('.scene-prose'),message:node.querySelector('.scene-result')}));
 const panels=mountReaderPanels([{element:$('connections'),title:'연관 지식'},{element:$('evidence'),title:'근거와 범위'}]);
 let current,experiment;const explorer=mountInferenceExplorer($('reader-proof'));
 function renderInput(){
@@ -18,11 +20,14 @@ function renderInput(){
   $('reader-proof').dataset.claimRefs=model.claimRefs.join(' ');
   if(info.valid)explorer.update(info);else explorer.invalidate('입력을 완성하면 추론 도표를 갱신합니다.');
   const narration=relatedNarration(page.model,info),copy=node.querySelector('.reader-copy');
+  node.querySelector('h2').textContent=original[current.index].title;
   if(customized||!info.valid){
-    node.querySelector('h2').textContent=narration.title;node.querySelector('.scene-prose').textContent=narration.text;
+    const available=narration.status==='adapted';
+    node.querySelector('.scene-prose').textContent=available?narration.text:'';
+    feedback[current.index].setState({available,summary:available?'':narration.title,detail:available?'':narration.text});
     copy.dataset.status=narration.status;node.dataset.claimRefs=model.claimRefs.join(' ');
   }else{
-    node.querySelector('h2').textContent=original[current.index].title;node.querySelector('.scene-prose').textContent=original[current.index].text;
+    node.querySelector('.scene-prose').textContent=original[current.index].text;feedback[current.index].reset();
     node.dataset.claimRefs=original[current.index].claims;copy.dataset.status='example';
   }
   const next=page.scenes[current.index+1];
@@ -62,5 +67,5 @@ window.__atlasRelated={
     if(state.visual&&info.proof?.lines.length)explorer.setState(state.visual);
   },
   reset(){experiment.reset();reader.reset();},
-  getInspectionSnapshot(){const node=scenes[current.index];return {...reader.inspect(),model:page.model,experiment:experiment.inspect(),visual:explorer.getState(),displayedDialogue:{title:node.querySelector('h2').textContent,text:node.querySelector('.scene-prose').textContent,status:node.querySelector('.reader-copy').dataset.status}};}
+  getInspectionSnapshot(){const node=scenes[current.index],evaluation=feedback[current.index].getState();return {...reader.inspect(),model:page.model,experiment:experiment.inspect(),visual:explorer.getState(),evaluation,displayedDialogue:{title:node.querySelector('h2').textContent,text:evaluation.available?node.querySelector('.scene-prose').textContent:evaluation.detail,status:node.querySelector('.reader-copy').dataset.status}};}
 };

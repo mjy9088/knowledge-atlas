@@ -6,6 +6,7 @@ import {mountPremiseExperiment} from './premise-experiment.mjs';
 import {describeExperiment,EXPERIMENT_RULE_CLAIMS} from './experiment-dialogue.mjs';
 import {RELATED_PAGES,pageURL} from '../../content/formal-logic/explosion/related-pages.mjs';
 import {mountReaderPanels} from './reader-panels.mjs';
+import {mountEvaluationFeedback} from './evaluation-feedback.mjs';
 const $=id=>document.getElementById(id),make=(tag,text)=>{const el=document.createElement(tag);if(text)el.textContent=text;return el;};
 const timeline=createExplosionEpisode(),menu=$('lesson-menu'),stage=$('lesson-stage');
 const initialLessonHash=location.hash;
@@ -18,6 +19,8 @@ for(const [href,label]of [['#related','연관 지식 ↗'],['#lesson-evidence','
 }
 document.querySelector('.dialogue-box').append(endLinks);
 const visual=mountInferenceVisual(stage);
+const evaluationMessage=make('p');evaluationMessage.id='lesson-evaluation';$('lesson-dialogue-copy').append(evaluationMessage);
+const feedback=mountEvaluationFeedback({content:$('dialogue-text'),message:evaluationMessage});
 let navigatingHistory=false,currentView;
 const experiment=mountPremiseExperiment($('lesson-experiment'),{suggestion:timeline.cues[0].presentation.snapshot,idPrefix:'lesson-input',onChange(info){if(currentView)renderExperiment(currentView,info);}});
 function formulaCard(formula,label){const card=make('div');card.className='story-formula';card.append(make('span',label),make('strong',formula));return card;}
@@ -39,8 +42,10 @@ function render(view){
 function renderExperiment(view,info){
   const section=view.section,presentation=timeline.cues[view.index].presentation;
   const narration=info.customized?describeExperiment(section.id,info):{...section,status:'example'};
-  $('dialogue-title').textContent=narration.title;
-  $('dialogue-text').textContent=narration.text;
+  $('dialogue-title').textContent=section.title;
+  const available=narration.status==='example'||narration.status==='adapted';
+  $('dialogue-text').textContent=available?narration.text:'';
+  feedback.setState({available,summary:available?'':narration.title,detail:available?'':narration.text});
   $('lesson-dialogue-copy').dataset.claimRefs=narration.claimRefs.join(' ');
   $('lesson-dialogue-copy').dataset.status=narration.status;
   const chapterTitles={'question':'전제와 목표 읽기','premise-p':'근거에서 결론까지','change-r':'목표 바꾸기','remove-premise':'전제 포함·제외','truth':'도출과 사실'};
@@ -92,7 +97,7 @@ function followSection(){
   document.querySelector('.dialogue-experience').scrollIntoView({block:'start'});
 }
 window.addEventListener('hashchange',followSection);
-window.__atlasLesson={...dialogue,getState:()=>({...dialogue.getState(),experiment:experiment.getState()}),getInspectionSnapshot(){const reading=dialogue.inspect(),input=experiment.inspect();return {...reading,experiment:input,displayedDialogue:input.customized?describeExperiment(reading.section.id,input):reading.section};},setState(state){if(!EXPLOSION_EPISODE.sections.some(s=>s.id===state?.sectionId))throw new RangeError('Unknown lesson section');if(state.experiment)experiment.setState(state.experiment);dialogue.setState(state);},reset(){dialogue.reset();experiment.reset();}};
+window.__atlasLesson={...dialogue,getState:()=>({...dialogue.getState(),experiment:experiment.getState()}),getInspectionSnapshot(){const reading=dialogue.inspect(),input=experiment.inspect();return {...reading,experiment:input,evaluation:feedback.getState(),displayedDialogue:{...(input.customized?describeExperiment(reading.section.id,input):reading.section),title:$('dialogue-title').textContent}};},setState(state){if(!EXPLOSION_EPISODE.sections.some(s=>s.id===state?.sectionId))throw new RangeError('Unknown lesson section');if(state.experiment)experiment.setState(state.experiment);dialogue.setState(state);},reset(){dialogue.reset();experiment.reset();}};
 window.__atlasLessonExperiment=experiment;
 render(dialogue.inspect());if(initialLessonHash.startsWith('#explanation-'))history.replaceState(null,'',initialLessonHash);followSection();document.documentElement.classList.add('reader-enhanced');window.scrollTo(0,0);
 const read=async path=>{const response=await fetch(path);if(!response.ok)throw new Error(`자료를 읽지 못했습니다: ${response.status}`);return response.json();};

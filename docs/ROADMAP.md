@@ -14,7 +14,7 @@ Updated 2026-10-16. “Implemented,” “automatically tested,” “source-ali
 
 Current content validation covers 7 sources, 9 concepts, 7 relations, and 19 claims. The original storyboard remains a separate five-segment/30-second draft. The focused episode is a separate 12-scene/134-second projection; no three-minute filler is required.
 
-Local verification for this revision: content validation and all 65 Node tests passed; Chromium passed 35 browser cases across the four viewport projects. The desktop-only knowledge-index fit check is intentionally skipped in the mobile project, where the index may scroll. The browser report includes final-scene screenshots for each viewport. All 24 repository Markdown documents were checked for English prose and resolving local links. CI runs content validation, unit tests, and browser tests; its remote run has not been observed here.
+Local verification for the evaluation-feedback revision: content validation and all 65 Node tests passed; Chromium passed 47 browser cases across the four viewport projects, including stable titles, unavailable explanation content, recovery, and reuse outside logic. The desktop-only knowledge-index fit check is intentionally skipped in the mobile project, where the index may scroll. The browser report includes final-scene and evaluation-message screenshots. CI runs content validation, unit tests, and browser tests; its remote run has not been observed here.
 
 ## Next priorities
 

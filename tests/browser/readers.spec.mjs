@@ -127,3 +127,62 @@ test('eight premises remain editable without pushing navigation outside the fram
   await expectFrame(page, relatedFrame);
 });
 
+test('unavailable evaluation preserves the scene title, disables its copy, and recovers', async ({page},testInfo) => {
+  await page.goto('/knowledge/paraconsistent-logic/#four-values');
+  await page.waitForFunction(() => window.__atlasRelated);
+  const scene=page.locator('.reader-scene:visible'),heading=scene.locator('h2');
+  const title=await heading.textContent();
+  await page.getByRole('button',{name:'모순과 별개인 목표',exact:true}).click();
+  await expect(heading).toHaveText(title);
+  await expect(scene.locator('.scene-result')).toContainText('FDE에서 목표가 따라오지 않는 평가입니다');
+  await expect(scene.locator('.scene-prose')).toBeHidden();
+  await expect(scene.locator('.scene-prose')).toHaveAttribute('aria-disabled','true');
+  await expect(page.getByRole('textbox',{name:'목표 명제식',exact:true})).toHaveValue('Q');
+  await expectFrame(page,relatedFrame);
+  await testInfo.attach('evaluation-message',{body:await page.screenshot(),contentType:'image/png'});
+  await page.locator('#reader-next').click();
+  await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id','counterexample');
+  await page.getByRole('button',{name:'그리고 나누기',exact:true}).click();
+  await expect(page.locator('.reader-scene:visible .scene-result')).toBeHidden();
+  await expect(page.locator('.reader-scene:visible .scene-prose')).toBeVisible();
+  await expect(page.locator('.reader-scene:visible .scene-prose')).toHaveAttribute('aria-disabled','false');
+  await expectFrame(page,relatedFrame);
+  await page.getByRole('button',{name:'장면 예시로',exact:true}).click();
+  await expect(page.locator('.reader-scene:visible h2')).toHaveText('모순을 허용하는 반례 평가');
+});
+
+test('lesson keeps its topic while an inapplicable explanation is disabled',async({page})=>{
+  await page.goto('/lesson.html#explanation-explosion');
+  await page.waitForFunction(()=>window.__atlasLesson);
+  const title=await page.locator('#dialogue-title').textContent();
+  await page.getByRole('textbox',{name:'목표 명제식',exact:true}).fill('(');
+  await expect(page.locator('#dialogue-title')).toHaveText(title);
+  await expect(page.locator('#lesson-evaluation')).toBeVisible();
+  await expect(page.locator('#dialogue-text')).toHaveAttribute('aria-disabled','true');
+  await expectFrame(page,lessonFrame);
+  await page.getByRole('button',{name:'장면 예시로',exact:true}).click();
+  await expect(page.locator('#lesson-evaluation')).toBeHidden();
+  await expect(page.locator('#dialogue-text')).toBeVisible();
+});
+
+test('availability feedback supports non-logic content and deterministic restoration',async({page})=>{
+  await page.goto('/knowledge/');
+  const results=await page.evaluate(async()=>{
+    const {mountEvaluationFeedback}=await import('/evaluation-feedback.mjs');
+    const content=document.createElement('section'),message=document.createElement('p');
+    content.textContent='Measurement details';document.body.append(content,message);
+    const component=mountEvaluationFeedback({content,message});
+    const unavailable={available:false,summary:'Calibration unavailable',detail:'Choose a calibrated sample.'};
+    component.setState(unavailable);
+    const blocked={hidden:content.hidden,disabled:content.getAttribute('aria-disabled'),text:message.textContent};
+    const snapshot=component.getState();snapshot.available=true;
+    let rejected=false;try{component.setState({available:true,summary:42,detail:''});}catch{rejected=true;}
+    const unchanged=component.getState();component.reset();
+    const reset={hidden:content.hidden,messageHidden:message.hidden};component.setState(unavailable);
+    return {blocked,rejected,unchanged,reset,restored:component.getState()};
+  });
+  expect(results.blocked).toEqual({hidden:true,disabled:'true',text:'Calibration unavailableChoose a calibrated sample.'});
+  expect(results.rejected).toBe(true);expect(results.unchanged).toEqual(results.restored);
+  expect(results.reset).toEqual({hidden:false,messageHidden:true});
+});
+

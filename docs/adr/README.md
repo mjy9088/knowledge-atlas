@@ -16,3 +16,4 @@ All decisions below were introduced on 2026-10-16 for the local pilot. They pres
 | [0010](0010-local-media-cli.md) | Public web/local media boundary |
 | [0011](0011-viewport-and-rule-adapters.md) | Viewport fitting and topic-specific models |
 | [0012](0012-browser-regression-and-documentation.md) | Browser regressions and documentation lifecycle |
+| [0013](0013-evaluation-feedback.md) | Separate evaluation feedback from topic identity |

@@ -7,3 +7,4 @@
 @media(max-width:720px){.reader-enhanced .reader-proof .inference-visual-dependencies{gap:5px}.reader-enhanced .reader-proof .inference-visual-card{padding:5px}}
 @media(max-width:720px){.reader-enhanced .related-reader[data-page=continuum-hypothesis] .inference-visual-formula{font-size:16px}}
 @media(max-width:720px){.reader-enhanced .related-reader[data-page=continuum-hypothesis] .reader-dialogue{padding-block:8px}}
+.evaluation-feedback{margin:6px 0 0;padding:9px 12px;border-inline-start:3px solid #9aab85;background:#eef2e7;border-radius:5px;font-size:14px;line-height:1.65;overflow-wrap:anywhere}.evaluation-feedback strong,.evaluation-feedback span{display:block}.evaluation-feedback strong{font-size:12px;font-weight:600;margin-bottom:4px}.evaluation-feedback[hidden]{display:none}@media(max-width:720px){.evaluation-feedback{padding:6px 8px;font-size:12px;line-height:1.55}.evaluation-feedback strong{font-size:11px}}

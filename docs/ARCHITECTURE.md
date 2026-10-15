@@ -47,6 +47,8 @@ Browser inspection hooks include `window.__atlasScenes.proof`, `window.__atlasLe
 
 `reader-frame.css` allocates viewport space; `reader-panels.mjs` moves detailed evidence and connections into dialogs. Dialogue navigation is self-paced. The legacy lab's automatic step emphasis is presentation only, using the same proof object.
 
+`evaluation-feedback.mjs` separates topic identity from runtime availability. The domain-neutral component receives `{available,summary,detail}`, disables/hides only the dependent explanation, and renders a separate live status. Its `getState/setState/reset` do not interpret logic, select another goal, or block unrelated navigation. Callers own evaluation and domain-specific wording. The original lesson and related readers share it; conceptual default explanations remain readable, while customized unavailable explanations cannot retain stale example copy. Inspection snapshots expose evaluation separately from the stable displayed title.
+
 ## Static build and media boundary
 
 `build-site.mjs` and the development server share HTML generation. Four related articles and the knowledge index are pre-rendered; client modules add navigation and experiments. Root-relative routes require deployment at the domain root; no SPA fallback is needed. The original lesson still uses client enhancement for its complete dialogue/evidence.
