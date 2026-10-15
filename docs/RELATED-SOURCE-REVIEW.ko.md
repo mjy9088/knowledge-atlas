@@ -32,3 +32,11 @@
 원문 바이트 스냅샷/해시, 원문 판본의 정확한 검증, 독립적인 전문가 검토, 권리 검토 및 공개 승인은 **아직 완료되지 않았다**. `contentHash: null`, `sourceSnapshotVerified: false`, `published: false`를 유지한다. 외부 기관의 아카이브 URL이 있어도 이 프로젝트에서 원문 스냅샷을 검증했다는 뜻은 아니다. 공개/유튜브 업로드를 수행하지 않았다.
 
 검증 스크립트의 참조 검사와 UI 연결은 통합 작업에서 확인한다. 구조 검사 통과가 수학 내용의 독립 검토를 대신하지 않는다.
+
+## 2026-10-16 후속: 조작 가능한 규칙별 예시
+
+추가로 Sutcliffe·Pelletier·Hazen의 [Making Belnap’s “Useful Four-Valued Logic” Useful](https://cdn.aaai.org/ocs/17599/17599-77711-1-PB.pdf)를 읽었다. FLAIRS-31(2018) 논문의 인쇄 p.116 §1·Figure 1·Table 1에서 FDE의 네 값과 지정값, ¬·∧·∨ 표를 확인했고, p.117에서는 FDE에 원래 조건문이 없다는 점과 고전식 조건문의 MP 반례를 확인했다. 이 논문 후반의 새 조건문 확장은 구현하지 않았다. 저자들의 원문/표/그림은 복제하지 않고, 네 값에 대한 계산식을 자체 구현했다. PDF의 AAAI 2018 all rights reserved 고지를 기록했다. 새 source ID는 `source:sutcliffe-fde-2018`이며 원문 바이트 스냅샷과 재사용 권리 승인은 없다.
+
+Marks의 같은 강의노트 인쇄 p.4에서 부분집합 정의, p.10 §2에서 부분집합 약기와 외연성 공리, p.8 §1.1에서 괴델·코언 결과의 두 확장과 독립성 설명을 다시 대조했다. 이로부터 원소 전달/부분집합 추이성과 상호 포함에서의 외연성 적용을 제한된 도표로 구성했다. CH 도표는 이미 등록한 상대일관성 정리를 적용하는 연결일 뿐 그 정리를 새로 증명하지 않는다.
+
+새 Claim ID는 `claim:logic.fde.four-values`, `claim:set.relations.membership`, `claim:set.relations.extensionality`다. 기존 16개 주장은 보존하고 새 3개와 설명 block 7개를 추가했다. FDE는 원자 기호 최대 5개·¬∧∨에 한정하고, 집합 관계는 ∈/⊆/=의 규칙 모음에 한정한다. 새 주장도 `draft-source-aligned`이며 읽기 설명과 권리/사람 승인·공개 상태는 기존 대기 상태다.

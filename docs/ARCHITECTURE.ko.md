@@ -150,6 +150,8 @@ Astro/React, Remotion, 저장 포맷, TTS 서비스, 데이터베이스, 배포 
 
 ### 해설과 실험실의 공통 입력
 
+후속 구현: `mountPremiseExperiment`에 선택적 `derive` 어댑터를 추가했다. 기본 고전 모형을 보존하면서 `related-inference.mjs`의 FDE·집합 관계·CH 정리 연결을 같은 입력과 `inference-explorer.mjs`로 표시한다. 범위·출처·상태/레이아웃 계약은 [ADR 0011](adr/0011-viewport-and-rule-adapters.md)을 따른다. `reader-panels.mjs`는 연관 지식과 근거를 읽기 프레임 밖의 dialog로 제공한다.
+
 `premise-experiment.mjs`의 순수 입력 상태/평가와 `mountPremiseEditor`를 해설·전용 실험실이 공유한다. `suggest`는 예시 제안, 사용자 draft는 별도 상태이며 명시적 복원 전에는 덮어쓰지 않는다. 영상은 같은 `controlState`의 선택/편집 형태를 읽기 전용으로 투영한다. 현재 컴포넌트는 제한된 명제논리 범위이며 타 분야에는 검증된 별도 모형 어댑터가 필요하다. 계약과 예외는 [ADR 0008](adr/0008-inline-shared-experiments.md) 참조.
 
 `describeExperiment(sectionId, inspection)`는 현재 proof의 규칙·참조 행에 근거한 대사와 도표 행을 함께 선택한다. 적용 불가·오류·목표 미발견에는 이전 예시 문장을 유지하지 않는다. `EXPERIMENT_RULE_CLAIMS`의 기존 Claim ID 참조를 검증기가 검사한다. 해설의 `getInspectionSnapshot().displayedDialogue`로 실제 표시 대사를 검사할 수 있다. 편집 목록/도표/대사/이동 버튼은 별도 레이아웃 영역이며 긴 내용은 내부 스크롤을 사용한다.

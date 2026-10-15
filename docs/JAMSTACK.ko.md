@@ -23,16 +23,16 @@ mise 환경에서는 `mise exec -- npm run build`, `mise exec -- npm run preview
 | 경로 | 원본 Article ID | 표현 |
 | --- | --- | --- |
 | `/knowledge/` | 연관 collection 목록 | 지식 링크 카드 |
-| `/knowledge/consistency/` | `article:logic.consistency.ko` | 4개 장면 + 전제/목표 편집 |
-| `/knowledge/paraconsistent-logic/` | `article:logic.paraconsistent.ko` | 4개 장면 + 개념 도표 |
-| `/knowledge/zfc/` | `article:set.zfc.ko` | 4개 장면 + 개념 도표 |
-| `/knowledge/continuum-hypothesis/` | `article:set.ch-independence.ko` | 4개 장면 + 개념 도표 |
+| `/knowledge/consistency/` | `article:logic.consistency.ko` | 4개 장면 + 고전 규칙 실험 |
+| `/knowledge/paraconsistent-logic/` | `article:logic.paraconsistent.ko` | 7개 장면 + FDE 실험 |
+| `/knowledge/zfc/` | `article:set.zfc.ko` | 6개 장면 + 집합 관계 실험 |
+| `/knowledge/continuum-hypothesis/` | `article:set.ch-independence.ko` | 6개 장면 + 등록 정리 연결 |
 
-내용과 근거는 기존 `related.json`·Claim·source registry가 원본이다. `related-pages.mjs`는 block 참조, 문장 범위, 장면 제목·개념 도표·건너뛰기 범위만 가진다. 각 장면의 문장은 원본 블록을 빠짐·중복 없이 덮어야 하며 검증기가 이를 검사한다. 원래 block/article/claim ID는 보존한다. 새 과학적 주장이나 새로운 외부 자료를 추가한 작업은 아니다. 출처 조사 범위는 `RELATED-SOURCE-REVIEW.ko.md`와 동일하다.
+내용과 근거는 기존 `related.json`·Claim·source registry가 원본이다. `related-pages.mjs`는 block 참조, 문장 범위, 장면 제목·개념 도표·건너뛰기 범위만 가진다. 각 장면의 문장은 원본 블록을 빠짐·중복 없이 덮어야 하며 검증기가 이를 검사한다. 원래 block/article/claim ID는 보존한다. 후속 보강에서 FDE 의미론·집합 관계·외연성 Claim 3개와 설명 block 7개를 추가했다. 새 논문과 기존 강의노트의 확인 범위는 `RELATED-SOURCE-REVIEW.ko.md`에 기록한다.
 
 페이지는 키보드·이전/다음·범위가 적힌 건너뛰기·목차·해시 링크를 공유한다. 본문·도표·근거·연관 링크를 HTML에 미리 생성하므로 JavaScript 없이도 전체를 읽는다. 클라이언트 모듈은 한 장면씩 읽는 이동과 선택적 실험만 추가한다. `related-reader.mjs`의 `getState/setState/reset/inspect`는 DOM과 독립적이다. 브라우저의 `window.__atlasRelated`는 장면과 실험 상태 및 실제 표시 대사 검사 API를 제공한다. 이 새 페이지들에 영상 시간표를 구현했다는 뜻은 아니다.
 
-일관성 페이지의 작은 명제논리 예시는 기존 전제 편집기·proof 모형·동적 대사를 재사용한다. 수정 입력은 장면 이동 동안 보존되며, 대사와 도표는 함께 갱신/무효화한다. ‘장면 예시로’는 입력만 복원하고 ‘처음 상태로’는 읽기 위치도 복원한다. 유한 탐색 실패로 이론의 일관성·독립성을 판정하지 않는다. 초일관성은 하나의 규칙 체계가 아니며, ZFC/CH에는 별도 수학 모형이 필요하므로 해당 세 페이지에는 임의 입력칸을 붙이지 않았다.
+모든 연관 페이지가 같은 편집기와 추론 시각화를 재사용하며 서로 다른 derive 어댑터를 연결한다. 일관성은 고전 명제논리, 초일관성은 ¬∧∨에 대한 최대 5개 원자의 FDE 전수 평가, ZFC는 ∈/⊆/외연성의 제한된 관계 추론, CH는 등록된 상대일관성 정리의 메타 연결을 사용한다. 수정 입력은 장면 이동 중 유지하고 대사·도표를 함께 갱신/무효화한다. 처음 상태로는 입력과 장면을 복원한다. FDE 반례와 불완전한 경로 탐색 실패는 구분한다. ZFC 전체 증명기나 강제법의 구현이 아니다. ADR 0011 참고.
 
 ## 빌드 계약과 제한
 
@@ -46,4 +46,4 @@ MP4 제작은 로컬 터미널에서 `npm run render:mp4 -- input.webm output.mp
 
 ## 검사
 
-자동 검사는 문장 커버리지·Claim 참조·HTML 이스케이프·장면 상태와 잘못된 입력 거절·정적 HTML 링크와 모듈 import 경로·파일 해시·반복 빌드 동등성·제작 파일과 변환 UI/API 문자열 제외를 확인한다. 별도로 정적 서버에서 네 페이지의 화면/이동, 일관성 입력 변경과 무효화, 1920×940·390×844의 넘침, 렌더 경로 404와 공개 목차의 제작 링크 제거를 브라우저로 확인한다. 이는 전문가의 과학 내용 승인이나 완전한 접근성 감사가 아니다.
+자동 검사는 문장 커버리지·Claim 참조·HTML 이스케이프·장면 상태와 잘못된 입력 거절·정적 HTML 링크와 모듈 import 경로·파일 해시·반복 빌드 동등성을 확인한다. 제거한 제작 파일명/문구를 열거하던 부재 검사는 삭제했다. 새 규칙은 출처의 표·반례·유한 집합 해석·가정 의존성을 검사한다. 별도로 정적 서버에서 네 페이지의 화면/이동·입력 변경·무효화와 1920×1080·1920×940·1920×900·390×844의 화면 경계를 확인한다. 연관 지식·근거는 메뉴로 열고 마지막 장면에는 작은 링크로 표시한다. 이는 전문가의 과학 내용 승인이나 완전한 접근성 감사가 아니다.
