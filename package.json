@@ -14,6 +14,7 @@
     "storyboard": "node scripts/storyboard.mjs",
     "release:check": "node scripts/release-check.mjs",
     "check": "npm run validate && npm test",
-    "impact": "node scripts/impact.mjs"
+    "impact": "node scripts/impact.mjs",
+    "preview:manifest": "node scripts/preview-manifest.mjs"
   }
 }

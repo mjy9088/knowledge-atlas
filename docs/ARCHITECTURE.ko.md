@@ -111,6 +111,14 @@ type SceneAdapter<TState, TAction> = {
 - 자동 검사와 AI가 이용할 의미 요소 ID를 제공한다. 스크린샷 픽셀 비교만 유일한 관찰 수단으로 삼지 않는다.
 - 강제 화면·컴포넌트 구조를 정하지 않고 WebGL/Canvas/SVG/React 등을 어댑터 뒤에서 바꿀 수 있다.
 
+### 첫 Scene 어댑터 구현 (M1)
+
+`apps/web/proof-scene.mjs`는 DOM과 분리된 `createProofScene({onChange})`를 제공한다. 상태는 기존 `hasP/hasNotP/conclusion`을 유지하고 계산은 `packages/models/explosion.mjs`에 위임한다. 브라우저의 `window.__atlasScenes.proof`에서 상태·초기화·액션·의미 요소·검사 스냅샷 API를 사용할 수 있다.
+
+`seek(timeMs)`는 기존 `projection.json`의 30초 초안 segment 전체 상태를 시간만으로 선택한다. 음수·비유한 값·숫자가 아닌 입력은 거절하고, 마지막 시점 이후는 마지막 상태를 유지한다. `reset()`은 웹 초기 상태(두 전제/Q), `seek(0)`은 스토리보드 시작 상태(전제 없음/Q)를 복원하므로 서로 다르다. 타임라인은 실제 영상 렌더나 최종 해설 타이밍이 아니다. JSON module import를 지원하는 브라우저가 필요하다.
+
+별도 `scene:logic.inference.lab`는 `packages/models/propositional.mjs`의 제한된 전방 추론을 사용한다. 새 경험/주장 계약은 `inference.json`과 `inference-claims.json`에 보관한다. HTML 재생 어댑터 `inference-video.mjs`는 계산된 proof를 고정 복사한 timeline에서 `frameAt(timeMs)`로 화면과 애니메이션을 만든다. 실제 미디어 파일 렌더를 구현했다는 뜻은 아니다. 범위·호환성 결정은 [ADR 0003](adr/0003-bounded-inference-html-preview.md)을 참조한다.
+
 ## 7. 에이전트와 편집기 계약
 
 `propose_change`, `preview`, `inspect`, `run_validation`, `apply_patch`, `record_feedback`, `submit_review`는 서로 다른 권한이다. 편집기는 같은 원본을 수정하며, 전문 편집 UI 없이 CLI로도 작업 가능해야 한다.

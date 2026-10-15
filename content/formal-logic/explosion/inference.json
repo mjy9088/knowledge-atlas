@@ -1,0 +1,31 @@
+{
+  "id": "experience:logic.inference.ko",
+  "schemaVersion": 1,
+  "status": "draft-needs-human-review",
+  "sceneId": "scene:logic.inference.lab",
+  "modelId": "model:logic.propositional.forward",
+  "title": "전제에서 결론까지, 추론 과정 살펴보기",
+  "claimRefs": [
+    "claim:logic.inference.and-elimination",
+    "claim:logic.inference.modus-ponens",
+    "claim:logic.inference.and-introduction",
+    "claim:logic.inference.or-introduction",
+    "claim:logic.explosion.from_pair",
+    "claim:logic.explosion.rule",
+    "claim:logic.explosion.not-reality"
+  ],
+  "sourceRefs": ["source:forallx-calgary-2026"],
+  "initialState": {"premises": ["P", "P -> Q", "Q -> R"], "goal": "R", "step": 0},
+  "limits": "일부 자연연역 규칙을 사용하는 유한한 전방 탐색. 증명을 찾지 못해도 거짓·독립성·일반적 증명 불가능성은 판정하지 않는다. 자연어·양화논리·부분증명 도입은 지원하지 않는다.",
+  "projectionStatus": "local-review-preview-only",
+  "reviewStatus": "needs-content-review",
+  "sourceReading": {
+    "readAt": "2026-10-16",
+    "url": "https://forallx.openlogicproject.org/html/Ch17.html",
+    "sections": ["17.3", "17.4", "17.7", "17.8"],
+    "method": "Current official textbook HTML read with web tool; no verbatim text/media ingested.",
+    "immutableSnapshotVerified": false,
+    "providerRevisionVerified": false,
+    "rightsReview": "pending-publication-audit"
+  }
+}

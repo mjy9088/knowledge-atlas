@@ -16,16 +16,20 @@
 
 ## M1. 첫 인터랙티브 화면의 독립적 완성 (최우선 개발)
 
-- [ ] 첫 장면의 상태 계약을 구현하고 view/controller/model을 분리.
-- [ ] `getState/setState/reset/seek`의 재현 가능 API. 이벤트 리플레이와 snapshot 비교.
+- [x] 첫 장면의 상태 계약을 구현하고 view/controller/model을 분리.
+- [x] `getState/setState/reset/seek`의 재현 가능 API. 이벤트 리플레이와 snapshot 비교.
 - [ ] 시각/화면 접근성: 반응형, reduced motion, 키보드, ARIA, 스크린 리더용 대체 설명.
-- [ ] 설명과 상호작용의 연결; 입력 변경 시 보이는 경고·모형 한계 동기화.
-- [ ] 페이지의 source/claim/version 패널과 실제 지식 노드 링크.
+- [x] 설명과 상호작용의 연결; 입력 변경 시 보이는 경고·모형 한계 동기화.
+- [x] 페이지의 source/claim/version 패널과 실제 지식 노드 링크. 현재 연결은 등록된 개념의 요약 패널이며 독립 상세 페이지는 후속 범위.
 - [ ] UI smoke test 및 Playwright 기반 브라우저 검증.
 
 **DoD:** 입력·초기화·상태 재현이 정확하고, 각각의 결과를 사람이 설명할 수 있는 웹 콘텐츠 1개.
 
+2026-10-16: 데스크톱·좁은 화면의 도구 기반 브라우저 확인 및 키보드 일부 조작을 수행했다. 완전한 접근성 검토와 저장소의 Playwright 자동 회귀 suite, 사람의 화면 피드백은 남아 있으므로 M1 전체 완료로 표시하지 않는다. 검사 증거는 `IMPLEMENTATION-STATUS.ko.md`, 화면 피드백 안내는 `M1-REVIEW.ko.md` 참고.
+
 ## M2. 웹 장면 → 영상 프레임 수직 경로
+
+2026-10-16 사용자 피드백으로 별도 추론 실험과 HTML 재생 미리보기를 추가했다. 동일 proof snapshot의 시간 기반 강조·자막·좁은 화면 카드는 구현했으나, 사용자가 영상 파일 내보내기를 제외했으므로 아래 실제 프레임/미디어 렌더 DoD의 완료로 세지 않는다. 로컬 preview manifest는 출판 manifest가 아니다.
 
 - [ ] 시각/모형 레이어를 공유하는 영상 어댑터 결정(우선 Remotion 평가).
 - [ ] 특정 시점 t/frame에서 장면 상태를 독립적으로 재현, frame export.

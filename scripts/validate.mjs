@@ -9,12 +9,13 @@ const errors=[];
 function need(ok,message){if(!ok)errors.push(message);}
 function uniq(arr,label){const ids=arr.map(x=>typeof x==='string'?x:x.id); need(new Set(ids).size===ids.length,`duplicate IDs: ${label}`);}
 const sources=read('sources/registry.json'),concepts=read('knowledge/concepts.json'),relations=read('knowledge/relations.json');
-const claims=read('content/formal-logic/explosion/claims.json');
+const claims=[...read('content/formal-logic/explosion/claims.json'),...read('content/formal-logic/explosion/inference-claims.json')];
+const inference=read('content/formal-logic/explosion/inference.json');
 const content=read('content/formal-logic/explosion/content.json');
 const scene=read('content/formal-logic/explosion/scenes/proof.json');
 const narration=read('content/formal-logic/explosion/narration/ko.json');
 const projection=read('content/formal-logic/explosion/projection.json');
-const feedback=read('feedback/example-feedback.json');
+const feedback=[...read('feedback/example-feedback.json'),read('feedback/2026-10-16-inference-video.json')];
 for(const [arr,label] of [[sources,'sources'],[concepts,'concepts'],[claims,'claims'],[content.blocks,'content blocks'],[narration.chunks,'narration chunks'],[projection.segments,'projection segments'],[feedback,'feedback']]) uniq(arr,label);
 const sourceIds=new Set(sources.map(x=>x.id)), conceptIds=new Set(concepts.map(x=>x.id)), claimIds=new Set(claims.map(x=>x.id));
 const blockIds=new Set(content.blocks.map(x=>x.id)), narrationIds=new Set(narration.chunks.map(x=>x.id));
@@ -31,6 +32,11 @@ for(const id of content.sourceRefs)need(sourceIds.has(id),`Unknown content sourc
 for(const id of content.conceptRefs)need(conceptIds.has(id),`Unknown content concept ${id}`);
 for(const id of content.claimRefs)need(claimIds.has(id),`Unknown content claim ${id}`);
 for(const b of content.blocks)for(const id of b.claimRefs??[])need(claimIds.has(id),`Unknown block claim ${id}`);
+for(const id of inference.claimRefs)need(claimIds.has(id),`Unknown inference claim ${id}`);
+for(const id of inference.sourceRefs)need(sourceIds.has(id),`Unknown inference source ${id}`);
+need(inference.schemaVersion===1&&inference.reviewStatus==='needs-content-review','Inference draft contract/review status missing');
+need(inference.sceneId==='scene:logic.inference.lab'&&inference.modelId==='model:logic.propositional.forward','Inference scene/model identity changed');
+need(inference.sourceReading.immutableSnapshotVerified===false&&inference.sourceReading.providerRevisionVerified===false,'Source snapshot/revision verification must not be invented');
 for(const r of relations){
   need(conceptIds.has(r.from)&&conceptIds.has(r.to),`Unknown relation node ${r.from}→${r.to}`);
   need(Boolean(r.type&&r.status&&r.context),`Unqualified relation ${r.from}→${r.to}`);
@@ -52,7 +58,7 @@ for(const seg of projection.segments){
 }
 for(const f of feedback)need(Boolean(f.origin&&f.invariants&&f.targetId&&f.status),`${f.id}: invalid feedback`);
 for(const f of feedback){
- const validTargets=new Set([scene.id,...claimIds,...blockIds,...projection.segments.map(x=>x.id)]);
+ const validTargets=new Set([scene.id,inference.sceneId,...claimIds,...blockIds,...projection.segments.map(x=>x.id)]);
  need(validTargets.has(f.targetId),`${f.id}: nonexistent target`);
 }
 if(errors.length){console.error('Validation failed:\n'+errors.map(e=>' - '+e).join('\n'));process.exit(1)}

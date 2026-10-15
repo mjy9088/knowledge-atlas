@@ -1,0 +1,38 @@
+[
+  {
+    "id": "claim:logic.inference.and-elimination",
+    "kind": "formal",
+    "statement": "자연연역에서 A ∧ B로부터 A 또는 B를 각각 도출할 수 있다.",
+    "scope": "∧가 주연결사인 식에 적용하는 ∧ 제거 규칙. ∨ 내부의 항을 임의로 꺼내는 규칙이 아니다.",
+    "assumptions": ["해당 자연연역 규칙", "A와 B는 잘 형성된 명제식"],
+    "sourceRefs": [{"sourceId": "source:forallx-calgary-2026", "locator": "Chapter 17 §17.3 Conjunction, conjunction elimination (∧E)"}],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:logic.inference.modus-ponens",
+    "kind": "formal",
+    "statement": "A → B와 A가 있으면 B를 도출할 수 있다.",
+    "scope": "조건문 제거(→E / modus ponens). B와 A → B만으로 A를 도출하는 역추론은 허용하지 않는다.",
+    "assumptions": ["해당 자연연역 규칙", "전건 A가 이미 사용 가능"],
+    "sourceRefs": [{"sourceId": "source:forallx-calgary-2026", "locator": "Chapter 17 §17.4 Conditional, conditional elimination (→E)"}],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:logic.inference.and-introduction",
+    "kind": "formal",
+    "statement": "A와 B가 각각 있으면 A ∧ B를 도출할 수 있다.",
+    "scope": "∧ 도입 규칙. 이 구현은 무한한 식 생성을 피하려고 목표의 부분식에 한해서만 도입을 시도한다.",
+    "assumptions": ["해당 자연연역 규칙", "두 항 모두 이미 사용 가능"],
+    "sourceRefs": [{"sourceId": "source:forallx-calgary-2026", "locator": "Chapter 17 §17.3 Conjunction, conjunction introduction (∧I)"}],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:logic.inference.or-introduction",
+    "kind": "formal",
+    "statement": "A로부터 A ∨ B 또는 B ∨ A를 도출할 수 있다.",
+    "scope": "포괄적 논리합의 ∨ 도입 규칙. A ∨ B만으로 A를 도출할 수 있다는 뜻은 아니다.",
+    "assumptions": ["해당 자연연역 규칙", "한 항이 이미 사용 가능"],
+    "sourceRefs": [{"sourceId": "source:forallx-calgary-2026", "locator": "Chapter 17 §17.7 Disjunction, disjunction introduction (∨I)"}],
+    "reviewStatus": "draft-source-aligned"
+  }
+]

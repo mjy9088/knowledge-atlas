@@ -1,72 +1,46 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="근거 있는 지식의 구조를 따라 탐색하고, 직접 조작하며 이해하는 Knowledge Atlas 초기 프로토타입">
-  <title>Knowledge Atlas — 모순 폭발</title>
-  <link rel="stylesheet" href="/styles.css">
-  <script src="/app.mjs" type="module"></script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="지식의 연결을 따라 읽고, 직접 조작하며 이해하는 Knowledge Atlas">
+<title>모순 폭발 · Knowledge Atlas</title>
+<link rel="stylesheet" href="/styles.css"><script src="/app.mjs" type="module"></script>
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="/" aria-label="Knowledge Atlas 홈"><span class="brand-mark" aria-hidden="true">◈</span> Knowledge Atlas</a>
-    <span class="status">실험적 프로토타입 · 검토 전 콘텐츠</span>
-    <a class="link" href="https://forallx.openlogicproject.org/html/Ch17.html" target="_blank" rel="noopener noreferrer">기준 교재 ↗</a>
-  </header>
-  <div class="shell">
-    <nav class="nav-panel" aria-label="개념 탐색">
-      <p class="eyebrow">지식 지도 · 작은 시작점</p>
-      <h2>연결된 개념</h2>
-      <div id="concepts-nav" class="concept-list" aria-live="polite"></div>
-      <p class="subtle">이 링크들은 공부 순서가 아닙니다. 궁금한 것을 살펴보세요.</p>
-    </nav>
-    <main id="main" class="article">
-      <p class="eyebrow">형식과학 / 논리 · 독립적으로 읽을 수 있는 한 항목</p>
-      <h1 id="article-title">모순이 있으면 무엇이든 증명할 수 있을까?</h1>
-      <p id="article-summary" class="lede">고전적인 추론 규칙이 무엇을 말하는지 직접 살펴보는 설명입니다.</p>
-      <div class="caution" role="note"><strong>자료 상태:</strong> 아직 공개 승인·정밀 원문 대조가 끝나지 않은 제작용 시연입니다. 이 화면은 일반적인 정리증명기가 아닙니다.</div>
-      <section aria-labelledby="intro-title" class="prose-section">
-        <h2 id="intro-title">전제와 결론을 구별하기</h2>
-        <p id="intro-body">표현하는 규칙을 먼저 살펴봅니다.</p>
-      </section>
-      <section class="experience" aria-labelledby="proof-title">
-        <div class="experience-head">
-          <div>
-            <p class="eyebrow">직접 조작 가능한 예시</p>
-            <h2 id="proof-title">모순 폭발을 따라가기</h2>
-          </div>
-          <button id="reset" class="btn ghost" type="button">초기 상태로</button>
-        </div>
-        <div class="controls">
-          <fieldset class="premises">
-            <legend>증명에서 사용할 전제</legend>
-            <label><input id="has-p" type="checkbox" checked> 명제 P</label>
-            <label><input id="has-not-p" type="checkbox" checked> 명제 ¬P</label>
-          </fieldset>
-          <div class="select-wrap"><label for="conclusion">도출할 임의의 명제</label><select id="conclusion"><option value="Q">Q</option><option value="R">R</option><option value="S">S</option></select></div>
-        </div>
-        <ol id="proof-steps" class="proof-steps" aria-label="증명 단계"></ol>
-        <p id="proof-message" class="proof-message" role="status" aria-live="polite"></p>
-        <div class="clarification"><strong>이 장면이 판정하지 않는 것</strong><p>현실의 진릿값, 이 규칙 이외의 모든 가능한 증명, 특정 공리계의 독립성.</p></div>
-      </section>
-      <section class="prose-section" aria-labelledby="limits-title">
-        <h2 id="limits-title">현실의 참과 다른 이야기</h2>
-        <p id="limits-body"></p>
-      </section>
-      <section class="prose-section" aria-labelledby="sources-title">
-        <h2 id="sources-title">근거와 사용 범위</h2>
-        <p>이 예시는 표준 자연연역에서 모순으로부터 임의의 명제를 도출하는 경로를 보여줍니다. 학습 자료의 원문 인용과 판본에 대한 최종 감사는 아직 완료되지 않았습니다.</p>
-        <ul id="source-list" class="source-list"></ul>
-      </section>
-      <footer class="footer-note">Knowledge Atlas — 지식과 관계를 따라 자유롭게 탐색하는 웹 원본. 영상은 이 원본에서 지정한 경로를 재생하는 projection으로 제작됩니다.</footer>
-    </main>
-    <aside class="context-panel" aria-label="개념 상세">
-      <p class="eyebrow">현재 보고 있는 연결</p>
-      <h2 id="concept-title">개념을 선택하세요</h2>
-      <p id="concept-summary">왼쪽 개념을 선택하면 이곳에서 간단히 설명합니다.</p>
-      <p class="subtle">전체 지도의 검색·상호참조·외부 링크 관리는 후속 구현 대상입니다.</p>
-    </aside>
-  </div>
-</body>
-</html>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="topbar"><a class="brand" href="/" aria-label="Knowledge Atlas 홈"><span class="brand-mark" aria-hidden="true">✳</span> Knowledge Atlas</a><span class="brand-description">연결을 따라 넓어지는 이해</span><span class="status"><span aria-hidden="true">●</span> 제작 중인 미리보기</span></header>
+<div class="shell">
+<aside class="sidebar">
+<nav class="page-nav" aria-label="이 페이지"><p class="eyebrow">이 페이지에서</p><a href="#intro-title">전제와 결론</a><a href="#inference-title">추론 실험실 <span aria-hidden="true">↗</span></a><a href="#inference-video">영상 미리보기</a><a href="#proof-title">직접 살펴보기 <span aria-hidden="true">↗</span></a><a href="#limits-title">해석의 범위</a><a href="#sources-title">출처와 주장</a></nav>
+<nav class="nav-panel" aria-label="개념 탐색"><p class="eyebrow">연결된 지식</p><div id="concepts-nav" class="concept-list"></div></nav>
+<section class="context-panel" aria-label="선택한 개념"><span class="small-label">개념 노트 · 검토 전</span><h2 id="concept-title">모순 폭발</h2><p id="concept-summary" aria-live="polite">모순에서 임의의 명제가 도출되는 추론 규칙/현상</p><p class="subtle">궁금한 개념부터 자유롭게 살펴보세요.</p></section>
+</aside>
+<main id="main" class="article">
+<div class="article-header"><p class="breadcrumb">지식 지도 <span>/</span> 형식과학 <span>/</span> 논리</p><div class="article-meta"><span class="topic-tag">논리의 기초</span><span>읽기 + 인터랙티브</span></div><h1 id="article-title">모순이 있으면 무엇이든 증명할 수 있을까?</h1><p id="article-summary" class="lede">추론 규칙 안에서 모순으로부터 임의의 결론을 도출하는 이유를 살펴봅니다.</p><p class="caution"><span class="draft-dot" aria-hidden="true"></span> 검토 전 초안 · 원문 대조와 공개 승인은 아직 완료되지 않았습니다.</p></div>
+<section class="prose-section intro" aria-labelledby="intro-title"><span class="section-number">01</span><div><h2 id="intro-title">전제와 결론을 구별하기</h2><p id="intro-body">어떤 전제가 참인지, 그 전제로부터 무엇을 추론할 수 있는지는 서로 다른 질문입니다.</p></div></section>
+<section id="inference-lab" class="inference-lab" aria-labelledby="inference-title">
+<div class="experience-head"><div><p class="eyebrow">NEW · 기호 추론 실험실</p><h2 id="inference-title">내 전제에서, 한 줄씩 추론하기</h2></div><span class="topic-tag">확장 초안</span></div>
+<p class="experience-intro">전제와 목표를 직접 적고, 각 줄이 어떤 전제와 규칙에서 나오는지 따라가 보세요. 기호 명제식만 지원하며 자연어 문장의 진실을 판정하지 않습니다.</p>
+<div id="inference-presets" class="inference-presets" aria-label="추론 예시 선택"><button type="button" data-preset="chain">조건문 연결</button><button type="button" data-preset="and">그리고 나누기</button><button type="button" data-preset="explosion">모순에서 도출</button><button type="button" data-preset="missing">전제가 부족하면?</button><button type="button" data-preset="andIntro">그리고 묶기</button><button type="button" data-preset="orIntro">또는 넓히기</button></div>
+<form id="inference-form" class="inference-form"><div class="editor-heading"><h3>사용할 전제</h3><button id="add-premise" class="btn" type="button">+ 전제 추가</button></div><div id="premise-editor" class="premise-editor"></div><p id="inference-syntax" class="syntax-note">대문자 P, Q, R… · 부정 <code>!</code> · 그리고 <code>&amp;</code> · 또는 <code>|</code> · 조건문 <code>-&gt;</code> · 괄호 <code>( )</code><br>예: <code>P -&gt; Q</code>, <code>!(P &amp; Q)</code> · 전제는 최대 8개입니다.</p><div class="goal-editor"><div><label for="inference-goal">도출하고 싶은 목표</label><input id="inference-goal" value="R" autocomplete="off" spellcheck="false" aria-describedby="inference-syntax"></div><button type="submit" class="btn primary-btn">추론 펼치기 <span aria-hidden="true">→</span></button></div></form>
+<p id="inference-status" class="inference-status" role="status" aria-live="polite"></p>
+<div id="inference-result" class="inference-result"><div class="reasoning-heading"><h3>추론의 흐름</h3><span id="inference-step-count" class="small-label"></span></div><ol id="inference-lines" class="inference-lines" aria-label="의존 관계가 표시된 추론 단계"></ol><div class="reasoning-controls"><button id="inference-prev" class="btn" type="button">← 이전 단계</button><output id="inference-active-label" aria-live="polite"></output><button id="inference-next" class="btn" type="button">다음 단계 →</button></div><p id="inference-step-detail" class="inference-step-detail" aria-live="polite"></p></div>
+<details class="inference-boundaries"><summary>이 실험의 규칙과 한계</summary><p>결합 제거·도입, 조건문 적용, 모순 도출·폭발, 선택적 논리합 도입을 사용하는 제한된 탐색입니다. 못 찾은 증명이 없다는 뜻은 아니며, 현실의 참·거짓도 판정하지 않습니다.</p><p>새 추론 규칙의 설명과 출처 대조는 검토 중인 제안입니다. 원래 모순 폭발 장면과 별도로 검토합니다.</p><p id="inference-limitations"></p></details>
+</section>
+<section id="inference-video" class="inference-video" aria-label="현재 추론 영상 미리보기"></section>
+<section class="experience" aria-labelledby="proof-title" data-scene-id="scene:logic.explosion.proof">
+<div class="experience-head"><div><p class="eyebrow">INTERACTIVE · 직접 살펴보기</p><h2 id="proof-title">전제를 바꾸면, 증명은 어떻게 될까?</h2></div><button id="reset" class="btn" type="button"><span aria-hidden="true">↺</span> 초기화</button></div>
+<p id="proof-instructions" class="experience-intro">전제를 하나 끄거나 결론 기호를 바꿔 보세요. 같은 규칙 아래에서 증명 경로가 어떻게 달라지는지 볼 수 있습니다.</p>
+<div class="controls"><fieldset class="premises"><legend>사용할 전제</legend><label><input id="has-p" type="checkbox" checked><span class="math">P</span><span>명제 P</span></label><label><input id="has-not-p" type="checkbox" checked><span class="math">¬P</span><span>P의 부정</span></label></fieldset><div class="select-wrap"><label for="conclusion">도출할 임의 명제 기호</label><select id="conclusion" aria-describedby="symbol-note"><option value="Q">Q</option><option value="R">R</option><option value="S">S</option></select></div></div>
+<p id="symbol-note" class="symbol-note">Q · R · S는 실제 문장이 아닌 임의의 명제 기호입니다.</p>
+<div id="proof-diagram" class="proof-diagram" role="img" aria-label="P와 ¬P에서 모순을 얻고 Q를 도출합니다."><div class="premise-nodes"><div id="node-p" class="proof-node premise-node"><span class="node-label">전제 1</span><strong class="math">P</strong><span id="node-p-state" class="node-caption">사용 중</span></div><div id="node-not-p" class="proof-node premise-node"><span class="node-label">전제 2</span><strong class="math">¬P</strong><span id="node-not-p-state" class="node-caption">사용 중</span></div></div><div class="flow-arrow" aria-hidden="true"><span>모순 도출</span><i>→</i></div><div id="node-contradiction" class="proof-node derived-node"><span class="node-label">모순</span><strong class="math">⊥</strong><span id="contradiction-caption" class="node-caption">두 전제가 함께 있음</span></div><div class="flow-arrow" aria-hidden="true"><span>⊥ 제거</span><i>→</i></div><div id="node-conclusion" class="proof-node conclusion-node"><span class="node-label">임의의 결론</span><strong id="diagram-conclusion" class="math">Q</strong><span id="conclusion-caption" class="node-caption">이 경로로 도출됨</span></div></div>
+<p id="proof-message" data-semantic-id="proof-status" class="proof-message" role="status" aria-live="polite"></p>
+<details class="proof-details"><summary>증명 단계를 글로 보기 <span>자연연역 규칙</span></summary><ol id="proof-steps" class="proof-steps" aria-label="현재 전제에 따른 증명 단계"></ol><p id="empty-proof" hidden>선택된 전제가 없어 표시할 증명 단계가 없습니다.</p></details>
+<div class="timeline"><p class="symbol-note timeline-note">예정된 영상 경로의 상태 미리보기입니다. 영상·음성은 아직 제작되지 않았습니다.</p><div class="timeline-title"><label for="scene-time">스토리보드 초안 둘러보기</label><output id="timeline-label" for="scene-time">직접 조작 · Q 도출</output></div><input id="scene-time" type="range" min="0" max="30000" step="1000" value="6000" aria-label="스토리보드 초안 시점 (밀리초)"><div class="timeline-ticks" aria-hidden="true"><span>시작</span><span>Q 도출</span><span>R 도출</span><span>¬P 제외</span><span>P 제외</span><span>30초</span></div></div>
+<div class="clarification"><span class="note-icon" aria-hidden="true">i</span><p><strong>도출 가능성과 현실의 참은 다릅니다.</strong><br>이 장면은 선택한 규칙의 증명 경로를 보여줍니다. 일반적인 정리증명기나 현실의 진릿값 판정기가 아닙니다.</p></div>
+</section>
+<section class="prose-section" aria-labelledby="limits-title"><span class="section-number">02</span><div><h2 id="limits-title">현실의 참과 다른 이야기</h2><p id="limits-body"></p></div></section>
+<section class="sources-section" aria-labelledby="sources-title"><div class="section-heading"><h2 id="sources-title">출처와 주장</h2><span class="small-label">검토 상태를 함께 확인하세요</span></div><p>이 설명의 범위와 근거를 펼쳐 볼 수 있습니다. 외부 원자료의 정확한 인용 범위·해시·이용 권리는 공개 전 검토가 남아 있습니다.</p><details class="evidence-details"><summary>근거 자료 <span>원자료 · 판본 · 권리</span></summary><ul id="source-list" class="source-list"></ul></details><details class="evidence-details"><summary>이 페이지의 주장 <span>적용 조건 · 범위</span></summary><ul id="claim-list" class="claim-list"></ul></details><details class="evidence-details"><summary>콘텐츠 판본과 상태 <span>미공개 초안</span></summary><dl id="version-info" class="metadata"></dl></details></section>
+<footer class="footer-note"><span class="brand-small">✳ Knowledge Atlas</span><p>지식과 관계를 따라 자유롭게 탐색하는 웹 원본.</p></footer>
+</main></div>
+</body></html>
