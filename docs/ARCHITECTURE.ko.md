@@ -136,6 +136,8 @@ type SceneAdapter<TState, TAction> = {
 
 ## 9. 추후 바뀔 수 있는 선택
 
+2026-10-16: 연관 Article 4편과 목록은 `related-pages.mjs`의 표현 명세와 `packages/site/related-site.mjs`의 공유 렌더러로 사전 생성한다. 개발 서버도 같은 함수를 호출하며, 클라이언트는 정적 본문에 장면 이동과 선택적 명제논리 실험을 추가한다. `dist/build-manifest.json`은 출력·빌더 입력의 해시와 기존 검토 상태를 기록하는 로컬 검토용 manifest다. 외부 배포·출판 승인은 포함하지 않는다. [ADR 0009](adr/0009-static-related-pages.md) 참고.
+
 Astro/React, Remotion, 저장 포맷, TTS 서비스, 데이터베이스, 배포 사업자, 작업 오케스트레이터는 교체 가능한 구현 선택이다. 원본의 의미, ID, provenance, scene contract, 피드백/승인 경계는 장기 계약으로 취급한다. 규모가 커질 때까지 GraphDB와 워크플로 엔진 도입을 미룬다.
 
 ### 주제별 본편의 독립 상태 (2026-10-16)
