@@ -15,6 +15,7 @@ const proof = deriveProof({premises, goal});
 const timeline = createVideoTimeline({premises, goal, proof});
 const files = [
   'packages/models/propositional.mjs', 'apps/web/inference-video.mjs',
+  'apps/web/inference-visual.mjs', 'apps/web/formula-display.mjs', 'apps/web/slide-deck.mjs',
   'apps/web/app.mjs', 'apps/web/index.html', 'apps/web/styles.css',
   'content/formal-logic/explosion/inference.json',
   'content/formal-logic/explosion/inference-claims.json',

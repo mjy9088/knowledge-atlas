@@ -15,7 +15,7 @@ const content=read('content/formal-logic/explosion/content.json');
 const scene=read('content/formal-logic/explosion/scenes/proof.json');
 const narration=read('content/formal-logic/explosion/narration/ko.json');
 const projection=read('content/formal-logic/explosion/projection.json');
-const feedback=[...read('feedback/example-feedback.json'),read('feedback/2026-10-16-inference-video.json')];
+const feedback=[...read('feedback/example-feedback.json'),read('feedback/2026-10-16-inference-video.json'),read('feedback/2026-10-16-slide-scenes.json')];
 for(const [arr,label] of [[sources,'sources'],[concepts,'concepts'],[claims,'claims'],[content.blocks,'content blocks'],[narration.chunks,'narration chunks'],[projection.segments,'projection segments'],[feedback,'feedback']]) uniq(arr,label);
 const sourceIds=new Set(sources.map(x=>x.id)), conceptIds=new Set(concepts.map(x=>x.id)), claimIds=new Set(claims.map(x=>x.id));
 const blockIds=new Set(content.blocks.map(x=>x.id)), narrationIds=new Set(narration.chunks.map(x=>x.id));
@@ -58,7 +58,7 @@ for(const seg of projection.segments){
 }
 for(const f of feedback)need(Boolean(f.origin&&f.invariants&&f.targetId&&f.status),`${f.id}: invalid feedback`);
 for(const f of feedback){
- const validTargets=new Set([scene.id,inference.sceneId,...claimIds,...blockIds,...projection.segments.map(x=>x.id)]);
+ const validTargets=new Set([scene.id,inference.id,inference.sceneId,...claimIds,...blockIds,...projection.segments.map(x=>x.id)]);
  need(validTargets.has(f.targetId),`${f.id}: nonexistent target`);
 }
 if(errors.length){console.error('Validation failed:\n'+errors.map(e=>' - '+e).join('\n'));process.exit(1)}

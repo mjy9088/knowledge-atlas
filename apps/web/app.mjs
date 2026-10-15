@@ -1,4 +1,6 @@
 import {createProofScene, PROOF_DURATION_MS} from './proof-scene.mjs';
+import {mountSlideDeck} from './slide-deck.mjs';
+import {displayFormula, bindFormulaInput} from './formula-display.mjs';
 const $ = id => document.getElementById(id);
 let timelineTime = null;
 let scene;
@@ -111,14 +113,18 @@ async function populate() {
   }
 }
 populate();
+window.__atlasDeck = mountSlideDeck();
+window.__atlasScenes.deck = window.__atlasDeck;
 
 
 // The inference lab is a separate, bounded model; it does not alter Scene 1.
 async function mountInferenceLab() {
-  const [{deriveProof}, {mountInferenceVideo}] = await Promise.all([
-    import('/packages/models/propositional.mjs'), import('./inference-video.mjs')
+  const [{deriveProof}, {mountInferenceVideo}, {mountInferenceVisual}] = await Promise.all([
+    import('/packages/models/propositional.mjs'), import('./inference-video.mjs'), import('./inference-visual.mjs')
   ]);
   const video = mountInferenceVideo($('inference-video'));
+  const visual = mountInferenceVisual($('inference-visual'));
+  document.addEventListener('atlas:slidechange', event => {if (event.detail.slideId !== 'slide-video') video.pause();});
   const presets = {
     chain: {premises:['P', 'P -> Q', 'Q -> R'], goal:'R'},
     and: {premises:['P & Q'], goal:'Q'},
@@ -154,21 +160,22 @@ async function mountInferenceLab() {
     check.setAttribute('aria-label', `전제 ${number} 포함`);
     const marker = document.createElement('span'); marker.textContent = '전제';
     checkLabel.append(check, marker);
-    const input = document.createElement('input'); input.type = 'text'; input.value = value;
+    const input = document.createElement('input'); input.type = 'text'; input.value = displayFormula(value);
     input.autocomplete = 'off'; input.spellcheck = false; input.maxLength = 256;
-    input.placeholder = '예: P -> Q'; input.setAttribute('aria-label', `전제 ${number} 명제식`);
+    input.placeholder = '예: P → Q'; input.setAttribute('aria-label', `전제 ${number} 명제식`);
     input.setAttribute('aria-describedby', 'inference-syntax');
     const remove = document.createElement('button'); remove.type = 'button'; remove.className = 'remove-premise';
     remove.textContent = '×'; remove.setAttribute('aria-label', `전제 ${number} 삭제`);
     remove.addEventListener('click', () => {row.remove(); updateRowLimit(); markDirty(); $('add-premise').focus();});
     check.addEventListener('change', () => {row.classList.toggle('excluded', !check.checked); input.disabled = !check.checked; markDirty();});
-    input.addEventListener('input', markDirty); row.append(checkLabel, input, remove); editor.append(row);
+    bindFormulaInput(input); input.addEventListener('input', markDirty); row.append(checkLabel, input, remove); editor.append(row);
     updateRowLimit(); return input;
   }
-  function focusStep(index) {
+  function focusStep(index, reveal = false) {
     if (!lastProof?.lines.length) return;
     activeStep = Math.max(0, Math.min(lastProof.lines.length - 1, index));
     const line = lastProof.lines[activeStep];
+    visual.update({premises:lastPremises,goal:lastGoal,proof:lastProof,step:activeStep});
     for (const [position, row] of [...$('inference-lines').children].entries()) {
       row.classList.toggle('current-line', position === activeStep);
       row.classList.toggle('future-line', position > activeStep);
@@ -182,6 +189,13 @@ async function mountInferenceLab() {
     $('inference-step-detail').textContent = refs.length
       ? `${activeStep + 1}행: ${refs.join('행, ')}행을 근거로 ${labels[line.rule] ?? line.rule} 규칙을 적용해 ${line.formula}를 얻습니다.`
       : `${activeStep + 1}행: ${line.formula}는 사용자가 포함한 전제입니다.`;
+    if (reveal) {
+      $('inference-result').scrollTop = 0;
+      if (window.matchMedia('(min-width:721px)').matches) {
+        $('inference-lab').scrollTop = 0;
+        $('slide-lab').scrollTop = 0;
+      } else $('inference-result').scrollIntoView({block:'start'});
+    }
   }
   function renderProof(proof) {
     activeStep = 0;
@@ -194,7 +208,7 @@ async function mountInferenceLab() {
       const rule = document.createElement('span'); rule.className = 'inference-rule';
       const deps = line.dependsOn.map(id => proof.lines.findIndex(candidate => candidate.id === id) + 1);
       rule.textContent = `${labels[line.rule] ?? line.rule}${deps.length ? ` · ${deps.join(', ')}행에서` : ''}`;
-      button.append(number, formula, rule); button.addEventListener('click', () => focusStep(index));
+      button.append(number, formula, rule); button.addEventListener('click', () => focusStep(index, true));
       item.append(button); list.append(item);
     });
     $('inference-step-count').textContent = `${proof.lines.length}개 행 · 목표 ${lastGoal}`;
@@ -222,27 +236,27 @@ async function mountInferenceLab() {
       if (window.__atlasInference) window.__atlasInference = {...window.__atlasInference, stale: true};
       $('inference-result').hidden = true;
       $('inference-status').className = 'inference-status input-error';
-      $('inference-status').textContent = `식을 읽지 못했습니다. ${error.message} 대문자 기호와 !, &, |, ->, 괄호를 사용해 주세요.`;
+      $('inference-status').textContent = `식을 읽지 못했습니다. ${displayFormula(error.message)} 대문자 기호와 ¬, ∧, ∨, →, 괄호를 사용해 주세요.`;
     }
   }
   function loadPreset(name) {
     const preset = presets[name]; if (!preset) return;
-    editor.replaceChildren(); rowNumber = 0; preset.premises.forEach(value => addRow(value)); $('inference-goal').value = preset.goal;
+    editor.replaceChildren(); rowNumber = 0; preset.premises.forEach(value => addRow(value)); $('inference-goal').value = displayFormula(preset.goal);
     for (const button of $('inference-presets').children) button.setAttribute('aria-pressed', String(button.dataset.preset === name));
     runInference();
   }
   $('add-premise').addEventListener('click', () => {const input = addRow(); markDirty(); input?.focus();});
-  $('inference-goal').addEventListener('input', markDirty);
+  bindFormulaInput($('inference-goal')); $('inference-goal').addEventListener('input', markDirty);
   $('inference-form').addEventListener('submit', event => {event.preventDefault(); runInference();});
-  $('inference-prev').addEventListener('click', () => focusStep(activeStep - 1));
-  $('inference-next').addEventListener('click', () => focusStep(activeStep + 1));
+  $('inference-prev').addEventListener('click', () => focusStep(activeStep - 1, true));
+  $('inference-next').addEventListener('click', () => focusStep(activeStep + 1, true));
   for (const button of $('inference-presets').children) button.addEventListener('click', () => loadPreset(button.dataset.preset));
   loadPreset('chain');
   function setInferenceState(next) {
     if (!next || typeof next !== 'object' || !Array.isArray(next.premises) || typeof next.goal !== 'string' || !Number.isInteger(next.step) || next.step < 0) throw new TypeError('State requires premises, goal and a nonnegative integer step');
     const checked = deriveProof({premises: next.premises, goal: next.goal});
     if (next.step >= Math.max(1, checked.lines.length)) throw new RangeError('Step exceeds proof length');
-    editor.replaceChildren(); rowNumber = 0; next.premises.forEach(value => addRow(value)); $('inference-goal').value = next.goal;
+    editor.replaceChildren(); rowNumber = 0; next.premises.forEach(value => addRow(value)); $('inference-goal').value = displayFormula(next.goal);
     for (const button of $('inference-presets').children) button.setAttribute('aria-pressed', 'false');
     runInference(); focusStep(next.step);
   }

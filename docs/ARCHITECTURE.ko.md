@@ -119,6 +119,8 @@ type SceneAdapter<TState, TAction> = {
 
 별도 `scene:logic.inference.lab`는 `packages/models/propositional.mjs`의 제한된 전방 추론을 사용한다. 새 경험/주장 계약은 `inference.json`과 `inference-claims.json`에 보관한다. HTML 재생 어댑터 `inference-video.mjs`는 계산된 proof를 고정 복사한 timeline에서 `frameAt(timeMs)`로 화면과 애니메이션을 만든다. 실제 미디어 파일 렌더를 구현했다는 뜻은 아니다. 범위·호환성 결정은 [ADR 0003](adr/0003-bounded-inference-html-preview.md)을 참조한다.
 
+슬라이드 탐색은 `apps/web/slide-deck.mjs`의 별도 표현 상태 `{slideId}`로 관리한다. 기존 과학 장면의 상태와 분리해 장면 이동으로 전제를 초기화하지 않는다. `inference-visual.mjs`의 정적 관계 도표도 같은 proof와 선택 행만 사용한다. `formula-display.mjs`는 파서가 이미 지원하는 입력 별칭의 표시 변환만 담당한다. 메뉴·초점·hash 계약은 [ADR 0004](adr/0004-slide-scene-navigation.md)에 기록한다.
+
 ## 7. 에이전트와 편집기 계약
 
 `propose_change`, `preview`, `inspect`, `run_validation`, `apply_patch`, `record_feedback`, `submit_review`는 서로 다른 권한이다. 편집기는 같은 원본을 수정하며, 전문 편집 UI 없이 CLI로도 작업 가능해야 한다.
