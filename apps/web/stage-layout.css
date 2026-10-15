@@ -31,6 +31,18 @@
 #slide-video .inference-video-canvas{height:clamp(280px,55dvh,620px);max-height:calc(100dvh - 300px);width:100%;object-fit:contain}
 .overview-slide .overview-layout{gap:clamp(40px,5vw,100px)}
 
+/* Keep the diagram and its recorded proof visible together. */
+@media(min-width:1200px){
+  .deck-slide .inference-result{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(260px,1fr);gap:20px;align-content:start;align-items:start}
+  .deck-slide .inference-result[hidden]{display:none}
+  .deck-slide .reasoning-controls{grid-column:1/-1;flex-wrap:wrap}
+  .deck-slide #inference-visual,.deck-slide .inference-proof-list{min-width:0}
+  .deck-slide .inference-proof-list{border-top:0;border-left:1px solid #e4e9de;padding:0 0 0 20px;margin:0}
+  .deck-slide .inference-lines{max-height:calc(100dvh - 300px)}
+  .deck-slide .inference-line{grid-template-columns:25px minmax(0,1fr);gap:6px}
+  .deck-slide .inference-rule{grid-column:2;text-align:left}
+}
+
 @media(min-width:1600px){
   .deck-slide{padding:30px 82px 38px}
   .deck-slide .inference-lab{grid-template-columns:420px minmax(0,1fr)}
@@ -40,12 +52,19 @@
   .deck-slide .syntax-note{font-size:11px}
   .deck-slide .inference-status{font-size:12px}
   .deck-slide .inference-result{padding:26px 36px}
-  .deck-slide .inference-visual-flow[data-kind=derivation]{min-height:280px;grid-template-columns:minmax(0,1fr) 140px minmax(0,1fr);gap:22px;padding:24px}
+  .deck-slide .inference-visual-flow[data-kind=derivation]{min-height:280px;grid-template-columns:minmax(0,1fr);gap:14px;padding:20px}
   .deck-slide .inference-visual-flow[data-kind=derivation] .inference-visual-formula{font-size:40px}
   .deck-slide .inference-visual-flow[data-kind=derivation] .inference-visual-rule{font-size:13px}
   .deck-slide .inference-visual-label,.inference-visual-context,.inference-visual-goal,.inference-visual-status{font-size:12px}
   .deck-slide .inference-lines{max-height:clamp(220px,29dvh,340px)}
   .deck-slide .inference-line{min-height:50px}
+}
+
+@media(min-width:1200px){
+  .deck-slide .inference-lines{max-height:calc(100dvh - 320px)}
+  .deck-slide .inference-visual-flow[data-kind=derivation]{grid-template-columns:minmax(0,1fr);gap:14px}
+  .deck-slide .inference-visual-rule{padding:4px}
+  .deck-slide .inference-visual-rule .inference-visual-arrow{transform:rotate(90deg);display:block;margin:5px auto;width:28px}
 }
 
 @media(min-width:721px) and (max-height:800px){

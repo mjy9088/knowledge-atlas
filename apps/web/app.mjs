@@ -140,6 +140,19 @@ async function mountInferenceLab() {
   let inferenceStale = true;
   let activeStep = 0;
   let lastGoal = '';
+  let autoAdvance = true;
+  let stepTimer;
+  function stopStepTimer() { clearTimeout(stepTimer); }
+  function scheduleStep() {
+    stopStepTimer();
+    const finished = activeStep >= (lastProof?.lines.length ?? 0) - 1;
+    $('inference-auto').textContent = finished ? '↺ 다시 보기' : autoAdvance ? 'Ⅱ 일시정지' : '▶ 이어 보기';
+    if (!autoAdvance || inferenceStale || finished || $('slide-lab').hidden || document.hidden) return;
+    stepTimer = setTimeout(() => {focusStep(activeStep + 1); scheduleStep();}, 2400);
+  }
+  function selectStep(index) { autoAdvance = false; stopStepTimer(); focusStep(index, true); scheduleStep(); }
+  document.addEventListener('atlas:slidechange', scheduleStep);
+  document.addEventListener('visibilitychange', scheduleStep);
   const editor = $('premise-editor');
   function refreshInput(event) {
     if (event?.isComposing) {
@@ -150,6 +163,7 @@ async function mountInferenceLab() {
     runInference();
   }
   function invalidateInput(message) {
+    stopStepTimer();
     inferenceStale = true;
     video.invalidate(message);
     visual.invalidate(message);
@@ -190,6 +204,11 @@ async function mountInferenceLab() {
       row.classList.toggle('dependency-line', line.dependsOn.includes(lastProof.lines[position].id));
       row.firstElementChild.setAttribute('aria-current', position === activeStep ? 'step' : 'false');
     }
+    const list = $('inference-lines');
+    const selected = list.children[activeStep];
+    const listBox = list.getBoundingClientRect(), selectedBox = selected.getBoundingClientRect();
+    if (selectedBox.bottom > listBox.bottom) list.scrollTop += selectedBox.bottom - listBox.bottom;
+    else if (selectedBox.top < listBox.top) list.scrollTop -= listBox.top - selectedBox.top;
     $('inference-prev').disabled = activeStep === 0;
     $('inference-next').disabled = activeStep === lastProof.lines.length - 1;
     $('inference-active-label').textContent = `${activeStep + 1} / ${lastProof.lines.length} 단계`;
@@ -216,7 +235,7 @@ async function mountInferenceLab() {
       const rule = document.createElement('span'); rule.className = 'inference-rule';
       const deps = line.dependsOn.map(id => proof.lines.findIndex(candidate => candidate.id === id) + 1);
       rule.textContent = `${labels[line.rule] ?? line.rule}${deps.length ? ` · ${deps.join(', ')}행에서` : ''}`;
-      button.append(number, formula, rule); button.addEventListener('click', () => focusStep(index, true));
+      button.append(number, formula, rule); button.addEventListener('click', () => selectStep(index));
       item.append(button); list.append(item);
     });
     $('inference-step-count').textContent = `${proof.lines.length}개 행 · 목표 ${lastGoal}`;
@@ -238,6 +257,7 @@ async function mountInferenceLab() {
       renderProof(proof); video.update({premises, goal: lastGoal, proof});
       inferenceStale = false;
       window.__atlasInference = structuredClone({premises, goal: lastGoal, proof, stale: false});
+      scheduleStep();
     } catch (error) {
       invalidateInput(`수식을 완성하면 자동으로 갱신됩니다. ${displayFormula(error.message)}`);
     }
@@ -252,17 +272,23 @@ async function mountInferenceLab() {
   bindFormulaInput($('inference-goal')); $('inference-goal').addEventListener('input', refreshInput);
   $('inference-goal').addEventListener('compositionend', refreshInput);
   $('inference-form').addEventListener('submit', event => event.preventDefault());
-  $('inference-prev').addEventListener('click', () => focusStep(activeStep - 1, true));
-  $('inference-next').addEventListener('click', () => focusStep(activeStep + 1, true));
+  $('inference-prev').addEventListener('click', () => selectStep(activeStep - 1));
+  $('inference-next').addEventListener('click', () => selectStep(activeStep + 1));
+  $('inference-auto').addEventListener('click', () => {
+    if (activeStep >= lastProof.lines.length - 1) {focusStep(0); autoAdvance = true;}
+    else autoAdvance = !autoAdvance;
+    scheduleStep();
+  });
   for (const button of $('inference-presets').children) button.addEventListener('click', () => loadPreset(button.dataset.preset));
   loadPreset('chain');
   function setInferenceState(next) {
     if (!next || typeof next !== 'object' || !Array.isArray(next.premises) || typeof next.goal !== 'string' || !Number.isInteger(next.step) || next.step < 0) throw new TypeError('State requires premises, goal and a nonnegative integer step');
     const checked = deriveProof({premises: next.premises, goal: next.goal});
     if (next.step >= Math.max(1, checked.lines.length)) throw new RangeError('Step exceeds proof length');
+    autoAdvance = false; stopStepTimer();
     editor.replaceChildren(); rowNumber = 0; next.premises.forEach(value => addRow(value)); $('inference-goal').value = displayFormula(next.goal);
     for (const button of $('inference-presets').children) button.setAttribute('aria-pressed', 'false');
-    runInference(); focusStep(next.step);
+    runInference(); focusStep(next.step); scheduleStep();
   }
   window.__atlasScenes.inference = {
     // Scene state is the last valid input; incomplete input is exposed separately as draft.

@@ -1,0 +1,11 @@
+{
+  "id": "feedback:2026-10-16.auto-proof",
+  "targetId": "scene:logic.inference.lab",
+  "contentVersion": "8887f60",
+  "origin": "human-user-chat",
+  "issue": "inference-visual-flow, inference-proof-list를 좌우로 나누고 추론 단계가 자동으로 진행되게 해줘.",
+  "requestedChange": "넓은 화면에서 도표와 증명 목록을 좌우 배치하고 2.4초마다 자동 진행. 일시정지·수동 선택·마지막 단계 정지와 다시 보기 지원.",
+  "invariants": ["동일 proof와 의존 관계 유지", "숨긴 장면과 미완성 입력에서 자동 진행 중지", "setState/reset/seek의 명시적 단계 보존"],
+  "scope": "inference-presentation-only",
+  "status": "implementation-candidate"
+}
