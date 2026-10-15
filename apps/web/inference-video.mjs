@@ -1,4 +1,5 @@
 import {RULES} from '../../packages/models/propositional.mjs';
+import {displayFormula} from './formula-display.mjs';
 // Presentation of one frozen model result; this module never performs inference.
 const clone = value => JSON.parse(JSON.stringify(value));
 const freeze = value => {if (value && typeof value === 'object') {Object.values(value).forEach(freeze); Object.freeze(value);} return value;};
@@ -7,8 +8,8 @@ const ruleLabel = id => RULES.find(rule => rule.id === id)?.label ?? id;
 const lineLabel = id => String(id).replace(/^line-(\d+)$/,'$1행');
 export function createVideoTimeline(input) {
   const snapshot = clone(input), proof = snapshot.proof ?? {};
-  const lines = (proof.lines ?? []).map((line,index) => ({id:line.id ?? index+1,formula:label(line.formula ?? ''),rule:ruleLabel(line.rule ?? ''),dependsOn:[...(line.dependsOn ?? [])]}));
-  const premises = (snapshot.premises ?? []).map(label), goal = label(snapshot.goal ?? '');
+  const lines = (proof.lines ?? []).map((line,index) => ({id:line.id ?? index+1,formula:displayFormula(label(line.formula ?? '')),rule:ruleLabel(line.rule ?? ''),dependsOn:[...(line.dependsOn ?? [])]}));
+  const premises = (snapshot.premises ?? []).map(value=>displayFormula(label(value))), goal = displayFormula(label(snapshot.goal ?? ''));
   const cues = [{startMs:0,endMs:2500,activeLine:-1,text:`전제: ${premises.join(', ') || '없음'} · 목표: ${goal}`}];
   lines.forEach((line,index) => cues.push({startMs:2500+index*1800,endMs:4300+index*1800,activeLine:index,
     text:`${lineLabel(line.id)}. ${line.formula} · ${line.rule}${line.dependsOn.length ? ' · 참조 '+line.dependsOn.map(lineLabel).join(', ') : ''}`}));
@@ -104,6 +105,7 @@ export function mountInferenceVideo(container) {
   function revoke() {urls.forEach(url=>URL.revokeObjectURL(url));urls=[];}
   function download(link,blob,name) {const url=URL.createObjectURL(blob);urls.push(url);link.href=url;link.download=name;}
   return {
+    pause,
     update(input) {pause();revoke();timeline=createVideoTimeline(input);mobileCue=null;invalid=false;canvas.hidden=false;mobile.hidden=false;details.hidden=false;caption.hidden=false;for(const control of [play,restart,seek]) control.disabled=false;seek.max=timeline.durationMs;time=0;
       download(vttLink,new Blob([timelineVtt(timeline)],{type:'text/vtt;charset=utf-8'}),'inference-preview.vtt');
       download(snapshotLink,new Blob([JSON.stringify(timeline,null,2)],{type:'application/json'}),'inference-preview.json');draw();},

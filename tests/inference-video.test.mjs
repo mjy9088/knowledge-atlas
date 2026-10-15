@@ -10,7 +10,7 @@ test('video preserves model proof and freezes input rather than recomputing it',
   assert.equal(timeline.lines.at(-1).formula,'B');
   assert.deepEqual(timeline.lines.at(-1).dependsOn,source.proof.lines.at(-1).dependsOn);
   source.premises.push('C'); source.proof.lines[0].formula = 'CHANGED';
-  assert.deepEqual(timeline.premises,['A','A -> B']);
+  assert.deepEqual(timeline.premises,['A','A → B']);
   assert.equal(timeline.lines[0].formula,'A');
   assert.ok(Object.isFrozen(timeline.snapshot.proof.lines[0]));
 });
@@ -49,4 +49,12 @@ test('animations derive from time alone and reduced motion preserves the proof',
   assert.equal(moving.activeLine,still.activeLine);assert.equal(moving.caption,still.caption);
   assert.deepEqual(moving.visibleLines,still.visibleLines);
   assert.equal(frameAt(timeline,2950).transition,1);
+});
+test('playback and VTT use display symbols while raw inputs remain reproducible',()=>{
+  const timeline=createVideoTimeline({premises:['A -> B','!C & D','E | F'],goal:'!C',proof:{lines:[],goalReached:false}});
+  assert.deepEqual(timeline.premises,['A → B','¬C ∧ D','E ∨ F']);
+  assert.equal(timeline.goal,'¬C');
+  assert.deepEqual(timeline.snapshot.premises,['A -> B','!C & D','E | F']);
+  assert.match(frameAt(timeline,0).caption,/A → B/);
+  assert.match(timelineVtt(timeline),/¬C ∧ D/);
 });
