@@ -1,6 +1,6 @@
 # 명제 추론의 HTML 재생 미리보기
 
-모바일 웹과 별개인 9:16 재생은 `/shorts.html`, 세 화면 iframe 비교는 `/preview.html`에서 확인한다. 세로 재생은 같은 proof/timeline의 소개→증명 행→결과를 사용하며, 제목·보조 설명은 위아래에 배치한다. 중앙에 필수 전제·규칙·결과·해석의 범위를 표시한다. `window.__atlasShorts`는 `getState/setState/reset/seek/play/pause`를 제공한다. 자세한 상태/축소/독립 조작 계약은 [ADR 0005](adr/0005-portrait-and-iframe-preview.md)를 참조한다.
+모바일 웹과 별개인 3:4 재생은 `/shorts.html`, 세 화면 iframe 비교는 `/preview.html`에서 확인한다. 세로 재생은 같은 proof/timeline의 소개→증명 행→결과를 사용하며, 제목·보조 설명은 위아래에 배치한다. 중앙에 필수 전제·규칙·결과·해석의 범위를 표시한다. `window.__atlasShorts`는 `getState/setState/reset/seek/play/pause`를 제공한다. 자세한 상태/축소/독립 조작 계약은 [ADR 0005](adr/0005-portrait-and-iframe-preview.md)를 참조한다.
 
 ## 정지 상태에서도 같은 시각적 설명
 

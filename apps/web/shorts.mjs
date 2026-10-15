@@ -11,7 +11,7 @@ let timeMs=0, playing=false, raf, last, cueKey='';
 const content=$('shorts-content'), visual=mountInferenceVisual(content);
 $('shorts-goal').textContent=`목표 ${timeline.goal}`;
 $('shorts-seek').max=timeline.durationMs;
-function fit(){const box=$('shorts-viewport').getBoundingClientRect();$('shorts-stage').style.transform=`scale(${Math.min(box.width/1080,box.height/1920)})`;}
+function fit(){const box=$('shorts-viewport').getBoundingClientRect();$('shorts-stage').style.transform=`scale(${Math.min(box.width/1080,box.height/1440)})`;}
 new ResizeObserver(fit).observe($('shorts-viewport'));fit();
 function render(){
   const frame=shortsFrame(timeline,timeMs),key=`${frame.phase}:${frame.activeLine}`;

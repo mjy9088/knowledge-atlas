@@ -1,7 +1,8 @@
 const cards=[...document.querySelectorAll('.preview-card')];
 function fit(card){
   const shell=card.querySelector('.frame-window'),frame=shell.querySelector('iframe');
-  const scale=Math.min(shell.clientWidth/Number(card.dataset.width),Math.max(280,innerHeight-300)/Number(frame.height),Number(card.dataset.maxScale));
+  const widthScale=shell.clientWidth/Number(card.dataset.width);
+  const scale=card.hasAttribute('data-fill-width')?widthScale:Math.min(widthScale,Math.max(280,innerHeight-300)/Number(frame.height),Number(card.dataset.maxScale));
   frame.style.transform=`scale(${scale})`;frame.style.left=`${(shell.clientWidth-Number(frame.width)*scale)/2}px`;
   shell.style.height=`${Number(frame.height)*scale}px`;card.querySelector('.preview-scale').textContent=`${Math.round(scale*100)}%`;
 }

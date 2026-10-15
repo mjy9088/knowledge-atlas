@@ -135,12 +135,24 @@ async function mountInferenceLab() {
   let lastGoal = '';
   let autoAdvance = true;
   let stepTimer;
-  function stopStepTimer() { clearTimeout(stepTimer); }
+  let stepAnimation;
+  let progressRow;
+  function stopStepTimer() {
+    clearTimeout(stepTimer);
+    stepAnimation?.cancel();
+    progressRow?.classList.remove('progress-running');
+  }
   function scheduleStep() {
     stopStepTimer();
     const finished = activeStep >= (lastProof?.lines.length ?? 0) - 1;
     $('inference-auto').textContent = finished ? '↺ 다시 보기' : autoAdvance ? 'Ⅱ 일시정지' : '▶ 이어 보기';
     if (!autoAdvance || inferenceStale || finished || $('slide-lab').hidden || document.hidden) return;
+    progressRow = $('inference-lines').children[activeStep]?.firstElementChild;
+    if (progressRow) {
+      progressRow.classList.add('progress-running');
+      stepAnimation = progressRow.animate([{backgroundSize:'0% 100%'},{backgroundSize:'100% 100%'}],
+        {duration:2400,fill:'forwards',easing:matchMedia('(prefers-reduced-motion: reduce)').matches?'steps(4,end)':'linear'});
+    }
     stepTimer = setTimeout(() => {focusStep(activeStep + 1); scheduleStep();}, 2400);
   }
   function selectStep(index) { autoAdvance = false; stopStepTimer(); focusStep(index, true); scheduleStep(); }
@@ -153,6 +165,7 @@ async function mountInferenceLab() {
       return;
     }
     for (const button of $('inference-presets').children) button.setAttribute('aria-pressed', 'false');
+    autoAdvance = true;
     runInference();
   }
   function invalidateInput(message) {
@@ -257,6 +270,7 @@ async function mountInferenceLab() {
   }
   function loadPreset(name) {
     const preset = presets[name]; if (!preset) return;
+    autoAdvance = true;
     editor.replaceChildren(); rowNumber = 0; preset.premises.forEach(value => addRow(value)); $('inference-goal').value = displayFormula(preset.goal);
     for (const button of $('inference-presets').children) button.setAttribute('aria-pressed', String(button.dataset.preset === name));
     runInference();
