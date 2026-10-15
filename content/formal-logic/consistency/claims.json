@@ -1,0 +1,36 @@
+[
+  {
+    "id": "claim:logic.consistency.nontrivial",
+    "kind": "formal",
+    "statement": "고전논리의 이론에서 모순을 증명할 수 있으면 폭발에 의해 그 언어의 모든 문장을 도출할 수 있다.",
+    "scope": "일관성은 여기서 이론으로부터 모순을 도출할 수 없다는 성질이다. 폭발을 허용하는 추론 체계에 대한 설명이며, 이 성질만으로 ZFC의 일관성이나 CH 독립성을 증명하지 않는다.",
+    "assumptions": [
+      "고전논리와 폭발 규칙",
+      "고정된 이론과 언어"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:forallx-calgary-2026",
+        "locator": "Chapter 17 §17.8, contradiction and explosion rule X"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:logic.independence.ch",
+    "kind": "formal",
+    "statement": "ZFC가 일관적이면 CH도 ¬CH도 ZFC에서 증명할 수 없다. 이것이 CH가 ZFC로부터 독립이라는 뜻이다.",
+    "scope": "괴델과 코언의 별도 정리를 사용하는 고정된 공리계에 대한 결과다. 폭발 원리 또는 이 웹 실험의 제한된 증명 탐색 실패로부터 독립성을 얻는 것이 아니다.",
+    "assumptions": [
+      "Con(ZFC)",
+      "ZFC + CH 및 ZFC + ¬CH의 상대일관성 정리"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:marks-set-theory-2026",
+        "locator": "§1.1 p.8, conclusion of Gödel/Cohen model constructions and definition of independence"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  }
+]

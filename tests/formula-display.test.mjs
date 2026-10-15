@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {displayFormula, normalizedSelection} from '../apps/web/formula-display.mjs';
+import {displayFormula, normalizedSelection} from '../packages/experiments/formula-display.mjs';
 import {parseFormula, formatFormula} from '../packages/models/propositional.mjs';
 
 test('display aliases preserve parsed meaning and are idempotent', () => {

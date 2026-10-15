@@ -1,0 +1,51 @@
+{
+  "id": "article:set.ch-independence.ko",
+  "conceptId": "concept:set.ch",
+  "title": "연속체 가설과 독립성: 무한의 크기 사이에는?",
+  "reviewStatus": "needs-content-review",
+  "blocks": [
+    {
+      "id": "block:related.ch.question",
+      "text": "무한집합도 원소를 하나씩 짝지을 수 있는지로 크기인 기수를 비교한다. 자연수의 무한보다 실수의 무한이 더 크다. 연속체 가설(CH)은 그 두 기수 사이의 크기를 갖는 집합이 없다는 명제다. 수직선 위 실수 사이의 간격에 관한 주장은 아니다.",
+      "claimRefs": [
+        "claim:set.ch.cardinality"
+      ]
+    },
+    {
+      "id": "block:related.ch.theorems",
+      "text": "괴델과 코언의 결과를 합치면, ZFC가 일관적일 때 CH를 더한 이론과 ¬CH를 더한 이론이 각각 일관적이다. 따라서 ZFC만으로 CH도 그 부정도 증명할 수 없다. 이것이 ‘CH는 ZFC로부터 독립’이라는 뜻이다. 두 결론을 같은 이론에 동시에 추가한다는 뜻은 아니다.",
+      "claimRefs": [
+        "claim:set.ch.relative-consistency",
+        "claim:logic.independence.ch"
+      ]
+    },
+    {
+      "id": "block:related.ch.boundary",
+      "text": "이 결론에는 구성가능 우주와 강제법에 관한 별도의 정리가 쓰인다. 모순 폭발을 한 번 시연하거나 컴퓨터가 증명을 찾지 못한 것만으로 CH의 독립성을 증명할 수는 없다. 여기서는 정리의 조건과 의미를 소개하며 그 정리 전체를 증명하지 않는다.",
+      "claimRefs": [
+        "claim:logic.independence.ch"
+      ]
+    },
+    {
+      "id": "block:related.ch.branches",
+      "text": "Con(ZFC)를 출발 가정으로 포함하면 등록된 괴델·코언의 상대일관성 정리가 각각 CH를 더한 확장과 ¬CH를 더한 확장의 일관성으로 연결됩니다. 서로 다른 두 확장을 비교하는 것이며 한 이론에 CH와 ¬CH를 함께 가정하는 것이 아닙니다.",
+      "claimRefs": [
+        "claim:set.ch.relative-consistency",
+        "claim:logic.independence.ch"
+      ]
+    },
+    {
+      "id": "block:related.ch.metaproof",
+      "text": "CH를 더한 확장이 일관적이라면 ZFC가 ¬CH를 증명할 수 없고, ¬CH를 더한 확장이 일관적이라면 ZFC가 CH를 증명할 수 없습니다. 두 방향을 합친 것이 Ind(CH,ZFC), 즉 ZFC로부터의 CH 독립성입니다. 이 도구는 등록된 정리의 연결을 보여주며 구성가능 우주나 강제법의 증명을 대신하지 않습니다.",
+      "claimRefs": [
+        "claim:set.ch.relative-consistency",
+        "claim:logic.independence.ch"
+      ]
+    }
+  ],
+  "relatedConcepts": [
+    "concept:set.zfc",
+    "concept:logic.independence",
+    "concept:logic.consistency"
+  ]
+}

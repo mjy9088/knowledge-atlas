@@ -1,0 +1,52 @@
+[
+  {
+    "id": "claim:logic.paraconsistent.nonexplosive",
+    "kind": "formal",
+    "statement": "초일관 논리는 모순으로부터 임의의 결론을 도출하는 원리가 일반적으로 성립하지 않는 논리다. 고전논리와 통상적인 직관주의 논리는 폭발을 허용한다.",
+    "scope": "초일관성은 추론 관계의 성질이며 단일한 규칙 체계의 이름이 아니다. 특정 모순에서 아무 결론도 따라오지 않는다는 뜻은 아니다.",
+    "assumptions": [
+      "각 논리의 고정된 추론 관계",
+      "임의의 명제식 A와 B"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:baskent-paraconsistency-2011",
+        "locator": "§1.1 What is Paraconsistency?, PDF p.1"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:logic.paraconsistent.not-dialetheism",
+    "kind": "explanatory",
+    "statement": "초일관 추론 관계를 채택한다는 것과 어떤 모순이 실제로 참이라고 주장한다는 것은 별개다.",
+    "scope": "추론 관계의 비폭발성과 참인 모순을 인정하는 진리관(dialetheism)의 구별. 특정 진리관의 옳고 그름을 결론내리지 않는다.",
+    "assumptions": [
+      "추론 관계와 진리관의 구별"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:sep-paraconsistent-sum2026",
+        "locator": "§1.1 Dialetheism, first two paragraphs; expert-authored overview"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:logic.fde.four-values",
+    "kind": "formal",
+    "statement": "FDE의 ¬·∧·∨ 의미론은 T, F, B, N 네 값을 사용하고 T와 B를 지정값으로 삼는다. 전제가 모두 지정값인데 결론이 비지정값인 평가가 있으면 그 추론은 FDE에서 성립하지 않는다.",
+    "scope": "상수와 조건문이 없는 명제 FDE. 구현은 서로 다른 원자 명제 5개까지 전수 비교한다. 다른 초일관 논리 전체의 의미론으로 일반화하지 않는다.",
+    "assumptions": [
+      "FDE의 네 값과 지정값 보존",
+      "¬, ∧, ∨ 언어"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:sutcliffe-fde-2018",
+        "locator": "§1 Background, p.116, Figure 1 and Table 1; p.117 discussion of FDE without conditional"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  }
+]

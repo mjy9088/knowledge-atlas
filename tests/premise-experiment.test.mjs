@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createPremiseExperiment,evaluateExperimentInput} from '../apps/web/premise-experiment.mjs';
-import {createExplosionEpisode} from '../apps/web/explosion-episode.mjs';
+import {createPremiseExperiment,evaluateExperimentInput} from '../apps/web/components/experiment/premise-editor.mjs';
+import {createExplosionEpisode} from '../packages/projection/explosion.mjs';
 
 test('custom inputs survive scene suggestions; explicit reset adopts the current suggestion',()=>{
   const experiment=createPremiseExperiment({suggestion:{premises:['P','¬P'],goal:'Q'}});

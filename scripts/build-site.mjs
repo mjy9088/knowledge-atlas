@@ -2,29 +2,21 @@ import {readFile,readdir,mkdir,writeFile,rm,lstat} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {RELATED_PAGES,pageURL} from '../content/formal-logic/explosion/related-pages.mjs';
+import {CONTENT_PAGES,pageURL} from '../content/catalog.mjs';
 import {renderRelatedIndex,renderRelatedPage,validateRelatedPages} from '../packages/site/related-site.mjs';
+import {loadContentCatalog} from '../packages/content/load-catalog.mjs';
 export const projectRoot=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 // Reader-facing assets only. Local production tools must be explicitly excluded from publication.
-export const PUBLIC_WEB_FILES=[
-  'index.html','styles.css','stage-layout.css','app.mjs','slide-deck.mjs','proof-scene.mjs',
-  'lesson.html','lesson.css','lesson-page.mjs','lesson-dialogue.mjs',
-  'related-page.css','related-page.mjs','related-reader.mjs',
-  'related-models.mjs','inference-explorer.mjs','reader-panels.mjs','reader-frame.css','evaluation-feedback.mjs',
-  'premise-experiment.mjs','premise-experiment.css','experiment-dialogue.mjs','formula-display.mjs',
-  'inference-visual.mjs','inference-video.mjs','inference-presets.mjs','expanded-timeline.mjs','explosion-episode.mjs',
-  'shorts.html','shorts.css','shorts.mjs','shorts-frame.mjs','preview.html','preview.css','preview.mjs'
-];
+export const PUBLIC_ASSET_ROOTS=['components','pages','styles','topics'];
 const readJSON=async name=>JSON.parse(await readFile(path.join(projectRoot,name),'utf8'));
 export async function loadSiteContent(){
-  const [collection,original,inference,sources]=await Promise.all(['content/formal-logic/explosion/related.json','content/formal-logic/explosion/claims.json','content/formal-logic/explosion/inference-claims.json','sources/registry.json'].map(readJSON));
-  const claims=[...original,...inference,...collection.claims],errors=validateRelatedPages(collection,claims);
+  const {collection,claims,sources}=await loadContentCatalog(readJSON),errors=validateRelatedPages(collection,claims);
   if(sources.some(source=>!source.canonicalUrl?.startsWith('https://')))errors.push('Source links must use HTTPS');
   if(errors.length)throw new Error(errors.join('\n'));
   return {collection,claims,sources};
 }
 export function siteDocuments({collection,claims,sources}){
-  return new Map([['/knowledge/',renderRelatedIndex(collection)],...RELATED_PAGES.map(page=>[pageURL(page),renderRelatedPage(page,collection,claims,sources)])]);
+  return new Map([['/',renderRelatedIndex(collection)],['/knowledge/',renderRelatedIndex(collection)],...CONTENT_PAGES.map(page=>[pageURL(page),renderRelatedPage(page,collection,claims,sources)])]);
 }
 // Fixed, workspace-contained destination. Never accept an arbitrary recursive-delete target.
 export async function buildSite(){
@@ -46,15 +38,16 @@ export async function buildSite(){
       }
     }
   }
-  for(const file of PUBLIC_WEB_FILES)await emit(file,await readFile(path.join(root,'apps/web',file)));
-  for(const dir of ['content','knowledge','sources','packages/models'])await copyTree(dir,dir,['.json','.mjs']);
+  for(const dir of PUBLIC_ASSET_ROOTS)await copyTree('apps/web/'+dir,dir,['.mjs','.css']);
+  await emit('lesson.html',await readFile(path.join(root,'apps/web/pages/lesson/index.html')));
+  for(const dir of ['content','knowledge','sources','packages/models','packages/experiments','packages/projection','packages/content'])await copyTree(dir,dir,['.json','.mjs']);
   for(const [url,html]of siteDocuments(content))await emit(url.slice(1)+'index.html',html);
-  const pages=['/','/lesson.html',...siteDocuments(content).keys()];
+  const pages=[...new Set(['/','/lesson.html',...siteDocuments(content).keys()])];
   await emit('404.html','<!doctype html><html lang="ko"><meta charset="utf-8"><title>페이지를 찾지 못했습니다</title><h1>페이지를 찾지 못했습니다</h1><a href="/knowledge/">지식 목록으로</a></html>');
   files.sort((a,b)=>a.path.localeCompare(b.path));
   const buildInputs=[];
   for(const file of ['package.json','scripts/build-site.mjs','packages/site/related-site.mjs'])buildInputs.push({path:file,sha256:createHash('sha256').update(await readFile(path.join(root,file))).digest('hex')});
-  const manifest={schemaVersion:1,kind:'static-review-build',published:false,sourceSnapshotVerified:content.collection.sourceSnapshotVerified,reviewStatus:content.collection.reviewStatus,pages,articles:RELATED_PAGES.map(p=>({articleId:p.articleId,url:pageURL(p)})),sources:content.sources.map(s=>({id:s.id,contentHash:s.contentHash,rightsReview:s.rightsReview})),buildInputs,files};
+  const manifest={schemaVersion:1,kind:'static-review-build',published:false,sourceSnapshotVerified:content.collection.sourceSnapshotVerified,reviewStatus:content.collection.reviewStatus,pages,articles:CONTENT_PAGES.map(p=>({articleId:p.articleId,url:pageURL(p)})),sources:content.sources.map(s=>({id:s.id,contentHash:s.contentHash,rightsReview:s.rightsReview})),buildInputs,files};
   await writeFile(path.join(output,'build-manifest.json'),JSON.stringify(manifest,null,2)+'\n');
   return {output,manifest};
 }

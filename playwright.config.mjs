@@ -12,12 +12,17 @@ export default defineConfig({
     screenshot: 'only-on-failure',
     trace: 'retain-on-failure',
   },
-  webServer: {
+  webServer: [{
     command: 'node scripts/build-site.mjs && node scripts/serve-static.mjs',
     url: 'http://127.0.0.1:4190/lesson.html',
     env: {PORT: '4190'},
     reuseExistingServer: false,
-  },
+  },{
+    command: 'node scripts/dev-server.mjs',
+    url: 'http://127.0.0.1:4191/tools/media/',
+    env: {PORT:'4191'},
+    reuseExistingServer: false,
+  }],
   projects: [
     {name: 'fhd', use: {viewport: {width: 1920, height: 1080}}},
     {name: 'desktop', use: {viewport: {width: 1920, height: 940}}},

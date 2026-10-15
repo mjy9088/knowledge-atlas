@@ -1,0 +1,51 @@
+[
+  {
+    "id": "claim:set.zfc.axioms",
+    "kind": "explanatory",
+    "statement": "ZFC는 집합과 원소 관계를 다루는 체르멜로–프렝켈 집합론에 선택공리를 더한 공리계다.",
+    "scope": "이름과 기초 역할의 소개. 개별 공리 전체나 ZFC의 일관성을 증명하는 설명은 아니다.",
+    "assumptions": [
+      "통상적인 1차 집합론 언어"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:marks-set-theory-2026",
+        "locator": "§1 pp.5–6; §2 The axioms of ZFC pp.10–13"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:set.relations.membership",
+    "kind": "formal",
+    "statement": "X ∈ A와 A ⊆ B이면 X ∈ B이다. A ⊆ B와 B ⊆ C이면 A ⊆ C이다. ∈와 ⊆는 서로 다른 관계다.",
+    "scope": "통상적인 집합론의 부분집합 정의를 사용하는 개별 추론. ZFC의 전체 공리나 일관성을 계산하는 모형이 아니다.",
+    "assumptions": [
+      "A ⊆ B의 정의 ∀x(x ∈ A → x ∈ B)"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:marks-set-theory-2026",
+        "locator": "§1 printed p.4, subset notation; §2 printed p.10, subset abbreviation"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:set.relations.extensionality",
+    "kind": "formal",
+    "statement": "집합 A와 B가 서로의 부분집합이면 같은 원소를 가지므로 외연성에 의해 A = B이다.",
+    "scope": "집합에 대한 외연성 공리의 적용. 원소 하나의 소속만으로 집합 전체의 같음을 결론내리지 않는다.",
+    "assumptions": [
+      "집합의 외연성",
+      "A ⊆ B 및 B ⊆ A"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:marks-set-theory-2026",
+        "locator": "§2 printed p.10, axiom of extensionality"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  }
+]

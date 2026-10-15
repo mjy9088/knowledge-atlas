@@ -3,14 +3,14 @@ import assert from 'node:assert/strict';
 import {readFile,stat} from 'node:fs/promises';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
-import {RELATED_PAGES,sceneText} from '../content/formal-logic/explosion/related-pages.mjs';
+import {CONTENT_PAGES,sceneText} from '../content/catalog.mjs';
 import {loadSiteContent,siteDocuments,buildSite} from '../scripts/build-site.mjs';
 import {validateRelatedPages,escapeHTML} from '../packages/site/related-site.mjs';
-import {createRelatedReader} from '../apps/web/related-reader.mjs';
+import {createRelatedReader} from '../apps/web/components/reader/state.mjs';
 
 test('related scenes preserve every source sentence, claim reference and review boundary',async()=>{
   const data=await loadSiteContent();assert.deepEqual(validateRelatedPages(data.collection,data.claims),[]);
-  for(const page of RELATED_PAGES){
+  for(const page of CONTENT_PAGES){
     const article=data.collection.articles.find(a=>a.id===page.articleId);
     article.blocks.forEach((block,i)=>assert.equal(page.scenes.filter(s=>s.block===i).map(s=>sceneText(article,s)).join(' '),block.text));
   }
@@ -19,8 +19,8 @@ test('related scenes preserve every source sentence, claim reference and review 
 });
 test('pre-rendered pages contain complete readable prose and escaped evidence without running JavaScript',async()=>{
   const data=await loadSiteContent(),docs=siteDocuments(data);
-  assert.equal(docs.size,5);
-  for(const page of RELATED_PAGES){
+  assert.equal(docs.size,6);
+  for(const page of CONTENT_PAGES){
     const html=docs.get(`/knowledge/${page.slug}/`),article=data.collection.articles.find(a=>a.id===page.articleId);
     for(const scene of page.scenes)assert.ok(html.includes(escapeHTML(sceneText(article,scene))));
     assert.ok(html.includes('주장별 조건과 근거 위치'));assert.ok(html.includes('공개는 대기 중'));
@@ -31,7 +31,7 @@ test('pre-rendered pages contain complete readable prose and escaped evidence wi
   assert.ok(html.includes('&lt;script&gt;'));assert.ok(!html.includes('<script>alert'));
 });
 test('reader supports direct jumps, detached states, reset and rejection without mutation',()=>{
-  for(const page of RELATED_PAGES){
+  for(const page of CONTENT_PAGES){
     const reader=createRelatedReader(page),initial=reader.getState(),last=page.scenes.length-1;reader.setState({sceneId:page.scenes[last].id});
     reader.next();assert.equal(reader.inspect().index,last);reader.previous();assert.equal(reader.inspect().index,last-1);
     const detached=reader.inspect();detached.scene.cards[0]='changed';assert.notEqual(reader.inspect().scene.cards[0],'changed');

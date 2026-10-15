@@ -1,0 +1,43 @@
+{
+  "id": "article:set.zfc.ko",
+  "conceptId": "concept:set.zfc",
+  "title": "ZFC: 집합에 관해 무엇을 가정하는가?",
+  "reviewStatus": "needs-content-review",
+  "blocks": [
+    {
+      "id": "block:related.zfc.definition",
+      "text": "집합론은 원소가 집합에 속한다는 관계를 다룬다. ZFC는 집합에 관한 출발 가정인 공리들을 정한 체계로, 체르멜로–프렝켈 집합론(ZF)에 선택공리(C)를 더한 것이다. 공리에서 무엇을 증명할 수 있는지와, 공리를 더했을 때 무엇이 달라지는지를 구별해서 살핀다.",
+      "claimRefs": [
+        "claim:set.zfc.axioms"
+      ]
+    },
+    {
+      "id": "block:related.zfc.consistency",
+      "text": "Con(ZFC)는 ‘ZFC에서 모순을 증명할 수 없다’는 일관성 조건을 줄여 쓴 것이다. ZFC를 고전논리로 다루므로, 만일 모순이 증명된다면 CH와 ¬CH를 포함한 모든 문장이 도출된다. 따라서 CH의 독립성을 설명할 때 일관성 조건을 빼면 안 된다.",
+      "claimRefs": [
+        "claim:logic.consistency.nontrivial",
+        "claim:logic.independence.ch"
+      ]
+    },
+    {
+      "id": "block:related.zfc.membership",
+      "text": "X ∈ A는 X가 A의 원소라는 뜻이고, A ⊆ B는 A의 모든 원소가 B에도 속한다는 뜻입니다. 그래서 X ∈ A와 A ⊆ B를 함께 쓰면 X ∈ B를 얻습니다. A ⊆ B만으로 B ⊆ A를 얻을 수는 없습니다.",
+      "claimRefs": [
+        "claim:set.relations.membership"
+      ]
+    },
+    {
+      "id": "block:related.zfc.extensionality",
+      "text": "A ⊆ B와 B ⊆ A가 모두 있으면 두 집합은 같은 원소를 가집니다. 외연성 공리는 이때 A = B임을 말합니다. 아래 도표는 이 관계의 추론을 다루며 ZFC 전체의 공리를 구현하거나 일관성을 판정하지 않습니다.",
+      "claimRefs": [
+        "claim:set.relations.extensionality",
+        "claim:set.zfc.axioms"
+      ]
+    }
+  ],
+  "relatedConcepts": [
+    "concept:logic.consistency",
+    "concept:set.ch",
+    "concept:logic.independence"
+  ]
+}

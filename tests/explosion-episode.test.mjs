@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createExplosionEpisode} from '../apps/web/explosion-episode.mjs';
-import {frameAt,timelineVtt} from '../apps/web/inference-video.mjs';
-import {renderPlan} from '../apps/web/video-renderer.mjs';
+import {createExplosionEpisode} from '../packages/projection/explosion.mjs';
+import {frameAt,timelineVtt} from '../packages/projection/timeline.mjs';
+import {renderPlan} from '../tools/media/renderer.mjs';
 import {deriveProof} from '../packages/models/propositional.mjs';
 
 test('focused episode keeps question, Q/R/S comparison and removed premise in deterministic snapshots',()=>{

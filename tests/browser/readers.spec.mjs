@@ -1,5 +1,5 @@
 import {test, expect} from '@playwright/test';
-import {RELATED_PAGES} from '../../content/formal-logic/explosion/related-pages.mjs';
+import {CONTENT_PAGES} from '../../content/catalog.mjs';
 import {EXPLOSION_EPISODE} from '../../content/formal-logic/explosion/episode.mjs';
 
 // Measure content, not just CSS overflow:hidden: clipped scroll containers fail too.
@@ -40,7 +40,7 @@ const lessonFrame = {
   controls: ['.dialogue-actions button', '.experiment-goal', '#lesson-menu-open'],
 };
 
-for (const reader of RELATED_PAGES) test(`${reader.slug}: every scene and rule example fits`, async ({page}, testInfo) => {
+for (const reader of CONTENT_PAGES) test(`${reader.slug}: every scene and rule example fits`, async ({page}, testInfo) => {
   await page.goto(`/knowledge/${reader.slug}/`);
   await page.waitForFunction(() => window.__atlasRelated);
   for (let index = 0; index < reader.scenes.length; index++) {
@@ -84,6 +84,8 @@ test('desktop knowledge index fits with accessible topic cards', async ({page}, 
 test('lesson: every explanation fits and keyboard navigation works', async ({page}) => {
   await page.goto('/lesson.html');
   await page.waitForFunction(() => window.__atlasLesson);
+  await expect(page.locator('.lesson-claim').first()).toBeAttached();
+  await expect(page.locator('#lesson-error')).toBeEmpty();
   for (let index = 0; index < EXPLOSION_EPISODE.sections.length; index++) {
     await expect.poll(() => page.evaluate(() => window.__atlasLesson.getState().sectionId)).toBe(EXPLOSION_EPISODE.sections[index].id);
     await test.step(EXPLOSION_EPISODE.sections[index].id, () => expectFrame(page, lessonFrame));
@@ -94,6 +96,43 @@ test('lesson: every explanation fits and keyboard navigation works', async ({pag
   await expect.poll(() => page.evaluate(() => window.__atlasLesson.getState().sectionId)).toBe('consistency');
   await page.keyboard.press('ArrowRight');
   await expect.poll(() => page.evaluate(() => window.__atlasLesson.getState().sectionId)).toBe('summary');
+});
+
+test('home opens the knowledge catalog and links to an interactive article',async({page})=>{
+  await page.goto('/');
+  await expect(page.locator('.knowledge-card')).toHaveCount(CONTENT_PAGES.length);
+  await page.locator('a.knowledge-card[href="/knowledge/zfc/"]').click();
+  await page.waitForFunction(()=>window.__atlasRelated);
+  await expect(page.locator('#reader-controls')).toBeVisible();
+  await expectFrame(page,relatedFrame);
+});
+
+test('local media tool loads its moved dependencies and draws the selected projection',async({page})=>{
+  const errors=[];page.on('pageerror',error=>errors.push(error.message));
+  await page.goto('http://127.0.0.1:4191/tools/media/');
+  await expect(page.locator('#render-plan')).toContainText('134.0초 · 1080×1440 · 4020프레임');
+  await expect(page.locator('#render-caption')).toContainText('0.0초');
+  await page.locator('#render-format').selectOption('landscape');
+  await expect(page.locator('#render-canvas')).toHaveAttribute('width','1920');
+  await expect(page.locator('#render-canvas')).toHaveAttribute('height','1080');
+  await page.locator('#render-seek').evaluate(input=>{input.value='64000';input.dispatchEvent(new Event('input',{bubbles:true}));});
+  await expect(page.locator('#render-caption')).toContainText('64.0초');
+  expect(errors).toEqual([]);
+});
+
+test('an article can read and restore scenes without installing an experiment adapter',async({page})=>{
+  const data={...CONTENT_PAGES.find(p=>p.slug==='zfc'),model:null};
+  await page.route('**/content/catalog.mjs',route=>route.fulfill({contentType:'text/javascript',body:`export const CONTENT_PAGES=${JSON.stringify([data])};`}));
+  await page.goto('/knowledge/zfc/');await page.waitForFunction(()=>window.__atlasRelated);
+  await expect(page.locator('.reader-scene:visible .concept-diagram')).toBeVisible();
+  await expectFrame(page,{content:['.reader-scene:not([hidden]) .concept-diagram','.reader-scene:not([hidden]) .reader-copy'],controls:['#reader-controls button','.reader-menu summary']});
+  await page.locator('#reader-next').click();
+  const state=await page.evaluate(()=>window.__atlasRelated.getState());
+  expect(state).toEqual({sceneId:'axioms'});
+  await page.evaluate(()=>window.__atlasRelated.reset());
+  await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id','sets');
+  await page.evaluate(state=>window.__atlasRelated.setState(state),state);
+  await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id','axioms');
 });
 
 test('edited inputs invalidate dialogue and proof, survive navigation, and reset', async ({page}) => {
@@ -168,7 +207,7 @@ test('lesson keeps its topic while an inapplicable explanation is disabled',asyn
 test('availability feedback supports non-logic content and deterministic restoration',async({page})=>{
   await page.goto('/knowledge/');
   const results=await page.evaluate(async()=>{
-    const {mountEvaluationFeedback}=await import('/evaluation-feedback.mjs');
+    const {mountEvaluationFeedback}=await import('/components/reader/evaluation-feedback.mjs');
     const content=document.createElement('section'),message=document.createElement('p');
     content.textContent='Measurement details';document.body.append(content,message);
     const component=mountEvaluationFeedback({content,message});

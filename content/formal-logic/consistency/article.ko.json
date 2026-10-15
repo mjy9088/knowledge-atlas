@@ -1,0 +1,28 @@
+{
+  "id": "article:logic.consistency.ko",
+  "conceptId": "concept:logic.consistency",
+  "title": "일관성: 왜 모순 하나가 중요한가?",
+  "reviewStatus": "needs-content-review",
+  "blocks": [
+    {
+      "id": "block:related.consistency.definition",
+      "text": "이론은 공리와 허용된 추론 규칙으로 이루어진다. 여기서 일관성은 그 이론으로부터 모순을 증명할 수 없다는 성질이다. 고전논리에서 모순을 얻으면 폭발 규칙으로 Q뿐 아니라 ¬Q도 도출할 수 있다. 그때는 ‘이 이론에서 증명된다’는 기준으로 문장들을 구별할 수 없게 된다.",
+      "claimRefs": [
+        "claim:logic.consistency.nontrivial"
+      ]
+    },
+    {
+      "id": "block:related.consistency.boundary",
+      "text": "이것은 일관성이 왜 필요한지 설명한다. 어떤 특정 공리계가 실제로 일관적인지까지 보여주지는 않는다. 특히 ZFC의 일관성이나 연속체 가설의 독립성에는 별도의 수학적 논증이 필요하다.",
+      "claimRefs": [
+        "claim:logic.consistency.nontrivial",
+        "claim:logic.independence.ch"
+      ]
+    }
+  ],
+  "relatedConcepts": [
+    "concept:logic.explosion",
+    "concept:set.zfc",
+    "concept:logic.paraconsistent"
+  ]
+}

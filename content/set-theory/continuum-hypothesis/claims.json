@@ -1,0 +1,44 @@
+[
+  {
+    "id": "claim:set.ch.cardinality",
+    "kind": "formal",
+    "statement": "집합의 크기(기수)는 일대일 대응으로 비교한다. 자연수 집합보다 실수 집합의 기수가 크며, 연속체 가설(CH)은 그 사이의 기수를 갖는 집합이 없다는 명제다.",
+    "scope": "선택공리를 사용하는 통상적인 ZFC 맥락에서 CH는 2^ℵ₀ = ℵ₁로 쓸 수 있다. 실수 사이에 다른 실수가 없다는 뜻이 아니다.",
+    "assumptions": [
+      "집합의 기수 비교",
+      "ZFC 맥락"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:feferman-bernays-2012",
+        "locator": "Slides 8–12: Cantor’s Analysis of How Many, Countable Sets, The Continuum is Uncountable, Cantor’s Continuum Hypothesis"
+      },
+      {
+        "sourceId": "source:marks-set-theory-2026",
+        "locator": "§11 p.49, CH: 2^ℵ₀ = ℵ₁"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:set.ch.relative-consistency",
+    "kind": "formal",
+    "statement": "ZFC가 일관적이라고 가정하면 ZFC + CH와 ZFC + ¬CH가 각각 일관적이라는 괴델과 코언의 결과가 있다.",
+    "scope": "메타이론에서의 상대일관성 정리 요약. 두 확장을 한 이론에 동시에 넣는다는 뜻이 아니며 ZFC 자체의 일관성을 무조건 증명한 것도 아니다.",
+    "assumptions": [
+      "Con(ZFC)",
+      "괴델의 구성가능 우주 결과와 코언의 강제법 결과"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:marks-set-theory-2026",
+        "locator": "§1.1 p.8, Gödel’s inner model and Cohen’s forcing; §§20–21 and 26 give further development"
+      },
+      {
+        "sourceId": "source:feferman-bernays-2012",
+        "locator": "Slide 15 The Relative Consistency of CH, stronger ZF-relative version of Gödel’s direction"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  }
+]

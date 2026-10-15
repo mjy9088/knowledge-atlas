@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createPremiseExperiment} from '../apps/web/premise-experiment.mjs';
-import {describeExperiment} from '../apps/web/experiment-dialogue.mjs';
+import {createPremiseExperiment} from '../apps/web/components/experiment/premise-editor.mjs';
+import {describeExperiment} from '../apps/web/topics/formal-reasoning/dialogue.mjs';
 import {EXPLOSION_EPISODE} from '../content/formal-logic/explosion/episode.mjs';
 const inspect=input=>createPremiseExperiment({suggestion:input}).inspect();
 

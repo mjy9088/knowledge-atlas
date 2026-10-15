@@ -1,0 +1,49 @@
+{
+  "id": "article:logic.paraconsistent.ko",
+  "conceptId": "concept:logic.paraconsistent",
+  "title": "초일관 논리: 모순이 있어도 모든 결론은 나오지 않게",
+  "reviewStatus": "needs-content-review",
+  "blocks": [
+    {
+      "id": "block:related.paraconsistent.definition",
+      "text": "모순 폭발은 모든 논리에 공통인 법칙은 아니다. 초일관 논리는 A와 ¬A에서 임의의 B를 얻는 추론이 일반적으로 성립하지 않도록 하는 논리 계열이다. 반대로 통상적인 직관주의 논리도 폭발을 허용하므로, ‘고전논리가 아니면 폭발도 없다’고 말할 수는 없다.",
+      "claimRefs": [
+        "claim:logic.paraconsistent.nonexplosive"
+      ]
+    },
+    {
+      "id": "block:related.paraconsistent.truth",
+      "text": "초일관성은 어떤 추론을 허용할지에 대한 성질이다. 이를 채택한다고 곧바로 ‘현실의 모순도 참이다’라고 주장하는 것은 아니다. 또한 초일관 논리마다 규칙이 다르므로, 고전논리에서 쓰던 규칙을 그대로 적용해도 된다고 가정해서는 안 된다.",
+      "claimRefs": [
+        "claim:logic.paraconsistent.not-dialetheism",
+        "claim:logic.paraconsistent.nonexplosive"
+      ]
+    },
+    {
+      "id": "block:related.fde.values",
+      "text": "여기서는 초일관 논리의 한 예인 FDE를 사용합니다. 기호마다 참 쪽만 있는 T, 거짓 쪽만 있는 F, 양쪽 모두 있는 B, 어느 쪽도 없는 N을 구분합니다. 부정은 참 쪽과 거짓 쪽을 맞바꾸므로 B의 부정은 다시 B입니다.",
+      "claimRefs": [
+        "claim:logic.fde.four-values"
+      ]
+    },
+    {
+      "id": "block:related.fde.counterexample",
+      "text": "FDE에서 T와 B는 지정값입니다. 전제들이 모두 지정값인데 목표가 지정값이 아닌 평가 하나를 찾으면 추론이 성립하지 않음을 보여줍니다. 명제 P의 값을 B(양쪽 모두), 명제 Q의 값을 N(어느 쪽도 아님)으로 두면 P와 ¬P는 지정값이어도 목표 Q는 비지정값입니다.",
+      "claimRefs": [
+        "claim:logic.fde.four-values"
+      ]
+    },
+    {
+      "id": "block:related.fde.rules",
+      "text": "모순 폭발이 없다고 모든 추론을 버리는 것은 아닙니다. A ∧ B에서 A를 얻거나 A에서 A ∨ B를 얻는 추론은 이 네 값의 의미론에서도 지정값을 보존합니다. 이 예시는 ¬·∧·∨만 지원하며 고전 조건문 규칙을 그대로 적용하지 않습니다.",
+      "claimRefs": [
+        "claim:logic.fde.four-values"
+      ]
+    }
+  ],
+  "relatedConcepts": [
+    "concept:logic.explosion",
+    "concept:logic.classical",
+    "concept:logic.consistency"
+  ]
+}

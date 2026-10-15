@@ -5,7 +5,7 @@ import projection from '../content/formal-logic/explosion/projection.json' with 
 import sceneContract from '../content/formal-logic/explosion/scenes/proof.json' with {type: 'json'};
 import {
   createProofScene, INITIAL_STATE, SCENE_ID, PROOF_TIMELINE, PROOF_DURATION_MS,
-} from '../apps/web/proof-scene.mjs';
+} from '../apps/web/topics/formal-reasoning/proof-scene.mjs';
 
 test('scene initializes from the existing scene contract and exposes stable semantic elements', () => {
   const scene = createProofScene();

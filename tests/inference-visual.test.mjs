@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {deriveProof} from '../packages/models/propositional.mjs';
-import {visualForStep} from '../apps/web/inference-visual.mjs';
+import {visualForStep} from '../apps/web/components/inference/visual.mjs';
 
 test('static derivation diagram preserves model dependencies and current formula',()=>{
   const premises=['A','A -> B'],goal='B',proof=deriveProof({premises,goal});

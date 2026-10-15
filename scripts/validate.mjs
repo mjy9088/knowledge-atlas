@@ -3,9 +3,10 @@ import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 import {deriveExplosion} from '../packages/models/explosion.mjs';
 import {EXPLOSION_EPISODE} from '../content/formal-logic/explosion/episode.mjs';
-import {EXPERIMENT_RULE_CLAIMS} from '../apps/web/experiment-dialogue.mjs';
+import {EXPERIMENT_RULE_CLAIMS} from '../apps/web/topics/formal-reasoning/dialogue.mjs';
 import {LESSON} from '../content/formal-logic/explosion/lesson.mjs';
 import {validateRelatedPages} from '../packages/site/related-site.mjs';
+import {loadContentCatalog} from '../packages/content/load-catalog.mjs';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const read=p=>JSON.parse(readFileSync(path.join(root,p),'utf8'));
@@ -13,8 +14,7 @@ const errors=[];
 function need(ok,message){if(!ok)errors.push(message);}
 function uniq(arr,label){const ids=arr.map(x=>typeof x==='string'?x:x.id); need(new Set(ids).size===ids.length,`duplicate IDs: ${label}`);}
 const sources=read('sources/registry.json'),concepts=read('knowledge/concepts.json'),relations=read('knowledge/relations.json');
-const related=read('content/formal-logic/explosion/related.json');
-const claims=[...related.claims,...read('content/formal-logic/explosion/claims.json'),...read('content/formal-logic/explosion/inference-claims.json')];
+const {collection:related,claims}=await loadContentCatalog(async name=>read(name));
 for(const error of validateRelatedPages(related,claims))need(false,error);
 const inference=read('content/formal-logic/explosion/inference.json');
 const content=read('content/formal-logic/explosion/content.json');

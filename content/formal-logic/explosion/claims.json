@@ -48,5 +48,22 @@
       }
     ],
     "reviewStatus": "needs-content-review"
+  },
+  {
+    "id": "claim:logic.classical.contradiction-unsatisfiable",
+    "kind": "formal",
+    "statement": "고전 이가 진리값 해석에서는 한 문장 P와 그 부정 ¬P를 동시에 참으로 만드는 해석이 없다.",
+    "scope": "고전 명제논리의 의미론. 초일관 논리의 모든 의미론에 일반화하지 않는다.",
+    "assumptions": [
+      "고전 이가 진리값 해석",
+      "같은 P와 그 부정"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:forallx-calgary-2026",
+        "locator": "Chapter 17 §17.8, final paragraphs: valuation, contradiction, and explosion"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
   }
 ]
