@@ -1,0 +1,64 @@
+[
+  {
+    "from": "concept:logic.contradiction",
+    "to": "concept:logic.explosion",
+    "type": "usedInExplanationOf",
+    "context": "Contradiction supplies the antecedent for explosion",
+    "status": "proposed",
+    "sourceRefs": [
+      "source:forallx-calgary-2026"
+    ]
+  },
+  {
+    "from": "concept:logic.explosion",
+    "to": "concept:logic.consistency",
+    "type": "contrastsWith",
+    "context": "Why inconsistency matters to provability",
+    "status": "proposed",
+    "sourceRefs": [
+      "source:forallx-calgary-2026"
+    ]
+  },
+  {
+    "from": "concept:logic.explosion",
+    "to": "concept:logic.classical",
+    "type": "appliesTo",
+    "context": "Conventional classical natural deduction",
+    "status": "proposed",
+    "sourceRefs": [
+      "source:forallx-calgary-2026"
+    ]
+  },
+  {
+    "from": "concept:logic.explosion",
+    "to": "concept:logic.paraconsistent",
+    "type": "contrastsWith",
+    "context": "Some logics reject unrestricted explosion",
+    "status": "needs-independent-source",
+    "sourceRefs": []
+  },
+  {
+    "from": "concept:logic.consistency",
+    "to": "concept:set.zfc",
+    "type": "appliesTo",
+    "context": "Con(ZFC) condition; future content",
+    "status": "needs-independent-source",
+    "sourceRefs": []
+  },
+  {
+    "from": "concept:set.zfc",
+    "to": "concept:set.ch",
+    "type": "mentions",
+    "context": "ZFC and CH independence; future content",
+    "status": "needs-independent-source",
+    "sourceRefs": []
+  },
+  {
+    "from": "concept:set.ch",
+    "to": "concept:logic.independence",
+    "type": "usedInExplanationOf",
+    "context": "Future independence content",
+    "status": "needs-independent-source",
+    "sourceRefs": []
+  }
+]

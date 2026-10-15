@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/knowledge-atlas/source.schema.json",
+  "title": "source",
+  "type": "object",
+  "required": [
+    "id",
+    "title",
+    "canonicalUrl",
+    "providerRevision",
+    "retrievedAt",
+    "license",
+    "rightsReview"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "canonicalUrl": {
+      "type": "string",
+      "format": "uri"
+    },
+    "providerRevision": {
+      "type": "string",
+      "minLength": 1
+    },
+    "retrievedAt": {
+      "type": "string",
+      "minLength": 1
+    },
+    "license": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rightsReview": {
+      "type": "string",
+      "minLength": 1
+    },
+    "contentHash": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

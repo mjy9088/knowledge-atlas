@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/knowledge-atlas/projection.schema.json",
+  "title": "projection",
+  "type": "object",
+  "required": [
+    "id",
+    "sourceExperienceId",
+    "type",
+    "status",
+    "format",
+    "segments"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sourceExperienceId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "minLength": 1
+    },
+    "format": {
+      "type": "object",
+      "required": [
+        "width",
+        "height",
+        "fps"
+      ]
+    },
+    "segments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "startMs",
+          "durationMs",
+          "sceneRef",
+          "state"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "startMs": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "durationMs": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "sceneRef": {
+            "type": "string",
+            "minLength": 1
+          },
+          "narrationRef": {
+            "type": "string",
+            "minLength": 1
+          },
+          "state": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,19 @@
+{
+  "name": "knowledge-atlas-bootstrap",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Source-grounded interactive knowledge atlas; web canonical, video projection",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "node scripts/dev-server.mjs",
+    "validate": "node scripts/validate.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "storyboard": "node scripts/storyboard.mjs",
+    "release:check": "node scripts/release-check.mjs",
+    "check": "npm run validate && npm test",
+    "impact": "node scripts/impact.mjs"
+  }
+}

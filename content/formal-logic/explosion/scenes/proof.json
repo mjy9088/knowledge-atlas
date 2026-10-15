@@ -1,0 +1,47 @@
+{
+  "id": "scene:logic.explosion.proof",
+  "modelRef": "model:logic.explosion",
+  "title": "전제와 임의 결론",
+  "description": "두 전제를 조작해 모순 폭발 추론 경로의 유무를 확인",
+  "claimRefs": [
+    "claim:logic.explosion.rule",
+    "claim:logic.explosion.from_pair"
+  ],
+  "initialState": {
+    "hasP": true,
+    "hasNotP": true,
+    "conclusion": "Q"
+  },
+  "constraints": {
+    "conclusion": [
+      "Q",
+      "R",
+      "S"
+    ]
+  },
+  "semanticElements": [
+    "premise-p",
+    "premise-not-p",
+    "derived-contradiction",
+    "derived-conclusion",
+    "proof-status"
+  ],
+  "accessibilityFallback": "P와 ¬P가 모두 주어질 때 모순 ⊥을 도출하고, 폭발 규칙을 통해 Q, R, S 중 임의의 결론을 얻는다. 전제를 제거하면 이 경로는 성립하지 않는다.",
+  "previewStates": [
+    {
+      "hasP": true,
+      "hasNotP": true,
+      "conclusion": "Q"
+    },
+    {
+      "hasP": true,
+      "hasNotP": false,
+      "conclusion": "Q"
+    },
+    {
+      "hasP": true,
+      "hasNotP": true,
+      "conclusion": "R"
+    }
+  ]
+}

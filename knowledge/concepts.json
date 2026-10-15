@@ -1,0 +1,65 @@
+[
+  {
+    "id": "concept:logic.explosion",
+    "title": "모순 폭발",
+    "summary": "모순에서 임의의 명제가 도출되는 추론 규칙/현상",
+    "reviewStatus": "proposed",
+    "externalIds": []
+  },
+  {
+    "id": "concept:logic.contradiction",
+    "title": "모순",
+    "summary": "명제와 그 부정이 동시에 전제로서 주어지는 경우 등",
+    "reviewStatus": "proposed",
+    "externalIds": []
+  },
+  {
+    "id": "concept:logic.consistency",
+    "title": "일관성",
+    "summary": "특정 공리계나 전제 집합에서 모순이 증명되지 않는 성질",
+    "reviewStatus": "proposed",
+    "externalIds": []
+  },
+  {
+    "id": "concept:logic.proof",
+    "title": "증명",
+    "summary": "허용한 규칙에 따라 전제에서 결론을 유도하는 과정",
+    "reviewStatus": "proposed",
+    "externalIds": []
+  },
+  {
+    "id": "concept:logic.classical",
+    "title": "고전논리",
+    "summary": "고전적인 추론 원리를 채택하는 논리",
+    "reviewStatus": "proposed",
+    "externalIds": []
+  },
+  {
+    "id": "concept:logic.paraconsistent",
+    "title": "초일관 논리",
+    "summary": "모순을 허용하면서 폭발을 일반적으로 허용하지 않는 논리 계열",
+    "reviewStatus": "proposed",
+    "externalIds": []
+  },
+  {
+    "id": "concept:set.zfc",
+    "title": "ZFC",
+    "summary": "선택공리를 포함한 체르멜로-프렝켈 집합론",
+    "reviewStatus": "proposed",
+    "externalIds": []
+  },
+  {
+    "id": "concept:set.ch",
+    "title": "연속체 가설",
+    "summary": "무한집합의 크기에 관한 독립성 논의의 대표적인 명제",
+    "reviewStatus": "proposed",
+    "externalIds": []
+  },
+  {
+    "id": "concept:logic.independence",
+    "title": "독립성",
+    "summary": "고정된 이론 안에서 문장도 그 부정도 증명할 수 없는 성질",
+    "reviewStatus": "proposed",
+    "externalIds": []
+  }
+]

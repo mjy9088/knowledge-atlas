@@ -1,0 +1,17 @@
+import {readFileSync} from 'node:fs';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const read=p=>JSON.parse(readFileSync(path.join(root,p),'utf8'));
+const id=process.argv[2]||'source:forallx-calgary-2026';
+const sources=read('sources/registry.json');
+const claims=read('content/formal-logic/explosion/claims.json');
+const c=read('content/formal-logic/explosion/content.json');
+const scene=read('content/formal-logic/explosion/scenes/proof.json');
+const proj=read('content/formal-logic/explosion/projection.json');
+if(!sources.some(x=>x.id===id)){console.error('Unknown source ID: '+id);process.exit(1)}
+const impactedClaims=claims.filter(x=>x.sourceRefs.some(r=>r.sourceId===id)).map(x=>x.id);
+const impactedBlocks=c.blocks.filter(x=>x.claimRefs.some(id=>impactedClaims.includes(id))).map(x=>x.id);
+const impactedScene=scene.claimRefs.some(x=>impactedClaims.includes(x))?[scene.id]:[];
+const impactedProjection=impactedScene.includes(scene.id)?[proj.id]:[];
+console.log(JSON.stringify({inputSource:id,impactCandidate:{claims:impactedClaims,blocks:impactedBlocks,scenes:impactedScene,projections:impactedProjection},status:'potential-impact-only; no automatic changes or re-approval'},null,2));

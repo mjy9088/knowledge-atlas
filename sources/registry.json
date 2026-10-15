@@ -1,0 +1,31 @@
+[
+  {
+    "id": "source:forallx-calgary-2026",
+    "title": "forall x: Calgary — Chapter 17 Basic rules for TFL",
+    "author": "Aaron Thomas-Bolduc, Richard Zach, and credited contributors",
+    "canonicalUrl": "https://forallx.openlogicproject.org/html/Ch17.html",
+    "bookUrl": "https://forallx.openlogicproject.org/html/",
+    "providerRevision": "c5cb415 (2026-09-27; book revision shown by website)",
+    "retrievedAt": "2026-10-16",
+    "contentHash": null,
+    "license": "CC BY 4.0 (subject to per-asset review and complete attribution)",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "rightsReview": "pending-publication-audit",
+    "snapshotStatus": "reference-only; no verbatim third-party text stored",
+    "note": "The reference URL and book revision are recorded; a byte-exact source snapshot and pinpoint citation range have not been archived yet."
+  },
+  {
+    "id": "source:open-logic-project",
+    "title": "Open Logic Project — License & overview",
+    "author": "The Open Logic Project",
+    "canonicalUrl": "https://openlogicproject.org/olp-license/",
+    "providerRevision": "unfrozen",
+    "retrievedAt": "2026-10-16",
+    "contentHash": null,
+    "license": "CC BY 4.0 where otherwise not noted",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "rightsReview": "metadata-only",
+    "snapshotStatus": "reference-only; no verbatim third-party text stored",
+    "note": "Supplementary candidate, not yet a claim-level citation."
+  }
+]

@@ -1,0 +1,16 @@
+name: contract-and-model-tests
+on:
+  push:
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate source and content references
+        run: npm run validate
+      - name: Run deterministic model tests
+        run: npm test

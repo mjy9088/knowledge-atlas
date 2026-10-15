@@ -1,0 +1,39 @@
+[
+  {
+    "id": "feedback:example-001",
+    "targetId": "segment:conclusion",
+    "origin": "example-not-actual-feedback",
+    "issue": "결론 전에 생각할 시간이 없다.",
+    "requestedChange": "타이밍만 변경",
+    "invariants": [
+      "claim:logic.explosion.rule",
+      "scene:logic.explosion.proof"
+    ],
+    "scope": "segment",
+    "status": "example"
+  },
+  {
+    "id": "feedback:example-002",
+    "targetId": "block:limits",
+    "origin": "example-not-actual-feedback",
+    "issue": "현실의 참과 도출 가능성의 차이가 모호하다.",
+    "requestedChange": "본문과 시각화 동기 수정",
+    "invariants": [
+      "claim:logic.explosion.rule"
+    ],
+    "scope": "experience",
+    "status": "example"
+  },
+  {
+    "id": "feedback:example-003",
+    "targetId": "scene:logic.explosion.proof",
+    "origin": "example-not-actual-feedback",
+    "issue": "이 장면의 이전 승인 변경이 재생성에서 사라짐.",
+    "requestedChange": "승인 변경 보존",
+    "invariants": [
+      "accepted-patch-placeholder"
+    ],
+    "scope": "generator-regression",
+    "status": "example"
+  }
+]

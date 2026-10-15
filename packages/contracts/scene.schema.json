@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/knowledge-atlas/scene.schema.json",
+  "title": "scene",
+  "type": "object",
+  "required": [
+    "id",
+    "modelRef",
+    "claimRefs",
+    "initialState",
+    "semanticElements"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "modelRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "claimRefs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "initialState": {
+      "type": "object"
+    },
+    "constraints": {
+      "type": "object"
+    },
+    "semanticElements": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "additionalProperties": true
+}

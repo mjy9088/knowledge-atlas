@@ -1,0 +1,52 @@
+[
+  {
+    "id": "claim:logic.explosion.rule",
+    "kind": "formal",
+    "statement": "고전 자연연역에서 모순 ⊥을 얻으면 임의의 문장 Q를 도출할 수 있다.",
+    "assumptions": [
+      "모순 제거(⊥-elimination)를 포함하는 자연연역 규칙",
+      "기호 Q는 임의의 잘 형성된 명제"
+    ],
+    "scope": "특정 추론 체계에서의 도출 관계이지 현실 세계의 진릿값에 관한 판단이 아님",
+    "sourceRefs": [
+      {
+        "sourceId": "source:forallx-calgary-2026",
+        "locator": "Chapter 17, explosion rule"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:logic.explosion.from_pair",
+    "kind": "formal",
+    "statement": "P와 ¬P가 모두 전제로 있으면 P와 ¬P에서 ⊥을 얻고 ⊥ 제거로 Q를 얻는 증명을 구성할 수 있다.",
+    "assumptions": [
+      "고전 자연연역의 해당 규칙",
+      "P와 ¬P 모두 사용 가능"
+    ],
+    "scope": "이 예시는 임의 공식에 대한 완전한 증명 검사가 아니라 해당 추론 경로의 시연임",
+    "sourceRefs": [
+      {
+        "sourceId": "source:forallx-calgary-2026",
+        "locator": "Chapter 17, contradiction + explosion"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:logic.explosion.not-reality",
+    "kind": "explanatory",
+    "statement": "모순에서 Q가 도출된다고 해서 Q가 실제 세계의 사실이라는 뜻은 아니다.",
+    "assumptions": [
+      "도출 관계와 대상에 대한 사실 판단 구별"
+    ],
+    "scope": "설명상의 핵심 오해 방지",
+    "sourceRefs": [
+      {
+        "sourceId": "source:forallx-calgary-2026",
+        "locator": "Chapter 17, natural deduction rules"
+      }
+    ],
+    "reviewStatus": "needs-content-review"
+  }
+]

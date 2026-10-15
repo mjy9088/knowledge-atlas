@@ -1,0 +1,74 @@
+{
+  "id": "projection:logic.explosion.youtube.ko",
+  "sourceExperienceId": "experience:logic.explosion.ko",
+  "type": "video-storyboard",
+  "status": "draft-not-rendered",
+  "format": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "segments": [
+    {
+      "id": "segment:intro",
+      "startMs": 0,
+      "durationMs": 6000,
+      "narrationRef": "nar:opening",
+      "sceneRef": "scene:logic.explosion.proof",
+      "state": {
+        "hasP": false,
+        "hasNotP": false,
+        "conclusion": "Q"
+      }
+    },
+    {
+      "id": "segment:premises",
+      "startMs": 6000,
+      "durationMs": 6000,
+      "narrationRef": "nar:contradiction",
+      "sceneRef": "scene:logic.explosion.proof",
+      "state": {
+        "hasP": true,
+        "hasNotP": true,
+        "conclusion": "Q"
+      }
+    },
+    {
+      "id": "segment:conclusion",
+      "startMs": 12000,
+      "durationMs": 6000,
+      "narrationRef": "nar:arbitrary",
+      "sceneRef": "scene:logic.explosion.proof",
+      "state": {
+        "hasP": true,
+        "hasNotP": true,
+        "conclusion": "R"
+      }
+    },
+    {
+      "id": "segment:limits",
+      "startMs": 18000,
+      "durationMs": 6000,
+      "narrationRef": "nar:limit",
+      "sceneRef": "scene:logic.explosion.proof",
+      "state": {
+        "hasP": true,
+        "hasNotP": false,
+        "conclusion": "R"
+      }
+    },
+    {
+      "id": "segment:links",
+      "startMs": 24000,
+      "durationMs": 6000,
+      "narrationRef": "nar:links",
+      "sceneRef": "scene:logic.explosion.proof",
+      "state": {
+        "hasP": false,
+        "hasNotP": true,
+        "conclusion": "Q"
+      }
+    }
+  ],
+  "note": "A 30-second timing *placeholder* to exercise projection metadata; not the final 5-8 minute script or rendered video."
+}

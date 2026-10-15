@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/knowledge-atlas/feedback.schema.json",
+  "title": "feedback",
+  "type": "object",
+  "required": [
+    "id",
+    "targetId",
+    "origin",
+    "issue",
+    "requestedChange",
+    "invariants",
+    "scope",
+    "status"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "targetId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "origin": {
+      "type": "string",
+      "minLength": 1
+    },
+    "issue": {
+      "type": "string",
+      "minLength": 1
+    },
+    "requestedChange": {
+      "type": "string",
+      "minLength": 1
+    },
+    "invariants": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "scope": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "additionalProperties": true
+}

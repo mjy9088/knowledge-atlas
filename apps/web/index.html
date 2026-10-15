@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="근거 있는 지식의 구조를 따라 탐색하고, 직접 조작하며 이해하는 Knowledge Atlas 초기 프로토타입">
+  <title>Knowledge Atlas — 모순 폭발</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.mjs" type="module"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Knowledge Atlas 홈"><span class="brand-mark" aria-hidden="true">◈</span> Knowledge Atlas</a>
+    <span class="status">실험적 프로토타입 · 검토 전 콘텐츠</span>
+    <a class="link" href="https://forallx.openlogicproject.org/html/Ch17.html" target="_blank" rel="noopener noreferrer">기준 교재 ↗</a>
+  </header>
+  <div class="shell">
+    <nav class="nav-panel" aria-label="개념 탐색">
+      <p class="eyebrow">지식 지도 · 작은 시작점</p>
+      <h2>연결된 개념</h2>
+      <div id="concepts-nav" class="concept-list" aria-live="polite"></div>
+      <p class="subtle">이 링크들은 공부 순서가 아닙니다. 궁금한 것을 살펴보세요.</p>
+    </nav>
+    <main id="main" class="article">
+      <p class="eyebrow">형식과학 / 논리 · 독립적으로 읽을 수 있는 한 항목</p>
+      <h1 id="article-title">모순이 있으면 무엇이든 증명할 수 있을까?</h1>
+      <p id="article-summary" class="lede">고전적인 추론 규칙이 무엇을 말하는지 직접 살펴보는 설명입니다.</p>
+      <div class="caution" role="note"><strong>자료 상태:</strong> 아직 공개 승인·정밀 원문 대조가 끝나지 않은 제작용 시연입니다. 이 화면은 일반적인 정리증명기가 아닙니다.</div>
+      <section aria-labelledby="intro-title" class="prose-section">
+        <h2 id="intro-title">전제와 결론을 구별하기</h2>
+        <p id="intro-body">표현하는 규칙을 먼저 살펴봅니다.</p>
+      </section>
+      <section class="experience" aria-labelledby="proof-title">
+        <div class="experience-head">
+          <div>
+            <p class="eyebrow">직접 조작 가능한 예시</p>
+            <h2 id="proof-title">모순 폭발을 따라가기</h2>
+          </div>
+          <button id="reset" class="btn ghost" type="button">초기 상태로</button>
+        </div>
+        <div class="controls">
+          <fieldset class="premises">
+            <legend>증명에서 사용할 전제</legend>
+            <label><input id="has-p" type="checkbox" checked> 명제 P</label>
+            <label><input id="has-not-p" type="checkbox" checked> 명제 ¬P</label>
+          </fieldset>
+          <div class="select-wrap"><label for="conclusion">도출할 임의의 명제</label><select id="conclusion"><option value="Q">Q</option><option value="R">R</option><option value="S">S</option></select></div>
+        </div>
+        <ol id="proof-steps" class="proof-steps" aria-label="증명 단계"></ol>
+        <p id="proof-message" class="proof-message" role="status" aria-live="polite"></p>
+        <div class="clarification"><strong>이 장면이 판정하지 않는 것</strong><p>현실의 진릿값, 이 규칙 이외의 모든 가능한 증명, 특정 공리계의 독립성.</p></div>
+      </section>
+      <section class="prose-section" aria-labelledby="limits-title">
+        <h2 id="limits-title">현실의 참과 다른 이야기</h2>
+        <p id="limits-body"></p>
+      </section>
+      <section class="prose-section" aria-labelledby="sources-title">
+        <h2 id="sources-title">근거와 사용 범위</h2>
+        <p>이 예시는 표준 자연연역에서 모순으로부터 임의의 명제를 도출하는 경로를 보여줍니다. 학습 자료의 원문 인용과 판본에 대한 최종 감사는 아직 완료되지 않았습니다.</p>
+        <ul id="source-list" class="source-list"></ul>
+      </section>
+      <footer class="footer-note">Knowledge Atlas — 지식과 관계를 따라 자유롭게 탐색하는 웹 원본. 영상은 이 원본에서 지정한 경로를 재생하는 projection으로 제작됩니다.</footer>
+    </main>
+    <aside class="context-panel" aria-label="개념 상세">
+      <p class="eyebrow">현재 보고 있는 연결</p>
+      <h2 id="concept-title">개념을 선택하세요</h2>
+      <p id="concept-summary">왼쪽 개념을 선택하면 이곳에서 간단히 설명합니다.</p>
+      <p class="subtle">전체 지도의 검색·상호참조·외부 링크 관리는 후속 구현 대상입니다.</p>
+    </aside>
+  </div>
+</body>
+</html>

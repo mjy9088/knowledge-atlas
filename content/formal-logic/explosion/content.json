@@ -1,0 +1,61 @@
+{
+  "id": "experience:logic.explosion.ko",
+  "slug": "logic/explosion",
+  "title": "모순이 있으면 무엇이든 증명할 수 있을까?",
+  "language": "ko",
+  "status": "draft",
+  "summary": "추론 규칙 안에서 모순으로부터 임의의 결론을 도출하는 이유와, 이것이 현실의 모든 명제가 참이라는 말은 아니라는 차이를 살펴본다.",
+  "conceptRefs": [
+    "concept:logic.explosion",
+    "concept:logic.contradiction",
+    "concept:logic.consistency",
+    "concept:logic.proof"
+  ],
+  "claimRefs": [
+    "claim:logic.explosion.rule",
+    "claim:logic.explosion.from_pair",
+    "claim:logic.explosion.not-reality"
+  ],
+  "sourceRefs": [
+    "source:forallx-calgary-2026"
+  ],
+  "sceneRefs": [
+    "scene:logic.explosion.proof"
+  ],
+  "projectionRefs": [
+    "projection:logic.explosion.youtube.ko"
+  ],
+  "blocks": [
+    {
+      "id": "block:intro",
+      "heading": "전제와 결론을 구별하기",
+      "text": "어떤 전제가 참인지, 그 전제로부터 무엇을 추론할 수 있는지는 서로 다른 질문입니다. 아래 예시는 현실을 판정하지 않고 선택한 추론 규칙의 작동을 보여줍니다.",
+      "claimRefs": [
+        "claim:logic.explosion.not-reality"
+      ]
+    },
+    {
+      "id": "block:proof",
+      "heading": "모순에서 임의의 명제 도출하기",
+      "text": "P와 P가 아니라는 명제를 모두 사용할 수 있다면, 여기서 모순을 얻습니다. 모순 제거 규칙을 채택한 체계에서는 그다음 임의의 결론을 이끌어낼 수 있습니다.",
+      "claimRefs": [
+        "claim:logic.explosion.from_pair"
+      ]
+    },
+    {
+      "id": "block:limits",
+      "heading": "기계가 세계에 대해 무엇을 말했는가?",
+      "text": "이것은 선택한 규칙에 따른 도출을 보여준 것입니다. 임의의 결론이 현실에서 참으로 판정되었다는 의미가 아닙니다. 전제를 하나 없애면 화면의 이 증명 경로는 끊어지지만 다른 모든 증명이 불가능하다고 결론 내릴 수는 없습니다.",
+      "claimRefs": [
+        "claim:logic.explosion.rule",
+        "claim:logic.explosion.not-reality"
+      ]
+    },
+    {
+      "id": "block:next",
+      "heading": "다음으로 연결되는 지식",
+      "text": "이 설명은 일관성, 공리계, 독립성에 관한 설명으로 연결될 수 있습니다. 이 링크를 선행 학습 과정으로 생각할 필요는 없습니다.",
+      "claimRefs": []
+    }
+  ]
+}
