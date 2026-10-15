@@ -145,8 +145,9 @@ async function mountInferenceLab() {
   function scheduleStep() {
     stopStepTimer();
     const finished = activeStep >= (lastProof?.lines.length ?? 0) - 1;
+    $('inference-auto').disabled = inferenceStale || !lastProof?.goalReached;
     $('inference-auto').textContent = finished ? '↺ 다시 보기' : autoAdvance ? 'Ⅱ 일시정지' : '▶ 이어 보기';
-    if (!autoAdvance || inferenceStale || finished || $('slide-lab').hidden || document.hidden) return;
+    if (!autoAdvance || inferenceStale || !lastProof?.goalReached || finished || $('slide-lab').hidden || document.hidden) return;
     progressRow = $('inference-lines').children[activeStep]?.firstElementChild;
     if (progressRow) {
       progressRow.classList.add('progress-running');
@@ -169,14 +170,21 @@ async function mountInferenceLab() {
     runInference();
   }
   function invalidateInput(message) {
-    stopStepTimer();
+    clearRenderedProof();
     inferenceStale = true;
     video.invalidate(message);
-    visual.invalidate(message);
     if (window.__atlasInference) window.__atlasInference = {...window.__atlasInference, stale: true};
     $('inference-status').textContent = message;
     $('inference-status').className = 'inference-status pending';
     $('inference-result').hidden = true;
+  }
+  function clearRenderedProof() {
+    stopStepTimer();
+    $('inference-result').hidden = true;
+    $('inference-lines').replaceChildren();
+    $('inference-visual').replaceChildren();
+    for (const id of ['inference-step-count','inference-active-label','inference-step-detail']) $(id).textContent = '';
+    for (const id of ['inference-prev','inference-next','inference-auto']) $(id).disabled = true;
   }
   function updateRowLimit() { $('add-premise').disabled = editor.children.length >= 8; }
   function addRow(value = '') {
@@ -202,6 +210,7 @@ async function mountInferenceLab() {
   function focusStep(index, reveal = false) {
     if (!lastProof?.lines.length) return;
     activeStep = Math.max(0, Math.min(lastProof.lines.length - 1, index));
+    if (!lastProof.goalReached) return;
     const line = lastProof.lines[activeStep];
     visual.update({premises:lastPremises,goal:lastGoal,proof:lastProof,step:activeStep});
     for (const [position, row] of [...$('inference-lines').children].entries()) {
@@ -233,7 +242,7 @@ async function mountInferenceLab() {
   function renderProof(proof) {
     activeStep = 0;
     const list = $('inference-lines'); list.replaceChildren();
-    proof.lines.forEach((line, index) => {
+    (proof.goalReached ? proof.lines : []).forEach((line, index) => {
       const item = document.createElement('li'); item.dataset.lineId = line.id;
       const button = document.createElement('button'); button.type = 'button'; button.className = 'inference-line';
       const number = document.createElement('span'); number.className = 'inference-line-number'; number.textContent = index + 1;
@@ -251,6 +260,7 @@ async function mountInferenceLab() {
       ? `목표 ${proof.goal ?? lastGoal}에 도달했습니다. 아래 번호를 선택해 규칙과 근거를 살펴보세요. 현실의 진릿값을 판정한 결과는 아닙니다.`
       : `목표 ${proof.goal ?? lastGoal}의 증명을 이 탐색 범위에서 찾지 못했습니다. 목표가 거짓이거나 다른 증명도 불가능하다는 뜻은 아닙니다.${proof.limitReached ? ' 탐색 한도에 도달했습니다.' : ''}`;
     $('inference-limitations').textContent = Array.isArray(proof.limitations) ? proof.limitations.join(' ') : '';
+    if (!proof.goalReached) {clearRenderedProof(); return;}
     focusStep(0);
   }
   function runInference() {

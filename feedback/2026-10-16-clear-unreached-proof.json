@@ -1,0 +1,11 @@
+{
+  "id": "feedback:2026-10-16.clear-unreached-proof",
+  "targetId": "scene:logic.inference.lab",
+  "contentVersion": "e016b42",
+  "origin": "human-user-chat",
+  "issue": "목표의 증명을 찾지 못했다는 안내가 나와도 추론의 흐름이 남아 있어 유효하지 않으면 제거 요청",
+  "requestedChange": "목표 미도달/미완성 입력 시 웹 실험실의 증명 행·도표·단계 설명을 비우고 숨긴다. 자동 진행도 취소한다. 목표 도달 시 새 결과로 복구한다.",
+  "invariants": ["탐색 미발견은 거짓/일반적 증명 불가능성을 뜻하지 않음", "모형의 부분 탐색 결과와 검사 상태 유지", "기존 Claim/Source ID 보존"],
+  "scope": "web-inference-result-visibility",
+  "status": "implementation-candidate"
+}
