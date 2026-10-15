@@ -33,32 +33,32 @@
     "from": "concept:logic.explosion",
     "to": "concept:logic.paraconsistent",
     "type": "contrastsWith",
-    "context": "Some logics reject unrestricted explosion",
-    "status": "needs-independent-source",
-    "sourceRefs": []
+    "context": "초일관성은 일반적 폭발을 허용하지 않는 추론 관계의 성질이며 단일한 논리체계 이름이 아니다",
+    "status": "draft-source-aligned",
+    "sourceRefs": ["source:baskent-paraconsistency-2011"]
   },
   {
     "from": "concept:logic.consistency",
     "to": "concept:set.zfc",
     "type": "appliesTo",
-    "context": "Con(ZFC) condition; future content",
-    "status": "needs-independent-source",
-    "sourceRefs": []
+    "context": "Con(ZFC)는 ZFC의 일관성 조건이다. CH 독립성 정리는 이 조건하의 별도 결과이며 폭발만으로 증명되지 않는다",
+    "status": "draft-source-aligned",
+    "sourceRefs": ["source:marks-set-theory-2026"]
   },
   {
     "from": "concept:set.zfc",
     "to": "concept:set.ch",
     "type": "mentions",
-    "context": "ZFC and CH independence; future content",
-    "status": "needs-independent-source",
-    "sourceRefs": []
+    "context": "ZFC가 일관적이면 CH도 그 부정도 ZFC로 증명되지 않는다는 괴델·코언의 결과",
+    "status": "draft-source-aligned",
+    "sourceRefs": ["source:marks-set-theory-2026","source:feferman-bernays-2012"]
   },
   {
     "from": "concept:set.ch",
     "to": "concept:logic.independence",
     "type": "usedInExplanationOf",
-    "context": "Future independence content",
-    "status": "needs-independent-source",
-    "sourceRefs": []
+    "context": "일관적인 ZFC에 대한 CH는 문장과 그 부정이 모두 증명되지 않는 독립성의 예다. 제한 탐색의 실패와 구별한다",
+    "status": "draft-source-aligned",
+    "sourceRefs": ["source:marks-set-theory-2026"]
   }
 ]
