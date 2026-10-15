@@ -5,16 +5,16 @@ Updated 2026-10-16. “Implemented,” “automatically tested,” “source-ali
 ## Implemented locally
 
 - File-based source registry, concept graph, scoped claims, preliminary schemas, concrete validation and impact inspection.
-- Deterministic explosion scene and bounded propositional inference with shared input editing, state/reset/inspection, HTML animation, and proof diagrams.
+- Deterministic explosion reference adapter and bounded propositional inference with shared input editing, state/reset/inspection, projection timelines, and proof diagrams.
 - Self-paced focused lesson, explicit skip context, inline editable assumptions/goals, synchronized or invalidated dialogue, viewport reader frames, on-demand evidence, and related links.
 - Four independent related readers using classical, FDE, set-relation, or registered CH metatheorem adapters. These have different supported semantics; see [Pilot](PILOT.md).
-- Static HTML generation, local preview, output hashes, functional link checking, portrait 3:4 projection, and scaled iframe comparison.
+- Catalog-generated home/articles, topic-owned content folders, shared reader components, optional experiments, output hashes and functional link checking. Prototype comparison/slide/portrait pages are retired.
 - Local silent Canvas/WebCodecs WebM helper and mise FFmpeg MP4 conversion CLI. These are separated from reader-facing static assets.
 - Chromium regression tests for the supported desktop/narrow viewports, scene examples, content fitting, input editing/invalidation/reset, and control access. Full accessibility and cross-browser audits remain open.
 
 Current content validation covers 7 sources, 9 concepts, 7 relations, and 19 claims. The original storyboard remains a separate five-segment/30-second draft. The focused episode is a separate 12-scene/134-second projection; no three-minute filler is required.
 
-Local verification for the evaluation-feedback revision: content validation and all 65 Node tests passed; Chromium passed 47 browser cases across the four viewport projects, including stable titles, unavailable explanation content, recovery, and reuse outside logic. The desktop-only knowledge-index fit check is intentionally skipped in the mobile project, where the index may scroll. The browser report includes final-scene and evaluation-message screenshots. CI runs content validation, unit tests, and browser tests; its remote run has not been observed here.
+Local verification for the topic-organization revision: validation, 64 Node tests, and 59 Chromium cases passed. Catalog ownership, cross-topic source impact, home navigation, optional experiments, and the relocated media tool are covered. Scientific model fixtures remain unchanged; five screen-only tests for retired prototypes were removed and four catalog/impact tests added. The desktop-only knowledge-index fit check is intentionally skipped in the mobile project, where the index may scroll. The browser report includes final-scene and evaluation-message screenshots. Migration comparison confirmed exact preservation of all four articles and 11 related claims. Projection review artifacts regenerated with 12 cues and 134 seconds. CI is configured; its remote run has not been observed here.
 
 ## Next priorities
 

@@ -12,11 +12,14 @@ Git plus JSON and JavaScript modules currently hold the source. Stable logical I
 | --- | --- |
 | `sources/registry.json` | Source identity, retrieval/revision notes, locators, rights status |
 | `knowledge/` | Concepts and typed, contextual relationships |
-| `content/formal-logic/explosion/` | Scoped claims, explanation blocks, article/scene metadata, episode source |
+| `content/<domain>/<topic>/` | Topic-owned claims, localized articles, presentation metadata, optional episode source |
+| `content/catalog.mjs` | Registered data paths and shared article routes |
 | `packages/models/` | Pure calculations and explicit limitations |
 | `packages/contracts/` | Preliminary JSON Schemas; not a complete runtime validator |
 | `packages/site/` | Shared static HTML generation |
-| `apps/web/` | DOM adapters, readers, experiments, HTML projection, local media helpers |
+| `apps/web/` | Shared components, page controllers, styles, and domain adapters |
+| `packages/experiments/`, `packages/projection/` | Input/state contracts and frozen timeline/presentation data |
+| `tools/media/` | Local Canvas/WebCodecs renderer UI and muxer |
 | `scripts/` | Validation, build, preview, impact analysis, local media CLI |
 | `tests/` | Model/state/build unit tests and browser regression tests |
 
@@ -37,25 +40,27 @@ The browser application has no runtime npm dependencies. Playwright is a develop
 
 Scene APIs expose `getState`, validated `setState`, and `reset`; time-based adapters expose `seek` or `frameAt`. Return detached snapshots and reject invalid state without partially mutating the previous state. Seeking must not depend on hidden prior clicks; randomness, if introduced, needs a recorded seed.
 
-`proof-scene.mjs` wraps the original explosion model and its separate 30-second storyboard. Web reset restores both premises/Q; storyboard `seek(0)` restores its own initial state with no premises. These are intentionally different baselines.
+`topics/formal-reasoning/proof-scene.mjs` wraps the original explosion model and its separate 30-second storyboard. Web reset restores both premises/Q; storyboard `seek(0)` restores its own initial state with no premises. These are intentionally different baselines.
 
-`premise-experiment.mjs` normalizes `{premises:[{formula,enabled}],goal,customized}` and accepts a `derive` adapter. The editor handles up to eight premises and 512 characters per formula. Reader edits remain draft input even when syntax is incomplete. Suggestions change scene defaults without replacing customized input; explicit reset restores the current suggestion.
+`components/experiment/premise-editor.mjs` normalizes `{premises:[{formula,enabled}],goal,customized}` and accepts a `derive` adapter. The editor handles up to eight premises and 512 characters per formula. Reader edits remain draft input even when syntax is incomplete. Suggestions change scene defaults without replacing customized input; explicit reset restores the current suggestion.
 
-`inference-explorer.mjs` renders the selected row of the adapter's proof, references, or countervaluation. `related-models.mjs` supplies model-specific presets and deterministic narration. Related reader state includes scene, experiment, and selected visual row. The original lesson uses the shared editor and `experiment-dialogue.mjs` to adapt its explanation to the same proof. Unsupported input invalidates previous dialogue and diagram together.
+`components/inference/explorer.mjs` renders the selected row of the adapter's proof, references, or countervaluation. `topics/formal-reasoning/experiments.mjs` supplies model-specific presets and deterministic narration. Related reader state includes scene, experiment, and selected visual row. The original lesson uses the shared editor and `topics/formal-reasoning/dialogue.mjs` to adapt its explanation to the same proof. Unsupported input invalidates previous dialogue and diagram together.
 
-Browser inspection hooks include `window.__atlasScenes.proof`, `window.__atlasLesson`, `window.__atlasLessonExperiment`, and `window.__atlasRelated`. See the implementations for their concrete state shape. These hooks support inspection; they do not grant publication approval.
+Active browser inspection hooks include `window.__atlasLesson`, `window.__atlasLessonExperiment`, and `window.__atlasRelated`. The original proof adapter remains a tested module, but its former standalone page/global hook is retired. See the implementations for their concrete state shape. These hooks support inspection; they do not grant publication approval.
 
-`reader-frame.css` allocates viewport space; `reader-panels.mjs` moves detailed evidence and connections into dialogs. Dialogue navigation is self-paced. The legacy lab's automatic step emphasis is presentation only, using the same proof object.
+`components/reader/frame.css` allocates viewport space; `components/reader/panels.mjs` moves detailed evidence and connections into dialogs. Dialogue navigation is self-paced. Articles may omit an experiment adapter and use conceptual cards with the same navigation/state contract.
 
-`evaluation-feedback.mjs` separates topic identity from runtime availability. The domain-neutral component receives `{available,summary,detail}`, disables/hides only the dependent explanation, and renders a separate live status. Its `getState/setState/reset` do not interpret logic, select another goal, or block unrelated navigation. Callers own evaluation and domain-specific wording. The original lesson and related readers share it; conceptual default explanations remain readable, while customized unavailable explanations cannot retain stale example copy. Inspection snapshots expose evaluation separately from the stable displayed title.
+`components/reader/evaluation-feedback.mjs` separates topic identity from runtime availability. The domain-neutral component receives `{available,summary,detail}`, disables/hides only the dependent explanation, and renders a separate live status. Its `getState/setState/reset` do not interpret logic, select another goal, or block unrelated navigation. Callers own evaluation and domain-specific wording. The original lesson and related readers share it; conceptual default explanations remain readable, while customized unavailable explanations cannot retain stale example copy. Inspection snapshots expose evaluation separately from the stable displayed title.
 
 ## Static build and media boundary
 
 `build-site.mjs` and the development server share HTML generation. Four related articles and the knowledge index are pre-rendered; client modules add navigation and experiments. Root-relative routes require deployment at the domain root; no SPA fallback is needed. The original lesson still uses client enhancement for its complete dialogue/evidence.
 
-The builder regenerates the fixed `dist/` directory and copies explicitly selected public web assets plus content/model data. It rejects linked output directories. Local render helpers are outside that public asset list. The static server supports GET/HEAD and directory redirects, with no conversion API.
+The builder regenerates the fixed `dist/` directory and copies modules/styles from explicit reader asset roots plus content/model/experiment/projection data. It rejects linked output directories. Local render helpers are outside that public asset list. The static server supports GET/HEAD and directory redirects, with no conversion API.
 
-`episode.mjs` is the focused explanation source; `explosion-episode.mjs` projects it into complete cue snapshots. HTML portrait and Canvas/WebCodecs frames use those snapshots rather than recalculate a different narrative. MP4 encoding runs through the local `encode-mp4.mjs` CLI and `mise exec -- ffmpeg/ffprobe`.
+`episode.mjs` is the focused explanation source; `packages/projection/explosion.mjs` projects it into complete cue snapshots. Canvas/WebCodecs frames use those snapshots rather than recalculate a different narrative. MP4 encoding runs through the local `encode-mp4.mjs` CLI and `mise exec -- ffmpeg/ffprobe`.
+
+The concrete folder/ownership and authoring contract is [Content structure](CONTENT-STRUCTURE.md). The catalog loader accepts injected JSON I/O so the browser and builder use the same identity/path checks. No per-topic controller copy or prototype comparison page is needed.
 
 ## Future evolution
 

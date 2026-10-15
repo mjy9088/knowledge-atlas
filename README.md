@@ -12,7 +12,7 @@ pnpm exec playwright install chromium
 pnpm dev
 ~~~
 
-Open http://127.0.0.1:4173/lesson.html for the self-paced explosion explanation, /knowledge/ for four related readers, /shorts.html for the 3:4 HTML projection, or /preview.html for scaled iframe comparison. Premises and goals are editable inside explanations; dialogue and diagrams follow the selected model or invalidate unsupported input.
+Open http://127.0.0.1:4173/ for the knowledge catalog, or /lesson.html for the self-paced explosion explanation. Premises and goals are editable inside explanations; dialogue and diagrams follow the selected model or invalidate unsupported input.
 
 ~~~sh
 pnpm check        # content validation, unit tests, Chromium regressions
@@ -28,6 +28,7 @@ The public web has no npm runtime dependencies. Playwright is a development depe
 | --- | --- |
 | [Vision](docs/VISION.md) | Platform purpose, knowledge-first priorities, non-goals |
 | [Product](docs/PRODUCT.md) | Reading, inline experiments, viewport and navigation contracts |
+| [Content structure](docs/CONTENT-STRUCTURE.md) | Topic ownership, folders, registration, and authoring steps |
 | [Architecture](docs/ARCHITECTURE.md) | Entities, module boundaries, deterministic state, build/media boundary |
 | [Pilot](docs/PILOT.md) | Explosion episode, related model scopes, scientific guardrails |
 | [Source review](docs/SOURCE-REVIEW.md) | Recorded readings, exclusions, exact review limits |

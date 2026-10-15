@@ -31,9 +31,9 @@ Equivalent `npm run` commands work when npm is available. The dependency lockfil
 
 ## Browser regression contract
 
-`playwright.config.mjs` builds and serves the actual static output on dedicated port 4190, with two Chromium workers. Stop any unrelated service on that port before running; the runner does not reuse an existing server. The projects use CSS viewports 1920×1080, 1920×940, 1920×900, and 390×844.
+`playwright.config.mjs` builds and serves the actual static output on dedicated port 4190, with two Chromium workers. It also starts the development server on port 4191 for the local media smoke test. Stop unrelated services on these ports before running; the runner does not reuse an existing server. The projects use CSS viewports 1920×1080, 1920×940, 1920×900, and 390×844.
 
-`tests/browser/readers.spec.mjs` checks all focused-lesson and related-reader scenes, every related model preset, navigation, evidence panels, input invalidation, reset, and eight-premise editing. It measures document extents and actual content scroll extents, plus control bounds and hit targets. Hiding overflowing content with CSS does not satisfy these checks. Default content must fit; deliberately expanded user collections and opened reference panels may scroll internally as specified in [Product](PRODUCT.md).
+`tests/browser/readers.spec.mjs` checks catalog entry navigation, optional experiments, local media preview, all focused-lesson and related-reader scenes, every related model preset, navigation, evidence panels, input invalidation, reset, and eight-premise editing. It measures document extents and actual content scroll extents, plus control bounds and hit targets. Hiding overflowing content with CSS does not satisfy these checks. Default content must fit; deliberately expanded user collections and opened reference panels may scroll internally as specified in [Product](PRODUCT.md).
 
 Run a focused project or inspect failures:
 
@@ -47,13 +47,13 @@ Failures save screenshots and traces under ignored `test-results/`; the HTML rep
 
 ## Static review build
 
-Useful routes: `/lesson.html`, `/knowledge/`, `/knowledge/consistency/`, `/knowledge/paraconsistent-logic/`, `/knowledge/zfc/`, `/knowledge/continuum-hypothesis/`, `/shorts.html`, and `/preview.html`. The original multi-scene lab remains at `/#slide-lab`.
+Useful routes: `/` (knowledge catalog), `/lesson.html`, `/knowledge/`, `/knowledge/consistency/`, `/knowledge/paraconsistent-logic/`, `/knowledge/zfc/`, and `/knowledge/continuum-hypothesis/`. See [Content structure](CONTENT-STRUCTURE.md) to add a topic.
 
 Deployable files are generated in `dist/`; `build-manifest.json` records builder inputs, output hashes, and pending review states. Hosting must support directory indexes and root-relative paths. A successful build is a local candidate, not authorization to upload it. Never deploy the repository or development server as the public site.
 
 ## Local media production
 
-Open `/render.html` on the development server to generate WebM from the shared Canvas/WebCodecs timeline. This is a local helper, not a public page or an end-to-end headless CLI renderer. Supported output profiles are 1080×1440 and 1920×1080 at 24/30 fps. Current output is silent; audio/TTS production is not implemented. Packets are held in memory, so long renders and low-memory devices are limited.
+Open `/tools/media/` on the development server to generate WebM from the shared Canvas/WebCodecs timeline. This is a local helper, not a public page or an end-to-end headless CLI renderer. Supported output profiles are 1080×1440 and 1920×1080 at 24/30 fps. Current output is silent; audio/TTS production is not implemented. Packets are held in memory, so long renders and low-memory devices are limited.
 
 Convert an existing WebM locally:
 

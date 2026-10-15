@@ -10,7 +10,7 @@ Never equate search failure with falsity, consistency, unprovability, or indepen
 
 ## Focused explanation
 
-`episode.mjs` defines `lesson:logic.explosion.short.ko`; `explosion-episode.mjs` creates `projection:logic.explosion.short.ko`. `/lesson.html` reads it at the reader's pace; `/shorts.html` and the local renderer project the same source. The original 30-second `projection.json` is a separate historical draft, not overwritten by this episode.
+`episode.mjs` defines `lesson:logic.explosion.short.ko`; `packages/projection/explosion.mjs` creates `projection:logic.explosion.short.ko`. `/lesson.html` reads it at the reader's pace; the local renderer projects the same source. The original 30-second `projection.json` is a separate historical draft, not overwritten by this episode.
 
 | Start | Scene |
 | --- | --- |
@@ -42,7 +42,7 @@ FDE uses two information bits per atom; negation exchanges them and conjunction/
 
 The CH adapter accepts its fixed documented tokens, including Con(ZFC), Con(ZFC+CH), Con(ZFC+¬CH), the two ZFC nonprovability statements, Ind(CH,ZFC), CH, and ¬CH. The two extensions are separate theories; do not combine their assumptions into one theory or infer independence from the word “consistency” alone.
 
-Article/block IDs, claim references, and source locators live in `related.json`; presentation metadata and original sentence ranges live in `related-pages.mjs`. Additional scientific blocks get new IDs rather than overwrite accepted source text. The source-reading history and exclusions are retained in [Source review](SOURCE-REVIEW.md).
+Article/block IDs, claim references, and source locators live in each topic's `article.ko.json` and `claims.json`; presentation metadata and original sentence ranges live in its `page.mjs`. `content/catalog.mjs` registers them; see [Content structure](CONTENT-STRUCTURE.md). Additional scientific blocks get new IDs rather than overwrite accepted source text. The source-reading history and exclusions are retained in [Source review](SOURCE-REVIEW.md).
 
 ## Verification boundaries
 

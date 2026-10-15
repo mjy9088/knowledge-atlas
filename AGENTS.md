@@ -1,6 +1,6 @@
 # Instructions for coding and content agents
 
-Before changing the system, read [README](README.md), [Vision](docs/VISION.md), [Architecture](docs/ARCHITECTURE.md), [Roadmap](docs/ROADMAP.md), and the relevant content specification (currently [Pilot](docs/PILOT.md)). For UI work, also read [Product](docs/PRODUCT.md); for semantic changes, read [Source review](docs/SOURCE-REVIEW.md) and [Sources and rights](docs/SOURCES-AND-RIGHTS.md). The formal-logic pilot does not define the platform's subject scope.
+Before changing the system, read [README](README.md), [Vision](docs/VISION.md), [Architecture](docs/ARCHITECTURE.md), [Roadmap](docs/ROADMAP.md), and the relevant content specification (currently [Pilot](docs/PILOT.md)). For content organization or a new topic, also read [Content structure](docs/CONTENT-STRUCTURE.md). For UI work, also read [Product](docs/PRODUCT.md); for semantic changes, read [Source review](docs/SOURCE-REVIEW.md) and [Sources and rights](docs/SOURCES-AND-RIGHTS.md). The formal-logic pilot does not define the platform's subject scope.
 
 ## Non-negotiable rules
 
@@ -24,6 +24,8 @@ Before changing the system, read [README](README.md), [Vision](docs/VISION.md), 
 - Add tests for observable behavior and semantic contracts. Avoid tests that only enumerate removed filenames/strings or mirror implementation details.
 - For video work, inspect timeline, captions, sampled frames, audio/metadata diagnostics, and preview before final render. Keep local media production separate from public web assets.
 - Leave unrelated user changes intact. Make coherent intermediate commits where appropriate. Do not publish or upload merely because a build passes.
+
+- Store new articles and owned claims under content/<domain>/<topic>/ and register them in content/catalog.mjs. Reuse the shared article reader; do not copy a page/controller per topic. Keep DOM components, domain adapters, pure models/state, projections, and local media tools in their documented boundaries.
 
 ## Documentation and feedback
 

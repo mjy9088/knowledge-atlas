@@ -27,9 +27,9 @@ Related knowledge and detailed evidence/scope belong in an on-demand panel, with
 
 ## Reading, animation, and production
 
-The interactive reader is self-paced and should not resemble a video player. The legacy inference laboratory may automatically advance proof steps and fill the current row's background to show progress; cancel that progression on invalidation or leaving the scene. Manual selection and restored state remain deterministic.
+The interactive reader is self-paced and should not resemble a video player. Selected proof steps and restored state remain deterministic. Retired comparison/laboratory prototypes are not part of current navigation.
 
-Mobile web reading and portrait projection are separate layouts. The portrait preview uses 1080×1440 (3:4), superseding the earlier 9:16 proposal. Place the title and optional short explanation above/below the central reasoning; do not move essential conditions into optional text. `/preview.html` compares desktop, narrow web, and portrait projection in scaled iframes.
+Mobile web reading and portrait projection are separate layouts. The local renderer supports 1080×1440 (3:4), superseding the earlier 9:16 proposal. Place the title and optional short explanation above/below the central reasoning; do not move essential conditions into optional text. The former standalone portrait and three-iframe comparison pages are retired; the local media tool provides production frame preview.
 
 Short explanations have a project maximum of 180 seconds, not a duration target. The focused pilot is 134 seconds. Do not add filler or compress a long proof merely to fit that maximum. Production tools and MP4 conversion are separate from the reader-facing static site; see [Development](DEVELOPMENT.md).
 
