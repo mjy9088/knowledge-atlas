@@ -1,4 +1,5 @@
 import {createExplosionEpisode} from './explosion-episode.mjs';
+import {mountPremiseEditor} from './premise-experiment.mjs';
 import {deriveProof} from '/packages/models/propositional.mjs';
 import {INFERENCE_PRESETS} from './inference-presets.mjs';
 import {createVideoTimeline} from './inference-video.mjs';
@@ -12,6 +13,7 @@ document.querySelector('.shorts-title h1').textContent=timeline.title??'전제�
 let timeMs=0, playing=false, raf, last, cueKey='';
 const content=$('shorts-content'), visual=mountInferenceVisual(content);
 $('shorts-goal').textContent=`목표 ${timeline.goal}`;
+const inputProjection=mountPremiseEditor({container:$('shorts-premises'),goalInput:$('shorts-goal-input'),readOnly:true});
 $('shorts-seek').max=timeline.durationMs;
 function fit(){const box=$('shorts-viewport').getBoundingClientRect();$('shorts-stage').style.transform=`translate(-50%, -50%) scale(${Math.min(box.width/1080,box.height/1440)})`;}
 new ResizeObserver(fit).observe($('shorts-viewport'));fit();
@@ -20,6 +22,7 @@ function render(){
   $('shorts-goal').textContent=`목표 ${presentation.goal}`;
   if(key!==cueKey){
     cueKey=key;content.dataset.phase=frame.phase;
+    inputProjection.setState(presentation.controlState??presentation.snapshot);
     if(frame.phase==='step') {
       visual.update({...presentation.snapshot,step:frame.activeLine});
       const explanation=document.createElement('p');explanation.className='shorts-explanation';explanation.textContent=frame.caption;content.append(explanation);

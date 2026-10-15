@@ -12,6 +12,7 @@ const read = relative => readFile(path.join(root, relative));
 const contract = JSON.parse(await read('content/formal-logic/explosion/inference.json'));
 const timeline=createExplosionEpisode(),proof=timeline.snapshot.proof;
 const files = [
+  'apps/web/premise-experiment.mjs','apps/web/premise-experiment.css',
   'content/formal-logic/explosion/episode.mjs', 'content/formal-logic/explosion/related.json',
   'apps/web/lesson-dialogue.mjs','apps/web/explosion-episode.mjs','apps/web/lesson.html','apps/web/lesson.css','apps/web/lesson-page.mjs',
   'packages/models/propositional.mjs', 'apps/web/inference-video.mjs',

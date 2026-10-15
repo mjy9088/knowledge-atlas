@@ -1,12 +1,12 @@
 import {EXPLOSION_EPISODE} from '../../content/formal-logic/explosion/episode.mjs';
 
 export const LESSON_CHAPTERS=Object.freeze([
-  {id:'question',title:'질문과 기호'},
-  {id:'premise-p',title:'모순에서 Q까지'},
-  {id:'change-r',title:'결론을 바꾸면?'},
-  {id:'remove-premise',title:'전제를 빼면?'},
-  {id:'truth',title:'도출과 사실'},
-  {id:'summary',title:'정리와 다음 질문'}
+  {id:'question',title:'질문과 기호',known:'P는 문장, ¬P는 그 문장의 부정이라는 뜻'},
+  {id:'premise-p',title:'모순에서 Q까지',known:'P와 ¬P에서 ⊥를 얻고 폭발 규칙으로 Q를 도출하는 과정'},
+  {id:'change-r',title:'결론을 바꾸면?',known:'같은 모순에서 임의의 목표를 도출하는 폭발 규칙'},
+  {id:'remove-premise',title:'전제를 빼면?',known:'전제를 제외하면 이 증명 경로가 끊긴다는 것과 탐색 실패의 한계'},
+  {id:'truth',title:'도출과 사실',known:'가정 아래의 도출과 현실의 사실이 다르다는 것, 일관성의 의미'},
+  {id:'summary',title:'정리와 다음 질문',known:'모순 폭발의 조건과 해석의 범위'}
 ].map(Object.freeze));
 
 // Reading position only. The scientific model and video timing stay independent.

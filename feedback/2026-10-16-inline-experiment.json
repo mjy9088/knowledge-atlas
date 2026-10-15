@@ -1,0 +1,11 @@
+{
+  "id":"feedback:2026-10-16.inline-experiment",
+  "targetId":"experience:logic.inference.ko",
+  "contentVersion":"26e1eb4",
+  "origin":"human-user-chat",
+  "issue":"건너뛰는 설명의 범위가 모호하고 해설과 전제/목표 실험이 별도 화면으로 분리됨",
+  "requestedChange":"이미 아는 내용과 건너뛰기 도착점 표시. 해설 안에서 제안 전제·목표를 편집하고 유지. 기존 실험실과 공통 편집 컴포넌트 사용. 영상도 같은 입력 조작의 시각 언어로 변경하며 방향성 문서에 원칙과 예외 기록.",
+  "invariants":["주장·출처·과학 모형과 정답 fixture 보존","사용자 입력을 장면 전환으로 덮어쓰지 않음","예시 해설과 사용자 실험 결과 구분","지원하지 않는 입력은 증명 도표 제거","전용 실험실 허용은 이해를 돕는 경우에 한정"],
+  "scope":"shared-inline-propositional-experiment-and-product-principle",
+  "status":"implementation-candidate"
+}

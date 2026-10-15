@@ -2,12 +2,15 @@ import {EXPLOSION_EPISODE} from '../../content/formal-logic/explosion/episode.mj
 import {createExplosionEpisode} from './explosion-episode.mjs';
 import {mountInferenceVisual} from './inference-visual.mjs';
 import {createLessonDialogue} from './lesson-dialogue.mjs';
+import {mountPremiseExperiment} from './premise-experiment.mjs';
 const $=id=>document.getElementById(id),make=(tag,text)=>{const el=document.createElement(tag);if(text)el.textContent=text;return el;};
 const timeline=createExplosionEpisode(),menu=$('lesson-menu'),stage=$('lesson-stage');
 const visual=mountInferenceVisual(stage);
-let navigatingHistory=false;
+let navigatingHistory=false,currentView;
+const experiment=mountPremiseExperiment($('lesson-experiment'),{suggestion:timeline.cues[0].presentation.snapshot,idPrefix:'lesson-input',onChange(info){if(currentView)renderExperiment(currentView,info);}});
 function formulaCard(formula,label){const card=make('div');card.className='story-formula';card.append(make('span',label),make('strong',formula));return card;}
 function render(view){
+  currentView=view;
   const section=view.section,presentation=timeline.cues[view.index].presentation;
   $('lesson-chapter').textContent=view.chapter.title;
   $('lesson-position').textContent=(view.index+1)+' / '+view.total;
@@ -17,6 +20,24 @@ function render(view){
   $('lesson-prev').disabled=!view.canPrevious;$('lesson-next').disabled=!view.canNext;
   $('lesson-skip').hidden=!view.nextChapter;
   $('lesson-skip').title=view.nextChapter?'다음 주제: '+view.nextChapter.title:'';
+  $('lesson-skip-context').textContent=view.nextChapter?'건너뛸 내용: '+view.chapter.known+' · 다음: '+view.nextChapter.title:'';
+  $('lesson-skip-context').hidden=!view.nextChapter;
+  experiment.suggest(presentation.controlState??presentation.snapshot);
+  for(const button of $('lesson-jumps').children)button.setAttribute('aria-current',button.dataset.sectionId===section.id?'step':'false');
+  if(!navigatingHistory&&location.hash.startsWith('#explanation-'))history.replaceState(null,'','#explanation-'+section.id);
+}
+function renderExperiment(view,info){
+  const section=view.section,presentation=timeline.cues[view.index].presentation;
+  $('lesson-chapter').textContent=(info.customized?'기본 예시 해설 · ':'')+view.chapter.title;
+  $('dialogue-input-context').textContent=info.customized?'아래는 장면 예시의 설명입니다. 위 도표는 내 전제·목표의 현재 결과입니다.':'';
+  $('dialogue-input-context').hidden=!info.customized;
+  const output=$('lesson-experiment-result');output.hidden=!info.customized;
+  if(info.customized){
+    if(!info.valid){stage.replaceChildren(make('p','명제식을 완성하면 도표가 갱신됩니다.'));output.textContent=info.error;return;}
+    output.textContent=info.proof.goalReached?'현재 목표 '+info.goal+' 도출 · 선택한 가정과 규칙 아래의 결과입니다.':'현재 목표 '+info.goal+'의 경로를 이 탐색에서 찾지 못했습니다. 거짓이나 일반적 증명 불가능성을 뜻하지 않습니다.';
+    if(!info.proof.goalReached){stage.replaceChildren(make('p','사용 중인 전제: '+(info.premises.join(' · ')||'없음')));return;}
+    visual.update({...info,step:info.proof.lines.length-1});stage.dataset.kind='proof';return;
+  }
   if(section.phase==='intro'){
     const pair=make('div');pair.className='story-pair';pair.append(formulaCard('P','문장'),make('span','그리고'),formulaCard('¬P','그 문장의 부정'));
     stage.replaceChildren(pair);stage.dataset.kind='introduction';
@@ -25,8 +46,6 @@ function render(view){
   }else{
     visual.update({...presentation.snapshot,step:section.line??presentation.lines.length-1});stage.dataset.kind='proof';
   }
-  for(const button of $('lesson-jumps').children)button.setAttribute('aria-current',button.dataset.sectionId===section.id?'step':'false');
-  if(!navigatingHistory&&location.hash.startsWith('#explanation-'))history.replaceState(null,'','#explanation-'+section.id);
 }
 const dialogue=createLessonDialogue({onChange:render});
 for(const section of EXPLOSION_EPISODE.sections){
@@ -57,7 +76,8 @@ function followSection(){
   document.querySelector('.dialogue-experience').scrollIntoView({block:'start'});
 }
 window.addEventListener('hashchange',followSection);
-window.__atlasLesson=dialogue;
+window.__atlasLesson={...dialogue,getState:()=>({...dialogue.getState(),experiment:experiment.getState()}),setState(state){if(!EXPLOSION_EPISODE.sections.some(s=>s.id===state?.sectionId))throw new RangeError('Unknown lesson section');if(state.experiment)experiment.setState(state.experiment);dialogue.setState(state);},reset(){dialogue.reset();experiment.reset();}};
+window.__atlasLessonExperiment=experiment;
 render(dialogue.inspect());followSection();
 const read=async path=>{const response=await fetch(path);if(!response.ok)throw new Error(`자료를 읽지 못했습니다: ${response.status}`);return response.json();};
 try{

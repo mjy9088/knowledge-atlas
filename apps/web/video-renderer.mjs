@@ -19,13 +19,32 @@ function card(ctx,line,x,y,w,h,{result=false,alpha=1}={}){
   text(ctx,line.label,x+20,y+30,w-40,{size:22,color:'#748569',height:40});
   text(ctx,line.formula,x+20,y+78,w-40,{size:result?62:48,min:20,height:h-85,serif:true});ctx.restore();
 }
+// Same input state and visual vocabulary as the web editor; these are projected controls.
+function drawInputStrip(ctx,state,width){
+  const goalWidth=180,gap=20,premiseWidth=width-goalWidth-gap;
+  ctx.fillStyle='#f1f5e9';ctx.strokeStyle='#cbd9bc';ctx.lineWidth=2;
+  ctx.beginPath();ctx.roundRect(90,196,premiseWidth,62,10);ctx.fill();ctx.stroke();
+  text(ctx,'전제',105,233,65,{size:20,height:35});
+  let x=180;
+  for(const row of state.premises){
+    const slot=(premiseWidth-105)/Math.max(1,state.premises.length);
+    ctx.fillStyle=row.enabled?'#61814b':'#fff';ctx.strokeStyle='#89a174';ctx.fillRect(x,215,22,22);ctx.strokeRect(x,215,22,22);
+    if(row.enabled)text(ctx,'✓',x+2,233,20,{size:19,height:30,color:'#fff'});
+    text(ctx,row.formula,x+34,236,slot-42,{size:27,min:17,height:37,color:row.enabled?'#35583b':'#a0a998'});x+=slot;
+  }
+  const goalX=90+premiseWidth+gap;
+  ctx.fillStyle='#e5efd7';ctx.beginPath();ctx.roundRect(goalX,196,goalWidth,62,10);ctx.fill();ctx.stroke();
+  text(ctx,'목표',goalX+12,233,55,{size:20,height:35});text(ctx,state.goal,goalX+75,237,goalWidth-88,{size:30,min:18,height:40});
+  ctx.strokeStyle='#61814b';ctx.beginPath();ctx.moveTo(goalX+75,244);ctx.lineTo(goalX+goalWidth-16,244);ctx.stroke();
+}
 export function drawVideoFrame(canvas,timeline,timeMs){
   const frame=frameAt(timeline,timeMs),presentation=frame.presentation,ctx=canvas.getContext('2d'),portrait=canvas.height>canvas.width;
   const w=portrait?1080:1920,h=portrait?1440:1080;ctx.save();ctx.scale(canvas.width/w,canvas.height/h);ctx.fillStyle='#f8faf3';ctx.fillRect(0,0,w,h);
   text(ctx,'KNOWLEDGE ATLAS · 로컬 검토용',70,65,w-140,{size:22,color:'#7b896d'});
   text(ctx,timeline.title??'전제에서 결론까지',70,130,w-140,{size:48,bold:true});
   ctx.fillStyle='#fff';ctx.strokeStyle='#dce5d3';ctx.lineWidth=2;ctx.beginPath();ctx.roundRect(60,180,w-120,h-370,26);ctx.fill();ctx.stroke();
-  text(ctx,`목표 ${presentation.goal}`,90,225,w-180,{size:28,bold:true,height:70});
+  if(presentation.controlState)drawInputStrip(ctx,presentation.controlState,w-180);
+  else text(ctx,`목표 ${presentation.goal}`,90,225,w-180,{size:28,bold:true,height:70});
   const available=w-180,step=frame.activeLine;
   if(step>=0){
     const view=visualForStep({premises:presentation.premises,goal:presentation.goal,proof:presentation.snapshot.proof,step});
