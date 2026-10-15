@@ -1,4 +1,4 @@
-name: contract-and-model-tests
+name: content-model-and-browser-tests
 on:
   push:
   pull_request:
@@ -7,10 +7,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+          cache: pnpm
+      - name: Install locked development dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps chromium
       - name: Validate source and content references
-        run: npm run validate
+        run: pnpm validate
       - name: Run deterministic model tests
-        run: npm test
+        run: pnpm test
+      - name: Check static readers in Chromium
+        run: pnpm test:ui
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: browser-diagnostics
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7

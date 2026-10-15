@@ -15,9 +15,13 @@
     "test": "node --test tests/*.test.mjs",
     "storyboard": "node scripts/storyboard.mjs",
     "release:check": "node scripts/release-check.mjs",
-    "check": "npm run validate && npm test",
+    "check": "pnpm validate && pnpm test && pnpm test:ui",
     "impact": "node scripts/impact.mjs",
     "preview:manifest": "node scripts/preview-manifest.mjs",
-    "render:mp4": "node scripts/encode-mp4.mjs"
+    "render:mp4": "node scripts/encode-mp4.mjs",
+    "test:ui": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1"
   }
 }
