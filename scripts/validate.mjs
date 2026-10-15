@@ -15,7 +15,7 @@ const content=read('content/formal-logic/explosion/content.json');
 const scene=read('content/formal-logic/explosion/scenes/proof.json');
 const narration=read('content/formal-logic/explosion/narration/ko.json');
 const projection=read('content/formal-logic/explosion/projection.json');
-const feedback=[...read('feedback/example-feedback.json'),read('feedback/2026-10-16-inference-video.json'),read('feedback/2026-10-16-slide-scenes.json')];
+const feedback=[...read('feedback/example-feedback.json'),read('feedback/2026-10-16-inference-video.json'),read('feedback/2026-10-16-slide-scenes.json'),read('feedback/2026-10-16-floating-controls.json')];
 for(const [arr,label] of [[sources,'sources'],[concepts,'concepts'],[claims,'claims'],[content.blocks,'content blocks'],[narration.chunks,'narration chunks'],[projection.segments,'projection segments'],[feedback,'feedback']]) uniq(arr,label);
 const sourceIds=new Set(sources.map(x=>x.id)), conceptIds=new Set(concepts.map(x=>x.id)), claimIds=new Set(claims.map(x=>x.id));
 const blockIds=new Set(content.blocks.map(x=>x.id)), narrationIds=new Set(narration.chunks.map(x=>x.id));
