@@ -5,6 +5,7 @@ import {readFile,stat} from 'node:fs/promises';
 import {mkdir,writeFile} from 'node:fs/promises';
 import {randomUUID} from 'node:crypto';
 import {encodeMP4} from './encode-mp4.mjs';
+import {loadSiteContent,siteDocuments} from './build-site.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const port=Number(process.env.PORT)||4173;
 let converting=false;
@@ -34,6 +35,12 @@ const server=http.createServer(async(req,res)=>{
   }
   if(req.method!=='GET'&&req.method!=='HEAD'){res.writeHead(405);res.end('Method not allowed');return;}
   const url=new URL(req.url,'http://localhost');
+  if(url.pathname==='/knowledge'||/^\/knowledge\/[a-z-]+$/.test(url.pathname)){res.writeHead(308,{Location:url.pathname+'/'+url.search});res.end();return;}
+  if(url.pathname==='/knowledge/'||/^\/knowledge\/[a-z-]+\/$/.test(url.pathname)){
+    const html=siteDocuments(await loadSiteContent()).get(url.pathname);
+    if(!html){res.writeHead(404);res.end('Not found');return;}
+    res.writeHead(200,{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store','Content-Security-Policy':"default-src 'self'; style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'none'"});res.end(req.method==='HEAD'?undefined:html);return;
+  }
   let matched=paths.filter(([prefix])=>url.pathname.startsWith(prefix)).sort((a,b)=>b[0].length-a[0].length)[0];
   let rel=decodeURIComponent(url.pathname.slice(matched[0].length));
   if(!rel||rel.endsWith('/'))rel+='index.html';

@@ -4,6 +4,7 @@ import {deriveProof} from '/packages/models/propositional.mjs';
 import {createVideoTimeline,timelineVtt} from './inference-video.mjs';
 import {drawVideoFrame,encodeVideo,renderPlan} from './video-renderer.mjs';
 const $=id=>document.getElementById(id),canvas=$('render-canvas');
+const staticHosting=document.querySelector('meta[name="atlas-hosting"]')?.content==='static';
 let timeline,plan,controller,urls=[],busy=false,lastBlob;
 const settings=['render-preset','render-format','render-fps','render-seek'];
 const sha=async data=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',data))].map(x=>x.toString(16).padStart(2,'0')).join('');
@@ -15,7 +16,7 @@ function update(){
   $('render-plan').textContent=`${(plan.durationMs/1000).toFixed(1)}초`+` · ${plan.width}×${plan.height} · ${plan.frameCount}프레임 · 무음`;
   preview();
 }
-function lock(value){busy=value;for(const id of settings)$(id).disabled=value;for(const id of ['render-start','render-smoke'])$(id).disabled=value;$('render-cancel').disabled=!value;$('mp4-convert').disabled=value||!lastBlob;$('mp4-file').disabled=value;}
+function lock(value){busy=value;for(const id of settings)$(id).disabled=value;for(const id of ['render-start','render-smoke'])$(id).disabled=value;$('render-cancel').disabled=!value;$('mp4-convert').disabled=staticHosting||value||!lastBlob;$('mp4-file').disabled=staticHosting||value;}
 function link(id,blob){const url=URL.createObjectURL(blob);urls.push(url);$(id).href=url;return url;}
 async function verifyVideo(url){
   const video=$('render-video');
@@ -46,14 +47,15 @@ async function run(smoke){
     lastBlob=blob;encoded=true;$('mp4-status').textContent='렌더한 WebM을 MP4로 변환합니다.';
   }catch(error){$('render-status').textContent=error.name==='AbortError'?'렌더를 취소했습니다.':`렌더 실패: ${error.message}`;}
   finally{lock(false);preview();}
-  if(encoded)await convertMP4();
+  if(encoded&&!staticHosting)await convertMP4();
+  if(encoded&&staticHosting){$('mp4-status').textContent='WebM 저장 후 로컬 FFmpeg로 변환하세요.';$('render-status').textContent='WebM 렌더 완료. 파일·자막·진단을 저장할 수 있습니다.';}
 }
 for(const id of settings.slice(0,3))$(id).addEventListener('change',update);
 $('render-seek').addEventListener('input',preview);$('render-start').addEventListener('click',()=>run(false));$('render-smoke').addEventListener('click',()=>run(true));$('render-cancel').addEventListener('click',()=>controller?.abort());
 update();$('render-status').textContent=typeof VideoEncoder==='undefined'?'이 브라우저는 WebCodecs를 지원하지 않습니다. 최신 Chrome/Edge에서 열어 주세요.':'설정 후 전체 영상 또는 10초 시험 렌더를 선택하세요.';
 $('mp4-file').addEventListener('change',()=>{const file=$('mp4-file').files[0];if(!file)return;lastBlob=file;$('mp4-convert').disabled=false;$('mp4-status').textContent=`선택한 파일: ${file.name}`;});
 async function convertMP4(){
-  if(busy||!lastBlob)return;lock(true);$('render-cancel').disabled=true;$('mp4-status').textContent='로컬 FFmpeg 변환과 ffprobe 검증 중입니다.';
+  if(staticHosting||busy||!lastBlob)return;lock(true);$('render-cancel').disabled=true;$('mp4-status').textContent='로컬 FFmpeg 변환과 ffprobe 검증 중입니다.';
   try{
     const response=await fetch('/api/render/mp4',{method:'POST',headers:{'Content-Type':'video/webm'},body:lastBlob});
     if(!response.ok){let reason;try{reason=(await response.json()).error;}catch{}throw new Error(reason||`HTTP ${response.status}`);}
@@ -65,3 +67,4 @@ async function convertMP4(){
   }catch(error){$('mp4-status').textContent=`MP4 변환 실패: ${error.message}`;}finally{lock(false);}
 }
 $('mp4-convert').addEventListener('click',convertMP4);
+if(staticHosting){document.querySelector('header p:last-of-type').textContent='웹과 같은 설명·증명·시간표로 무음 WebM을 만듭니다. MP4 변환은 로컬 FFmpeg에서 실행합니다.';$('render-start').textContent='전체 WebM 렌더';$('mp4-settings').hidden=true;const note=document.createElement('p');note.className='note';note.textContent='정적 사이트에서는 WebM을 저장할 수 있습니다. MP4 변환은 로컬 개발 서버 또는 mise FFmpeg CLI에서 실행하세요.';$('render-status').after(note);}

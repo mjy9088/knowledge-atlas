@@ -4,6 +4,7 @@ import {mountInferenceVisual} from './inference-visual.mjs';
 import {createLessonDialogue} from './lesson-dialogue.mjs';
 import {mountPremiseExperiment} from './premise-experiment.mjs';
 import {describeExperiment,EXPERIMENT_RULE_CLAIMS} from './experiment-dialogue.mjs';
+import {RELATED_PAGES,pageURL} from '../../content/formal-logic/explosion/related-pages.mjs';
 const $=id=>document.getElementById(id),make=(tag,text)=>{const el=document.createElement(tag);if(text)el.textContent=text;return el;};
 const timeline=createExplosionEpisode(),menu=$('lesson-menu'),stage=$('lesson-stage');
 const visual=mountInferenceVisual(stage);
@@ -89,9 +90,10 @@ try{
   const claims=[...original,...inference,...related.claims],claimById=new Map(claims.map(c=>[c.id,c]));
   const articleId=article=>article.id.replaceAll(':','-').replaceAll('.','-');
   for(const article of related.articles){
-    const id=articleId(article),link=make('a',article.title);link.href=`#${id}`;$('related-nav').append(link);
+    const id=articleId(article),link=make('a',article.title),page=RELATED_PAGES.find(page=>page.articleId===article.id);link.href=page?pageURL(page):`#${id}`;$('related-nav').append(link);
     const card=make('article');card.className='related-article';card.id=id;card.dataset.conceptId=article.conceptId;
     card.append(make('h3',article.title));
+    if(page){const open=make('a','장면별 해설로 읽기 ↗');open.href=pageURL(page);card.append(open);}
     for(const block of article.blocks){const p=make('p',block.text);p.id=block.id;p.dataset.claimRefs=block.claimRefs.join(' ');card.append(p);}
     const refs=new Set(article.blocks.flatMap(b=>b.claimRefs).flatMap(id=>claimById.get(id)?.sourceRefs.map(r=>r.sourceId)??[]));
     const footer=make('footer','근거: ');

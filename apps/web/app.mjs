@@ -1,6 +1,7 @@
 import {createProofScene, PROOF_DURATION_MS} from './proof-scene.mjs';
 import {mountSlideDeck} from './slide-deck.mjs';
 import {displayFormula} from './formula-display.mjs';
+import {RELATED_PAGES,pageURL} from '../../content/formal-logic/explosion/related-pages.mjs';
 const $ = id => document.getElementById(id);
 let timelineTime = null;
 let scene;
@@ -84,7 +85,7 @@ async function populate() {
     const selectConcept = concept => {
       const article=related.articles.find(a=>a.conceptId===concept.id)??(concept.id==='concept:logic.independence'?related.articles.find(a=>a.conceptId==='concept:set.ch'):null);
       const target=$('concept-detail');target.hidden=!article;
-      if(article){target.href='./lesson.html#'+article.id.replaceAll(':','-').replaceAll('.','-');target.textContent=article.title+' ↗';}
+      if(article){const page=RELATED_PAGES.find(page=>page.articleId===article.id);target.href=page?pageURL(page):'./lesson.html#'+article.id.replaceAll(':','-').replaceAll('.','-');target.textContent=article.title+' ↗';}
       $('concept-title').textContent = concept.title;
       $('concept-summary').textContent = concept.summary;
       for (const button of nav.children) button.setAttribute('aria-expanded', String(button.dataset.conceptId === concept.id));
