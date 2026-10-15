@@ -12,6 +12,7 @@
     "concept:logic.proof"
   ],
   "claimRefs": [
+    "claim:logic.inference.proof-structure",
     "claim:logic.explosion.rule",
     "claim:logic.explosion.from_pair",
     "claim:logic.explosion.not-reality"
@@ -29,9 +30,11 @@
     {
       "id": "block:intro",
       "heading": "전제와 결론을 구별하기",
-      "text": "어떤 전제가 참인지, 그 전제로부터 무엇을 추론할 수 있는지는 서로 다른 질문입니다. 아래 예시는 현실을 판정하지 않고 선택한 추론 규칙의 작동을 보여줍니다.",
+      "text": "추론은 출발점으로 삼는 가정(전제)에서 규칙에 따라 결론을 얻는 과정입니다. P는 문장에 붙인 이름이고 ¬P는 그 부정입니다. 둘을 함께 사용할 때 모순을 얻고, 이 체계에서는 모순에서 임의의 결론을 도출하는 ‘폭발’ 규칙을 사용합니다. 실제 세계의 모든 주장이 참이 된다는 뜻은 아닙니다.",
       "claimRefs": [
-        "claim:logic.explosion.not-reality"
+        "claim:logic.inference.proof-structure",
+        "claim:logic.explosion.not-reality",
+        "claim:logic.explosion.from_pair"
       ]
     },
     {

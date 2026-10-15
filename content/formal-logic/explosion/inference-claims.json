@@ -1,5 +1,14 @@
 [
   {
+    "id": "claim:logic.inference.proof-structure",
+    "kind": "explanatory",
+    "statement": "형식적 도출에서는 일부 문장을 초기 가정(전제)으로 표시하고, 행 번호와 정당화 규칙을 기록하며 결론에 이르는 문장열을 구성한다.",
+    "scope": "이 파일럿의 자연연역 도표를 처음 읽기 위한 설명. 현실의 사실 조사나 모든 형태의 인간 추론에 대한 정의가 아니다.",
+    "assumptions": ["자연연역의 형식적 증명/도출", "전제와 도출된 문장의 구별"],
+    "sourceRefs": [{"sourceId":"source:forallx-calgary-2026","locator":"Chapter 17 §17.1 The idea of a formal proof, premises, line numbers and justification"}],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
     "id": "claim:logic.inference.and-elimination",
     "kind": "formal",
     "statement": "자연연역에서 A ∧ B로부터 A 또는 B를 각각 도출할 수 있다.",

@@ -6,5 +6,5 @@ export function advanceShortsTime(timeMs, deltaMs, durationMs) {
 // Same timeline/proof as the web playback; only the composition differs.
 export function shortsFrame(timeline, timeMs) {
   const frame = frameAt(timeline, timeMs);
-  return {...frame, phase:frame.activeLine >= 0 ? 'step' : frame.timeMs < 2500 ? 'intro' : 'outro'};
+  return frame;
 }

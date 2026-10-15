@@ -1,5 +1,7 @@
 # 명제 추론의 HTML 재생 미리보기
 
+현재 웹/세로 UI는 [처음 읽는 독자를 위한 약 3분 설명](THREE-MINUTE-LESSON.ko.md)을 기본 사용한다. 처음 1분에 주제·기호·전제·목표를 소개하고 같은 proof의 행별 근거와 규칙을 풀이한다. `createVideoTimeline(input,{expanded:true})`가 확장 모드(version 3)이며 VTT도 같은 설명을 담는다. 아래 2.5초 소개·1.8초/행 설명은 호환성을 유지한 짧은 기본 API(version 2)에 해당한다. 확장 모드는 긴 증명의 가독성을 위해 3분을 넘을 수 있다. 음성은 포함하지 않는다.
+
 모바일 웹과 별개인 3:4 재생은 `/shorts.html`, 세 화면 iframe 비교는 `/preview.html`에서 확인한다. 세로 재생은 같은 proof/timeline의 소개→증명 행→결과를 사용하며, 제목·보조 설명은 위아래에 배치한다. 중앙에 필수 전제·규칙·결과·해석의 범위를 표시한다. `window.__atlasShorts`는 `getState/setState/reset/seek/play/pause`를 제공한다. 자세한 상태/축소/독립 조작 계약은 [ADR 0005](adr/0005-portrait-and-iframe-preview.md)를 참조한다.
 
 ## 정지 상태에서도 같은 시각적 설명

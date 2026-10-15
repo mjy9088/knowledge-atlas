@@ -30,6 +30,7 @@
 #slide-video .inference-video{width:100%;max-width:1280px;padding:22px 30px}
 #slide-video .inference-video-canvas{height:clamp(280px,55dvh,620px);max-height:calc(100dvh - 300px);width:100%;object-fit:contain}
 .overview-slide .overview-layout{gap:clamp(40px,5vw,100px)}
+.inference-video-mobile .inference-video-mobile-formula.lesson-copy{font-size:20px;line-height:1.7;text-align:left;font-family:inherit}
 .deck-slide .inference-lines .current-line .inference-line.progress-running{
   background-color:#edf3e5;background-image:linear-gradient(#c4dbaa,#c4dbaa);
   background-repeat:no-repeat;background-position:left center;background-size:0% 100%;

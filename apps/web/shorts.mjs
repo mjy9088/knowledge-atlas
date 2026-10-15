@@ -6,7 +6,7 @@ import {shortsFrame,advanceShortsTime} from './shorts-frame.mjs';
 const $ = id => document.getElementById(id);
 const requested = new URLSearchParams(location.search).get('preset');
 const preset = INFERENCE_PRESETS[Object.hasOwn(INFERENCE_PRESETS,requested) ? requested : 'chain'];
-const proof = deriveProof(preset), timeline = createVideoTimeline({...preset,proof});
+const proof = deriveProof(preset), timeline = createVideoTimeline({...preset,proof},{expanded:true});
 let timeMs=0, playing=false, raf, last, cueKey='';
 const content=$('shorts-content'), visual=mountInferenceVisual(content);
 $('shorts-goal').textContent=`목표 ${timeline.goal}`;
@@ -14,15 +14,17 @@ $('shorts-seek').max=timeline.durationMs;
 function fit(){const box=$('shorts-viewport').getBoundingClientRect();$('shorts-stage').style.transform=`scale(${Math.min(box.width/1080,box.height/1440)})`;}
 new ResizeObserver(fit).observe($('shorts-viewport'));fit();
 function render(){
-  const frame=shortsFrame(timeline,timeMs),key=`${frame.phase}:${frame.activeLine}`;
+  const frame=shortsFrame(timeline,timeMs),key=frame.cueId;
   if(key!==cueKey){
     cueKey=key;content.dataset.phase=frame.phase;
-    if(frame.phase==='step') visual.update({...preset,proof,step:frame.activeLine});
+    if(frame.phase==='step') {
+      visual.update({...preset,proof,step:frame.activeLine});
+      const explanation=document.createElement('p');explanation.className='shorts-explanation';explanation.textContent=frame.caption;content.append(explanation);
+    }
     else {
-      const phase=document.createElement('p');phase.className='shorts-phase';phase.textContent=frame.phase==='intro'?'사용할 전제':'탐색 결과';
-      const body=document.createElement('div');body.className=frame.phase==='intro'?'shorts-premises':'shorts-outro';
-      if(frame.phase==='intro') for(const formula of timeline.premises){const row=document.createElement('p');row.textContent=formula;body.append(row);}
-      else body.textContent=frame.caption;
+      const phase=document.createElement('p');phase.className='shorts-phase';phase.textContent=frame.title;
+      const body=document.createElement('div');body.className='shorts-outro';body.textContent=frame.caption;
+      if(frame.phase==='intro') {const formulas=document.createElement('p');formulas.className='shorts-formula-summary';formulas.textContent=timeline.premises.join(' · ');body.append(formulas);}
       content.replaceChildren(phase,body);
     }
   }

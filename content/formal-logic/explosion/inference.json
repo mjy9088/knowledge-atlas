@@ -4,8 +4,10 @@
   "status": "draft-needs-human-review",
   "sceneId": "scene:logic.inference.lab",
   "modelId": "model:logic.propositional.forward",
+  "lessonRef": "lesson:logic.inference.three-minutes.ko",
   "title": "전제에서 결론까지, 추론 과정 살펴보기",
   "claimRefs": [
+    "claim:logic.inference.proof-structure",
     "claim:logic.inference.and-elimination",
     "claim:logic.inference.modus-ponens",
     "claim:logic.inference.and-introduction",

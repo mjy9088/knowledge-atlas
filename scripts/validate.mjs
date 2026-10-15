@@ -2,6 +2,7 @@ import {readFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 import {deriveExplosion} from '../packages/models/explosion.mjs';
+import {LESSON} from '../content/formal-logic/explosion/lesson.mjs';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const read=p=>JSON.parse(readFileSync(path.join(root,p),'utf8'));
@@ -15,10 +16,18 @@ const content=read('content/formal-logic/explosion/content.json');
 const scene=read('content/formal-logic/explosion/scenes/proof.json');
 const narration=read('content/formal-logic/explosion/narration/ko.json');
 const projection=read('content/formal-logic/explosion/projection.json');
-const feedback=[...read('feedback/example-feedback.json'),read('feedback/2026-10-16-inference-video.json'),read('feedback/2026-10-16-slide-scenes.json'),read('feedback/2026-10-16-floating-controls.json'),read('feedback/2026-10-16-live-inference.json'),read('feedback/2026-10-16-auto-proof.json'),read('feedback/2026-10-16-three-views.json'),read('feedback/2026-10-16-portrait-progress.json'),read('feedback/2026-10-16-clear-unreached-proof.json')];
+const feedback=[...read('feedback/example-feedback.json'),read('feedback/2026-10-16-inference-video.json'),read('feedback/2026-10-16-slide-scenes.json'),read('feedback/2026-10-16-floating-controls.json'),read('feedback/2026-10-16-live-inference.json'),read('feedback/2026-10-16-auto-proof.json'),read('feedback/2026-10-16-three-views.json'),read('feedback/2026-10-16-portrait-progress.json'),read('feedback/2026-10-16-clear-unreached-proof.json'),read('feedback/2026-10-16-three-minute-lesson.json')];
 for(const [arr,label] of [[sources,'sources'],[concepts,'concepts'],[claims,'claims'],[content.blocks,'content blocks'],[narration.chunks,'narration chunks'],[projection.segments,'projection segments'],[feedback,'feedback']]) uniq(arr,label);
 const sourceIds=new Set(sources.map(x=>x.id)), conceptIds=new Set(concepts.map(x=>x.id)), claimIds=new Set(claims.map(x=>x.id));
 const blockIds=new Set(content.blocks.map(x=>x.id)), narrationIds=new Set(narration.chunks.map(x=>x.id));
+need(LESSON.reviewStatus==='needs-content-review','Lesson must retain content review status');
+need(inference.lessonRef===LESSON.id,'Inference lesson reference mismatch');
+for(const id of LESSON.sourceRefs)need(sourceIds.has(id),`Unknown lesson source ${id}`);
+uniq([...LESSON.intro,...LESSON.outro],'lesson sections');
+for(const section of [...LESSON.intro,...Object.values(LESSON.rules),...LESSON.outro]){
+  need(Boolean(section.text&&section.claimRefs?.length),'Lesson section needs text and claim refs');
+  for(const id of section.claimRefs)need(claimIds.has(id),`Unknown lesson claim ${id}`);
+}
 for(const s of sources){
   need(Boolean(s.canonicalUrl?.startsWith('https://')),`${s.id}: needs canonical https URL`);
   need(Boolean(s.providerRevision && s.license && s.rightsReview),`${s.id}: revision/license/rights status missing`);

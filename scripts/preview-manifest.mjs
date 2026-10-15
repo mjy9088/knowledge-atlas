@@ -12,7 +12,7 @@ const read = relative => readFile(path.join(root, relative));
 const contract = JSON.parse(await read('content/formal-logic/explosion/inference.json'));
 const {premises, goal} = contract.initialState;
 const proof = deriveProof({premises, goal});
-const timeline = createVideoTimeline({premises, goal, proof});
+const timeline = createVideoTimeline({premises, goal, proof},{expanded:true});
 const files = [
   'packages/models/propositional.mjs', 'apps/web/inference-video.mjs',
   'apps/web/inference-visual.mjs', 'apps/web/formula-display.mjs', 'apps/web/slide-deck.mjs',
@@ -20,6 +20,7 @@ const files = [
   'apps/web/inference-presets.mjs', 'apps/web/shorts.html', 'apps/web/shorts.css',
   'apps/web/shorts.mjs', 'apps/web/shorts-frame.mjs',
   'apps/web/preview.html', 'apps/web/preview.css', 'apps/web/preview.mjs',
+  'apps/web/expanded-timeline.mjs', 'content/formal-logic/explosion/lesson.mjs',
   'content/formal-logic/explosion/inference.json',
   'content/formal-logic/explosion/inference-claims.json',
   'content/formal-logic/explosion/claims.json', 'sources/registry.json',
