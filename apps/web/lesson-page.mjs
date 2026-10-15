@@ -3,6 +3,7 @@ import {createExplosionEpisode} from './explosion-episode.mjs';
 import {mountInferenceVisual} from './inference-visual.mjs';
 import {createLessonDialogue} from './lesson-dialogue.mjs';
 import {mountPremiseExperiment} from './premise-experiment.mjs';
+import {describeExperiment,EXPERIMENT_RULE_CLAIMS} from './experiment-dialogue.mjs';
 const $=id=>document.getElementById(id),make=(tag,text)=>{const el=document.createElement(tag);if(text)el.textContent=text;return el;};
 const timeline=createExplosionEpisode(),menu=$('lesson-menu'),stage=$('lesson-stage');
 const visual=mountInferenceVisual(stage);
@@ -14,9 +15,6 @@ function render(view){
   const section=view.section,presentation=timeline.cues[view.index].presentation;
   $('lesson-chapter').textContent=view.chapter.title;
   $('lesson-position').textContent=(view.index+1)+' / '+view.total;
-  $('dialogue-title').textContent=section.title;
-  $('dialogue-text').textContent=section.text;
-  $('lesson-dialogue-copy').dataset.claimRefs=section.claimRefs.join(' ');
   $('lesson-prev').disabled=!view.canPrevious;$('lesson-next').disabled=!view.canNext;
   $('lesson-skip').hidden=!view.nextChapter;
   $('lesson-skip').title=view.nextChapter?'다음 주제: '+view.nextChapter.title:'';
@@ -28,15 +26,21 @@ function render(view){
 }
 function renderExperiment(view,info){
   const section=view.section,presentation=timeline.cues[view.index].presentation;
-  $('lesson-chapter').textContent=(info.customized?'기본 예시 해설 · ':'')+view.chapter.title;
-  $('dialogue-input-context').textContent=info.customized?'아래는 장면 예시의 설명입니다. 위 도표는 내 전제·목표의 현재 결과입니다.':'';
-  $('dialogue-input-context').hidden=!info.customized;
-  const output=$('lesson-experiment-result');output.hidden=!info.customized;
+  const narration=info.customized?describeExperiment(section.id,info):{...section,status:'example'};
+  $('dialogue-title').textContent=narration.title;
+  $('dialogue-text').textContent=narration.text;
+  $('lesson-dialogue-copy').dataset.claimRefs=narration.claimRefs.join(' ');
+  $('lesson-dialogue-copy').dataset.status=narration.status;
+  const chapterTitles={'question':'전제와 목표 읽기','premise-p':'근거에서 결론까지','change-r':'목표 바꾸기','remove-premise':'전제 포함·제외','truth':'도출과 사실'};
+  $('lesson-chapter').textContent=info.customized?'내 입력 · '+chapterTitles[view.chapter.id]:view.chapter.title;
   if(info.customized){
-    if(!info.valid){stage.replaceChildren(make('p','명제식을 완성하면 도표가 갱신됩니다.'));output.textContent=info.error;return;}
-    output.textContent=info.proof.goalReached?'현재 목표 '+info.goal+' 도출 · 선택한 가정과 규칙 아래의 결과입니다.':'현재 목표 '+info.goal+'의 경로를 이 탐색에서 찾지 못했습니다. 거짓이나 일반적 증명 불가능성을 뜻하지 않습니다.';
-    if(!info.proof.goalReached){stage.replaceChildren(make('p','사용 중인 전제: '+(info.premises.join(' · ')||'없음')));return;}
-    visual.update({...info,step:info.proof.lines.length-1});stage.dataset.kind='proof';return;
+    const known={'question':'현재 전제·목표와 명제식 표기','premise-p':'현재 경로의 전제·참조 행·적용 규칙','change-r':'목표를 바꾸며 도출 경로를 비교하는 방법','remove-premise':'전제 포함·제외와 목표 경로의 관계','truth':'도출과 사실 판단의 구별, 일관성의 의미'};
+    $('lesson-skip-context').textContent=view.nextChapter?'건너뛸 내용: '+known[view.chapter.id]+' · 다음: '+chapterTitles[view.nextChapter.id]:'';
+  }
+  if(info.customized){
+    if(!info.valid){stage.replaceChildren(make('p','명제식 입력 대기'));stage.dataset.kind='invalid';return;}
+    if(!info.proof.goalReached){stage.replaceChildren(make('p',`포함된 전제 ${info.premises.length}개 · 목표 경로 미발견`));stage.dataset.kind='unavailable';return;}
+    visual.update({...info,step:narration.stepIndex});stage.dataset.kind='proof';return;
   }
   if(section.phase==='intro'){
     const pair=make('div');pair.className='story-pair';pair.append(formulaCard('P','문장'),make('span','그리고'),formulaCard('¬P','그 문장의 부정'));
@@ -76,7 +80,7 @@ function followSection(){
   document.querySelector('.dialogue-experience').scrollIntoView({block:'start'});
 }
 window.addEventListener('hashchange',followSection);
-window.__atlasLesson={...dialogue,getState:()=>({...dialogue.getState(),experiment:experiment.getState()}),setState(state){if(!EXPLOSION_EPISODE.sections.some(s=>s.id===state?.sectionId))throw new RangeError('Unknown lesson section');if(state.experiment)experiment.setState(state.experiment);dialogue.setState(state);},reset(){dialogue.reset();experiment.reset();}};
+window.__atlasLesson={...dialogue,getState:()=>({...dialogue.getState(),experiment:experiment.getState()}),getInspectionSnapshot(){const reading=dialogue.inspect(),input=experiment.inspect();return {...reading,experiment:input,displayedDialogue:input.customized?describeExperiment(reading.section.id,input):reading.section};},setState(state){if(!EXPLOSION_EPISODE.sections.some(s=>s.id===state?.sectionId))throw new RangeError('Unknown lesson section');if(state.experiment)experiment.setState(state.experiment);dialogue.setState(state);},reset(){dialogue.reset();experiment.reset();}};
 window.__atlasLessonExperiment=experiment;
 render(dialogue.inspect());followSection();
 const read=async path=>{const response=await fetch(path);if(!response.ok)throw new Error(`자료를 읽지 못했습니다: ${response.status}`);return response.json();};
@@ -94,7 +98,7 @@ try{
     for(const id of refs){const source=sources.find(s=>s.id===id),a=make('a',source.title);a.href=source.canonicalUrl;a.target='_blank';a.rel='noopener noreferrer';footer.append(a);}
     footer.append(make('p',`범위: ${article.scope??'개념 소개이며 정리의 전체 증명이 아닙니다.'} · ${article.reviewStatus}`));card.append(footer);$('related-articles').append(card);
   }
-  const usedClaims=new Set([...EXPLOSION_EPISODE.sections.flatMap(s=>s.claimRefs),...related.articles.flatMap(a=>a.blocks.flatMap(b=>b.claimRefs))]);
+  const usedClaims=new Set([...Object.values(EXPERIMENT_RULE_CLAIMS),...EXPLOSION_EPISODE.sections.flatMap(s=>s.claimRefs),...related.articles.flatMap(a=>a.blocks.flatMap(b=>b.claimRefs))]);
   const usedSources=new Set([...usedClaims].flatMap(id=>claimById.get(id)?.sourceRefs.map(r=>r.sourceId)??[]));
   for(const source of sources.filter(s=>usedSources.has(s.id))){const p=make('p'),a=make('a',source.title);a.href=source.canonicalUrl;a.target='_blank';a.rel='noopener noreferrer';p.append(a,make('span',` · ${source.author} · 확인일 ${source.retrievedAt}`));$('lesson-sources').append(p);}
   for(const claim of claims.filter(c=>usedClaims.has(c.id))){const div=make('div');div.className='lesson-claim';div.append(make('strong',claim.id),make('p',claim.statement),make('p',`범위: ${claim.scope}`),make('p',`조건: ${claim.assumptions.join(' / ')}`),make('p',claim.sourceRefs.map(r=>`${r.sourceId} · ${r.locator}`).join('; ')),make('p',claim.reviewStatus));$('lesson-claims').append(div);}

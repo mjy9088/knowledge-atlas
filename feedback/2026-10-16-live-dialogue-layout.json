@@ -1,0 +1,11 @@
+{
+  "id":"feedback:2026-10-16.live-dialogue-layout",
+  "targetId":"experience:logic.inference.ko",
+  "contentVersion":"56fd0a5",
+  "origin":"human-user-chat",
+  "issue":"입력을 바꿔도 기본 예시 대사가 남아 혼동되며 전제 추가 시 레이아웃이 불안정함",
+  "requestedChange":"현재 입력과 기록된 증명에 맞게 대사·도표를 함께 갱신하거나 적용 불가로 무효화. 고정 예시 해설 병치 제거. 최대 8개 전제·긴 식에서도 편집 영역과 이동 버튼이 겹치지 않도록 레이아웃 안정화.",
+  "invariants":["기존 과학 모형·정답 fixture·영상 원본 보존","목표 미발견을 거짓이나 증명 불가능으로 표현하지 않음","사용자 입력 유지·명시적 예시 복원","동적 대사도 기존 Claim ID와 모형 참조 행으로 추적"],
+  "scope":"model-grounded-dialogue-and-editor-layout",
+  "status":"implementation-candidate"
+}

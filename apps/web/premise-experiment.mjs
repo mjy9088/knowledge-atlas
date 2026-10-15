@@ -55,7 +55,7 @@ export function mountPremiseEditor({container,goalInput,addButton,syntaxId,onInp
   const getState=()=>({premises:[...container.children].map(row=>({formula:row.querySelector('input[type=text]').value,enabled:row.querySelector('input[type=checkbox]').checked})),goal:goalInput.value});
   goalInput.readOnly=readOnly;
   if(!readOnly){bindFormulaInput(goalInput);goalInput.addEventListener('input',notify);goalInput.addEventListener('compositionend',notify);}
-  addButton?.addEventListener('click',()=>{const input=addRow();notify();input?.focus();});
+  addButton?.addEventListener('click',()=>{const input=addRow();notify();if(input){input.focus({preventScroll:true});container.scrollTop=container.scrollHeight;}});
   if(addButton&&readOnly)addButton.hidden=true;
   return {getState,addRow,setState(next){const checked=normalizeExperimentInput(next);container.replaceChildren();number=0;checked.premises.forEach(row=>addRow(row.formula,row.enabled));goalInput.value=checked.goal;updateLimit();}};
 }
