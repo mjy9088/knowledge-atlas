@@ -1,6 +1,6 @@
 import {createProofScene, PROOF_DURATION_MS} from './proof-scene.mjs';
 import {mountSlideDeck} from './slide-deck.mjs';
-import {displayFormula, bindFormulaInput} from './formula-display.mjs';
+import {displayFormula} from './formula-display.mjs';
 const $ = id => document.getElementById(id);
 let timelineTime = null;
 let scene;
@@ -131,7 +131,6 @@ async function mountInferenceLab() {
   document.addEventListener('atlas:slidechange', event => {if (event.detail.slideId !== 'slide-video') video.pause();});
   const {INFERENCE_PRESETS: presets} = await import('./inference-presets.mjs');
   const labels = {'premise':'전제', 'and-elimination':'∧ 제거', 'modus-ponens':'조건문 적용 (→ 제거)', 'contradiction':'모순 도출', 'explosion':'모순 제거 (폭발)', 'and-introduction':'∧ 도입', 'or-introduction':'∨ 도입'};
-  let rowNumber = 0;
   let lastProof = null;
   let lastPremises = [];
   let inferenceStale = true;
@@ -164,6 +163,8 @@ async function mountInferenceLab() {
   document.addEventListener('atlas:slidechange', scheduleStep);
   document.addEventListener('visibilitychange', scheduleStep);
   const editor = $('premise-editor');
+  const {mountPremiseEditor}=await import('./premise-experiment.mjs');
+  const inputEditor=mountPremiseEditor({container:editor,goalInput:$('inference-goal'),addButton:$('add-premise'),syntaxId:'inference-syntax',onInput:refreshInput});
   function refreshInput(event) {
     if (event?.isComposing) {
       invalidateInput('수식 입력 중입니다. 입력이 끝나면 자동으로 갱신됩니다.');
@@ -189,27 +190,6 @@ async function mountInferenceLab() {
     $('inference-visual').replaceChildren();
     for (const id of ['inference-step-count','inference-active-label','inference-step-detail']) $(id).textContent = '';
     for (const id of ['inference-prev','inference-next','inference-auto']) $(id).disabled = true;
-  }
-  function updateRowLimit() { $('add-premise').disabled = editor.children.length >= 8; }
-  function addRow(value = '') {
-    if (editor.children.length >= 8) return;
-    const number = ++rowNumber;
-    const row = document.createElement('div'); row.className = 'premise-row';
-    const checkLabel = document.createElement('label'); checkLabel.className = 'premise-enabled';
-    const check = document.createElement('input'); check.type = 'checkbox'; check.checked = true;
-    check.setAttribute('aria-label', `전제 ${number} 포함`);
-    const marker = document.createElement('span'); marker.textContent = '전제';
-    checkLabel.append(check, marker);
-    const input = document.createElement('input'); input.type = 'text'; input.value = displayFormula(value);
-    input.autocomplete = 'off'; input.spellcheck = false; input.maxLength = 256;
-    input.placeholder = '예: P → Q'; input.setAttribute('aria-label', `전제 ${number} 명제식`);
-    input.setAttribute('aria-describedby', 'inference-syntax');
-    const remove = document.createElement('button'); remove.type = 'button'; remove.className = 'remove-premise';
-    remove.textContent = '×'; remove.setAttribute('aria-label', `전제 ${number} 삭제`);
-    remove.addEventListener('click', () => {row.remove(); updateRowLimit(); refreshInput(); $('add-premise').focus();});
-    check.addEventListener('change', () => {row.classList.toggle('excluded', !check.checked); input.disabled = !check.checked; refreshInput();});
-    bindFormulaInput(input); input.addEventListener('input', refreshInput); input.addEventListener('compositionend', refreshInput); row.append(checkLabel, input, remove); editor.append(row);
-    updateRowLimit(); return input;
   }
   function focusStep(index, reveal = false) {
     if (!lastProof?.lines.length) return;
@@ -285,13 +265,10 @@ async function mountInferenceLab() {
   function loadPreset(name) {
     const preset = presets[name]; if (!preset) return;
     autoAdvance = true;
-    editor.replaceChildren(); rowNumber = 0; preset.premises.forEach(value => addRow(value)); $('inference-goal').value = displayFormula(preset.goal);
+    inputEditor.setState(preset);
     for (const button of $('inference-presets').children) button.setAttribute('aria-pressed', String(button.dataset.preset === name));
     runInference();
   }
-  $('add-premise').addEventListener('click', () => {const input = addRow(); refreshInput(); input?.focus();});
-  bindFormulaInput($('inference-goal')); $('inference-goal').addEventListener('input', refreshInput);
-  $('inference-goal').addEventListener('compositionend', refreshInput);
   $('inference-form').addEventListener('submit', event => event.preventDefault());
   $('inference-prev').addEventListener('click', () => selectStep(activeStep - 1));
   $('inference-next').addEventListener('click', () => selectStep(activeStep + 1));
@@ -308,7 +285,7 @@ async function mountInferenceLab() {
     const checked = deriveProof({premises: next.premises, goal: next.goal});
     if (next.step >= Math.max(1, checked.lines.length)) throw new RangeError('Step exceeds proof length');
     autoAdvance = false; stopStepTimer();
-    editor.replaceChildren(); rowNumber = 0; next.premises.forEach(value => addRow(value)); $('inference-goal').value = displayFormula(next.goal);
+    inputEditor.setState(next);
     for (const button of $('inference-presets').children) button.setAttribute('aria-pressed', 'false');
     runInference(); focusStep(next.step); scheduleStep();
   }
