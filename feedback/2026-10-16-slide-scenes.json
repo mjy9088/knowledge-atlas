@@ -1,0 +1,12 @@
+{
+  "id": "feedback:2026-10-16.slide-scenes",
+  "targetId": "experience:logic.inference.ko",
+  "contentVersion": "d4fba64",
+  "origin": "human-user-chat",
+  "captureState": {"url": "http://127.0.0.1:4184/#inference-video", "sceneState": "not captured"},
+  "issue": "-> 논리 기호로 바꾸고, 재생과 비슷한 시각적 요소가 영상이 아니어도 보이게, 그리고 각 장면을 PPT 슬라이드처럼 구성해서 넘어갈 수 있게 하고 나머지 왼쪽/위쪽 바 같은 건 다른 버튼 눌러야 나타나게 수정해줘. 그리고 중간 커밋도 적절히 남겨줘.",
+  "requestedChange": "논리 기호 입력/표시, 정적인 추론 관계 시각화, 장면별 슬라이드 탐색, 기본 숨김 탐색/상단 메뉴, 검증 단계별 로컬 커밋",
+  "invariants": ["기존 과학 모형과 주장 ID·범위 보존", "웹/재생의 동일 proof 결과", "장면 이동 시 사용자 입력 유지", "출처/권리/공개 승인 대기 상태 유지"],
+  "scope": "web-presentation-and-navigation",
+  "status": "implementation-candidate"
+}
