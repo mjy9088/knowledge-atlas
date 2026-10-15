@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {loadContentCatalog} from '../packages/content/load-catalog.mjs';
+import {execFileSync} from 'node:child_process';
 
 function fixture(){
   const entry={directory:'measurement/sample',article:'article.en.json',claims:'claims.json',page:{slug:'sample',articleId:'article:sample'}};
@@ -31,4 +32,12 @@ test('invalid catalog paths are rejected before invoking a data reader',async()=
   await assert.rejects(loadContentCatalog(read,{...f.registry,entries:[{...f.registry.entries[0],directory:'../outside'}]}),/entry path/);
   await assert.rejects(loadContentCatalog(read,{...f.registry,claimFiles:['content/../outside.json']}),/data path/);
   assert.equal(reads,0);
+});
+
+test('source impact CLI follows topic-owned claims into the article scenes',()=>{
+  const output=JSON.parse(execFileSync(process.execPath,['scripts/impact.mjs','source:sutcliffe-fde-2018'],{encoding:'utf8',cwd:new URL('..',import.meta.url)}));
+  assert.ok(output.impactCandidate.claims.includes('claim:logic.fde.four-values'));
+  const article=output.impactCandidate.articles.find(item=>item.articleId==='article:logic.paraconsistent.ko');
+  assert.ok(article.scenes.includes('four-values'));
+  assert.ok(article.scenes.includes('counterexample'));
 });
