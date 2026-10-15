@@ -129,6 +129,8 @@ type SceneAdapter<TState, TAction> = {
 
 ## 8. 배포 및 재현성
 
+독자용 웹 자산은 `scripts/build-site.mjs`의 명시적 `PUBLIC_WEB_FILES`로 제한한다. 영상 제작 UI·인코더·muxer·FFmpeg 실행 코드는 공개 빌드에 포함하지 않는다. MP4는 `scripts/encode-mp4.mjs` CLI로 변환하고 웹 API는 제공하지 않는다. HTML 재생/상호작용과 제작 도구의 경계는 [ADR 0010](adr/0010-local-media-cli.md)을 따른다.
+
 - `build-manifest.json`을 생성해 모든 의존물의 해시/버전/권리/검사 결과를 고정한다.
 - 배포는 검토를 통과한 manifest 전체를 원자적으로 교체한다. 웹과 영상은 같은 claims/models snapshot을 참조한다.
 - 새 업데이트가 잘못된 경우 이전 manifest로 롤백. 이미 배포된 영상 파일은 갱신되지 않으므로 정정/개정판 안내를 관리한다.

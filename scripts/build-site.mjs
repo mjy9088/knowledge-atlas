@@ -5,6 +5,15 @@ import {fileURLToPath} from 'node:url';
 import {RELATED_PAGES,pageURL} from '../content/formal-logic/explosion/related-pages.mjs';
 import {renderRelatedIndex,renderRelatedPage,validateRelatedPages} from '../packages/site/related-site.mjs';
 export const projectRoot=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+// Reader-facing assets only. Local production tools must be explicitly excluded from publication.
+export const PUBLIC_WEB_FILES=[
+  'index.html','styles.css','stage-layout.css','app.mjs','slide-deck.mjs','proof-scene.mjs',
+  'lesson.html','lesson.css','lesson-page.mjs','lesson-dialogue.mjs',
+  'related-page.css','related-page.mjs','related-reader.mjs',
+  'premise-experiment.mjs','premise-experiment.css','experiment-dialogue.mjs','formula-display.mjs',
+  'inference-visual.mjs','inference-video.mjs','inference-presets.mjs','expanded-timeline.mjs','explosion-episode.mjs',
+  'shorts.html','shorts.css','shorts.mjs','shorts-frame.mjs','preview.html','preview.css','preview.mjs'
+];
 const readJSON=async name=>JSON.parse(await readFile(path.join(projectRoot,name),'utf8'));
 export async function loadSiteContent(){
   const [collection,original,inference,sources]=await Promise.all(['content/formal-logic/explosion/related.json','content/formal-logic/explosion/claims.json','content/formal-logic/explosion/inference-claims.json','sources/registry.json'].map(readJSON));
@@ -31,13 +40,12 @@ export async function buildSite(){
       if(entry.isSymbolicLink())throw new Error('Refusing source symlink '+entry.name);
       if(entry.isDirectory())await copyTree(source+'/'+entry.name,dest?dest+'/'+entry.name:entry.name,extensions);
       else if(extensions.includes(path.extname(entry.name))){
-        const relative=dest?dest+'/'+entry.name:entry.name;let data=await readFile(path.join(root,source,entry.name));
-        if(relative==='render.html')data=Buffer.from(data.toString().replace('<head>','<head><meta name="atlas-hosting" content="static">'));
+        const relative=dest?dest+'/'+entry.name:entry.name;const data=await readFile(path.join(root,source,entry.name));
         await emit(relative,data);
       }
     }
   }
-  await copyTree('apps/web','',['.html','.mjs','.css','.svg']);
+  for(const file of PUBLIC_WEB_FILES)await emit(file,await readFile(path.join(root,'apps/web',file)));
   for(const dir of ['content','knowledge','sources','packages/models'])await copyTree(dir,dir,['.json','.mjs']);
   for(const [url,html]of siteDocuments(content))await emit(url.slice(1)+'index.html',html);
   const pages=['/','/lesson.html',...siteDocuments(content).keys()];

@@ -40,8 +40,10 @@ mise 환경에서는 `mise exec -- npm run build`, `mise exec -- npm run preview
 
 `build-manifest.json`은 출력 파일별 SHA-256, 빌더 입력 해시, 페이지→Article ID, 출처의 기존 hash/권리 상태를 기록한다. 같은 입력의 반복 빌드는 같은 manifest를 생성한다. 이 해시는 **프로젝트 산출물**의 재현성을 위한 것으로 외부 원문 스냅샷 검증을 뜻하지 않는다. `published:false`, 기존 내용 검토 상태와 `sourceSnapshotVerified:false`를 보존한다. 빌드는 공개 승인·권리 심사·외부 배포를 대신하지 않는다.
 
-기존 MP4 API는 로컬 개발 서버의 기능이다. 정적 빌드의 렌더 화면에서는 WebM 출력만 제공하고 MP4 변환은 로컬 서버/FFmpeg로 안내한다. WebCodecs 지원·보안 컨텍스트는 기존 브라우저 렌더러의 조건을 따른다. 새 연관 페이지의 영상 렌더는 이번 범위가 아니다.
+독자용 공개 웹과 로컬 영상 제작 도구를 분리한다. 웹 자산은 `PUBLIC_WEB_FILES`의 명시적 목록으로 복사한다. `render.html/render.mjs/render.css/video-renderer.mjs/webm-muxer.mjs`는 공개 산출물에 없으며, 본편·지도·화면 비교 페이지에도 렌더 링크나 MP4 변환 안내가 없다. 개발 서버의 MP4 API와 렌더 출력 HTTP 경로도 제거했다. HTML 재생과 읽기/실험 기능은 유지한다.
+
+MP4 제작은 로컬 터미널에서 `npm run render:mp4 -- input.webm output.mp4` 또는 `node scripts/encode-mp4.mjs input.webm output.mp4`로 실행한다. 내부적으로 `mise exec -- ffmpeg/ffprobe`를 사용하며 변환·검사 결과를 `output.mp4.json`에 저장한다. 기존 출력을 덮어쓰지 않는다. `--help`로 실행 조건을 확인한다. WebM 생성용 `/render.html`은 개발 서버에서 직접 여는 로컬 보조 도구로만 유지하고 MP4 버튼·파일 선택·자동 변환은 제공하지 않는다. 새 연관 페이지의 영상 렌더는 이번 범위가 아니다.
 
 ## 검사
 
-자동 검사는 문장 커버리지·Claim 참조·HTML 이스케이프·장면 상태와 잘못된 입력 거절·정적 HTML 링크와 모듈 import 경로·파일 해시·반복 빌드 동등성을 확인한다. 별도로 정적 서버에서 네 페이지의 화면/이동, 일관성 입력 변경과 무효화, 1920×940·390×844의 넘침, 기존 렌더 화면의 정적 모드 안내를 브라우저로 확인한다. 이는 전문가의 과학 내용 승인이나 완전한 접근성 감사가 아니다.
+자동 검사는 문장 커버리지·Claim 참조·HTML 이스케이프·장면 상태와 잘못된 입력 거절·정적 HTML 링크와 모듈 import 경로·파일 해시·반복 빌드 동등성·제작 파일과 변환 UI/API 문자열 제외를 확인한다. 별도로 정적 서버에서 네 페이지의 화면/이동, 일관성 입력 변경과 무효화, 1920×940·390×844의 넘침, 렌더 경로 404와 공개 목차의 제작 링크 제거를 브라우저로 확인한다. 이는 전문가의 과학 내용 승인이나 완전한 접근성 감사가 아니다.

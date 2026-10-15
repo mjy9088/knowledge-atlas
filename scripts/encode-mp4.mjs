@@ -30,7 +30,9 @@ export async function encodeMP4(input,output){
   await writeFile(output+'.json',JSON.stringify(diagnostics,null,2));return diagnostics;
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
-  const [input,output]=process.argv.slice(2);
-  if(!input||!output){console.error('Usage: node scripts/encode-mp4.mjs input.webm output.mp4');process.exitCode=1;}
+  const args=process.argv.slice(2),[input,output]=args;
+  const usage='Usage: node scripts/encode-mp4.mjs input.webm output.mp4\nConverts a local video using mise exec -- ffmpeg/ffprobe.\nWrites H.264 MP4 and output.mp4.json diagnostics; existing output is never overwritten.';
+  if(args.length===1&&['--help','-h'].includes(input))console.log(usage);
+  else if(args.length!==2||!input||!output||input.startsWith('-')||output.startsWith('-')){console.error(usage);process.exitCode=1;}
   else try{console.log(JSON.stringify(await encodeMP4(path.resolve(input),path.resolve(output)),null,2));}catch(error){console.error(error.message);process.exitCode=1;}
 }

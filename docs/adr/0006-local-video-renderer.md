@@ -2,6 +2,8 @@
 
 상태: 로컬 구현 후보 / 2026-10-16.
 
+후속 결정: [ADR 0010](0010-local-media-cli.md)에 따라 아래 초기 구현의 웹 MP4 변환/자동 실행은 제거했다. 현재 MP4는 CLI 전용이고 `render.html`은 공개 빌드에서 제외되는 개발용 WebM 생성 보조 화면이다. 아래 연속 변환 기록은 당시 구현 이력이다.
+
 전체/시험 렌더 버튼은 WebM 생성 후 로컬 FFmpeg MP4 변환까지 연속 실행한다. WebM 미리보기의 성공 여부와 MP4의 ffprobe 검증을 별도로 기록한다. WebM을 직접 저장하거나 이미 저장한 파일을 따로 변환할 수도 있다.
 
 `render.html`에서 WebCodecs VideoEncoder(VP8)와 자체 최소 WebM muxer로 무음 파일을 생성한다. 이어 사용자가 설치한 mise FFmpeg로 H.264/yuv420p/faststart MP4를 만든다. 외부 코드·폰트·음원·네트워크 인코딩 서비스나 npm 의존성을 추가하지 않는다. 음성, 렌더 팜, 공개 배포는 이번 범위 밖이다. WebCodecs 미지원 브라우저에서는 명시적 오류를 보여주며 기존 WebM의 MP4 변환은 별도 사용할 수 있다.
