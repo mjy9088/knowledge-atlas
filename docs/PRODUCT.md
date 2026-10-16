@@ -25,6 +25,14 @@ Explicit exceptions: long user-created premise collections, unusually long expre
 
 Related knowledge and detailed evidence/scope belong in an on-demand panel, with small continuation links on the final scene. Essential assumptions, model limits, and result status must remain visible in the explanation itself.
 
+## Question-led explanations
+
+New introductory explanations should name a concrete question and an observable learning outcome before introducing terminology. Let readers observe, compare, explain, and try a changed condition. Optional predictions and answer reveals must not block navigation or require a correct answer. This is an authoring pattern, not a mandatory sequence for every subject: proofs may need explicit justifications, observational topics need uncertainty, and prose-only explanations remain valid.
+
+Each interaction must make clear what can be changed, what to look for, and how the result bears on the question. Keep essential assumptions and representation limits visible. Advanced details may be optional, but the primary path must independently answer its opening question. Customized inputs require scene-specific explanation of the current result; preserve reader edits through navigation and restore authored examples only by an explicit action.
+
+Use transfer questions to invite application to a changed case. A revealed explanation is feedback, not proof that a person understood. Automated semantic, restoration, and layout checks are implementation evidence; learning quality still needs observation with intended readers. Do not infer understanding from clicks, time spent, or a passing geometry test.
+
 ## Reading, animation, and production
 
 The interactive reader is self-paced and should not resemble a video player. Selected proof steps and restored state remain deterministic. Retired comparison/laboratory prototypes are not part of current navigation.

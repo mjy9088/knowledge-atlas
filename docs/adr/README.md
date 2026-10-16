@@ -20,3 +20,5 @@ All decisions below were introduced on 2026-10-16 for the local pilot. They pres
 | [0014](0014-topic-layout-and-prototype-retirement.md) | Topic ownership and prototype retirement |
 
 | [0015](0015-orbitals-and-scalar-fields.md) | Hydrogenic content and reusable scalar-field viewer |
+| [0016](0016-typescript-source.md) | Strict TypeScript source and static JavaScript delivery |
+| [0017](0017-question-led-comparisons.md) | Question-led comparisons through topic adapters |

@@ -40,6 +40,109 @@ const lessonFrame = {
   controls: ['.dialogue-actions button', '.experiment-goal', '#lesson-menu-open'],
 };
 
+const questionTopics=CONTENT_PAGES.filter(p=>['binary-search','sphere-slices','base-rates'].includes(p.slug));
+const questionFrame={
+  content:['#reader-workbench>div:last-child','#reader-workbench p','.reader-scene:not([hidden]) .reader-copy'],
+  controls:['#reader-controls button','#reader-workbench button','#reader-workbench input','#reader-workbench select','.reader-menu summary'],
+};
+for(const topic of questionTopics)test(`${topic.slug}: question-led scenes fit and restore their authored state`,async({page},testInfo)=>{
+  const errors:string[]=[];page.on('pageerror',error=>errors.push(error.message));
+  await page.goto(`/knowledge/${topic.slug}/`);await page.waitForFunction(()=>window.__atlasRelated);
+  for(const scene of topic.scenes){
+    await expect(page.locator('.reader-scene:visible h2')).toHaveText(scene.title);
+    const state=await page.evaluate(()=>window.__atlasRelated.getState());
+    await page.evaluate(()=>window.__atlasRelated.reset());
+    await page.evaluate(saved=>window.__atlasRelated.setState(saved),state);
+    expect(await page.evaluate(()=>window.__atlasRelated.getState())).toEqual(state);
+    await test.step(scene.id,()=>expectFrame(page,questionFrame));
+    if(scene===topic.scenes[0]||scene===topic.scenes.at(-1))await testInfo.attach(`${topic.slug}-${scene.id}`,{body:await page.screenshot(),contentType:'image/png'});
+    if(scene!==topic.scenes.at(-1))await page.locator('#reader-next').click();
+  }
+  await expect(page.locator('#reader-end-links')).toBeVisible();
+  await page.locator('.reader-menu summary').click();
+  await page.locator('.reader-menu a[href="#evidence"]').click();
+  await expect(page.locator('dialog[open]')).toContainText('주장별 조건과 근거 위치');
+  await page.keyboard.press('Escape');
+  expect(errors).toEqual([]);
+});
+
+test('binary search follows comparisons, preserves edits, clears invalid drafts and seeks independently',async({page},testInfo)=>{
+  await page.goto('/knowledge/binary-search/');await page.waitForFunction(()=>window.__atlasRelated);
+  await page.getByRole('combobox',{name:'예상 횟수',exact:true}).selectOption('10');
+  for(let i=0;i<10;i++)await page.getByRole('button',{name:'한 번 비교',exact:true}).click();
+  await expect(page.locator('.binary-summary')).toContainText('10회 비교 · 찾았습니다');
+  await expect(page.locator('.binary-pivot')).toContainText('2000');
+  await expectFrame(page,questionFrame);
+  await testInfo.attach('search-completed',{body:await page.screenshot(),contentType:'image/png'});
+  const target=page.getByRole('textbox',{name:'찾을 값',exact:true});await target.fill('1999');
+  await page.locator('#reader-next').click();await expect(target).toHaveValue('1999');
+  await page.locator('#reader-next').click();
+  await expect(page.locator('.reader-scene:visible .scene-prose')).toContainText('목록에 있다면');
+  await target.fill('');await expect(page.locator('.binary-bar')).toBeHidden();
+  await expect(page.locator('.reader-scene:visible .scene-prose')).toContainText('정수를 입력');
+  const draft=await page.evaluate(()=>window.__atlasRelated.getState());
+  await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(state=>window.__atlasRelated.setState(state),draft);
+  await expect(target).toHaveValue('');await expect(page.locator('.binary-bar')).toBeHidden();
+  await expectFrame(page,questionFrame);
+  await page.getByRole('button',{name:'장면 예시로',exact:true}).click();
+  await page.evaluate(()=>window.__atlasRelated.seek(3000));
+  const sought=await page.evaluate(()=>window.__atlasRelated.getInspectionSnapshot());
+  await page.evaluate(()=>window.__atlasRelated.seek(0));await page.evaluate(()=>window.__atlasRelated.seek(3000));
+  expect(await page.evaluate(()=>window.__atlasRelated.getInspectionSnapshot())).toEqual(sought);
+  const rejected=await page.evaluate(()=>{const before=window.__atlasRelated.getState();try{window.__atlasRelated.setState({...before,interaction:{...before.interaction,step:999}} as never);return false;}catch{return JSON.stringify(before)===JSON.stringify(window.__atlasRelated.getState());}});
+  expect(rejected).toBe(true);
+});
+
+test('sphere slices synchronize geometric boundaries, preserve reveal and reject unsupported saved controls',async({page},testInfo)=>{
+  await page.goto('/knowledge/sphere-slices/#explain');await page.waitForFunction(()=>window.__atlasRelated);
+  const height=page.getByRole('slider',{name:'평면 높이 h',exact:true});
+  const setHeight=async(value:string)=>height.evaluate((input,value)=>{(input as HTMLInputElement).value=value;input.dispatchEvent(new Event('input',{bubbles:true}));},value);
+  await expect(page.locator('.sphere-result')).toContainText('r = 4 cm');
+  await setHeight('-3');await expect(page.locator('.sphere-result')).toContainText('r = 4 cm');
+  await setHeight('5');await expect(page.locator('.sphere-result')).toContainText('한 점');
+  await setHeight('6');await expect(page.locator('.sphere-result')).toContainText('단면이 없습니다');
+  await expect(page.getByRole('img')).toHaveAccessibleName(/구 바깥/);
+  await page.locator('#reader-next').click();await expect(height).toHaveValue('6');
+  await setHeight('3');await page.getByRole('button',{name:'같은 원판의 두 구 보기',exact:true}).click();
+  await expect(page.locator('.sphere-transfer')).toContainText('모두 r=4 cm');
+  const saved=await page.evaluate(()=>window.__atlasRelated.getState());
+  await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(state=>window.__atlasRelated.setState(state),saved);
+  expect(await page.evaluate(()=>window.__atlasRelated.getState())).toEqual(saved);
+  const rejected=await page.evaluate(()=>{const before=window.__atlasRelated.getState();return [0,2.35,Number.NaN].every(radius=>{try{window.__atlasRelated.setState({...before,interaction:{...before.interaction,radius}} as never);return false;}catch{return JSON.stringify(before)===JSON.stringify(window.__atlasRelated.getState());}});});
+  expect(rejected).toBe(true);await expectFrame(page,questionFrame);
+  await testInfo.attach('sphere-comparison',{body:await page.screenshot(),contentType:'image/png'});
+  await page.getByRole('button',{name:'장면 예시로',exact:true}).click();
+  await expect(page.locator('.sphere-transfer span')).toBeHidden();
+});
+
+test('base rates preserve predictions and drafts, change the denominator and handle no alerts',async({page},testInfo)=>{
+  await page.goto('/knowledge/base-rates/');await page.waitForFunction(()=>window.__atlasRelated);
+  const prediction=page.getByRole('combobox',{name:'경보 중 불량 비율 예상',exact:true});
+  await prediction.selectOption('over-half');await page.locator('#reader-next').click();
+  await expect(prediction).toHaveValue('over-half');await expect(page.locator('.base-rates-output')).toBeHidden();
+  await page.locator('#reader-next').click();
+  await expect(page.locator('.base-rates-answer')).toContainText('90 ÷ 585 ≈ 15.38%');
+  const prevalence=page.getByRole('spinbutton',{name:'불량 비율 (%)',exact:true});await prevalence.fill('10');
+  await expect(page.locator('.base-rates-answer')).toContainText('900 ÷ 1,350 ≈ 66.67%');
+  await page.locator('#reader-next').click();await expect(prevalence).toHaveValue('10');
+  await expect(page.locator('.reader-scene:visible .scene-prose')).toContainText('1,350');
+  await testInfo.attach('base-rate-comparison',{body:await page.screenshot(),contentType:'image/png'});
+  await prevalence.fill('');await expect(page.locator('.base-rates-output')).toBeHidden();
+  const draft=await page.evaluate(()=>window.__atlasRelated.getState());
+  await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(state=>window.__atlasRelated.setState(state),draft);
+  await expect(prevalence).toHaveValue('');await expect(page.locator('.base-rates-output')).toBeHidden();
+  await expect(page.locator('.reader-scene:visible .scene-prose')).toContainText('계산할 수 없습니다');
+  await prevalence.fill('10');
+  await page.getByRole('spinbutton',{name:'불량 중 경보 (%)',exact:true}).fill('0');
+  await page.getByRole('spinbutton',{name:'정상 중 경보 (%)',exact:true}).fill('0');
+  await expect(page.locator('.base-rates-answer')).toContainText('정의되지 않습니다');
+  await expect(page.locator('.reader-scene:visible .scene-prose')).toContainText('정의되지 않습니다');
+  const rejected=await page.evaluate(()=>{const before=window.__atlasRelated.getState();try{window.__atlasRelated.setState({...before,interaction:{...before.interaction,prevalence:2}} as never);return false;}catch{return JSON.stringify(before)===JSON.stringify(window.__atlasRelated.getState());}});
+  expect(rejected).toBe(true);await expectFrame(page,questionFrame);
+  await page.getByRole('button',{name:'장면 예시로',exact:true}).click();
+  await expect(page.locator('.base-rates-answer')).toContainText('15.38%');
+});
+
 const lambdaFrame={content:['.lambda-editor','.lambda-output','.lambda-rule-term','.lambda-step-term','.reader-scene:not([hidden]) .reader-copy'],controls:['#reader-controls button','.lambda-experiment button','.lambda-experiment input','.lambda-experiment textarea','.lambda-experiment select','.reader-menu summary']};
 for(const topic of CONTENT_PAGES.filter(p=>p.interactive==='typed-lambda'))test(`${topic.slug}: all typed examples and explanation scenes fit`,async({page},testInfo)=>{
   const errors: string[]=[];page.on('pageerror',e=>errors.push(e.message));

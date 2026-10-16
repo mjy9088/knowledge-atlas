@@ -50,6 +50,8 @@ Failures save screenshots and traces under ignored `test-results/`; the HTML rep
 
 Additional focused routes: `/knowledge/curry-howard/`, `/knowledge/lambda-calculus/`, `/knowledge/field-quanta/`, `/knowledge/particle-interactions/`, and `/knowledge/quark-confinement/`.
 
+Question-led comparisons: `/knowledge/binary-search/`, `/knowledge/sphere-slices/`, and `/knowledge/base-rates/`. Browser regressions exercise every authored scene and default restoration, plus search completion/absence/independent seeking, sphere symmetry/tangency/empty sections/reveal, base-rate prediction/denominator/zero alerts, customized navigation, invalid drafts, rejected snapshots, reset, and actual geometry at all four supported viewports. Screenshots of initial/final scenes and changed inputs are attached to the browser report.
+
 Useful routes: `/knowledge/atomic-orbitals/` (interactive hydrogenic orbitals), `/` (knowledge catalog), `/lesson.html`, `/knowledge/`, `/knowledge/consistency/`, `/knowledge/paraconsistent-logic/`, `/knowledge/zfc/`, and `/knowledge/continuum-hypothesis/`. See [Content structure](CONTENT-STRUCTURE.md) to add a topic.
 
 Deployable files are generated in `dist/`; `build-manifest.json` records builder inputs, output hashes, and pending review states. Hosting must support directory indexes and root-relative paths. A successful build is a local candidate, not authorization to upload it. Never deploy the repository or development server as the public site.

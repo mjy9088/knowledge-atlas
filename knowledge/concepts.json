@@ -124,5 +124,33 @@
     "summary": "쿼크·글루온의 색 상호작용과 가둠",
     "reviewStatus": "draft-source-aligned",
     "externalIds": []
+  },
+  {
+    "id": "concept:statistics.conditional-probability",
+    "title": "조건부확률과 기저 비율",
+    "summary": "조건에 해당하는 집합을 분모로 삼아 확률을 계산하고, 바탕 비율과 경보율의 역할을 구별합니다.",
+    "reviewStatus": "needs-content-review",
+    "externalIds": []
+  },
+  {
+    "id": "concept:computing.binary-search",
+    "title": "이진 탐색",
+    "summary": "정렬된 배열에서 가운데 값과 비교하며 후보 구간을 줄여 찾는 탐색",
+    "reviewStatus": "draft-source-aligned",
+    "externalIds": []
+  },
+  {
+    "id": "concept:geometry.sphere-section",
+    "title": "구의 단면",
+    "summary": "이상적인 구와 평면의 교집합을 위치와 크기로 살펴보기",
+    "reviewStatus": "proposed",
+    "externalIds": []
+  },
+  {
+    "id": "concept:geometry.pythagorean-relation",
+    "title": "직각삼각형의 길이 관계",
+    "summary": "직각삼각형의 세 변 사이에 성립하는 제곱 길이 관계",
+    "reviewStatus": "proposed",
+    "externalIds": []
   }
 ]

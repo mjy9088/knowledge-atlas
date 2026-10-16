@@ -1,0 +1,16 @@
+{
+  "id": "article:computing.binary-search.ko",
+  "conceptId": "concept:computing.binary-search",
+  "title": "1,000개 중 하나, 몇 번이면 찾을까요?",
+  "reviewStatus": "needs-content-review",
+  "scope": "이미 정렬된 서로 다른 짝수 배열에서 값 하나를 찾는 이진 탐색; 비교 횟수만 계산하며 정렬 비용은 제외",
+  "blocks": [
+    {"id":"block:computing.binary-search.question","text":"2부터 2,000까지 짝수 1,000개가 작은 순서로 놓여 있습니다. 맨 끝의 2,000을 찾으려면 몇 번 비교해야 할까요? 예상은 건너뛰어도 됩니다. ‘한 번 비교’를 눌러 남는 후보 수를 보세요.","claimRefs":["claim:computing.binary-search.elimination"]},
+    {"id":"block:computing.binary-search.observe","text":"먼저 16개로 줄여 26을 찾아봅시다. 가운데 값 16보다 26이 크면, 16과 그 왼쪽은 모두 제외해도 됩니다. 정렬되어 있어 그쪽에는 26이 없기 때문입니다. 초록 구간이 어떻게 줄어드는지 보세요.","claimRefs":["claim:computing.binary-search.elimination"]},
+    {"id":"block:computing.binary-search.explain","text":"이제 남은 구간의 가운데를 다시 비교합니다. 다르면 비교한 값까지 제외한 한쪽만 남기고, 같으면 찾은 것입니다. 이 반복을 이진 탐색이라고 합니다. 막대는 전체 목록, 초록 구간은 남은 후보를 나타냅니다.","claimRefs":["claim:computing.binary-search.elimination"]},
+    {"id":"block:computing.binary-search.double","text":"16개를 32개로 늘리면 최악의 비교 횟수도 두 배가 될까요? 이 방식의 상한은 5회에서 6회로 늘어납니다. 1,000개에서는 최대 10회입니다. 여기서 한 번은 목록 값 하나와의 비교이며, 정렬에 드는 작업은 세지 않습니다.","claimRefs":["claim:computing.binary-search.bound"]},
+    {"id":"block:computing.binary-search.missing","text":"짝수만 있는 목록에서 25를 찾아보세요. 이번에는 같은 값을 만날 수 없습니다. 그래도 남은 후보를 계속 줄여, 구간이 비면 ‘목록에 없음’으로 끝납니다. 몇 번 못 찾았다는 이유만으로 끝내는 것은 아닙니다.","claimRefs":["claim:computing.binary-search.absence"]},
+    {"id":"block:computing.binary-search.transfer","text":"이번에는 개수와 찾을 값을 직접 바꿔 보세요. 뒤섞인 목록에서도 가운데 값만 보고 한쪽을 버릴 수 있을까요? 제외한 쪽에 답이 없다는 근거는 정렬입니다. 처음 질문에는 ‘이미 정렬된 1,000개에서 최대 10회’라고 조건까지 붙여 답할 수 있습니다.","claimRefs":["claim:computing.binary-search.elimination","claim:computing.binary-search.bound"]}
+  ],
+  "relatedConcepts": []
+}

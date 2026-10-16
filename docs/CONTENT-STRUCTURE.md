@@ -49,6 +49,14 @@ The explosion pilot retains its `episode.ts`, original content/scene/storyboard 
 
 The current public article route is `/knowledge/<slug>/`. Slugs must be unique across the catalog. The home page `/` and `/knowledge/` render the catalog. `/lesson.html` remains the established custom explosion reader. Nested domain URLs, automatic redirects, and a general custom-experience registry are not implemented.
 
+## Authoring a question-led article
+
+Before writing scenes, identify the intended reader, opening question, intended explanation the reader can give afterward, minimum background, likely misunderstanding, and evidence/scope. Build scenes around conceptual progress rather than dividing a definition list into screens. Introduce vocabulary when it becomes useful; preserve the exact conditions of the source claims.
+
+For each proposed diagram or control, specify the change, the observation, and the inference it supports. Prefer a static illustration when manipulation adds no understanding. Predictions are optional, never a navigation gate. Include a changed-condition or transfer question with explanatory feedback where useful. Keep proposed analogies distinct from established claims.
+
+The binary-search, sphere-slices, and base-rates topics exercise algorithmic, spatial, and conditional-probability comparisons through the existing reader. Their domain-specific controls and pure models are separate adapters, not a new universal experiment language. Source references, scientific fixtures, default and customized scene fit, unsupported input, reset, restoration, and independent seeking need verification before reporting the implementation complete. Reader comprehension remains a separate review.
+
 ## Code boundaries
 
 ```text

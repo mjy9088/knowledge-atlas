@@ -352,5 +352,62 @@
       "evidenceConsulted": true,
       "externalMaterialIncluded": false
     }
+  },
+  {
+    "id": "source:nist-binary-search",
+    "title": "Dictionary of Algorithms and Data Structures — binary search",
+    "author": "Paul E. Black; National Institute of Standards and Technology",
+    "kind": "government-authored-algorithm-reference",
+    "canonicalUrl": "https://xlinux.nist.gov/dads/HTML/binarySearch.html",
+    "retrievedAt": "2026-10-16",
+    "providerRevision": "Entry modified 21 April 2022; HTML formatted 30 October 2024 as displayed; live page not frozen",
+    "contentHash": null,
+    "license": "No reuse license established from consulted entry; reference only, no third-party material included",
+    "rightsReview": "reference-only; third-party reuse not proposed",
+    "externalMaterialIncluded": false,
+    "snapshotStatus": "reference-only; no immutable source bytes archived",
+    "readingScope": "Definition (sorted array, halving, stop on equality or empty interval); Note (O(ln n), array versus linked-list comparison/access distinction); modification and citation footer",
+    "note": "Read via web tool on 2026-10-16. Independently written Korean explanation and independent model code. Exact floor(log2 n)+1 bound is a model-derived consequence of interval halving; not a claimed quotation or independently reviewed theorem. No source-byte hash, exact revision verification, expert approval, or publication approval. Princeton page fetch failed (403) and was not used. Cornell lec08 resolved to classes/encapsulation and was not used."
+  },
+  {
+    "id": "source:iyer-conditional-probability-2026",
+    "title": "Conditional Probability and Independence — Brief notes on Probability and Martingales",
+    "author": "Gautam Iyer, Carnegie Mellon University",
+    "canonicalUrl": "https://www.math.cmu.edu/~gautam/c/2026-425/notes/independence.html",
+    "retrievedAt": "2026-10-16",
+    "providerRevision": "2026 course path; exact provider revision not verified",
+    "contentHash": null,
+    "license": "Page footer states CC BY-NC 4.0; consulted as reference only",
+    "rightsReview": "reference-only; third-party reuse not proposed; externalMaterialIncluded: false. Read Definition 2 and Propositions 5–6 for conditional probability, total probability and Bayes theorem. Fictional factory values and prose independently authored; medical example and unrelated page material not imported. Immutable source bytes, exact revision matching, independent expert review, and publication approval remain pending."
+  },
+  {
+    "id": "source:openstax-calculus3-sphere",
+    "title": "Calculus Volume 3 — 2.2 Vectors in Three Dimensions",
+    "author": "Gilbert Strang and Edwin Herman",
+    "canonicalUrl": "https://openstax.org/books/calculus-volume-3/pages/2-2-vectors-in-three-dimensions",
+    "retrievedAt": "2026-10-16",
+    "providerRevision": "Live HTML; page shows © Jul 15, 2026; exact provider revision not frozen",
+    "contentHash": null,
+    "license": "Page displays CC BY-NC-SA 4.0 and additional AI/commercial reuse notices; no external material included",
+    "rightsReview": "reference-only; third-party reuse not proposed",
+    "externalMaterialIncluded": false,
+    "snapshotStatus": "reference-only; no immutable bytes captured",
+    "readingScope": "§2.2 Definition preceding Figure 2.34; Rule: Equation of a Sphere, Eq. (2.2); Rule: Equations of Planes Parallel to Coordinate Planes (z=c). Read corresponding HTML passages and citation/rights footer on 2026-10-16.",
+    "note": "Article/model/SVG independently authored. Section equation supports explicitly labeled algebraic deductions about disk radius, symmetry and boundary, not an assertion that the textbook states all of those deductions verbatim. Source alignment and expert review remain pending; source snapshot not verified."
+  },
+  {
+    "id": "source:openstax-calculus2-slicing",
+    "title": "Calculus Volume 2 — 2.2 Determining Volumes by Slicing",
+    "author": "Gilbert Strang and Edwin Herman",
+    "canonicalUrl": "https://openstax.org/books/calculus-volume-2/pages/2-2-determining-volumes-by-slicing",
+    "retrievedAt": "2026-10-16",
+    "providerRevision": "Live HTML; no exact provider revision established",
+    "contentHash": null,
+    "license": "Page displays CC BY-NC-SA and additional AI/commercial reuse notices; no external material included",
+    "rightsReview": "reference-only; third-party reuse not proposed",
+    "externalMaterialIncluded": false,
+    "snapshotStatus": "reference-only; no immutable bytes captured",
+    "readingScope": "Volume and the Slicing Method: opening definition of cross-section before Figure 2.11; Example 2.7 step 2, A=πr². HTML passages inspected 2026-10-16; no claim of verifying later integration examples.",
+    "note": "Reference consultation only. No source prose, illustrations, activities, data or code copied. Exact revision matching, independent content review and publication approval remain pending."
   }
 ]

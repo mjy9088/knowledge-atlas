@@ -1,0 +1,16 @@
+{
+  "id":"article:geometry.sphere-slices.ko",
+  "conceptId":"concept:geometry.sphere-section",
+  "title":"공을 잘랐는데 왜 원의 크기가 달라질까요?",
+  "reviewStatus":"needs-content-review",
+  "scope":"속이 찬 이상적인 구와 두께 없는 평면의 교집합; 길이는 cm, 넓이는 cm²",
+  "blocks":[
+    {"id":"block:geometry.slices.question","text":"속이 찬 공을 평평하게 자른다고 생각해 보세요. 어디를 잘라야 가장 큰 원판이 나올까요? 왼쪽은 구의 중심을 지나는 옆 단면이고, 오른쪽은 절단면입니다. 두 그림은 같은 축척입니다.","claimRefs":["claim:geometry.slices.section"]},
+    {"id":"block:geometry.slices.predict","text":"중심에서 위로 올라가며 자르면 원판은 커질까요, 작아질까요? 먼저 예상한 뒤 높이 h를 움직여 보세요. 반지름 R은 구 전체의 크기이고, h는 중심을 0으로 잰 평면의 높이입니다.","claimRefs":["claim:geometry.slices.radius"]},
+    {"id":"block:geometry.slices.explain","text":"왼쪽 삼각형의 빗변은 R, 세로 길이는 |h|, 가로 길이는 단면 반지름 r입니다. 직각삼각형이므로 r²+h²=R²입니다. R=5 cm, h=3 cm이면 r=4 cm가 됩니다. 중심에서 멀어질수록 r은 줄어듭니다.","claimRefs":["claim:geometry.slices.radius"]},
+    {"id":"block:geometry.slices.mirror","text":"높이를 +3 cm에서 −3 cm로 바꾸면 크기는 어떻게 될까요? 식에는 h²가 들어가므로 중심에서 같은 거리인 두 평면은 같은 크기의 원판을 만듭니다. 위아래 위치와 단면의 크기를 구별해 보세요.","claimRefs":["claim:geometry.slices.symmetry"]},
+    {"id":"block:geometry.slices.boundary","text":"평면이 꼭대기에 닿으면 원판은 한 점이 됩니다. 더 바깥으로 나가면 구와 만나지 않아 단면이 없습니다. |h|=R과 |h|>R을 높이 조절로 비교해 보세요. 둘 다 넓이는 0이지만 교집합은 다릅니다.","claimRefs":["claim:geometry.slices.boundary"]},
+    {"id":"block:geometry.slices.transfer","text":"이번에는 높이를 고정하고 구의 반지름만 바꿔 보세요. 잘린 원판의 크기는 R과 h 모두에 달려 있습니다. 원판 하나만 보고 원래 구의 크기를 알 수 있을까요? 서로 다른 R과 h로 같은 r을 만들어 보세요.","claimRefs":["claim:geometry.slices.radius"]}
+  ],
+  "relatedConcepts":["concept:geometry.pythagorean-relation"]
+}

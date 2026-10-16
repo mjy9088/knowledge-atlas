@@ -1,0 +1,16 @@
+{
+  "id": "article:statistics.base-rates.ko",
+  "conceptId": "concept:statistics.conditional-probability",
+  "title": "불량 경보가 울리면 정말 불량일까요?",
+  "reviewStatus": "needs-content-review",
+  "scope": "가상 공장의 확률 모형으로 조건부확률과 기저 비율을 비교합니다. 실제 검사 성능이나 측정 자료를 주장하지 않습니다.",
+  "blocks": [
+    {"id":"block:statistics.base-rates.question","text":"가상 공장에 불량을 찾는 검사기가 있습니다. 불량 제품에는 90%, 정상 제품에는 5%의 확률로 경보를 냅니다. 경보가 울린 제품 하나를 받았다면, 정말 불량일 확률도 90%일까요?","claimRefs":["claim:statistics.base-rates.reverse"]},
+    {"id":"block:statistics.base-rates.predict","text":"먼저 예상해 보세요. 전체 제품 중 불량이 1%라면, 경보가 난 제품의 절반 이상이 불량일까요? 예상 선택은 건너뛰어도 됩니다. 다음 표에서는 경보가 난 정상 제품도 함께 세어 봅니다.","claimRefs":["claim:statistics.base-rates.fixture"]},
+    {"id":"block:statistics.base-rates.observe","text":"제품 10,000개로 환산하면 불량 100개, 정상 9,900개입니다. 경보는 불량에서 90개, 정상에서 495개로 계산됩니다. 표는 실제 측정 결과가 아닌 확률 모형의 기대 개수이며, 입력에 따라 소수가 나올 수 있습니다.","claimRefs":["claim:statistics.base-rates.fixture"]},
+    {"id":"block:statistics.base-rates.denominator","text":"우리가 받은 것은 경보가 난 제품입니다. 따라서 경보 585개를 분모로 삼고, 그중 불량 90개를 셉니다. 90 ÷ 585는 약 15.38%입니다. 불량 중 경보와 경보 중 불량은 출발 집합이 다릅니다.","claimRefs":["claim:statistics.base-rates.conditional","claim:statistics.base-rates.fixture"]},
+    {"id":"block:statistics.base-rates.common","text":"이제 검사기의 두 경보 확률은 그대로 두고 불량 비율만 10%로 바꿉니다. 경보 중 불량 비율은 어떻게 달라질까요? 불량 비율은 검사 전의 바탕 비율, 즉 기저 비율입니다. 직접 바꾼 값은 장면을 이동해도 유지됩니다.","claimRefs":["claim:statistics.base-rates.bayes"]},
+    {"id":"block:statistics.base-rates.transfer","text":"이번에는 정상 중 경보 확률만 5%에서 2.5%로 줄여 보세요. 표의 어느 칸이 줄며, 경보 중 불량 비율은 어느 방향으로 바뀔까요? 계산 전에 분모를 말해 보세요. 이 모형은 경보 확률 자체를 추정하지 않으며, 경보가 0개이면 조건부 비율은 정의되지 않습니다.","claimRefs":["claim:statistics.base-rates.bayes","claim:statistics.base-rates.conditional"]}
+  ],
+  "relatedConcepts": []
+}

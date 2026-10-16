@@ -7,6 +7,16 @@ import {CONTENT_PAGES,sceneText} from '../content/catalog.js';
 import {loadSiteContent,siteDocuments,buildSite} from '../scripts/build-site.js';
 import {validateRelatedPages,escapeHTML} from '../packages/site/related-site.js';
 import {createRelatedReader} from '../apps/web/components/reader/state.js';
+import type {Article,Scene} from '../packages/content/types.js';
+
+test('scene sentence ranges preserve decimals and trailing text',()=>{
+  const article:Article={id:'article:decimal',title:'Fixture',conceptId:'concept:fixture',reviewStatus:'needs-content-review',relatedConcepts:[],blocks:[{id:'block:decimal',text:'비율은 15.38%입니다. 2.5%로 바꾸면? 마지막 설명',claimRefs:[]}]};
+  const scene:Scene={id:'decimal',title:'Fixture',block:0,from:0,to:1,cards:[],known:'Fixture'};
+  assert.equal(sceneText(article,scene),'비율은 15.38%입니다.');
+  assert.equal(sceneText(article,{...scene,from:1,to:2}),'2.5%로 바꾸면?');
+  assert.equal(sceneText(article,{...scene,from:2,to:undefined}),'마지막 설명');
+  assert.equal(sceneText(article,{...scene,to:undefined}),article.blocks[0].text);
+});
 
 test('related scenes preserve every source sentence, claim reference and review boundary',async()=>{
   const data=await loadSiteContent();assert.deepEqual(validateRelatedPages(data.collection,data.claims),[]);

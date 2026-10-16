@@ -14,6 +14,8 @@ pnpm dev
 
 Open http://127.0.0.1:4173/ for the knowledge catalog, or /lesson.html for the self-paced explosion explanation. Premises and goals are editable inside explanations; dialogue and diagrams follow the selected model or invalidate unsupported input.
 
+Try the question-led comparisons at `/knowledge/binary-search/`, `/knowledge/sphere-slices/`, and `/knowledge/base-rates/`: step through a search, move a cutting plane, or compare a fictional detector's expected counts. Predictions are optional; changing a condition updates the explanation and preserves your edits across scenes.
+
 ~~~sh
 pnpm typecheck    # strict TypeScript contracts
 pnpm check        # types, content validation, unit tests, Chromium regressions

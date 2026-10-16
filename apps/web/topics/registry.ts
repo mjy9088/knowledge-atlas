@@ -1,16 +1,21 @@
 import {mountLambdaExperiment} from './computing/typed-lambda.js';
+import {mountBinarySearchExperiment} from './computing/binary-search.js';
+import {mountSphereSlicesExperiment} from './geometry/sphere-slices.js';
+import {mountBaseRatesExperiment} from './statistics/base-rates.js';
+import type {BinarySearchState} from './computing/binary-search.js';
+import type {SphereSlicesState} from './geometry/sphere-slices.js';
+import type {BaseRatesState} from './statistics/base-rates.js';
 import {mountOrbitalExperiment} from './quantum/orbitals.js';
 import type {OrbitalExperimentState} from './quantum/orbitals.js';
 import type {LambdaState} from './computing/typed-lambda.js';
 import type {Scene} from '/packages/content/types.js';
 
-export type TopicState=OrbitalExperimentState|LambdaState;
-export type TopicInspection=ReturnType<ReturnType<typeof mountOrbitalExperiment>['inspect']>|ReturnType<ReturnType<typeof mountLambdaExperiment>['inspect']>;
+export type TopicState=OrbitalExperimentState|LambdaState|BinarySearchState|SphereSlicesState|BaseRatesState;
+export type TopicInspection=ReturnType<ReturnType<typeof mountOrbitalExperiment>['inspect']>|ReturnType<ReturnType<typeof mountLambdaExperiment>['inspect']>|ReturnType<ReturnType<typeof mountBinarySearchExperiment>['inspect']>|ReturnType<ReturnType<typeof mountSphereSlicesExperiment>['inspect']>|ReturnType<ReturnType<typeof mountBaseRatesExperiment>['inspect']>;
 export interface TopicInteraction {
   getState():TopicState;
   validateState?(state:TopicState):void;
   setState(state:TopicState):void;
-  validateState?(state:TopicState):void;
   suggest(suggestion?:Scene['suggestion']):void;
   reset():void;
   seek(ms:number):void;
@@ -19,7 +24,7 @@ export interface TopicInteraction {
 }
 
 // Explicitly registered topic adapters; source metadata cannot execute arbitrary modules.
-const interactions:Record<string,(container:HTMLElement,options:{onChange?:()=>void})=>TopicInteraction>={'hydrogenic-orbitals':mountOrbitalExperiment,'typed-lambda':mountLambdaExperiment};
+const interactions:Record<string,(container:HTMLElement,options:{onChange?:()=>void})=>TopicInteraction>={'hydrogenic-orbitals':mountOrbitalExperiment,'typed-lambda':mountLambdaExperiment,'binary-search':mountBinarySearchExperiment,'sphere-slices':mountSphereSlicesExperiment,'base-rates':mountBaseRatesExperiment};
 export function mountTopicInteraction(id:string,container:HTMLElement,options:{onChange?:()=>void}={}):TopicInteraction{
   if(!Object.hasOwn(interactions,id))throw new RangeError('Unknown topic interaction');
   return interactions[id](container,options);

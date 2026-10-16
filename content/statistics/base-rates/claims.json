@@ -1,0 +1,38 @@
+[
+  {
+    "id":"claim:statistics.base-rates.conditional",
+    "kind":"formal",
+    "statement":"경보 사건 A의 확률이 양수일 때 경보 중 불량 비율은 P(D∩A)/P(A)이다. P(A)=0이면 이 비율 정의를 적용할 수 없다.",
+    "scope":"유한 사건의 통상적인 조건부확률. 확률 0 사건의 정규조건부분포 등은 다루지 않는다.",
+    "assumptions":["D는 불량, A는 경보 사건","분모 P(A)>0"],
+    "sourceRefs":[{"sourceId":"source:iyer-conditional-probability-2026","locator":"Conditional Probability, Definition 2, formula P(A|B)=P(A∩B)/P(B), positive-denominator condition"}],
+    "reviewStatus":"draft-source-aligned"
+  },
+  {
+    "id":"claim:statistics.base-rates.reverse",
+    "kind":"formal",
+    "statement":"불량 중 경보 확률 P(A|D)만으로는 경보 중 불량 확률 P(D|A)를 정할 수 없다. 기저 불량 비율과 정상 중 경보 확률도 필요하다.",
+    "scope":"불량/정상 이분할과 두 경보 확률이 주어진 가상 검사 모형. 두 조건부확률이 우연히 같은 수가 되는 경우는 배제하지 않는다.",
+    "assumptions":["불량과 정상은 서로 배타적이며 전체를 이룬다","P(A)>0"],
+    "sourceRefs":[{"sourceId":"source:iyer-conditional-probability-2026","locator":"Conditional Probability, Propositions 5 and 6, total probability and Bayes theorem"}],
+    "reviewStatus":"draft-source-aligned"
+  },
+  {
+    "id":"claim:statistics.base-rates.bayes",
+    "kind":"formal",
+    "statement":"불량 비율 p, 불량 중 경보 s, 정상 중 경보 f인 모형에서 P(D|A)=ps/[ps+(1−p)f]이다. s와 f가 양수이면 p가 커질수록 이 비율은 커진다.",
+    "scope":"확률 p,s,f는 0~1이며 분모가 양수인 경우. 양 끝 p에서는 비어 있는 집단의 경보율을 생성 모형 매개변수로만 해석한다.",
+    "assumptions":["고정된 두 경보율과 불량/정상 이분할","기저 비율 변경이 경보율을 바꾸지 않는 비교 모형","단조 비교는 s>0, f>0일 때"],
+    "sourceRefs":[{"sourceId":"source:iyer-conditional-probability-2026","locator":"Conditional Probability, Propositions 5 and 6; binary-partition substitution yields displayed formula; monotonicity is an algebraic deduction within that model"}],
+    "reviewStatus":"draft-source-aligned"
+  },
+  {
+    "id":"claim:statistics.base-rates.fixture",
+    "kind":"model-deduction",
+    "statement":"가상 모형 N=10000,p=.01,s=.9,f=.05의 기대 개수는 불량 경보 90, 정상 경보 495, 불량 미경보 10, 정상 미경보 9405이며 경보 중 불량 확률은 90/585이다.",
+    "scope":"독립 작성한 예시 값에 확률 법칙을 대입한 계산이다. 공장 데이터나 실험 관측이 아니며 개수는 기대값이다.",
+    "assumptions":["N은 환산용 제품 수","N×해당 사건 확률로 기대 개수 산출","매개변수의 실제 정확도·적합성은 추정하지 않는다"],
+    "sourceRefs":[{"sourceId":"source:iyer-conditional-probability-2026","locator":"Conditional Probability, Definition 2 and Propositions 5–6; independent fictional fixture calculated by substituting N=10000,p=.01,s=.9,f=.05, not source data"}],
+    "reviewStatus":"draft-source-aligned"
+  }
+]

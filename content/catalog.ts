@@ -1,4 +1,7 @@
 import type {ContentEntry,ContentPage,Article,Scene} from '../packages/content/types.js';
+import searchPage from './computing/binary-search/page.js';
+import slicesPage from './geometry/sphere-slices/page.js';
+import ratesPage from './statistics/base-rates/page.js';
 import chPage from './computing/curry-howard/page.js';
 import lambdaPage from './computing/lambda-calculus/page.js';
 import fieldPage from './particle-physics/field-quanta/page.js';
@@ -11,6 +14,9 @@ import page2 from './set-theory/zfc/page.js';
 import page3 from './set-theory/continuum-hypothesis/page.js';
 
 export const CONTENT_ENTRIES: ContentEntry[]=[
+  {directory:'computing/binary-search',article:'article.ko.json',claims:'claims.json',page:searchPage},
+  {directory:'geometry/sphere-slices',article:'article.ko.json',claims:'claims.json',page:slicesPage},
+  {directory:'statistics/base-rates',article:'article.ko.json',claims:'claims.json',page:ratesPage},
   {directory:'computing/curry-howard',article:'article.ko.json',claims:'claims.json',page:chPage},
   {directory:'computing/lambda-calculus',article:'article.ko.json',claims:'claims.json',page:lambdaPage},
   {directory:'particle-physics/field-quanta',article:'article.ko.json',claims:'claims.json',page:fieldPage},
@@ -25,7 +31,7 @@ export const CONTENT_ENTRIES: ContentEntry[]=[
 export const CONTENT_PAGES=CONTENT_ENTRIES.map(entry=>entry.page);
 export const pageURL=(page: ContentPage)=>'/knowledge/'+page.slug+'/';
 export function sceneText(article: Article,scene: Scene){
-  const sentences=article.blocks[scene.block].text.match(/[^.!?]+[.!?]+(?:\s+|$)|[^.!?]+$/gu)??[];
+  const sentences=article.blocks[scene.block].text.match(/[\s\S]+?[.!?]+(?:\s+|$)|[\s\S]+$/gu)??[];
   return sentences.slice(scene.from,scene.to).join('').trim();
 }
 
