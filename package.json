@@ -8,20 +8,25 @@
     "node": ">=22"
   },
   "scripts": {
-    "dev": "node scripts/dev-server.mjs",
-    "build": "node scripts/validate.mjs && node scripts/build-site.mjs",
-    "preview": "node scripts/serve-static.mjs",
-    "validate": "node scripts/validate.mjs",
-    "test": "node --test tests/*.test.mjs",
-    "storyboard": "node scripts/storyboard.mjs",
-    "release:check": "node scripts/release-check.mjs",
-    "check": "pnpm validate && pnpm test && pnpm test:ui",
-    "impact": "node scripts/impact.mjs",
-    "preview:manifest": "node scripts/preview-manifest.mjs",
-    "render:mp4": "node scripts/encode-mp4.mjs",
-    "test:ui": "playwright test"
+    "dev": "node --import tsx scripts/dev-server.ts",
+    "build": "pnpm typecheck && pnpm validate && node --import tsx scripts/build-site.ts",
+    "preview": "node --import tsx scripts/serve-static.ts",
+    "validate": "node --import tsx scripts/validate.ts",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "storyboard": "node --import tsx scripts/storyboard.ts",
+    "release:check": "node --import tsx scripts/release-check.ts",
+    "check": "pnpm typecheck && pnpm validate && pnpm test && pnpm test:ui",
+    "impact": "node --import tsx scripts/impact.ts",
+    "preview:manifest": "node --import tsx scripts/preview-manifest.ts",
+    "render:mp4": "node --import tsx scripts/encode-mp4.ts",
+    "test:ui": "playwright test --config=playwright.config.ts",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "@playwright/test": "1.64.1"
+    "@playwright/test": "1.64.1",
+    "@types/node": "^22.20.5",
+    "esbuild": "^0.28.2",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
   }
 }

@@ -4,7 +4,7 @@
 
 The intended dependency path is source snapshot/span → claim/model → explanation → scene/narration → projection/publication. The reader's concept graph is a separate structure: a conceptual relationship does not by itself imply a build dependency or require regeneration.
 
-Git plus JSON and JavaScript modules currently hold the source. Stable logical IDs survive URL or storage changes. A publication should eventually lock claim, model, scene, audio, projection, and source/rights versions. Current build manifests record hashes for local review; they are not approved publication manifests.
+Git plus JSON and TypeScript modules currently hold the source. Stable logical IDs survive URL or storage changes. A publication should eventually lock claim, model, scene, audio, projection, and source/rights versions. Current build manifests record hashes for local review; they are not approved publication manifests.
 
 ## Boundaries
 
@@ -13,7 +13,7 @@ Git plus JSON and JavaScript modules currently hold the source. Stable logical I
 | `sources/registry.json` | Source identity, retrieval/revision notes, locators, rights status |
 | `knowledge/` | Concepts and typed, contextual relationships |
 | `content/<domain>/<topic>/` | Topic-owned claims, localized articles, presentation metadata, optional episode source |
-| `content/catalog.mjs` | Registered data paths and shared article routes |
+| `content/catalog.ts` | Registered data paths and shared article routes |
 | `packages/spatial/` | Domain-neutral finite-grid sampling and isosurface geometry |
 | `packages/models/` | Pure calculations and explicit limitations |
 | `packages/contracts/` | Preliminary JSON Schemas; not a complete runtime validator |
@@ -24,7 +24,7 @@ Git plus JSON and JavaScript modules currently hold the source. Stable logical I
 | `scripts/` | Validation, build, preview, impact analysis, local media CLI |
 | `tests/` | Model/state/build unit tests and browser regression tests |
 
-The browser application has no runtime npm dependencies. Playwright is a development dependency. Astro/React, Remotion, TTS, graph databases, and job orchestration are not installed adapters.
+The browser application has no runtime npm dependencies. TypeScript, tsx, esbuild, Node declarations and Playwright are development dependencies. Astro/React, Remotion, TTS, graph databases, and job orchestration are not installed adapters.
 
 ## Entity contracts
 
@@ -41,25 +41,25 @@ The browser application has no runtime npm dependencies. Playwright is a develop
 
 Scene APIs expose `getState`, validated `setState`, and `reset`; time-based adapters expose `seek` or `frameAt`. Return detached snapshots and reject invalid state without partially mutating the previous state. Seeking must not depend on hidden prior clicks; randomness, if introduced, needs a recorded seed.
 
-`topics/formal-reasoning/proof-scene.mjs` wraps the original explosion model and its separate 30-second storyboard. Web reset restores both premises/Q; storyboard `seek(0)` restores its own initial state with no premises. These are intentionally different baselines.
+`topics/formal-reasoning/proof-scene.ts` wraps the original explosion model and its separate 30-second storyboard. Web reset restores both premises/Q; storyboard `seek(0)` restores its own initial state with no premises. These are intentionally different baselines.
 
-`components/experiment/premise-editor.mjs` normalizes `{premises:[{formula,enabled}],goal,customized}` and accepts a `derive` adapter. The editor handles up to eight premises and 512 characters per formula. Reader edits remain draft input even when syntax is incomplete. Suggestions change scene defaults without replacing customized input; explicit reset restores the current suggestion.
+`components/experiment/premise-editor.ts` normalizes `{premises:[{formula,enabled}],goal,customized}` and accepts a `derive` adapter. The editor handles up to eight premises and 512 characters per formula. Reader edits remain draft input even when syntax is incomplete. Suggestions change scene defaults without replacing customized input; explicit reset restores the current suggestion.
 
-`components/inference/explorer.mjs` renders the selected row of the adapter's proof, references, or countervaluation. `topics/formal-reasoning/experiments.mjs` supplies model-specific presets and deterministic narration. Related reader state includes scene, experiment, and selected visual row. The original lesson uses the shared editor and `topics/formal-reasoning/dialogue.mjs` to adapt its explanation to the same proof. Unsupported input invalidates previous dialogue and diagram together.
+`components/inference/explorer.ts` renders the selected row of the adapter's proof, references, or countervaluation. `topics/formal-reasoning/experiments.ts` supplies model-specific presets and deterministic narration. Related reader state includes scene, experiment, and selected visual row. The original lesson uses the shared editor and `topics/formal-reasoning/dialogue.ts` to adapt its explanation to the same proof. Unsupported input invalidates previous dialogue and diagram together.
 
 Active browser inspection hooks include `window.__atlasLesson`, `window.__atlasLessonExperiment`, and `window.__atlasRelated`. The original proof adapter remains a tested module, but its former standalone page/global hook is retired. See the implementations for their concrete state shape. These hooks support inspection; they do not grant publication approval.
 
-`components/reader/frame.css` allocates viewport space; `components/reader/panels.mjs` moves detailed evidence and connections into dialogs. Dialogue navigation is self-paced. Articles may omit an experiment adapter and use conceptual cards with the same navigation/state contract.
+`components/reader/frame.css` allocates viewport space; `components/reader/panels.ts` moves detailed evidence and connections into dialogs. Dialogue navigation is self-paced. Articles may omit an experiment adapter and use conceptual cards with the same navigation/state contract.
 
-`components/reader/evaluation-feedback.mjs` separates topic identity from runtime availability. The domain-neutral component receives `{available,summary,detail}`, disables/hides only the dependent explanation, and renders a separate live status. Its `getState/setState/reset` do not interpret logic, select another goal, or block unrelated navigation. Callers own evaluation and domain-specific wording. The original lesson and related readers share it; conceptual default explanations remain readable, while customized unavailable explanations cannot retain stale example copy. Inspection snapshots expose evaluation separately from the stable displayed title.
+`components/reader/evaluation-feedback.ts` separates topic identity from runtime availability. The domain-neutral component receives `{available,summary,detail}`, disables/hides only the dependent explanation, and renders a separate live status. Its `getState/setState/reset` do not interpret logic, select another goal, or block unrelated navigation. Callers own evaluation and domain-specific wording. The original lesson and related readers share it; conceptual default explanations remain readable, while customized unavailable explanations cannot retain stale example copy. Inspection snapshots expose evaluation separately from the stable displayed title.
 
 ## Static build and media boundary
 
-`build-site.mjs` and the development server share HTML generation. Ten catalog articles and the knowledge index are pre-rendered; client modules add navigation and experiments. Root-relative routes require deployment at the domain root; no SPA fallback is needed. The original lesson still uses client enhancement for its complete dialogue/evidence.
+`build-site.ts` and the development server share HTML generation. Ten catalog articles and the knowledge index are pre-rendered; client modules add navigation and experiments. Root-relative routes require deployment at the domain root; no SPA fallback is needed. The original lesson still uses client enhancement for its complete dialogue/evidence.
 
 The builder regenerates the fixed `dist/` directory and copies modules/styles from explicit reader asset roots plus content/model/spatial/experiment/projection data. It rejects linked output directories. Local render helpers are outside that public asset list. The static server supports GET/HEAD and directory redirects, with no conversion API.
 
-`episode.mjs` is the focused explanation source; `packages/projection/explosion.mjs` projects it into complete cue snapshots. Canvas/WebCodecs frames use those snapshots rather than recalculate a different narrative. MP4 encoding runs through the local `encode-mp4.mjs` CLI and `mise exec -- ffmpeg/ffprobe`.
+`episode.ts` is the focused explanation source; `packages/projection/explosion.ts` projects it into complete cue snapshots. Canvas/WebCodecs frames use those snapshots rather than recalculate a different narrative. MP4 encoding runs through the local `encode-mp4.ts` CLI and `mise exec -- ffmpeg/ffprobe`.
 
 The concrete folder/ownership and authoring contract is [Content structure](CONTENT-STRUCTURE.md). The catalog loader accepts injected JSON I/O so the browser and builder use the same identity/path checks. No per-topic controller copy or prototype comparison page is needed.
 
@@ -69,6 +69,6 @@ Preserve IDs, source attribution, state contracts, and accepted human edits when
 
 ## Spatial interaction boundary
 
-The hydrogenic model is pure numerical code under `packages/models/`; `packages/spatial/` accepts arbitrary scalar evaluators and weights. `components/spatial/field-viewer.mjs` supplies orthographic 3D projection, slice rendering, camera controls, and deterministic scene state without quantum terminology. The quantum topic adapter owns units, orbital selection, scientific limits, and current-input narration. The shared reader selects only explicitly registered adapters and preserves customized scientific/camera state across chapters. See [Spatial fields](SPATIAL-FIELDS.md) and [ADR 0015](adr/0015-orbitals-and-scalar-fields.md).
+The hydrogenic model is pure numerical code under `packages/models/`; `packages/spatial/` accepts arbitrary scalar evaluators and weights. `components/spatial/field-viewer.ts` supplies orthographic 3D projection, slice rendering, camera controls, and deterministic scene state without quantum terminology. The quantum topic adapter owns units, orbital selection, scientific limits, and current-input narration. The shared reader selects only explicitly registered adapters and preserves customized scientific/camera state across chapters. See [Spatial fields](SPATIAL-FIELDS.md) and [ADR 0015](adr/0015-orbitals-and-scalar-fields.md).
 
 The typed-lambda adapter is a second, non-spatial interactive adapter. Its model parses an annotated simply typed calculus with products and reports typing derivations plus bounded, capture-avoiding full normal-order reduction. It never executes input as JavaScript. A validated interaction snapshot is restored after selecting its scene so default suggestions cannot overwrite saved rule/reduction steps. Prose-only scenes collapse the absent visual region instead of displaying an empty diagram.

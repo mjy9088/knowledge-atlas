@@ -4,6 +4,7 @@ Updated 2026-10-16. “Implemented,” “automatically tested,” “source-ali
 
 ## Implemented locally
 
+- Strict TypeScript source across models, components, content metadata, Node scripts, media tools and tests. TypeScript/tsx/esbuild are development tools; static browsers receive JavaScript. See [ADR 0016](adr/0016-typescript-source.md).
 - File-based source registry, concept graph, scoped claims, preliminary schemas, concrete validation and impact inspection.
 - Deterministic explosion reference adapter and bounded propositional inference with shared input editing, state/reset/inspection, projection timelines, and proof diagrams.
 - Self-paced focused lesson, explicit skip context, inline editable assumptions/goals, synchronized or invalidated dialogue, viewport reader frames, on-demand evidence, and related links.
@@ -16,7 +17,9 @@ Updated 2026-10-16. “Implemented,” “automatically tested,” “source-ali
 
 Current content validation covers 22 sources, 18 concepts, 13 relations, and 63 claims. The original storyboard remains a separate five-segment/30-second draft. The focused episode is a separate 12-scene/134-second projection; no three-minute filler is required.
 
-Local verification for the focused-content expansion: validation, 78 Node tests and 95 Chromium cases passed, with one intentional mobile catalog-fit skip. Ten registered articles now cover 22 sources, 18 concepts, 13 relations and 63 scoped claims. All five new articles are checked at 1920×1080, 1920×940, 1920×900 and 390×844. Type checking, capture-avoiding substitution, snapshot restoration, cleared invalid results and every new authored scene/example are covered. Reading/source alignment remains distinct from expert review; no new video projection or external publication was produced.
+Local verification for the TypeScript migration: strict type checking passed with no project diagnostics, 78 Node tests passed through tsx, and 95 Chromium cases passed with the existing intentional mobile catalog-fit skip. Representative model, geometry, cloud, isosurface, timeline, frame and caption outputs were compared against retained JavaScript originals before retirement. Scientific expectations and content IDs remain unchanged.
+
+Earlier local verification for the focused-content expansion: validation, 78 Node tests and 95 Chromium cases passed, with one intentional mobile catalog-fit skip. Ten registered articles now cover 22 sources, 18 concepts, 13 relations and 63 scoped claims. All five new articles are checked at 1920×1080, 1920×940, 1920×900 and 390×844. Type checking, capture-avoiding substitution, snapshot restoration, cleared invalid results and every new authored scene/example are covered. Reading/source alignment remains distinct from expert review; no new video projection or external publication was produced.
 
 Earlier local verification for the orbital revision: validation, 73 Node tests and 71 Chromium cases passed, with one intentional mobile knowledge-index fit skip. Independent orbital fixtures cover closed forms, normalization, angular orthogonality, nodes, charge scaling and a finite-difference Coulomb equation residual. Generic geometry uses independent plane/sphere fixtures. These automated checks do not constitute expert or rights approval. No orbital video projection has been implemented.
 

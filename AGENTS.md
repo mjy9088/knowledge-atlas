@@ -18,14 +18,14 @@ Before changing the system, read [README](README.md), [Vision](docs/VISION.md), 
 ## Workflow and checks
 
 - Inspect existing state/schema/claim contracts and impact before editing. Make the smallest coherent change; factual edits need exact source references and honest verification limits.
-- Run npm run validate && npm test (or pnpm validate && pnpm test). For UI/layout/interaction changes, also run pnpm test:ui; include supported desktop and narrow viewport projects. Full checks: pnpm check.
+- Run pnpm typecheck && pnpm validate && pnpm test (or equivalent npm run commands). For UI/layout/interaction changes, also run pnpm test:ui; include supported desktop and narrow viewport projects. Full checks: pnpm check.
 - Use the actual static build for browser regressions. Measure document and internal scroll extents, content bounds, and control access; hiding overflow is not a layout fix. Normal examples must fit; bounded scrolling exceptions are defined in Product.
 - Exercise initial state, changed/unsupported input, reset, and state restoration. Keep dialogue and diagrams synchronized or invalidate both. Preserve reader edits across navigation.
 - Add tests for observable behavior and semantic contracts. Avoid tests that only enumerate removed filenames/strings or mirror implementation details.
 - For video work, inspect timeline, captions, sampled frames, audio/metadata diagnostics, and preview before final render. Keep local media production separate from public web assets.
 - Leave unrelated user changes intact. Make coherent intermediate commits where appropriate. Do not publish or upload merely because a build passes.
 
-- Store new articles and owned claims under content/<domain>/<topic>/ and register them in content/catalog.mjs. Reuse the shared article reader; do not copy a page/controller per topic. Keep DOM components, domain adapters, pure models/state, projections, and local media tools in their documented boundaries.
+- Store new articles and owned claims under content/<domain>/<topic>/ and register them in content/catalog.ts. Reuse the shared article reader; do not copy a page/controller per topic. Keep DOM components, domain adapters, pure models/state, projections, and local media tools in their documented boundaries.
 
 ## Documentation and feedback
 
@@ -39,4 +39,4 @@ Before changing the system, read [README](README.md), [Vision](docs/VISION.md), 
 
 Report changed components/IDs, actual tests and UI demonstration evidence, known limitations, and pending approval/publication. Browser artifacts go to ignored test-results/ and playwright-report/; other generated media goes to ignored artifacts/. Do not commit caches or generated site output.
 
-The app is a small static JavaScript implementation with no npm runtime dependencies. Playwright is installed only for development; setup and commands are in Development. Astro/React, Remotion, TTS, full source snapshots, orchestration, and publication lifecycle remain planned rather than installed services. Preliminary JSON Schemas are not a full runtime schema validator.
+The app uses strict TypeScript source and serves compiled static JavaScript with no npm runtime dependencies. TypeScript, tsx, esbuild, Node declarations and Playwright are installed only for development; setup and commands are in Development. Astro/React, Remotion, TTS, full source snapshots, orchestration, and publication lifecycle remain planned rather than installed services. Preliminary JSON Schemas are not a full runtime schema validator. Keep strict type checking enabled, use explicit domain/DOM contracts, and preserve runtime validation for JSON, user input and saved states; do not silence migration errors with blanket any types or suppression directives.

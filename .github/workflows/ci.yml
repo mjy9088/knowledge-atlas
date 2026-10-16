@@ -20,6 +20,8 @@ jobs:
         run: pnpm exec playwright install --with-deps chromium
       - name: Validate source and content references
         run: pnpm validate
+      - name: Check TypeScript contracts
+        run: pnpm typecheck
       - name: Run deterministic model tests
         run: pnpm test
       - name: Check static readers in Chromium

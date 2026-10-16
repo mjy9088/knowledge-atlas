@@ -2,12 +2,12 @@
 
 ## Contracts
 
-`packages/spatial/scalar-field.mjs` contains generic grid quadrature, seeded weighted cloud sampling, and marching-tetrahedra level-set geometry. `apps/web/components/spatial/field-viewer.mjs` draws the result with Canvas 2D using a 3D orthographic camera, or draws a direct planar slice. No quantum terminology or orbital equations belong in these modules. No graphics/runtime dependency is added.
+`packages/spatial/scalar-field.ts` contains generic grid quadrature, seeded weighted cloud sampling, and marching-tetrahedra level-set geometry. `apps/web/components/spatial/field-viewer.ts` draws the result with Canvas 2D using a 3D orthographic camera, or draws a direct planar slice. No quantum terminology or orbital equations belong in these modules. No graphics/runtime dependency is added.
 
 The caller supplies an evaluator, a nonnegative finite weight function, three finite increasing bounds, and a grid resolution (4–64 cells per axis). A value may be signed; the weight chooses how density/brightness is represented. Orbital use supplies amplitude and its square; another domain can supply a different scalar and weight without claiming probability.
 
 ```js
-import {mountFieldViewer} from '/components/spatial/field-viewer.mjs';
+import {mountFieldViewer} from '/components/spatial/field-viewer.ts';
 
 const viewer = mountFieldViewer(container, {label: 'Example scalar field'});
 viewer.setField({
@@ -38,6 +38,6 @@ The initial implementation is synchronous software rendering. Large grids/surfac
 
 ## Reader integration
 
-An article may name an `interactive` adapter in `page.mjs`; `apps/web/topics/registry.mjs` maps known IDs to code. The reader continues to own stable scene titles, navigation, evidence panels and state restoration. The topic owns controls, suggestions, current-input narration, and scientific claim references. This is separate from the symbolic premise/proof adapter.
+An article may name an `interactive` adapter in `page.ts`; `apps/web/topics/registry.ts` maps known IDs to code. The reader continues to own stable scene titles, navigation, evidence panels and state restoration. The topic owns controls, suggestions, current-input narration, and scientific claim references. This is separate from the symbolic premise/proof adapter.
 
 The orbital adapter is the first consumer; the browser suite also renders a non-orbital spherical field, restores state, rejects a bad camera, and disposes the viewer. Geometry tests use constant volume, a linear plane, and a spherical level set. These check implementation behavior, not independent scientific approval of a consuming model.

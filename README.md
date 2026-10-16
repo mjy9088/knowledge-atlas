@@ -15,12 +15,13 @@ pnpm dev
 Open http://127.0.0.1:4173/ for the knowledge catalog, or /lesson.html for the self-paced explosion explanation. Premises and goals are editable inside explanations; dialogue and diagrams follow the selected model or invalidate unsupported input.
 
 ~~~sh
-pnpm check        # content validation, unit tests, Chromium regressions
+pnpm typecheck    # strict TypeScript contracts
+pnpm check        # types, content validation, unit tests, Chromium regressions
 pnpm build        # validated static review build in dist/
 pnpm preview      # serve dist/ at localhost:4174
 ~~~
 
-The public web has no npm runtime dependencies. Playwright is a development dependency. See [Development](docs/DEVELOPMENT.md) for viewport coverage, artifacts, build constraints, and troubleshooting. MP4 conversion is a separate local CLI: pnpm render:mp4 -- input.webm output.mp4, using mise FFmpeg. The development-only WebM helper is not part of the static site.
+The public web has no npm runtime dependencies. TypeScript (strict), tsx, esbuild, Node types and Playwright are development dependencies. See [Development](docs/DEVELOPMENT.md) for viewport coverage, artifacts, build constraints, and troubleshooting. MP4 conversion is a separate local CLI: pnpm render:mp4 -- input.webm output.mp4, using mise FFmpeg. The development-only WebM helper is not part of the static site.
 
 ## Documentation
 

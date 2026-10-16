@@ -1,0 +1,45 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "lib": [
+      "ES2023",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "types": [
+      "node"
+    ],
+    "paths": {
+      "/content/*": [
+        "./content/*"
+      ],
+      "/packages/*": [
+        "./packages/*"
+      ],
+      "/*": [
+        "./apps/web/*"
+      ]
+    },
+    "resolveJsonModule": true
+  },
+  "include": [
+    "apps/**/*.ts",
+    "content/**/*.ts",
+    "packages/**/*.ts",
+    "scripts/**/*.ts",
+    "tools/**/*.ts",
+    "tests/**/*.ts",
+    "types/**/*.ts",
+    "playwright.config.ts"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules",
+    "artifacts"
+  ]
+}

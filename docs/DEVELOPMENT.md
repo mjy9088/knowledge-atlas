@@ -16,11 +16,12 @@ The development server defaults to `http://127.0.0.1:4173`; set `PORT` to choose
 
 | Command | Purpose |
 | --- | --- |
+| `pnpm typecheck` | Strict TypeScript contracts across source, scripts and tests |
 | `pnpm validate` | Concrete source/claim/content references, semantic metadata, episode bounds |
 | `pnpm test` | Node unit tests for models, state, projections, build/link/hash behavior |
 | `pnpm test:ui` | Chromium regression suite against a fresh static build |
-| `pnpm check` | Validation, unit tests, then browser tests |
-| `pnpm build` | Validate and generate `dist/` |
+| `pnpm check` | Type checking, validation, unit tests, then browser tests |
+| `pnpm build` | Type check, validate and generate `dist/` |
 | `pnpm preview` | Serve `dist/` locally on port 4174 |
 | `pnpm preview:manifest` | Focused episode timeline, VTT, hashes, frame diagnostics |
 | `pnpm storyboard` | Original 30-second storyboard export |
@@ -31,9 +32,9 @@ Equivalent `npm run` commands work when npm is available. The dependency lockfil
 
 ## Browser regression contract
 
-`playwright.config.mjs` builds and serves the actual static output on dedicated port 4190, with two Chromium workers. It also starts the development server on port 4191 for the local media smoke test. Stop unrelated services on these ports before running; the runner does not reuse an existing server. The projects use CSS viewports 1920×1080, 1920×940, 1920×900, and 390×844.
+`playwright.config.ts` builds and serves the actual static output on dedicated port 4190, with two Chromium workers. It also starts the development server on port 4191 for the local media smoke test. Stop unrelated services on these ports before running; the runner does not reuse an existing server. The projects use CSS viewports 1920×1080, 1920×940, 1920×900, and 390×844.
 
-`tests/browser/readers.spec.mjs` checks catalog entry navigation, optional experiments, local media preview, all focused-lesson and related-reader scenes, every related model preset, navigation, evidence panels, input invalidation, reset, and eight-premise editing. Orbital cases additionally cover eight chapters, current-state dialogue, cloud/slice/isosurface modes, camera controls, state restoration, invalid state rejection, and deterministic seeking. Typed-lambda cases cover every chapter/example, editable terms/contexts/goals, type errors with cleared results, rule/reduction navigation, and customized/default snapshot restoration. Prose-only physics scenes are checked for actual text and control fitting. A separate browser fixture exercises the same viewer with a non-orbital spherical field. It measures document extents and actual content scroll extents, plus control bounds and hit targets. Hiding overflowing content with CSS does not satisfy these checks. Default content must fit; deliberately expanded user collections and opened reference panels may scroll internally as specified in [Product](PRODUCT.md).
+`tests/browser/readers.spec.ts` checks catalog entry navigation, optional experiments, local media preview, all focused-lesson and related-reader scenes, every related model preset, navigation, evidence panels, input invalidation, reset, and eight-premise editing. Orbital cases additionally cover eight chapters, current-state dialogue, cloud/slice/isosurface modes, camera controls, state restoration, invalid state rejection, and deterministic seeking. Typed-lambda cases cover every chapter/example, editable terms/contexts/goals, type errors with cleared results, rule/reduction navigation, and customized/default snapshot restoration. Prose-only physics scenes are checked for actual text and control fitting. A separate browser fixture exercises the same viewer with a non-orbital spherical field. It measures document extents and actual content scroll extents, plus control bounds and hit targets. Hiding overflowing content with CSS does not satisfy these checks. Default content must fit; deliberately expanded user collections and opened reference panels may scroll internally as specified in [Product](PRODUCT.md).
 
 Run a focused project or inspect failures:
 
@@ -61,10 +62,14 @@ Convert an existing WebM locally:
 
 ```sh
 pnpm render:mp4 -- input.webm output.mp4
-node scripts/encode-mp4.mjs --help
+node --import tsx scripts/encode-mp4.ts --help
 mise exec -- ffmpeg -version
 ```
 
 The CLI invokes mise FFmpeg/ffprobe through argument arrays, refuses output overwrite, and records hashes and media diagnostics. H.264 MP4 is transcoded from VP8 WebM rather than lossless frames. Native WebM preview compatibility may vary; record a preview failure explicitly rather than claim successful decode. Browser preview and ffprobe checks do not establish every frame's quality or scientific correctness.
 
 Before final media approval, generate and inspect the timeline, captions, frame samples, metadata, and audio diagnostics. Verify that changed goals and excluded premises match the displayed proof. Existing ignored artifacts are local candidates, not source-controlled publication evidence.
+
+## TypeScript execution and delivery
+
+All executable project source uses `.ts`; content/evidence prose stays JSON. Relative and browser-root imports use emitted `.js` paths. Run Node source with `node --import tsx`, normally through the package commands. The builder and development server share an esbuild transform; browsers receive JavaScript modules, never raw TypeScript. No application framework or browser npm runtime was added. Type-only contracts belong beside their modules or in `packages/content/types.ts`; browser globals are declarations used by inspection/test code. Runtime input validation remains required.

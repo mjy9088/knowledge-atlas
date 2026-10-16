@@ -1,0 +1,33 @@
+import type {ContentEntry,ContentPage,Article,Scene} from '../packages/content/types.js';
+import chPage from './computing/curry-howard/page.js';
+import lambdaPage from './computing/lambda-calculus/page.js';
+import fieldPage from './particle-physics/field-quanta/page.js';
+import interactionsPage from './particle-physics/particle-interactions/page.js';
+import qcdPage from './particle-physics/quark-confinement/page.js';
+import orbitalPage from './quantum-physics/atomic-orbitals/page.js';
+import page0 from './formal-logic/consistency/page.js';
+import page1 from './formal-logic/paraconsistent-logic/page.js';
+import page2 from './set-theory/zfc/page.js';
+import page3 from './set-theory/continuum-hypothesis/page.js';
+
+export const CONTENT_ENTRIES: ContentEntry[]=[
+  {directory:'computing/curry-howard',article:'article.ko.json',claims:'claims.json',page:chPage},
+  {directory:'computing/lambda-calculus',article:'article.ko.json',claims:'claims.json',page:lambdaPage},
+  {directory:'particle-physics/field-quanta',article:'article.ko.json',claims:'claims.json',page:fieldPage},
+  {directory:'particle-physics/particle-interactions',article:'article.ko.json',claims:'claims.json',page:interactionsPage},
+  {directory:'particle-physics/quark-confinement',article:'article.ko.json',claims:'claims.json',page:qcdPage},
+  {directory:'quantum-physics/atomic-orbitals',article:'article.ko.json',claims:'claims.json',page:orbitalPage},
+  {directory:'formal-logic/consistency',article:'article.ko.json',claims:'claims.json',page:page0},
+  {directory:'formal-logic/paraconsistent-logic',article:'article.ko.json',claims:'claims.json',page:page1},
+  {directory:'set-theory/zfc',article:'article.ko.json',claims:'claims.json',page:page2},
+  {directory:'set-theory/continuum-hypothesis',article:'article.ko.json',claims:'claims.json',page:page3}
+];
+export const CONTENT_PAGES=CONTENT_ENTRIES.map(entry=>entry.page);
+export const pageURL=(page: ContentPage)=>'/knowledge/'+page.slug+'/';
+export function sceneText(article: Article,scene: Scene){
+  const sentences=article.blocks[scene.block].text.match(/[^.!?]+[.!?]+(?:\s+|$)|[^.!?]+$/gu)??[];
+  return sentences.slice(scene.from,scene.to).join('').trim();
+}
+
+export const COLLECTION_FILE='content/collections/explosion-related.json';
+export const CLAIM_FILES=['content/formal-logic/explosion/claims.json','content/formal-logic/explosion/inference-claims.json',...CONTENT_ENTRIES.map(entry=>'content/'+entry.directory+'/'+entry.claims)];
