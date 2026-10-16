@@ -1,0 +1,74 @@
+{
+  "id": "article:quantum.atomic-orbitals.ko",
+  "conceptId": "concept:quantum.atomic-orbital",
+  "title": "원자 오비탈: 전자의 분포",
+  "reviewStatus": "needs-content-review",
+  "scope": "비상대론적 고정 핵 수소형 단일전자 상태; 유한 격자 시각화",
+  "blocks": [
+    {
+      "id": "block:quantum.orbitals.orbit",
+      "text": "오비탈은 전자가 원자핵 주위를 도는 길을 그린 선이 아닙니다. 전자를 어디에서 찾을 수 있는지 알려 주는 양자 상태의 공간적 분포를 살펴보는 출발점입니다.",
+      "claimRefs": [
+        "claim:quantum.orbital.probability"
+      ]
+    },
+    {
+      "id": "block:quantum.orbitals.density",
+      "text": "파동함수 ψ는 전자의 상태를 기술하는 함수이고, |ψ|²는 위치의 확률밀도입니다. 작은 영역에서 전자를 찾을 확률은 그 영역의 밀도를 부피에 걸쳐 합산해 구합니다. 화면의 점은 유한 격자로 근사한 분포의 샘플이며 전자 여러 개나 실제 관측 기록이 아닙니다.",
+      "claimRefs": [
+        "claim:quantum.orbital.probability",
+        "claim:quantum.orbital.representation"
+      ]
+    },
+    {
+      "id": "block:quantum.orbitals.numbers",
+      "text": "주양자수 n과 각운동량 양자수 l로 상태를 구분하며 s·p·d는 각각 l=0·1·2입니다. 여기서는 l<n인 상태를 고릅니다. pₓ·pᵧ 같은 실수 방향은 복소 구면조화함수의 조합이므로 각각을 하나의 자기양자수 m이라고 부르지 않습니다.",
+      "claimRefs": [
+        "claim:quantum.hydrogenic.quantum-numbers"
+      ]
+    },
+    {
+      "id": "block:quantum.orbitals.nodes",
+      "text": "파동함수가 0인 곳에서는 확률밀도도 0이며 이를 마디라고 합니다. 2s의 방사 마디는 r=2a₀/Z인 구면이고, 방사 마디 수는 n−l−1입니다. p와 d의 실수 기저는 방향에 따른 각 마디도 가지므로 단면에서 비교해 보세요.",
+      "claimRefs": [
+        "claim:quantum.orbital.nodes",
+        "claim:quantum.hydrogenic.radial"
+      ]
+    },
+    {
+      "id": "block:quantum.orbitals.phase",
+      "text": "청록과 주황은 선택한 실수 파동함수의 양·음 부호를 구분합니다. 전자의 전하가 두 종류라는 뜻이 아닙니다. 전체 부호를 뒤집어도 |ψ|²는 같으며, 색의 구분은 파동함수의 상대 부호를 읽기 위한 표현입니다.",
+      "claimRefs": [
+        "claim:quantum.orbital.phase"
+      ]
+    },
+    {
+      "id": "block:quantum.orbitals.views",
+      "text": "확률 구름은 밀도에 따른 점 분포이고, 단면은 선택한 평면에서 본 밀도입니다. 등값면은 같은 밀도를 잇는 면이며 기준을 바꾸면 모양도 달라집니다. ‘격자 최대 밀도의 3퍼센트’는 그 면 안의 전자 발견 확률이 3퍼센트라는 뜻이 아닙니다.",
+      "claimRefs": [
+        "claim:quantum.orbital.representation",
+        "claim:quantum.orbital.probability"
+      ]
+    },
+    {
+      "id": "block:quantum.orbitals.charge",
+      "text": "한 전자만 가진 수소형 모형에서 Z가 커지면 같은 n 상태의 길이 척도는 1/Z로 줄어듭니다. 에너지는 −Z²/(2n²) Eₕ입니다. 화면은 자동으로 구도를 맞추므로 계산 상자의 a₀ 단위와 에너지 값을 함께 비교해야 합니다.",
+      "claimRefs": [
+        "claim:quantum.hydrogenic.scaling"
+      ]
+    },
+    {
+      "id": "block:quantum.orbitals.limits",
+      "text": "이 화면은 n=1–4의 s·p·d, Z=1–3에서 한 전자·고정 점핵·비상대론 모형을 계산합니다. 스핀·상대론·환산질량 보정과 다전자 원자·분자는 포함하지 않습니다. 유한 계산 상자와 격자 밖의 꼬리도 생략되므로 화면의 근사는 분석 함수 자체와 구별해야 합니다.",
+      "claimRefs": [
+        "claim:quantum.hydrogenic.scope",
+        "claim:quantum.hydrogenic.radial"
+      ]
+    }
+  ],
+  "relatedConcepts": [
+    "concept:quantum.wavefunction",
+    "concept:quantum.probability-density",
+    "concept:quantum.hydrogenic"
+  ]
+}

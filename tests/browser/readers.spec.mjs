@@ -40,7 +40,7 @@ const lessonFrame = {
   controls: ['.dialogue-actions button', '.experiment-goal', '#lesson-menu-open'],
 };
 
-for (const reader of CONTENT_PAGES) test(`${reader.slug}: every scene and rule example fits`, async ({page}, testInfo) => {
+for (const reader of CONTENT_PAGES.filter(page=>!page.interactive)) test(`${reader.slug}: every scene and rule example fits`, async ({page}, testInfo) => {
   await page.goto(`/knowledge/${reader.slug}/`);
   await page.waitForFunction(() => window.__atlasRelated);
   for (let index = 0; index < reader.scenes.length; index++) {
@@ -77,8 +77,71 @@ test('direct links restore the requested scene and typing arrows does not naviga
 test('desktop knowledge index fits with accessible topic cards', async ({page}, testInfo) => {
   test.skip(testInfo.project.name === 'mobile', 'The narrow index is a normal scrolling document.');
   await page.goto('/knowledge/');
-  await expect(page.locator('.knowledge-card')).toHaveCount(4);
+  await expect(page.locator('.knowledge-card')).toHaveCount(CONTENT_PAGES.length);
   await expectFrame(page, {content: ['.knowledge-card'], controls: ['a.knowledge-card']});
+});
+
+const orbitalFrame={
+  content:['.reader-copy:not([hidden])','.orbital-controls','.orbital-footer','.orbital-view'],
+  controls:['#reader-controls button','.orbital-controls select','.orbital-controls button','.field-canvas','.reader-menu summary'],
+};
+test('orbitals: each authored scene fits with its corresponding field state',async({page},testInfo)=>{
+  const errors=[];page.on('pageerror',error=>errors.push(error.message));
+  await page.goto('/knowledge/atomic-orbitals/');await page.waitForFunction(()=>window.__atlasRelated);
+  const metadata=CONTENT_PAGES.find(p=>p.slug==='atomic-orbitals');
+  for(const scene of metadata.scenes){
+    await expect(page.locator('.reader-scene:visible h2')).toHaveText(scene.title);
+    const snapshot=await page.evaluate(()=>window.__atlasRelated.getInspectionSnapshot());
+    expect(snapshot.interaction.orbital).toEqual({n:scene.suggestion.n,basis:scene.suggestion.basis,Z:scene.suggestion.Z});
+    expect(snapshot.interaction.viewer.pointCount).toBe(6500);
+    await test.step(scene.id,()=>expectFrame(page,orbitalFrame));
+    if(scene!==metadata.scenes.at(-1))await page.locator('#reader-next').click();
+  }
+  await testInfo.attach('orbital-scene',{body:await page.screenshot(),contentType:'image/png'});
+  expect(errors).toEqual([]);
+});
+test('orbital controls, camera, modes, state persistence and restoration use current input',async({page},testInfo)=>{
+  await page.goto('/knowledge/atomic-orbitals/#nodes');await page.waitForFunction(()=>window.__atlasRelated);
+  await page.getByRole('combobox',{name:'주양자수 n',exact:true}).selectOption('3');
+  await page.getByRole('combobox',{name:'오비탈 종류·방향',exact:true}).selectOption('dxy');
+  await page.getByRole('combobox',{name:'핵전하 Z',exact:true}).selectOption('2');
+  await expect(page.locator('.reader-scene:visible h2')).toHaveText('분포 안의 빈 곳: 마디');
+  await expect(page.locator('.reader-scene:visible .scene-prose')).toContainText('l=2, Z=2');
+  for(const mode of ['cloud','slice','surface']){
+    await page.getByRole('combobox',{name:'표시 방식',exact:true}).selectOption(mode);await expectFrame(page,orbitalFrame);
+    const image=await page.locator('canvas').evaluate(canvas=>canvas.toDataURL());expect(image.length).toBeGreaterThan(1000);
+  }
+  const surface=await page.evaluate(()=>window.__atlasRelated.getInspectionSnapshot().interaction.viewer.triangleCount);expect(surface).toBeGreaterThan(0);
+  await testInfo.attach('orbital-surface',{body:await page.screenshot(),contentType:'image/png'});
+  await page.getByRole('combobox',{name:'표시 방식',exact:true}).selectOption('cloud');
+  const before=await page.evaluate(()=>window.__atlasRelated.getState());
+  await page.locator('canvas').focus();await page.keyboard.press('ArrowRight');
+  const rotated=await page.evaluate(()=>window.__atlasRelated.getState());expect(rotated.sceneId).toBe(before.sceneId);expect(rotated.interaction.view.yaw).toBeGreaterThan(before.interaction.view.yaw);
+  await page.locator('#reader-next').click();await expect(page.getByRole('combobox',{name:'핵전하 Z',exact:true})).toHaveValue('2');
+  const saved=await page.evaluate(()=>window.__atlasRelated.getState());
+  await page.evaluate(()=>window.__atlasRelated.reset());
+  await page.evaluate(state=>window.__atlasRelated.setState(state),saved);
+  expect(await page.evaluate(()=>window.__atlasRelated.getState())).toEqual(saved);
+  const rejection=await page.evaluate(()=>{const before=window.__atlasRelated.getState();let rejected=false;try{window.__atlasRelated.setState({...before,interaction:{...before.interaction,orbital:{n:0,basis:'s',Z:1}}});}catch{rejected=true;}return {before,after:window.__atlasRelated.getState(),rejected};});
+  expect(rejection.rejected).toBe(true);expect(rejection.after).toEqual(rejection.before);
+  const pixels=await page.locator('canvas').evaluate(canvas=>canvas.toDataURL());
+  await page.evaluate(()=>window.__atlasRelated.seek(700));expect(await page.locator('canvas').evaluate(canvas=>canvas.toDataURL())).toBe(pixels);
+  await page.getByRole('button',{name:'장면 예시로',exact:true}).click();await expect(page.getByRole('combobox',{name:'핵전하 Z',exact:true})).toHaveValue('1');
+});
+
+test('spatial viewer can render a non-orbital field and reject an invalid camera state',async({page})=>{
+  await page.goto('/knowledge/');
+  const result=await page.evaluate(async()=>{
+    const {mountFieldViewer}=await import('/components/spatial/field-viewer.mjs');
+    const container=document.createElement('div');container.style.width='400px';container.style.height='300px';document.body.append(container);
+    const viewer=mountFieldViewer(container,{label:'Generic signed field'});
+    viewer.setField({evaluate:([x,y,z])=>1-x*x-y*y-z*z,weight:v=>Math.max(0,v),bounds:[[-1,1],[-1,1],[-1,1]],resolution:12});
+    viewer.setState({mode:'surface',iso:.5});const before=viewer.getState(),snapshot=viewer.inspect();
+    let rejected=false;try{viewer.setState({...before,zoom:0});}catch{rejected=true;}
+    const unchanged=JSON.stringify(before)===JSON.stringify(viewer.getState());viewer.reset();viewer.setState(before);viewer.seek(100);
+    const restored=JSON.stringify(before)===JSON.stringify(viewer.getState());viewer.dispose();return {snapshot,rejected,unchanged,restored,children:container.children.length};
+  });
+  expect(result.snapshot.triangleCount).toBeGreaterThan(0);expect(result.rejected&&result.unchanged&&result.restored).toBe(true);expect(result.children).toBe(0);
 });
 
 test('lesson: every explanation fits and keyboard navigation works', async ({page}) => {

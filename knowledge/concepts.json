@@ -61,5 +61,33 @@
     "summary": "고정된 이론 안에서 문장도 그 부정도 증명할 수 없는 성질",
     "reviewStatus": "proposed",
     "externalIds": []
+  },
+  {
+    "id": "concept:quantum.atomic-orbital",
+    "title": "원자 오비탈",
+    "summary": "원자 내 전자의 공간 상태와 분포",
+    "reviewStatus": "draft-source-aligned",
+    "externalIds": []
+  },
+  {
+    "id": "concept:quantum.wavefunction",
+    "title": "파동함수",
+    "summary": "양자 상태를 기술하는 확률 진폭",
+    "reviewStatus": "draft-source-aligned",
+    "externalIds": []
+  },
+  {
+    "id": "concept:quantum.probability-density",
+    "title": "확률밀도",
+    "summary": "위치 영역의 확률을 부피 적분으로 연결하는 밀도",
+    "reviewStatus": "draft-source-aligned",
+    "externalIds": []
+  },
+  {
+    "id": "concept:quantum.hydrogenic",
+    "title": "수소형 원자 모형",
+    "summary": "한 전자와 쿨롱 핵 퍼텐셜의 모형",
+    "reviewStatus": "draft-source-aligned",
+    "externalIds": []
   }
 ]

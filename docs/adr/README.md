@@ -18,3 +18,5 @@ All decisions below were introduced on 2026-10-16 for the local pilot. They pres
 | [0012](0012-browser-regression-and-documentation.md) | Browser regressions and documentation lifecycle |
 | [0013](0013-evaluation-feedback.md) | Separate evaluation feedback from topic identity |
 | [0014](0014-topic-layout-and-prototype-retirement.md) | Topic ownership and prototype retirement |
+
+| [0015](0015-orbitals-and-scalar-fields.md) | Hydrogenic content and reusable scalar-field viewer |

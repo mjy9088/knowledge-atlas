@@ -14,6 +14,7 @@ Git plus JSON and JavaScript modules currently hold the source. Stable logical I
 | `knowledge/` | Concepts and typed, contextual relationships |
 | `content/<domain>/<topic>/` | Topic-owned claims, localized articles, presentation metadata, optional episode source |
 | `content/catalog.mjs` | Registered data paths and shared article routes |
+| `packages/spatial/` | Domain-neutral finite-grid sampling and isosurface geometry |
 | `packages/models/` | Pure calculations and explicit limitations |
 | `packages/contracts/` | Preliminary JSON Schemas; not a complete runtime validator |
 | `packages/site/` | Shared static HTML generation |
@@ -54,9 +55,9 @@ Active browser inspection hooks include `window.__atlasLesson`, `window.__atlasL
 
 ## Static build and media boundary
 
-`build-site.mjs` and the development server share HTML generation. Four related articles and the knowledge index are pre-rendered; client modules add navigation and experiments. Root-relative routes require deployment at the domain root; no SPA fallback is needed. The original lesson still uses client enhancement for its complete dialogue/evidence.
+`build-site.mjs` and the development server share HTML generation. Five catalog articles and the knowledge index are pre-rendered; client modules add navigation and experiments. Root-relative routes require deployment at the domain root; no SPA fallback is needed. The original lesson still uses client enhancement for its complete dialogue/evidence.
 
-The builder regenerates the fixed `dist/` directory and copies modules/styles from explicit reader asset roots plus content/model/experiment/projection data. It rejects linked output directories. Local render helpers are outside that public asset list. The static server supports GET/HEAD and directory redirects, with no conversion API.
+The builder regenerates the fixed `dist/` directory and copies modules/styles from explicit reader asset roots plus content/model/spatial/experiment/projection data. It rejects linked output directories. Local render helpers are outside that public asset list. The static server supports GET/HEAD and directory redirects, with no conversion API.
 
 `episode.mjs` is the focused explanation source; `packages/projection/explosion.mjs` projects it into complete cue snapshots. Canvas/WebCodecs frames use those snapshots rather than recalculate a different narrative. MP4 encoding runs through the local `encode-mp4.mjs` CLI and `mise exec -- ffmpeg/ffprobe`.
 
@@ -65,3 +66,7 @@ The concrete folder/ownership and authoring contract is [Content structure](CONT
 ## Future evolution
 
 Preserve IDs, source attribution, state contracts, and accepted human edits when adding a framework or storage service. Schema migrations, atomic publication, immutable source storage, source monitoring, protected-field conflict handling, and concurrent editing remain future work. Human edits and agent patches must remain inspectable in the same source model.
+
+## Spatial interaction boundary
+
+The hydrogenic model is pure numerical code under `packages/models/`; `packages/spatial/` accepts arbitrary scalar evaluators and weights. `components/spatial/field-viewer.mjs` supplies orthographic 3D projection, slice rendering, camera controls, and deterministic scene state without quantum terminology. The quantum topic adapter owns units, orbital selection, scientific limits, and current-input narration. The shared reader selects only explicitly registered adapters and preserves customized scientific/camera state across chapters. See [Spatial fields](SPATIAL-FIELDS.md) and [ADR 0015](adr/0015-orbitals-and-scalar-fields.md).

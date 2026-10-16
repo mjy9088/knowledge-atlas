@@ -4,5 +4,11 @@
   "title": "모순 폭발에서 이어 읽기",
   "reviewStatus": "needs-content-review",
   "sourceSnapshotVerified": false,
-  "published": false
+  "published": false,
+  "articleRefs": [
+    "article:logic.consistency.ko",
+    "article:logic.paraconsistent.ko",
+    "article:set.zfc.ko",
+    "article:set.ch-independence.ko"
+  ]
 }

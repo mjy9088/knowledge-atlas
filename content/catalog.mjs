@@ -1,9 +1,11 @@
+import orbitalPage from './quantum-physics/atomic-orbitals/page.mjs';
 import page0 from './formal-logic/consistency/page.mjs';
 import page1 from './formal-logic/paraconsistent-logic/page.mjs';
 import page2 from './set-theory/zfc/page.mjs';
 import page3 from './set-theory/continuum-hypothesis/page.mjs';
 
 export const CONTENT_ENTRIES=[
+  {directory:'quantum-physics/atomic-orbitals',article:'article.ko.json',claims:'claims.json',page:orbitalPage},
   {directory:'formal-logic/consistency',article:'article.ko.json',claims:'claims.json',page:page0},
   {directory:'formal-logic/paraconsistent-logic',article:'article.ko.json',claims:'claims.json',page:page1},
   {directory:'set-theory/zfc',article:'article.ko.json',claims:'claims.json',page:page2},

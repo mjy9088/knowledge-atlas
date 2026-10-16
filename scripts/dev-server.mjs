@@ -14,6 +14,7 @@ const paths=[
   ['/packages/experiments/',path.join(root,'packages/experiments')],
   ['/packages/projection/',path.join(root,'packages/projection')],
   ['/packages/content/',path.join(root,'packages/content')],
+  ['/packages/spatial/',path.join(root,'packages/spatial')],
   ['/tools/media/',path.join(root,'tools/media')],
 ];
 const MIME={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.json':'application/json; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml','.mp4':'video/mp4','.webm':'video/webm'};

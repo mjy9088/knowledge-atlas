@@ -34,6 +34,7 @@ for(const section of [...LESSON.intro,...Object.values(LESSON.rules),...LESSON.o
   for(const id of section.claimRefs)need(claimIds.has(id),`Unknown lesson claim ${id}`);
 }
 uniq(related.articles,'related articles');
+for(const id of related.articleRefs??[])need(related.articles.some(article=>article.id===id),'Unknown collection article '+id);
 uniq(related.articles.flatMap(a=>a.blocks),'related blocks');
 uniq(EXPLOSION_EPISODE.sections,'episode sections');
 need(content.relatedCollectionRef===related.id&&content.episodeRef===EXPLOSION_EPISODE.id,'Canonical related/episode references missing');

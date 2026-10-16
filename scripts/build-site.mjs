@@ -40,7 +40,7 @@ export async function buildSite(){
   }
   for(const dir of PUBLIC_ASSET_ROOTS)await copyTree('apps/web/'+dir,dir,['.mjs','.css']);
   await emit('lesson.html',await readFile(path.join(root,'apps/web/pages/lesson/index.html')));
-  for(const dir of ['content','knowledge','sources','packages/models','packages/experiments','packages/projection','packages/content'])await copyTree(dir,dir,['.json','.mjs']);
+  for(const dir of ['content','knowledge','sources','packages/models','packages/experiments','packages/projection','packages/content','packages/spatial'])await copyTree(dir,dir,['.json','.mjs']);
   for(const [url,html]of siteDocuments(content))await emit(url.slice(1)+'index.html',html);
   const pages=[...new Set(['/','/lesson.html',...siteDocuments(content).keys()])];
   await emit('404.html','<!doctype html><html lang="ko"><meta charset="utf-8"><title>페이지를 찾지 못했습니다</title><h1>페이지를 찾지 못했습니다</h1><a href="/knowledge/">지식 목록으로</a></html>');

@@ -1,0 +1,146 @@
+[
+  {
+    "id": "claim:quantum.orbital.probability",
+    "kind": "formal",
+    "statement": "공간 파동함수 ψ의 절댓값 제곱은 위치 확률밀도이며 영역 확률은 그 부피에 걸친 적분이다.",
+    "scope": "정규화한 단일입자 공간 상태; 화면의 점은 모델 샘플이며 궤적·관측 기록이 아니다.",
+    "assumptions": [
+      "비상대론적 단일전자 쿨롱 모형",
+      "고정된 점핵; 길이는 a₀, 에너지는 Eₕ"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:openstax-chemistry-2e-quantum",
+        "locator": "Chemistry 2e §6.3, wavefunction/Born interpretation and quantum model"
+      },
+      {
+        "sourceId": "source:mit-804-hydrogen-2016",
+        "locator": "Lectures 20–21 §4 Eq. 4.9, normalization with the spherical volume measure"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:quantum.hydrogenic.quantum-numbers",
+    "kind": "formal",
+    "statement": "수소형 결합 상태는 n≥1, 0≤l<n, −l≤m≤l의 양자수로 기술할 수 있다.",
+    "scope": "이 구현은 n≤4와 l≤2만 지원한다. pₓ·pᵧ 및 실수 d 조합은 단일 복소 m 고유함수와 구별한다.",
+    "assumptions": [
+      "비상대론적 단일전자 쿨롱 모형",
+      "고정된 점핵; 길이는 a₀, 에너지는 Eₕ"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:mit-804-hydrogen-2016",
+        "locator": "Lectures 20–21 §3 Eqs. 3.26–3.33 and §4 Eq. 4.1; Lecture 22 §2"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:quantum.hydrogenic.radial",
+    "kind": "formal",
+    "statement": "수소형 방사함수는 일반화 라게르 다항식으로 표현되며 r²dr 측도에서 정규화된다.",
+    "scope": "DLMF 18.39.37의 다항식 convention; 유한 렌더 격자와 분석 함수의 정규화는 별개이다.",
+    "assumptions": [
+      "비상대론적 단일전자 쿨롱 모형",
+      "고정된 점핵; 길이는 a₀, 에너지는 Eₕ"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:nist-dlmf-coulomb",
+        "locator": "§18.39(ii)(c), Eqs. 18.39.35–37"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:quantum.orbital.nodes",
+    "kind": "formal",
+    "statement": "수소형 실수 s/p/d 오비탈의 방사 마디 수는 n−l−1이고 각 마디 수는 l이다.",
+    "scope": "r>0에서의 방사 마디와 실수 구면조화 기저의 각 마디; 2s는 r=2a₀/Z에서 방사 마디를 갖는다.",
+    "assumptions": [
+      "비상대론적 단일전자 쿨롱 모형",
+      "고정된 점핵; 길이는 a₀, 에너지는 Eₕ"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:openstax-chemistry-2e-quantum",
+        "locator": "§6.3 radial and angular node counts"
+      },
+      {
+        "sourceId": "source:nist-dlmf-coulomb",
+        "locator": "Eq. 18.39.37, n=2 and l=0: L_1^1(rho)=2−rho gives r=2a₀/Z"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:quantum.orbital.phase",
+    "kind": "formal",
+    "statement": "실수 오비탈의 전체 부호를 바꾸어도 확률밀도는 같으며 색으로 표시한 부호는 전하의 부호가 아니다.",
+    "scope": "실수 기저와 선택한 위상 convention; 색은 자체 표현 규칙이다.",
+    "assumptions": [
+      "비상대론적 단일전자 쿨롱 모형",
+      "고정된 점핵; 길이는 a₀, 에너지는 Eₕ"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:nist-dlmf-coulomb",
+        "locator": "§18.39(ii)(d), discussion after Eq. 18.39.41, arbitrary overall phase; MIT 20–21 §3"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:quantum.hydrogenic.scaling",
+    "kind": "formal",
+    "statement": "고정 핵 수소형 모형의 에너지는 −Z²/(2n²) Eₕ이며 같은 상태의 길이 척도는 1/Z에 비례한다.",
+    "scope": "환산질량·상대론·스핀·다전자 효과를 제외한 쿨롱 모형; Z 변경 시 화면 자동 구도와 실제 좌표 척도를 구별한다.",
+    "assumptions": [
+      "비상대론적 단일전자 쿨롱 모형",
+      "고정된 점핵; 길이는 a₀, 에너지는 Eₕ"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:nist-dlmf-coulomb",
+        "locator": "Eqs. 18.39.35/37; MIT Lecture 22 §2 Eqs. 2.1–2.3/2.31"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:quantum.orbital.representation",
+    "kind": "modeled",
+    "statement": "등확률밀도면의 밀도 기준과 그 면 내부의 적분 확률은 서로 다른 양이다.",
+    "scope": "이 뷰어는 격자 최대 밀도의 비율로 등값면을 선택한다. 표면은 물리적 경계나 지정된 포함 확률이 아니다.",
+    "assumptions": [
+      "비상대론적 단일전자 쿨롱 모형",
+      "고정된 점핵; 길이는 a₀, 에너지는 Eₕ"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:mit-804-hydrogen-2016",
+        "locator": "Lectures 20–21 §4 Eq. 4.9, probability volume measure; threshold is an implementation-defined display convention"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:quantum.hydrogenic.scope",
+    "kind": "formal",
+    "statement": "이 수소형 시각화는 한 전자와 고정 점핵의 비상대론적 모형이며 다전자 원자나 분자에 대한 계산이 아니다.",
+    "scope": "초기 범위 n=1–4, s/p/d, Z=1–3; 핵 운동·스핀·상대론·다전자 상호작용은 제외한다.",
+    "assumptions": [
+      "비상대론적 단일전자 쿨롱 모형",
+      "고정된 점핵; 길이는 a₀, 에너지는 Eₕ"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:mit-804-hydrogen-2016",
+        "locator": "Lecture 22 §1 Eqs. 1.13/1.24, reduced mass; §2 Coulomb model and electron-mass approximation"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  }
+]

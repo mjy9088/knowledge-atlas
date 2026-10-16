@@ -30,6 +30,8 @@ The public web has no npm runtime dependencies. Playwright is a development depe
 | [Product](docs/PRODUCT.md) | Reading, inline experiments, viewport and navigation contracts |
 | [Content structure](docs/CONTENT-STRUCTURE.md) | Topic ownership, folders, registration, and authoring steps |
 | [Architecture](docs/ARCHITECTURE.md) | Entities, module boundaries, deterministic state, build/media boundary |
+| [Orbitals](docs/ORBITALS.md) | Hydrogenic content, source readings, scientific limits |
+| [Spatial fields](docs/SPATIAL-FIELDS.md) | Reusable scalar-field sampling and interactive viewer |
 | [Pilot](docs/PILOT.md) | Explosion episode, related model scopes, scientific guardrails |
 | [Source review](docs/SOURCE-REVIEW.md) | Recorded readings, exclusions, exact review limits |
 | [Sources and rights](docs/SOURCES-AND-RIGHTS.md) | Evidence, reuse, and publication policy |

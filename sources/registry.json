@@ -103,5 +103,50 @@
     "snapshotStatus": "reference-only; no verbatim text or figures copied",
     "readingScope": "§1 Background / Table 1 / §2 discussion of why classical material implication does not support MP in FDE",
     "note": "Only base FDE semantics and its limits are used. Conditional extensions proposed later in the paper are not implemented. Source read, no byte-exact snapshot or rights approval claimed."
+  },
+  {
+    "id": "source:openstax-chemistry-2e-quantum",
+    "title": "Chemistry 2e — §6.3 Development of Quantum Theory",
+    "author": "OpenStax, Rice University and credited contributors",
+    "canonicalUrl": "https://openstax.org/books/chemistry-2e/pages/6-3-development-of-quantum-theory",
+    "providerRevision": "Chemistry 2e live web edition; exact revision not frozen",
+    "retrievedAt": "2026-10-16",
+    "contentHash": null,
+    "license": "Preface currently states CC BY-NC-SA 4.0; no text/figure reuse approved",
+    "licenseUrl": "https://openstax.org/books/chemistry-2e/pages/preface",
+    "rightsReview": "pending-publication-audit",
+    "readingScope": "§6.3 wavefunction/Born interpretation, quantum numbers, radial nodes and orbital shapes; preface license notice",
+    "snapshotStatus": "reference-only; no external prose/art copied"
+  },
+  {
+    "id": "source:mit-804-hydrogen-2016",
+    "title": "Quantum Physics I — Lectures 20–22: angular momentum and hydrogen",
+    "author": "Barton Zwiebach, MIT OpenCourseWare",
+    "canonicalUrl": "https://ocw.mit.edu/courses/8-04-quantum-physics-i-spring-2016/pages/lecture-notes/",
+    "providerRevision": "Spring 2016 notes; Lecture 22 dated May 4, 2016; bytes not frozen",
+    "retrievedAt": "2026-10-16",
+    "contentHash": null,
+    "license": "OCW license link states CC BY-NC-SA 4.0; individual reuse audit pending",
+    "rightsReview": "pending-publication-audit",
+    "readingScope": "Notes 20–21 §3 Eqs. 3.26–3.33 and §4 Eqs. 4.1/4.9; Note 22 §1 reduced mass and §2 Coulomb spectrum, Eq. 2.31",
+    "readingUrls": [
+      "https://ocw.mit.edu/courses/8-04-quantum-physics-i-spring-2016/d1dbe77bd49b6a2eab52401dba351f64_MIT8_04S16_LecNotes20_21.pdf",
+      "https://ocw.mit.edu/courses/8-04-quantum-physics-i-spring-2016/e34ceed6a6ec944a3c761fcbbf48be5f_MIT8_04S16_LecNotes22.pdf"
+    ],
+    "snapshotStatus": "reference-only; no prose, artwork or code copied"
+  },
+  {
+    "id": "source:nist-dlmf-coulomb",
+    "title": "NIST DLMF §18.39(ii) — Quantum Coulomb problem",
+    "author": "NIST Digital Library of Mathematical Functions, credited chapter contributors",
+    "canonicalUrl": "https://dlmf.nist.gov/18.39",
+    "providerRevision": "Site notices display Version 1.2.8, release 2026-09-15; exact bytes not frozen",
+    "retrievedAt": "2026-10-16",
+    "contentHash": null,
+    "license": "NIST notices reserve copyright; limited internal research/teaching copying, commercial reproduction restricted. No redistribution permission claimed.",
+    "licenseUrl": "https://dlmf.nist.gov/about/notices",
+    "rightsReview": "pending-publication-audit",
+    "readingScope": "§18.39(ii)(b–d), Eqs. 18.39.35–37 and phase/convention discussion after 18.39.41; notice read",
+    "snapshotStatus": "reference-only; equations independently implemented, no site assets or code copied"
   }
 ]

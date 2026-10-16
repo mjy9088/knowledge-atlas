@@ -104,6 +104,7 @@ render(dialogue.inspect());if(initialLessonHash.startsWith('#explanation-'))hist
 const read=async path=>{const response=await fetch(path);if(!response.ok)throw new Error(`자료를 읽지 못했습니다: ${response.status}`);return response.json();};
 try{
   const {collection:related,sources,claims}=await loadContentCatalog(name=>read('/'+name));
+  related.articles=related.articles.filter(article=>related.articleRefs.includes(article.id));
   const claimById=new Map(claims.map(c=>[c.id,c]));
   const articleId=article=>article.id.replaceAll(':','-').replaceAll('.','-');
   for(const article of related.articles){

@@ -19,14 +19,14 @@ test('related scenes preserve every source sentence, claim reference and review 
 });
 test('pre-rendered pages contain complete readable prose and escaped evidence without running JavaScript',async()=>{
   const data=await loadSiteContent(),docs=siteDocuments(data);
-  assert.equal(docs.size,6);
+  assert.equal(docs.size,CONTENT_PAGES.length+2);
   for(const page of CONTENT_PAGES){
     const html=docs.get(`/knowledge/${page.slug}/`),article=data.collection.articles.find(a=>a.id===page.articleId);
     for(const scene of page.scenes)assert.ok(html.includes(escapeHTML(sceneText(article,scene))));
     assert.ok(html.includes('주장별 조건과 근거 위치'));assert.ok(html.includes('공개는 대기 중'));
     assert.ok(!html.includes('reader-scene" hidden'));
   }
-  const untrusted=structuredClone(data);untrusted.collection.articles[0].title='<script>alert("x")</script>';
+  const untrusted=structuredClone(data);untrusted.collection.articles.find(a=>a.id==='article:logic.consistency.ko').title='<script>alert("x")</script>';
   const html=siteDocuments(untrusted).get('/knowledge/consistency/');
   assert.ok(html.includes('&lt;script&gt;'));assert.ok(!html.includes('<script>alert'));
 });
