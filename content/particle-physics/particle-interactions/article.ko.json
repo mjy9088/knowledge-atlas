@@ -1,0 +1,79 @@
+{
+  "id": "article:particle.particle-interactions.ko",
+  "conceptId": "concept:particle.standard-model",
+  "title": "전자와 쿼크는 같은 힘을 느낄까요?",
+  "reviewStatus": "needs-content-review",
+  "scope": "표준모형의 전자·업 쿼크·활성 중성미자 직접 결합 비교; 산란 확률 계산 아님",
+  "blocks": [
+    {
+      "id": "block:particle.particle-interactions.question",
+      "text": "전자·업 쿼크·중성미자를 만나면, 모두 작은 입자이니 같은 힘을 느낄까요? 표준모형은 입자마다 어떤 장과 결합하는지 구분합니다. 우선 전기 전하와 강력의 색 전하를 비교하고, 중성미자가 왜 약한 상호작용에는 참여하는지 살펴보겠습니다.",
+      "claimRefs": [
+        "claim:particle.interaction.charge",
+        "claim:particle.interaction.colour",
+        "claim:particle.interaction.weak"
+      ]
+    },
+    {
+      "id": "block:particle.particle-interactions.electron",
+      "text": "전자의 전기 전하는 −e이며, e는 기본 전하 크기입니다. 전자는 전자기 상호작용에 참여합니다. 하지만 강력의 색 전하는 없어서 글루온과 직접 결합하지 않습니다. 이런 색 없는 물질 입자 계열을 렙톤이라 부르며 중성미자도 렙톤입니다.",
+      "claimRefs": [
+        "claim:particle.interaction.charge",
+        "claim:particle.interaction.colour"
+      ]
+    },
+    {
+      "id": "block:particle.particle-interactions.quark",
+      "text": "업 쿼크의 전기 전하는 +2e/3이고 색 전하도 있습니다. 그래서 전자기 상호작용과 강한 상호작용 모두에 참여합니다. ‘색’은 빨갛게 보인다는 말이 아니라 내부 양자수의 이름입니다. 같은 입자가 여러 상호작용에 동시에 참여할 수 있습니다.",
+      "claimRefs": [
+        "claim:particle.interaction.charge",
+        "claim:particle.interaction.colour"
+      ]
+    },
+    {
+      "id": "block:particle.particle-interactions.neutrino",
+      "text": "활성 중성미자의 전기 전하는 0이고 색 전하도 없습니다. 그래도 약한 상호작용에는 참여합니다. 예를 들어 중성미자가 전자에 산란하는 약한 과정이 가능합니다. ‘전기적으로 중성’과 ‘어떤 상호작용도 하지 않음’은 다른 말입니다.",
+      "claimRefs": [
+        "claim:particle.interaction.charge",
+        "claim:particle.interaction.colour",
+        "claim:particle.interaction.weak"
+      ]
+    },
+    {
+      "id": "block:particle.particle-interactions.weak",
+      "text": "전자와 쿼크도 약한 상호작용에 참여합니다. 따라서 세 종류의 차이를 전자기·강력만으로 끝내면 빠진 내용이 생깁니다. 다만 ‘참여한다’는 분류만으로 모든 반응이 허용되거나 같은 확률로 일어나는 것은 아닙니다. 에너지·보존 조건과 입자 상태도 중요합니다.",
+      "claimRefs": [
+        "claim:particle.interaction.weak"
+      ]
+    },
+    {
+      "id": "block:particle.particle-interactions.bosons",
+      "text": "광자는 전자기, 글루온은 강력, W·Z는 약한 상호작용의 게이지 보손입니다. 이들은 스핀 1이고 전자·쿼크·중성미자는 스핀 1/2의 페르미온입니다. 스핀은 고유한 양자 성질입니다. 이 분류는 작은 공이 실제로 어떻게 회전하는지를 찍은 그림이 아닙니다.",
+      "claimRefs": [
+        "claim:particle.interaction.carriers"
+      ]
+    },
+    {
+      "id": "block:particle.particle-interactions.higgs",
+      "text": "힉스 보손은 스핀 0이며 힉스장의 들뜸입니다. 힉스장은 전자·쿼크와 W·Z의 질량을 설명하는 데 관여합니다. 그러나 양성자는 합성입자입니다. 그 질량 대부분은 강하게 상호작용하는 쿼크·글루온 계의 에너지에서 오므로 세 쿼크 질량의 합만으로 설명할 수 없습니다.",
+      "claimRefs": [
+        "claim:particle.interaction.higgs",
+        "claim:particle.interaction.proton-mass"
+      ]
+    },
+    {
+      "id": "block:particle.particle-interactions.limits",
+      "text": "전자는 전자기·약한 상호작용, 업 쿼크는 전자기·약한·강한 상호작용, 활성 중성미자는 약한 상호작용에 참여합니다. 이는 표준모형의 기본 결합을 요약한 것으로 반응 확률표가 아닙니다. 중력은 이 모형 밖에 있습니다. 강력의 작동 방식은 QCD에서 더 살펴볼 수 있습니다.",
+      "claimRefs": [
+        "claim:particle.interaction.charge",
+        "claim:particle.interaction.colour",
+        "claim:particle.interaction.weak",
+        "claim:particle.interaction.scope"
+      ]
+    }
+  ],
+  "relatedConcepts": [
+    "concept:particle.qft",
+    "concept:particle.qcd"
+  ]
+}

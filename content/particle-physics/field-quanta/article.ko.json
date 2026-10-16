@@ -1,0 +1,73 @@
+{
+  "id": "article:particle.field-quanta.ko",
+  "conceptId": "concept:particle.qft",
+  "title": "장 하나에 입자는 몇 개일까요?",
+  "reviewStatus": "needs-content-review",
+  "scope": "자유 스칼라 보손장의 모드·점유수와 입자 해석; 상호작용과 페르미온은 경계 비교",
+  "blocks": [
+    {
+      "id": "block:particle.field-quanta.question",
+      "text": "입자를 작은 구슬로만 생각하면, 같은 종류의 입자가 늘거나 줄 때 무엇이 바뀌는지 설명하기 어렵습니다. 양자장론에서는 장과 그 상태로 이 문제를 다룹니다. 먼저 상호작용이 없는 단순한 보손장 하나에서 ‘입자 수’를 읽어 보겠습니다.",
+      "claimRefs": [
+        "claim:particle.field.operator-state",
+        "claim:particle.field.number-change"
+      ]
+    },
+    {
+      "id": "block:particle.field-quanta.state",
+      "text": "장은 공간·시간의 각 지점과 연결된 양을 기술합니다. 양자화한 장은 상태에 작용하는 수학적 규칙인 연산자로 다룹니다. 반면 오비탈의 파동함수는 한 전자의 상태를 나타내는 확률 진폭입니다. 둘 다 공간에 연결된다고 같은 대상은 아닙니다.",
+      "claimRefs": [
+        "claim:particle.field.operator-state"
+      ]
+    },
+    {
+      "id": "block:particle.field-quanta.mode",
+      "text": "자유장은 상호작용이 없는 장입니다. 방향 성분이 없는 단순한 스칼라 자유장은 서로 독립인 진동 성분, 즉 모드로 나눌 수 있습니다. 지금은 각진동수 ω가 정해진 하나만 봅니다. 모드마다 양자 조화진동자와 같은 에너지 단계가 생깁니다.",
+      "claimRefs": [
+        "claim:particle.field.free-modes"
+      ]
+    },
+    {
+      "id": "block:particle.field-quanta.number",
+      "text": "이 보손 모드의 점유수 n은 그 모드에 있는 양자의 수입니다. 바닥상태 위의 에너지는 nℏω이므로 n=0,1,2일 때 0,ℏω,2ℏω입니다. ℏ는 플랑크 상수를 2π로 나눈 상수입니다. 자유장에서는 이런 들뜸을 입자로 해석합니다.",
+      "claimRefs": [
+        "claim:particle.field.occupation"
+      ]
+    },
+    {
+      "id": "block:particle.field-quanta.vacuum",
+      "text": "모든 모드의 점유수가 0인 상태가 이 자유장의 진공입니다. 진공도 장의 한 양자 상태이지, 장을 지워 버린 상태는 아닙니다. 앞의 표는 바닥 에너지를 뺀 차이만 비교하므로 진공의 절대 에너지나 중력을 계산한 결과도 아닙니다.",
+      "claimRefs": [
+        "claim:particle.field.vacuum",
+        "claim:particle.field.occupation"
+      ]
+    },
+    {
+      "id": "block:particle.field-quanta.fermions",
+      "text": "지금의 0,1,2,…는 보손 한 모드의 예입니다. 전자는 페르미온이므로 같은 완전한 단일입자 상태에는 하나만 들어갈 수 있습니다. 여기서 ‘같은 상태’는 공간 분포뿐 아니라 스핀도 포함합니다. 한 공간 오비탈의 반대 스핀 전자 둘과 혼동하지 마세요.",
+      "claimRefs": [
+        "claim:particle.field.statistics"
+      ]
+    },
+    {
+      "id": "block:particle.field-quanta.change",
+      "text": "상호작용이 있으면 입자 수가 다른 상태 사이의 전이를 기술할 수 있습니다. 예를 들어 전자와 양전자가 소멸해 광자 둘이 나오는 과정입니다. 아무렇게나 생긴다는 뜻은 아닙니다. 전체 에너지·운동량·전하 같은 보존 조건을 만족해야 합니다.",
+      "claimRefs": [
+        "claim:particle.field.number-change"
+      ]
+    },
+    {
+      "id": "block:particle.field-quanta.limits",
+      "text": "이런 전이의 진폭을 근사 계산할 때 파인만 도표를 씁니다. 내부선의 ‘가상입자’는 계산 항을 읽는 표현이며 실제로 추적한 중간 궤적이 아닙니다. 기억할 핵심은 장·양자 상태·점유수의 구별입니다. 자유 모드의 단순한 사다리를 모든 상호작용장에 그대로 적용하지 않습니다.",
+      "claimRefs": [
+        "claim:particle.field.virtual-diagrams",
+        "claim:particle.field.free-modes"
+      ]
+    }
+  ],
+  "relatedConcepts": [
+    "concept:quantum.atomic-orbital",
+    "concept:quantum.wavefunction",
+    "concept:particle.standard-model"
+  ]
+}

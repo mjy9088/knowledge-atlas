@@ -1,0 +1,131 @@
+[
+  {
+    "id": "claim:particle.interaction.charge",
+    "kind": "formal",
+    "statement": "전자는 전하 −e, 업 쿼크는 +2e/3, 활성 중성미자는 전하 0을 가지며 전기 전하는 전자기 결합을 구분한다.",
+    "scope": "입문적인 기본 입자의 전기 전하 비교; 전기적으로 중성인 복합입자의 자기모멘트나 중성미자의 루프 효과를 전부 배제하는 주장이 아니다.",
+    "assumptions": [
+      "e>0은 기본 전하의 크기",
+      "표준모형의 기본 결합 비교"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:tong-particle-physics",
+        "locator": "Chapter 4 §4.1.2 Table 2, printed p. 118 (hypercharges), and §4.3.2 printed p. 141 (electric charges after symmetry breaking)"
+      },
+      {
+        "sourceId": "source:cern-standard-model",
+        "locator": "Matter particles"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:particle.interaction.colour",
+    "kind": "formal",
+    "statement": "쿼크는 색 전하를 가지며 전자와 중성미자를 포함한 렙톤은 QCD 색 전하를 갖지 않는다.",
+    "scope": "색은 시각적인 색깔이 아닌 강한 상호작용의 내부 양자수이다. 렙톤의 QCD 직접 결합 부재를 다른 입자와 모든 산란이 불가능하다는 뜻으로 읽지 않는다.",
+    "assumptions": [
+      "표준모형의 SU(3) 색 상호작용"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:tong-particle-physics",
+        "locator": "Chapter 3 §3.2 printed p. 72; §3.2.1 and §3.2.2 printed p. 75"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:particle.interaction.weak",
+    "kind": "formal",
+    "statement": "전자·쿼크·활성 중성미자는 약한 상호작용에 참여하며 전기적 중성이 무상호작용을 뜻하지 않는다.",
+    "scope": "전기약 대칭 깨짐 이후 입문 분류; 중성미자는 관측되는 활성 종류이며 가설적인 비활성 중성미자를 포함하지 않는다. 키랄성별 결합 세기와 과정별 확률을 표로 계산하지 않는다.",
+    "assumptions": [
+      "표준모형",
+      "과정의 에너지·보존 조건 필요"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:tong-particle-physics",
+        "locator": "Chapter 4 §4.1.2 printed pp. 114–119, gauge representations and neutral/charged-current fields; §4.4 Neutrinos"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:particle.interaction.carriers",
+    "kind": "formal",
+    "statement": "전자기·강한·약한 상호작용의 게이지 보손은 각각 광자·글루온·W와 Z이며 물질 페르미온과 구별한다.",
+    "scope": "스핀 분류: 전자·쿼크·중성미자 1/2, 게이지 보손 1, 힉스 0; 중력은 표준모형에 포함하지 않는다.",
+    "assumptions": [
+      "표준모형의 입자와 상호작용",
+      "입자 전달 그림을 실제 중간 궤적으로 해석하지 않음"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:cern-standard-model",
+        "locator": "Forces and carrier particles"
+      },
+      {
+        "sourceId": "source:tong-particle-physics",
+        "locator": "Chapter 2 §2.1.1 printed p. 32; Chapter 4 §4.1.2 printed p. 116, Gauge Bosons"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:particle.interaction.higgs",
+    "kind": "formal",
+    "statement": "힉스장은 전자·쿼크 및 W·Z 질량과 연결되고 힉스 보손은 그 장의 들뜸이며 스핀 0이다.",
+    "scope": "관측된 기본입자의 표준모형 질량 기구; 중성미자 질량의 기원을 모두 확정하는 주장이 아니다. 힉스는 전자기·강력·약력의 스핀 1 게이지 보손과 구별한다.",
+    "assumptions": [
+      "전기약 대칭 깨짐 이후",
+      "입문적 기구 설명, 유카와 결합 도출 생략"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:cern-higgs-mechanism",
+        "locator": "The Brout-Englert-Higgs mechanism; The Higgs boson"
+      },
+      {
+        "sourceId": "source:tong-particle-physics",
+        "locator": "Chapter 2 §2.1.1 printed p. 32; Chapter 4 §§4.2–4.3"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:particle.interaction.proton-mass",
+    "kind": "formal",
+    "statement": "양성자 질량의 대부분은 강하게 상호작용하는 쿼크·글루온 계의 에너지에서 오며 세 쿼크 질량의 단순 합이 아니다.",
+    "scope": "힉스가 쿼크 질량에 기여하는 것과 합성입자 질량의 대부분을 구별한다. 비율이나 유일한 에너지 분해를 제시하지 않는다.",
+    "assumptions": [
+      "QCD의 합성 양성자",
+      "세 쿼크는 원자가 쿼크의 약칭"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:tong-particle-physics",
+        "locator": "Chapter 3 §3.3.1 printed pp. 77–78, proton/neutron mass and valence/sea distinction"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:particle.interaction.scope",
+    "kind": "formal",
+    "statement": "표준모형은 전자기·약한·강한 상호작용을 기술하지만 중력은 포함하지 않는다.",
+    "scope": "이 글은 세 입자 종류의 직접 결합을 구분하는 개념 해설이며 산란 확률·단면적·검출기 시뮬레이션을 계산하지 않는다.",
+    "assumptions": [
+      "표준모형의 적용 범위"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:cern-standard-model",
+        "locator": "Forces and carrier particles; So far so good, but…"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  }
+]

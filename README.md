@@ -30,6 +30,9 @@ The public web has no npm runtime dependencies. Playwright is a development depe
 | [Product](docs/PRODUCT.md) | Reading, inline experiments, viewport and navigation contracts |
 | [Content structure](docs/CONTENT-STRUCTURE.md) | Topic ownership, folders, registration, and authoring steps |
 | [Architecture](docs/ARCHITECTURE.md) | Entities, module boundaries, deterministic state, build/media boundary |
+| [Logic and types](docs/LOGIC-TYPES.md) | Function proofs, substitution, typed experiment scope |
+| [Particle physics](docs/PARTICLE-PHYSICS.md) | Free-field quanta and interaction comparison |
+| [Quark confinement](docs/QCD.md) | QCD explanation, evidence and limitations |
 | [Orbitals](docs/ORBITALS.md) | Hydrogenic content, source readings, scientific limits |
 | [Spatial fields](docs/SPATIAL-FIELDS.md) | Reusable scalar-field sampling and interactive viewer |
 | [Pilot](docs/PILOT.md) | Explosion episode, related model scopes, scientific guardrails |

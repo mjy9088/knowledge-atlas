@@ -148,5 +148,209 @@
     "rightsReview": "pending-publication-audit",
     "readingScope": "§18.39(ii)(b–d), Eqs. 18.39.35–37 and phase/convention discussion after 18.39.41; notice read",
     "snapshotStatus": "reference-only; equations independently implemented, no site assets or code copied"
+  },
+  {
+    "id": "source:wadler-propositions-as-types",
+    "title": "Propositions as Types",
+    "author": "Philip Wadler",
+    "canonicalUrl": "https://homepages.inf.ed.ac.uk/wadler/papers/propositions-as-types/propositions-as-types.pdf",
+    "providerRevision": "PDF explicitly Version V10, 29 November 2014; submitted manuscript, not journal edition; bytes not frozen",
+    "retrievedAt": "2026-10-16",
+    "contentHash": null,
+    "license": "Copyright Philip Wadler 2014; no reuse license verified",
+    "rightsReview": "reference-only; third-party reuse not proposed",
+    "readingScope": "Introduction and §§1–4: implication, products, normalization, typed/untyped and intuitionistic scope",
+    "snapshotStatus": "live reading; no immutable byte snapshot",
+    "usage": {
+      "evidenceConsulted": true,
+      "externalMaterialIncluded": false
+    }
+  },
+  {
+    "id": "source:plfa-connectives",
+    "title": "Programming Language Foundations in Agda — Connectives",
+    "author": "Philip Wadler, Wen Kokke, Jeremy G. Siek",
+    "canonicalUrl": "https://plfa.github.io/Connectives/",
+    "providerRevision": "Live chapter; exact revision not frozen",
+    "retrievedAt": "2026-10-16",
+    "contentHash": null,
+    "license": "Index footer links CC BY 4.0; independently authored examples, no source content copied",
+    "rightsReview": "reference-only; third-party reuse not proposed",
+    "readingScope": "Conjunction is product; Implication is function",
+    "snapshotStatus": "live reading; no immutable byte snapshot",
+    "usage": {
+      "evidenceConsulted": true,
+      "externalMaterialIncluded": false
+    }
+  },
+  {
+    "id": "source:plfa-lambda",
+    "title": "Programming Language Foundations in Agda — Lambda",
+    "author": "Philip Wadler, Wen Kokke, Jeremy G. Siek",
+    "canonicalUrl": "https://plfa.github.io/Lambda/",
+    "providerRevision": "Live chapter; exact revision not frozen",
+    "retrievedAt": "2026-10-16",
+    "contentHash": null,
+    "license": "Index footer links CC BY 4.0; no source implementation copied",
+    "rightsReview": "reference-only; third-party reuse not proposed",
+    "readingScope": "Substitution, free occurrences, closed-argument restriction and capture avoidance",
+    "snapshotStatus": "live reading; no immutable byte snapshot",
+    "usage": {
+      "evidenceConsulted": true,
+      "externalMaterialIncluded": false
+    }
+  },
+  {
+    "id": "source:software-foundations-stlc",
+    "title": "Programming Language Foundations — Stlc and Types",
+    "author": "Benjamin C. Pierce and credited Programming Language Foundations contributors",
+    "canonicalUrl": "https://softwarefoundations.cis.upenn.edu/plf-current/Stlc.html",
+    "providerRevision": "Preface citation volume 2 version 7.1, 2026; displayed footer 2026-08-24 09:57; bytes not frozen",
+    "retrievedAt": "2026-10-16",
+    "contentHash": null,
+    "license": "No reuse license verified; no code or prose copied",
+    "rightsReview": "reference-only; third-party reuse not proposed",
+    "readingScope": "Stlc syntax, substitution, contexts, typing; Types progress/preservation/type soundness and nontermination distinction",
+    "snapshotStatus": "live reading; no immutable byte snapshot",
+    "usage": {
+      "evidenceConsulted": true,
+      "externalMaterialIncluded": false
+    }
+  },
+  {
+    "id": "source:tong-qft-2006",
+    "title": "Lectures on Quantum Field Theory",
+    "author": "David Tong",
+    "canonicalUrl": "https://www.damtp.cam.ac.uk/user/tong/qft.htm",
+    "providerRevision": "Landing page copyright 2006, HTML generated 2021; neither locks scientific revision",
+    "retrievedAt": "2026-10-16",
+    "contentHash": null,
+    "license": "Landing page permits attributed unaltered non-profit copying/distribution; not a general adaptation license; no material copied",
+    "rightsReview": "reference-only; third-party reuse not proposed",
+    "readingScope": "HTML S0 introduction/operator fields; S2 §§2.1–2.4 free modes/Fock space; S3 §§3.5–3.6 diagrams and measurable rates",
+    "snapshotStatus": "live reading; no immutable byte snapshot",
+    "usage": {
+      "evidenceConsulted": true,
+      "externalMaterialIncluded": false
+    }
+  },
+  {
+    "id": "source:tong-particle-physics",
+    "title": "Particle Physics",
+    "author": "David Tong",
+    "canonicalUrl": "https://davidtong.org/teaching/particle-physics/",
+    "providerRevision": "Live author notes; exact edition/hash not verified",
+    "retrievedAt": "2026-10-16",
+    "contentHash": null,
+    "license": "No general reuse license verified; older QFT notice not assumed applicable",
+    "rightsReview": "reference-only; third-party reuse not proposed",
+    "readingScope": "Chapter 2 §§2.1–2.2.2 statistics, antiparticles, diagrams; chapter 3 §§3.2–3.3.1 colour/valence/proton mass; chapter 4 §§4.1.2/4.3.2 and pp.184–185",
+    "snapshotStatus": "live reading; no immutable byte snapshot",
+    "usage": {
+      "evidenceConsulted": true,
+      "externalMaterialIncluded": false
+    }
+  },
+  {
+    "id": "source:cern-standard-model",
+    "title": "The Standard Model",
+    "author": "CERN",
+    "canonicalUrl": "https://home.cern/science/physics/standard-model/",
+    "providerRevision": "Live undated article; bytes not frozen",
+    "retrievedAt": "2026-10-16",
+    "contentHash": null,
+    "license": "Footer copyright CERN; audiovisual terms do not establish general prose license; no material copied",
+    "rightsReview": "reference-only; third-party reuse not proposed",
+    "readingScope": "Matter particles; Forces and carrier particles; So far so good, but…",
+    "snapshotStatus": "live reading; no immutable byte snapshot",
+    "usage": {
+      "evidenceConsulted": true,
+      "externalMaterialIncluded": false
+    }
+  },
+  {
+    "id": "source:cern-higgs-mechanism",
+    "title": "What’s so special about the Higgs boson?",
+    "author": "CERN",
+    "canonicalUrl": "https://home.web.cern.ch/science/physics/higgs-boson/what/",
+    "providerRevision": "Live undated article; bytes not frozen",
+    "retrievedAt": "2026-10-16",
+    "contentHash": null,
+    "license": "No general prose reuse license verified; no external media or text imported",
+    "rightsReview": "reference-only; third-party reuse not proposed",
+    "readingScope": "Force carriers; The Brout-Englert-Higgs mechanism; The Higgs boson",
+    "snapshotStatus": "live reading; no immutable byte snapshot",
+    "usage": {
+      "evidenceConsulted": true,
+      "externalMaterialIncluded": false
+    }
+  },
+  {
+    "id": "source:pdg-qcd-2025",
+    "title": "Quantum Chromodynamics — Particle Data Group review",
+    "author": "J. Huston, K. Rabbertz, G. Zanderighi",
+    "canonicalUrl": "https://pdg.lbl.gov/2025/reviews/rpp2025-rev-qcd.pdf",
+    "providerRevision": "Revised August 2025; footer 1 December 2025; bytes not frozen",
+    "retrievedAt": "2026-10-16",
+    "contentHash": null,
+    "license": "Reuse license not verified; reference consultation only",
+    "rightsReview": "reference-only; third-party reuse not proposed",
+    "readingScope": "§§9.1–9.1.2 pp.1–4 Eqs.9.1–9.3; §9.2.3 p.10 and hadronization p.18; §9.3 pp.21–22",
+    "snapshotStatus": "live reading; no immutable byte snapshot",
+    "usage": {
+      "evidenceConsulted": true,
+      "externalMaterialIncluded": false
+    }
+  },
+  {
+    "id": "source:tong-gauge-theory",
+    "title": "Gauge Theory — chapter 2",
+    "author": "David Tong",
+    "canonicalUrl": "https://davidtong.org/pdfs/teaching/gauge-theory/gauge2.pdf",
+    "providerRevision": "Live author notes; no exact date/revision verified",
+    "retrievedAt": "2026-10-16",
+    "contentHash": null,
+    "license": "Reuse license not verified; no external text/code/figures copied",
+    "rightsReview": "reference-only; third-party reuse not proposed",
+    "readingScope": "§2.4 pp.63–64; §2.5.1 pp.74–78 Eq.2.67; §2.5.3 p.87; §2.7.2 p.105",
+    "snapshotStatus": "live reading; no immutable byte snapshot",
+    "usage": {
+      "evidenceConsulted": true,
+      "externalMaterialIncluded": false
+    }
+  },
+  {
+    "id": "source:atlas-proton-structure-2022",
+    "title": "ATLAS gives new insight into the internal structure of the proton",
+    "author": "ATLAS Collaboration",
+    "canonicalUrl": "https://atlas.cern/updates/briefing/insight-proton-structure",
+    "providerRevision": "Page displays 12 January 2022; bytes not frozen",
+    "retrievedAt": "2026-10-16",
+    "contentHash": null,
+    "license": "Reuse license not verified; no figure/data/prose imported",
+    "rightsReview": "reference-only; third-party reuse not proposed",
+    "readingScope": "Opening paragraphs: partons, valence and sea; no numerical distributions adopted",
+    "snapshotStatus": "live reading; no immutable byte snapshot",
+    "usage": {
+      "evidenceConsulted": true,
+      "externalMaterialIncluded": false
+    }
+  },
+  {
+    "id": "source:atlas-last-quark-2021",
+    "title": "The Last Quark",
+    "author": "Richard Hawkings",
+    "canonicalUrl": "https://atlas.cern/updates/feature/top-quark",
+    "providerRevision": "Page displays 23 July 2021; bytes not frozen",
+    "retrievedAt": "2026-10-16",
+    "contentHash": null,
+    "license": "Reuse license not verified; no media/prose imported",
+    "rightsReview": "reference-only; third-party reuse not proposed",
+    "readingScope": "Introduction and paragraphs on confinement, hadrons and colour exchange; no top mass values used",
+    "snapshotStatus": "live reading; no immutable byte snapshot",
+    "usage": {
+      "evidenceConsulted": true,
+      "externalMaterialIncluded": false
+    }
   }
 ]

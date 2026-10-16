@@ -89,5 +89,40 @@
     "summary": "한 전자와 쿨롱 핵 퍼텐셜의 모형",
     "reviewStatus": "draft-source-aligned",
     "externalIds": []
+  },
+  {
+    "id": "concept:computing.curry-howard",
+    "title": "커리–하워드 대응",
+    "summary": "구성적 함의·논리곱과 함수·쌍 타입의 대응",
+    "reviewStatus": "draft-source-aligned",
+    "externalIds": []
+  },
+  {
+    "id": "concept:computing.lambda-calculus",
+    "title": "타입 있는 람다 계산",
+    "summary": "함수 적용, 치환과 타입 판단을 다루는 작은 계산 체계",
+    "reviewStatus": "draft-source-aligned",
+    "externalIds": []
+  },
+  {
+    "id": "concept:particle.qft",
+    "title": "양자장론",
+    "summary": "장의 양자 상태와 입자 수를 함께 기술하는 틀",
+    "reviewStatus": "draft-source-aligned",
+    "externalIds": []
+  },
+  {
+    "id": "concept:particle.standard-model",
+    "title": "표준모형의 상호작용",
+    "summary": "전하와 입자 종류에 따른 기본 상호작용의 구별",
+    "reviewStatus": "draft-source-aligned",
+    "externalIds": []
+  },
+  {
+    "id": "concept:particle.qcd",
+    "title": "양자색역학",
+    "summary": "쿼크·글루온의 색 상호작용과 가둠",
+    "reviewStatus": "draft-source-aligned",
+    "externalIds": []
   }
 ]

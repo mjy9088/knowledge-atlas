@@ -1,0 +1,134 @@
+[
+  {
+    "id": "claim:computing.curry-howard.correspondence",
+    "kind": "formal",
+    "statement": "직관주의 자연연역의 함의·논리곱은 단순 타입 람다 계산의 함수·곱과 대응하며, 증명은 해당 타입의 항에 대응한다.",
+    "scope": "구성적 명제논리의 함의·논리곱 단편. 모든 논리와 모든 프로그래밍 언어가 같은 대응을 갖는다는 주장이 아니다.",
+    "assumptions": [
+      "유한 단순 타입; 함수·곱; 일반 재귀·효과·고전 제어 연산 없음"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:wadler-propositions-as-types",
+        "locator": "§3 Propositions as Types, pp. 3–4; §4 Intuitionistic logic"
+      },
+      {
+        "sourceId": "source:plfa-connectives",
+        "locator": "Connectives: introductory correspondence; Implication is function; Conjunction is product"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:computing.curry-howard.implication",
+    "kind": "formal",
+    "statement": "A를 가정하여 B를 구성하는 것은 A → B의 증명이며, A 입력으로 B 결과를 만드는 함수에 대응한다.",
+    "scope": "함의 도입·제거와 타입 붙은 람다 추상화·함수 적용; A와 B는 임의의 원자 타입 자리이다.",
+    "assumptions": [
+      "유한 단순 타입; 함수·곱; 일반 재귀·효과·고전 제어 연산 없음"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:wadler-propositions-as-types",
+        "locator": "§2 introduction/elimination; §3 implication correspondence"
+      },
+      {
+        "sourceId": "source:plfa-connectives",
+        "locator": "Implication is function, introduction and elimination"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:computing.curry-howard.context",
+    "kind": "formal",
+    "statement": "Γ ⊢ t : A는 Γ에 기록한 변수 타입을 가정하여 t에 A 타입을 부여할 수 있다는 판단이다.",
+    "scope": "열린 항은 가정에 의존한다. 빈 문맥에서 얻은 닫힌 항과 구별한다.",
+    "assumptions": [
+      "유한 단순 타입; 함수·곱; 일반 재귀·효과·고전 제어 연산 없음"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:software-foundations-stlc",
+        "locator": "Stlc: Typing > Contexts; Typing Relation, T_Var/T_Abs/T_App"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:computing.curry-howard.product",
+    "kind": "formal",
+    "statement": "A ∧ B의 증거는 A의 증거와 B의 증거를 함께 가지며, 이는 곱 타입 A × B의 쌍과 대응한다.",
+    "scope": "순서 있는 곱의 도입과 두 사영; 곱 자체가 논리곱의 교환 법칙과 동일하다는 뜻은 아니다.",
+    "assumptions": [
+      "유한 단순 타입; 함수·곱; 일반 재귀·효과·고전 제어 연산 없음"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:plfa-connectives",
+        "locator": "Conjunction is product, constructor and proj₁/proj₂"
+      },
+      {
+        "sourceId": "source:wadler-propositions-as-types",
+        "locator": "§3, conjunction/Cartesian product bullet"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:computing.curry-howard.composition",
+    "kind": "formal",
+    "statement": "f : A → B와 g : B → C로부터 λx:A. g (f x) : A → C를 구성할 수 있다.",
+    "scope": "함수 적용 두 번과 추상화로 얻는 예시 유도. f와 g가 주어졌다는 문맥에 의존한다.",
+    "assumptions": [
+      "유한 단순 타입; 함수·곱; 일반 재귀·효과·고전 제어 연산 없음"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:software-foundations-stlc",
+        "locator": "Stlc: Typing Relation, T_Var/T_Abs/T_App; higher-order examples"
+      },
+      {
+        "sourceId": "source:plfa-connectives",
+        "locator": "Implication is function"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:computing.curry-howard.normalization",
+    "kind": "formal",
+    "statement": "함수 적용의 계산은 대응하는 증명의 도입 뒤 제거를 단순화하는 과정으로 읽을 수 있다.",
+    "scope": "여기의 순수한 타입 계산과 자연연역 대응; 일반 프로그램 실행을 모두 수학 증명 단순화로 동일시하지 않는다.",
+    "assumptions": [
+      "유한 단순 타입; 함수·곱; 일반 재귀·효과·고전 제어 연산 없음"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:wadler-propositions-as-types",
+        "locator": "Introduction, three levels of correspondence; §3 simplification of proofs and evaluation"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:computing.curry-howard.limits",
+    "kind": "formal",
+    "statement": "이 대응은 특정 논리와 특정 계산 체계 사이의 것이며, 일반 재귀나 언어 효과를 추가하면 추가 조건 없이 같은 증명 해석을 적용할 수 없다.",
+    "scope": "여기는 직관주의 함의·곱 단편만 지원한다. 타입 검사는 명세에 없는 성질까지 보장하지 않는다.",
+    "assumptions": [
+      "유한 단순 타입; 함수·곱; 일반 재귀·효과·고전 제어 연산 없음"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:wadler-propositions-as-types",
+        "locator": "§1, typed calculus versus general recursion; §§4–5, intuitionistic logic and other computation"
+      },
+      {
+        "sourceId": "source:software-foundations-stlc",
+        "locator": "Types: Progress, Type Preservation, Type Soundness: specified stuck-state property"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  }
+]

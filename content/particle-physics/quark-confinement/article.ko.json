@@ -1,0 +1,76 @@
+{
+  "id": "article:particle.quark-confinement.ko",
+  "conceptId": "concept:particle.qcd",
+  "title": "쿼크는 왜 하나씩 꺼내기 어려울까?",
+  "reviewStatus": "needs-content-review",
+  "scope": "보통 진공의 QCD 하드론, 색 단일항·가둠·하드론화와 고운동량 점근적 자유의 구별; 수치 시뮬레이션이나 일반적 가둠 증명 아님",
+  "blocks": [
+    {
+      "id": "block:particle.qcd.question",
+      "text": "양성자는 원자핵을 이루는 입자이고, 쿼크는 그 내부 구조를 설명하는 기본 입자입니다. 업·다운은 쿼크의 종류이며, ‘업 둘·다운 하나’는 원자가 쿼크 조성을 요약합니다. 글루온과 쿼크·반쿼크 바다까지 고려해야 하므로 세 구슬이 든 상자는 아닙니다. 여기서 쿼크 하나만 꺼낼 수 있을까요?",
+      "claimRefs": [
+        "claim:particle.qcd.hadrons"
+      ]
+    },
+    {
+      "id": "block:particle.qcd.color",
+      "text": "전기력이 전하에 반응하듯, 강한 상호작용은 색전하라는 양자적 성질과 관련됩니다. 쿼크의 세 색을 빨강·초록·파랑이라고 부르지만 빛의 색은 아닙니다. 쿼크·글루온의 강한 상호작용을 다루는 이론이 양자색역학, 줄여서 QCD입니다.",
+      "claimRefs": [
+        "claim:particle.qcd.color"
+      ]
+    },
+    {
+      "id": "block:particle.qcd.gluons",
+      "text": "글루온은 쿼크 사이 강한 상호작용을 전달하는 장의 양자입니다. 글루온도 색전하를 지니므로 서로 상호작용합니다. 따라서 전기력 식에 이름만 바꾸어 넣을 수는 없습니다. 이 성질은 QCD의 중요한 구조이지만, 그 말 한마디로 가둠이 증명되는 것은 아닙니다.",
+      "claimRefs": [
+        "claim:particle.qcd.gluons"
+      ]
+    },
+    {
+      "id": "block:particle.qcd.singlets",
+      "text": "양성자처럼 쿼크와 글루온으로 이루어진 강입자를 하드론이라고 합니다. 따로 관측되는 하드론은 전체적으로 색전하가 없는 색 단일항 상태입니다. 쿼크·반쿼크 조합이나 세 쿼크 조합은 그 상태를 만들 수 있지만, 색을 정한 구슬을 단순히 섞는 그림은 정확한 양자 상태가 아닙니다.",
+      "claimRefs": [
+        "claim:particle.qcd.singlets"
+      ]
+    },
+    {
+      "id": "block:particle.qcd.separate",
+      "text": "쿼크 하나가 자유 입자로 관측되지 않는 성질을 가둠과 연결해 설명합니다. 무거운 쿼크·반쿼크를 외부 탐침으로 놓은 모형에서는, 특정 거리 구간에 걸쳐 둘 사이 에너지가 거리에 거의 비례해 증가합니다. 다만 이를 실제 쿼크를 끝없이 늘이는 고무줄의 정확한 법칙으로 읽으면 안 됩니다.",
+      "claimRefs": [
+        "claim:particle.qcd.confinement"
+      ]
+    },
+    {
+      "id": "block:particle.qcd.breaking",
+      "text": "실제 QCD에는 새로 생길 수 있는 쿼크·반쿼크가 있습니다. 충분히 길어진 색장 연결에서는 쌍이 생성되어 새로운 하드론 조합을 만드는 편이 유리해질 수 있습니다. 이를 끈 끊어짐으로 설명합니다. 연결을 끊어도 양 끝에 자유 쿼크가 하나씩 남는다는 뜻은 아닙니다.",
+      "claimRefs": [
+        "claim:particle.qcd.string-breaking"
+      ]
+    },
+    {
+      "id": "block:particle.qcd.jets",
+      "text": "고에너지 충돌에서 나온 쿼크나 글루온은 추가 방출을 거쳐 하드론으로 바뀌며, 이를 하드론화라고 합니다. 비슷한 방향으로 모인 입자 무리는 제트라고 부릅니다. 검출기는 자유 쿼크를 찍는 대신 이런 하드론과 그 붕괴 산물을 측정합니다. 개별 하드론 분포에는 별도의 비섭동적 기술이 필요합니다.",
+      "claimRefs": [
+        "claim:particle.qcd.hadronization"
+      ]
+    },
+    {
+      "id": "block:particle.qcd.freedom",
+      "text": "큰 운동량을 주고받아 짧은 거리 구조를 살피는 과정에서는 강한 상호작용의 유효 결합이 작아집니다. 이것이 점근적 자유입니다. 짧은 거리에서 계산하기 쉬워진다는 말과, 충돌 뒤 자유 쿼크를 꺼낼 수 있다는 말은 다릅니다. 점근적 자유와 가둠은 서로 다른 범위의 성질입니다.",
+      "claimRefs": [
+        "claim:particle.qcd.asymptotic-freedom"
+      ]
+    },
+    {
+      "id": "block:particle.qcd.limits",
+      "text": "쿼크를 떼는 과정은 상호작용하는 장과 새 입자 생성까지 포함합니다. 그래서 결과를 자유 쿼크 두 개로 예상할 수 없습니다. 여기서는 보통 진공의 하드론을 다뤘으며 고온 물질의 상태까지 설명하지 않았습니다. 관측과 격자 계산의 지지는 중요하지만, 이 해설이 일반적인 가둠의 수학적 증명을 제공하지는 않습니다.",
+      "claimRefs": [
+        "claim:particle.qcd.boundary"
+      ]
+    }
+  ],
+  "relatedConcepts": [
+    "concept:particle.qft",
+    "concept:particle.standard-model"
+  ]
+}

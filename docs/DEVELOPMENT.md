@@ -33,7 +33,7 @@ Equivalent `npm run` commands work when npm is available. The dependency lockfil
 
 `playwright.config.mjs` builds and serves the actual static output on dedicated port 4190, with two Chromium workers. It also starts the development server on port 4191 for the local media smoke test. Stop unrelated services on these ports before running; the runner does not reuse an existing server. The projects use CSS viewports 1920×1080, 1920×940, 1920×900, and 390×844.
 
-`tests/browser/readers.spec.mjs` checks catalog entry navigation, optional experiments, local media preview, all focused-lesson and related-reader scenes, every related model preset, navigation, evidence panels, input invalidation, reset, and eight-premise editing. Orbital cases additionally cover eight chapters, current-state dialogue, cloud/slice/isosurface modes, camera controls, state restoration, invalid state rejection, and deterministic seeking. A separate browser fixture exercises the same viewer with a non-orbital spherical field. It measures document extents and actual content scroll extents, plus control bounds and hit targets. Hiding overflowing content with CSS does not satisfy these checks. Default content must fit; deliberately expanded user collections and opened reference panels may scroll internally as specified in [Product](PRODUCT.md).
+`tests/browser/readers.spec.mjs` checks catalog entry navigation, optional experiments, local media preview, all focused-lesson and related-reader scenes, every related model preset, navigation, evidence panels, input invalidation, reset, and eight-premise editing. Orbital cases additionally cover eight chapters, current-state dialogue, cloud/slice/isosurface modes, camera controls, state restoration, invalid state rejection, and deterministic seeking. Typed-lambda cases cover every chapter/example, editable terms/contexts/goals, type errors with cleared results, rule/reduction navigation, and customized/default snapshot restoration. Prose-only physics scenes are checked for actual text and control fitting. A separate browser fixture exercises the same viewer with a non-orbital spherical field. It measures document extents and actual content scroll extents, plus control bounds and hit targets. Hiding overflowing content with CSS does not satisfy these checks. Default content must fit; deliberately expanded user collections and opened reference panels may scroll internally as specified in [Product](PRODUCT.md).
 
 Run a focused project or inspect failures:
 
@@ -46,6 +46,8 @@ pnpm exec playwright show-trace test-results/<failure>/trace.zip
 Failures save screenshots and traces under ignored `test-results/`; the HTML report is under ignored `playwright-report/`. Chromium geometry tests are not cross-browser certification, physical-device testing, screen-reader review, or scientific verification. Preserve meaningful model fixtures separately. Do not add tests that merely enumerate removed filenames or obsolete UI strings.
 
 ## Static review build
+
+Additional focused routes: `/knowledge/curry-howard/`, `/knowledge/lambda-calculus/`, `/knowledge/field-quanta/`, `/knowledge/particle-interactions/`, and `/knowledge/quark-confinement/`.
 
 Useful routes: `/knowledge/atomic-orbitals/` (interactive hydrogenic orbitals), `/` (knowledge catalog), `/lesson.html`, `/knowledge/`, `/knowledge/consistency/`, `/knowledge/paraconsistent-logic/`, `/knowledge/zfc/`, and `/knowledge/continuum-hypothesis/`. See [Content structure](CONTENT-STRUCTURE.md) to add a topic.
 

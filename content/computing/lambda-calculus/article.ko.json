@@ -1,0 +1,71 @@
+{
+  "id": "article:computing.lambda-calculus.ko",
+  "conceptId": "concept:computing.lambda-calculus",
+  "title": "함수 적용은 어떻게 계산될까요?",
+  "reviewStatus": "needs-content-review",
+  "scope": "변수·추상화·적용·곱의 작은 순수 타입 계산과 치환",
+  "blocks": [
+    {
+      "id": "block:computing.lambda-calculus.function",
+      "text": "함수는 입력을 받아 결과를 만드는 규칙입니다. λx:A. x에서 λ는 함수를 만들고, x:A는 A 타입의 입력 이름, 점 뒤의 x는 결과를 적은 몸체입니다. 함수에 이름을 따로 붙이지 않아도 표현할 수 있습니다.",
+      "claimRefs": [
+        "claim:computing.lambda.syntax"
+      ]
+    },
+    {
+      "id": "block:computing.lambda-calculus.apply",
+      "text": "λx:A. x는 함수이고, (λx:A. x) a는 그 함수에 a를 적용한 식입니다. 함수 자체와 호출 결과는 타입도 다를 수 있습니다. a : A라면 함수의 타입은 A → A, 적용식의 타입은 A입니다.",
+      "claimRefs": [
+        "claim:computing.lambda.syntax",
+        "claim:computing.lambda.typing"
+      ]
+    },
+    {
+      "id": "block:computing.lambda-calculus.substitution",
+      "text": "(λx:A. x) a를 계산하면 몸체의 x를 인자 a로 바꿔 a가 됩니다. 이를 베타 축약이라 부릅니다. 긴 식도 이렇게 한 단계씩 줄이며 실행할 수 있습니다. 단순한 글자 전체 바꾸기와는 다릅니다.",
+      "claimRefs": [
+        "claim:computing.lambda.substitution"
+      ]
+    },
+    {
+      "id": "block:computing.lambda-calculus.binding",
+      "text": "λx:A. λx:B. x에서 마지막 x는 가장 안쪽 λ에 속합니다. 바깥 x 자리에 값을 넣는다고 마지막 x까지 바꾸면 뜻이 달라집니다. 다른 자유 변수를 실수로 묶지 않도록 이름을 바꾸는 경우도 있습니다.",
+      "claimRefs": [
+        "claim:computing.lambda.substitution"
+      ]
+    },
+    {
+      "id": "block:computing.lambda-calculus.composition",
+      "text": "k가 A를 B로, h가 B를 C로 바꾼다면 h (k a)는 A 타입의 a에서 C를 얻습니다. 화면에서는 h와 k를 받는 함수를 만든 뒤 차례로 적용합니다. 안쪽 함수의 결과와 바깥 함수의 입력 타입이 맞아야 합니다.",
+      "claimRefs": [
+        "claim:computing.lambda.syntax",
+        "claim:computing.lambda.typing"
+      ]
+    },
+    {
+      "id": "block:computing.lambda-calculus.mismatch",
+      "text": "f : A → B인데 x : C라면, A와 C가 서로 다른 타입인 이 체계에서는 f x에 타입을 줄 수 없습니다. 실패한 타입 유도는 그 식이 이 규칙에 맞지 않는다는 뜻입니다. 목표 명제 전체가 거짓이라는 판정은 아닙니다.",
+      "claimRefs": [
+        "claim:computing.lambda.typing"
+      ]
+    },
+    {
+      "id": "block:computing.lambda-calculus.self-application",
+      "text": "x x를 쓰려면 x가 동시에 어떤 입력 타입 T와 함수 타입 T → U를 가져야 합니다. 유한 단순 타입 하나로는 이를 맞출 수 없습니다. 다른 타입 체계를 쓰는 언어나 재귀 전반에 이 제한을 그대로 적용하면 안 됩니다.",
+      "claimRefs": [
+        "claim:computing.lambda.self-application"
+      ]
+    },
+    {
+      "id": "block:computing.lambda-calculus.limits",
+      "text": "진행은 값이거나 다음 계산이 있다는 성질, 보존은 계산 후에도 타입이 같다는 성질입니다. 둘은 타입 오류로 막히지 않음을 다룹니다. 종료는 별도 문제이며, 여기의 순수 계산에 일반 재귀를 더하면 보장이 달라집니다.",
+      "claimRefs": [
+        "claim:computing.lambda.safety",
+        "claim:computing.lambda.termination"
+      ]
+    }
+  ],
+  "relatedConcepts": [
+    "concept:computing.curry-howard"
+  ]
+}

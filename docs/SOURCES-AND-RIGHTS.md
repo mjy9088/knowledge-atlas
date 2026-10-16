@@ -8,6 +8,10 @@ Each substantive claim needs a stable ID, a precise statement, scope and assumpt
 
 Encyclopedias and knowledge datasets can suggest terminology and links; a mention is not a verified prerequisite, identity mapping, or derivation. New analogies and inferred relationships are proposals with their own provenance. Conflicting evidence remains visible rather than being silently merged.
 
+## Consultation versus reuse
+
+Reading and citing a reference is recorded separately from including third-party material. Independently authored explanations and independently implemented models do not imply a permission request to every cited source owner. Source metadata may state `reference-only; third-party reuse not proposed` with `externalMaterialIncluded: false`. If prose, figures, datasets, fonts or code are later imported or adapted, review that specific use under the following process. Do not label reference consultation itself as awaiting permission.
+
 ## Reuse review
 
 1. Record the exact source/version, ownership, notice, intended use, and affected spans/assets.

@@ -18,6 +18,13 @@ content/
   set-theory/
     zfc/                         # Same article structure
     continuum-hypothesis/        # Same article structure
+  computing/
+    curry-howard/                # Constructive implication/product correspondence
+    lambda-calculus/             # Function application and substitution
+  particle-physics/
+    field-quanta/                # Free-mode occupation, not a complete QFT survey
+    particle-interactions/       # Electron/up-quark/neutrino comparison
+    quark-confinement/           # Confinement and hadronization
   quantum-physics/
     atomic-orbitals/              # Hydrogenic article, claims and spatial interaction metadata
 knowledge/                       # Shared concept IDs and typed relations
@@ -85,3 +92,5 @@ Local media work remains at `/tools/media/` on the development server. MP4 conve
 An article may select an explicit `interactive` adapter from `apps/web/topics/registry.mjs`, with stylesheet paths in `styles`. The adapter supplies scene suggestions, current-input descriptions, detached state, validated restoration, reset, seek, and inspection. Use [Spatial fields](SPATIAL-FIELDS.md) for the generic viewer contract and [Orbitals](ORBITALS.md) for the first scientific adapter. Omit symbolic `model` when its premise editor is inappropriate.
 
 Named collections own explicit `articleRefs`; catalog registration does not imply membership in an existing topic collection. The explosion evidence panel selects its four related articles through that list. Knowledge relations and related-concept links require their own scoped evidence; adding an orbital article does not assert a relation to explosion.
+
+Use `cards: []` when a diagram does not clarify the scene. The enhanced reader then presents a reading panel without reserving a visual area. Meaningful equations and comparisons may use cards; every article does not need a model or animation. The current computing examples deliberately exercise a different interaction shape before any wider adapter abstraction.

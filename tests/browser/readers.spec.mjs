@@ -40,26 +40,63 @@ const lessonFrame = {
   controls: ['.dialogue-actions button', '.experiment-goal', '#lesson-menu-open'],
 };
 
+const lambdaFrame={content:['.lambda-editor','.lambda-output','.lambda-rule-term','.lambda-step-term','.reader-scene:not([hidden]) .reader-copy'],controls:['#reader-controls button','.lambda-experiment button','.lambda-experiment input','.lambda-experiment textarea','.lambda-experiment select','.reader-menu summary']};
+for(const topic of CONTENT_PAGES.filter(p=>p.interactive==='typed-lambda'))test(`${topic.slug}: all typed examples and explanation scenes fit`,async({page},testInfo)=>{
+  const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  await page.goto(`/knowledge/${topic.slug}/`);await page.waitForFunction(()=>window.__atlasRelated);
+  for(let i=0;i<topic.scenes.length;i++){
+    await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',topic.scenes[i].id);
+    await expect(page.getByRole('combobox',{name:'비교할 예제'})).toHaveValue(topic.scenes[i].suggestion.example);
+    await test.step(topic.scenes[i].id,()=>expectFrame(page,lambdaFrame));
+    if(i+1<topic.scenes.length)await page.locator('#reader-next').click();
+  }
+  for(const option of await page.getByRole('combobox',{name:'비교할 예제'}).locator('option').all()){
+    await page.getByRole('combobox',{name:'비교할 예제'}).selectOption(await option.getAttribute('value'));
+    await expectFrame(page,lambdaFrame);
+  }
+  expect(errors).toEqual([]);await testInfo.attach('typed-lambda',{body:await page.screenshot(),contentType:'image/png'});
+});
+
+test('typed terms update dialogue, compute substitution, reject errors and restore state',async({page})=>{
+  await page.goto('/knowledge/lambda-calculus/#substitution');await page.waitForFunction(()=>window.__atlasRelated);
+  await expect(page.locator('.lambda-judgment')).toContainText('현재 타입: A');
+  await page.getByRole('button',{name:'한 단계 계산',exact:true}).click();await expect(page.locator('.lambda-step-term')).toHaveText('a');
+  const defaultState=await page.evaluate(()=>window.__atlasRelated.getState());await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(s=>window.__atlasRelated.setState(s),defaultState);expect(await page.evaluate(()=>window.__atlasRelated.getState())).toEqual(defaultState);
+  const input=page.getByRole('textbox',{name:'람다 식',exact:true});await input.fill('(λx:A. λy:B. x) a');
+  await expect(page.locator('.lambda-judgment')).toContainText('A');await expect(page.locator('.reader-scene:visible .scene-prose')).toContainText('현재 식의 타입은 B → A');
+  await page.locator('#reader-next').click();await expect(input).toHaveValue('(λx:A. λy:B. x) a');
+  const saved=await page.evaluate(()=>window.__atlasRelated.getState());await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(s=>window.__atlasRelated.setState(s),saved);
+  expect(await page.evaluate(()=>window.__atlasRelated.getState())).toEqual(saved);
+  await input.fill('λx:A. x x');await expect(page.locator('.lambda-output')).toHaveAttribute('data-valid','false');await expect(page.locator('.lambda-results')).toBeHidden();
+  await expect(page.locator('.reader-scene:visible .scene-prose')).toContainText('기본 예시의 해설은 이 입력에 적용하지 않습니다');
+  await expectFrame(page,lambdaFrame);
+  const rejected=await page.evaluate(()=>{const before=window.__atlasRelated.getState();try{window.__atlasRelated.setState({...before,interaction:{...before.interaction,step:99}});return false;}catch{return JSON.stringify(before)===JSON.stringify(window.__atlasRelated.getState());}});expect(rejected).toBe(true);
+  await page.getByRole('button',{name:'장면 예시로',exact:true}).click();await expect(page.locator('.lambda-output')).toHaveAttribute('data-valid','true');
+  await input.focus();const scene=await page.evaluate(()=>window.__atlasRelated.getState().sceneId);await page.keyboard.press('ArrowRight');expect(await page.evaluate(()=>window.__atlasRelated.getState().sceneId)).toBe(scene);
+});
+
+const readingFrame={content:['.reader-scene:not([hidden]) .reader-copy','.reader-scene:not([hidden]) .concept-diagram'],controls:['#reader-controls button','.reader-menu summary']};
 for (const reader of CONTENT_PAGES.filter(page=>!page.interactive)) test(`${reader.slug}: every scene and rule example fits`, async ({page}, testInfo) => {
   await page.goto(`/knowledge/${reader.slug}/`);
   await page.waitForFunction(() => window.__atlasRelated);
+  const frame=reader.model?relatedFrame:readingFrame;
   for (let index = 0; index < reader.scenes.length; index++) {
     await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id', reader.scenes[index].id);
-    await test.step(reader.scenes[index].id, () => expectFrame(page, relatedFrame));
+    await test.step(reader.scenes[index].id, () => expectFrame(page, frame));
     if (index + 1 < reader.scenes.length) await page.locator('#reader-next').click();
   }
   await expect(page.locator('#reader-end-links')).toBeVisible();
   if (reader.model === 'ch') await testInfo.attach('final-scene', {body: await page.screenshot(), contentType: 'image/png'});
   for (const preset of await page.locator('#reader-presets button').all()) {
     await preset.click();
-    await expectFrame(page, relatedFrame);
+    await expectFrame(page, frame);
   }
   await page.locator('.reader-menu summary').click();
   await page.locator('.reader-menu a[href="#evidence"]').click();
   await expect(page.locator('dialog[open]')).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(page.locator('dialog[open]')).toHaveCount(0);
-  await expectFrame(page, relatedFrame);
+  await expectFrame(page, frame);
 });
 
 test('direct links restore the requested scene and typing arrows does not navigate', async ({page}) => {

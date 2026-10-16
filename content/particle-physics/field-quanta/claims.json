@@ -1,0 +1,128 @@
+[
+  {
+    "id": "claim:particle.field.operator-state",
+    "kind": "formal",
+    "statement": "양자장은 공간·시간에 연결된 연산자이며 양자 상태와 구별한다.",
+    "scope": "정준 양자화의 입문적 표현; 엄밀한 연산자값 분포·게이지 제약은 생략한다.",
+    "assumptions": [
+      "자유 스칼라장으로 출발"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:tong-qft-2006",
+        "locator": "HTML §0 What is Quantum Field Theory?; §2.1 Eqs. 2.77–2.78 and wavefunctional discussion"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:particle.field.free-modes",
+    "kind": "formal",
+    "statement": "자유 실수 스칼라장의 독립 운동량 모드는 양자 조화진동자로 양자화된다.",
+    "scope": "자유장에 대한 푸리에 모드 분해이며 상호작용장의 임의 모드를 독립 진동자로 취급하지 않는다.",
+    "assumptions": [
+      "상호작용 없음",
+      "모드의 각진동수 ω>0"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:tong-qft-2006",
+        "locator": "HTML §2.1 Eqs. 2.79–2.82; §2.2 Eqs. 2.93–2.97"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:particle.field.occupation",
+    "kind": "formal",
+    "statement": "자유 보손장 한 모드의 점유수 n은 0,1,2,…이며 바닥상태 위 에너지는 nℏω이다.",
+    "scope": "하나의 정해진 자유 보손 모드; ℏω는 그 모드의 한 양자 에너지이다. 진공 에너지의 절대값을 결정하지 않는다.",
+    "assumptions": [
+      "자유장",
+      "고정된 하나의 모드",
+      "바닥 에너지를 빼고 비교"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:tong-qft-2006",
+        "locator": "HTML §2.1.1 Eqs. 2.83–2.92; §2.3 Eq. 2.102; §2.4 Eqs. 2.116–2.125"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:particle.field.vacuum",
+    "kind": "formal",
+    "statement": "자유장의 진공은 모든 모드의 점유수가 0인 바닥상태이며 장 자체의 부재와 구별한다.",
+    "scope": "자유장 진공만 설명하며 상호작용 진공·곡률 시공간의 입자 정의와 우주상수 문제는 다루지 않는다.",
+    "assumptions": [
+      "자유장",
+      "선택한 진공·모드 정의"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:tong-qft-2006",
+        "locator": "HTML §2.3 Eq. 2.98; §2.4 Particles"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:particle.field.statistics",
+    "kind": "formal",
+    "statement": "동일한 완전한 단일입자 상태에 같은 종류의 페르미온 두 개를 넣을 수 없지만 보손에는 이 제한이 없다.",
+    "scope": "파울리 배타 원리; 공간 위치만 같은 것과 스핀까지 포함한 같은 상태를 구별한다.",
+    "assumptions": [
+      "동일 종류 입자",
+      "단일입자 상태에 내부 자유도 포함"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:tong-particle-physics",
+        "locator": "Chapter 2 §2.1 printed pp. 30–31; §2.1.2 printed p. 33, opposite-spin electrons"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:particle.field.number-change",
+    "kind": "formal",
+    "statement": "양자장론은 서로 다른 입자 수의 상태와 상호작용에 의한 전이를 기술할 수 있다.",
+    "scope": "허용되는 과정은 에너지·운동량·보존 전하 등 조건을 만족해야 한다. 양자역학 일반이 고정 입자 수에 한정된다는 주장은 아니다.",
+    "assumptions": [
+      "충분한 에너지와 허용된 상호작용",
+      "고정 입자 수 근사의 범위와 구별"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:tong-qft-2006",
+        "locator": "HTML §0 Why Quantum Field Theory?, Answer 1"
+      },
+      {
+        "sourceId": "source:tong-particle-physics",
+        "locator": "Chapter 2 §2.1.3 printed p. 34 and §2.2.2 printed pp. 46–47, electron–positron annihilation"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:particle.field.virtual-diagrams",
+    "kind": "formal",
+    "statement": "섭동론의 파인만 도표는 진폭 계산 항을 정리하며 내부선의 가상입자를 직접 관측한 궤적으로 해석하지 않는다.",
+    "scope": "약한 결합에서의 섭동 전개; 모든 QFT 계산이나 강한 결합에 도표 전개가 적절하다는 주장은 아니다.",
+    "assumptions": [
+      "섭동론적 산란 설명"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:tong-particle-physics",
+        "locator": "Chapter 2 §2.2.1 printed p. 43, virtual particles as field bookkeeping; §2.2.2 printed pp. 44–46"
+      },
+      {
+        "sourceId": "source:tong-qft-2006",
+        "locator": "HTML §3.5 off-shell internal-line discussion and §3.6 measured rates/cross sections"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  }
+]

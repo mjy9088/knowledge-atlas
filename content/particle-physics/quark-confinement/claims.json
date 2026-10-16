@@ -1,0 +1,179 @@
+[
+  {
+    "id": "claim:particle.qcd.hadrons",
+    "kind": "established",
+    "statement": "양성자를 세 원자가 쿼크만으로 완전히 기술할 수 없으며 글루온과 바다 쿼크·반쿼크 성분이 필요하다.",
+    "scope": "양성자 내부의 파톤 기술; 입자 수가 고정된 고전적 구슬 모형을 주장하지 않는다.",
+    "assumptions": [
+      "QCD의 보통 진공 하드론과 충돌 해설",
+      "해당 구간의 근사·검출 대상·증명 상태를 구별"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:atlas-proton-structure-2022",
+        "locator": "Opening paragraphs, valence quarks, gluons and quark–antiquark sea; PDF meaning"
+      },
+      {
+        "sourceId": "source:atlas-last-quark-2021",
+        "locator": "Introductory paragraph beginning “Subsequent experiments have confirmed this picture”, proton up/up/down composition"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:particle.qcd.color",
+    "kind": "established",
+    "statement": "QCD는 색전하를 지닌 쿼크와 글루온의 강한 상호작용을 다루며 색은 빛의 색이 아니다.",
+    "scope": "SU(3) 색 자유도; 빨강·초록·파랑은 기저 표기이지 시각적 색이 아니다.",
+    "assumptions": [
+      "QCD의 보통 진공 하드론과 충돌 해설",
+      "해당 구간의 근사·검출 대상·증명 상태를 구별"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:pdg-qcd-2025",
+        "locator": "§9.1 p.1, Eq. 9.1 and color indices"
+      },
+      {
+        "sourceId": "source:atlas-last-quark-2021",
+        "locator": "Paragraph beginning “Most quarks exist confined within hadrons”, color terminology"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:particle.qcd.gluons",
+    "kind": "established",
+    "statement": "글루온은 색전하를 지니며 QCD에는 세 글루온·네 글루온 상호작용이 있다.",
+    "scope": "비가환 QCD의 상호작용 구조; 이 사실만으로 가둠을 논리적으로 증명하지 않는다.",
+    "assumptions": [
+      "QCD의 보통 진공 하드론과 충돌 해설",
+      "해당 구간의 근사·검출 대상·증명 상태를 구별"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:pdg-qcd-2025",
+        "locator": "§9.1 p.2, Eq. 9.2 and paragraph listing three- and four-gluon vertices"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:particle.qcd.singlets",
+    "kind": "established",
+    "statement": "따로 관측되는 QCD 하드론은 색 단일항인 쿼크·반쿼크·글루온 조합이다.",
+    "scope": "보통 진공의 하드론; 단순한 RGB 혼합이나 고정 입자 수의 완전한 파동함수를 제시하지 않는다.",
+    "assumptions": [
+      "QCD의 보통 진공 하드론과 충돌 해설",
+      "해당 구간의 근사·검출 대상·증명 상태를 구별"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:pdg-qcd-2025",
+        "locator": "§9.1 p.2, hadrons as color-singlet combinations"
+      },
+      {
+        "sourceId": "source:tong-gauge-theory",
+        "locator": "§2.5.1 printed pp.75–78, singlet channel and baryon singlet"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:particle.qcd.confinement",
+    "kind": "established",
+    "statement": "정적 무거운 쿼크·반쿼크 탐침 사이 퍼텐셜은 가두는 구간에서 거리에 거의 비례해 증가한다.",
+    "scope": "정적 탐침 기술과 끈이 끊어지기 전 거리 구간; 동적 쿼크가 있는 실제 QCD 전체 거리의 정확한 선형 법칙이 아니다.",
+    "assumptions": [
+      "QCD의 보통 진공 하드론과 충돌 해설",
+      "해당 구간의 근사·검출 대상·증명 상태를 구별"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:tong-gauge-theory",
+        "locator": "§2.5.1 printed pp.77–78, Eq. 2.67, confining force; §2.7.2 printed p.105, dynamical matter/string breaking"
+      },
+      {
+        "sourceId": "source:pdg-qcd-2025",
+        "locator": "§9.1.2 pp.3–4, unobserved free quarks and long-distance confining property"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:particle.qcd.string-breaking",
+    "kind": "established",
+    "statement": "동적 기본표현 물질이 있으면 충분히 긴 색장 연결에서 입자·반입자 쌍 생성에 의한 끈 끊어짐이 가능하다.",
+    "scope": "실제 QCD의 쿼크·반쿼크 생성으로 이해하는 정성적 설명; 특정 임계 길이·확률·시간을 계산하지 않는다.",
+    "assumptions": [
+      "QCD의 보통 진공 하드론과 충돌 해설",
+      "해당 구간의 근사·검출 대상·증명 상태를 구별"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:tong-gauge-theory",
+        "locator": "§2.7.2 printed p.105, paragraph on sufficiently long flux tube and particle–antiparticle pair production"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:particle.qcd.hadronization",
+    "kind": "established",
+    "statement": "고에너지 파톤은 방출 뒤 하드론화하며 제트의 관측 대상은 하드론과 붕괴 산물이다.",
+    "scope": "검출기에서 자유 쿼크를 직접 관측한다는 뜻이 아니다; 개별 하드론 분포 예측은 섭동 전개만으로 충분하지 않다.",
+    "assumptions": [
+      "QCD의 보통 진공 하드론과 충돌 해설",
+      "해당 구간의 근사·검출 대상·증명 상태를 구별"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:pdg-qcd-2025",
+        "locator": "§9.2.3 p.10 opening paragraph, hadronization and individual hadron distributions; §9.3 pp.21–22, measured objects and jets"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:particle.qcd.asymptotic-freedom",
+    "kind": "established",
+    "statement": "큰 운동량 전달의 QCD 과정에서는 유효 강결합이 작아지는 점근적 자유가 나타난다.",
+    "scope": "고운동량·짧은 거리 영역; 자유 쿼크의 외부 방출이나 일반적 가둠 증명을 뜻하지 않는다.",
+    "assumptions": [
+      "QCD의 보통 진공 하드론과 충돌 해설",
+      "해당 구간의 근사·검출 대상·증명 상태를 구별"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:pdg-qcd-2025",
+        "locator": "§9.1.1 pp.2–3, Eq. 9.3, scale choice near momentum transfer and asymptotic freedom"
+      },
+      {
+        "sourceId": "source:tong-gauge-theory",
+        "locator": "§2.4 printed pp.63–64 and §2.5.1 p.74, short-distance versus long-distance regimes"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:particle.qcd.boundary",
+    "kind": "established",
+    "statement": "가둠에 대한 관측·비섭동적 지지와 일반적인 해석적 증명을 구별해야 한다.",
+    "scope": "이 글은 보통 진공의 하드론에 한정한다. 고온 QCD, QGP, 핵력, 하드론 질량 분해, 일반적 가둠 증명은 다루지 않는다.",
+    "assumptions": [
+      "QCD의 보통 진공 하드론과 충돌 해설",
+      "해당 구간의 근사·검출 대상·증명 상태를 구별"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:tong-gauge-theory",
+        "locator": "§2.5.1 printed p.78, no analytic demonstration; §2.5.3 printed p.87, lack of area-law demonstration and lattice approach"
+      },
+      {
+        "sourceId": "source:pdg-qcd-2025",
+        "locator": "§9.1 p.2, lattice gauge theory and perturbative expansions as predictive methods"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  }
+]

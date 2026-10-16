@@ -1,0 +1,102 @@
+[
+  {
+    "id": "claim:computing.lambda.syntax",
+    "kind": "formal",
+    "statement": "람다 계산의 핵심 항 구성은 변수, 함수 추상화, 함수 적용이며 단순 타입 체계는 추상화의 입력 타입과 적용 조건을 규정한다.",
+    "scope": "이 실험은 원자 타입·함수·곱을 사용하는 작은 타입 계산이다. 실제 언어 전체의 구문이 아니다.",
+    "assumptions": [
+      "유한 단순 타입; 함수·곱; 일반 재귀·효과·고전 제어 연산 없음"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:software-foundations-stlc",
+        "locator": "Stlc: Introduction and Syntax, variables/abstractions/applications, arrow types"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:computing.lambda.substitution",
+    "kind": "formal",
+    "statement": "베타 축약은 함수 적용에서 몸체의 자유로운 매개변수 출현을 인자로 치환하며, 결합 변수의 포획을 피해야 한다.",
+    "scope": "같은 이름이라도 다른 추상화에 결합된 변수는 무조건 바꾸지 않는다. 열린 인자에서는 결합 변수 이름 변경이 필요할 수 있다.",
+    "assumptions": [
+      "유한 단순 타입; 함수·곱; 일반 재귀·효과·고전 제어 연산 없음"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:software-foundations-stlc",
+        "locator": "Stlc: Operational Semantics > Substitution, bound-name example and capture technical note"
+      },
+      {
+        "sourceId": "source:plfa-lambda",
+        "locator": "Lambda: Substitution, closed-term restriction and capture-avoiding renaming example"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:computing.lambda.typing",
+    "kind": "formal",
+    "statement": "함수 적용은 함수 타입의 입력과 인자 타입이 같을 때 결과 타입을 얻으며 타입 불일치는 해당 타입 유도를 막는다.",
+    "scope": "단순 타입의 구문적 일치; 서브타이핑·암묵적 형변환·다형성은 포함하지 않는다.",
+    "assumptions": [
+      "유한 단순 타입; 함수·곱; 일반 재귀·효과·고전 제어 연산 없음"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:software-foundations-stlc",
+        "locator": "Stlc: Typing > Typing Relation, T_App"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:computing.lambda.self-application",
+    "kind": "formal",
+    "statement": "유한 단순 타입에서 변수 x의 자기 적용 x x에는 타입을 부여할 수 없다.",
+    "scope": "재귀 타입·다형성·동적 타입을 제외한다. 모든 자기 참조나 재귀가 금지된다는 일반 명제가 아니다.",
+    "assumptions": [
+      "유한 단순 타입; 함수·곱; 일반 재귀·효과·고전 제어 연산 없음"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:wadler-propositions-as-types",
+        "locator": "§1, Church simply typed lambda calculus rules out self-application"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:computing.lambda.safety",
+    "kind": "formal",
+    "statement": "적절한 진행·보존 성질은 닫힌 올바른 타입의 프로그램이 계산 중 타입 때문에 막힌 상태에 도달하지 않음을 보장한다.",
+    "scope": "진행은 값이거나 다음 단계가 있다는 성질, 보존은 한 단계 후 같은 타입이라는 성질이다. 둘만으로 종료나 업무상 정답을 뜻하지 않는다.",
+    "assumptions": [
+      "유한 단순 타입; 함수·곱; 일반 재귀·효과·고전 제어 연산 없음"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:software-foundations-stlc",
+        "locator": "Types: Progress; Type Preservation; Type Soundness; final big-step exercise on nontermination"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:computing.lambda.termination",
+    "kind": "formal",
+    "statement": "일반 재귀가 없는 순수 단순 타입 람다 계산은 정규화되지만, 일반 재귀를 더한 타입 언어에는 비종료 계산이 가능하다.",
+    "scope": "종료는 진행·보존과 다른 성질이다. 화면의 유한 단계 제한 도달도 비종료 증명이 아니다.",
+    "assumptions": [
+      "유한 단순 타입; 함수·곱; 일반 재귀·효과·고전 제어 연산 없음"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:wadler-propositions-as-types",
+        "locator": "§1, normal forms, general recursion and termination distinction"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  }
+]

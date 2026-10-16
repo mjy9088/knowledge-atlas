@@ -89,5 +89,45 @@
     "sourceRefs": [
       "source:nist-dlmf-coulomb"
     ]
+  },
+  {
+    "from": "concept:computing.curry-howard",
+    "to": "concept:computing.lambda-calculus",
+    "type": "representedBy",
+    "context": "Constructive implication/product proofs correspond to terms in the supported simply typed calculus; not arbitrary classical logic or software correctness",
+    "status": "draft-source-aligned",
+    "sourceRefs": [
+      "source:plfa-connectives"
+    ]
+  },
+  {
+    "from": "concept:particle.qcd",
+    "to": "concept:particle.qft",
+    "type": "instanceOf",
+    "context": "QCD is a quantum gauge field theory for quark/gluon colour interactions",
+    "status": "draft-source-aligned",
+    "sourceRefs": [
+      "source:pdg-qcd-2025"
+    ]
+  },
+  {
+    "from": "concept:particle.qcd",
+    "to": "concept:particle.standard-model",
+    "type": "partOf",
+    "context": "The strong-interaction sector of the Standard Model; ordinary vacuum confinement differs from short-distance perturbation theory",
+    "status": "draft-source-aligned",
+    "sourceRefs": [
+      "source:tong-particle-physics"
+    ]
+  },
+  {
+    "from": "concept:particle.qft",
+    "to": "concept:quantum.wavefunction",
+    "type": "contrastsWith",
+    "context": "An operator-valued quantum field is not the single-electron position wavefunction; both belong to quantum theory",
+    "status": "draft-source-aligned",
+    "sourceRefs": [
+      "source:tong-particle-physics"
+    ]
   }
 ]
