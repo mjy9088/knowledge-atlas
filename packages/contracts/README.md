@@ -1,6 +1,6 @@
 # Contracts (bootstrap)
 
-This folder contains preliminary JSON Schema files for Source, Claim, Scene, Projection, and Feedback. The schemas provide human and tool-readable structure, but the **current `scripts/validate.mjs` manually validates only the initial concrete files and their cross-references**; it does NOT fully implement JSON Schema 2020-12 validation.
+This folder contains preliminary JSON Schema files for Source, Claim, Scene, Projection, and Feedback. The schemas provide human and tool-readable structure, but the **current `scripts/validate.ts` manually validates only the initial concrete files and their cross-references**; it does NOT fully implement JSON Schema 2020-12 validation.
 
 When adopting a schema validation library, validate every entity with the appropriate schema, version the contracts, migrate data explicitly, and keep ID semantics and source attribution intact.
 
