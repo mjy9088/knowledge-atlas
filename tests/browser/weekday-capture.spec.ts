@@ -5,7 +5,7 @@ async function fit(page:Page){
   const issues=await page.evaluate(()=>{
     const result:string[]=[];
     if(document.documentElement.scrollWidth>innerWidth||document.documentElement.scrollHeight>innerHeight)result.push('document overflow');
-    for(const node of document.querySelectorAll<HTMLElement>('.weekday-input-panel,.weekday-reasoning-panel,.weekday-original-section,.weekday-symbol-section,.weekday-intro-source,.weekday-intro-reasoning,.weekday-intro-step,.weekday-bridge,.weekday-bridge section,.weekday-system-table,.weekday-frame-systems,.weekday-interpretation-comparison,.reader-copy,.world-card,.reader-action-rail,.reader-cover')){
+    for(const node of document.querySelectorAll<HTMLElement>('.weekday-modal-introduction,.weekday-modal-intro-case,.weekday-modal-intro-worlds,.weekday-modal-intro-world,.weekday-input-panel,.weekday-reasoning-panel,.weekday-original-section,.weekday-symbol-section,.weekday-intro-source,.weekday-intro-reasoning,.weekday-intro-step,.weekday-bridge,.weekday-bridge section,.weekday-system-table,.weekday-frame-systems,.weekday-interpretation-comparison,.reader-copy,.world-card,.reader-action-rail,.reader-cover')){
       if(!node.checkVisibility())continue;
       if(node.scrollHeight>node.clientHeight+1||node.scrollWidth>node.clientWidth+1)result.push(node.className+' content overflow '+node.scrollWidth+'x'+node.scrollHeight+' / '+node.clientWidth+'x'+node.clientHeight);
       const r=node.getBoundingClientRect();if(r.top<0||r.left<0||r.bottom>innerHeight+.1||r.right>innerWidth+.1)result.push(node.className+' outside viewport');
@@ -68,7 +68,7 @@ test('20-second challenge and reflection fit the 200% recording layout',async({p
 });
 
 test('focus chrome reveals on top hover and keyboard focus; side menu and scrolling choices stay accessible',async({page},testInfo)=>{
-  await page.goto('/knowledge/weekday-worlds/#modal-comparison');await page.waitForFunction(()=>window.__atlasRelated);
+  await page.goto('/knowledge/weekday-worlds/#modal-expansion');await page.waitForFunction(()=>window.__atlasRelated);
   await expect(page.locator('#reader-end-links,#reader-skip-scope')).toHaveCount(0);
   const actions=await Promise.all(['.reader-menu summary','#reader-prev','#reader-next'].map(selector=>page.locator(selector).boundingBox()));
   for(let i=1;i<actions.length;i++){const gap=actions[i]!.y-actions[i-1]!.y-actions[i-1]!.height;expect(gap).toBeGreaterThanOrEqual(0);expect(gap).toBeLessThanOrEqual(5);}
@@ -94,7 +94,7 @@ test('focus chrome reveals on top hover and keyboard focus; side menu and scroll
 });
 
 test('compact expressions open captured choices and the video frame keeps input and reasoning together',async({page},testInfo)=>{
-  await page.goto('/knowledge/weekday-worlds/#modal-comparison');await page.waitForFunction(()=>window.__atlasRelated);
+  await page.goto('/knowledge/weekday-worlds/#modal-expansion');await page.waitForFunction(()=>window.__atlasRelated);
   await expect(page.getByRole('button',{name:'입력 보기',exact:true})).toHaveCount(0);await expect(page.getByRole('button',{name:'추론 보기',exact:true})).toHaveCount(0);
   await expect(page.locator('.weekday-input-panel')).toBeVisible();await expect(page.locator('.weekday-reasoning-panel')).toBeVisible();
   const term=page.locator('.weekday-sentence-line .weekday-reference-trigger').first(),bounds=await term.boundingBox();expect(bounds!.width).toBeLessThan(150);expect(bounds!.height).toBeGreaterThanOrEqual(26);
@@ -111,10 +111,11 @@ test('compact expressions open captured choices and the video frame keeps input 
 
 
 test('the modal introduction bridge and its authored transition fit the 200% video frame',async({page},testInfo)=>{
-  await page.goto('/knowledge/weekday-worlds/#modal-comparison');await page.waitForFunction(()=>window.__atlasRelated);
+  await page.goto('/knowledge/weekday-worlds/#modal-comparison');await page.waitForFunction(()=>window.__atlasRelated);await expect(page.locator('.weekday-modal-introduction')).toBeVisible();await expect(page.locator('.weekday-input-panel')).toBeHidden();await fit(page);await testInfo.attach('possibility-necessity-examples-200',{body:await page.screenshot(),contentType:'image/png'});
+  await page.locator('#reader-next').click();await expect(page).toHaveURL(/#alethic$/);await expect(page.locator('.weekday-modal-diagram')).toBeVisible();await fit(page);await page.locator('#reader-next').click();await expect(page).toHaveURL(/#modal-expansion$/);
   await expect(page.locator('.weekday-interpretation-comparison')).toBeVisible();await fit(page);
   await testInfo.attach('modal-introduction-comparison-200',{body:await page.screenshot(),contentType:'image/png'});
   await page.getByRole('button',{name:'기준 변경과 양상 비교 ↗',exact:true}).click();const dialog=page.getByRole('dialog',{name:'기준 변경과 양상 논리 비교',exact:true}),bounds=await dialog.boundingBox();expect(bounds!.y).toBeGreaterThanOrEqual(0);expect(bounds!.y+bounds!.height).toBeLessThanOrEqual(540);await dialog.locator('.weekday-reference-contrast-body').evaluate(e=>e.scrollTop=e.scrollHeight);await expect(dialog.getByRole('button',{name:'비교 자료 닫기',exact:true})).toBeInViewport();await testInfo.attach('reference-and-modal-contrast-200',{body:await page.screenshot(),contentType:'image/png'});await dialog.getByRole('button',{name:'비교 자료 닫기',exact:true}).click();await fit(page);
-  await page.locator('#reader-next').click();await expect(page.getByRole('checkbox',{name:'양상 논리로 번역',exact:true})).toHaveCount(0);await expect(page.locator('.weekday-experiment')).toHaveAttribute('data-logic-mode','alethic');await expect(page.locator('.weekday-modal-diagram')).toBeVisible();await fit(page);
+  await page.evaluate(()=>window.__atlasRelated.setState({sceneId:'alethic'}));await expect(page.getByRole('checkbox',{name:'양상 논리로 번역',exact:true})).toHaveCount(0);await expect(page.locator('.weekday-experiment')).toHaveAttribute('data-logic-mode','alethic');await expect(page.locator('.weekday-modal-diagram')).toBeVisible();await fit(page);
   await testInfo.attach('modal-introduction-counterfactual-200',{body:await page.screenshot(),contentType:'image/png'});
 });

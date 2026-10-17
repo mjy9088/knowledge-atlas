@@ -322,5 +322,14 @@
     "assumptions": ["Ordinary integer arithmetic and equality rewriting", "Seven-day weekday representatives Monday=0 through Sunday=6", "The antecedent case requested by the simplified problem and the chosen date references"],
     "sourceRefs": [{"sourceId":"source:levin-dmoi2-number-theory","locator":"§5.2: Congruence and Divisibility; Congruence and Equality; Properties of Congruence (equivalence relation); Congruence and Arithmetic (same-addend special case and replacement). Specialization to 7 and weekday traces independently authored."}],
     "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:logic.weekday-worlds.modal-examples",
+    "kind": "model-deduction",
+    "statement": "세 세계 모두에 접근한다고 정한 개념 예시에서, 현실이 일요일이고 다른 한 세계만 금요일이면 P는 현실에서 거짓이지만 ◇P는 참, □P는 거짓이다. 현실을 포함한 세 세계가 모두 금요일이면 P·◇P·□P는 모두 참이다.",
+    "scope": "Independently authored fixed valuations for the modal introduction, separate from calendar solutions of the riddle and from the reader's editable frame. P is Friday at a world, evaluation is at world 0 and its successors are worlds 0,1,2. No calendar premise, source-sentence translation or specific modal axiom-system characterization is inferred from these examples.",
+    "assumptions": ["Standard atom, diamond and box truth clauses", "Example valuations explicitly set in modal-examples.ts; all three displayed worlds are accessible from reality"],
+    "sourceRefs": [{"sourceId":"source:schwarz-modal-logic","locator":"Chapter 3 §3.1 Definitions 3.1–3.2: atomic clause (a), modal clauses (g)/(h). The two concrete valuations and Korean visual synopsis are independently authored instances."}],
+    "reviewStatus": "draft-model-deduction-needs-review"
   }
 ]

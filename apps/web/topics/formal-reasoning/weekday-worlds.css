@@ -302,6 +302,19 @@
 
 /* Reveal concepts only after the narrative has introduced them. */
 .weekday-experiment [hidden]{display:none!important}
+.weekday-experiment[data-disclosure=modal-introduction]{grid-template-columns:minmax(0,1fr)}
+.weekday-modal-introduction{display:flex;flex-direction:column;justify-content:center;gap:16px;min-height:0;width:min(100%,1500px);margin:auto}
+.weekday-modal-intro-proposition{font-size:24px;font-weight:600;text-align:center;margin:0}
+.weekday-modal-intro-cases{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.weekday-modal-intro-case{background:#fff;border:1px solid #c1d0bd;border-radius:16px;padding:22px;min-width:0}
+.weekday-modal-intro-case h2{font-size:22px;margin:0 0 12px}.weekday-modal-intro-actual{font-size:16px;margin:0 0 18px}.weekday-modal-intro-access{font-size:13px;color:#63745b;margin:0 0 8px}
+.weekday-modal-intro-worlds{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.weekday-modal-intro-world{display:grid;gap:6px;padding:14px 8px;border:2px solid var(--world-stroke);border-radius:14px;background:var(--world-tint);color:var(--world-ink);text-align:center}
+.weekday-modal-intro-world span{font-size:15px}.weekday-modal-intro-world strong{font-size:23px}.weekday-modal-intro-world small{font-size:13px}
+.weekday-modal-intro-verdicts{display:grid;gap:8px;margin-top:16px}.weekday-modal-intro-verdicts p{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin:0;padding:9px 12px;border-radius:9px;background:#f2f5ef}
+.weekday-modal-intro-verdicts strong{font-size:20px}.weekday-modal-intro-verdicts span{font-size:14px}.weekday-modal-intro-verdicts [data-truth=true]{background:#e9f3e5}.weekday-modal-intro-note{font-size:13px;text-align:center;margin:0;color:#63745b}
+@media(max-width:1100px){.weekday-modal-introduction{gap:12px}.weekday-modal-intro-proposition{font-size:19px}.weekday-modal-intro-cases{gap:12px}.weekday-modal-intro-case{padding:14px}.weekday-modal-intro-case h2{font-size:17px;margin-bottom:8px}.weekday-modal-intro-actual{font-size:13px;margin-bottom:12px}.weekday-modal-intro-world{padding:10px 5px}.weekday-modal-intro-world span{font-size:12px}.weekday-modal-intro-world strong{font-size:18px}.weekday-modal-intro-world small{font-size:11px}.weekday-modal-intro-verdicts{margin-top:12px}.weekday-modal-intro-verdicts strong{font-size:16px}.weekday-modal-intro-verdicts span{font-size:12px}.weekday-modal-intro-note{font-size:11px}}
+@media(max-width:720px){.weekday-modal-introduction{gap:10px}.weekday-modal-intro-proposition{font-size:15px}.weekday-modal-intro-cases{grid-template-columns:minmax(0,1fr);gap:10px}.weekday-modal-intro-case{padding:10px}.weekday-modal-intro-case h2{font-size:15px;margin-bottom:5px}.weekday-modal-intro-actual{font-size:12px;margin-bottom:7px}.weekday-modal-intro-access{font-size:11px}.weekday-modal-intro-worlds{gap:7px}.weekday-modal-intro-world{padding:7px 4px;gap:3px}.weekday-modal-intro-world strong{font-size:17px}.weekday-modal-intro-world small{font-size:10px}.weekday-modal-intro-verdicts{gap:5px;margin-top:8px}.weekday-modal-intro-verdicts p{padding:6px 8px}.weekday-modal-intro-verdicts strong{font-size:14px}.weekday-modal-intro-verdicts span{font-size:11px}.weekday-modal-intro-note{font-size:10px;line-height:1.5}}
 .weekday-experiment[data-disclosure=bridge]{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr)}
 .weekday-experiment[data-disclosure=bridge] .weekday-input-panel{justify-content:center}
 .weekday-bridge{display:grid;gap:14px;width:min(100%,920px);margin:auto}
