@@ -2,7 +2,7 @@ import type {Topic,Plan,Job,VideoBudgets} from './contracts.js';
 import type {Work} from './production.js';
 import type {Conversation} from './chat.js';
 let conversations:Conversation[]=[];const selectedChats=new Map<string,string>(),chatDrafts=new Map<string,string>();let renderedChatTopic='';const questionDrafts=new Map<string,Record<string,string>>();
-let works:Work[]=[];
+let works:Work[]=[];const pendingWork=new Set<string>();
 type Policies=Record<string,{title:string;checks:string[]}>;
 const element=(id:string)=>{const e=document.getElementById(id);if(!e)throw Error('Missing UI '+id);return e;};
 const field=(id:string)=>element(id) as HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement;
@@ -58,18 +58,18 @@ setInterval(()=>void refresh().catch(failure),2500);
 for(const [id,format,depth,purpose]of [['preset-light','short','light','interest'],['preset-deep','long','deep','understanding']])element(id).onclick=()=>{field('meta-format').value=format;field('meta-depth').value=depth;field('meta-purpose').value=purpose;markDirty();field('plan-budget').value=String(videoBudgets[format as 'short'|'long']);};
 
 function renderWork(){
- const w=works.find(w=>w.id===active),busy=w?.tasks.some(t=>t.status==='running')??false;
- (element('prepare-work') as HTMLButtonElement).disabled=!!w;
- for(const id of ['build-work','implement-work','inspect-work'])(element(id) as HTMLButtonElement).disabled=!w||busy;
+ const w=works.find(w=>w.id===active),busy=(w?.tasks.some(t=>t.status==='running')??false)||pendingWork.has(active);
+ (element('prepare-work') as HTMLButtonElement).disabled=!!w||busy;
+ for(const id of ['build-work','add-visuals','implement-work','inspect-work'])(element(id) as HTMLButtonElement).disabled=!w||busy;
  element('work-state').textContent=busy?'작업 실행 중':w?'작업 공간 준비됨':'아직 작업 공간 없음';
  element('work-path').textContent=w?`${w.directory} · ${w.branch}`:'';
- element('work-tasks').replaceChildren(...(w?.tasks??[]).slice().reverse().map(t=>{const d=node('details'),label={prepare:'본문 초안 생성',implement:'구현',build:'검사 · 빌드'}[t.kind];d.append(node('summary',`${label} · ${{running:'실행 중',completed:'실행 종료',failed:'실패',interrupted:'중단'}[t.status]} · 기획 ${t.revision.slice(0,8)}`));if(t.status==='running')d.append(button('중단',()=>void action('/api/work-cancel',{id:t.id})));d.append(node('pre',t.log));return d;}));
+ element('work-tasks').replaceChildren(...(w?.tasks??[]).slice().reverse().map(t=>{const d=node('details'),label={prepare:'본문 초안 생성',implement:'구현',visuals:'콘텐츠 시각 자료 추가',build:'검사 · 빌드'}[t.kind];d.append(node('summary',`${label} · ${{running:'실행 중',completed:'실행 종료',failed:'실패',interrupted:'중단'}[t.status]} · 기획 ${t.revision.slice(0,8)}`));if(t.status==='running')d.append(button('중단',()=>void action('/api/work-cancel',{id:t.id})));d.append(node('pre',t.log));return d;}));
  renderChat();
  (field('plan-domain') as HTMLInputElement).readOnly=!!w;
  const build=w?.build; element('built-result').hidden=!build?.url;
  if(build?.url){const url=build.url+'#'+slideId,frame=element('build-frame') as HTMLIFrameElement;if(frame.getAttribute('src')!==url)frame.src=url;(element('open-build') as HTMLAnchorElement).href=url;element('build-info').textContent=`${build.createdAt} · 빌드 ${build.id.slice(0,8)} · 소스 ${build.sourceHash.slice(0,8)} · ${build.revision===current().revision?'현재 기획':'이전 기획'}에 연결된 소스의 빌드. 요청 반영 여부는 변경 파일로 확인하고, 소스 수정 후 다시 빌드하세요. 화면·음성·내용 승인과 별도입니다.`;}
 }
-for(const [id,kind]of [['prepare-work','prepare'],['build-work','build']])element(id).onclick=()=>{if(cleanRequired())void action('/api/work',{id:active,revision:loadedRevision,kind,instruction:field('work-instruction').value});};
+for(const [id,kind]of [['prepare-work','prepare'],['build-work','build'],['add-visuals','visuals']])element(id).onclick=async()=>{if(!cleanRequired())return;const topicId=active;pendingWork.add(topicId);renderWork();try{await action('/api/work',{id:topicId,revision:loadedRevision,kind,instruction:field('work-instruction').value});}finally{pendingWork.delete(topicId);renderWork();}};
 element('inspect-work').onclick=async()=>{try{const result=await api<{status:string;diff:string}>('/api/changes?id='+encodeURIComponent(active));element('work-changes').textContent=result.status+'\n'+result.diff;}catch(error){failure(error);}};
 element('feedback-build').onclick=()=>{const build=works.find(w=>w.id===active)?.build;if(!build)return;field('feedback-text').value=`[build=${build.id}; source=${build.sourceHash}; slide=${slideId}] `;element('feedback-text').scrollIntoView({block:'center'});field('feedback-text').focus();};
 

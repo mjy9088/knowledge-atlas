@@ -45,7 +45,7 @@ function renderInput(){
   if(!current||model&&!experiment)return;
   const node=scenes[current.index],info=experiment?.inspect(),customized=info?.customized??false;
   scenes.forEach((scene,index)=>{scene.hidden=index!==current.index;});
-  required('.concept-diagram',node).hidden=Boolean(model||interaction||!current.scene.cards?.length);$('reader-proof').hidden=!model;
+  required('.concept-diagram',node).hidden=Boolean(model||interaction||(!current.scene.figure&&!current.scene.cards?.length));$('reader-proof').hidden=!model;
   if(model){
   $('reader-proof').dataset.claimRefs=model.claimRefs.join(' ');
   if(info?.valid)explorer.update(info);else explorer.invalidate('입력을 완성하면 추론 도표를 갱신합니다.');
