@@ -1,0 +1,50 @@
+[
+  {
+    "id": "claim:statistics.two-children.family-model",
+    "kind": "draft-teaching-model",
+    "statement": "독립이고 아들/딸 확률이 각각 1/2인 두 자녀라는 단순 모형에서 출생순 BB,BG,GB,GG는 각각 1/4. 실제 인구 통계의 주장이 아니다.",
+    "scope": "동일한 문장도 선별·관측 절차에 따라 다른 조건부확률이 될 수 있음을 설명한다.",
+    "assumptions": [
+      "Inherited manuscript scope; scientific and rights review pending"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:iyer-conditional-probability-2026",
+        "locator": "Definition 2; Propositions 5–6. Finite cases below are independently derived teaching models."
+      }
+    ],
+    "reviewStatus": "needs-content-review"
+  },
+  {
+    "id": "claim:statistics.two-children.family-filter",
+    "kind": "draft-teaching-model",
+    "statement": "가족을 균등 추출해 적어도 한 명이 아들인지 묻고 예라고 한 가족만 남기면 두 아들일 확률은 1/3.",
+    "scope": "동일한 문장도 선별·관측 절차에 따라 다른 조건부확률이 될 수 있음을 설명한다.",
+    "assumptions": [
+      "Inherited manuscript scope; scientific and rights review pending"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:iyer-conditional-probability-2026",
+        "locator": "Definition 2; Propositions 5–6. Finite cases below are independently derived teaching models."
+      }
+    ],
+    "reviewStatus": "needs-content-review"
+  },
+  {
+    "id": "claim:statistics.two-children.family-child",
+    "kind": "draft-teaching-model",
+    "statement": "가족을 균등 추출한 뒤 자녀 한 명을 균등 선택해 아들임을 관측하면 두 아들일 확률은 1/2. BB의 관측 우도는 1, BG/GB는 각각 1/2.",
+    "scope": "동일한 문장도 선별·관측 절차에 따라 다른 조건부확률이 될 수 있음을 설명한다.",
+    "assumptions": [
+      "Inherited manuscript scope; scientific and rights review pending"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:iyer-conditional-probability-2026",
+        "locator": "Definition 2; Propositions 5–6. Finite cases below are independently derived teaching models."
+      }
+    ],
+    "reviewStatus": "needs-content-review"
+  }
+]

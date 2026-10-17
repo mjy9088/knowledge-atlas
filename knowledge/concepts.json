@@ -159,5 +159,12 @@
     "summary": "현실과 가정을 비교하며 세계와 기준 시점을 구별하기",
     "reviewStatus": "proposed",
     "externalIds": []
+  },
+  {
+    "id": "concept:statistics.two-children",
+    "title": "적어도 한 명이 아들: 그걸 어떻게 알았나요?",
+    "summary": "동일한 문장도 선별·관측 절차에 따라 다른 조건부확률이 될 수 있음을 설명한다.",
+    "reviewStatus": "proposed",
+    "externalIds": []
   }
 ]
