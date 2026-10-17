@@ -8,6 +8,7 @@
     "node": ">=22"
   },
   "scripts": {
+    "studio": "node --import tsx tools/studio/server.ts",
     "dev": "node --import tsx scripts/dev-server.ts",
     "build": "pnpm typecheck && pnpm validate && node --import tsx scripts/build-site.ts",
     "preview": "node --import tsx scripts/serve-static.ts",
@@ -19,7 +20,8 @@
     "impact": "node --import tsx scripts/impact.ts",
     "preview:manifest": "node --import tsx scripts/preview-manifest.ts",
     "render:mp4": "node --import tsx scripts/encode-mp4.ts",
-    "test:ui": "playwright test --config=playwright.config.ts",
+    "test:ui": "playwright test --config=playwright.config.ts && pnpm test:studio",
+    "test:studio": "playwright test --config=playwright.studio.config.ts",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {

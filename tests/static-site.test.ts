@@ -52,6 +52,8 @@ test('reader supports direct jumps, detached states, reset and rejection without
 test('static build resolves HTML links and module imports and hashes artifacts deterministically',async()=>{
   const first=await buildSite(),manifest=first.manifest;
   assert.equal(manifest.published,false);assert.equal(manifest.sourceSnapshotVerified,false);
+  assert.ok(manifest.files.every(file=>!file.path.startsWith('tools/')),'Local production tools and private manuscripts must not enter public assets');
+  assert.ok(manifest.pages.every(url=>!url.startsWith('/tools/')),'Local production tools must not become public routes');
   for(const file of manifest.files){
     const data=await readFile(path.join(first.output,file.path));
     assert.equal(createHash('sha256').update(data).digest('hex'),file.sha256);

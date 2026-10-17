@@ -1,0 +1,31 @@
+# Local content studio
+
+Run `pnpm studio` and open `http://127.0.0.1:4180`. This is a private authoring/review tool, outside public reader asset roots and the public catalog. It has no publication action. `STUDIO_PORT`, `STUDIO_DATA_DIR`, `STUDIO_CONCURRENCY` (1–4, default 2) and `STUDIO_CODEX_BIN` configure the local server. The Codex executable must be installed and authenticated separately; no account token is sent to the browser. Use the ordinary CLI sandbox/approval controls, not a bypass flag.
+
+## Working contract
+
+The initial manuscripts are binary relations, Monty Hall with an abbreviated statement missing the host policy, and the two-child observation problem. They are real editable **draft manuscripts/storyboards**, not published articles or completed interactive lessons. Their source locators, bounded claims, goals, concept introductions, planned durations and visual descriptions are in [examples.ts](examples.ts). Source consultation is not frozen-byte verification, rights clearance or expert approval. The finite probability examples are independently derived under declared assumptions. No third-party prose/figures/code are copied. Promotion into the public catalog requires the ordinary topic ownership, evidence and review process.
+
+Edit the overall brief or selected slide, save, request a whole-flow and per-slide review, inspect findings, then record/resolve feedback. Unsaved input is retained while polling and cannot be silently discarded by topic/slide navigation. Initial-draft restoration is explicit. Optimistic revisions reject stale saves. Export returns the current plan, job reports and feedback; it does not publish or overwrite canonical article content. The initial three manuscripts are the current authoring scope; adding/removing arbitrary topics and slides, worktree-based implementation agents, live rendered article previews, screenshots/audio attachments and automatic fixes remain planned.
+
+## Reusable review policies
+
+[contracts.ts](contracts.ts) owns three reusable policies: narrative/claims/timing, mathematical definitions/models/representations, and observation/selection processes in conditional probability. There are no topic-specific review checklists. Manuscript goals, scientific assumptions and scene sequence are review input, not custom review policy. The observation policy is shared by both probability manuscripts. Their context includes the existing base-rates article as a reusable explanation format; it does not claim that these are the same probability experiment.
+
+Every review is a separate noninteractive read-only Codex run with the full narrative, requested target, policy checks, source scope and human notes. Requests and structured results use [the official noninteractive interface](https://learn.chatgpt.com/docs/non-interactive-mode): JSON events and a final output schema. No `.agents/skills` invocation or subagent cooperation is trusted as an enforcement mechanism. The host enumerates all required targets, bounds concurrency, records job status and validates the result. The selected CLI/account configuration supplies the model; no model or account override is invented.
+
+Reports distinguish blocking findings from recommendations and quote the affected text. Timing is only estimated/unverified without actual audio/visual observation. Storyboard descriptions are not evidence of rendered fit, narration pacing, source verification or learning effectiveness. The reviewer cannot mark user feedback resolved. Agent review readiness is separate from content/expert/rights approval and publication.
+
+## State and lifecycle
+
+The server stores validated plans, feedback and review jobs in ignored `artifacts/studio/state.json` using atomic replacement. Each job gets its input, schema, bounded event log and response under `runs/<id>/`. No runtime report is fabricated when Codex is missing, unauthenticated, fails, times out or returns invalid JSON. The browser displays failure and the readiness gate stays blocked. Cancel queued/running jobs explicitly; server restart marks pending work interrupted without replaying model calls. Review calls have a ten-minute limit.
+
+Review revisions cover the complete plan, reusable policy set, review protocol version and related base-rates source. Plan edits invalidate whole-flow and slide reviews conservatively. A queued old revision is interrupted; an already-running immutable old snapshot may finish but remains historical. Bump the protocol version for changed review instructions/execution meaning. Readiness requires the latest current-revision review of every slide and overall flow, no blocking findings, no unresolved user feedback/questions and a total slide budget within the content budget. Warnings remain visible. A successful process exit alone is not review evidence.
+
+The server binds only to loopback and rejects foreign Host/Origin writes, bounded JSON payloads, unknown actions, arbitrary file access and stale writes. The browser receives typed actions rather than a general shell endpoint. One server owns one data directory; do not run competing servers against it. Cancellation terminates the Codex process; external sandbox/tool process-tree behavior still depends on the host. It is not a remote multi-user service.
+
+## Layout and verification
+
+The private studio uses editable forms and bounded review/feedback lists. Its authoring page may scroll; this is distinct from a normal public reader scene's fitting contract. Narrow layouts stack the editor/review panes; navigation, save, feedback and cancel remain reachable. UI labels explicitly distinguish manuscript/storyboard preview from implemented visuals.
+
+Run `pnpm typecheck`, `pnpm validate`, `pnpm test` and `pnpm test:studio`. The normal `pnpm test:ui` also runs studio browser checks after public static-reader regressions. Studio tests exercise the real local UI at desktop, narrow and 960×540 CSS/DPR 2. Controlled unit-test reviewers test queue/gate semantics; they are not actual editorial approvals. Browser failure tests use an intentionally unavailable executable and cannot complete review. Actual authenticated Codex calls require a separate smoke check. Public static build tests must continue to exclude studio assets/manuscripts/runtime state.

@@ -1,0 +1,19 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Knowledge Atlas · 제작 스튜디오</title><link rel="stylesheet" href="/style.css"><script type="module" src="/app.js"></script></head><body>
+<header><div><span class="eyebrow">KNOWLEDGE ATLAS / LOCAL STUDIO</span><h1>설명을 만들고, 함께 검토하기</h1></div><span class="private">로컬 전용 · 공개 빌드 제외</span></header>
+<div id="error" role="alert" hidden></div>
+<main><aside class="library"><h2>작업 중인 콘텐츠</h2><div id="topics"></div><p class="muted">여러 콘텐츠의 리뷰를 동시에 실행할 수 있습니다. 작성 중인 대본은 저장 후 검토하세요.</p><div id="queue-summary" role="status"></div></aside>
+<section class="workspace"><div class="toolbar"><div><span class="eyebrow">구성 → 슬라이드 → 검토 → 피드백</span><h2 id="topic-title"></h2></div><button id="export">결과 내보내기</button></div>
+<details id="plan-settings"><summary>콘텐츠 기획 · 출처 · 공통 리뷰 정책</summary><div class="plan-fields"><label>제목<input id="plan-title"></label><label>전체 목표<textarea id="plan-goal" rows="2"></textarea></label><label>대상<input id="plan-audience"></label><label>전체 시간 예산 (초)<input id="plan-budget" type="number" min="1" max="3600"></label><label>미결 질문 (한 줄에 하나)<textarea id="plan-questions" rows="2"></textarea></label></div><div id="policies"></div><div id="sources"></div></details>
+<nav id="slides" aria-label="슬라이드 목록"></nav>
+<div class="columns"><section class="editor"><div class="section-heading"><h3>슬라이드 대본</h3><span id="position"></span></div>
+<label>제목<input id="slide-title"></label><label>이 슬라이드의 목표<input id="slide-goal"></label><label>내레이션<textarea id="narration" rows="6"></textarea></label>
+<div class="split"><label>계획 시간 (초)<input id="seconds" type="number" min="1" max="600"></label><div id="timing" class="muted"></div></div>
+<label>시각 자료 설계<textarea id="visual" rows="3"></textarea></label><label>독자가 확인할 점<textarea id="observation" rows="2"></textarea></label>
+<div class="split"><label>이미 소개한 개념 (쉼표 구분)<input id="known"></label><label>새로 소개하는 개념<input id="introduces"></label></div>
+<div class="actions"><button id="save" class="primary">저장</button><button id="reset">초기 초안 복원</button><span id="save-status" role="status"></span></div>
+<details><summary>스토리보드 미리보기 · 구현 화면 아님</summary><article id="preview"></article></details></section>
+<section class="review"><div class="section-heading"><h3>검토와 피드백</h3><span id="revision" class="muted"></span></div><p class="muted">실제 Codex CLI를 별도 읽기 전용 작업으로 실행합니다. 음성·영상 실측과 화면 검토는 이 대본 리뷰에 포함되지 않습니다.</p>
+<div class="actions"><button id="review-all" class="primary">전체 + 슬라이드별 리뷰</button><button id="review-one">이 슬라이드 리뷰</button></div>
+<div id="gate"></div><div id="jobs" aria-live="polite"></div>
+<label>이 슬라이드에 피드백<textarea id="feedback-text" rows="3" placeholder="어느 부분이 왜 어색한지, 원하는 수정 방향을 적어 주세요."></textarea></label><button id="add-feedback">피드백 남기기</button><div id="feedback"></div>
+</section></div></section></main></body></html>
