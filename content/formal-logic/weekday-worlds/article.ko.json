@@ -8,7 +8,7 @@
   "blocks": [
     {
       "id": "block:logic.weekday-worlds.question",
-      "text": "시작을 누르고 20초 안에 오늘의 요일을 골라 보세요. 답을 고르거나 시간이 끝나면, 왜 그렇게 생각했는지 함께 돌아봅시다.",
+      "text": "20초 안에 요일을 골라 보세요. 풀지 않고 건너뛸 수도 있습니다. 선택하거나 시간이 끝나면 같은 페이지에서 “왜 그렇게 생각하셨나요?”로 이어집니다.",
       "claimRefs": [
         "claim:logic.weekday-worlds.assessment",
         "claim:logic.weekday-worlds.assignments"
@@ -73,14 +73,6 @@
       "text": "P를 “이 세계의 오늘은 금요일이다”로 정합시다. 기본 예시에서는 현실이 일요일, 가정 1이 금요일입니다. 현실에서 두 세계를 모두 살펴보면 ◇P는 참, □P는 거짓입니다. 원문 전체의 번역이 아니라 양상 연산자의 사용 예시입니다.",
       "claimRefs": [
         "claim:logic.weekday-worlds.deduced-modality"
-      ]
-    },
-    {
-      "id": "block:logic.weekday-worlds.reason",
-      "text": "왜 그렇게 생각했나요? 어떤 날을 기준으로 생각했는지 떠올려 보세요. 이유를 적어도 좋고, 머릿속으로만 정리해도 좋습니다. 아직 정답을 판정하지 않고 다음 장면에서 한 풀이를 살펴봅니다.",
-      "claimRefs": [
-        "claim:logic.weekday-worlds.assessment",
-        "claim:logic.weekday-worlds.rules"
       ]
     },
     {

@@ -16,7 +16,7 @@ export type TopicInspection=ReturnType<ReturnType<typeof mountOrbitalExperiment>
 export interface TopicInteraction {
   getState():TopicState;
   setActive?(active:boolean):void;
-  beforeNext?():void;
+  beforeNext?():boolean;
   validateState?(state:TopicState):void;
   setState(state:TopicState):void;
   suggest(suggestion?:Scene['suggestion']):void;

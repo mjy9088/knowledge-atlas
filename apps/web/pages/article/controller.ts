@@ -15,7 +15,8 @@ const $=<K extends string & keyof ArticleElements>(id:K)=>byId<ArticleElements[K
 const page=(()=>{const found=CONTENT_PAGES.find(page=>page.slug===root.dataset.page);if(!found)throw new Error('Unknown article');return found;})(),model=page.model?RELATED_MODELS[page.model]:undefined;
 if(page.model&&!model)throw new RangeError('Unknown experiment adapter');
 root.dataset.mode=page.interactive?(page.interactive==='hydrogenic-orbitals'?'spatial':'interactive'):model?'experiment':'reading';
-const requestedHash=location.hash,scenes=[...document.querySelectorAll<HTMLElement>('.reader-scene')];
+const resolveSceneId=(id:string)=>page.interactive==='weekday-worlds'&&id==='reason'?'question':id;
+const requestedHash=location.hash==='#reason'&&page.interactive==='weekday-worlds'?'#question':location.hash,scenes=[...document.querySelectorAll<HTMLElement>('.reader-scene')];
 const cover=document.createElement('section');cover.className='reader-cover';cover.setAttribute('aria-label','제목 슬라이드');
 let coverVisible=Boolean(page.cover&&(!requestedHash||requestedHash==='#title'));
 if(page.cover){cover.append(required('.reader-intro>.eyebrow'),required('.reader-intro h1'));root.insertBefore(cover,$('reader-workbench'));const titleLink=document.createElement('a');titleLink.href='#title';titleLink.textContent='제목';required('.reader-menu nav').prepend(titleLink);}
@@ -66,10 +67,13 @@ function renderInput(){
     node.dataset.claimRefs=original[current.index].claims;copy.dataset.status='example';
   }
   const next=page.scenes[current.index+1];
+  const opening=page.interactive==='weekday-worlds'&&!coverVisible&&current.sceneId==='question';
+  const reflecting=opening&&topicInfo&&'challenge'in topicInfo&&['answered','expired','skipped'].includes(topicInfo.challenge.phase);
+  if(opening)root.dataset.opening=reflecting?'reflection':'challenge';else delete root.dataset.opening;
   // Article scenes have no authored multi-scene skip destination.
   required('.skip-context',node).hidden=true;
-  $('reader-prev').disabled=current.index===0&&!page.cover;$('reader-prev').hidden=coverVisible;$('reader-next').textContent=coverVisible?'내용 보기 →':page.interactive==='weekday-worlds'&&current.sceneId==='question'?'생각 정리 →':next?'다음 →':'연관 지식 →';$('reader-skip').hidden=true;
-  if(page.cover){root.dataset.cover=String(coverVisible);cover.hidden=!coverVisible;$('reader-workbench').hidden=coverVisible||!model&&!interaction;$('reader-scenes').hidden=coverVisible;}
+  $('reader-prev').disabled=current.index===0&&!page.cover;$('reader-prev').hidden=coverVisible;$('reader-next').textContent=coverVisible?'내용 보기 →':page.interactive==='weekday-worlds'&&current.sceneId==='question'&&!reflecting?'건너뛰기 →':next?'다음 →':'연관 지식 →';$('reader-skip').hidden=true;
+  if(page.cover){root.dataset.cover=String(coverVisible);cover.hidden=!coverVisible;$('reader-workbench').hidden=coverVisible||!model&&!interaction;$('reader-scenes').hidden=coverVisible||opening;}
   interaction?.setActive?.(!coverVisible&&current.sceneId==='question');
   if(page.interactive!=='weekday-worlds'){$('reader-skip-scope').textContent=page.interactive==='hydrogenic-orbitals'?'본문 ← → 장면 이동 · 시각화에 초점을 두면 방향키 회전':'← → 방향키 · Space / Enter 다음';$('reader-end-links').hidden=Boolean(next);}
 }
@@ -83,9 +87,9 @@ for(const preset of model.presets){const button=document.createElement('button')
 }else if(page.interactive){
   required('.model-toolbar').hidden=true;
   const container=document.createElement('div');$('reader-workbench').append(container);
-  interaction=mountTopicInteraction(page.interactive,container,{onChange:renderInput,onSceneRequest(sceneId){if(!page.scenes.some(scene=>scene.id===sceneId))throw new RangeError('Unknown requested scene');coverVisible=false;reader.setState({sceneId});const title=required('h2',scenes[current.index]);title.tabIndex=-1;title.focus({preventScroll:true});}});
+  interaction=mountTopicInteraction(page.interactive,container,{onChange:renderInput,onSceneRequest(sceneId){if(!page.scenes.some(scene=>scene.id===sceneId))throw new RangeError('Unknown requested scene');coverVisible=false;reader.setState({sceneId});const title=root.dataset.opening==='reflection'?required('.weekday-challenge-reflection h2',root):root.dataset.opening==='challenge'?required('.weekday-intro-question',root):required('h2',scenes[current.index]);title.tabIndex=-1;title.focus({preventScroll:true});}});
 }else $('reader-workbench').hidden=true;
-function next(){if(coverVisible){coverVisible=false;render(reader.inspect());}else if(current.index===page.scenes.length-1)panels.openHash('#connections',$('reader-next'));else{interaction?.beforeNext?.();reader.next();}}
+function next(){if(coverVisible){coverVisible=false;render(reader.inspect());}else if(current.index===page.scenes.length-1)panels.openHash('#connections',$('reader-next'));else{if(!interaction?.beforeNext?.())reader.next();}}
 function previous(){if(coverVisible)return;if(page.cover&&current.index===0){coverVisible=true;render(reader.inspect());}else reader.previous();}
 $('reader-next').addEventListener('click',next);$('reader-prev').addEventListener('click',previous);
 $('reader-reset').hidden=false;$('reader-reset').addEventListener('click',()=>{coverVisible=Boolean(page.cover);experiment?.reset();interaction?.reset();reader.reset();required<HTMLDetailsElement>('.reader-menu').open=false;});
@@ -97,7 +101,7 @@ document.addEventListener('keydown',event=>{
   if(event.key==='ArrowRight'){event.preventDefault();next();}
   if([' ','Enter'].includes(event.key)&&!eventElement(event)?.closest('a,button')){event.preventDefault();next();}
 });
-function followHash(){const id=location.hash.slice(1);if(page.cover&&id==='title'){coverVisible=true;render(reader.inspect());}else if(page.scenes.some(scene=>scene.id===id)){coverVisible=false;reader.setState({sceneId:id});}else panels.openHash(location.hash);}
+function followHash(){const id=resolveSceneId(location.hash.slice(1));if(page.cover&&id==='title'){coverVisible=true;render(reader.inspect());}else if(page.scenes.some(scene=>scene.id===id)){coverVisible=false;reader.setState({sceneId:id});}else panels.openHash(location.hash);}
 window.addEventListener('hashchange',followHash);
 $('reader-controls').hidden=false;if(page.interactive!=='weekday-worlds')$('reader-skip-scope').hidden=false;
 const requestedScene=requestedHash.slice(1);if(page.scenes.some(scene=>scene.id===requestedScene))reader.setState({sceneId:requestedScene});else render(reader.inspect());
@@ -105,6 +109,7 @@ document.documentElement.classList.add('reader-enhanced');window.scrollTo(0,0);p
 export const relatedAPI={
   getState:()=>({...reader.getState(),...(page.cover?{cover:coverVisible}:{}),...(experiment?{experiment:experiment.getState(),visual:explorer.getState()}:{}),...(interaction?{interaction:interaction.getState()}:{})}),
   setState(state:RelatedState){
+    state={...state,sceneId:resolveSceneId(state?.sceneId)};
     if(!page.scenes.some(scene=>scene.id===state?.sceneId))throw new RangeError('Unknown related scene');
     if(state.cover!==undefined&&(typeof state.cover!=='boolean'||!page.cover))throw new RangeError('Unsupported cover state');
     if(!experiment){if(state.experiment||state.visual)throw new RangeError('This article has no premise experiment');if(state.interaction&&interaction?.validateState){interaction.validateState(state.interaction);coverVisible=state.cover??false;reader.setState(state);interaction.setState(state.interaction);return;}if(state.interaction){if(!interaction)throw new RangeError('This article has no interaction');interaction.setState(state.interaction);}coverVisible=state.cover??false;reader.setState(state);return;}

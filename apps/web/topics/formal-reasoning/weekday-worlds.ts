@@ -78,8 +78,7 @@ export function mountWeekdayWorldsExperiment(container:HTMLElement,{onChange=()=
   const introSource=make('section'),introReasoning=make('div'),intro=mountWeekdayIntro(introSource,introReasoning);left.prepend(introSource);visual.prepend(introReasoning);
   const challengePanel=make('div'),quiz=mountWeekdayChallenge(challengePanel,{
     onStart(){stopClock();commit({...state,challenge:{...freshWeekdayChallenge(),phase:'running',playback:'live',promptTarget:state.target}});onSceneRequest('question');},
-    onAnswer(day){captureChallenge();const challenge=answerWeekdayChallenge(state.challenge,day);if(challenge.phase!=='answered'&&challenge.phase!=='expired')return;stopClock(false);commit({...state,challenge});onSceneRequest('reason');},
-    onReason(reason){commit({...state,challenge:{...state.challenge,reason}});},
+    onAnswer(day){captureChallenge();const challenge=answerWeekdayChallenge(state.challenge,day);if(challenge.phase!=='answered'&&challenge.phase!=='expired')return;stopClock(false);commit({...state,challenge});onSceneRequest('question');},
   });introSource.append(challengePanel);
   const comparison=make('section',undefined,'weekday-interpretation-comparison');comparison.setAttribute('aria-label','양상 논리 사용 전후의 읽기 비교');visual.insertBefore(comparison,logicDiagram);
   const bridgeContainer=make('div'),bridge=mountWeekdayBridge(bridgeContainer);left.prepend(bridgeContainer);
@@ -91,9 +90,10 @@ export function mountWeekdayWorldsExperiment(container:HTMLElement,{onChange=()=
   function stopClock(capture=true){if(capture)captureChallenge();if(timer!==undefined)doc.defaultView!.clearInterval(timer);timer=undefined;anchor=null;}
   function syncClock(){
     if(active&&baseline==='question'&&state.challenge.phase==='running'&&state.challenge.playback==='live'){
-      if(anchor!==null)return;anchor=doc.defaultView!.performance.now();timer=doc.defaultView!.setInterval(()=>{captureChallenge();quiz.render(state.challenge,baseline);if(state.challenge.phase==='expired'){stopClock(false);onChange();onSceneRequest('reason');}},100);
+      if(anchor!==null)return;anchor=doc.defaultView!.performance.now();timer=doc.defaultView!.setInterval(()=>{captureChallenge();quiz.render(state.challenge,baseline);if(state.challenge.phase==='expired'){stopClock(false);onChange();onSceneRequest('question');}},100);
     }else stopClock();
   }
+  function skipChallenge(){captureChallenge();if(state.challenge.phase==='ready'||state.challenge.phase==='running'){stopClock(false);commit({...state,challenge:{...state.challenge,phase:'skipped',playback:'paused',promptTarget:state.challenge.promptTarget??state.target}});}onSceneRequest('question');}
   let worldSignature='';const edgeControls=new Map<string,HTMLInputElement>();
   function commit(next:WeekdayWorldsState){state=normalizeWeekdayState(next);sync();onChange();}
   function syncDialog(){
@@ -116,7 +116,7 @@ export function mountWeekdayWorldsExperiment(container:HTMLElement,{onChange=()=
       ['양상 논리 없이',`이 세계의 오늘은 ${WEEKDAYS[state.target]}이다.`, 'P: 평가하는 세계 하나에서 확인'],
       ['양상 논리를 사용해',`오늘이 ${WEEKDAYS[state.target]}인 세계가 가능한가?`, '◇P: 접근 세계 중 하나 이상 · □P: 접근 세계 모두'],
     ]){const card=make('div');card.append(make('h3',heading),make('p',text),make('small',note));comparison.append(card);}
-    intro.render((baseline==='question'||baseline==='reason')&&state.challenge.promptTarget!==null?{...state,target:state.challenge.promptTarget}:state,baseline);quiz.render(state.challenge,baseline);introSource.hidden=!early;introReasoning.hidden=!early||baseline==='question'||baseline==='reason';quote.hidden=early||bridgeStage;quote.setAttribute('aria-label',formal?'문장과 논리 기호의 대응':'문장 속 날짜의 기준');settings.hidden=!formal;footer.hidden=early||bridgeStage;hint.hidden=!formal;right.hidden=bridgeStage||early&&(baseline==='question'||baseline==='reason');logicDiagram.hidden=!formal;comparison.hidden=baseline!=='modal-comparison';result.hidden=early||bridgeStage;
+    intro.render((baseline==='question'||baseline==='reason')&&state.challenge.promptTarget!==null?{...state,target:state.challenge.promptTarget}:state,baseline);introSource.dataset.opening=baseline==='question'&&['answered','expired','skipped'].includes(state.challenge.phase)?'reflection':'challenge';quiz.render(state.challenge,baseline);introSource.hidden=!early;introReasoning.hidden=!early||baseline==='question'||baseline==='reason';quote.hidden=early||bridgeStage;quote.setAttribute('aria-label',formal?'문장과 논리 기호의 대응':'문장 속 날짜의 기준');settings.hidden=!formal;footer.hidden=early||bridgeStage;hint.hidden=!formal;right.hidden=bridgeStage||early&&(baseline==='question'||baseline==='reason');logicDiagram.hidden=!formal;comparison.hidden=baseline!=='modal-comparison';result.hidden=early||bridgeStage;
     if(!formal&&dialog.open)dialog.close();
     const value=weekdayDeductions(state),m=weekdayModal(state,state),c=state.contexts;container.dataset.narrow=state.narrowPanel;container.dataset.representation=state.representation;container.dataset.logicMode=effectiveMode;
     comparison.hidden=baseline!=='modal-comparison';
@@ -152,7 +152,7 @@ export function mountWeekdayWorldsExperiment(container:HTMLElement,{onChange=()=
   for(const [id,button]of buttons)button.addEventListener('click',()=>{const e=EXAMPLES[id==='imagined-yesterday'?'wednesday':id==='same-context'?'literal':'sunday'],targetDay=state.target,actualDay=id==='same-context'?state.actual:interpretWeekdayWorlds({actual:state.actual,target:targetDay,contexts:PRESET_CONTEXTS[id]}).actualCandidates[0];const example=state.example;load(id==='imagined-yesterday'?'wednesday':id==='same-context'?'literal':'sunday');const delta=targetDay-e.target;commit({...state,example,target:targetDay,actual:actualDay,worlds:state.worlds.map(w=>({id:w.id,today:id==='same-context'?actualDay:((w.today+delta)%7+7)%7})),customized:true});});
   reset.addEventListener('click',()=>{state={...state,modeSource:'scene'};load(baseline);onChange();});sync();
   return {
-    getState(){captureChallenge();return clone(state);},setActive(next:boolean){active=next;syncClock();},beforeNext(){if(baseline!=='question')return;captureChallenge();if(state.challenge.phase==='ready'||state.challenge.phase==='running')commit({...state,challenge:{...state.challenge,phase:'skipped',playback:'paused',promptTarget:state.challenge.promptTarget??state.target}});},validateState(next:unknown){normalizeWeekdayState(next);},setState(next:unknown){const normalized=normalizeWeekdayState(next);stopClock(false);state=normalized;sync();onChange();},
+    getState(){captureChallenge();return clone(state);},setActive(next:boolean){active=next;syncClock();},beforeNext(){if(baseline==='question'&&(state.challenge.phase==='ready'||state.challenge.phase==='running')){skipChallenge();return true;}return false;},validateState(next:unknown){normalizeWeekdayState(next);},setState(next:unknown){const normalized=normalizeWeekdayState(next);stopClock(false);state=normalized;sync();onChange();},
     suggest(suggestion?:Scene['suggestion']){if(suggestion&&!('example'in suggestion))throw new TypeError('Expected weekday example');const example=suggestion?.example??baseline;if(!Object.hasOwn(EXAMPLES,example))throw new RangeError('Unknown weekday example');baseline=example;if(!state.customized&&state.example!==example)load(example);else{if(state.modeSource==='scene')state={...state,logicMode:sceneMode(example)};sync();}},
     reset(){stopClock(false);state={...state,modeSource:'scene',challenge:freshWeekdayChallenge()};load(baseline);},seek(ms:number){const challenge=weekdayChallengeAt(ms,state.target);stopClock(false);state={...state,challenge};sync();onChange();},inspect(){captureChallenge();return {...clone(state),result:interpretWeekdayWorlds(state),modal:weekdayModal(state,state),alignment:alignment.getState()};},
     describe(scene:Scene){const value=interpretWeekdayWorlds(state);

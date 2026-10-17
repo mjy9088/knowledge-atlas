@@ -301,3 +301,17 @@
 .weekday-challenge-summary{font-size:16px;font-weight:600;margin:0 0 8px}.weekday-challenge-reflection label{display:block;font-size:13px}.weekday-challenge-reflection textarea{display:block;box-sizing:border-box;width:100%;height:64px;resize:none;overflow:auto;border:1px solid #b5c9b3;border-radius:8px;background:#fff;color:#304c3c;font:inherit;line-height:1.5;padding:7px 10px;margin:5px 0 8px}.weekday-challenge-reflection>button{min-height:32px}
 @media(min-width:721px) and (max-height:650px){.weekday-challenge{margin-top:10px}.weekday-challenge-toolbar button,.weekday-challenge-choices button{min-height:30px;font-size:11px}.weekday-challenge-hint{font-size:10px}.weekday-challenge-time{font-size:21px}.weekday-challenge-summary{font-size:14px}.weekday-challenge-reflection label{font-size:11px}.weekday-challenge-reflection textarea{height:56px}}
 @media(max-width:720px){.weekday-challenge{margin-top:12px}.weekday-challenge-toolbar{font-size:11px;gap:8px}.weekday-challenge-time{font-size:21px}.weekday-challenge-choices{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}.weekday-challenge-choices button,.weekday-challenge-toolbar button{font-size:12px;min-height:32px}.weekday-challenge-hint{font-size:10px}.weekday-challenge-summary{font-size:13px}.weekday-challenge-reflection label{font-size:12px}}
+
+/* The opening is one full-canvas page, with no reserved explanation band. */
+.reader-enhanced .related-reader[data-focus-reader][data-opening]{grid-template-rows:minmax(0,1fr)}
+.reader-enhanced [data-focus-reader][data-opening]>.reader-workbench{grid-column:1;grid-row:1}
+.reader-enhanced [data-focus-reader][data-opening]>.reader-action-rail{grid-column:2;grid-row:1;align-self:end;height:104px}
+.weekday-intro-source[data-opening]>.weekday-intro-heading{display:none}
+.weekday-intro-source[data-opening=reflection]>.weekday-intro-quote,.weekday-intro-source[data-opening=reflection]>.weekday-intro-question{display:none}
+.weekday-intro-source[data-opening=reflection]{background:transparent;border:0;padding:24px;text-align:center}
+.weekday-intro-source[data-opening=reflection] .weekday-challenge{margin:0}
+.weekday-challenge-reflection h2{font-size:clamp(24px,3vw,44px);line-height:1.5;margin:0 0 28px;word-break:keep-all}
+.weekday-challenge-reflection h2:focus{outline:none}
+.weekday-challenge-skip{display:block;margin:16px 0 0 auto}
+@media(min-width:721px) and (max-height:650px){.reader-enhanced [data-focus-reader][data-opening]>.reader-action-rail{height:96px}}
+@media(max-width:720px){.reader-enhanced [data-focus-reader][data-opening]>.reader-action-rail{height:136px}.weekday-challenge-reflection h2{font-size:26px}.weekday-intro-source[data-opening=reflection]{padding:12px}}

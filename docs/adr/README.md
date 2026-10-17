@@ -32,3 +32,4 @@ The initial decisions were introduced on 2026-10-16; later additions carry their
 | [0025](0025-weekday-modal-introduction.md) | A short modal-logic introduction, narrative defaults and persistent reader overrides |
 | [0026](0026-compact-reader-actions.md) | Compact weekday actions, button-only help and unobstructed alignment |
 | [0027](0027-weekday-challenge-and-modal-foundations.md) | Timed opening, gradual symbols/rules/worlds, and deduced modal examples |
+| [0028](0028-single-page-weekday-opening.md) | Single-page challenge/reflection without a fixed explanation band |

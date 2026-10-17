@@ -2,6 +2,8 @@
 
 Date: 2026-10-17. Status: implemented locally; content review and publication pending.
 
+The opening-page structure is superseded by [ADR 0028](0028-single-page-weekday-opening.md). Modal semantics and legacy state validation below remain applicable.
+
 ## Narrative and semantics
 
 Supersede the wish/counterfactual presentation in ADRs 0021/0025. Keep those historical claims and independent mathematical fixtures, but remove Wish and closest-world operators from the active article. The authored explanation explicitly simplifies the original to “만약 어제가 내일이라면, 오늘이 금요일이다.”; this is a teaching choice, not an equivalence claim. Use “가정한 오늘”.
