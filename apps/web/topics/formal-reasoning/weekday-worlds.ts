@@ -8,6 +8,7 @@ import {mountWeekdaySentence,type WeekdayRepresentation,type WeekdayLogicMode} f
 import {weekdayClassicalProof} from '/packages/models/weekday-classical.js';
 import {mountWeekdayBridge} from './weekday-bridge.js';
 import {mountWeekdayIntro} from './weekday-intro.js';
+import {mountWeekdayReferenceContrast} from './weekday-reference-contrast.js';
 import {mountWeekdayLogic} from './weekday-logic.js';
 import {mountWeekdayFrameSystems} from './weekday-systems.js';
 import {modalFrameSystems} from '/packages/models/modal-frame-systems.js';
@@ -85,6 +86,7 @@ export function mountWeekdayWorldsExperiment(container:HTMLElement,{onChange=()=
     onAnswer(day){captureChallenge();const challenge=answerWeekdayChallenge(state.challenge,day);if(challenge.phase!=='answered'&&challenge.phase!=='expired')return;stopClock(false);commit({...state,challenge});onSceneRequest('question');},
   });introSource.append(challengePanel);
   const comparison=make('section',undefined,'weekday-interpretation-comparison');comparison.setAttribute('aria-label','양상 논리 사용 전후의 읽기 비교');visual.insertBefore(comparison,logicDiagram);
+  const referenceContrast=mountWeekdayReferenceContrast(container);
   const bridgeContainer=make('div'),bridge=mountWeekdayBridge(bridgeContainer);left.prepend(bridgeContainer);
   const alignment=mountSemanticAlignment(container,WEEKDAY_ALIGNMENT,sentence.alignmentStatus,{instruction:''});
   const dialog=make('dialog',undefined,'reader-panel weekday-world-dialog'),close=make('button','설정 닫기'),dialogAdd=make('button','설정에서 세계 추가'),dialogWorlds=make('div',undefined,'weekday-dialog-worlds'),matrix=make('div',undefined,'weekday-access-matrix');close.type=dialogAdd.type='button';close.className='reader-panel-close';dialog.append(close,make('h2','세계와 직접 접근 관계'),make('p','최대 4세계. 삭제된 세계를 참조한 표현·평가기준은 현실로 옮깁니다. 새 세계는 평가점에서 접근하도록 연결합니다.'),dialogAdd,dialogWorlds,make('h3','행에서 열로 접근 (R)'),matrix);doc.body.append(dialog);close.addEventListener('click',()=>dialog.close());configure.addEventListener('click',()=>dialog.showModal());
@@ -115,10 +117,10 @@ export function mountWeekdayWorldsExperiment(container:HTMLElement,{onChange=()=
   function sync(){
     for(const {popup}of contextControls)popup.close();targetPopup.close();
     container.dataset.lessonStage=baseline;frameStatus.hidden=baseline!=='frame-system';frameSystems.render(state,state);const bridgeStage=bridgeScenes.has(baseline),early=introScenes.has(baseline),formal=!early&&!bridgeStage&&baseline!=='contexts',effectiveMode=sceneMode(baseline);container.dataset.disclosure=bridgeStage?'bridge':early?'intro':formal?'formal':'worlds';bridgeContainer.hidden=!bridgeStage;bridge.render(state,baseline);
-    comparison.replaceChildren();
+    referenceContrast.close();comparison.replaceChildren();
     const accessible=weekdayModal(state,state).accessible,terms=accessible.map(id=>`P(${worldSymbol(id)})`),card=make('div');card.append(make('h3','양상 논리 없이 풀어 쓰기 ↔ 양상 논리로 표현'));
     for(const [name,expanded,modal]of [['하나 이상',terms.join(' ∨ ')||'⊥','◇P'],['모두',terms.join(' ∧ ')||'⊤','□P']]){const row=make('p');row.dataset.modalExpansion=modal;worldText(row,`${name}: ${expanded} ↔ ${modal}`);card.append(row);}
-    card.append(make('small',`P(w): 그 세계의 오늘은 ${WEEKDAYS[state.target]} · 지금 접근하는 세계들에 대해 전개. 같은 뜻을 세계가 늘어도 같은 연산자로 표현합니다.`));comparison.append(card);
+    card.append(make('small',`P(w): 그 세계의 오늘은 ${WEEKDAYS[state.target]} · 지금 접근하는 세계들에 대해 전개. 같은 뜻을 세계가 늘어도 같은 연산자로 표현합니다.`));const contrastButton=make('button','기준 변경과 양상 비교 ↗','weekday-reference-contrast-open');contrastButton.type='button';contrastButton.addEventListener('click',()=>referenceContrast.open(state.target));card.append(contrastButton);comparison.append(card);
     intro.render((baseline==='question'||baseline==='reason')&&state.challenge.promptTarget!==null?{...state,target:state.challenge.promptTarget}:state,baseline);introSource.dataset.opening=baseline==='question'&&['answered','expired','skipped'].includes(state.challenge.phase)?'reflection':'challenge';quiz.render(state.challenge,baseline);introSource.hidden=!early;introReasoning.hidden=!early||baseline==='question'||baseline==='reason';quote.hidden=early||bridgeStage;quote.setAttribute('aria-label',formal?'문장과 논리 기호의 대응':'문장 속 날짜의 기준');settings.hidden=!formal;footer.hidden=early||bridgeStage;hint.hidden=!formal;right.hidden=bridgeStage||early&&(baseline==='question'||baseline==='reason');logicDiagram.hidden=!formal||baseline==='frame-system';comparison.hidden=baseline!=='modal-comparison';result.hidden=early||bridgeStage||baseline==='frame-system';
     if(!formal&&dialog.open)dialog.close();
     const value=weekdayDeductions(state),m=weekdayModal(state,state),c=state.contexts;container.dataset.narrow=state.narrowPanel;container.dataset.representation=state.representation;container.dataset.logicMode=effectiveMode;

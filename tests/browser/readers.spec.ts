@@ -151,6 +151,21 @@ test('weekday modal notation expands over exactly the current accessible worlds'
   await page.evaluate(state=>window.__atlasRelated.setState(state),saved);await expect(some).toContainText('P(w₃)');await expectFrame(page,weekdayFrame);
 });
 
+test('weekday target stays transparent and optional reference comparison separates date contexts from accessibility',async({page})=>{
+  await page.goto('/knowledge/weekday-worlds/#modal-comparison');await page.waitForFunction(()=>window.__atlasRelated);
+  for(const selector of ['.weekday-target-trigger','.weekday-target-select'])expect(await page.locator(selector).evaluate(e=>getComputedStyle(e).backgroundColor)).toBe('rgba(0, 0, 0, 0)');
+  await page.getByRole('combobox',{name:'문장 속 목표 요일',exact:true}).selectOption('0');
+  const saved=await page.evaluate(()=>window.__atlasRelated.getState()),opener=page.getByRole('button',{name:'기준 변경과 양상 비교 ↗',exact:true});await opener.click();
+  const dialog=page.getByRole('dialog',{name:'기준 변경과 양상 논리 비교',exact:true});await expect(dialog).toBeVisible();
+  const dates=dialog.getByRole('table',{name:'기준에 따른 날짜 식과 답',exact:true});await expect(dates).toContainText('t − 1 ≡₇ h + 1');await expect(dates).toContainText('h − 1 ≡₇ t + 1');await expect(dates).toContainText('수요일');await expect(dates).toContainText('토요일');
+  const modal=dialog.getByRole('table',{name:'접근 범위에 따른 비양상 전개와 양상 판정',exact:true});await expect(modal.locator('tbody tr').nth(0)).toContainText('◇P: 참');await expect(modal.locator('tbody tr').nth(0)).toContainText('□P: 거짓');await expect(modal.locator('tbody tr').nth(1)).toContainText('□P: 참');
+  expect(await page.evaluate(()=>window.__atlasRelated.getState())).toEqual(saved);
+  const body=dialog.locator('.weekday-reference-contrast-body');await body.evaluate(e=>e.scrollTop=e.scrollHeight);await expect(dialog.getByRole('button',{name:'비교 자료 닫기',exact:true})).toBeInViewport();
+  const bounds=await dialog.boundingBox(),viewport=page.viewportSize()!;expect(bounds!.x).toBeGreaterThanOrEqual(0);expect(bounds!.y).toBeGreaterThanOrEqual(0);expect(bounds!.x+bounds!.width).toBeLessThanOrEqual(viewport.width);expect(bounds!.y+bounds!.height).toBeLessThanOrEqual(viewport.height);expect(await body.evaluate(e=>e.scrollWidth<=e.clientWidth)).toBe(true);
+  await page.keyboard.press('Escape');await expect(dialog).toBeHidden();await expect(opener).toBeFocused();await opener.click();await dialog.getByRole('button',{name:'비교 자료 닫기',exact:true}).click();await expect(dialog).toBeHidden();
+  await opener.click();await page.evaluate(()=>window.__atlasRelated.setState({sceneId:'contexts'}));await expect(dialog).toBeHidden();await expectFrame(page,weekdayFrame);
+});
+
 test('weekday bridge symbols and their A/B meaning lines highlight along the same paths',async({page})=>{
   await page.goto('/knowledge/weekday-worlds/#notation');await page.waitForFunction(()=>window.__atlasRelated);
   for(const [role,text]of [['antecedent','A: t − 1 ≡₇ h + 1'],['consequent','B: h ≡₇ 4']]){

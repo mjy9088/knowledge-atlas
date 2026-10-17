@@ -12,6 +12,8 @@ The later `contexts` scene is now an explicit nonmodal model: world-indexed toda
 
 ## Scope and checks
 
+An optional reference dialog supplements the compact comparison. It shows both calendar reference directions with their deduced days, then fixes the first direction and compares two declared accessibility sets. The reader's target day is reused, while the illustrative frames remain independent of saved edits. Compute answers and modal verdicts with the existing models rather than hardcoding labels. Preserve reader state, retain a fixed accessible close control with a bounded scroll body, and dismiss the sheet on state/navigation changes. This is a reference aid rather than an additional required scene.
+
 This is a bounded expansion at a fixed evaluation point and current direct relation, not a translation of the full riddle, a change to the calendar answer, or an expressiveness claim against classical first-order logic. Formula notation P(w) denotes evaluating the weekday proposition at w. Existing deduced-modal clauses and review limits remain in force.
 
 Check early disclosure, concrete A/B definitions, preserved edited contexts, hover/focus correspondence, finite expansion with changed and empty accessibility, restored state, and all scene geometry. Use standalone Playwright on the static build at desktop/narrow and the 200% capture baseline. Maintain deterministic scene/state contracts and keep source/expert/publication review separate from tests.
