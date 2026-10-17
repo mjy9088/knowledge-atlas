@@ -1,0 +1,55 @@
+{
+  "id": "article:statistics.two-children.ko",
+  "conceptId": "concept:statistics.two-children",
+  "title": "적어도 한 명이 아들: 그걸 어떻게 알았나요?",
+  "reviewStatus": "needs-content-review",
+  "scope": "동일한 문장도 선별·관측 절차에 따라 다른 조건부확률이 될 수 있음을 설명한다.",
+  "blocks": [
+    {
+      "id": "block:statistics.two-children.question",
+      "text": "“자녀 둘 중 적어도 한 명이 아들이다. 둘 다 아들일 확률은?” 답을 정하기 전에 이 정보를 얻은 절차를 물어 보자.",
+      "claimRefs": [
+        "claim:statistics.two-children.family-filter",
+        "claim:statistics.two-children.family-child"
+      ]
+    },
+    {
+      "id": "block:statistics.two-children.model",
+      "text": "각 자녀의 성별을 독립인 두 결과로 단순화하고 각각 1/2로 둔다. 출생순으로 BB,BG,GB,GG 네 가족이 균등하다. 현실 인구 통계와 혼동하지 않는다.",
+      "claimRefs": [
+        "claim:statistics.two-children.family-model"
+      ]
+    },
+    {
+      "id": "block:statistics.two-children.filter",
+      "text": "가족을 균등 추출해 질문하고 예라고 한 가족만 남긴다. BB,BG,GB가 같은 가중치로 남아 두 아들은 1/3이다.",
+      "claimRefs": [
+        "claim:statistics.two-children.family-filter"
+      ]
+    },
+    {
+      "id": "block:statistics.two-children.child",
+      "text": "가족을 균등 추출한 뒤 그 집 자녀 한 명을 균등하게 골랐다. 아들을 관측할 가능성은 BB에서 1, BG와 GB에서는 1/2. 남은 세 가족이 균등하지 않아 두 아들은 1/2이다.",
+      "claimRefs": [
+        "claim:statistics.two-children.family-child"
+      ]
+    },
+    {
+      "id": "block:statistics.two-children.missing",
+      "text": "왜 아들 이야기를 했는지 규칙이 없다. 가족별로 그 말을 할 확률을 모르면 하나의 답을 확정할 수 없다. 정보가 참이어도 보고 확률이 같다고 가정할 수는 없다.",
+      "claimRefs": [
+        "claim:statistics.two-children.family-filter",
+        "claim:statistics.two-children.family-child"
+      ]
+    },
+    {
+      "id": "block:statistics.two-children.transfer",
+      "text": "모집단에서 무엇을 골랐고 어떤 절차로 관측했는지 적자. 기존 base-rates 콘텐츠처럼 관측된 쪽의 분모를 다시 만든다. 문장만 같다고 같은 정보 실험은 아니다.",
+      "claimRefs": [
+        "claim:statistics.two-children.family-child",
+        "claim:statistics.two-children.family-filter"
+      ]
+    }
+  ],
+  "relatedConcepts": []
+}
