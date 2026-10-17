@@ -20,6 +20,12 @@ const cover=document.createElement('section');cover.className='reader-cover';cov
 let coverVisible=Boolean(page.cover&&(!requestedHash||requestedHash==='#title'));
 if(page.cover){cover.append(required('.reader-intro>.eyebrow'),required('.reader-intro h1'));root.insertBefore(cover,$('reader-workbench'));const titleLink=document.createElement('a');titleLink.href='#title';titleLink.textContent='제목';required('.reader-menu nav').prepend(titleLink);}
 if(page.cover&&page.coverArtwork){const artwork=document.createElement('img');artwork.className='reader-cover-artwork';artwork.src=page.coverArtwork.src;artwork.alt=page.coverArtwork.alt;artwork.width=1200;artwork.height=1000;cover.classList.add('reader-cover-illustrated');cover.append(artwork);}
+if(page.interactive==='weekday-worlds'){
+  root.dataset.focusReader='true';
+  const rail=document.createElement('aside');rail.className='reader-action-rail';rail.setAttribute('aria-label','목차와 설명 이동');
+  rail.append(required('.reader-menu'),$('reader-controls'));root.append(rail);
+  const chrome=required('.page-chrome');chrome.classList.add('reader-reveal-chrome');chrome.setAttribute('aria-label','상단 탐색 메뉴');
+}
 const original=scenes.map(node=>({title:required('h2',node).textContent,text:required('.scene-prose',node).textContent,claims:node.dataset.claimRefs??''}));
 const feedback=scenes.map(node=>mountEvaluationFeedback({content:required('.scene-prose',node),message:required('.scene-result',node)}));
 const panels=mountReaderPanels([{element:$('connections'),title:'연관 지식'},{element:$('evidence'),title:'근거와 범위'}]);

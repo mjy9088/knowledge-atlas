@@ -27,3 +27,4 @@ The initial decisions were introduced on 2026-10-16; later additions carry their
 | [0020](0020-article-titles-and-vector-artwork.md) | Short titles and topic-owned vector artwork |
 | [0021](0021-source-modal-translation.md) | Switch the original sentence's modal translation |
 | [0022](0022-inferred-calendar-and-inline-contexts.md) | Inferred calendar days and reference choices inside the original sentence |
+| [0023](0023-focus-reader-and-scaled-capture.md) | Focus reader and 1920×1080 landscape capture at 200% scale |

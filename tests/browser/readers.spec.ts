@@ -78,7 +78,7 @@ test('weekday Next keeps the same bounds on title, every scene, both modes and f
   await page.goto('/knowledge/weekday-worlds/');await page.waitForFunction(()=>window.__atlasRelated);
   const baseline=await page.locator('#reader-next').boundingBox();expect(baseline).not.toBeNull();
   const bottomGap=page.viewportSize()!.height-baseline!.y-baseline!.height;
-  expect(bottomGap).toBeGreaterThanOrEqual(16);expect(bottomGap).toBeLessThanOrEqual(24);
+  expect(bottomGap).toBeGreaterThanOrEqual(6);expect(bottomGap).toBeLessThanOrEqual(18);
   async function stable(){const box=await page.locator('#reader-next').boundingBox();expect(box).not.toBeNull();for(const key of ['x','y','width','height'] as const)expect(Math.abs(box![key]-baseline![key]),key).toBeLessThan(.1);}
   await page.locator('#reader-next').click();
   for(const scene of CONTENT_PAGES.find(p=>p.slug==='weekday-worlds')!.scenes){
@@ -98,7 +98,7 @@ test('article navigation places hints beside Previous and final links before rel
     await page.evaluate(sceneId=>window.__atlasRelated.setState({sceneId}),topic.scenes.at(-1)!.id);
     await expect(links).toBeVisible();await expect(links.locator('a')).toHaveText(['지식 목록 ↗','근거와 범위']);
     const prev=await page.locator('#reader-prev').boundingBox(),help=await hint.boundingBox(),end=await links.boundingBox(),next=await page.locator('#reader-next').boundingBox();
-    expect(help!.x).toBeGreaterThanOrEqual(prev!.x+prev!.width);expect(end!.x+end!.width).toBeLessThanOrEqual(next!.x);expect(Math.abs(help!.y+help!.height/2-next!.y-next!.height/2)).toBeLessThan(1);
+    if(slug==='weekday-worlds'){expect(help!.y).toBeGreaterThanOrEqual(prev!.y+prev!.height);expect(end!.y+end!.height).toBeLessThanOrEqual(next!.y);const rail=await page.locator('.reader-action-rail').boundingBox(),copy=await page.locator('#reader-scenes').boundingBox();expect(rail!.x).toBeGreaterThanOrEqual(copy!.x+copy!.width);}else{expect(help!.x).toBeGreaterThanOrEqual(prev!.x+prev!.width);expect(end!.x+end!.width).toBeLessThanOrEqual(next!.x);expect(Math.abs(help!.y+help!.height/2-next!.y-next!.height/2)).toBeLessThan(1);}
     await expectFrame(page,{content:['#reader-controls','#reader-end-links','#reader-skip-scope'],controls:['#reader-controls button','#reader-end-links a']});
     await links.getByRole('link',{name:'근거와 범위',exact:true}).click();await expect(page.locator('dialog[open]')).toContainText('주장별 조건과 근거 위치');await page.keyboard.press('Escape');
     if(slug==='weekday-worlds')await testInfo.attach('weekday-final-navigation',{body:await page.screenshot(),contentType:'image/png'});

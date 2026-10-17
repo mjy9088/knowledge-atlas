@@ -34,7 +34,7 @@ export function mountWeekdaySentence(container:HTMLElement,{onRepresentationChan
     const wishPart=markAlignment(doc.createElement('span'),logicMode==='alethic'?'wish-marker':'conditional-connective','source'),ifPart=markAlignment(doc.createElement('span'),'conditional-connective','source'),thenPart=markAlignment(doc.createElement('span'),'conditional-connective','source');wishPart.textContent='이었으면 좋겠다.';ifPart.textContent=' 그럼 ';thenPart.textContent='일 텐데';sentenceRoot.append(a,wishPart,ifPart,b,thenPart);line.append('“',sentenceRoot,'…”');
     const question=markAlignment(doc.createElement('p'),'query','source');question.className='weekday-sentence-question alignment-node';question.append('그렇다면 ',word('④ 오늘',c.question,value(c.question,1),'query-today'),'은 무슨 요일일까?');
     const worldSet=`W = {${result.worlds.map(w=>worldSymbol(w.id)).join(', ')}}`;
-    const legend=doc.createElement('p');legend.className='weekday-sentence-legend';legend.textContent='각 표현 아래에서 기준 선택 · 요일은 Γ의 모든 해에서 추론';source.replaceChildren(line,question,legend);
+    source.replaceChildren(line,question);
     const clauses=doc.createElement('div');clauses.className='weekday-symbol-constraints';const clauseRoot=markAlignment(doc.createElement('div'),'constraints','symbol');
     for(const id of ['A','B'] as const){const clause=paragraph(id+': ','weekday-symbol-clause');clause.append(calendarClause(doc,input,id));clauseRoot.append(clause);}clauses.append(clauseRoot);
     const queryLine=doc.createElement('span');queryLine.className='weekday-symbol-query';queryLine.append(' · 질문: ',calendarQuery(doc,input));

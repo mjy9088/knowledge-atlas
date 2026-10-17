@@ -25,9 +25,11 @@ export default defineConfig({
     reuseExistingServer: false,
   }],
   projects: [
-    {name: 'fhd', use: {viewport: {width: 1920, height: 1080}}},
-    {name: 'desktop', use: {viewport: {width: 1920, height: 940}}},
-    {name: 'compact-desktop', use: {viewport: {width: 1920, height: 900}}},
-    {name: 'mobile', use: {viewport: {width: 390, height: 844}, isMobile: true, hasTouch: true}},
+    {name: 'fhd', testIgnore:'**/weekday-capture.spec.ts', use: {viewport: {width: 1920, height: 1080}}},
+    {name: 'desktop', testIgnore:'**/weekday-capture.spec.ts', use: {viewport: {width: 1920, height: 940}}},
+    {name: 'compact-desktop', testIgnore:'**/weekday-capture.spec.ts', use: {viewport: {width: 1920, height: 900}}},
+    {name: 'mobile', testIgnore:'**/weekday-capture.spec.ts', use: {viewport: {width: 390, height: 844}, isMobile: true, hasTouch: true}},
+    // 1920×1080 physical capture at 200% scale: layout at 960×540 CSS pixels.
+    {name:'youtube-200',testMatch:'**/weekday-capture.spec.ts',use:{viewport:{width:960,height:540},deviceScaleFactor:2}},
   ],
 });

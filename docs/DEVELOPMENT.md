@@ -32,7 +32,7 @@ Equivalent `npm run` commands work when npm is available. The dependency lockfil
 
 ## Browser regression contract
 
-`playwright.config.ts` builds and serves the actual static output on dedicated port 4190, with two Chromium workers. It also starts the development server on port 4191 for the local media smoke test. Stop unrelated services on these ports before running; the runner does not reuse an existing server. The projects use CSS viewports 1920×1080, 1920×940, 1920×900, and 390×844.
+`playwright.config.ts` builds and serves the actual static output on dedicated port 4190, with two Chromium workers. It also starts the development server on port 4191 for the local media smoke test. Stop unrelated services on these ports before running; the runner does not reuse an existing server. The general projects use CSS viewports 1920×1080, 1920×940, 1920×900, and 390×844. The dedicated `youtube-200` project tests the weekday focus reader at 960×540 CSS pixels and DPR 2, producing a 1920×1080 screenshot that represents the required 200% physical capture. DPR alone does not change layout: a 1920×1080 CSS viewport at DPR 2 is not this target.
 
 `tests/browser/readers.spec.ts` checks catalog entry navigation, optional experiments, local media preview, all focused-lesson and related-reader scenes, every related model preset, navigation, evidence panels, input invalidation, reset, and eight-premise editing. Orbital cases additionally cover eight chapters, current-state dialogue, cloud/slice/isosurface modes, camera controls, state restoration, invalid state rejection, and deterministic seeking. Typed-lambda cases cover every chapter/example, editable terms/contexts/goals, type errors with cleared results, rule/reduction navigation, and customized/default snapshot restoration. Prose-only physics scenes are checked for actual text and control fitting. A separate browser fixture exercises the same viewer with a non-orbital spherical field. It measures document extents and actual content scroll extents, plus control bounds and hit targets. Hiding overflowing content with CSS does not satisfy these checks. Default content must fit; deliberately expanded user collections and opened reference panels may scroll internally as specified in [Product](PRODUCT.md).
 
@@ -40,6 +40,7 @@ Run a focused project or inspect failures:
 
 ```sh
 pnpm test:ui --project=desktop
+pnpm test:ui --project=youtube-200
 pnpm exec playwright show-report
 pnpm exec playwright show-trace test-results/<failure>/trace.zip
 ```
@@ -59,6 +60,8 @@ Deployable files are generated in `dist/`; `build-manifest.json` records builder
 ## Local media production
 
 Open `/tools/media/` on the development server to generate WebM from the shared Canvas/WebCodecs timeline. This is a local helper, not a public page or an end-to-end headless CLI renderer. Supported output profiles are 1080×1440 and 1920×1080 at 24/30 fps. Current output is silent; audio/TTS production is not implemented. Packets are held in memory, so long renders and low-memory devices are limited.
+
+For future weekday/article YouTube production, use the landscape 1920×1080-at-200% baseline: restore each deterministic source state, lay out at 960×540 CSS pixels, and capture at DPR 2. The focus reader and Playwright profile are implemented; a DOM video capture/encoding adapter, narration and upload are not. The existing Canvas renderer profiles above remain separate legacy production paths. See [ADR 0023](adr/0023-focus-reader-and-scaled-capture.md).
 
 Convert an existing WebM locally:
 
