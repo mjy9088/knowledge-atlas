@@ -34,3 +34,4 @@ The initial decisions were introduced on 2026-10-16; later additions carry their
 | [0027](0027-weekday-challenge-and-modal-foundations.md) | Timed opening, gradual symbols/rules/worlds, and deduced modal examples |
 | [0028](0028-single-page-weekday-opening.md) | Single-page challenge/reflection without a fixed explanation band |
 | [0029](0029-classical-review-and-weekday-derivation.md) | Skippable classical review and a nonmodal weekday derivation |
+| [0030](0030-modal-systems-and-frame-conditions.md) | Normal-K baseline, modal-system comparison and editable frame conditions |

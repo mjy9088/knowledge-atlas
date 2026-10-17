@@ -5,7 +5,7 @@ async function fit(page:Page){
   const issues=await page.evaluate(()=>{
     const result:string[]=[];
     if(document.documentElement.scrollWidth>innerWidth||document.documentElement.scrollHeight>innerHeight)result.push('document overflow');
-    for(const node of document.querySelectorAll<HTMLElement>('.weekday-input-panel,.weekday-reasoning-panel,.weekday-original-section,.weekday-symbol-section,.weekday-intro-source,.weekday-intro-reasoning,.weekday-intro-step,.weekday-bridge,.weekday-bridge section,.weekday-interpretation-comparison,.reader-copy,.world-card,.reader-action-rail,.reader-cover')){
+    for(const node of document.querySelectorAll<HTMLElement>('.weekday-input-panel,.weekday-reasoning-panel,.weekday-original-section,.weekday-symbol-section,.weekday-intro-source,.weekday-intro-reasoning,.weekday-intro-step,.weekday-bridge,.weekday-bridge section,.weekday-system-table,.weekday-frame-systems,.weekday-interpretation-comparison,.reader-copy,.world-card,.reader-action-rail,.reader-cover')){
       if(!node.checkVisibility())continue;
       if(node.scrollHeight>node.clientHeight+1||node.scrollWidth>node.clientWidth+1)result.push(node.className+' content overflow '+node.scrollWidth+'x'+node.scrollHeight+' / '+node.clientWidth+'x'+node.clientHeight);
       const r=node.getBoundingClientRect();if(r.top<0||r.left<0||r.bottom>innerHeight+.1||r.right>innerWidth+.1)result.push(node.className+' outside viewport');

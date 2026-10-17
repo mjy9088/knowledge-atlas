@@ -47,7 +47,7 @@ const questionFrame={
   content:['#reader-workbench>div:last-child','#reader-workbench p','.reader-scene:not([hidden]) .reader-copy'],
   controls:['#reader-controls button','#reader-workbench button','#reader-workbench input','#reader-workbench select','.reader-menu summary'],
 };
-const weekdayFrame={content:[...questionFrame.content,'.weekday-bridge,.weekday-rule-table,.weekday-classical-proof','.weekday-intro-source','.weekday-intro-reasoning','.weekday-interpretation-comparison','.world-comparison','.weekday-sentence','.weekday-sentence-line','.weekday-sentence-question','.weekday-logic-diagram','.weekday-logic-premises','.weekday-logic-node','.weekday-logic-conclusion','.weekday-symbolic-summary','.weekday-settings','.weekday-input-panel','.weekday-reasoning-panel','.weekday-modal-diagram','.world-card','.world-cells','.world-cell','.world-note'],controls:[...questionFrame.controls.filter(selector=>selector!=='#reader-workbench input'),'.weekday-symbol-header']};
+const weekdayFrame={content:[...questionFrame.content,'.weekday-bridge,.weekday-rule-table,.weekday-classical-proof,.weekday-frame-systems','.weekday-intro-source','.weekday-intro-reasoning','.weekday-interpretation-comparison','.world-comparison','.weekday-sentence','.weekday-sentence-line','.weekday-sentence-question','.weekday-logic-diagram','.weekday-logic-premises','.weekday-logic-node','.weekday-logic-conclusion','.weekday-symbolic-summary','.weekday-settings','.weekday-input-panel','.weekday-reasoning-panel','.weekday-modal-diagram','.world-card','.world-cells','.world-cell','.world-note'],controls:[...questionFrame.controls.filter(selector=>selector!=='#reader-workbench input'),'.weekday-symbol-header']};
 for(const topic of questionTopics)test(`${topic.slug}: question-led scenes fit and restore their authored state`,async({page},testInfo)=>{
   const errors:string[]=[];page.on('pageerror',error=>errors.push(error.message));
   await page.goto(`/knowledge/${topic.slug}/`);await page.waitForFunction(()=>window.__atlasRelated);
@@ -70,7 +70,7 @@ for(const topic of questionTopics)test(`${topic.slug}: question-led scenes fit a
   expect(errors).toEqual([]);
 });
 
-async function weekdayInputs(page:Page){await expect(page.locator('.weekday-input-panel')).toBeVisible();if(['question','reason','conditional','notation','inference','nonmodal-proof','modal-rules'].includes((await page.locator('.weekday-experiment').getAttribute('data-lesson-stage'))!))await expect(page.locator('.weekday-reasoning-panel')).toBeHidden();else await expect(page.locator('.weekday-reasoning-panel')).toBeVisible();}
+async function weekdayInputs(page:Page){await expect(page.locator('.weekday-input-panel')).toBeVisible();if(['question','reason','conditional','notation','inference','nonmodal-proof','modal-rules','modal-systems'].includes((await page.locator('.weekday-experiment').getAttribute('data-lesson-stage'))!))await expect(page.locator('.weekday-reasoning-panel')).toBeHidden();else await expect(page.locator('.weekday-reasoning-panel')).toBeVisible();}
 async function weekdayReasoning(page:Page){await weekdayInputs(page);}
 
 test('weekday choice and reflection are one page without a fixed caption or writing field',async({page})=>{
@@ -83,7 +83,7 @@ test('weekday choice and reflection are one page without a fixed caption or writ
   for(const selector of ['.weekday-intro-quote','.weekday-intro-question','.weekday-challenge-quiz'])await expect(page.locator(selector)).toBeHidden();await expect(page.getByRole('textbox')).toHaveCount(0);
   await expect(page.locator('#reader-scenes')).toBeHidden();
   const saved=await page.evaluate(()=>window.__atlasRelated.getState());await page.clock.fastForward(30_000);expect(await page.evaluate(()=>window.__atlasRelated.getState())).toEqual(saved);
-  await page.locator('#reader-next').click();await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id','conditional');await expect(page.locator('.reader-scene:visible .eyebrow')).toHaveText('2 / 14');
+  await page.locator('#reader-next').click();await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id','conditional');await expect(page.locator('.reader-scene:visible .eyebrow')).toHaveText('2 / 16');
   await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(state=>window.__atlasRelated.setState(state),saved);await expect(page.getByRole('heading',{name:'왜 그렇게 생각하셨나요?',exact:true})).toBeVisible();
   await page.evaluate(state=>window.__atlasRelated.setState({...state,sceneId:'reason'}),saved);await expect(page).toHaveURL(/#question$/);await expect(page.getByRole('heading',{name:'왜 그렇게 생각하셨나요?',exact:true})).toBeVisible();
   await expect(page.locator('.reader-menu a[href="#question"]')).toHaveCount(1);await expect(page.locator('.reader-menu a[href="#reason"]')).toHaveCount(0);await expectFrame(page,weekdayFrame);
@@ -121,6 +121,28 @@ test('weekday review skip keeps edits and lands on a nonmodal worked proof befor
   await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(state=>window.__atlasRelated.setState({...state,sceneId:'nonmodal-proof'}),saved);await expect(page.locator('.weekday-classical-answer')).toContainText('수요일');
   await page.evaluate(()=>{const state=window.__atlasRelated.getState();if(!state.interaction||!('contexts'in state.interaction))throw new Error('Expected weekday state');window.__atlasRelated.setState({...state,interaction:{...state.interaction,contexts:{yesterday:0,tomorrow:0,consequent:0,question:0},customized:true}});});
   await expect(page.locator('.weekday-classical-proof')).toContainText('맞는 달력이 없습니다');await expect(page.locator('.weekday-classical-answer')).toHaveCount(0);await expectFrame(page,weekdayFrame);
+});
+
+test('weekday modal systems distinguish the K editor from current S4 or S5 frame conditions',async({page})=>{
+  await page.goto('/knowledge/weekday-worlds/#modal-systems');await page.waitForFunction(()=>window.__atlasRelated);
+  await expect(page.locator('.weekday-system-table tbody tr')).toHaveCount(6);await expect(page.locator('.weekday-system-table')).toContainText('K');await expect(page.locator('.weekday-system-table')).toContainText('T + B');
+  await page.locator('#reader-next').click();await expect(page).toHaveURL(/#frame-system$/);
+  const status=page.locator('.weekday-frame-systems');await expect(status).toContainText('편집기의 기본 보장: K');await expect(status.locator('[data-system="S4"]')).toHaveAttribute('data-satisfied','true');await expect(status.locator('[data-system="S5"]')).toHaveAttribute('data-satisfied','false');
+  await page.getByRole('button',{name:'세계 · 접근 관계',exact:true}).click();await page.getByRole('checkbox',{name:'가정 1 → 현실',exact:true}).check();await page.getByRole('button',{name:'설정 닫기',exact:true}).click();
+  await expect(status.locator('[data-system="S5"]')).toHaveAttribute('data-satisfied','true');
+  const saved=await page.evaluate(()=>window.__atlasRelated.getState());await page.locator('#reader-next').click();await page.evaluate(state=>window.__atlasRelated.setState(state),saved);await expect(status.locator('[data-system="S5"]')).toHaveAttribute('data-satisfied','true');
+  await page.getByRole('button',{name:'세계 · 접근 관계',exact:true}).click();for(const name of ['현실 → 현실','현실 → 가정 1','가정 1 → 현실','가정 1 → 가정 1'])await page.getByRole('checkbox',{name,exact:true}).uncheck();await page.getByRole('button',{name:'설정 닫기',exact:true}).click();
+  await expect(status.locator('[data-system="K"]')).toHaveAttribute('data-satisfied','true');await expect(status.locator('[data-system="D"]')).toHaveAttribute('data-satisfied','false');await expect(status.locator('[data-system="T"]')).toHaveAttribute('data-satisfied','false');await expectFrame(page,weekdayFrame);
+  await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(state=>window.__atlasRelated.setState(state),saved);await expect(status.locator('[data-system="S5"]')).toHaveAttribute('data-satisfied','true');
+});
+
+test('weekday bridge symbols and their A/B meaning lines highlight along the same paths',async({page})=>{
+  await page.goto('/knowledge/weekday-worlds/#notation');await page.waitForFunction(()=>window.__atlasRelated);
+  for(const [role,text]of [['antecedent','A: 어제가 내일이다.'],['consequent','B: 오늘이 금요일이다.']]){
+    const letter=page.locator(`.weekday-bridge-formula [data-alignment-node="${role}"]`),meaning=page.locator(`.weekday-bridge-definition[data-alignment-node="${role}"]`);
+    await letter.hover();await expect(meaning).toHaveText(text);await expect(meaning).toHaveAttribute('data-alignment-current','');await expect(page.locator('.weekday-bridge [data-alignment-side="source"][data-alignment-node="constraints"]')).toHaveAttribute('data-alignment-on-path','');
+    await meaning.focus();await expect(letter).toHaveAttribute('data-alignment-current','');await expectFrame(page,weekdayFrame);
+  }
 });
 
 test('weekday Next keeps the same bounds on title, every scene, both modes and final links',async({page},testInfo)=>{
@@ -213,7 +235,7 @@ test('deleting reference and evaluation worlds removes every UI reference and su
       for(let removed=1;removed<=id;removed++)await expect(page.locator(`.weekday-experiment [data-world="${removed}"]:not([data-create-world]),.weekday-world-dialog [data-world="${removed}"]`)).toHaveCount(0);
       await weekdayInputs(page);
     }
-    await page.locator('#reader-next').click();await expect(page.locator('.weekday-bridge')).toContainText('K 공리');await page.locator('#reader-next').click();
+    await page.locator('#reader-next').click();await expect(page.locator('.weekday-bridge')).toContainText('K 공리');await page.evaluate(()=>window.__atlasRelated.setState({sceneId:'transfer'}));
     const saved=await page.evaluate(()=>window.__atlasRelated.getState());await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(state=>window.__atlasRelated.setState(state),saved);expect(await page.evaluate(()=>window.__atlasRelated.getState())).toEqual(saved);await weekdayInputs(page);
     for(let removed=1;removed<=id;removed++)await expect(page.locator(`.weekday-experiment [data-world="${removed}"]:not([data-create-world]),.weekday-world-dialog [data-world="${removed}"]`)).toHaveCount(0);
   }
@@ -341,7 +363,7 @@ test('weekday editable worlds and accessibility preserve reference choices durin
   await page.getByRole('combobox',{name:'평가·접근 기준',exact:true}).selectOption('1');await expect(question.locator('option:enabled')).toHaveText(['가정 1 (②·③의 기준)']);
   await page.getByRole('button',{name:'세계 · 접근 관계',exact:true}).click();await page.getByRole('button',{name:'가정 2 삭제',exact:true}).click();await page.getByRole('button',{name:'설정 닫기',exact:true}).click();await expect(question).toHaveValue('0');
   await page.getByRole('combobox',{name:'세계 선택 목록',exact:true}).selectOption('all');await expect(question.locator('option:not([data-create-world])')).toHaveText(['현실 (①의 기준)','가정 1 (②·③의 기준)','가정 3']);
-  const saved=await page.evaluate(()=>window.__atlasRelated.getState());await page.locator('#reader-next').click();await expect(page.locator('.weekday-bridge')).toContainText('K 공리');await page.locator('#reader-next').click();await expect(question.locator('option:not([data-create-world])')).toHaveCount(3);await page.evaluate(s=>window.__atlasRelated.setState(s),saved);expect(await page.evaluate(()=>window.__atlasRelated.getState())).toEqual(saved);
+  const saved=await page.evaluate(()=>window.__atlasRelated.getState());await page.locator('#reader-next').click();await expect(page.locator('.weekday-bridge')).toContainText('K 공리');await page.evaluate(()=>window.__atlasRelated.setState({sceneId:'transfer'}));await expect(question.locator('option:not([data-create-world])')).toHaveCount(3);await page.evaluate(s=>window.__atlasRelated.setState(s),saved);expect(await page.evaluate(()=>window.__atlasRelated.getState())).toEqual(saved);
   await expectFrame(page,weekdayFrame);await weekdayReasoning(page);await expectFrame(page,weekdayFrame);await testInfo.attach('weekday-modal-multiworld',{body:await page.screenshot(),contentType:'image/png'});
 });
 
@@ -513,7 +535,7 @@ test('weekday contradiction briefly explains classical explosion and links to th
     await expect(page.locator('.weekday-logic-conclusion>.weekday-logic-formula')).toHaveText('조건을 만족하는 달력 없음');await expect(page.locator('.weekday-result')).toContainText('요일 답 추출 중지');
     await expectFrame(page,{...weekdayFrame,content:[...weekdayFrame.content,'.weekday-explosion-note'],controls:[...weekdayFrame.controls,'.weekday-explosion-note a']});
   }
-  const saved=await page.evaluate(()=>window.__atlasRelated.getState());await page.locator('#reader-next').click();await expect(page.locator('.weekday-bridge')).toContainText('K 공리');await page.locator('#reader-next').click();await expect(note).toBeVisible();
+  const saved=await page.evaluate(()=>window.__atlasRelated.getState());await page.locator('#reader-next').click();await expect(page.locator('.weekday-bridge')).toContainText('K 공리');await page.evaluate(()=>window.__atlasRelated.setState({sceneId:'transfer'}));await expect(note).toBeVisible();
   await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(state=>window.__atlasRelated.setState(state),saved);await weekdayReasoning(page);await expect(note).toBeVisible();
   await testInfo.attach('weekday-explosion-connection',{body:await page.screenshot(),contentType:'image/png'});
   await note.getByRole('link',{name:'모순 폭발 ↗',exact:true}).click();await expect(page).toHaveURL(/\/lesson\.html#explanation-explosion$/);await expect(page.locator('#dialogue-title')).toHaveText('⊥에서 Q: 폭발 규칙');
@@ -853,7 +875,7 @@ test('weekday introduces symbols and classical inference before worlds, then com
     if(scene.id==='conditional')await expect(page.locator('.weekday-bridge')).toContainText('만약 어제가 내일이라면, 오늘이 금요일이다.');
     if(scene.id==='notation'){
       await expect(page.locator('.weekday-bridge')).toContainText('A → B');
-      await page.locator('.weekday-bridge [data-alignment-side="symbol"][data-alignment-node="antecedent"]').hover();
+      await page.locator('.weekday-bridge-formula [data-alignment-side="symbol"][data-alignment-node="antecedent"]').hover();
       await expect(page.locator('.weekday-bridge [data-alignment-side="source"][data-alignment-node="antecedent"]')).toHaveAttribute('data-alignment-current','');
     }
     if(scene.id==='inference')for(const rule of ['전건 긍정','후건 부정','논리곱 도입','논리곱 제거','선언 삼단논법'])await expect(page.locator('.weekday-rule-table')).toContainText(rule);

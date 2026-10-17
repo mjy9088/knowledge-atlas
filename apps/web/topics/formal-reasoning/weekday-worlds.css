@@ -206,6 +206,16 @@
 @media(max-width:1100px){.weekday-modal-translation,.weekday-modal-note{display:none}.weekday-modal-diagram{grid-template-rows:auto minmax(72px,1fr) auto}.weekday-modal-diagram svg{max-height:125px}.weekday-modal-limit{grid-row:3}}@media(max-width:720px){.weekday-modal-diagram svg{max-height:94px}}
 
 .weekday-preset-row{display:flex;align-items:center;gap:7px;min-width:0}
+.weekday-system-table{width:100%;border-collapse:collapse;text-align:left;font-size:16px;line-height:1.5}
+.weekday-system-table td,.weekday-system-table th{padding:9px 10px;border-bottom:1px solid #d9e3d3}
+.weekday-system-table th{font-size:12px;color:#63745b}
+.weekday-system-table td:first-child{font-weight:700;white-space:nowrap}
+.weekday-frame-systems{background:#fff;border:1px solid #b8cab0;border-radius:10px;padding:10px 12px;flex:none}
+.weekday-frame-systems h3{font-size:15px;margin:0 0 8px}.weekday-frame-systems>p{font-size:12px;line-height:1.5;margin:5px 0}.weekday-frame-systems>small{display:block;font-size:10px;line-height:1.4;color:#63745b}
+.weekday-frame-classes{display:flex;flex-wrap:wrap;gap:5px}.weekday-frame-classes span{padding:4px 9px;border:1px solid #c6d3bf;border-radius:6px;font-size:13px}.weekday-frame-classes [data-satisfied=true]{background:#e4f0df;border-color:#8aad7b}.weekday-frame-classes [data-satisfied=false]{background:#f6eee7;color:#80583e}
+.weekday-frame-properties{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px 8px;margin:7px 0}.weekday-frame-properties p{font-size:12px;line-height:1.4;margin:0}
+@media(max-width:1100px){.weekday-system-table{font-size:12px}.weekday-system-table td,.weekday-system-table th{padding:6px 7px}.weekday-frame-systems{padding:7px 9px}.weekday-frame-systems h3{font-size:12px;margin-bottom:5px}.weekday-frame-classes span{font-size:11px;padding:2px 6px}.weekday-frame-properties p{font-size:10px}.weekday-frame-systems>p{font-size:10px}.weekday-frame-systems>small{font-size:9px}}
+@media(max-width:720px){.weekday-system-table{font-size:10px}.weekday-system-table td,.weekday-system-table th{padding:6px 4px}.weekday-system-table th{font-size:9px}.weekday-frame-systems{padding:6px 8px}.weekday-frame-systems h3{font-size:11px}.weekday-frame-classes{gap:3px}.weekday-frame-classes span{font-size:10px;padding:2px 5px}.weekday-frame-properties{gap:2px 5px;margin:5px 0}.weekday-frame-properties p{font-size:9px}.weekday-frame-systems>p{font-size:9px;margin:3px 0}.weekday-frame-systems>small{font-size:8px}}
 .reader-scene-heading #reader-skip{flex:none;max-width:160px;min-height:26px;padding:2px 6px;border:1px solid #b8cab0;border-radius:7px;background:#fff;color:#365c42;font:inherit;font-size:11px;line-height:1.4;cursor:pointer}
 .weekday-rule-table{width:100%;border-collapse:collapse;text-align:left;font-size:17px;line-height:1.5}
 .weekday-rule-table th,.weekday-rule-table td{padding:10px 12px;border-bottom:1px solid #d9e3d3}

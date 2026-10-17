@@ -1,6 +1,7 @@
 import {WEEKDAYS,type WeekdayInterpretation} from '/packages/models/weekday-worlds.js';
 import {markAlignment} from '../../components/alignment/semantic-alignment.js';
 import {weekdayClassicalProof} from '/packages/models/weekday-classical.js';
+import {SYSTEM_ROWS} from './weekday-systems.js';
 import {conditionalReading} from './weekday-alignment.js';
 
 // Short authored steps before exposing the full world editor.
@@ -10,13 +11,20 @@ export function mountWeekdayBridge(container:HTMLElement){
   function card(title:string,lines:string[]){const node=doc.createElement('section'),h=doc.createElement('h2');h.textContent=title;node.append(h,...lines.map(line=>p(line)));return node;}
   return {render(input:WeekdayInterpretation,scene:string){
     container.replaceChildren();container.dataset.step=scene;
+    if(scene==='modal-systems'){
+      const systems=card('가능세계 ≠ 공리 체계',[]),table=doc.createElement('table');table.className='weekday-system-table';const thead=doc.createElement('thead'),head=doc.createElement('tr');
+      for(const text of ['체계','K에 더하는 공리','접근 관계 R의 조건']){const th=doc.createElement('th');th.textContent=text;head.append(th);}thead.append(head);table.append(thead);const body=doc.createElement('tbody');
+      for(const row of SYSTEM_ROWS){const tr=doc.createElement('tr');for(const text of row){const td=doc.createElement('td');td.textContent=text;tr.append(td);}body.append(tr);}table.append(body);systems.append(table,p('공통 바탕: 고전 논리 + K 공리 + 전건 긍정 + 정리에 대한 필연화.'),p('같은 가능세계 방법도 관계 조건에 따라 달라집니다. B 체계는 여기서 K + T + B입니다.'));container.append(systems);return;
+    }
     if(scene==='modal-rules'){
-      container.append(card('양상 논리에도 추론 도구가 있습니다',[
+      container.append(card('이 편집기의 기본 추론 체계: K',[
+        '고전 논리의 추론 (전건 긍정 포함) + K 공리',
         'K 공리: □(P → Q) → (□P → □Q)',
         '모든 접근 세계에서 P이면 Q이고, 모두 P라면, 모두 Q입니다.',
         '필연화 규칙: 가정 없이 증명한 정리 P에서 □P로',
         '“오늘은 금요일”이라고 가정했다고 □를 붙일 수는 없습니다.',
-        '체계에 따라 더하는 공리도 다릅니다. 예: T, □P → P는 자기 자신으로의 접근이 있을 때 보장됩니다.',
+        '◇P는 ¬□¬P로 정의합니다. 접근 관계에 추가 조건은 강제하지 않습니다.',
+        '다음에서 관계 조건을 더한 D·T·B·S4·S5와 비교합니다.',
       ]));return;
     }
     if(scene==='inference'){
@@ -29,7 +37,7 @@ export function mountWeekdayBridge(container:HTMLElement){
     const source=card('풀이용 문장 (설명을 위해 간략화)',[]),line=p(''),root=markAlignment(doc.createElement('span'),'constraints','source'),a=markAlignment(doc.createElement('span'),'antecedent','source'),b=markAlignment(doc.createElement('span'),'consequent','source'),connect=markAlignment(doc.createElement('span'),'conditional-connective','source');
     a.textContent='어제가 내일';b.textContent=`오늘이 ${WEEKDAYS[input.target]}이다.`;connect.textContent='이라면, ';root.append('만약 ',a,connect,b);line.append(root);source.append(line);container.append(source);
     if(scene==='conditional'){source.append(p('설명의 편의를 위해 문장을 이렇게 단순화하고, 그 가정 아래 요일을 계산해 봅시다.'));return;}
-    const symbols=card('문장을 기호로 줄이면',[]),formula=p('','weekday-bridge-formula');formula.append(conditionalReading(doc));symbols.append(formula,p('A: 어제가 내일이다.'),p(`B: 오늘이 ${WEEKDAYS[input.target]}이다.`));container.append(symbols);
+    const symbols=card('문장을 기호로 줄이면',[]),formula=p('','weekday-bridge-formula');formula.append(conditionalReading(doc));const aDefinition=markAlignment(p('A: 어제가 내일이다.','weekday-bridge-definition'),'antecedent','symbol'),bDefinition=markAlignment(p(`B: 오늘이 ${WEEKDAYS[input.target]}이다.`,'weekday-bridge-definition'),'consequent','symbol');symbols.append(formula,aDefinition,bDefinition);container.append(symbols);
     if(scene==='nonmodal-proof'){
       const model=weekdayClassicalProof(input),proof=card('가정에서 결론까지',[]);proof.classList.add('weekday-classical-proof');
       symbols.append(p('t: 현실의 오늘 · h: 가정한 오늘 · 월=0, …, 일=6'),p('≡₇: 같은 요일'));

@@ -277,5 +277,41 @@
       }
     ],
     "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:logic.weekday-worlds.frame-systems",
+    "kind": "formal",
+    "statement": "정규 양상 논리 K는 고전 논리와 K 공리, 전건 긍정과 정리에 대한 필연화를 바탕으로 하며 ◇는 □의 쌍대로 정의할 수 있다. K에 D:□P→◇P, T:□P→P, B:P→□◇P, 4:□P→□□P, 5:◇P→□◇P 등의 공리를 더하면 다른 체계를 얻는다. 여기서 D는 K+D, T는 K+T, B는 K+T+B, S4는 K+T+4, S5는 K+T+5로 소개한다.",
+    "scope": "Standard normal modal logics and Kripke frame semantics, not desire/counterfactual logic. Frame classes: K arbitrary; D serial; T reflexive; B reflexive and symmetric; S4 reflexive and transitive; S5 equivalence relations. Frame validation quantifies over every propositional valuation and differs from truth of the particular calendar P. Satisfying one finite frame condition is not identifying the exact logic of that frame with an entire named system. No global accessibility closure or axiom enforcement is applied by the editor.",
+    "assumptions": [
+      "Classical propositional reasoning and theorem-only necessitation",
+      "Schematic variables are uniformly replaceable; ◇P is defined as ¬□¬P",
+      "B system naming follows the cited K+T+B convention"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:schwarz-modal-logic",
+        "locator": "Chapter 1 §§1.4–1.5 (duality and axiom/rule presentation); Chapter 3 §3.2 (K), §3.3 frame-class table (K,D,T,B,S4,S5), and §3.4 frame-correspondence table (D,T,B,4,5), Definition 3.5 and Observation 3.5. Korean synopsis and finite relation inspector independently authored."
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:logic.weekday-worlds.default-frame",
+    "kind": "model-deduction",
+    "statement": "이 콘텐츠의 기본 두 세계 관계 R={(0,0),(0,1),(1,1)}는 serial·반사적·전이적이며 대칭적이지 않다. 따라서 K·D·T·S4의 프레임 조건을 만족하지만 B·S5 조건은 만족하지 않는다. 편집기는 임의의 R을 허용하므로 모든 허용 설정의 공통 기본 보장은 K이다.",
+    "scope": "An independently checked property of the declared default and the allowed arbitrary finite relations, not a claim that one two-world frame characterizes S4 exactly. Edits/presets/deletion can change the displayed set of satisfied conditions. The condition checker uses the full current W and direct R, independent of evaluation point, calendar consistency and saved weekday samples. The editable 1–4-world fragment is a teaching environment, not a completeness result for K.",
+    "assumptions": [
+      "Default W={0,1} and the three explicitly listed direct edges",
+      "No automatic transitive closure",
+      "All frame conditions are considered under arbitrary propositional valuations"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:schwarz-modal-logic",
+        "locator": "Chapter 3 §§3.3–3.4: named frame classes and corresponding schemas; the default edge set and finite membership checks are independently authored deductions, not a source example or an exact-logic theorem."
+      }
+    ],
+    "reviewStatus": "draft-model-deduction-needs-review"
   }
 ]
