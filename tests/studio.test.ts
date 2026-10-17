@@ -30,6 +30,7 @@ test('video budgets are shared by format, ignore per-content overrides, persist 
   const short=studio.topic('two-children'),revision=studio.budgetRevision();studio.setBudgets({short:180,long:1200},revision);assert.equal(studio.topic('two-children').revision,short.revision);assert.notEqual(studio.topic('monty-hall').revision,saved.revision);
   assert.throws(()=>studio.setBudgets({short:60,long:600},revision),/Conflict/);assert.throws(()=>studio.setBudgets({short:-1,long:900},studio.budgetRevision()));
   const copy={...studio.topic('two-children').plan,id:'another-observation',title:'Copied draft'};assert.equal(studio.create(copy).plan.totalSeconds,180);assert.throws(()=>studio.create(copy),/exists/);
+  assert.throws(()=>studio.create({...copy,id:'unsupported-2'}),/소문자/);assert.throws(()=>validatePlan({...copy,domain:'1-invalid-domain'}),/domain/);
   studio.dispose();const restored=new Studio(root,dir,async()=>report);assert.deepEqual(restored.budgets(),{short:180,long:1200});assert.equal(restored.topic('another-observation').plan.title,'Copied draft');restored.dispose();
  }finally{studio.dispose();rmSync(dir,{recursive:true,force:true});}
 });
