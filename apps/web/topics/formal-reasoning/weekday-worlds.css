@@ -1,0 +1,70 @@
+.reader-enhanced [data-page=weekday-worlds] .reader-workbench{grid-template-rows:minmax(0,1fr)}
+.weekday-experiment{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.18fr);gap:18px;min-height:0}.weekday-narrow-tabs{display:none}.weekday-input-panel{display:flex;flex-direction:column;gap:8px;min-width:0;min-height:0}.weekday-reasoning-panel{display:grid;grid-template-rows:minmax(0,1fr) auto;gap:8px;min-width:0;min-height:0}.weekday-visual{display:flex;flex-direction:column;justify-content:center;gap:10px;min-height:0}
+.weekday-settings{display:grid;gap:6px}.weekday-controls,.weekday-days,.weekday-basis{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:5px 9px}.weekday-settings label{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:5px;font-size:10px;min-width:0}.weekday-settings select,.weekday-experiment button,.weekday-world-dialog button,.weekday-world-dialog select{min-width:0;min-height:29px;font:inherit;font-size:11px;border:1px solid #b5c9b3;border-radius:7px;background:#fff;padding:3px 6px;color:#304c3c}.weekday-presets{display:flex;gap:5px}.weekday-presets button{flex:1;font-size:10px}.weekday-experiment button[aria-pressed=true]{background:#dfece0;border-color:#34766b;font-weight:650}.weekday-world-toolbar{display:flex;align-items:center;gap:7px;font-size:11px}.weekday-world-toolbar button:last-child{margin-left:auto}.weekday-relation-summary{font-size:10px;line-height:1.4;margin:0;color:#63745b}.weekday-result{margin:0;text-align:center;font-size:12px;line-height:1.5;font-weight:600}.weekday-footer{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:7px;font-size:10px;color:#62765d}
+.weekday-sentence{display:flex;flex-direction:column;justify-content:center;gap:7px;border:1px solid #c1d0bd;border-radius:12px;background:#fff;padding:10px 12px}.weekday-sentence p{margin:0;line-height:1.6}.weekday-representations{display:flex;gap:5px;justify-content:center}.weekday-representations button{font-size:10px;padding:3px 7px}.weekday-source{display:grid;gap:5px}.weekday-sentence-line{font-size:14px;text-align:center}.weekday-word{display:inline-block;white-space:nowrap;border-bottom:2px solid #7e9564;margin:0 2px;padding:0 3px;background:#f0f4e7;color:#35512e}.weekday-word[data-world="1"],.weekday-word[data-world="2"],.weekday-word[data-world="3"]{border-color:#498e96;background:#e8f4f5;color:#255e69}.weekday-word strong{font-weight:650}.weekday-word sub{font-size:9px;margin-left:2px}.weekday-word small{font-size:10px;margin-left:4px}.weekday-sentence-question{display:flex;align-items:baseline;justify-content:center;gap:4px;font-size:12px}.weekday-sentence-legend{text-align:center;font-size:10px;color:#63745b}.weekday-symbolic-summary{display:grid;gap:3px;text-align:center}.weekday-symbol-definition{font-size:10px;color:#576d58}.weekday-symbol-constraints,.weekday-symbol-query{font-family:ui-monospace,'Cascadia Code',monospace;font-size:12px}.weekday-symbol-limit{font-size:10px;color:#63745b}
+.weekday-experiment .world-comparison{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:7px;min-height:0}.weekday-experiment .world-card{padding:5px 8px}.weekday-experiment .world-heading{gap:5px;margin-bottom:4px}.weekday-experiment .world-title{font-size:13px}.weekday-experiment .world-context{font-size:10px}.weekday-experiment .world-cells{gap:4px}.weekday-experiment .world-cell{min-height:45px;padding:3px}.weekday-experiment .world-value{font-size:18px}.weekday-experiment .world-label{font-size:10px}.weekday-experiment .world-note{grid-column:1/-1;font-size:10px}.weekday-experiment .world-comparison[data-world-count="1"] .world-card{grid-column:1/-1}
+.weekday-logic-diagram{display:flex;flex-direction:column;justify-content:center;gap:5px;min-height:0}.weekday-logic-premises{display:grid;grid-template-columns:minmax(0,1fr) 24px minmax(0,1fr);align-items:stretch;gap:6px}.weekday-logic-node,.weekday-logic-conclusion{border:1px solid #b9ccc0;border-radius:10px;padding:8px 10px;text-align:center;background:#fff}.weekday-logic-title{margin:0 0 4px;font-size:11px;font-weight:500}.weekday-logic-formula{font-family:ui-monospace,'Cascadia Code',monospace;font-size:18px;line-height:1.4!important;margin:0;overflow-wrap:anywhere}.weekday-logic-detail{font-size:11px;line-height:1.5!important;margin:3px 0 0}.weekday-logic-and{align-self:center;text-align:center;font-size:22px}.weekday-logic-join{margin:0;text-align:center;line-height:1.4!important;font-size:10px;color:#5c705a}.weekday-logic-conclusion{background:#edf5ef;border-color:#8db59c}.weekday-logic-diagram[data-kind=impossible] .weekday-logic-conclusion{background:#faf1e5;border-color:#c9a674}
+.weekday-modal-diagram{display:grid;grid-template-rows:auto minmax(110px,1fr) auto auto auto;gap:4px;min-height:0;flex:1}.weekday-modal-frame,.weekday-modal-note,.weekday-modal-limit{margin:0;text-align:center;font-size:10px;line-height:1.4}.weekday-modal-diagram svg{width:100%;height:100%;max-height:240px;min-height:0;align-self:center}.weekday-modal-label{font:bold 15px sans-serif;fill:#2d5149}.weekday-modal-day{font:14px sans-serif;fill:#2d5149}.weekday-modal-value{font:11px sans-serif;fill:#2d5149}.weekday-modal-verdicts{display:flex;gap:7px;justify-content:center}.weekday-modal-verdict{margin:0;border:1px solid #c0d2c4;border-radius:7px;background:#fff;padding:4px 14px;font-size:13px}.weekday-modal-verdict[data-truth=true]{background:#e3efdc}.weekday-modal-limit{color:#67775e}
+.weekday-world-dialog h2{font-size:20px}.weekday-world-dialog p{font-size:12px}.weekday-dialog-worlds{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}.weekday-dialog-world{display:flex;align-items:center;justify-content:space-between;gap:6px}.weekday-dialog-world label{display:flex;align-items:center;gap:6px;font-size:12px}.weekday-access-matrix{display:grid;gap:4px;align-items:center;text-align:center}.weekday-access-matrix label{display:grid;place-items:center;min-height:36px;border:1px solid #d0ddcb;border-radius:6px}.weekday-access-matrix input{width:20px;height:20px;accent-color:#34766b}
+.weekday-experiment .weekday-word[data-world],.weekday-world-reference[data-world],.weekday-experiment select[data-world],.weekday-world-dialog select[data-world],.weekday-world-dialog button[data-world],.weekday-experiment option[data-world]{background:var(--world-tint);color:var(--world-ink);border-color:var(--world-stroke)}
+.weekday-world-reference{display:inline-block;white-space:nowrap;border-radius:3px;padding-inline:2px;line-height:1.3;border-bottom:2px solid var(--world-stroke)}
+.weekday-experiment .world-card[data-world]{background:var(--world-tint);border-color:var(--world-stroke);color:var(--world-ink)}
+.weekday-experiment .world-card[data-world] .world-cell{border-color:var(--world-stroke);color:var(--world-ink)}
+.weekday-experiment .world-card[data-world] .world-cell[data-linked=true]{background:var(--world-tint)}
+.weekday-dialog-world[data-world]{background:var(--world-tint);border:1px solid var(--world-stroke);border-radius:8px;padding:8px}
+.weekday-access-matrix input{accent-color:var(--world-stroke)}
+.weekday-sentence{padding:0;border:0;background:none;justify-content:flex-start;flex-shrink:0}
+.weekday-original-section,.weekday-symbol-section{border:1px solid #c1d0bd;border-radius:12px;background:white;padding:10px 12px;min-width:0}
+.weekday-original-section h2,.weekday-symbol-section h2,.weekday-input-panel>h2{margin:0 0 5px;font-size:14px;line-height:1.3}
+.weekday-modal-toggle{display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;margin-bottom:5px}
+.weekday-modal-toggle input{width:17px;height:17px;accent-color:#34766b}
+.weekday-settings{overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;min-height:85px;flex:1;align-content:start;padding:10px;border:1px solid #c1d0bd;border-radius:12px;background:#f9fbf5}
+.reader-cover{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}
+.reader-cover h1{font-size:clamp(28px,3vw,54px);max-width:1100px;width:100%;line-height:1.4;margin:12px 0;word-break:keep-all;overflow-wrap:anywhere}
+.weekday-settings-heading{display:flex;align-items:baseline;justify-content:space-between}.weekday-settings-heading small{font-size:10px;font-weight:400;color:#63745b}
+.reader-enhanced .related-reader[data-page=weekday-worlds] .reader-intro{min-height:22px}
+.reader-enhanced .related-reader[data-page=weekday-worlds][data-cover=true]{grid-template-rows:auto minmax(0,1fr) auto auto}
+@media(max-width:720px){.weekday-controls label,.weekday-basis label{grid-template-columns:minmax(0,1fr);gap:2px}}
+@media(min-width:1200px){
+  .reader-enhanced .related-reader[data-page=weekday-worlds]{max-width:1840px;padding-inline:24px}
+  .weekday-experiment{grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:28px}
+  .weekday-input-panel{gap:8px;justify-content:center}
+  .weekday-settings{gap:6px}
+  .weekday-settings label{font-size:13px;gap:8px}
+  .weekday-settings select,.weekday-experiment button{font-size:13px;min-height:34px;padding:4px 9px}
+  .weekday-presets{gap:8px}.weekday-presets button{font-size:13px}
+  .weekday-controls,.weekday-days,.weekday-basis{gap:6px 14px}
+  .weekday-world-toolbar{font-size:14px;gap:10px}
+  .weekday-relation-summary,.weekday-footer{font-size:12px}
+  .weekday-footer{margin-top:0}
+  .weekday-sentence{gap:6px;padding:10px 16px;flex-shrink:0}
+  .weekday-representations button{font-size:13px}
+  .weekday-source{gap:8px}.weekday-sentence-line{font-size:20px}
+  .weekday-word sub,.weekday-word small{font-size:13px}
+  .weekday-sentence-question{font-size:17px}
+  .weekday-sentence-legend,.weekday-symbol-definition,.weekday-symbol-limit{font-size:12px}
+  .weekday-symbolic-summary{gap:3px}
+  .weekday-symbol-constraints,.weekday-symbol-query{font-size:16px}
+  .weekday-visual{gap:16px}
+  .weekday-result{font-size:15px}
+  .weekday-experiment .world-comparison{gap:10px}
+  .weekday-experiment .world-card{padding:10px 12px}
+  .weekday-experiment .world-title{font-size:17px}
+  .weekday-experiment .world-context,.weekday-experiment .world-note,.weekday-experiment .world-label{font-size:12px}
+  .weekday-experiment .world-cell{min-height:56px;padding:5px}
+  .weekday-experiment .world-value{font-size:24px}
+  .weekday-logic-diagram{gap:8px}
+  .weekday-logic-node,.weekday-logic-conclusion{padding:14px 16px}
+  .weekday-logic-title,.weekday-logic-detail{font-size:14px}
+  .weekday-logic-formula{font-size:26px}
+  .weekday-logic-join{font-size:13px}
+  .weekday-modal-frame,.weekday-modal-note,.weekday-modal-limit{font-size:12px}
+  .weekday-modal-verdict{font-size:16px;padding:5px 18px}
+  .weekday-modal-diagram{grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto minmax(110px,1fr) auto auto;column-gap:16px}
+  .weekday-modal-frame,.weekday-modal-note,.weekday-modal-limit{grid-column:1/-1}
+  .weekday-modal-verdicts{flex-direction:column;align-self:center}
+  .reader-enhanced [data-page=weekday-worlds] .scene-prose{font-size:17px;line-height:1.7}
+}
+@media(max-width:720px){.weekday-experiment{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);gap:5px}.weekday-narrow-tabs{display:flex;gap:5px}.weekday-narrow-tabs button{flex:1;min-height:28px}.weekday-experiment[data-narrow=reasoning] .weekday-input-panel,.weekday-experiment[data-narrow=inputs] .weekday-reasoning-panel{display:none}.weekday-input-panel{gap:5px}.weekday-settings{gap:4px}.weekday-settings label{font-size:9px;gap:3px}.weekday-settings select{font-size:10px;min-height:27px;padding:2px 4px}.weekday-presets button{font-size:9px;padding:3px;min-height:27px}.weekday-result{font-size:10px}.weekday-footer{font-size:9px}.weekday-world-toolbar{font-size:10px}.weekday-world-toolbar button{font-size:10px;min-height:27px}.weekday-relation-summary{font-size:9px}.weekday-sentence{padding:5px 7px;border-radius:9px;gap:3px}.weekday-source{gap:2px}.weekday-sentence-line{font-size:11px}.weekday-word{margin:0 1px;padding:0 2px}.weekday-word sub{font-size:8px}.weekday-word small{font-size:9px;margin-left:3px}.weekday-sentence-question{font-size:10px;gap:2px}.weekday-sentence-legend,.weekday-symbol-definition,.weekday-symbol-limit{font-size:9px}.weekday-symbol-constraints,.weekday-symbol-query{font-size:10px}.weekday-representations button{font-size:9px;min-height:25px;padding:2px 6px}.weekday-symbolic-summary{gap:2px}.weekday-visual{gap:6px}.weekday-experiment .world-card{padding:4px 5px}.weekday-experiment .world-heading{gap:2px;margin-bottom:2px}.weekday-experiment .world-title{font-size:11px}.weekday-experiment .world-context{font-size:9px}.weekday-experiment .world-value{font-size:14px}.weekday-experiment .world-cell{min-height:37px}.weekday-logic-node,.weekday-logic-conclusion{padding:5px}.weekday-logic-formula{font-size:13px}.weekday-logic-title{font-size:10px}.weekday-logic-detail{font-size:9px}.weekday-logic-join{font-size:9px}.weekday-modal-diagram{grid-template-rows:auto minmax(90px,1fr) auto auto auto}.weekday-modal-frame,.weekday-modal-note,.weekday-modal-limit{font-size:9px}.weekday-modal-verdict{font-size:11px;padding:3px 10px}.weekday-dialog-worlds{grid-template-columns:1fr}.weekday-world-dialog{padding:14px}}
+.weekday-input-panel{justify-content:flex-start}.weekday-sentence{padding:0;gap:8px;background:none;border:0}.weekday-input-panel>h2{margin:0;flex-shrink:0}.weekday-footer{margin-top:0;flex-shrink:0}.weekday-settings{grid-auto-rows:max-content;flex-shrink:1}.weekday-original-section,.weekday-symbol-section{flex-shrink:0}
+@media(max-width:720px){.weekday-sentence{gap:5px}.weekday-original-section,.weekday-symbol-section{padding:6px 8px}.weekday-original-section h2,.weekday-symbol-section h2,.weekday-input-panel>h2{font-size:12px;margin-bottom:3px}.weekday-modal-toggle{font-size:10px;margin-bottom:3px}.weekday-settings{padding:7px}.weekday-settings label{grid-template-columns:minmax(0,1fr)}.weekday-dialog-world label{font-size:11px}.weekday-access-matrix strong{font-size:11px}}

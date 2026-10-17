@@ -409,5 +409,61 @@
     "snapshotStatus": "reference-only; no immutable bytes captured",
     "readingScope": "Volume and the Slicing Method: opening definition of cross-section before Figure 2.11; Example 2.7 step 2, A=πr². HTML passages inspected 2026-10-16; no claim of verifying later integration examples.",
     "note": "Reference consultation only. No source prose, illustrations, activities, data or code copied. Exact revision matching, independent content review and publication approval remain pending."
+  },
+  {
+    "id": "source:nikl-weekday-context",
+    "title": "온라인가나다: [재질문] 국립 국어원에서 복수 정답을 인정했다고 들었습니다.",
+    "author": "National Institute of Korean Language / Online Ganada",
+    "canonicalUrl": "https://www.korean.go.kr/front/onlineQna/onlineQnaView.do?mn_id=216&pageIndex=1&qna_seq=319631",
+    "retrievedAt": "2026-10-17",
+    "providerRevision": "Page answer dated 2025-09-30; embeds answer dated 2024-11-25. Live page, not frozen.",
+    "contentHash": null,
+    "license": "Reuse permission not established; reference consultation only",
+    "rightsReview": "Reference-only. Independently authored prose, diagrams and code; no source figures, datasets or code imported. Review and publication clearance remain pending.",
+    "readingScope": "Embedded 2024-11-25 [답변]의미, real/imagined reference assignments and ordinary-reading qualification; final 2025-09-30 answer. Embedded older responses are quoted in the question, not newly issued rulings.",
+    "snapshotStatus": "Live web-tool reading; no immutable bytes captured",
+    "externalMaterialIncluded": false
+  },
+  {
+    "id": "source:sep-indexicals",
+    "title": "Indexicals — Stanford Encyclopedia of Philosophy",
+    "author": "David Braun and Alexandru Radulescu",
+    "canonicalUrl": "https://plato.stanford.edu/entries/indexicals/",
+    "retrievedAt": "2026-10-17",
+    "providerRevision": "Page displays substantive revision 2026-09-03; exact bytes/revision not locked.",
+    "contentHash": null,
+    "license": "Reuse permission not established; reference consultation only",
+    "rightsReview": "Reference-only. Independently authored prose, diagrams and code; no source figures, datasets or code imported. Review and publication clearance remain pending.",
+    "readingScope": "§1.1 temporal indexicals and §3.2 context vs circumstances of evaluation. Expert-authored exposition, not an independent primary proof of Korean indexical shifting.",
+    "snapshotStatus": "Live web-tool reading; no immutable bytes captured",
+    "externalMaterialIncluded": false
+  },
+  {
+    "id": "source:sep-counterfactuals",
+    "title": "Counterfactuals — Stanford Encyclopedia of Philosophy",
+    "author": "Willow Starr and Alex Kocurek",
+    "canonicalUrl": "https://plato.stanford.edu/entries/counterfactuals/",
+    "retrievedAt": "2026-10-17",
+    "providerRevision": "Page displays substantive revision 2025-08-19; exact bytes/revision not locked.",
+    "contentHash": null,
+    "license": "Reuse permission not established; reference consultation only",
+    "rightsReview": "Reference-only. Independently authored prose, diagrams and code; no source figures, datasets or code imported. Review and publication clearance remain pending.",
+    "readingScope": "§5.1–5.2: relevant antecedent-worlds and ordering semantics. Background only; no closeness ordering or general modal theorem prover is implemented.",
+    "snapshotStatus": "Live web-tool reading; no immutable bytes captured",
+    "externalMaterialIncluded": false
+  },
+  {
+    "id": "source:schwarz-modal-logic",
+    "title": "Logic 2: Modal Logic — Modal Operators and Accessibility",
+    "author": "Wolfgang Schwarz",
+    "canonicalUrl": "https://www.wolfgangschwarz.net/logic2/03-accessibility.html",
+    "retrievedAt": "2026-10-17",
+    "providerRevision": "Live HTML; preface footer displays © 2026. Exact revision and immutable bytes not verified.",
+    "contentHash": null,
+    "license": "Preface links a Creative Commons license; exact license version not independently reviewed for reuse. Reference only.",
+    "rightsReview": "Reference-only. No external prose, figures, data or code imported. Independently authored Korean explanations, graph and evaluator; publication review remains pending.",
+    "readingScope": "Chapter 1 §1.2 (alethic/circumstantial versus epistemic/deontic uses); Chapter 3 §3.1 Definitions 3.1–3.2 (W,R,V and atom/box/diamond clauses); introductory example of empty accessibility. Preface authorship footer read.",
+    "snapshotStatus": "Live web-tool reading; no source bytes captured",
+    "externalMaterialIncluded": false
   }
 ]

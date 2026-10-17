@@ -1,6 +1,6 @@
 # Architecture decisions
 
-All decisions below were introduced on 2026-10-16 for the local pilot. They preserve the original ADR numbers and filenames. The English consolidation removes obsolete implementation instructions and identifies later superseding choices. “Accepted” here means a project design decision, not scientific, rights, or publication approval.
+The initial decisions were introduced on 2026-10-16; later additions carry their own dates. They preserve the original ADR numbers and filenames. The English consolidation removes obsolete implementation instructions and identifies later superseding choices. “Accepted” here means a project design decision, not scientific, rights, or publication approval.
 
 | ADR | Decision |
 | --- | --- |
@@ -22,3 +22,4 @@ All decisions below were introduced on 2026-10-16 for the local pilot. They pres
 | [0015](0015-orbitals-and-scalar-fields.md) | Hydrogenic content and reusable scalar-field viewer |
 | [0016](0016-typescript-source.md) | Strict TypeScript source and static JavaScript delivery |
 | [0017](0017-question-led-comparisons.md) | Question-led comparisons through topic adapters |
+| [0018](0018-weekday-world-contexts.md) | Explicit contexts and reusable world comparison cards |

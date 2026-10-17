@@ -20,8 +20,9 @@ export interface Scene {
 }
 export interface ContentPage {
   slug: string; articleId: string; label: string; category: string;
+  cover?: boolean;
   experiment?: boolean; model?: 'classical' | 'fde' | 'sets' | 'ch' | null;
-  interactive?: 'hydrogenic-orbitals' | 'typed-lambda' | 'binary-search' | 'sphere-slices' | 'base-rates';
+  interactive?: 'hydrogenic-orbitals' | 'typed-lambda' | 'binary-search' | 'sphere-slices' | 'base-rates' | 'weekday-worlds';
   styles?: string[]; claimRefs?: string[]; scenes: Scene[];
 }
 export interface ContentEntry { directory: string; article: string; claims: string; page: ContentPage }

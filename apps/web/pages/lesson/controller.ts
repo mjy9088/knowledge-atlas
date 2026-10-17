@@ -33,6 +33,13 @@ const feedback=mountEvaluationFeedback({content:$('dialogue-text'),message:evalu
 let navigatingHistory=false,currentView:LessonView|undefined;
 const experiment=mountPremiseExperiment($('lesson-experiment'),{suggestion:normalizeExperimentInput(timeline.cues[0].presentation.snapshot as ExperimentDraft),idPrefix:'lesson-input',onChange(info){if(currentView)renderExperiment(currentView,info);}});
 function formulaCard(formula:string,label:string){const card=make('div');card.className='story-formula';card.append(make('span',label),make('strong',formula));return card;}
+function renderSkip(view:LessonView,label=view.chapter.title,scope=view.chapter.known,target=view.nextChapter?.title){
+  const available=view.skippedSections.length>0;
+  $('lesson-skip').hidden=!available;$('lesson-skip-context').hidden=!available;
+  $('lesson-skip').textContent=available?`${label} 건너뛰기 ↗`:'';
+  $('lesson-skip').title=available?`건너뛸 장면: ${view.skippedSections.map(s=>s.title).join(' · ')} · 이동: ${target}`:'';
+  $('lesson-skip-context').textContent=available?`건너뛸 내용: ${scope} (${view.skippedSections.length}개 장면) · 이동: ${target}`:'';
+}
 function render(view:LessonView){
   currentView=view;
   const section=view.section,presentation=timeline.cues[view.index].presentation;
@@ -40,10 +47,7 @@ function render(view:LessonView){
   $('lesson-position').textContent=(view.index+1)+' / '+view.total;
   $('lesson-prev').disabled=!view.canPrevious;$('lesson-next').disabled=!view.canNext;
   endLinks.hidden=view.canNext;
-  $('lesson-skip').hidden=!view.nextChapter;
-  $('lesson-skip').title=view.nextChapter?'다음 주제: '+view.nextChapter.title:'';
-  $('lesson-skip-context').textContent=view.nextChapter?'건너뛸 내용: '+view.chapter.known+' · 다음: '+view.nextChapter.title:'';
-  $('lesson-skip-context').hidden=!view.nextChapter;
+  renderSkip(view);
   experiment.suggest(presentation.controlState??normalizeExperimentInput(presentation.snapshot as ExperimentDraft));
   for(const button of $('lesson-jumps').querySelectorAll<HTMLButtonElement>(':scope > button'))button.setAttribute('aria-current',button.dataset.sectionId===section.id?'step':'false');
   if(!navigatingHistory&&location.hash.startsWith('#explanation-'))history.replaceState(null,'','#explanation-'+section.id);
@@ -57,12 +61,12 @@ function renderExperiment(view:LessonView,info:ExperimentInspection){
   feedback.setState({available,summary:available?'':narration.title,detail:available?'':narration.text});
   $('lesson-dialogue-copy').dataset.claimRefs=narration.claimRefs.join(' ');
   $('lesson-dialogue-copy').dataset.status=narration.status;
-  const chapterTitles:Record<string,string>={'question':'전제와 목표 읽기','premise-p':'근거에서 결론까지','change-r':'목표 바꾸기','remove-premise':'전제 포함·제외','truth':'도출과 사실'};
+  const chapterTitles:Record<string,string>={'question':'전제와 목표 읽기','premise-p':'근거에서 결론까지','change-r':'목표 바꾸기','remove-premise':'전제 포함·제외','truth':'도출과 사실','summary':'정리와 다음 질문'};
   $('lesson-chapter').textContent=info.customized?'내 입력 · '+chapterTitles[view.chapter.id]:view.chapter.title;
   if(info.customized){
     const known:Record<string,string>={'question':'현재 전제·목표와 명제식 표기','premise-p':'현재 경로의 전제·참조 행·적용 규칙','change-r':'목표를 바꾸며 도출 경로를 비교하는 방법','remove-premise':'전제 포함·제외와 목표 경로의 관계','truth':'도출과 사실 판단의 구별, 일관성의 의미'};
-    $('lesson-skip-context').textContent=view.nextChapter?'건너뛸 내용: '+known[view.chapter.id]+' · 다음: '+chapterTitles[view.nextChapter.id]:'';
-  }
+    renderSkip(view,chapterTitles[view.chapter.id],known[view.chapter.id],view.nextChapter?chapterTitles[view.nextChapter.id]:undefined);
+  }else renderSkip(view);
   if(info.customized){
     if(!info.valid){stage.replaceChildren(make('p','명제식 입력 대기'));stage.dataset.kind='invalid';return;}
     if(!info.proof.goalReached){stage.replaceChildren(make('p',`포함된 전제 ${info.premises.length}개 · 목표 경로 미발견`));stage.dataset.kind='unavailable';return;}

@@ -1,0 +1,39 @@
+# ADR 0018: Explicit contexts, calendar constraints and modal comparison
+
+Date: 2026-10-17. Status: accepted as a local implementation design; independent content and publication review remain pending.
+
+## Ownership and scope
+
+Register `/knowledge/weekday-worlds/` through the shared article reader. Pure calendar enumeration, notation and modal evaluation live in `packages/models/weekday-worlds.ts`, `weekday-notation.ts` and `weekday-modal.ts`. Topic controls, original-sentence annotations, constraint inference and the Kripke graph live in `apps/web/topics/formal-reasoning/`. Generic world cards remain in `apps/web/components/worlds/`. No component parses Korean, ranks worlds by similarity or claims to decide actual metaphysical possibility.
+
+The four independent references are yesterday, tomorrow, consequent today and question today. The two-world baseline retains the 16-assignment fixture: eight contradictory, four repeated targets, two reversed questions and two real-today inferences. A/B preserve the original question's real-today object and yield Sunday/Wednesday for an imagined Friday. Reversing the written sides of A's equality does not produce B. C assigns all four expressions to w₀. These are explicit teaching interpretations, not exhaustive natural-language semantics or evidence of equal pragmatic naturalness. The criticism of unspecified literacy assessment remains a proposed editorial inference.
+
+## Calendar and modal semantics
+
+For n=1–4 named worlds, enumerate the 7^n weekday assignments satisfying A: tₐ−1≡₇tᵦ+1 and B: t꜀≡₇d. Extract a weekday only when the model set is nonempty and all models agree on the question value. Empty sets display `Mod₇(Γ)=∅`; nonsingleton question values display underdetermination. This answer policy does not deny vacuous consequence in classical logic. Extra worlds do not automatically acquire date correspondence constraints.
+
+The separate modal layer uses an explicit user-edited finite M=(W,R,V). P means the evaluation world's current sample weekday is the target. Evaluate only P, ◇P and □P at the chosen point with direct R-successors, without silently adding a transitive closure. The empty-successor case has false diamond and vacuously true box. Arbitrary editable R can be nonreflexive, so the UI identifies when □P→P is not guaranteed. This is a scoped alethic reading in a teaching frame; no epistemic/deontic interpretation, modal proof engine or S5 completeness claim is made.
+
+The sampled M and Γ's satisfying assignments are separate. Modal truth can be displayed even when the current sample fails Γ or Γ is inconsistent, with the separation visible. Neither ◇P nor □P is presented as an automatic translation of the original counterfactual or a solution to its real-day question. Standard semantics are aligned to Wolfgang Schwarz's original course definitions; source readings and independent calendar deductions have separate locators.
+
+## Interaction and layout
+
+On desktop, stack Original, Symbols and Selection on the left and place inference and world diagrams on the right. Original and Symbols stay visible together; only Selection has bounded scrolling. An alethic-mode checkbox inside Symbols switches between calendar constraints and □/◇ definitions and the matching right-hand diagram. General UI names worlds Reality and Assumption 1–3; logical expressions retain w₀–w₃ and share the same identity colors. Narrow screens retain the input/reasoning tabs and default to reasoning. Selection controls and the on-demand world/access dialog may scroll; source/formulas, reset and scene navigation remain outside Selection scrolling.
+
+The article opts into the shared reader's dedicated title slide. The cover is presentation state separate from the nine source scenes: root entry/reset show it, scene hashes enter content directly, and a menu entry can return to the title without discarding edits. An optional validated `cover` boolean extends article reader snapshots; old snapshots without it restore content, and invalid values are rejected before mutation. The interactive version-3 snapshot retains its legacy representation field for restoration compatibility; it no longer hides either Original or Symbols.
+
+World IDs range from w₀ to w₃ and remain stable when another world is removed. w₀ cannot be removed. Adding a world assigns the target weekday and adds its self-loop and an edge from the current evaluation point. Removing a referenced world moves that reference/evaluation point to w₀ and removes incident edges; the configuration dialog discloses this rule. Presets explicitly restore their world/edge examples while preserving the target weekday. Individual edits survive scene navigation.
+
+Original shows the current named worlds and both symbolic modes show the matching finite set W from the configuration, including worlds not referenced by the four expressions. Removed worlds must be absent from existing-world options, annotations, cards, modal nodes and configuration matrix. Deletion regression checks include deleting every nonactual world while it is referenced and selected for evaluation, filtered lists, navigation and saved-state restoration. Explicit creation choices, example reset or presets may restore a removed world.
+
+Choice lists may show all worlds or only direct successors of the evaluation point. Filtering never silently rewrites a selected out-of-range reference: it remains visible as a disabled current option. The list filter does not add a calendar equality or change R. The graph uses the actual edited edges and the same valuation as the displayed formulas.
+
+Unused IDs appear in a separate creation optgroup in the four reference selectors and evaluation selector, with distinct `new:<id>` action values. They do not enter W or R until selected. Creation atomically applies the normal Add World initialization and reference/evaluation update; the previous evaluation point gains an edge to the new world, even under the accessible-only list filter. Creating a world sorts the active world list by ID. UI labels compute peer-reference numbers from the current four assignments, excluding the current selector's own reference; evaluation lists all assigned references. Creation actions and derived labels are presentation only, so version-3 saved-state shape stays unchanged.
+
+The wide desktop frame uses up to 1840px with larger selectors and formulas, preserving the shared reader and narrow layout. The topic's DOM presentation helper assigns fixed world-ID colors across sentence/notation references, selects, world cards, graph nodes and configuration. Identity uses pale green/blue/yellow/red for w₀/w₁/w₂/w₃ regardless of removal order or truth. The graph marks the evaluation point with a thick stroke and accessible worlds with a dashed outer ring; textual P/◇P/□P verdicts retain their separate semantics. Access-matrix cells combine the source and destination tints, with explicit row/column world labels.
+
+## State and verification
+
+Version 3 snapshots store four references, 1–4 worlds, weekday samples, explicit R, evaluation point, choice scope, representation/mode and narrow panel. Deep copies prevent snapshot mutation from changing live state. Unversioned fixed-rule and version-2 snapshots migrate before validated restoration; malformed versions, dangling/duplicate IDs or edges and invalid input are rejected before mutation. The legacy fixed-rule pure model remains a compatible fixture surface. `seek` validates nonnegative finite time and leaves this atemporal comparison unchanged; no video is supplied.
+
+Independent calendar fixtures, exhaustive two-world assignments and truth/edge combinations, multiworld underdetermination, invalid-state rejection and browser geometry checks establish implementation behavior. These do not establish expert approval, learning outcomes, rights clearance or publication authorization.

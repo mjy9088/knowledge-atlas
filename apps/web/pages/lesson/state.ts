@@ -10,7 +10,7 @@ export const LESSON_CHAPTERS=Object.freeze([
 ].map(item=>Object.freeze(item)));
 
 // Reading position only. The scientific model and video timing stay independent.
-export type LessonView={index:number;total:number;section:typeof EXPLOSION_EPISODE.sections[number];chapter:typeof LESSON_CHAPTERS[number];nextChapter:typeof LESSON_CHAPTERS[number]|undefined;canPrevious:boolean;canNext:boolean};
+export type LessonView={index:number;total:number;section:typeof EXPLOSION_EPISODE.sections[number];chapter:typeof LESSON_CHAPTERS[number];nextChapter:typeof LESSON_CHAPTERS[number]|undefined;skippedSections:typeof EXPLOSION_EPISODE.sections;canPrevious:boolean;canNext:boolean};
 export function createLessonDialogue({onChange}:{onChange?:(view:LessonView)=>void}={}){
   const sections=EXPLOSION_EPISODE.sections;
   let index=0;
@@ -18,7 +18,9 @@ export function createLessonDialogue({onChange}:{onChange?:(view:LessonView)=>vo
   const inspect=():LessonView=>{
     const chapter=LESSON_CHAPTERS.findLast(item=>sections.findIndex(s=>s.id===item.id)<=index)??LESSON_CHAPTERS[0];
     const nextChapter=LESSON_CHAPTERS.find(item=>sections.findIndex(s=>s.id===item.id)>index);
-    return structuredClone({index,total:sections.length,section:sections[index],chapter,nextChapter,
+    const target=sections.findIndex(s=>s.id===nextChapter?.id);
+    const skippedSections=target>index+1?sections.slice(index,target):[];
+    return structuredClone({index,total:sections.length,section:sections[index],chapter,nextChapter,skippedSections,
       canPrevious:index>0,canNext:index<sections.length-1});
   };
   function setState(state:{sectionId:string}){
@@ -30,7 +32,7 @@ export function createLessonDialogue({onChange}:{onChange?:(view:LessonView)=>vo
   return {getState,setState,inspect,reset(){setState({sectionId:sections[0].id});},
     next(){setState({sectionId:sections[Math.min(index+1,sections.length-1)].id});},
     previous(){setState({sectionId:sections[Math.max(index-1,0)].id});},
-    skip(){const next=inspect().nextChapter;if(next)setState({sectionId:next.id});},
+    skip(){const view=inspect();if(view.skippedSections.length&&view.nextChapter)setState({sectionId:view.nextChapter.id});},
     // Compatibility with existing inspection links; no time-based UI or autoplay.
     seek(timeMs:number){
       if(typeof timeMs!=='number'||!Number.isFinite(timeMs)||timeMs<0)throw new RangeError('Invalid time');

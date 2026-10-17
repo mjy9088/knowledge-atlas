@@ -1,0 +1,76 @@
+{
+  "id": "article:logic.weekday-worlds.ko",
+  "conceptId": "concept:logic.possible-worlds-context",
+  "title": "어제가 내일이면, 오늘은 꼭 한 요일일까요?",
+  "reviewStatus": "needs-content-review",
+  "scope": "요일 수수께끼의 명시적 달력 제약과 지시어 기준을 비교합니다. 최대 네 세계의 요일 배정과 편집 가능한 접근 관계를 갖는 교육 모형입니다. 달력 해 추출과 □·◇의 진리 평가를 구별하며, 한국어 자동 해석·일반 반사실 의미론·실제 형이상학적 가능성의 판정은 구현하지 않습니다.",
+  "blocks": [
+    {
+      "id": "block:logic.weekday-worlds.question",
+      "text": "①어제·②내일·③그럼 오늘·④묻는 오늘은 어느 세계의 기준일까요? 네 기준을 따로 바꾸거나 A·B·C 프리셋을 눌러 보세요. 해석 규칙을 생략한 단일 정답으로 문해력을 판정하는 데 어떤 문제가 생길까요?",
+      "claimRefs": [
+        "claim:logic.weekday-worlds.assessment",
+        "claim:logic.weekday-worlds.assignments"
+      ]
+    },
+    {
+      "id": "block:logic.weekday-worlds.contexts",
+      "text": "가능세계는 여기서 ‘가정한 상황’입니다. 세계와 기준 시점은 구별됩니다. 가정했다고 ‘오늘’의 기준이 자동으로 옮겨지지는 않습니다. 그림은 별도 기준을 준 교육용 모형이며 세계의 실제 존재를 주장하지 않습니다.",
+      "claimRefs": [
+        "claim:logic.weekday-worlds.context"
+      ]
+    },
+    {
+      "id": "block:logic.weekday-worlds.sunday",
+      "text": "A에서는 현실의 어제와 가정의 내일을 같은 날로 놓습니다. 가정의 오늘이 금요일이면 가정의 내일은 토요일입니다. 현실의 어제도 토요일이므로 현실의 오늘은 일요일입니다. 현실 오늘을 t, 가정 오늘을 h라 쓰면 t−1=h+1, 따라서 h=t−2입니다.",
+      "claimRefs": [
+        "claim:logic.weekday-worlds.rules"
+      ]
+    },
+    {
+      "id": "block:logic.weekday-worlds.wednesday",
+      "text": "B는 가정 어제와 현실 내일을 같게 놓습니다. 가정 오늘이 금요일이면 두 항은 목요일이므로 현실 오늘은 수요일입니다. h−1=t+1에서 h=t+2입니다. A의 좌우를 뒤집은 것이 아니라 기준 배치를 바꿨습니다. 두 읽기가 똑같이 자연스럽다는 주장은 아닙니다.",
+      "claimRefs": [
+        "claim:logic.weekday-worlds.rules"
+      ]
+    },
+    {
+      "id": "block:logic.weekday-worlds.literal",
+      "text": "C는 한 기준에서 t−1=t+1을 요구합니다. 보통의 달력에서 두 날은 이틀 떨어져 있으므로 해가 없습니다. 이 결과로 모든 반사실 가정을 오류라 하거나 현실 요일을 추론할 수는 없습니다. A와 B는 서로 다른 기준 사이에 대응을 놓았습니다.",
+      "claimRefs": [
+        "claim:logic.weekday-worlds.literal"
+      ]
+    },
+    {
+      "id": "block:logic.weekday-worlds.transfer",
+      "text": "목표가 월요일이면 A의 현실 답은 수요일, B는 토요일입니다. A는 목표보다 이틀 뒤, B는 이틀 앞이기 때문입니다. 요일은 7일 주기로 이어집니다. 현실의 오늘과 목표를 바꿔 같은 규칙으로 설명해 보세요.",
+      "claimRefs": [
+        "claim:logic.weekday-worlds.rules"
+      ]
+    },
+    {
+      "id": "block:logic.weekday-worlds.conclusion",
+      "text": "A를 명시하면 일요일이 맞습니다. 그러나 숨은 기준으로 문해력을 판정할 근거는 충분하지 않습니다. 국립국어원도 가능한 읽기와 일상적 읽기를 구별합니다. ‘현실 어제=가정 내일’처럼 기준을 밝혀 물어보세요.",
+      "claimRefs": [
+        "claim:logic.weekday-worlds.assessment",
+        "claim:logic.weekday-worlds.rules"
+      ]
+    },
+    {
+      "id": "block:logic.weekday-worlds.notation",
+      "text": "기호 화면에서 tᵢ는 기준 wᵢ의 오늘 요일입니다. Γ={A,B}는 어제와 내일의 대응, 목표 요일을 함께 요구합니다. 모든 해에서 질문 값이 같을 때 답을 추출합니다. 해가 없으면 ∅, 값이 여러 개면 미결정으로 표시합니다. 새 세계를 추가해 질문 기준을 바꿔 보세요.",
+      "claimRefs": [
+        "claim:logic.weekday-worlds.notation",
+        "claim:logic.weekday-worlds.multiverse"
+      ]
+    },
+    {
+      "id": "block:logic.weekday-worlds.alethic",
+      "text": "□·◇ 화면에서 P는 ‘오늘이 목표 요일’입니다. ◇P는 접근 세계 중 하나 이상, □P는 모든 접근 세계에서 P가 참임을 뜻합니다. R을 바꿔 비교하세요. 사용자 모형의 양상 평가는 원문의 반사실·현실 요일의 답과 구별됩니다.",
+      "claimRefs": [
+        "claim:logic.weekday-worlds.alethic"
+      ]
+    }
+  ],
+  "relatedConcepts": []
+}

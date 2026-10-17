@@ -1,4 +1,5 @@
 import type {ContentEntry,ContentPage,Article,Scene} from '../packages/content/types.js';
+import weekdayPage from './formal-logic/weekday-worlds/page.js';
 import searchPage from './computing/binary-search/page.js';
 import slicesPage from './geometry/sphere-slices/page.js';
 import ratesPage from './statistics/base-rates/page.js';
@@ -14,6 +15,7 @@ import page2 from './set-theory/zfc/page.js';
 import page3 from './set-theory/continuum-hypothesis/page.js';
 
 export const CONTENT_ENTRIES: ContentEntry[]=[
+  {directory:'formal-logic/weekday-worlds',article:'article.ko.json',claims:'claims.json',page:weekdayPage},
   {directory:'computing/binary-search',article:'article.ko.json',claims:'claims.json',page:searchPage},
   {directory:'geometry/sphere-slices',article:'article.ko.json',claims:'claims.json',page:slicesPage},
   {directory:'statistics/base-rates',article:'article.ko.json',claims:'claims.json',page:ratesPage},

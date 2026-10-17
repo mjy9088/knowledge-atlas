@@ -7,7 +7,8 @@ test('reader moves freely, skips known chapters and restores scene state without
   assert.deepEqual(reader.getState(),{sectionId:'question'});
   reader.previous();assert.equal(reader.inspect().canPrevious,false);
   reader.next();assert.equal(reader.getState().sectionId,'symbols');
-  reader.skip();assert.equal(reader.getState().sectionId,'premise-p');
+  assert.equal(reader.inspect().skippedSections.length,0);reader.skip();assert.equal(reader.getState().sectionId,'symbols');
+  reader.next();assert.equal(reader.getState().sectionId,'premise-p');
   reader.skip();assert.equal(reader.getState().sectionId,'change-r');
   const saved=reader.getState();reader.setState({sectionId:'remove-premise'});
   assert.equal(reader.inspect().section.scene,'missing');
@@ -15,6 +16,8 @@ test('reader moves freely, skips known chapters and restores scene state without
   reader.setState({sectionId:'summary'});reader.next();reader.skip();
   assert.equal(reader.getState().sectionId,'summary');assert.equal(reader.inspect().canNext,false);
   reader.reset();assert.equal(reader.getState().sectionId,'question');
+  assert.deepEqual(reader.inspect().skippedSections.map(s=>s.id),['question','symbols']);
+  reader.skip();assert.equal(reader.getState().sectionId,'premise-p');
 });
 test('unsupported positions cannot change the reader or mutate the canonical explanation',()=>{
   const reader=createLessonDialogue();reader.setState({sectionId:'explosion'});

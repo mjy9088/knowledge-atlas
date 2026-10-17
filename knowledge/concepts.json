@@ -152,5 +152,12 @@
     "summary": "직각삼각형의 세 변 사이에 성립하는 제곱 길이 관계",
     "reviewStatus": "proposed",
     "externalIds": []
+  },
+  {
+    "id": "concept:logic.possible-worlds-context",
+    "title": "가능세계와 지시어의 기준",
+    "summary": "현실과 가정을 비교하며 세계와 기준 시점을 구별하기",
+    "reviewStatus": "proposed",
+    "externalIds": []
   }
 ]

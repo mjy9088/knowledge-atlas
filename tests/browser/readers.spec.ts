@@ -13,7 +13,8 @@ async function expectFrame(page: Page, {content, controls}: {content:string[];co
       if (!document.querySelector(selector)) issues.push(`missing layout target: ${selector}`);
     for (const selector of content) for (const node of document.querySelectorAll<HTMLElement>(selector)) {
       if (!node.checkVisibility()) continue;
-      if (node.scrollHeight > node.clientHeight || node.scrollWidth > node.clientWidth)
+      if(node.closest('.weekday-settings')&&!node.matches('.weekday-settings'))continue;
+      if (node.scrollWidth > node.clientWidth || !node.matches('.weekday-settings')&&node.scrollHeight > node.clientHeight)
         issues.push(`${selector}: content ${node.scrollWidth}×${node.scrollHeight}, space ${node.clientWidth}×${node.clientHeight}`);
       const r = node.getBoundingClientRect();
       if (r.top < 0 || r.left < 0 || r.bottom > innerHeight || r.right > innerWidth)
@@ -21,6 +22,7 @@ async function expectFrame(page: Page, {content, controls}: {content:string[];co
     }
     for (const selector of controls) for (const node of document.querySelectorAll(selector)) {
       if (!node.checkVisibility()) continue;
+      if(node.closest('.weekday-settings'))continue;
       const r = node.getBoundingClientRect();
       if (r.top < 0 || r.left < 0 || r.bottom > innerHeight || r.right > innerWidth)
         issues.push(`${selector}: outside viewport (${r.x}, ${r.y}, ${r.width}, ${r.height})`);
@@ -40,21 +42,23 @@ const lessonFrame = {
   controls: ['.dialogue-actions button', '.experiment-goal', '#lesson-menu-open'],
 };
 
-const questionTopics=CONTENT_PAGES.filter(p=>['binary-search','sphere-slices','base-rates'].includes(p.slug));
+const questionTopics=CONTENT_PAGES.filter(p=>['binary-search','sphere-slices','base-rates','weekday-worlds'].includes(p.slug));
 const questionFrame={
   content:['#reader-workbench>div:last-child','#reader-workbench p','.reader-scene:not([hidden]) .reader-copy'],
   controls:['#reader-controls button','#reader-workbench button','#reader-workbench input','#reader-workbench select','.reader-menu summary'],
 };
+const weekdayFrame={content:[...questionFrame.content,'.world-comparison','.weekday-sentence','.weekday-sentence-line','.weekday-sentence-question','.weekday-controls','.weekday-logic-diagram','.weekday-logic-premises','.weekday-logic-node','.weekday-logic-conclusion','.weekday-symbolic-summary','.weekday-settings','.weekday-input-panel','.weekday-reasoning-panel','.weekday-modal-diagram','.world-card','.world-cells','.world-cell','.world-note'],controls:[...questionFrame.controls.filter(selector=>selector!=='#reader-workbench input'),'.weekday-modal-toggle input']};
 for(const topic of questionTopics)test(`${topic.slug}: question-led scenes fit and restore their authored state`,async({page},testInfo)=>{
   const errors:string[]=[];page.on('pageerror',error=>errors.push(error.message));
   await page.goto(`/knowledge/${topic.slug}/`);await page.waitForFunction(()=>window.__atlasRelated);
+  if(topic.cover)await page.locator('#reader-next').click();
   for(const scene of topic.scenes){
     await expect(page.locator('.reader-scene:visible h2')).toHaveText(scene.title);
     const state=await page.evaluate(()=>window.__atlasRelated.getState());
     await page.evaluate(()=>window.__atlasRelated.reset());
     await page.evaluate(saved=>window.__atlasRelated.setState(saved),state);
     expect(await page.evaluate(()=>window.__atlasRelated.getState())).toEqual(state);
-    await test.step(scene.id,()=>expectFrame(page,questionFrame));
+    await test.step(scene.id,()=>expectFrame(page,topic.slug==='weekday-worlds'?weekdayFrame:questionFrame));
     if(scene===topic.scenes[0]||scene===topic.scenes.at(-1))await testInfo.attach(`${topic.slug}-${scene.id}`,{body:await page.screenshot(),contentType:'image/png'});
     if(scene!==topic.scenes.at(-1))await page.locator('#reader-next').click();
   }
@@ -64,6 +68,188 @@ for(const topic of questionTopics)test(`${topic.slug}: question-led scenes fit a
   await expect(page.locator('dialog[open]')).toContainText('주장별 조건과 근거 위치');
   await page.keyboard.press('Escape');
   expect(errors).toEqual([]);
+});
+
+async function weekdayInputs(page:Page){if((page.viewportSize()?.width??1920)<=720)await page.getByRole('button',{name:'입력 보기',exact:true}).click();}
+async function weekdayReasoning(page:Page){if((page.viewportSize()?.width??1920)<=720)await page.getByRole('button',{name:'추론 보기',exact:true}).click();}
+async function weekdayView(page:Page,mode:string){await weekdayInputs(page);await page.getByRole('checkbox',{name:'양상 논리 사용',exact:true}).setChecked(mode.includes('양상'));}
+
+test('weekday title slide, simultaneous original/symbol panels, named worlds and scrollable choices restore independently',async({page},testInfo)=>{
+  await page.goto('/knowledge/weekday-worlds/');await page.waitForFunction(()=>window.__atlasRelated);
+  await expect(page.locator('.reader-cover h1')).toBeVisible();await expect(page.locator('#reader-workbench')).toBeHidden();expect(await page.evaluate(()=>window.__atlasRelated.getState().cover)).toBe(true);
+  const titleState=await page.evaluate(()=>window.__atlasRelated.getState());await page.locator('#reader-next').click();await expect(page.locator('.reader-cover h1')).toBeHidden();await weekdayInputs(page);
+  await expect(page.locator('.weekday-source')).toBeVisible();await expect(page.locator('.weekday-symbolic-summary')).toBeVisible();await expect(page.locator('.weekday-source')).toContainText('가정 1');await expect(page.locator('.weekday-source')).not.toContainText('w₁');await expect(page.locator('.weekday-symbolic-summary')).toContainText('w₁');
+  const settings=page.locator('.weekday-settings');await expect(settings).toHaveCSS('overflow-y','auto');if((page.viewportSize()?.height??0)<=940)expect(await settings.evaluate(e=>e.scrollHeight>e.clientHeight)).toBe(true);
+  for(const control of await settings.locator('button,select').all()){
+    if(await control.isDisabled())continue;await control.scrollIntoViewIfNeeded();
+    const reachable=await control.evaluate(e=>{const r=e.getBoundingClientRect(),s=e.closest('.weekday-settings')!.getBoundingClientRect(),hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return r.top>=s.top&&r.bottom<=s.bottom&&Boolean(hit&&(e.contains(hit)||hit.contains(e)));});expect(reachable).toBe(true);
+  }
+  await settings.evaluate(e=>e.scrollTop=0);await page.getByRole('checkbox',{name:'양상 논리 사용',exact:true}).check();await expect(page.locator('.weekday-symbolic-summary')).toContainText('M,w ⊨ ◇P');await weekdayReasoning(page);await expect(page.locator('.weekday-modal-diagram')).toBeVisible();await expect(page.locator('.weekday-modal-diagram svg')).toHaveAttribute('aria-label',/현실 → 가정 1/);
+  await weekdayInputs(page);await page.getByRole('button',{name:'세계 · 접근 관계',exact:true}).click();await expect(page.getByRole('combobox',{name:'가정 1의 오늘',exact:true})).toBeVisible();await expect(page.getByRole('checkbox',{name:'현실 → 가정 1',exact:true})).toBeVisible();await page.getByRole('button',{name:'설정 닫기',exact:true}).click();
+  const readingState=await page.evaluate(()=>window.__atlasRelated.getState());await page.evaluate(()=>window.__atlasRelated.reset());await expect(page.locator('.reader-cover h1')).toBeVisible();await page.evaluate(saved=>window.__atlasRelated.setState(saved),readingState);await expect(page.locator('.reader-cover h1')).toBeHidden();await weekdayInputs(page);await expect(page.getByRole('checkbox',{name:'양상 논리 사용',exact:true})).toBeChecked();
+  const rejected=await page.evaluate(()=>{const before=window.__atlasRelated.getState();try{window.__atlasRelated.setState({...before,cover:'invalid'} as never);}catch{return JSON.stringify(before)===JSON.stringify(window.__atlasRelated.getState());}return false;});expect(rejected).toBe(true);
+  await page.evaluate(saved=>window.__atlasRelated.setState(saved),titleState);await expect(page.locator('.reader-cover h1')).toBeVisible();await page.goto('/knowledge/weekday-worlds/#sunday');await expect(page.locator('.reader-cover h1')).toBeHidden();await expect(page.locator('.reader-scene:visible h2')).toContainText('일요일');await weekdayInputs(page);await expectFrame(page,weekdayFrame);await testInfo.attach('weekday-stacked-reading',{body:await page.screenshot(),contentType:'image/png'});
+});
+
+test('skip controls appear only for a distinct jump and disclose scope and destination',async({page})=>{
+  await page.goto('/knowledge/weekday-worlds/#question');await page.waitForFunction(()=>window.__atlasRelated);
+  for(const scene of CONTENT_PAGES.find(p=>p.slug==='weekday-worlds')!.scenes){
+    await page.evaluate(sceneId=>window.__atlasRelated.setState({sceneId}),scene.id);
+    await expect(page.locator('#reader-skip')).toBeHidden();await expect(page.locator('.reader-scene:visible .skip-context')).toBeHidden();
+  }
+  await page.goto('/lesson.html');await page.waitForFunction(()=>window.__atlasLesson);
+  for(let index=0;index<EXPLOSION_EPISODE.sections.length;index++){
+    const section=EXPLOSION_EPISODE.sections[index];await page.evaluate(sectionId=>window.__atlasLesson.setState({sectionId}),section.id);
+    const view=await page.evaluate(()=>window.__atlasLesson.inspect()),targetIndex=EXPLOSION_EPISODE.sections.findIndex(s=>s.id===view.nextChapter?.id);
+    const skip=page.locator('#lesson-skip'),scope=page.locator('#lesson-skip-context');
+    if(targetIndex>index+1){
+      await expect(skip).toHaveText(`${view.chapter.title} 건너뛰기 ↗`);await expect(scope).toContainText(view.chapter.known);await expect(scope).toContainText(`이동: ${view.nextChapter!.title}`);
+      for(const item of EXPLOSION_EPISODE.sections.slice(index,targetIndex))await expect(skip).toHaveAttribute('title',new RegExp(item.title.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')));
+      await expectFrame(page,lessonFrame);await skip.click();expect(await page.evaluate(()=>window.__atlasLesson.getState().sectionId)).toBe(view.nextChapter!.id);
+      if(section.id==='premise-p'){
+        await page.evaluate(()=>{window.__atlasLesson.setState({sectionId:'premise-p'});window.__atlasLessonExperiment.setState({...window.__atlasLessonExperiment.getState(),customized:true});});
+        await expect(skip).toContainText('근거에서 결론까지');await expect(scope).toContainText('현재 경로의 전제');
+        await page.evaluate(()=>window.__atlasLessonExperiment.reset());await expect(skip).toHaveText('모순에서 Q까지 건너뛰기 ↗');
+      }
+      await page.evaluate(sectionId=>window.__atlasLesson.setState({sectionId}),section.id);await page.locator('#lesson-next').click();expect(await page.evaluate(()=>window.__atlasLesson.getState().sectionId)).toBe(EXPLOSION_EPISODE.sections[index+1].id);
+    }else{await expect(skip).toBeHidden();await expect(scope).toBeHidden();}
+  }
+});
+
+test('deleting reference and evaluation worlds removes every UI reference and survives navigation and restore',async({page},testInfo)=>{
+  await page.goto('/knowledge/weekday-worlds/#question');await page.waitForFunction(()=>window.__atlasRelated);await weekdayInputs(page);
+  await page.getByRole('button',{name:'세계 추가',exact:true}).click();await page.getByRole('button',{name:'세계 추가',exact:true}).click();
+  await page.getByRole('combobox',{name:'세계 선택 목록',exact:true}).selectOption('accessible');
+  for(const id of [1,2,3]){
+    for(const name of ['① 어제의 기준','② 내일의 기준','③ 그럼 오늘의 기준','④ 묻는 오늘의 기준','평가·접근 기준'])await page.getByRole('combobox',{name,exact:true}).selectOption(String(id));
+    await page.getByRole('button',{name:'세계 · 접근 관계',exact:true}).click();await page.getByRole('button',{name:`가정 ${id} 삭제`,exact:true}).click();await page.getByRole('button',{name:'설정 닫기',exact:true}).click();
+    for(const name of ['① 어제의 기준','② 내일의 기준','③ 그럼 오늘의 기준','④ 묻는 오늘의 기준','평가·접근 기준'])await expect(page.getByRole('combobox',{name,exact:true})).toHaveValue('0');
+    for(const mode of ['달력','양상']){
+      await weekdayView(page,mode);await expectFrame(page,weekdayFrame);await weekdayReasoning(page);await expectFrame(page,weekdayFrame);
+      for(let removed=1;removed<=id;removed++)await expect(page.locator(`.weekday-experiment [data-world="${removed}"]:not([data-create-world]),.weekday-world-dialog [data-world="${removed}"]`)).toHaveCount(0);
+      await weekdayInputs(page);
+    }
+    await page.locator('#reader-next').click();
+    const saved=await page.evaluate(()=>window.__atlasRelated.getState());await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(state=>window.__atlasRelated.setState(state),saved);expect(await page.evaluate(()=>window.__atlasRelated.getState())).toEqual(saved);await weekdayInputs(page);
+    for(let removed=1;removed<=id;removed++)await expect(page.locator(`.weekday-experiment [data-world="${removed}"]:not([data-create-world]),.weekday-world-dialog [data-world="${removed}"]`)).toHaveCount(0);
+  }
+  await expect(page.locator('.weekday-symbol-definition').first()).toContainText('W = {w₀}');
+  await page.getByRole('button',{name:'세계 · 접근 관계',exact:true}).click();await expect(page.locator('.weekday-dialog-world')).toHaveCount(1);await expect(page.locator('.weekday-access-matrix input')).toHaveCount(1);await testInfo.attach('weekday-only-remaining-world',{body:await page.screenshot(),contentType:'image/png'});
+});
+
+test('weekday wide layout fills the desktop and keeps every view usable with four worlds',async({page},testInfo)=>{
+  test.skip((page.viewportSize()?.width??0)<1200,'Wide desktop composition');
+  const topic=CONTENT_PAGES.find(p=>p.slug==='weekday-worlds')!;
+  for(const scene of topic.scenes){
+    await page.goto(`/knowledge/weekday-worlds/#${scene.id}`);await page.waitForFunction(()=>window.__atlasRelated);
+    while(await page.getByRole('button',{name:'세계 추가',exact:true}).isEnabled())await page.getByRole('button',{name:'세계 추가',exact:true}).click();
+    for(const mode of ['달력','양상']){
+      await weekdayView(page,mode);await test.step(`${scene.id} / ${mode}`,()=>expectFrame(page,weekdayFrame));
+    }
+  }
+  const measures=await page.evaluate(()=>({width:document.querySelector('.weekday-experiment')!.getBoundingClientRect().width/innerWidth,controls:[...document.querySelectorAll<HTMLSelectElement>('.weekday-controls select')].map(node=>({font:parseFloat(getComputedStyle(node).fontSize),height:node.getBoundingClientRect().height}))}));
+  expect(measures.width).toBeGreaterThan(.9);for(const control of measures.controls){expect(control.font).toBeGreaterThanOrEqual(13);expect(control.height).toBeGreaterThanOrEqual(34);}
+  await testInfo.attach('weekday-wide-four-worlds',{body:await page.screenshot(),contentType:'image/png'});
+});
+
+test('weekday reference choices create absent worlds and identify other expressions using each world',async({page},testInfo)=>{
+  await page.goto('/knowledge/weekday-worlds/#question');await page.waitForFunction(()=>window.__atlasRelated);await weekdayInputs(page);
+  const first=page.getByRole('combobox',{name:'① 어제의 기준',exact:true}),second=page.getByRole('combobox',{name:'② 내일의 기준',exact:true}),third=page.getByRole('combobox',{name:'③ 그럼 오늘의 기준',exact:true}),fourth=page.getByRole('combobox',{name:'④ 묻는 오늘의 기준',exact:true}),evaluation=page.getByRole('combobox',{name:'평가·접근 기준',exact:true});
+  await expect(second.locator('option[value="1"]')).toHaveText('가정 1 (③의 기준)');await expect(third.locator('option[value="1"]')).toHaveText('가정 1 (②의 기준)');await expect(first.locator('option[value="1"]')).toHaveText('가정 1 (②·③의 기준)');
+  await expect(second.locator('optgroup[label="새 세계 추가"] option')).toHaveText(['가정 2 (선택하여 추가)','가정 3 (선택하여 추가)']);
+  await second.selectOption('new:2');await expect(second).toHaveValue('2');await expect(third.locator('option[value="2"]')).toHaveText('가정 2 (②의 기준)');await expect(third.locator('option[value="1"]')).toHaveText('가정 1');
+  await third.selectOption('2');await expect(second.locator('option[value="2"]')).toHaveText('가정 2 (③의 기준)');await expect(fourth.locator('option[value="2"]')).toHaveText('가정 2 (②·③의 기준)');
+  await evaluation.selectOption('new:3');await expect(evaluation).toHaveValue('3');await expect(first.locator('[data-create-world]')).toHaveCount(0);await expect(page.getByRole('button',{name:'세계 추가',exact:true})).toBeDisabled();
+  await page.getByRole('combobox',{name:'세계 선택 목록',exact:true}).selectOption('accessible');await expect(second.locator('option[value="2"]')).toHaveJSProperty('disabled',true);await expect(second.locator('option[value="2"]')).toContainText('③의 기준');
+  await page.getByRole('button',{name:'세계 · 접근 관계',exact:true}).click();await page.getByRole('button',{name:'가정 2 삭제',exact:true}).click();await page.getByRole('button',{name:'설정 닫기',exact:true}).click();
+  await expect(second).toHaveValue('0');await expect(second.locator('option[value="2"]')).toHaveCount(0);await expect(second.locator('option[value="new:2"]')).toHaveText('가정 2 (선택하여 추가)');
+  await first.selectOption('new:2');await expect(first).toHaveValue('2');await expect(second.locator('option[value="2"]')).toHaveText('가정 2 (①의 기준)');await expect(second.locator('option[value="2"]')).toHaveJSProperty('disabled',false);
+  const saved=await page.evaluate(()=>window.__atlasRelated.getState());
+  const configuration=await page.evaluate(()=>{const s=window.__atlasRelated.getState().interaction;if(!s||!('worlds'in s))throw new Error('Expected worlds');return {ids:s.worlds.map(w=>w.id),hasNewEdge:s.access.some(e=>e[0]===3&&e[1]===2),hasSelf:s.access.some(e=>e[0]===2&&e[1]===2)};});expect(configuration).toEqual({ids:[0,1,2,3],hasNewEdge:true,hasSelf:true});
+  await page.locator('#reader-next').click();await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(state=>window.__atlasRelated.setState(state),saved);await weekdayInputs(page);await expect(first).toHaveValue('2');await expect(second.locator('option[value="2"]')).toHaveText('가정 2 (①의 기준)');
+  await expectFrame(page,weekdayFrame);await testInfo.attach('weekday-reference-creation',{body:await page.screenshot(),contentType:'image/png'});await weekdayReasoning(page);await expectFrame(page,weekdayFrame);
+  await weekdayInputs(page);await page.getByRole('button',{name:'C · 가능세계 없이',exact:true}).click();await expectFrame(page,weekdayFrame);
+  const clippedLabels=await page.locator('.weekday-controls select,.weekday-basis select[data-world]').evaluateAll(nodes=>{const canvas=document.createElement('canvas'),context=canvas.getContext('2d')!;return nodes.flatMap(node=>{const select=node as HTMLSelectElement,style=getComputedStyle(select);context.font=style.font;const text=select.selectedOptions[0].textContent??'',needed=context.measureText(text).width+parseFloat(style.paddingLeft)+parseFloat(style.paddingRight)+20;return needed>select.clientWidth?[text]:[];});});expect(clippedLabels).toEqual([]);
+});
+
+test('weekday world identity colors agree across selectors, sentence, formulas, graph and configuration',async({page})=>{
+  await page.goto('/knowledge/weekday-worlds/#question');await page.waitForFunction(()=>window.__atlasRelated);await weekdayInputs(page);
+  await page.getByRole('button',{name:'세계 추가',exact:true}).click();await page.getByRole('button',{name:'세계 추가',exact:true}).click();
+  const control=page.getByRole('combobox',{name:'④ 묻는 오늘의 기준',exact:true});
+  for(let id=0;id<4;id++){
+    await control.selectOption(String(id));await weekdayView(page,'달력');
+    const sentenceColor=await page.locator('.weekday-sentence-question .weekday-word').evaluate(e=>getComputedStyle(e).backgroundColor);
+    expect(await control.evaluate(e=>getComputedStyle(e).backgroundColor)).toBe(sentenceColor);
+    await weekdayReasoning(page);expect(await page.locator(`.world-card[data-world="${id}"]`).evaluate(e=>getComputedStyle(e).backgroundColor)).toBe(sentenceColor);await weekdayInputs(page);
+    await weekdayView(page,'달력');expect(await page.locator(`.weekday-symbol-query [data-world="${id}"]`).evaluate(e=>getComputedStyle(e).backgroundColor)).toBe(sentenceColor);
+  }
+  const colors=await control.locator('option').evaluateAll(options=>options.map(e=>getComputedStyle(e).backgroundColor));expect(new Set(colors).size).toBe(4);
+  expect(await page.locator('.world-cell[data-linked=true]').evaluateAll(nodes=>nodes.every(e=>getComputedStyle(e).backgroundColor===getComputedStyle(e.closest('.world-card')!).backgroundColor))).toBe(true);
+  await weekdayView(page,'양상');await weekdayReasoning(page);
+  expect(await page.locator('.weekday-modal-diagram circle[data-world]').evaluateAll(nodes=>nodes.map(e=>getComputedStyle(e).fill))).toEqual(colors);
+  await weekdayInputs(page);await page.getByRole('button',{name:'세계 · 접근 관계',exact:true}).click();
+  expect(await page.locator('.weekday-dialog-world').evaluateAll(nodes=>nodes.map(e=>getComputedStyle(e).backgroundColor))).toEqual(colors);
+  await page.getByRole('button',{name:'가정 2 삭제',exact:true}).click();
+  expect(await page.locator('.weekday-dialog-world[data-world="3"]').evaluate(e=>getComputedStyle(e).backgroundColor)).toBe(colors[3]);
+  await page.getByRole('button',{name:'설정 닫기',exact:true}).click();await control.selectOption('3');expect(await control.evaluate(e=>getComputedStyle(e).backgroundColor)).toBe(colors[3]);
+  await weekdayReasoning(page);await expectFrame(page,weekdayFrame);
+});
+
+test('weekday worlds preserve independent expressions, preset semantics and validated state',async({page},testInfo)=>{
+  await page.goto('/knowledge/weekday-worlds/#question');await page.waitForFunction(()=>window.__atlasRelated);await weekdayInputs(page);
+  const controls=['① 어제의 기준','② 내일의 기준','③ 그럼 오늘의 기준','④ 묻는 오늘의 기준'].map(name=>page.getByRole('combobox',{name,exact:true}));
+  const actual=page.getByRole('combobox',{name:'현실의 오늘',exact:true}),target=page.getByRole('combobox',{name:'문장 속 목표 요일',exact:true});
+  await expect(page.locator('.weekday-presets button')).toHaveCount(3);await expect(page.locator('.weekday-symbolic-summary')).toBeVisible();
+  const layout=await page.evaluate(()=>{const a=document.querySelector('.weekday-input-panel')!.getBoundingClientRect(),b=document.querySelector('.weekday-reasoning-panel')!.getBoundingClientRect();return {desktop:innerWidth>720,left:a.right<=b.left,sameTop:Math.abs(a.top-b.top)<1};});if(layout.desktop){expect(layout.left).toBe(true);expect(layout.sameTop).toBe(true);}
+  await expect(page.locator('.weekday-logic-conclusion')).toContainText('Γ ⊨₇ t₀ ≡₇ 6');
+  await page.getByRole('button',{name:'B · 현실 내일 고정',exact:true}).click();await expect(actual).toHaveValue('2');await expect(page.locator('.weekday-sentence-line .weekday-word sub')).toHaveText(['가정 1','현실','가정 1']);await expect(page.locator('.weekday-result')).toContainText('현실 답: 수요일');
+  await controls[3].selectOption('1');await expect(page.locator('.weekday-result')).toContainText('조건의 재확인: 금요일');
+  await controls[2].selectOption('0');await expect(page.locator('.weekday-result')).toContainText('다른 세계의 답: 일요일');
+  await controls[0].selectOption('0');await expect(page.locator('.weekday-result')).toContainText('Γ의 해 없음');
+  await page.getByRole('button',{name:'B · 현실 내일 고정',exact:true}).click();await page.locator('#reader-next').click();await expect(controls[0]).toHaveValue('1');
+  await actual.selectOption('6');await expect(page.locator('.weekday-result')).toContainText('불일치');
+  await target.selectOption('0');await page.getByRole('button',{name:'A · 현실 어제 고정',exact:true}).click();await expect(actual).toHaveValue('2');await expect(target).toHaveValue('0');
+  await page.getByRole('button',{name:'B · 현실 내일 고정',exact:true}).click();await expect(actual).toHaveValue('5');await expect(page.locator('.weekday-result')).toContainText('조건 만족');
+  await page.getByRole('button',{name:'C · 가능세계 없이',exact:true}).click();await expect(page.locator('.world-card')).toHaveCount(1);for(const control of controls)await expect(control).toHaveValue('0');await expect(page.locator('.weekday-result')).toContainText('Γ의 해 없음');
+  await page.getByRole('button',{name:'A · 현실 어제 고정',exact:true}).click();
+  const custom=await page.evaluate(()=>window.__atlasRelated.getState());
+  for(let mask=0;mask<16;mask++){
+    const kind=await page.evaluate(({custom,mask})=>{if(!custom.interaction||!('contexts'in custom.interaction))throw new Error('Expected weekday state');const bit=(index:number):0|1=>(mask>>index)&1?1:0;window.__atlasRelated.setState({...custom,interaction:{...custom.interaction,customized:true,contexts:{yesterday:bit(0),tomorrow:bit(1),consequent:bit(2),question:bit(3)}}});const info=window.__atlasRelated.getInspectionSnapshot().interaction;if(!info||!('contexts'in info))throw new Error('Expected weekday inspection');return info.result.kind;},{custom,mask});
+    const expected=(mask&1)===((mask>>1)&1)?'impossible':((mask>>2)&1)===((mask>>3)&1)?'direct':mask&8?'reversed':'inferred';expect(kind).toBe(expected);await expectFrame(page,weekdayFrame);
+  }
+  await page.evaluate(state=>window.__atlasRelated.setState(state),custom);
+  const saved=await page.evaluate(()=>window.__atlasRelated.getState());await page.evaluate(()=>{const s=window.__atlasRelated.getState();if(s.interaction&&'worlds'in s.interaction){s.interaction.worlds[0].today=0;s.interaction.access[0][0]=1;s.interaction.contexts.question=1;}});expect(await page.evaluate(()=>window.__atlasRelated.getState())).toEqual(saved);
+  await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(state=>window.__atlasRelated.setState(state),saved);expect(await page.evaluate(()=>window.__atlasRelated.getState())).toEqual(saved);
+  const rejected=await page.evaluate(()=>{const before=window.__atlasRelated.getState();let rejected=0;for(const patch of [{actual:7},{target:NaN},{contexts:{yesterday:0,tomorrow:1,consequent:1,question:3}},{contexts:null},{worlds:[]},{access:[[0,3]]},{evaluationWorld:3},{logicMode:'unknown'},{representation:'unknown'},{version:99}])try{window.__atlasRelated.setState({...before,sceneId:'conclusion',interaction:{...before.interaction,...patch}} as never);}catch{rejected++;}return rejected===10&&JSON.stringify(before)===JSON.stringify(window.__atlasRelated.getState());});expect(rejected).toBe(true);
+  await page.evaluate(()=>window.__atlasRelated.setState({sceneId:'question',interaction:{actual:6,target:4,rule:'actual-yesterday',example:'question',customized:true}} as never));await weekdayInputs(page);await expect(page.locator('.weekday-result')).toContainText('현실 답: 일요일');
+  await page.getByRole('button',{name:'장면 예시로',exact:true}).click();await expect(actual).toHaveValue('6');await expect(target).toHaveValue('4');await expectFrame(page,weekdayFrame);await weekdayReasoning(page);await expectFrame(page,weekdayFrame);await testInfo.attach('weekday-final-layout',{body:await page.screenshot(),contentType:'image/png'});
+});
+
+test('weekday editable worlds and accessibility change choices and modal truth',async({page},testInfo)=>{
+  await page.goto('/knowledge/weekday-worlds/#question');await page.waitForFunction(()=>window.__atlasRelated);await weekdayInputs(page);
+  await weekdayView(page,'양상');
+  await expect(page.locator('.weekday-modal-verdict[data-formula="◇P"]')).toHaveAttribute('data-truth','true');await expect(page.locator('.weekday-modal-verdict[data-formula="□P"]')).toHaveAttribute('data-truth','false');
+  await page.getByRole('button',{name:'세계 추가',exact:true}).click();await page.getByRole('button',{name:'세계 추가',exact:true}).click();await expect(page.getByRole('combobox',{name:'④ 묻는 오늘의 기준',exact:true}).locator('option')).toHaveCount(4);await expect(page.getByRole('button',{name:'세계 추가',exact:true})).toBeDisabled();
+  await page.getByRole('combobox',{name:'④ 묻는 오늘의 기준',exact:true}).selectOption('2');await expect(page.locator('.weekday-result')).toContainText('가능한 요일 7개');
+  await page.getByRole('button',{name:'세계 · 접근 관계',exact:true}).click();await expect(page.locator('dialog[open]')).toBeVisible();
+  await page.getByRole('checkbox',{name:'현실 → 현실',exact:true}).uncheck();await page.getByRole('checkbox',{name:'현실 → 가정 2',exact:true}).uncheck();await page.getByRole('checkbox',{name:'현실 → 가정 3',exact:true}).uncheck();await page.getByRole('button',{name:'설정 닫기',exact:true}).click();
+  await page.getByRole('combobox',{name:'세계 선택 목록',exact:true}).selectOption('accessible');
+  const question=page.getByRole('combobox',{name:'④ 묻는 오늘의 기준',exact:true});await expect(question.locator('option:enabled')).toHaveText(['가정 1 (②·③의 기준)']);await expect(question).toHaveValue('2');await expect(question.locator('option:disabled')).toContainText('범위 밖');
+  await expect(page.locator('.weekday-modal-verdict[data-formula="□P"]')).toHaveAttribute('data-truth','true');await expect(page.locator('.weekday-modal-verdict[data-formula="P"]')).toHaveAttribute('data-truth','false');
+  await page.getByRole('button',{name:'세계 · 접근 관계',exact:true}).click();await page.getByRole('checkbox',{name:'현실 → 가정 1',exact:true}).uncheck();await page.getByRole('button',{name:'설정 닫기',exact:true}).click();await expect(page.locator('.weekday-modal-note')).toContainText('공허한 참');
+  await page.getByRole('combobox',{name:'평가·접근 기준',exact:true}).selectOption('1');await expect(question.locator('option:enabled')).toHaveText(['가정 1 (②·③의 기준)']);
+  await page.getByRole('button',{name:'세계 · 접근 관계',exact:true}).click();await page.getByRole('button',{name:'가정 2 삭제',exact:true}).click();await page.getByRole('button',{name:'설정 닫기',exact:true}).click();await expect(question).toHaveValue('0');
+  await page.getByRole('combobox',{name:'세계 선택 목록',exact:true}).selectOption('all');await expect(question.locator('option:not([data-create-world])')).toHaveText(['현실 (①의 기준)','가정 1 (②·③의 기준)','가정 3']);
+  const saved=await page.evaluate(()=>window.__atlasRelated.getState());await page.locator('#reader-next').click();await expect(question.locator('option:not([data-create-world])')).toHaveCount(3);await page.evaluate(s=>window.__atlasRelated.setState(s),saved);expect(await page.evaluate(()=>window.__atlasRelated.getState())).toEqual(saved);
+  await expectFrame(page,weekdayFrame);await weekdayReasoning(page);await expectFrame(page,weekdayFrame);await testInfo.attach('weekday-modal-multiworld',{body:await page.screenshot(),contentType:'image/png'});
+});
+
+test('weekday direct links preserve both nonmodal and alethic views in narrow windows',async({page},testInfo)=>{
+  await page.setViewportSize({width:390,height:844});const topic=CONTENT_PAGES.find(p=>p.slug==='weekday-worlds')!;
+  for(const scene of topic.scenes){await page.goto(`/knowledge/${topic.slug}/#${scene.id}`);await page.waitForFunction(()=>window.__atlasRelated);await expect(page.locator('.reader-scene:visible h2')).toHaveText(scene.title);await expectFrame(page,weekdayFrame);
+    for(const mode of ['달력','양상']){await weekdayInputs(page);await weekdayView(page,mode);await expectFrame(page,weekdayFrame);await weekdayReasoning(page);await expectFrame(page,weekdayFrame);}
+    if(scene.id==='wednesday')await testInfo.attach('weekday-narrow-alethic',{body:await page.screenshot(),contentType:'image/png'});
+  }
 });
 
 test('binary search follows comparisons, preserves edits, clears invalid drafts and seeks independently',async({page},testInfo)=>{
