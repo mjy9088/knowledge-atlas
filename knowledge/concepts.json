@@ -159,5 +159,12 @@
     "summary": "현실과 가정을 비교하며 세계와 기준 시점을 구별하기",
     "reviewStatus": "proposed",
     "externalIds": []
+  },
+  {
+    "id": "concept:statistics.monty-hall",
+    "title": "몬티 홀: 문 하나보다 공개 규칙",
+    "summary": "원문과 공개 규칙이 생략된 축약판을 비교하고, 정보와 정보 획득 절차를 구분한다.",
+    "reviewStatus": "proposed",
+    "externalIds": []
   }
 ]

@@ -1,0 +1,58 @@
+[
+  {
+    "id": "claim:statistics.monty-hall.monty-strategy",
+    "kind": "draft-teaching-model",
+    "statement": "상품 위치 균등·초기 선택 독립, 진행자가 항상 선택하지 않은 오답 문을 열고 교환을 제안하면 항상 바꾸는 전략의 승률은 2/3. 무조건 승률에는 동률 선택의 무작위성이 필요하지 않다.",
+    "scope": "원문과 공개 규칙이 생략된 축약판을 비교하고, 정보와 정보 획득 절차를 구분한다.",
+    "assumptions": [
+      "Inherited manuscript scope; scientific and rights review pending"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:iyer-conditional-probability-2026",
+        "locator": "Definition 2; Propositions 5–6. Finite cases below are independently derived teaching models."
+      },
+      {
+        "sourceId": "source:studio-monty-hall-gill-monty",
+        "locator": "Abstract: explicit modelling assumptions; numerical examples below independently enumerated."
+      }
+    ],
+    "reviewStatus": "needs-content-review"
+  },
+  {
+    "id": "claim:statistics.monty-hall.monty-observation",
+    "kind": "draft-teaching-model",
+    "statement": "특정 번호 문 공개 후의 확률은 공개 정책의 우도에 의존한다. 무작위로 미선택 문을 열고 우연히 오답을 본 절차에서는 그 관측 후 교환 승률이 1/2이다.",
+    "scope": "원문과 공개 규칙이 생략된 축약판을 비교하고, 정보와 정보 획득 절차를 구분한다.",
+    "assumptions": [
+      "Inherited manuscript scope; scientific and rights review pending"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:iyer-conditional-probability-2026",
+        "locator": "Definition 2; Propositions 5–6. Finite cases below are independently derived teaching models."
+      }
+    ],
+    "reviewStatus": "needs-content-review"
+  },
+  {
+    "id": "claim:statistics.monty-hall.monty-epistemic",
+    "kind": "draft-teaching-model",
+    "statement": "공개 규칙이 생략된 축약판만으로 특정 사후확률을 유일하게 확정할 수 없다. 표준 규칙을 보충한 답과 문장이 실제로 보장한 조건을 구분한다.",
+    "scope": "원문과 공개 규칙이 생략된 축약판을 비교하고, 정보와 정보 획득 절차를 구분한다.",
+    "assumptions": [
+      "Inherited manuscript scope; scientific and rights review pending"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:iyer-conditional-probability-2026",
+        "locator": "Definition 2; Propositions 5–6. Finite cases below are independently derived teaching models."
+      },
+      {
+        "sourceId": "source:studio-monty-hall-gill-monty",
+        "locator": "Abstract: explicit modelling assumptions; numerical examples below independently enumerated."
+      }
+    ],
+    "reviewStatus": "needs-content-review"
+  }
+]

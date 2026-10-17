@@ -479,5 +479,16 @@
     "readingScope": "§5.2 Congruence and Divisibility; Congruence and Equality; Properties of Congruence (equivalence relation); Congruence and Arithmetic (addition/subtraction and replacement). Colophon authorship/license notice consulted.",
     "snapshotStatus": "Live web-tool reading; no immutable source bytes captured",
     "externalMaterialIncluded": false
+  },
+  {
+    "id": "source:studio-monty-hall-gill-monty",
+    "canonicalUrl": "https://arxiv.org/abs/1002.0651",
+    "title": "Richard D. Gill — The Monty Hall Problem is not a Probability Puzzle",
+    "author": "Authorship verification pending; see canonical source",
+    "retrievedAt": "2026-10-18",
+    "providerRevision": "unfrozen; inherited manuscript consultation date, not verified by scaffold",
+    "contentHash": null,
+    "license": "Unverified; reference-only, no third-party material copied",
+    "rightsReview": "pending-publication-audit"
   }
 ]
