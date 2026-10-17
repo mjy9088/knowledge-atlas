@@ -1,9 +1,10 @@
 {
   "id": "article:logic.weekday-worlds.ko",
   "conceptId": "concept:logic.possible-worlds-context",
-  "title": "어제가 내일이면, 오늘은 꼭 한 요일일까요?",
+  "title": "이걸로 IQ를 재겠다고? (어제가 내일이었으면...)",
+  "shortTitle": "이걸로 IQ를 재겠다고?",
   "reviewStatus": "needs-content-review",
-  "scope": "요일 수수께끼의 명시적 달력 제약과 지시어 기준을 비교합니다. 최대 네 세계의 요일 배정과 편집 가능한 접근 관계를 갖는 교육 모형입니다. 달력 해 추출과 □·◇의 진리 평가를 구별하며, 한국어 자동 해석·일반 반사실 의미론·실제 형이상학적 가능성의 판정은 구현하지 않습니다.",
+  "scope": "요일 수수께끼의 명시적 달력 제약과 지시어 기준을 비교합니다. 최대 네 세계의 요일 배정과 편집 가능한 접근 관계를 갖는 교육 모형입니다. 비양상 단순화와 바람·반사실 조건문 번역을 전환합니다. 번역은 명시한 읽기이며 한국어 자동 해석이 아닙니다. 달력 해 추출과 반사실의 진리 평가를 구별하며 유사성 순서나 반사실 진리 평가기는 구현하지 않습니다.",
   "blocks": [
     {
       "id": "block:logic.weekday-worlds.question",
@@ -36,9 +37,12 @@
     },
     {
       "id": "block:logic.weekday-worlds.literal",
-      "text": "C는 한 기준에서 t−1=t+1을 요구합니다. 보통의 달력에서 두 날은 이틀 떨어져 있으므로 해가 없습니다. 이 결과로 모든 반사실 가정을 오류라 하거나 현실 요일을 추론할 수는 없습니다. A와 B는 서로 다른 기준 사이에 대응을 놓았습니다.",
+      "text": "C는 같은 기준의 어제=내일을 요구해 모순입니다. 고전 논리에서는 모순 폭발로 ‘오늘은 월요일’부터 ‘일요일’까지 모두 도출됩니다. 현실 요일이 전부 참이라는 뜻은 아닙니다. 계산기는 해가 없으므로 답을 고르지 않습니다.",
       "claimRefs": [
-        "claim:logic.weekday-worlds.literal"
+        "claim:logic.weekday-worlds.literal",
+        "claim:logic.weekday-worlds.explosion",
+        "claim:logic.explosion.rule",
+        "claim:logic.explosion.not-reality"
       ]
     },
     {
@@ -61,16 +65,17 @@
       "text": "기호 화면에서 tᵢ는 기준 wᵢ의 오늘 요일입니다. Γ={A,B}는 어제와 내일의 대응, 목표 요일을 함께 요구합니다. 모든 해에서 질문 값이 같을 때 답을 추출합니다. 해가 없으면 ∅, 값이 여러 개면 미결정으로 표시합니다. 새 세계를 추가해 질문 기준을 바꿔 보세요.",
       "claimRefs": [
         "claim:logic.weekday-worlds.notation",
+        "claim:logic.weekday-worlds.conditional-reading",
         "claim:logic.weekday-worlds.multiverse"
       ]
     },
     {
       "id": "block:logic.weekday-worlds.alethic",
-      "text": "□·◇ 화면에서 P는 ‘오늘이 목표 요일’입니다. ◇P는 접근 세계 중 하나 이상, □P는 모든 접근 세계에서 P가 참임을 뜻합니다. R을 바꿔 비교하세요. 사용자 모형의 양상 평가는 원문의 반사실·현실 요일의 답과 구별됩니다.",
+      "text": "양상 번역은 Wishₛ(A) ∧ (A □→ B)입니다. 바람과 반사실 조건문을 나눈 읽기입니다. □→는 가장 가까운 A-세계에서 B가 성립함을 뜻합니다. R만으로 가까운 세계를 고르지는 않습니다. 달력 답은 Γ를 추가로 채택한 계산입니다.",
       "claimRefs": [
-        "claim:logic.weekday-worlds.alethic"
+        "claim:logic.weekday-worlds.modal-translation"
       ]
     }
   ],
-  "relatedConcepts": []
+  "relatedConcepts": ["concept:logic.explosion"]
 }

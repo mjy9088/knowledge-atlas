@@ -23,3 +23,6 @@ The initial decisions were introduced on 2026-10-16; later additions carry their
 | [0016](0016-typescript-source.md) | Strict TypeScript source and static JavaScript delivery |
 | [0017](0017-question-led-comparisons.md) | Question-led comparisons through topic adapters |
 | [0018](0018-weekday-world-contexts.md) | Explicit contexts and reusable world comparison cards |
+| [0019](0019-structural-expression-alignment.md) | Reusable structural alignment between representations |
+| [0020](0020-article-titles-and-vector-artwork.md) | Short titles and topic-owned vector artwork |
+| [0021](0021-source-modal-translation.md) | Switch the original sentence's modal translation |

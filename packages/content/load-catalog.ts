@@ -2,6 +2,7 @@ import type {ContentEntry,ContentPage,CollectionMetadata,Article,Claim,SourceRec
 type RegistryEntry=Pick<ContentEntry,'directory'|'article'> & {page: Pick<ContentPage,'slug'|'articleId'>};
 interface CatalogOptions {entries?: RegistryEntry[];claimFiles?: string[];collectionFile?: string}
 import {CONTENT_ENTRIES,CLAIM_FILES,COLLECTION_FILE} from '../../content/catalog.js';
+import {validateArticleTitles} from './presentation.js';
 
 // Reader/build adapters supply I/O; this module has no filesystem or DOM dependency.
 export async function loadContentCatalog(readJSON: (name: string)=>Promise<unknown>,{entries=CONTENT_ENTRIES,claimFiles=CLAIM_FILES,collectionFile=COLLECTION_FILE}: CatalogOptions={}): Promise<SiteContent>{
@@ -19,6 +20,6 @@ export async function loadContentCatalog(readJSON: (name: string)=>Promise<unkno
   ]);
   const claims=claimGroups.flat();
   if(new Set(claims.map(claim=>claim.id)).size!==claims.length)throw new TypeError('Duplicate claim ownership');
-  articles.forEach((article,index)=>{if(article.id!==entries[index].page.articleId)throw new TypeError('Catalog article identity mismatch');});
+  articles.forEach((article,index)=>{if(article.id!==entries[index].page.articleId)throw new TypeError('Catalog article identity mismatch');validateArticleTitles(article);});
   return {collection:{...metadata,articles},claims,sources};
 }

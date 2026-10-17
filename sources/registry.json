@@ -462,7 +462,7 @@
     "contentHash": null,
     "license": "Preface links a Creative Commons license; exact license version not independently reviewed for reuse. Reference only.",
     "rightsReview": "Reference-only. No external prose, figures, data or code imported. Independently authored Korean explanations, graph and evaluator; publication review remains pending.",
-    "readingScope": "Chapter 1 §1.2 (alethic/circumstantial versus epistemic/deontic uses); Chapter 3 §3.1 Definitions 3.1–3.2 (W,R,V and atom/box/diamond clauses); introductory example of empty accessibility. Preface authorship footer read.",
+    "readingScope": "Chapter 1 §1.2 (alethic/circumstantial versus epistemic/deontic uses); Chapter 3 §3.1 Definitions 3.1–3.2 (W,R,V and atom/box/diamond clauses); introductory example of empty accessibility. Chapter 8 §8.1 opening material-conditional definition and limits of the material analysis at https://www.wolfgangschwarz.net/logic2/08-conditionals.html, consulted 2026-10-17 for an explicitly scoped conditional simplification; §8.2 strict-conditional comparison read for orientation, not implemented. Chapter 8 §8.3 indicative/subjunctive distinction and Definitions 8.2–8.3 read on 2026-10-17 for the authored wish/counterfactual translation; no similarity ordering or desire truth evaluator is implemented. Preface authorship footer read.",
     "snapshotStatus": "Live web-tool reading; no source bytes captured",
     "externalMaterialIncluded": false
   }

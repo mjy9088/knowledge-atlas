@@ -10,7 +10,7 @@ export interface SourceRecord {
 }
 export interface ArticleBlock { id: string; text: string; claimRefs: string[] }
 export interface Article {
-  id: string; title: string; conceptId: string; reviewStatus: string;
+  id: string; title: string; shortTitle?: string; conceptId: string; reviewStatus: string;
   blocks: ArticleBlock[]; relatedConcepts: string[]; scope?: string;
 }
 export interface Scene {
@@ -21,6 +21,7 @@ export interface Scene {
 export interface ContentPage {
   slug: string; articleId: string; label: string; category: string;
   cover?: boolean;
+  thumbnail?: {src:string;alt:string;coverSrc?:string};
   experiment?: boolean; model?: 'classical' | 'fde' | 'sets' | 'ch' | null;
   interactive?: 'hydrogenic-orbitals' | 'typed-lambda' | 'binary-search' | 'sphere-slices' | 'base-rates' | 'weekday-worlds';
   styles?: string[]; claimRefs?: string[]; scenes: Scene[];

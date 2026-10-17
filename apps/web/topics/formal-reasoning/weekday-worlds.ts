@@ -6,6 +6,8 @@ import {mountWeekdaySentence,type WeekdayRepresentation,type WeekdayLogicMode} f
 import {mountWeekdayLogic} from './weekday-logic.js';
 import {mountWeekdayModal} from './weekday-modal.js';
 import {WORLD_COLORS,colorWorld,worldText,worldLabel} from './weekday-world-style.js';
+import {mountSemanticAlignment} from '../../components/alignment/semantic-alignment.js';
+import {WEEKDAY_ALIGNMENT} from './weekday-alignment.js';
 export interface WeekdayWorldsState extends WeekdayInterpretation,ModalFrame {version:3;worlds:CalendarWorld[];example:string;customized:boolean;representation:WeekdayRepresentation;logicMode:WeekdayLogicMode;selectionScope:'all'|'accessible';narrowPanel:'inputs'|'reasoning'}
 const EXAMPLES:Record<string,{actual:number;target:number;rule:WeekdayRule}>={notation:{actual:6,target:4,rule:'actual-yesterday'},alethic:{actual:6,target:4,rule:'actual-yesterday'},question:{actual:6,target:4,rule:'actual-yesterday'},contexts:{actual:6,target:4,rule:'actual-yesterday'},sunday:{actual:6,target:4,rule:'actual-yesterday'},wednesday:{actual:2,target:4,rule:'imagined-yesterday'},literal:{actual:6,target:4,rule:'same-context'},transfer:{actual:6,target:0,rule:'actual-yesterday'},conclusion:{actual:6,target:4,rule:'actual-yesterday'}};
 const LABELS:Record<keyof WeekdayContexts,string>={yesterday:'① 어제의 기준',tomorrow:'② 내일의 기준',consequent:'③ 그럼 오늘의 기준',question:'④ 묻는 오늘의 기준'};
@@ -64,6 +66,7 @@ export function mountWeekdayWorldsExperiment(container:HTMLElement,{onChange=()=
   const settingsTitle=make('h2','선택', 'weekday-settings-heading');settingsTitle.append(make('small','아래로 스크롤'));settings.append(presets,controls,toolbar,basis,relationSummary,days);
   const footer=make('div',undefined,'weekday-footer'),hint=make('span','새 세계는 선택하여 추가 · 프리셋은 세계·관계도 복원'),reset=make('button','장면 예시로');reset.type='button';footer.append(hint,reset);left.append(quote,settingsTitle,settings,footer);
   const right=make('div',undefined,'weekday-reasoning-panel'),visual=make('div',undefined,'weekday-visual'),diagram=make('div'),viewer=mountWorldComparison(diagram),modalDiagram=make('div'),modal=mountWeekdayModal(modalDiagram),logicDiagram=make('div'),logic=mountWeekdayLogic(logicDiagram),result=make('p',undefined,'weekday-result');result.setAttribute('aria-live','polite');visual.append(diagram,modalDiagram,logicDiagram);right.append(visual,result);container.append(narrow,left,right);
+  const alignment=mountSemanticAlignment(container,WEEKDAY_ALIGNMENT,sentence.alignmentStatus,{instruction:'원문 ↔ 달력 제약: 가리키거나 Tab으로 경로 확인'});
   const dialog=make('dialog',undefined,'reader-panel weekday-world-dialog'),close=make('button','설정 닫기'),dialogAdd=make('button','설정에서 세계 추가'),dialogWorlds=make('div',undefined,'weekday-dialog-worlds'),matrix=make('div',undefined,'weekday-access-matrix');close.type=dialogAdd.type='button';close.className='reader-panel-close';dialog.append(close,make('h2','세계와 직접 접근 관계'),make('p','최대 4세계. 삭제된 세계를 참조한 표현·평가기준은 현실로 옮깁니다. 새 세계는 평가점에서 접근하도록 연결합니다.'),dialogAdd,dialogWorlds,make('h3','행에서 열로 접근 (R)'),matrix);doc.body.append(dialog);close.addEventListener('click',()=>dialog.close());configure.addEventListener('click',()=>dialog.showModal());
   let baseline='question',state:WeekdayWorldsState={version:3,actual:6,target:4,contexts:{...PRESET_CONTEXTS['actual-yesterday']},worlds:[{id:0,today:6},{id:1,today:4}],access:defaultAccess(),evaluationWorld:0,example:'question',customized:false,representation:'symbols',logicMode:'calendar',selectionScope:'all',narrowPanel:'reasoning'};
   let worldSignature='';const worldDayControls=new Map<WorldIndex,HTMLSelectElement>(),edgeControls=new Map<string,HTMLInputElement>();
@@ -83,7 +86,7 @@ export function mountWeekdayWorldsExperiment(container:HTMLElement,{onChange=()=
   function sync(){
     const value=interpretWeekdayWorlds(state),m=weekdayModal(state,state),c=state.contexts;container.dataset.narrow=state.narrowPanel;container.dataset.representation=state.representation;container.dataset.logicMode=state.logicMode;
     inputTab.setAttribute('aria-pressed',String(state.narrowPanel==='inputs'));reasoningTab.setAttribute('aria-pressed',String(state.narrowPanel==='reasoning'));
-    sentence.render(state,state.representation,state.logicMode);logic.render(state);modal.render(state,state);diagram.hidden=state.logicMode==='alethic';modalDiagram.hidden=state.logicMode!=='alethic';actual.value=String(state.actual);target.value=String(state.target);reset.disabled=!state.customized;
+    sentence.render(state,state.representation,state.logicMode);logic.render(state,state.logicMode==='alethic');modal.render(state,state);diagram.hidden=state.logicMode==='alethic';modalDiagram.hidden=state.logicMode!=='alethic';actual.value=String(state.actual);target.value=String(state.target);reset.disabled=!state.customized;
     const names=state.worlds.map(w=>[String(w.id),worldName(w.id)] as [string,string]);options(evaluation,names,String(state.evaluationWorld));creationOptions(evaluation);worldOptions(evaluation);colorWorld(actual,0);scope.value=state.selectionScope;
     for(const {key,input}of contextControls){const available=state.worlds.filter(w=>state.selectionScope==='all'||m.accessible.includes(w.id)).map(w=>[String(w.id),worldName(w.id,key)] as [string,string]);options(input,available,String(c[key]));if(!available.some(([id])=>id===String(c[key]))){const outside=make('option',`${worldName(c[key],key)} · 범위 밖 (기존 선택)`);outside.value=String(c[key]);outside.disabled=true;input.append(outside);input.value=String(c[key]);}creationOptions(input);}
     for(const {input}of contextControls)worldOptions(input);
@@ -93,7 +96,7 @@ export function mountWeekdayWorldsExperiment(container:HTMLElement,{onChange=()=
     diagram.querySelectorAll<HTMLElement>('.world-card').forEach((card,i)=>colorWorld(card,value.worldDays[i].id));
     const answer=value.questionCandidates.map(d=>WEEKDAYS[d]).join(', '),status=value.kind==='direct'?'조건의 재확인':value.kind==='reversed'?'다른 세계의 답':'현실 답';
     result.textContent=value.kind==='impossible'?'Γ의 해 없음 · 요일 답 추출 중지':value.kind==='underdetermined'?`질문 세계의 가능한 요일 ${value.questionCandidates.length}개 · 답을 하나로 정할 수 없음`:`${status}: ${answer} · 현재 입력 ${value.matches?'조건 만족':'조건 불일치'}`;
-    syncDialog();
+    syncDialog();alignment.refresh();
   }
   function load(example:string){const e=EXAMPLES[example],contexts={...PRESET_CONTEXTS[e.rule]},base=interpretWeekdayWorlds({actual:e.actual,target:e.target,contexts});state={...state,actual:e.actual,target:e.target,contexts,worlds:e.rule==='same-context'?[{id:0,today:e.actual}]:[{id:0,today:e.actual},{id:1,today:base.imaginedDays?.[1]??e.actual}],access:e.rule==='same-context'?[[0,0]]:defaultAccess(),evaluationWorld:0,selectionScope:'all',example,customized:false};sync();}
   function withAddedWorld(id:WorldIndex):WeekdayWorldsState{
@@ -117,11 +120,11 @@ export function mountWeekdayWorldsExperiment(container:HTMLElement,{onChange=()=
   return {
     getState:()=>clone(state),validateState(next:unknown){normalizeWeekdayState(next);},setState(next:unknown){state=normalizeWeekdayState(next);sync();onChange();},
     suggest(suggestion?:Scene['suggestion']){if(suggestion&&!('example'in suggestion))throw new TypeError('Expected weekday example');const example=suggestion?.example??baseline;if(!Object.hasOwn(EXAMPLES,example))throw new RangeError('Unknown weekday example');baseline=example;if(!state.customized&&state.example!==example)load(example);},
-    reset(){load(baseline);},seek(ms:number){if(!Number.isFinite(ms)||ms<0)throw new RangeError('Invalid time');},inspect:()=>({...clone(state),result:interpretWeekdayWorlds(state),modal:weekdayModal(state,state)}),
-    describe(scene:Scene){const value=interpretWeekdayWorlds(state),m=weekdayModal(state,state);
-      if(value.kind==='impossible')return {status:'adapted',text:'Γ의 달력 제약을 만족하는 해가 없습니다. 이 모형은 요일 답을 추출하지 않습니다. □·◇ 화면은 별도로 입력한 M의 진리 평가이므로, Γ의 해가 있다는 뜻은 아닙니다.'};
+    reset(){load(baseline);},seek(ms:number){if(!Number.isFinite(ms)||ms<0)throw new RangeError('Invalid time');},inspect:()=>({...clone(state),result:interpretWeekdayWorlds(state),modal:weekdayModal(state,state),alignment:alignment.getState()}),
+    describe(scene:Scene){const value=interpretWeekdayWorlds(state);
+      if(value.kind==='impossible')return {status:'adapted',text:'Γ의 달력 제약은 모순입니다. 고전 논리에서는 모순 폭발로 어떤 요일 명제도 도출됩니다. 현실의 사실을 확인한 것은 아니며, 계산기는 해가 없어 답 추출을 멈춥니다. □·◇는 별도 M의 평가입니다.'};
       if(value.kind==='underdetermined')return {status:'adapted',text:`질문 세계 ${worldLabel(state.contexts.question)}의 요일은 ${value.questionCandidates.length}개가 가능합니다. 새 세계를 추가하는 것만으로 그 세계와 기존 달력 사이의 날짜 대응이 생기지는 않습니다.`};
-      if(state.logicMode==='alethic')return {status:'adapted',text:`평가점 ${worldLabel(state.evaluationWorld)}에서 P는 ${m.actual?'참':'거짓'}, ◇P는 ${m.diamond?'참':'거짓'}, □P는 ${m.box?'참':'거짓'}입니다. R을 바꿔 비교하세요. 이 평가는 원문의 반사실이나 현실 요일 추론과 구별됩니다.`};
+      if(state.logicMode==='alethic')return {status:'adapted',text:'원문은 Wishₛ(A) ∧ (A □→ B)로 번역합니다. 바람과 반사실 조건문을 구분한 명시적 읽기입니다. 반사실의 진리값에는 관련 A-세계의 유사성 기준이 필요합니다. 아래 달력 답은 Γ={A,B}를 추가로 채택한 계산입니다.'};
       const answer=WEEKDAYS[value.questionCandidates[0]];return {status:'adapted',text:value.kind==='direct'?`질문의 오늘과 목표의 오늘이 같은 기준이어서 ${answer}은 조건의 재확인입니다.`:value.kind==='reversed'?`지금은 ${worldLabel(state.contexts.question)}의 오늘을 묻고 있으며 답은 ${answer}입니다. 현실 오늘을 묻는 질문과 구별하세요.`:`현실 오늘은 ${WEEKDAYS[state.actual]}, 답은 ${answer}입니다. 현재 입력은 Γ와 ${value.matches?'일치':'불일치'}합니다. `+(scene.id==='contexts'?'날짜의 기준과 양상 접근 관계는 별개의 선택입니다.':'식의 각 항과 원문의 네 표현을 대응해 보세요.')};
     },
   };

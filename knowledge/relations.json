@@ -1,5 +1,13 @@
 [
   {
+    "from": "concept:logic.possible-worlds-context",
+    "to": "concept:logic.explosion",
+    "type": "usedInExplanationOf",
+    "context": "The same-context weekday constraints contradict normal calendar arithmetic. If that contradiction is adopted as a premise in classical logic, explosion derives every weekday proposition; this does not identify a real weekday. This is an authored explanatory connection, not an analysis of every counterfactual conditional.",
+    "status": "proposed",
+    "sourceRefs": ["source:forallx-calgary-2026"]
+  },
+  {
     "from": "concept:logic.contradiction",
     "to": "concept:logic.explosion",
     "type": "usedInExplanationOf",

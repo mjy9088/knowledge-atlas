@@ -72,7 +72,38 @@ for(const topic of questionTopics)test(`${topic.slug}: question-led scenes fit a
 
 async function weekdayInputs(page:Page){if((page.viewportSize()?.width??1920)<=720)await page.getByRole('button',{name:'입력 보기',exact:true}).click();}
 async function weekdayReasoning(page:Page){if((page.viewportSize()?.width??1920)<=720)await page.getByRole('button',{name:'추론 보기',exact:true}).click();}
-async function weekdayView(page:Page,mode:string){await weekdayInputs(page);await page.getByRole('checkbox',{name:'양상 논리 사용',exact:true}).setChecked(mode.includes('양상'));}
+async function weekdayView(page:Page,mode:string){await weekdayInputs(page);await page.getByRole('checkbox',{name:'양상 논리로 번역',exact:true}).setChecked(mode.includes('양상'));}
+
+test('weekday Next keeps the same bounds on title, every scene, both modes and final links',async({page},testInfo)=>{
+  await page.goto('/knowledge/weekday-worlds/');await page.waitForFunction(()=>window.__atlasRelated);
+  const baseline=await page.locator('#reader-next').boundingBox();expect(baseline).not.toBeNull();
+  const bottomGap=page.viewportSize()!.height-baseline!.y-baseline!.height;
+  expect(bottomGap).toBeGreaterThanOrEqual(16);expect(bottomGap).toBeLessThanOrEqual(24);
+  async function stable(){const box=await page.locator('#reader-next').boundingBox();expect(box).not.toBeNull();for(const key of ['x','y','width','height'] as const)expect(Math.abs(box![key]-baseline![key]),key).toBeLessThan(.1);}
+  await page.locator('#reader-next').click();
+  for(const scene of CONTENT_PAGES.find(p=>p.slug==='weekday-worlds')!.scenes){
+    await page.evaluate(sceneId=>window.__atlasRelated.setState({sceneId}),scene.id);
+    for(const mode of ['달력','양상']){await weekdayView(page,mode);await stable();await expectFrame(page,weekdayFrame);await weekdayReasoning(page);await stable();await expectFrame(page,weekdayFrame);}
+  }
+  await expect(page.locator('#reader-end-links')).toBeVisible();await expectFrame(page,{content:['#reader-end-links','#reader-skip-scope'],controls:['#reader-end-links a','#reader-next']});
+  const saved=await page.evaluate(()=>window.__atlasRelated.getState());await page.evaluate(()=>window.__atlasRelated.reset());await stable();await page.evaluate(state=>window.__atlasRelated.setState(state),saved);await stable();await testInfo.attach('weekday-fixed-next-final',{body:await page.screenshot(),contentType:'image/png'});
+});
+
+test('article navigation places hints beside Previous and final links before related knowledge',async({page},testInfo)=>{
+  for(const slug of ['weekday-worlds','binary-search']){
+    const topic=CONTENT_PAGES.find(p=>p.slug===slug)!;await page.goto(`/knowledge/${slug}/#${topic.scenes[0].id}`);await page.waitForFunction(()=>window.__atlasRelated);
+    const hint=page.locator('#reader-controls>#reader-skip-scope'),links=page.locator('#reader-controls>#reader-end-links');
+    await expect(hint).toBeVisible();await expect(links).toBeHidden();
+    await expect(page.locator('#main>#reader-end-links,#main>#reader-skip-scope')).toHaveCount(0);
+    await page.evaluate(sceneId=>window.__atlasRelated.setState({sceneId}),topic.scenes.at(-1)!.id);
+    await expect(links).toBeVisible();await expect(links.locator('a')).toHaveText(['지식 목록 ↗','근거와 범위']);
+    const prev=await page.locator('#reader-prev').boundingBox(),help=await hint.boundingBox(),end=await links.boundingBox(),next=await page.locator('#reader-next').boundingBox();
+    expect(help!.x).toBeGreaterThanOrEqual(prev!.x+prev!.width);expect(end!.x+end!.width).toBeLessThanOrEqual(next!.x);expect(Math.abs(help!.y+help!.height/2-next!.y-next!.height/2)).toBeLessThan(1);
+    await expectFrame(page,{content:['#reader-controls','#reader-end-links','#reader-skip-scope'],controls:['#reader-controls button','#reader-end-links a']});
+    await links.getByRole('link',{name:'근거와 범위',exact:true}).click();await expect(page.locator('dialog[open]')).toContainText('주장별 조건과 근거 위치');await page.keyboard.press('Escape');
+    if(slug==='weekday-worlds')await testInfo.attach('weekday-final-navigation',{body:await page.screenshot(),contentType:'image/png'});
+  }
+});
 
 test('weekday title slide, simultaneous original/symbol panels, named worlds and scrollable choices restore independently',async({page},testInfo)=>{
   await page.goto('/knowledge/weekday-worlds/');await page.waitForFunction(()=>window.__atlasRelated);
@@ -84,9 +115,9 @@ test('weekday title slide, simultaneous original/symbol panels, named worlds and
     if(await control.isDisabled())continue;await control.scrollIntoViewIfNeeded();
     const reachable=await control.evaluate(e=>{const r=e.getBoundingClientRect(),s=e.closest('.weekday-settings')!.getBoundingClientRect(),hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return r.top>=s.top&&r.bottom<=s.bottom&&Boolean(hit&&(e.contains(hit)||hit.contains(e)));});expect(reachable).toBe(true);
   }
-  await settings.evaluate(e=>e.scrollTop=0);await page.getByRole('checkbox',{name:'양상 논리 사용',exact:true}).check();await expect(page.locator('.weekday-symbolic-summary')).toContainText('M,w ⊨ ◇P');await weekdayReasoning(page);await expect(page.locator('.weekday-modal-diagram')).toBeVisible();await expect(page.locator('.weekday-modal-diagram svg')).toHaveAttribute('aria-label',/현실 → 가정 1/);
+  await settings.evaluate(e=>e.scrollTop=0);await page.getByRole('checkbox',{name:'양상 논리로 번역',exact:true}).check();await expect(page.locator('.weekday-symbolic-summary')).toContainText('Wishₛ(A) ∧ (A □→ B)');await weekdayReasoning(page);await expect(page.locator('.weekday-modal-diagram')).toBeVisible();await expect(page.locator('.weekday-modal-diagram svg')).toHaveAttribute('aria-label',/현실 → 가정 1/);
   await weekdayInputs(page);await page.getByRole('button',{name:'세계 · 접근 관계',exact:true}).click();await expect(page.getByRole('combobox',{name:'가정 1의 오늘',exact:true})).toBeVisible();await expect(page.getByRole('checkbox',{name:'현실 → 가정 1',exact:true})).toBeVisible();await page.getByRole('button',{name:'설정 닫기',exact:true}).click();
-  const readingState=await page.evaluate(()=>window.__atlasRelated.getState());await page.evaluate(()=>window.__atlasRelated.reset());await expect(page.locator('.reader-cover h1')).toBeVisible();await page.evaluate(saved=>window.__atlasRelated.setState(saved),readingState);await expect(page.locator('.reader-cover h1')).toBeHidden();await weekdayInputs(page);await expect(page.getByRole('checkbox',{name:'양상 논리 사용',exact:true})).toBeChecked();
+  const readingState=await page.evaluate(()=>window.__atlasRelated.getState());await page.evaluate(()=>window.__atlasRelated.reset());await expect(page.locator('.reader-cover h1')).toBeVisible();await page.evaluate(saved=>window.__atlasRelated.setState(saved),readingState);await expect(page.locator('.reader-cover h1')).toBeHidden();await weekdayInputs(page);await expect(page.getByRole('checkbox',{name:'양상 논리로 번역',exact:true})).toBeChecked();
   const rejected=await page.evaluate(()=>{const before=window.__atlasRelated.getState();try{window.__atlasRelated.setState({...before,cover:'invalid'} as never);}catch{return JSON.stringify(before)===JSON.stringify(window.__atlasRelated.getState());}return false;});expect(rejected).toBe(true);
   await page.evaluate(saved=>window.__atlasRelated.setState(saved),titleState);await expect(page.locator('.reader-cover h1')).toBeVisible();await page.goto('/knowledge/weekday-worlds/#sunday');await expect(page.locator('.reader-cover h1')).toBeHidden();await expect(page.locator('.reader-scene:visible h2')).toContainText('일요일');await weekdayInputs(page);await expectFrame(page,weekdayFrame);await testInfo.attach('weekday-stacked-reading',{body:await page.screenshot(),contentType:'image/png'});
 });
@@ -225,18 +256,18 @@ test('weekday worlds preserve independent expressions, preset semantics and vali
   await page.getByRole('button',{name:'장면 예시로',exact:true}).click();await expect(actual).toHaveValue('6');await expect(target).toHaveValue('4');await expectFrame(page,weekdayFrame);await weekdayReasoning(page);await expectFrame(page,weekdayFrame);await testInfo.attach('weekday-final-layout',{body:await page.screenshot(),contentType:'image/png'});
 });
 
-test('weekday editable worlds and accessibility change choices and modal truth',async({page},testInfo)=>{
+test('weekday editable worlds and accessibility preserve reference choices during modal translation',async({page},testInfo)=>{
   await page.goto('/knowledge/weekday-worlds/#question');await page.waitForFunction(()=>window.__atlasRelated);await weekdayInputs(page);
   await weekdayView(page,'양상');
-  await expect(page.locator('.weekday-modal-verdict[data-formula="◇P"]')).toHaveAttribute('data-truth','true');await expect(page.locator('.weekday-modal-verdict[data-formula="□P"]')).toHaveAttribute('data-truth','false');
+  await expect(page.locator('.weekday-modal-translation')).toHaveText('Wishₛ(A) ∧ (A □→ B)');await expect(page.locator('.weekday-modal-limit')).toContainText('R만으로 진리값 판정 안 함');
   await page.getByRole('button',{name:'세계 추가',exact:true}).click();await page.getByRole('button',{name:'세계 추가',exact:true}).click();await expect(page.getByRole('combobox',{name:'④ 묻는 오늘의 기준',exact:true}).locator('option')).toHaveCount(4);await expect(page.getByRole('button',{name:'세계 추가',exact:true})).toBeDisabled();
   await page.getByRole('combobox',{name:'④ 묻는 오늘의 기준',exact:true}).selectOption('2');await expect(page.locator('.weekday-result')).toContainText('가능한 요일 7개');
   await page.getByRole('button',{name:'세계 · 접근 관계',exact:true}).click();await expect(page.locator('dialog[open]')).toBeVisible();
   await page.getByRole('checkbox',{name:'현실 → 현실',exact:true}).uncheck();await page.getByRole('checkbox',{name:'현실 → 가정 2',exact:true}).uncheck();await page.getByRole('checkbox',{name:'현실 → 가정 3',exact:true}).uncheck();await page.getByRole('button',{name:'설정 닫기',exact:true}).click();
   await page.getByRole('combobox',{name:'세계 선택 목록',exact:true}).selectOption('accessible');
   const question=page.getByRole('combobox',{name:'④ 묻는 오늘의 기준',exact:true});await expect(question.locator('option:enabled')).toHaveText(['가정 1 (②·③의 기준)']);await expect(question).toHaveValue('2');await expect(question.locator('option:disabled')).toContainText('범위 밖');
-  await expect(page.locator('.weekday-modal-verdict[data-formula="□P"]')).toHaveAttribute('data-truth','true');await expect(page.locator('.weekday-modal-verdict[data-formula="P"]')).toHaveAttribute('data-truth','false');
-  await page.getByRole('button',{name:'세계 · 접근 관계',exact:true}).click();await page.getByRole('checkbox',{name:'현실 → 가정 1',exact:true}).uncheck();await page.getByRole('button',{name:'설정 닫기',exact:true}).click();await expect(page.locator('.weekday-modal-note')).toContainText('공허한 참');
+  await expect(page.locator('.weekday-modal-translation')).toHaveText('Wishₛ(A) ∧ (A □→ B)');
+  await page.getByRole('button',{name:'세계 · 접근 관계',exact:true}).click();await page.getByRole('checkbox',{name:'현실 → 가정 1',exact:true}).uncheck();await page.getByRole('button',{name:'설정 닫기',exact:true}).click();await expect(page.locator('.weekday-modal-note')).toContainText('접근 세계 0개');
   await page.getByRole('combobox',{name:'평가·접근 기준',exact:true}).selectOption('1');await expect(question.locator('option:enabled')).toHaveText(['가정 1 (②·③의 기준)']);
   await page.getByRole('button',{name:'세계 · 접근 관계',exact:true}).click();await page.getByRole('button',{name:'가정 2 삭제',exact:true}).click();await page.getByRole('button',{name:'설정 닫기',exact:true}).click();await expect(question).toHaveValue('0');
   await page.getByRole('combobox',{name:'세계 선택 목록',exact:true}).selectOption('all');await expect(question.locator('option:not([data-create-world])')).toHaveText(['현실 (①의 기준)','가정 1 (②·③의 기준)','가정 3']);
@@ -398,6 +429,41 @@ test('direct links restore the requested scene and typing arrows does not naviga
   await page.keyboard.press('ArrowRight');
   await expect.poll(() => page.evaluate(() => window.__atlasLesson.getState().sectionId)).toBe('remove-premise');
   await expectFrame(page, lessonFrame);
+});
+
+test('weekday contradiction briefly explains classical explosion and links to the existing lesson',async({page},testInfo)=>{
+  await page.goto('/knowledge/weekday-worlds/#question');await page.waitForFunction(()=>window.__atlasRelated);await weekdayInputs(page);
+  const note=page.locator('.weekday-explosion-note');await expect(note).toHaveCount(0);
+  // A sample mismatch is not an inconsistent constraint set.
+  await page.getByRole('combobox',{name:'현실의 오늘',exact:true}).selectOption('0');await expect(note).toHaveCount(0);
+  await page.getByRole('button',{name:'C · 가능세계 없이',exact:true}).click();
+  for(const mode of ['달력','양상']){
+    await weekdayView(page,mode);await weekdayReasoning(page);
+    await expect(note).toBeVisible();await expect(note).toContainText('모든 요일 명제가 도출됨');await expect(note).toContainText('현실의 사실은 아님');
+    await expect(page.locator('.weekday-logic-conclusion>.weekday-logic-formula')).toHaveText('Mod₇(Γ) = ∅');await expect(page.locator('.weekday-result')).toContainText('요일 답 추출 중지');
+    await expectFrame(page,{...weekdayFrame,content:[...weekdayFrame.content,'.weekday-explosion-note'],controls:[...weekdayFrame.controls,'.weekday-explosion-note a']});
+  }
+  const saved=await page.evaluate(()=>window.__atlasRelated.getState());await page.locator('#reader-next').click();await expect(note).toBeVisible();
+  await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(state=>window.__atlasRelated.setState(state),saved);await weekdayReasoning(page);await expect(note).toBeVisible();
+  await testInfo.attach('weekday-explosion-connection',{body:await page.screenshot(),contentType:'image/png'});
+  await note.getByRole('link',{name:'모순 폭발 ↗',exact:true}).click();await expect(page).toHaveURL(/\/lesson\.html#explanation-explosion$/);await expect(page.locator('#dialogue-title')).toHaveText('⊥에서 Q: 폭발 규칙');
+  await page.goto('/knowledge/weekday-worlds/#conclusion');await page.waitForFunction(()=>window.__atlasRelated);await page.locator('#reader-next').click();await expect(page.locator('dialog[open] a[href="/lesson.html"]')).toHaveText('모순 폭발 ↗');
+  await page.keyboard.press('Escape');await page.goto('/knowledge/weekday-worlds/#literal');await page.waitForFunction(()=>window.__atlasRelated);await expect(page.locator('.reader-scene:visible .scene-prose')).toContainText('월요일’부터 ‘일요일');await weekdayReasoning(page);await expect(note).toBeVisible();
+  await weekdayInputs(page);await page.getByRole('button',{name:'A · 현실 어제 고정',exact:true}).click();await expect(note).toHaveCount(0);
+});
+
+test('short titles and the original SVG thumbnail work on the catalog and restorable title slide',async({page},testInfo)=>{
+  const short='이걸로 IQ를 재겠다고?',full=short+' (어제가 내일이었으면...)';
+  await page.goto('/knowledge/');const card=page.locator('a.knowledge-card[href="/knowledge/weekday-worlds/"]');
+  await expect(card.locator('h2')).toHaveText(short);await expect(card).toHaveAttribute('title',full);
+  const thumbnail=card.locator('img');await expect(thumbnail).toBeVisible();await expect(thumbnail).toHaveJSProperty('naturalWidth',1200);
+  await card.click();await page.waitForFunction(()=>window.__atlasRelated);await expect(page).toHaveTitle(full+' · Knowledge Atlas');await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content',full);
+  await expect(page.locator('.reader-cover h1')).toHaveText(short);await expect(page.locator('.reader-cover h1')).toHaveAttribute('title',full);
+  const artwork=page.locator('.reader-cover-artwork');await expect(artwork).toBeVisible();await expect(artwork).toHaveAttribute('src',/thumbnail\.svg#question$/);await expect(artwork).toHaveJSProperty('naturalWidth',1200);
+  await expectFrame(page,{content:['.reader-cover','.reader-cover h1','.reader-cover-artwork'],controls:['#reader-next','.reader-menu summary']});
+  await testInfo.attach('iq-title-slide',{body:await page.screenshot(),contentType:'image/png'});
+  const title=await page.evaluate(()=>window.__atlasRelated.getState());await page.locator('#reader-next').click();await expect(artwork).toBeHidden();await page.evaluate(state=>window.__atlasRelated.setState(state),title);await expect(artwork).toBeVisible();
+  await page.goto('/knowledge/binary-search/');await expect(page.locator('.reader-intro h1')).toHaveText('1,000개 중 하나, 몇 번이면 찾을까요?');
 });
 
 test('desktop knowledge index fits with accessible topic cards', async ({page}, testInfo) => {
@@ -592,6 +658,82 @@ test('lesson keeps its topic while an inapplicable explanation is disabled',asyn
   await page.getByRole('button',{name:'장면 예시로',exact:true}).click();
   await expect(page.locator('#lesson-evaluation')).toBeHidden();
   await expect(page.locator('#dialogue-text')).toBeVisible();
+});
+
+test('weekday alignment highlights complete paths bidirectionally and refreshes with inputs',async({page},testInfo)=>{
+  await page.goto('/knowledge/weekday-worlds/#question');await page.waitForFunction(()=>window.__atlasRelated);await weekdayInputs(page);
+  const saved=await page.evaluate(()=>window.__atlasRelated.getState());
+  const nextBounds=await page.locator('#reader-next').boundingBox(),selectionBounds=await page.locator('.weekday-settings').boundingBox();
+  const ids=async(side:string)=>page.locator(`[data-alignment-side="${side}"][data-alignment-on-path]`).evaluateAll(nodes=>[...new Set(nodes.map(n=>(n as HTMLElement).dataset.alignmentNode))].sort());
+  const yesterday=['constraints','antecedent','yesterday','yesterday-base'].sort();
+  await page.locator('.weekday-source [data-alignment-node="yesterday-base"]').hover();
+  expect(await ids('source')).toEqual(yesterday);expect(await ids('symbol')).toEqual(yesterday);
+  await expect(page.locator('.alignment-status')).toContainText('① 기준의 오늘');
+  expect(await page.locator('#reader-next').boundingBox()).toEqual(nextBounds);expect(await page.locator('.weekday-settings').boundingBox()).toEqual(selectionBounds);
+  await testInfo.attach('alignment-full-path',{body:await page.screenshot(),contentType:'image/png'});
+  await page.locator('.weekday-symbol-constraints [data-alignment-node="tomorrow-offset"]').hover();
+  const tomorrow=['constraints','antecedent','tomorrow','tomorrow-offset'].sort();expect(await ids('source')).toEqual(tomorrow);expect(await ids('symbol')).toEqual(tomorrow);
+  await page.locator('.weekday-source [data-alignment-node="antecedent"]').focus();
+  expect(await ids('source')).toEqual(['antecedent','constraints']);
+  await page.keyboard.press('Enter');await page.keyboard.press('Space');expect(await page.evaluate(()=>window.__atlasRelated.getState())).toEqual(saved);
+  await page.keyboard.press('Escape');expect(await ids('source')).toEqual([]);
+  await page.getByRole('combobox',{name:'① 어제의 기준',exact:true}).selectOption('new:2');
+  await expect(page.locator('.weekday-source [data-alignment-node="yesterday-base"]')).toHaveText('가정 2');expect(await ids('source')).toEqual([]);
+  await page.locator('.weekday-source [data-alignment-node="yesterday-base"]').focus();expect(await ids('symbol')).toEqual(yesterday);
+  await page.getByRole('checkbox',{name:'양상 논리로 번역',exact:true}).check();
+  await expect(page.locator('.weekday-modal-translation [data-alignment-node="wish-marker"]')).toHaveText('Wishₛ');
+  await page.locator('.weekday-source [data-alignment-node="yesterday-base"]').focus();expect(await ids('symbol')).toEqual(yesterday);
+  await expect(page.locator('.weekday-symbolic-summary [data-alignment-node="yesterday-base"]')).toHaveAttribute('data-alignment-current','');
+  await expectFrame(page,weekdayFrame);await weekdayReasoning(page);await expectFrame(page,weekdayFrame);
+});
+
+test('weekday conditional connectives map both ways in both modes and the modal toggle shares the heading row',async({page},testInfo)=>{
+  await page.goto('/knowledge/weekday-worlds/#question');await page.waitForFunction(()=>window.__atlasRelated);await weekdayInputs(page);
+  for(const mode of ['달력','양상']){
+    await weekdayView(page,mode);
+    const clauseLines=page.locator('.weekday-symbol-clause');await expect(clauseLines).toHaveCount(2);await expect(clauseLines.nth(0)).toContainText('A:');await expect(clauseLines.nth(1)).toContainText('B:');
+    const firstClause=await clauseLines.nth(0).boundingBox(),secondClause=await clauseLines.nth(1).boundingBox();expect(secondClause!.y).toBeGreaterThanOrEqual(firstClause!.y+firstClause!.height-.5);
+    await expect(page.locator('.weekday-symbol-query')).toContainText('질문:');await expect(page.locator('.weekday-symbol-query')).not.toContainText('Γ');
+    if(mode==='양상')await expect(page.locator('.weekday-symbol-conditional')).toContainText('원문 양상 번역: Wishₛ(A) ∧ (A □→ B)');
+    const title=await page.locator('.weekday-symbol-header h2').boundingBox(),toggle=await page.locator('.weekday-modal-toggle').boundingBox();
+    expect(Math.abs(title!.y+title!.height/2-toggle!.y-toggle!.height/2)).toBeLessThan(1);expect(toggle!.x).toBeGreaterThan(title!.x+title!.width);
+    const source=page.locator('.weekday-source [data-alignment-node="conditional-connective"]'),arrow=page.locator('.weekday-symbol-conditional [data-alignment-node="conditional-connective"]');
+    await expect(source).toHaveText(mode==='양상'?[' 그럼 ','일 텐데']:['이었으면 좋겠다.',' 그럼 ','일 텐데']);await expect(arrow).toHaveText(mode==='양상'?'□→':'→');
+    await source.first().hover();await expect(arrow).toHaveAttribute('data-alignment-current','');await expect(page.locator('.weekday-symbol-conditional>[data-alignment-node="constraints"]')).toHaveAttribute('data-alignment-on-path','');
+    await arrow.hover();for(const part of await source.all())await expect(part).toHaveAttribute('data-alignment-current','');
+    await expect(page.locator('.weekday-source [data-alignment-node="antecedent"]')).not.toHaveAttribute('data-alignment-on-path','');
+    if(mode==='달력')await expect(page.locator('.weekday-symbol-limit').first()).toContainText('A→B ≠ 동시');
+    else{
+      const wish=page.locator('.weekday-source [data-alignment-node="wish-marker"]');await wish.hover();await expect(page.locator('.weekday-symbol-conditional [data-alignment-node="wish-marker"]')).toHaveAttribute('data-alignment-current','');
+      await expect(page.locator('.weekday-symbol-conditional [data-alignment-node="conditional-connective"]')).not.toHaveAttribute('data-alignment-on-path','');
+      await expect(page.locator('.weekday-symbol-limit')).toContainText('□→는 단순 □(A→B)가 아님');
+    }
+    await expectFrame(page,weekdayFrame);await testInfo.attach(`conditional-${mode}`,{body:await page.screenshot(),contentType:'image/png'});
+  }
+  const saved=await page.evaluate(()=>window.__atlasRelated.getState());await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(state=>window.__atlasRelated.setState(state),saved);await weekdayInputs(page);
+  await expect(page.getByRole('checkbox',{name:'양상 논리로 번역',exact:true})).toBeChecked();await expect(page.locator('.weekday-symbol-conditional')).toContainText('Wishₛ(A) ∧ (A □→ B)');
+});
+
+test('structural alignment instances isolate paths and validate deterministic state',async({page})=>{
+  await page.goto('/knowledge/');
+  const result=await page.evaluate(async()=>{
+    const {markAlignment,mountSemanticAlignment}=await import('/components/alignment/semantic-alignment.js');
+    const forest=[{id:'root',label:'Expression'},{id:'branch',parent:'root',label:'Argument'},{id:'leaf',parent:'branch',label:'Value'},{id:'sibling',parent:'root',label:'Value'}];
+    function fixture(){
+      const root=document.createElement('section'),status=document.createElement('p');
+      for(const side of ['source','symbol'] as const){const top=markAlignment(document.createElement('span'),'root',side),branch=markAlignment(document.createElement('span'),'branch',side),leaf=markAlignment(document.createElement('span'),'leaf',side),sibling=markAlignment(document.createElement('span'),'sibling',side);leaf.textContent=sibling.textContent='x';branch.append(leaf);top.append(branch,sibling);root.append(top);}
+      root.append(status);document.body.append(root);const api=mountSemanticAlignment(root,forest,status);api.refresh();return {root,api,status};
+    }
+    const a=fixture(),b=fixture();a.api.setState({activeId:'leaf'});
+    const selected=[...a.root.querySelectorAll('[data-alignment-on-path]')].map(n=>(n as HTMLElement).dataset.alignmentNode);
+    const detached=a.api.getState();detached.activeId='sibling';
+    let rejected=false;try{a.api.setState({activeId:'unknown'});}catch{rejected=true;}
+    const preserved=a.api.getState(),isolated=b.api.getState();a.api.reset();const reset=a.api.getState();a.api.setState(preserved);a.api.refresh();const refreshed=a.api.getState();
+    a.api.destroy();a.root.querySelector('[data-alignment-node="leaf"]')!.dispatchEvent(new PointerEvent('pointermove',{bubbles:true}));const destroyed=a.api.getState();b.api.destroy();a.root.remove();b.root.remove();
+    return {selected,rejected,preserved,isolated,reset,refreshed,destroyed};
+  });
+  expect(result.selected).toEqual(['root','branch','leaf','root','branch','leaf']);expect(result.rejected).toBe(true);expect(result.preserved).toEqual({activeId:'leaf'});
+  for(const state of [result.isolated,result.reset,result.refreshed,result.destroyed])expect(state).toEqual({activeId:null});
 });
 
 test('availability feedback supports non-logic content and deterministic restoration',async({page})=>{

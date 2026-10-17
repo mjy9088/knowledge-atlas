@@ -114,6 +114,42 @@
     "reviewStatus": "draft-model-deduction-needs-review"
   },
   {
+    "id": "claim:logic.weekday-worlds.explosion",
+    "kind": "model-deduction",
+    "statement": "정상적인 7일 달력과 모순되는 같은 기준의 어제=내일을 Γ의 전제로 채택해 ⊥를 얻으면, 모순 제거를 허용하는 고전 논리에서는 임의의 명제 Q가 도출된다. Q를 ‘질문의 오늘은 d요일’로 두면 월요일부터 일요일까지 모든 요일 명제가 각각 도출된다.",
+    "scope": "Γ와 달력 규칙을 함께 전제로 삼은 고전적 도출의 설명. 단순히 거짓인 전건을 언급했거나 샘플 요일이 Γ와 불일치한 경우에 현실의 모순이 생겼다는 주장이 아니다. 모든 요일이 실제로 참이거나 하나의 올바른 달력 해를 얻었다는 뜻도 아니다. 계산기는 빈 해 집합에서 답 추출을 멈추며, 일반 산술 증명기를 새로 구현하지 않는다.",
+    "assumptions": ["Γ에서 달력 모순 ⊥가 도출됨", "⊥ 제거를 허용하는 고전 자연연역", "Q는 임의의 잘 형성된 요일 명제"],
+    "sourceRefs": [{"sourceId":"source:forallx-calgary-2026","locator":"Chapter 17 §17.8: explosion rule X (⊥ elimination), any sentence may follow, and final valuation explanation of vacuous entailment. Substitution of the seven weekday propositions and the same-context calendar contradiction are independently authored applications; reuse claim:logic.explosion.rule and claim:logic.explosion.not-reality."}],
+    "reviewStatus": "draft-model-deduction-needs-review"
+  },
+  {
+    "id": "claim:logic.weekday-worlds.conditional-reading",
+    "kind": "conceptual",
+    "statement": "문장의 바람·반사실 표현을 생략하고 ‘A이면 B이다’라는 물질 조건문 읽기를 선택하면 A→B로 표시할 수 있다. A→B는 ¬A∨B이며 A와 B를 동시에 요구하는 Γ={A,B}와 다르다. 예를 들어 A와 B가 모두 거짓이면 A→B는 참이지만 Γ의 두 조건은 충족되지 않는다.",
+    "scope": "비양상 모드의 교육용 단순화이며 한국어 원문의 바람이나 반사실 전체와 동치라는 주장이 아니다. 양상 모드는 바람과 반사실 조건문을 구별하는 번역으로 전환한다. 달력 해 추출은 여전히 Γ의 동시 제약에 의존하며 조건문 자체의 귀결로 바꾸지 않는다.",
+    "assumptions": [
+      "조건문 읽기의 A와 B는 기존 달력 절의 이름을 사용",
+      "물질 조건문 A→B는 A가 거짓이거나 B가 참일 때 참",
+      "원문의 바람·반사실 표현은 조건문으로 단순화했다는 범위를 명시"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:schwarz-modal-logic",
+        "locator": "https://www.wolfgangschwarz.net/logic2/08-conditionals.html, Chapter 8 §8.1 opening definition of material conditionals and discussion of limits of the material analysis; A/B calendar substitution and the false/false comparison with Γ are independently authored."
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:logic.weekday-worlds.modal-translation",
+    "kind": "conceptual",
+    "statement": "원문의 한 명시적 읽기는 화자 s의 바람 Wishₛ(A)와 반사실 조건문 A □→ B를 함께 표현하는 Wishₛ(A) ∧ (A □→ B)이다. 여기서 Wishₛ는 바람을 보존하기 위한 별도 표기이며 진리 양상 □·◇로 대체하지 않는다. □→는 유사성 의미론에서 가장 가까운 A-세계들에서 B가 성립한다는 읽기를 사용하며, 단순한 □(A→B)와 구별한다.",
+    "scope": "한국어의 유일하거나 자동적인 형식 분석이라는 주장이 아닌 저작자가 명시한 분절과 읽기. 반사실 의미론은 Schwarz §8.3의 유사성 모형과 최인접 세계 가정에 한정해 설명한다. 현재 UI는 바람의 성립 조건이나 유사성 순서를 제공하지 않으므로 원문 전체의 진리값을 계산하지 않는다. 편집 가능한 R은 지시어 기준의 접근 관계이며 유사성 순서를 자동으로 정하지 않는다. Γ={A,B}의 요일 계산은 번역식에서 바로 얻은 귀결이 아니라 추가 제약을 채택한 별도 계산이다.",
+    "assumptions": ["A와 B는 선택한 지시어 기준을 유지", "Wishₛ는 화자의 바람을 표시하는 추가 연산자로 도입하며 공리나 진리 평가기를 가정하지 않음", "반사실 □→는 일관된 전건에 대해 가장 가까운 세계를 고르는 유사성 의미론의 읽기", "유사성 순서가 지정되지 않았으므로 반사실의 참·거짓은 미평가"],
+    "sourceRefs": [{"sourceId":"source:schwarz-modal-logic","locator":"Chapter 8 §8.3: indicative/subjunctive distinction, counterfactuals versus material/strict conditionals, and Definitions 8.2–8.3 (similarity models and closest-A-world semantics). The Korean segmentation and Wishₛ notation are independently authored modeling choices, not a claim that the source translates this riddle or provides desire semantics."}],
+    "reviewStatus": "draft-modeling-proposal-needs-review"
+  },
+  {
     "id": "claim:logic.weekday-worlds.alethic",
     "kind": "formal",
     "statement": "유한 Kripke 모형 M=(W,R,V)에서 P를 해당 평가 세계의 오늘이 목표 요일이라는 명제로 정하면 ◇P는 접근 가능한 세계 중 P가 참인 것이 하나 이상 있을 때, □P는 접근 가능한 모든 세계에서 P가 참일 때 성립한다. 접근 세계가 없으면 ◇P는 거짓, □P는 공허한 참이다.",

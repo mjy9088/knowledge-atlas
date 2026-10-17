@@ -33,6 +33,8 @@ sources/                         # Shared source registry and rights/revision st
 
 An article owns its blocks and topic-specific claims. Reference shared claims by stable ID rather than copying their records into another topic. The loader rejects duplicate claim ownership and mismatched article identities. Scientific source locators and review states remain in the claim/source records. A file move is not a scientific revision or a new approval.
 
+Keep the full article title in `title`; optional `shortTitle` selects a shorter visible name for catalog cards and article headings, with full-title fallback. Document/Open Graph metadata retains `title`. Optional `page.thumbnail` declares a topic-owned `/content/.../*.svg` asset, accessible `alt`, and optional same-file named-view `coverSrc`. Keep editable artwork beside its topic and record authorship/reference/review boundaries in its metadata. See [ADR 0020](adr/0020-article-titles-and-vector-artwork.md).
+
 Use language suffixes for prose (`article.ko.json`, later `article.en.json` where actually authored). The current route chooses one explicit article filename; automatic language negotiation and translation are not implemented. Internal IDs are independent of folders and public slugs. Preserve existing IDs even when their historical name includes another topic.
 
 The explosion pilot retains its `episode.ts`, original content/scene/storyboard contracts, inference claims, and narration data. These are distinct source representations with established IDs and tests, not duplicate demo pages. Its original 30-second storyboard remains a draft; the focused episode is 134 seconds. Do not delete source evidence merely because a prototype screen was retired.

@@ -23,7 +23,7 @@ Before changing the system, read [README](README.md), [Vision](docs/VISION.md), 
 - Exercise initial state, changed/unsupported input, reset, and state restoration. Keep dialogue and diagrams synchronized or invalidate both. Preserve reader edits across navigation.
 - Add tests for observable behavior and semantic contracts. Avoid tests that only enumerate removed filenames/strings or mirror implementation details.
 - For video work, inspect timeline, captions, sampled frames, audio/metadata diagnostics, and preview before final render. Keep local media production separate from public web assets.
-- Leave unrelated user changes intact. Make coherent intermediate commits where appropriate. Do not publish or upload merely because a build passes.
+- Leave unrelated user changes intact. Commit completed, verified work in small coherent units by default, including intermediate units during longer tasks; do not wait for another commit request. Exclude unrelated edits and generated artifacts. Do not publish or upload merely because a build passes.
 
 - Store new articles and owned claims under content/<domain>/<topic>/ and register them in content/catalog.ts. Reuse the shared article reader; do not copy a page/controller per topic. Keep DOM components, domain adapters, pure models/state, projections, and local media tools in their documented boundaries.
 
