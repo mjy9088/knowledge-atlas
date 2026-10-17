@@ -11,3 +11,15 @@ export function weekdayModal(input:WeekdayInterpretation,frame:ModalFrame){
     calendarKind:calendar.kind,calendarMatches:calendar.matches,
   };
 }
+
+// UI projection: evaluate each satisfying calendar, never the legacy sample days.
+// null means disagreement between completions, or no consistent calendar.
+export function deducedWeekdayModal(input:WeekdayInterpretation,frame:ModalFrame){
+  const {accessible}=weekdayModal(input,frame),calendar=interpretWeekdayWorlds(input);
+  const rows=calendar.models.map(model=>{
+    const p=(id:WorldIndex)=>model.values[id]===input.target;
+    return {actual:p(frame.evaluationWorld),diamond:accessible.some(p),box:accessible.every(p)};
+  });
+  const agreed=(key:'actual'|'diamond'|'box'):boolean|null=>rows.length&&rows.every(row=>row[key]===rows[0][key])?rows[0][key]:null;
+  return {accessible,consistent:rows.length>0,actual:agreed('actual'),diamond:agreed('diamond'),box:agreed('box')};
+}
