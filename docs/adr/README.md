@@ -37,3 +37,4 @@ The initial decisions were introduced on 2026-10-16; later additions carry their
 | [0030](0030-modal-systems-and-frame-conditions.md) | Normal-K baseline, modal-system comparison and editable frame conditions |
 | [0031](0031-explicit-calendar-inference.md) | Problem-case premises and explicit modulo-7 inference steps |
 | [0032](0032-early-worlds-and-modal-expansion.md) | Early possible worlds, concrete date constraints and finite modal expansion |
+| [0033](0033-automatic-challenge-and-sentence-lines.md) | Automatic challenge entry, no-answer reflection, nonmodal presets and stable sentence rows |

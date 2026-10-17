@@ -8,7 +8,7 @@
   "blocks": [
     {
       "id": "block:logic.weekday-worlds.question",
-      "text": "20초 안에 요일을 골라 보세요. 풀지 않고 건너뛸 수도 있습니다. 선택하거나 시간이 끝나면 같은 페이지에서 “왜 그렇게 생각하셨나요?”로 이어집니다.",
+      "text": "문제가 보이면 20초가 시작됩니다. 요일을 고르거나 건너뛸 수 있습니다. 답을 골랐다면 생각한 이유를 돌아보고, 답 없이 시간이 지나면 함께 풀이의 기준을 살펴봅니다.",
       "claimRefs": [
         "claim:logic.weekday-worlds.assessment",
         "claim:logic.weekday-worlds.assignments"

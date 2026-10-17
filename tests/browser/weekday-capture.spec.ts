@@ -29,6 +29,7 @@ test('200% capture fits title, every scene, both translations, four worlds and r
     for(const mode of [false,true]){
       await page.evaluate(modal=>{const state=window.__atlasRelated.getState();window.__atlasRelated.setState({...state,interaction:{...state.interaction,logicMode:modal?'alethic':'calendar',modeSource:'manual'}} as never);},mode);await expect(page.getByRole('checkbox',{name:'양상 논리로 번역',exact:true})).toHaveCount(0);await fit(page);
       const bounds=await page.locator('#reader-next').boundingBox();expect(bounds).toEqual(baseline);
+      if(scene.id==='contexts')expect((await page.locator('.weekday-settings').boundingBox())!.height).toBeLessThan(80);
       const caption=await page.locator('#reader-scenes').boundingBox();if(scene.id==='question'){await expect(page.locator('#reader-scenes')).toBeHidden();continue;}expect(caption!.height).toBeLessThanOrEqual(100);
       const heading=page.locator('.reader-scene:visible .reader-scene-heading'),progress=heading.locator('.eyebrow'),title=heading.locator('h2');
       const a=await progress.boundingBox(),b=await title.boundingBox();expect(b!.x+b!.width).toBeLessThanOrEqual(a!.x);expect(Math.abs(a!.x+a!.width-(await heading.boundingBox())!.x-(await heading.boundingBox())!.width)).toBeLessThan(1);expect(a!.y).toBeLessThan(b!.y+b!.height);expect(a!.y+a!.height).toBeGreaterThan(b!.y);
@@ -56,12 +57,12 @@ test('explicit congruence rules and the longer reverse proof fit the 200% record
 
 test('20-second challenge and reflection fit the 200% recording layout',async({page},testInfo)=>{
   await page.clock.install();await page.goto('/knowledge/weekday-worlds/#question');await page.waitForFunction(()=>window.__atlasRelated);
-  await page.getByRole('button',{name:'20초 도전 시작',exact:true}).click();await page.clock.fastForward(8_000);await expect(page.getByRole('timer')).toHaveText('12초');await fit(page);
+  await page.clock.fastForward(8_000);await expect(page.getByRole('timer')).toHaveText('12초');await fit(page);
   await testInfo.attach('challenge-12-seconds-200',{body:await page.screenshot(),contentType:'image/png'});
   // Hiding the question pauses accumulation; restoring a live snapshot resumes it.
   const saved=await page.evaluate(()=>window.__atlasRelated.getState());await page.evaluate(()=>window.__atlasRelated.setState({sceneId:'notation'}));
   await page.clock.fastForward(40_000);await page.evaluate(()=>window.__atlasRelated.setState({sceneId:'question'}));await expect(page.getByRole('timer')).toHaveText('12초');await page.evaluate(state=>window.__atlasRelated.setState(state),saved);await expect(page.getByRole('timer')).toHaveText('12초');
-  await page.clock.fastForward(12_000);await expect(page.getByRole('heading',{name:'왜 그렇게 생각하셨나요?',exact:true})).toBeVisible();await expect(page).toHaveURL(/#question$/);
+  await page.clock.fastForward(12_000);await expect(page.getByRole('heading',{name:'어떤 기준으로 풀면 좋을까요?',exact:true})).toBeVisible();await expect(page).toHaveURL(/#question$/);
   await expect(page.getByRole('textbox')).toHaveCount(0);await expect(page.locator('#reader-scenes')).toBeHidden();await fit(page);
   await testInfo.attach('challenge-reflection-200',{body:await page.screenshot(),contentType:'image/png'});
 });
