@@ -56,14 +56,14 @@ export function mountPossibilityLab(topic:LabTopic,container:HTMLElement,options
   }
  });
  el<HTMLInputElement>('.lab-count').addEventListener('input',()=>{stop();change({...state,count:Number(el<HTMLInputElement>('.lab-count').value),stage:3,revealed:true});});
- el<HTMLInputElement>('.lab-seed').addEventListener('change',()=>{const input=el<HTMLInputElement>('.lab-seed'),seed=Number(input.value);if(input.value===''||!Number.isInteger(seed)||seed<0||seed>0xffffffff){input.value=String(state.seed);return;}stop();change({...state,seed,count:0,revealed:false});});
- el('.lab-mode')?.addEventListener('change',()=>{stop();change({...state,mode:el<HTMLSelectElement>('.lab-mode').value as LabState['mode'],count:0,revealed:false});});
- el('.lab-choice')?.addEventListener('change',()=>{stop();change({...state,choice:Number(el<HTMLSelectElement>('.lab-choice').value),count:0,revealed:false});});
+ el<HTMLInputElement>('.lab-seed').addEventListener('change',()=>{const input=el<HTMLInputElement>('.lab-seed'),seed=Number(input.value);if(input.value===''||!Number.isInteger(seed)||seed<0||seed>0xffffffff){input.value=String(state.seed);return;}stop();change({...state,seed,count:0,revealed:false,processSelected:true});});
+ el('.lab-mode')?.addEventListener('change',()=>{stop();change({...state,mode:el<HTMLSelectElement>('.lab-mode').value as LabState['mode'],count:0,revealed:false,processSelected:true});});
+ el('.lab-choice')?.addEventListener('change',()=>{stop();change({...state,choice:Number(el<HTMLSelectElement>('.lab-choice').value),count:0,revealed:false,processSelected:true});});
  document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
  render();
  return{
   getState:()=>({...state}),validateState:(value:unknown)=>validateLabState(value,topic),setState(value:unknown){validateLabState(value,topic);stop();change(value);},
-  setActive(value:boolean){active=value;if(!value)stop();},suggest(suggestion?:Scene['suggestion']){const next=suggestion&&'example'in suggestion?suggestion.example:'';if(scene!==next){stop();scene=next;render();}},
+  setActive(value:boolean){active=value;if(!value)stop();},suggest(suggestion?:Scene['suggestion']){const next=suggestion&&'example'in suggestion?suggestion.example:'';if(scene!==next){stop();scene=next;if(!state.processSelected&&!state.count){const mode=topic==='two-children'?(scene==='child'?'child':'filter'):(scene==='compare'?'blind':'informed');state={...state,mode};}render();}},
   reset(){stop();change(initialLabState(topic));},seek(ms:number){stop();change(labFrameAt(state,ms));},
   inspect(){const available=({
    'binary-relations':['question','pairs','functions','close'],
