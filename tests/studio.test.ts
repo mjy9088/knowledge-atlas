@@ -23,6 +23,17 @@ test('content metadata migrates legacy plans without discarding edits and invali
   try{const before=studio.topic('binary-relations');const next=structuredClone(before.plan);next.metadata=edited.metadata;const saved=studio.save(next,before.revision);assert.notEqual(saved.revision,before.revision);assert.equal(saved.plan.metadata.depth,'deep');}finally{studio.dispose();rmSync(dir,{recursive:true,force:true});}
 });
 
+test('video budgets are shared by format, ignore per-content overrides, persist and invalidate only affected format reviews',()=>{
+ const dir=mkdtempSync(path.join(os.tmpdir(),'atlas-video-budget-')),studio=new Studio(root,dir,async()=>report);
+ try{assert.deepEqual(studio.budgets(),{short:180,long:900});assert.ok(studio.list().every(t=>t.plan.totalSeconds===180));
+  const original=studio.topic('monty-hall'),plan=structuredClone(original.plan);plan.metadata.format='long';plan.totalSeconds=7;const saved=studio.save(plan,original.revision);assert.equal(saved.plan.totalSeconds,900);
+  const short=studio.topic('two-children'),revision=studio.budgetRevision();studio.setBudgets({short:180,long:1200},revision);assert.equal(studio.topic('two-children').revision,short.revision);assert.notEqual(studio.topic('monty-hall').revision,saved.revision);
+  assert.throws(()=>studio.setBudgets({short:60,long:600},revision),/Conflict/);assert.throws(()=>studio.setBudgets({short:-1,long:900},studio.budgetRevision()));
+  const copy={...studio.topic('two-children').plan,id:'another-observation',title:'Copied draft'};assert.equal(studio.create(copy).plan.totalSeconds,180);assert.throws(()=>studio.create(copy),/exists/);
+  studio.dispose();const restored=new Studio(root,dir,async()=>report);assert.deepEqual(restored.budgets(),{short:180,long:1200});assert.equal(restored.topic('another-observation').plan.title,'Copied draft');restored.dispose();
+ }finally{studio.dispose();rmSync(dir,{recursive:true,force:true});}
+});
+
 test('long-form plans can request all slide reviews without the short queue ceiling',async()=>{
  const dir=mkdtempSync(path.join(os.tmpdir(),'atlas-long-plan-')),studio=new Studio(root,dir,({signal})=>new Promise((_,reject)=>signal.addEventListener('abort',()=>reject(Error('test cancellation')))));
  try{const before=studio.topic('binary-relations'),plan=structuredClone(before.plan);plan.totalSeconds=9000;plan.metadata.format='long';plan.slides=Array.from({length:110},(_,i)=>({...plan.slides[0],id:'section-'+i}));studio.save(plan,before.revision);assert.equal(studio.queue(plan.id,'all').length,111);assert.equal(studio.topic(plan.id).gate.ready,false);}finally{studio.dispose();await until(()=>!studio.list().some(t=>t.jobs.some(j=>j.status==='running')));rmSync(dir,{recursive:true,force:true});}

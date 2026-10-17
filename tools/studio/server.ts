@@ -15,7 +15,7 @@ export function createStudioServer(studio:Studio,production?:Production,chats?:C
       if(req.headers.origin&&req.headers.origin!==`http://${host}`){json({error:'Cross-origin request rejected'},403);return;}
       const url=new URL(req.url??'/',`http://${host}`);
       if(req.method==='GET'){
-        if(url.pathname==='/api/topics'){json({topics:studio.list(),policies:POLICIES});return;}
+        if(url.pathname==='/api/topics'){json({topics:studio.list(),policies:POLICIES,videoBudgets:studio.budgets(),budgetRevision:studio.budgetRevision()});return;}
         if(url.pathname==='/api/work'){json(production?.list()??[]);return;}
         if(url.pathname==='/api/chats'){json(chats?.list()??[]);return;}
         if(url.pathname==='/api/changes'){if(!production)throw Error('Production not configured');json(await production.changes(url.searchParams.get('id')??''));return;}
@@ -30,6 +30,8 @@ export function createStudioServer(studio:Studio,production?:Production,chats?:C
       const raw:unknown=JSON.parse(body);if(!raw||typeof raw!=='object'||Array.isArray(raw))throw Error('Expected object');const v=raw as Record<string,unknown>;
       const id=typeof v.id==='string'?v.id:'';
       switch(url.pathname){
+        case '/api/video-budgets':json(studio.setBudgets(v.budgets,String(v.revision)));break;
+        case '/api/create':json(studio.create(v.plan));break;
         case '/api/chat-new':if(!chats)throw Error('Chats not configured');studio.topic(id);json(chats.create(id));break;
         case '/api/chat-send':{
           if(!chats)throw Error('Chats not configured');const topic=studio.topic(id);if(topic.revision!==v.revision)throw Error('Conflict: reload before sending');
@@ -47,7 +49,7 @@ export function createStudioServer(studio:Studio,production?:Production,chats?:C
           json(production.start(topic.plan,topic.revision,v.kind,typeof v.instruction==='string'?v.instruction:'',topic.feedback));break;
         }
         case '/api/work-cancel':if(!production)throw Error('Production not configured');production.cancel(id);json({ok:true});break;
-        case '/api/save':json(studio.save(v.plan,String(v.revision)));break;
+        case '/api/save':{const p=v.plan as Record<string,unknown>|undefined;if(p&&typeof p.id==='string'&&production?.list().some(w=>w.id===p.id)&&p.domain!==studio.topic(p.id).plan.domain)throw Error('Workspace domain cannot change');json(studio.save(v.plan,String(v.revision)));break;}
         case '/api/reset':json(studio.reset(id,String(v.revision)));break;
         case '/api/review':json(studio.queue(id,String(v.target)));break;
         case '/api/cancel':studio.cancel(id);json({ok:true});break;

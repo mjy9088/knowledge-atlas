@@ -16,7 +16,7 @@ export const run:Runner=(command,args,cwd,input,signal,onOutput)=>new Promise((r
 function plainTree(dir:string){for(const item of readdirSync(dir)){const file=path.join(dir,item),stat=lstatSync(file);if(stat.isSymbolicLink())throw Error('Linked build files are not supported');if(stat.isDirectory())plainTree(file);}}
 function json(file:string,value:unknown){mkdirSync(path.dirname(file),{recursive:true});writeFileSync(file,JSON.stringify(value,null,2));}
 function scaffold(directory:string,plan:Plan){
-  const domain=plan.id==='binary-relations'?'mathematics':'statistics',topic=`${domain}/${plan.id}`,base=path.join(directory,'content',topic),prefix=`${domain}.${plan.id}`;
+  const domain=plan.domain,topic=`${domain}/${plan.id}`,base=path.join(directory,'content',topic),prefix=`${domain}.${plan.id}`;
   if(existsSync(base))throw Error('Topic already exists; preserve it and request an implementation update');
   const claim=(id:string)=>`claim:${prefix}.${id}`,conceptId=`concept:${prefix}`,sourceFile=path.join(directory,'sources/registry.json');
   const sources=JSON.parse(readFileSync(sourceFile,'utf8')) as {id:string;canonicalUrl:string}[];
