@@ -1,6 +1,6 @@
 # Instructions for coding and content agents
 
-Before changing the system, read [README](README.md), [Vision](docs/VISION.md), [Architecture](docs/ARCHITECTURE.md), [Roadmap](docs/ROADMAP.md), and the relevant content specification (currently [Pilot](docs/PILOT.md)). For content organization or a new topic, also read [Content structure](docs/CONTENT-STRUCTURE.md). For UI work, also read [Product](docs/PRODUCT.md); for semantic changes, read [Source review](docs/SOURCE-REVIEW.md) and [Sources and rights](docs/SOURCES-AND-RIGHTS.md). The formal-logic pilot does not define the platform's subject scope.
+Before changing the system, read [README](README.md), [Vision](docs/VISION.md), [Architecture](docs/ARCHITECTURE.md), [Roadmap](docs/ROADMAP.md), and the relevant content specification (currently [Pilot](content/formal-logic/explosion/README.md)). For content organization or a new topic, also read [Content structure](docs/CONTENT-STRUCTURE.md). For UI work, also read [Product](docs/PRODUCT.md); for semantic changes, read [Source review](docs/SOURCE-REVIEW.md) and [Sources and rights](docs/SOURCES-AND-RIGHTS.md). The formal-logic pilot does not define the platform's subject scope.
 
 ## Non-negotiable rules
 
@@ -30,10 +30,10 @@ Before changing the system, read [README](README.md), [Vision](docs/VISION.md), 
 ## Documentation and feedback
 
 - Write all repository documentation in English, including README, AGENTS, ADRs, and contract notes. Preserve the intended language of product content, source quotations/metadata, and stable IDs.
-- Keep durable requirements in their owning document; update Roadmap for current implementation status and add/update an ADR when a contract or technical choice changes. Avoid duplicate handoff documents and append-only task chronicles.
-- Incorporate useful feedback as scoped rules with exceptions and behavioral verification. Ordinary accepted changes and test evidence belong in the Git diff/commit and task report.
+- Keep durable requirements in their owning document; keep Roadmap limited to remaining work and unresolved review, and add/update an ADR only for a significant project-wide architecture choice. Component API contracts, topic models/narratives and UI details belong to their owner, even when shared or reusable. Follow the admission criteria in [Architecture decisions](docs/adr/README.md). Avoid duplicate handoff documents and append-only task chronicles.
+- Incorporate useful feedback as scoped rules with exceptions and behavioral verification. Ordinary accepted changes and test evidence belong in the Git diff/commit and task report, not permanent implementation/verification chronicles. Keep current behavior and unimplemented plans; remove obsolete implementation instructions and completed-task/test-count reports. Preserve source consultation/revision/rights provenance, accepted requirements, pending review and meaningful architecture rationale.
 - Do not create per-turn feedback JSON or synthetic feedback examples. Use a structured feedback artifact only for an unresolved review or an actual workflow consumer; include target/version, captured state, expected/actual behavior, requested change, invariants, scope, origin, and resolution. Preserve accepted human decisions when cleaning up records.
-- When retiring documents, migrate unique requirements and provenance first, fix inbound links, and remove obsolete copies. Keep numbered ADR identities stable and identify superseding decisions.
+- When retiring documents, migrate unique requirements and provenance first, fix inbound links, and remove obsolete copies. Never reuse numbered ADR identities; retain the identity/destination/Git mapping in the ADR index when retiring a record. Do not create an ADR solely to document a cleanup.
 
 ## Deliverables and runtime
 

@@ -1,16 +1,21 @@
-# ADR 0012 — Browser regression and documentation lifecycle
+# ADR 0012 — Documentation ownership and browser verification
 
-- Date: 2026-10-16
-- Status: Implemented locally
+## Context
+
+Project-wide contracts need maintainable documentation and reproducible browser checks.
+
+## Project impact
+
+Development verification and documentation lifecycle apply across all topics without turning routine changes into architecture history.
+
+## Alternatives
+
+Rely only on screenshots or preserve per-turn feedback/implementation documents; these obscure behavior and current ownership.
 
 ## Decision
 
-Add pinned Playwright as a development-only dependency. Test a fresh static build in Chromium at the agreed desktop and narrow viewports. Check actual scroll extents, visible content, control bounds/access, and user interactions rather than only CSS declarations or screenshots. Keep meaningful model and static build tests. Do not add assertions that merely list removed files or strings.
-
-Write repository documentation in English. Korean reader-facing content, scientific IDs, and source metadata retain their language and identity. Maintain a small topic-based documentation set and numbered ADRs, with current implementation and pending review stated separately.
-
-Consolidate durable decisions from the historical `feedback/` records into Vision, Product, Architecture, Pilot, and ADRs. Delete resolved per-turn records and synthetic examples; Git retains their history. Remove the validator's hardcoded dependency on those records. Keep the preliminary Feedback schema as a future contract, not as a requirement to generate files for every task. Create structured feedback only when an unresolved review or real consumer needs version, captured state, requested change, invariants, scope, and resolution.
+Use pinned development-only Playwright against a fresh static build. Measure content/control bounds and behavior. Keep current requirements with their owner, plans in Roadmap and significant architecture rationale in ADRs. Routine changes/test outcomes belong to Git/task reports.
 
 ## Consequences
 
-Development now requires installing locked test dependencies and Chromium; the public web remains runtime-dependency-free. Browser artifacts are ignored, reproducible local evidence. Documentation no longer repeats chronological implementation notes as current contracts. This does not translate product content, certify full accessibility, verify source bytes, clear rights, or authorize publication.
+Geometry is implementation evidence, not scientific/accessibility approval. Structured feedback is reserved for unresolved review or a real consumer. The ADR index defines the admission criteria; API/content changes alone do not qualify.

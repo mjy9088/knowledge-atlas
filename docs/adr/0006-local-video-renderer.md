@@ -1,10 +1,21 @@
-# ADR 0006 — Local video rendering
+# ADR 0006 — Local Canvas/WebCodecs rendering
 
-- Date: 2026-10-16
-- Status: Implemented locally; web MP4 API superseded by 0010
+## Context
 
-Use shared timeline snapshots to draw Canvas frames and encode VP8 WebM with WebCodecs. Support 1080×1440 or 1920×1080 at 24/30 fps. Generate captions and diagnostics; validate queue handling, cancellation, frame timing, metadata, and preview errors explicitly.
+A deterministic projection needs a local video path without adding a media runtime to public readers.
 
-The local helper currently stores packets in memory and produces silent video. Browser preview is not guaranteed on every profile/platform. A successful render does not prove frame quality or scientific correctness. The original 180-second generic lesson was superseded by the focused 134-second episode, with 180 seconds a ceiling rather than a target.
+## Project impact
 
-MP4 conversion now uses only the local mise FFmpeg/ffprobe CLI described in [Development](../DEVELOPMENT.md) and ADR 0010. The earlier conversion endpoint is historical, not an active contract. End-to-end headless frame rendering, audio, and approved publication manifests remain incomplete.
+The projection boundary connects shared timeline snapshots to a replaceable local rendering/encoding engine.
+
+## Alternatives
+
+Require a server renderer or application framework now; neither is needed for the bounded silent local workflow.
+
+## Decision
+
+Render shared complete snapshots with Canvas and encode VP8 WebM with WebCodecs. Keep production UI outside public assets and MP4 transcoding in the local CLI.
+
+## Consequences
+
+Software rendering and in-memory packets limit size/duration; browser codec/preview support varies. Headless DOM rendering and narration/audio remain planned. Output profiles and review procedures belong in Development.

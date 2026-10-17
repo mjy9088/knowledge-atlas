@@ -35,7 +35,7 @@ Read on 2026-10-16. These are live readings, not captured immutable source snaps
 
 The source registry must retain null content hashes until actual source bytes are captured. Evidence consultation and third-party asset reuse are separate statuses; no permission request is implied merely by referencing the materials. Claims are `draft-source-aligned`, articles are `needs-content-review`, and expert approval/publication have not occurred.
 
-## Implemented experiment limits
+## Experiment limits
 
 The parser accepts named atomic types, arrows, products, annotated lambda abstraction, application, pairs and first/second projections. It accepts up to eight explicit assumptions, 512 characters per field and 160 lexical tokens per parsed field. The evaluator displays at most 24 reductions and stops before a displayed result exceeds 1800 characters. A stop at a resource bound is reported as truncation, never as divergence or non-provability. No host-language evaluation, recursion, booleans, sums or arbitrary theorem search is implemented.
 

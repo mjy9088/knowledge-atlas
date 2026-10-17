@@ -28,8 +28,6 @@ Use independent closed-form 1s/2s/2p checks, radial/angular numerical normalizat
 
 These are observed live pages/PDF readings, not frozen source snapshots. No exact-byte hash, independent scientific review, reuse clearance or publication approval is claimed. Claims `claim:quantum.*` remain draft-source-aligned. Spectral database values are not used to calibrate this Hartree-unit model.
 
-## Implemented and tested
+## Representation limits and pending work
 
-Eight chapters introduce trajectories versus distributions, probability density, quantum numbers, nodes, phase, representations, charge scaling and limits. All supported scientific states are numerically tested; browser cases exercise current-input dialogue and all three modes at desktop and narrow viewports. The full check passed 73 Node tests and 71 Chromium cases, with one intentional mobile catalog-fit skip. Rendering uses a finite 30-cell grid and approximate geometry; scientific function normalization does not imply exact finite-box sampling.
-
-See [Spatial fields](SPATIAL-FIELDS.md) for reuse and [ADR 0015](adr/0015-orbitals-and-scalar-fields.md) for the decision. The web reader is implemented; an orbital narration/video projection is not.
+The reader covers trajectories/distributions, density, quantum numbers, nodes, phase, representations, charge scaling and limits. Rendering uses a finite 30-cell grid and approximate geometry; scientific function normalization does not imply exact finite-box sampling. See [Spatial fields](../../../apps/web/components/spatial/README.md) for the viewer contract. An orbital narration/video projection remains planned.

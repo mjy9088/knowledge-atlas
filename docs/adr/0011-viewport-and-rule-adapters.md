@@ -1,10 +1,21 @@
-# ADR 0011 — Viewport reading and topic rule adapters
+# ADR 0011 — Explicit domain adapters
 
-- Date: 2026-10-16
-- Status: Implemented locally
+## Context
 
-Fit normal reader scenes to 1920×1080, 1920×940, 1920×900, and a separate 390×844 narrow viewport. Measure actual content and controls rather than only hiding document overflow. On-demand evidence/connections may scroll; expanded user collections may scroll inside a bounded editor. Keep small continuation links on the final scene.
+Scientific subjects have different supported input, calculation and uncertainty semantics.
 
-Use the common premise editor and inference explorer with distinct validated derive adapters: bounded classical inference, FDE designated-value semantics, limited set-relation rules, and connections among registered CH metatheorems. Model limits and new claim IDs are documented in [Pilot](../PILOT.md) and [Source review](../SOURCE-REVIEW.md). These are not a universal prover or a new proof of CH independence.
+## Project impact
 
-Preserve old scientific fixtures. Check FDE source matrices and countervaluations, set-rule soundness in finite interpretations, metatheorem assumption dependencies, and state invalidation/reset. Browser automation was added in ADR 0012. No source-byte verification, rights clearance, or expert/publication approval follows from these tests.
+The shared reader hosts explicitly registered pure-model/DOM adapters while keeping navigation/state independent of subject rules.
+
+## Alternatives
+
+Build one universal inference/numeric-input engine or copy a controller per topic; both obscure model limits and ownership.
+
+## Decision
+
+Separate pure bounded models, topic-owned inputs/narration and shared reader/status components. Preserve detached validated state, reset, independent seek and synchronized invalidation.
+
+## Consequences
+
+Each adapter declares its limits and evidence, and receives independent semantic fixtures. Reuse interaction primitives without presenting unlike models as the same calculus.

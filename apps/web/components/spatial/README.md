@@ -7,7 +7,7 @@
 The caller supplies an evaluator, a nonnegative finite weight function, three finite increasing bounds, and a grid resolution (4–64 cells per axis). A value may be signed; the weight chooses how density/brightness is represented. Orbital use supplies amplitude and its square; another domain can supply a different scalar and weight without claiming probability.
 
 ```js
-import {mountFieldViewer} from '/components/spatial/field-viewer.ts';
+import {mountFieldViewer} from '/components/spatial/field-viewer.js';
 
 const viewer = mountFieldViewer(container, {label: 'Example scalar field'});
 viewer.setField({
@@ -34,10 +34,10 @@ The container must have available width and height; include `field-viewer.css`. 
 
 Drag or focus the canvas and use arrow keys to rotate. Wheel/+/- adjust zoom. There is no automatic motion. Canvas size follows its container with a device-pixel-ratio cap of two. Resize redraws the same scientific state. `inspect` exposes resolution, bounds, grid integral, sampled maximum, point count, triangle count and camera state.
 
-The initial implementation is synchronous software rendering. Large grids/surfaces can cost CPU time; the orbital adapter fixes a 30-cell grid and bounds the supported states. Tails beyond the finite box and subgrid features are not resolved. Camera framing and renderer colors are presentation choices and must be explained by each topic. These APIs do not provide arbitrary time-dependent simulation, WebGL volume rendering, mesh export, or video encoding.
+Rendering is synchronous software rendering. Large grids/surfaces can cost CPU time; the orbital adapter fixes a 30-cell grid and bounds the supported states. Tails beyond the finite box and subgrid features are not resolved. Camera framing and renderer colors are presentation choices and must be explained by each topic. These APIs do not provide arbitrary time-dependent simulation, WebGL volume rendering, mesh export, or video encoding.
 
 ## Reader integration
 
 An article may name an `interactive` adapter in `page.ts`; `apps/web/topics/registry.ts` maps known IDs to code. The reader continues to own stable scene titles, navigation, evidence panels and state restoration. The topic owns controls, suggestions, current-input narration, and scientific claim references. This is separate from the symbolic premise/proof adapter.
 
-The orbital adapter is the first consumer; the browser suite also renders a non-orbital spherical field, restores state, rejects a bad camera, and disposes the viewer. Geometry tests use constant volume, a linear plane, and a spherical level set. These check implementation behavior, not independent scientific approval of a consuming model.
+Verification should exercise a non-orbital field, camera/state restoration, invalid input and disposal, plus independent constant-volume, plane and sphere geometry fixtures. These checks establish implementation behavior, not scientific approval of a consuming model.

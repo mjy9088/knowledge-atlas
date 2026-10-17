@@ -2,14 +2,14 @@
 
 ## Questions and scenario design
 
-The new material selects small questions inside QFT and the Standard Model rather than promising complete surveys.
+These articles select small questions inside QFT and the Standard Model rather than promising complete surveys.
 
 - `/knowledge/field-quanta/`: distinguish a field from its state, select one ideal free scalar boson mode, count its excitations, interpret energy differences, then delimit vacuum, fermion and interaction statements. The occupation table is an authored symbolic worked example, not an animation or numerical field simulation. The closing discussion prevents a literal trajectory interpretation of virtual particles.
 - `/knowledge/particle-interactions/`: compare an electron, an up quark and an active neutrino. Introduce electric and colour charge through these cases; add weak interactions before identifying gauge bosons. Contrast the Higgs mechanism for elementary masses with composite proton mass, then state the model boundary. No exhaustive particle chart or decorative collision animation is needed.
 
 Each article has eight self-paced scenes. Each scene references one complete canonical block, includes an explicit skip scope and retains draft review status. Most scenes use prose only. A few short symbolic cards compare quantities or labels already explained in the dialogue. These are conceptual explanations, with no claim to compute scattering rates, solve interacting QFT, or simulate a detector.
 
-## Source readings performed on 2026-10-16
+## Recorded source consultation: 2026-10-16
 
 These are live reading records, not frozen source snapshots or independent expert approval. The registered source IDs below must remain distinct from claim IDs.
 

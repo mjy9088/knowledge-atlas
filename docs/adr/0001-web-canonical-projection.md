@@ -1,8 +1,21 @@
-# ADR 0001 — Web source and video projection
+# ADR 0001 — Shared web/video source
 
-- Date: 2026-10-16
-- Status: Accepted for the pilot
+## Context
 
-Claims, models, explanation blocks, and scenes are shared source. Web readers manipulate state; video fixes a deterministic path. Narration, emphasis, and timing are projection metadata and must not independently change scientific claims.
+Web and video must preserve the same claims, assumptions and scientific state.
 
-This allows corrections and inspection across outputs. Scenes need stable semantic/state APIs and independent time seeking. Heavy or nondeterministic rendering may justify another engine later, while preserving the source/model/state contracts. Full publication locking remains future work.
+## Project impact
+
+All content/model/scene/projection boundaries follow one source of truth.
+
+## Alternatives
+
+Maintain independent video scripts/models; this risks competing scientific explanations.
+
+## Decision
+
+Claims, models, explanation blocks and scenes are shared source. Video timing, narration and emphasis are projection metadata. Scenes expose stable state and independent seeking.
+
+## Consequences
+
+Corrections can be traced across outputs; alternative renderers must preserve those contracts. Publication dependency locking remains planned.

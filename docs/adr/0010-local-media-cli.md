@@ -1,10 +1,21 @@
-# ADR 0010 — Public web and local media CLI
+# ADR 0010 — Public web and local media boundary
 
-- Date: 2026-10-16
-- Status: Implemented locally
+## Context
 
-Separate reader-facing JAMstack pages from media production. The static builder copies selected reader asset roots; local media code lives outside the web asset tree under tools/media/. Local render helpers, encoders, muxers, and CLI instructions are outside the reader's public navigation/build. HTML animation and iframe review remain web features.
+Readers do not need encoders, production endpoints or local tool dependencies.
 
-Convert existing WebM through scripts/encode-mp4.ts, invoking mise FFmpeg/ffprobe via argument arrays. Refuse overwrite and record hashes/media metadata. There is no web MP4 conversion endpoint. The development-only WebM helper is retained; this decision does not claim a headless frame-rendering CLI has been implemented.
+## Project impact
 
-Verify CLI preflight and actual output diagnostics when changing media behavior. Do not use lists of deleted filenames/UI strings as a substitute for behavioral tests. Review, rights, and publication approval remain separate.
+Asset selection and deployment exclude local media tooling from the public runtime.
+
+## Alternatives
+
+Expose browser/server MP4 conversion as a public feature; this couples production resources and permissions to the reader.
+
+## Decision
+
+Copy only selected reader roots. Keep local WebM tools under tools/media and invoke FFmpeg/ffprobe through the local CLI using argument arrays, overwrite refusal and output diagnostics.
+
+## Consequences
+
+Deploy only the generated static site, never the repository/development server. Video review and explicit publication authorization remain independent of a successful conversion.

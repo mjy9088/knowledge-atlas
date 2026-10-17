@@ -14,7 +14,7 @@ pnpm dev
 
 Open http://127.0.0.1:4173/ for the knowledge catalog, or /lesson.html for the self-paced explosion explanation. Premises and goals are editable inside explanations; dialogue and diagrams follow the selected model or invalidate unsupported input.
 
-Explore `/knowledge/weekday-worlds/` to compare the hidden calendar contexts behind the Korean yesterday/tomorrow riddle. Opening the question automatically starts a 20-second attempt; answer or skip, then reflect or continue to the explanation within the same first page. Simplify the sentence for explanation, introduce possible worlds during the Wednesday comparison, offer a skippable review of concrete date symbols and classical rules, work through a nonmodal weekday derivation and world model, then use separate some/all-world concept examples to introduce P, ◇P/□P before applying and expanding the operators in the riddle, then briefly introduce modal inference, compare K/D/T/B/S4/S5, and inspect the current accessibility conditions. The arbitrary-relation editor uses K as its baseline; the default frame meets S4 conditions. The scene determines the interpretation; there is no mode checkbox. Calendar deductions use explicit constraints; the modal example evaluates the weekday proposition, not the complete original utterance. Add up to four worlds, edit direct accessibility, change reference choices and distinguish conditional answers from an unspecified literacy judgment.
+Explore `/knowledge/weekday-worlds/` for a question-led introduction to possible worlds and modal logic. The [topic specification](content/formal-logic/weekday-worlds/README.md) owns its narrative, interpretation limits, world editor and timed opening.
 
 Try the question-led comparisons at `/knowledge/binary-search/`, `/knowledge/sphere-slices/`, and `/knowledge/base-rates/`: step through a search, move a cutting plane, or compare a fictional detector's expected counts. Predictions are optional; changing a condition updates the explanation and preserves your edits across scenes.
 
@@ -35,17 +35,17 @@ The public web has no npm runtime dependencies. TypeScript (strict), tsx, esbuil
 | [Product](docs/PRODUCT.md) | Reading, inline experiments, viewport and navigation contracts |
 | [Content structure](docs/CONTENT-STRUCTURE.md) | Topic ownership, folders, registration, and authoring steps |
 | [Architecture](docs/ARCHITECTURE.md) | Entities, module boundaries, deterministic state, build/media boundary |
-| [Logic and types](docs/LOGIC-TYPES.md) | Function proofs, substitution, typed experiment scope |
-| [Particle physics](docs/PARTICLE-PHYSICS.md) | Free-field quanta and interaction comparison |
-| [Quark confinement](docs/QCD.md) | QCD explanation, evidence and limitations |
-| [Orbitals](docs/ORBITALS.md) | Hydrogenic content, source readings, scientific limits |
-| [Spatial fields](docs/SPATIAL-FIELDS.md) | Reusable scalar-field sampling and interactive viewer |
-| [Pilot](docs/PILOT.md) | Explosion episode, related model scopes, scientific guardrails |
+| [Logic and types](content/computing/README.md) | Function proofs, substitution, typed experiment scope |
+| [Particle physics](content/particle-physics/README.md) | Free-field quanta and interaction comparison |
+| [Quark confinement](content/particle-physics/quark-confinement/README.md) | QCD explanation, evidence and limitations |
+| [Orbitals](content/quantum-physics/atomic-orbitals/README.md) | Hydrogenic content, source readings, scientific limits |
+| [Spatial fields](apps/web/components/spatial/README.md) | Reusable scalar-field sampling and interactive viewer |
+| [Pilot](content/formal-logic/explosion/README.md) | Explosion episode, related model scopes, scientific guardrails |
 | [Source review](docs/SOURCE-REVIEW.md) | Recorded readings, exclusions, exact review limits |
 | [Sources and rights](docs/SOURCES-AND-RIGHTS.md) | Evidence, reuse, and publication policy |
 | [Development](docs/DEVELOPMENT.md) | Setup, commands, browser tests, static build, local media |
-| [Roadmap and status](docs/ROADMAP.md) | Implemented capabilities, unfinished lifecycle, next priorities |
-| [ADRs](docs/adr/README.md) | Numbered design decisions and superseding choices |
+| [Roadmap](docs/ROADMAP.md) | Remaining work, unresolved review, lifecycle plans |
+| [ADRs](docs/adr/README.md) | Project-wide architecture rationale and reserved historical identities |
 | [Agent instructions](AGENTS.md) | Required working and documentation practices |
 
 Documentation is English; the pilot's reader-facing content remains Korean. Durable feedback decisions are integrated into these documents; task history is retained in Git rather than duplicate per-turn JSON logs.

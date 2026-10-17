@@ -29,6 +29,8 @@ The 134-second duration describes the silent caption/scene timeline, not validat
 
 Every cue contains a complete presentation snapshot. Changing the goal updates its proof; excluding a premise removes the old path. Independent seeking must reproduce those states without earlier interactions. Customized web input changes or invalidates the original example dialogue through deterministic templates tied to model rows and claim IDs.
 
+The proof-scene adapter's web reset enables both premises and Q, while the separate storyboard's `seek(0)` restores its own baseline with neither premise. These initial states are deliberately distinct; projection seeking must not inherit the web reader's state.
+
 ## Related readers and model scopes
 
 | Route | Calculation | Boundaries |
@@ -42,7 +44,7 @@ FDE uses two information bits per atom; negation exchanges them and conjunction/
 
 The CH adapter accepts its fixed documented tokens, including Con(ZFC), Con(ZFC+CH), Con(ZFC+¬CH), the two ZFC nonprovability statements, Ind(CH,ZFC), CH, and ¬CH. The two extensions are separate theories; do not combine their assumptions into one theory or infer independence from the word “consistency” alone.
 
-Article/block IDs, claim references, and source locators live in each topic's `article.ko.json` and `claims.json`; presentation metadata and original sentence ranges live in its `page.ts`. `content/catalog.ts` registers them; see [Content structure](CONTENT-STRUCTURE.md). Additional scientific blocks get new IDs rather than overwrite accepted source text. The source-reading history and exclusions are retained in [Source review](SOURCE-REVIEW.md).
+Article/block IDs, claim references, and source locators live in each topic's `article.ko.json` and `claims.json`; presentation metadata and original sentence ranges live in its `page.ts`. `content/catalog.ts` registers them; see [Content structure](../../../docs/CONTENT-STRUCTURE.md). Additional scientific blocks get new IDs rather than overwrite accepted source text. The source consultation provenance and exclusions are retained in [Source review](../../../docs/SOURCE-REVIEW.md).
 
 ## Verification boundaries
 

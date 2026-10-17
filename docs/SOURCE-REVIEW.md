@@ -1,6 +1,6 @@
 # Pilot source-reading record
 
-This consolidates the 2026-10-16 research notes and their later rule-adapter supplement. It preserves the previously recorded reading scope; the documentation cleanup is not a new source verification. Machine-readable source IDs, rights notes, and exact claim locators remain in `sources/registry.json` and the claim files. Do not infer stronger approval from the English translation.
+This records source consultation scope, exclusions and unresolved evidence. Consultation dates are provenance, not implementation completion or source-byte verification. Machine-readable source IDs, rights notes and exact claim locators belong to `sources/registry.json` and the claim files. The associated topic specifications describe current model/presentation behavior; this record does not grant stronger approval.
 
 ## Recorded readings and use
 
@@ -29,7 +29,7 @@ The diagram uses independently written Unicode expressions, calendar arithmetic 
 
 On 2026-10-17, the same author's [Conditionals](https://www.wolfgangschwarz.net/logic2/08-conditionals.html), §8.1 opening definition and discussion of the material analysis, was read for `claim:logic.weekday-worlds.conditional-reading`. This supports the formal material-conditional semantics; applying A/B to the Korean sentence is an explicitly authored simplification, not a sourced assertion of full linguistic equivalence. The existing false/false fixture distinguishes A→B from simultaneous Γ constraints. §8.2 was read for orientation; no strict-conditional evaluator or automatic equivalence with the original counterfactual is introduced. No external prose or code is copied; revision and publication limits remain unchanged.
 
-The historical wish/counterfactual proposal (retained as an inactive claim, superseded in the active article by ADR 0027) reconsulted Schwarz's [Conditionals](https://www.wolfgangschwarz.net/logic2/08-conditionals.html), §8.3, on 2026-10-17: indicative/subjunctive distinctions and Definitions 8.2–8.3 for similarity models and closest-antecedent-world semantics. `claim:logic.weekday-worlds.modal-translation` scopes this reading and distinguishes the counterfactual operator from strict implication. Splitting the Korean utterance into a wish and a counterfactual, and introducing opaque `Wishₛ` notation, are authored modeling choices rather than source-provided Korean translations or desire axioms. No similarity ordering, desire evaluator or whole-utterance truth verdict is implemented. See [ADR 0021](adr/0021-source-modal-translation.md).
+The historical wish/counterfactual proposal (retained as an inactive claim, not used by the active article) reconsulted Schwarz's [Conditionals](https://www.wolfgangschwarz.net/logic2/08-conditionals.html), §8.3, on 2026-10-17: indicative/subjunctive distinctions and Definitions 8.2–8.3 for similarity models and closest-antecedent-world semantics. `claim:logic.weekday-worlds.modal-translation` scopes this reading and distinguishes the counterfactual operator from strict implication. Splitting the Korean utterance into a wish and a counterfactual, and introducing opaque `Wishₛ` notation, are authored modeling choices rather than source-provided Korean translations or desire axioms. No similarity ordering, desire evaluator or whole-utterance truth verdict is implemented. See the [current content scope](../content/formal-logic/weekday-worlds/README.md).
 
 ## Question-led comparison readings
 
@@ -66,7 +66,5 @@ No external prose, figures, tables, or quotations were copied into the published
 ## Claim coverage and limits
 
 The related collection covers consistency/nontriviality, paraconsistency versus intuitionistic logic and dialetheism, ZFC and its consistency condition, and CH/cardinality/relative consistency/independence. `claim:logic.classical.contradiction-unsatisfiable` separately records the absence of a classical two-valued interpretation satisfying P and ¬P. The later adapter work added `claim:logic.fde.four-values`, `claim:set.relations.membership`, and `claim:set.relations.extensionality` without changing existing IDs or fixtures.
-
-The original notes recorded eight new related claims and four new sources at that stage; subsequent additions bring the current registry to 19 total claims and seven sources. Historical counts are not current coverage claims.
 
 Source alignment is provisional: claims remain `draft-source-aligned`, reader explanations `needs-content-review`, source content hashes may be null, and `sourceSnapshotVerified`/`published` remain false. Exact revision reconciliation, immutable-byte hashes, independent expert review, rights clearance, and publication authorization are incomplete. An external archive URL does not prove that this project verified its own snapshot. No publication or YouTube upload is implied.

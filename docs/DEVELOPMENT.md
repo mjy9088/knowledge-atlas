@@ -30,6 +30,8 @@ The development server defaults to `http://127.0.0.1:4173`; set `PORT` to choose
 
 Equivalent `npm run` commands work when npm is available. The dependency lockfile is `pnpm-lock.yaml`; keep one package-manager lockfile.
 
+`pnpm validate` also checks local inline Markdown link targets/heading anchors and ADR identity/rationale sections through `scripts/documentation.ts`. Numbered identities reserved in the ADR index cannot be reused. These checks do not decide architectural significance, evaluate source truth, or fetch external references. Repository documentation belongs with its owner: global policies in `docs/`, topic specifications in `content/`, component contracts beside implementation. Keep current requirements and unimplemented plans; completed-task/test reports belong in Git and task reports.
+
 ## Browser regression contract
 
 `playwright.config.ts` builds and serves the actual static output on dedicated port 4190, with two Chromium workers. It also starts the development server on port 4191 for the local media smoke test. Stop unrelated services on these ports before running; the runner does not reuse an existing server. The general projects use CSS viewports 1920×1080, 1920×940, 1920×900, and 390×844. The dedicated `youtube-200` project tests the weekday focus reader at 960×540 CSS pixels and DPR 2, producing a 1920×1080 screenshot that represents the required 200% physical capture. DPR alone does not change layout: a 1920×1080 CSS viewport at DPR 2 is not this target.
@@ -61,7 +63,7 @@ Deployable files are generated in `dist/`; `build-manifest.json` records builder
 
 Open `/tools/media/` on the development server to generate WebM from the shared Canvas/WebCodecs timeline. This is a local helper, not a public page or an end-to-end headless CLI renderer. Supported output profiles are 1080×1440 and 1920×1080 at 24/30 fps. Current output is silent; audio/TTS production is not implemented. Packets are held in memory, so long renders and low-memory devices are limited.
 
-For future weekday/article YouTube production, use the landscape 1920×1080-at-200% baseline: restore each deterministic source state, lay out at 960×540 CSS pixels, and capture at DPR 2. The focus reader and Playwright profile are implemented; a DOM video capture/encoding adapter, narration and upload are not. The existing Canvas renderer profiles above remain separate legacy production paths. See [ADR 0023](adr/0023-focus-reader-and-scaled-capture.md).
+For future weekday/article YouTube production, use the landscape 1920×1080-at-200% baseline: restore each deterministic source state, lay out at 960×540 CSS pixels, and capture at DPR 2. The Playwright profile checks the layout; a DOM video capture/encoding adapter, narration and upload remain planned. The existing Canvas renderer profiles above remain separate legacy production paths. See the [weekday layout specification](../content/formal-logic/weekday-worlds/README.md#layout-controls-and-alignment).
 
 Convert an existing WebM locally:
 
