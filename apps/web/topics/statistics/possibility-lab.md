@@ -1,0 +1,19 @@
+# Possibility exploration adapter
+
+[possibility-lab.ts](possibility-lab.ts) mounts the registered binary-relation, Monty Hall and family-observation experiments. [The pure model](../../../../packages/models/possibility-lab.ts) owns validation, counter-based draws, trial prefixes and absolute `labFrameAt(state, ms)`. [Finite observations](../../../../packages/models/finite-observations.ts) owns exact reference probabilities. DOM animation is a projection, never an authority for the model.
+
+## State and scenes
+
+The adapter implements the shared topic interaction contract: cloned `getState`, atomic validated `setState`, `reset`, absolute `seek`, `inspect`, `suggest` and `setActive`. State contains the topic, uint32 seed, attempted count (0–10,000), branching stage (0–3), four-bit directed relation, initial door, observation mode and reveal flag. Every random draw is indexed by seed, attempt and lane; pausing, seeking and restoring cannot depend on hidden prior draws. Playback advances 20 attempts/second; web reading has no time limit. Changing the observation mode or initial door clears incompatible counts. Relation edits and other reader choices survive scene navigation. Reset restores the declared initial example. Invalid external snapshots leave the reader and adapter unchanged.
+
+Scene suggestions identify authored context without overwriting reader edits. Relation exploration is available in `question`, `pairs`, `functions`, `close`; Monty exploration in `strategy`, `compare`; family exploration in `model`, `filter`, `child`. Other scenes use their original static figure and prose. The opening probability questions therefore reveal no numerical answer. When a selected experiment differs from the authored example, or sampling has begun, scoped model-derived narration replaces the displayed explanation; canonical prose remains intact. Unknown host/reporting policies are never silently assigned probabilities.
+
+## Observation and animation
+
+Monty fixes always-switch, a uniform prize prior, and uniform host tie-breaking. Informed hosts always reveal an unchosen goat; blind hosts open an unchosen door uniformly. Sampling starts from the prior; prize reveals are excluded from the goat-observation denominator. No condition is placed on a specific revealed door number. The family model declares independent, equiprobable boy/girl outcomes in birth order. Family filtering and uniformly selected-child observation have different likelihoods. Counts distinguish attempts, accepted observations and successes; plotted frequencies use the accepted denominator. Reference probabilities are exact model values, not sample averages or population estimates. Fluctuations need not shrink monotonically.
+
+Tree stages expose prior branches, observation likelihoods and the conditional result. Playback highlights the latest sampled branch while updating count and empirical-frequency history. Explicit count controls and the slider select an absolute prefix; play/pause animates its progression. Hidden documents and scene changes pause both sampling and tree animations. Reduced motion disables growing strokes and unfolds the tree without delay. Manual controls remain keyboard accessible, and chart/tree labels provide the interpretation in text.
+
+## Layout and evidence
+
+The lab and explanation share the available reader height. Verify document/internal extents, control access **and lab/narration overlap**, including 960×540 CSS pixels at DPR 2, desktop and narrow reading. Bounded sample count prevents unbounded calculation; clipping controls or hiding overflow is not a layout solution. Studio installs and builds these adapters explicitly in isolated worktrees. Tests, seeded experiment output and local previews do not establish independent source, rights or publication approval.

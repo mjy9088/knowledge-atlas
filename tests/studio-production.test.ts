@@ -8,7 +8,7 @@ import {EXAMPLES} from '../tools/studio/examples.js';
 
 async function settled(p:Production){for(let i=0;i<200;i++){if(!p.list().some(w=>w.tasks.some(t=>t.status==='running')))return;await new Promise(r=>setTimeout(r,10));}throw Error('Timeout');}
 test('isolated production preserves edited sources, snapshots successful output, rejects overlaps and retains prior build after failure',async()=>{
- const root=mkdtempSync(path.join(os.tmpdir(),'atlas-production-')),data=path.join(root,'artifacts/data');let fail=false,hold:(()=>void)|undefined;
+ const root=mkdtempSync(path.join(os.tmpdir(),'atlas-production-')),data=path.join(root,'artifacts/data');let fail=false,diagnostic=0,hold:(()=>void)|undefined;
  // Controlled process fixture exercises lifecycle, not a claim that the real repository build passed.
  const p=new Production(root,data,'fixture',async(command,args,cwd,_input,signal,output)=>{
   if(command==='git'&&args[0]==='worktree'){
@@ -16,7 +16,8 @@ test('isolated production preserves edited sources, snapshots successful output,
    writeFileSync(path.join(workspace,'content/catalog.ts'),'export const CONTENT_ENTRIES: ContentEntry[]=[];');writeFileSync(path.join(workspace,'sources/registry.json'),'[]');writeFileSync(path.join(workspace,'knowledge/concepts.json'),'[]');
   }else if(command==='fixture'){await new Promise<void>((resolve,reject)=>{hold=resolve;signal.addEventListener('abort',()=>reject(Error('cancelled')));});}
   else if(args.includes('scripts/build-site.ts')){if(fail)throw Error('Deliberate build failure');const file=path.join(cwd,'dist/knowledge/binary-relations');mkdirSync(file,{recursive:true});writeFileSync(path.join(file,'index.html'),'<p>Built fixture</p>');}
-  if(!(command==='git'&&args[0]==='ls-files'))output('fixture process output\n');
+  if(command==='git')output(`changing diagnostic ${diagnostic++}\n`,'stderr');
+  if(!(command==='git'&&args[0]==='ls-files'))output('fixture process output\n','stdout');
  });
  try{
   p.start(EXAMPLES[0],'r1','prepare');assert.throws(()=>p.start(EXAMPLES[0],'r1','prepare'),/already running/);await settled(p);

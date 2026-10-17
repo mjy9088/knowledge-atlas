@@ -49,7 +49,7 @@ export function mountPossibilityLab(topic:LabTopic,container:HTMLElement,options
   switch(button.dataset.action){
    case'reset':stop();change(initialLabState(topic));break;
    case'branch':stop();change({...state,stage:Math.min(3,state.stage+1)});break;
-   case'animate':{stop();container.dataset.unfolding='true';const base={...state,stage:0};change(base);const start=performance.now(),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;const unfold=(now:number)=>{if(!active||document.hidden)return;const stage=reduced?3:Math.min(3,Math.floor((now-start)/400));if(stage!==state.stage)change({...state,stage});if(state.stage<3)frame=requestAnimationFrame(unfold);else delete container.dataset.unfolding;};frame=requestAnimationFrame(unfold);break;}
+   case'animate':{stop();container.dataset.unfolding='true';const base={...state,stage:0};change(base);const start=performance.now(),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;const unfold=(now:number)=>{if(!active||document.hidden)return;const stage=reduced?3:Math.min(3,Math.max(0,Math.floor((now-start)/400)));if(stage!==state.stage)change({...state,stage});if(state.stage<3)frame=requestAnimationFrame(unfold);else delete container.dataset.unfolding;};frame=requestAnimationFrame(unfold);break;}
    case'reveal':case'one':stop();change({...state,count:Math.min(MAX_TRIALS,state.count+1),stage:3,revealed:true});break;
    case'play':if(playing)stop();else{playing=true;button.textContent='일시정지';frame=requestAnimationFrame(tick);}break;
   }
@@ -68,7 +68,7 @@ export function mountPossibilityLab(topic:LabTopic,container:HTMLElement,options
    'binary-relations':['question','pairs','functions','close'],
    'monty-hall':['strategy','compare'],
    'two-children':['model','filter','child']
-  }[topic]).includes(scene);return{customized:available&&topic!=='binary-relations',available,state:{...state},summary:labSummary(state),playing};},describe(scene:Scene){
+  }[topic]).includes(scene);const expected=topic==='two-children'?(scene==='child'?'child':'filter'):(scene==='compare'?'blind':'informed');return{customized:available&&topic!=='binary-relations'&&(state.count>0||state.mode!==expected),available,state:{...state},summary:labSummary(state),playing};},describe(scene:Scene){
    const family=topic==='two-children',mode=state.mode,summary=labSummary(state);
    const text=family?`${scene.id==='model'?'독립이고 아들·딸 확률이 각각 1/2인 단순 모형에서, 출생순 BB·BG·GB·GG는 각각 1/4입니다. ':''}${mode==='filter'?'가족을 균등 추출하고, 적어도 한 명이 아들인 가족을 남깁니다. BB·BG·GB의 관측 우도는 모두 1이므로 둘 다 아들일 이론 확률은 1/3입니다.':'가족을 균등 추출한 뒤 아이 한 명을 균등 선택합니다. 아들을 관측할 우도는 BB에서 1, BG·GB에서 1/2이므로, 둘 다 아들일 이론 확률은 1/2입니다.'}`:`${scene.id==='compare'?'정답을 알고 항상 오답을 공개하는 경우와 모르고 무작위로 공개한 경우는 관측 우도가 다릅니다. ':''}현재 실험은 ${mode==='informed'?'정답을 알고 항상 미선택 오답을 공개하는 규칙입니다. 처음 틀린 2/3의 경우에 교환하면 이기므로 교환 이론 승률은 2/3입니다.':'정답을 모르고 미선택 문 하나를 균등하게 엽니다. 상품이 나온 시행을 제외하고 오답 관측에 조건을 걸면 교환 이론 승률은 1/2입니다.'}`;
    return{status:'adapted',text:text+` 반복 실험의 표본 비율은 ${percent(summary.rate)}이며, 이론값과 구분합니다.`};

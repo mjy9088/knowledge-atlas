@@ -9,10 +9,10 @@ import {planInteractionInstallation} from './install-interactions.js';
 
 export interface Work {id:string;directory:string;branch:string;seedRevision:string;route:string;tasks:WorkTask[];build?:{id:string;revision:string;createdAt:string;sourceHash:string;url?:string}}
 export interface WorkTask {id:string;kind:'prepare'|'implement'|'visuals'|'interactions'|'build';revision:string;status:'running'|'completed'|'failed'|'interrupted';createdAt:string;log:string}
-type Runner=(command:string,args:string[],cwd:string,input:string,signal:AbortSignal,onOutput:(text:string)=>void)=>Promise<void>;
+type Runner=(command:string,args:string[],cwd:string,input:string,signal:AbortSignal,onOutput:(text:string,stream?:'stdout'|'stderr')=>void)=>Promise<void>;
 export const run:Runner=(command,args,cwd,input,signal,onOutput)=>new Promise((resolve,reject)=>{
   const child=spawn(command,args,{cwd,windowsHide:true,stdio:['pipe','pipe','pipe'],signal});
-  child.stdout.on('data',(chunk:Buffer)=>onOutput(chunk.toString()));child.stderr.on('data',(chunk:Buffer)=>onOutput(chunk.toString()));
+  child.stdout.on('data',(chunk:Buffer)=>onOutput(chunk.toString(),'stdout'));child.stderr.on('data',(chunk:Buffer)=>onOutput(chunk.toString(),'stderr'));
   child.stdin.on('error',()=>{});child.stdin.end(input);child.once('error',reject);child.once('close',code=>code===0?resolve():reject(Error(`${command}: exit ${code}`)));
 });
 function plainTree(dir:string){for(const item of readdirSync(dir)){const file=path.join(dir,item),stat=lstatSync(file);if(stat.isSymbolicLink())throw Error('Linked build files are not supported');if(stat.isDirectory())plainTree(file);}}
@@ -121,7 +121,7 @@ export class Production {
     })().catch(error=>{task.status=controller.signal.aborted?'interrupted':'failed';output('\n'+(error instanceof Error?error.message:String(error)));}).finally(()=>{clearTimeout(timeout);this.controllers.delete(task.id);this.persist();});
     return structuredClone(task);
   }
-  private async fingerprint(directory:string,signal:AbortSignal){const hash=createHash('sha256');for(const args of [['rev-parse','HEAD'],['diff','--binary','HEAD','--']])await this.runner('git',args,directory,'',signal,s=>{hash.update(s);});hash.update(await this.untrackedHash(directory));return hash.digest('hex');}
+  private async fingerprint(directory:string,signal:AbortSignal){const hash=createHash('sha256');for(const args of [['rev-parse','HEAD'],['diff','--binary','HEAD','--']])await this.runner('git',args,directory,'',signal,(s,stream)=>{if(stream!=='stderr')hash.update(s);});hash.update(await this.untrackedHash(directory));return hash.digest('hex');}
   private async untrackedHash(directory:string){let names='';await this.runner('git',['ls-files','--others','--exclude-standard','-z'],directory,'',new AbortController().signal,s=>{names+=s;});const hash=createHash('sha256');for(const name of names.split('\0').filter(Boolean).sort()){const file=path.join(directory,name);if(lstatSync(file).isSymbolicLink())throw Error('Linked source not supported');hash.update(name).update(readFileSync(file));}return hash.digest('hex');}
   async changes(id:string){const work=this.find(id);let output='';await this.runner('git',['status','--short'],work.directory,'',new AbortController().signal,s=>{output=(output+s).slice(-100_000);});let diff='';await this.runner('git',['diff','--stat','HEAD'],work.directory,'',new AbortController().signal,s=>{diff=(diff+s).slice(-100_000);});return {status:output,diff};}
   cancel(id:string){const controller=this.controllers.get(id);if(!controller)throw Error('No running task');controller.abort();}
