@@ -1,0 +1,52 @@
+{
+  "id": "article:mathematics.binary-relations.ko",
+  "conceptId": "concept:mathematics.binary-relations",
+  "title": "이항 관계: 화살표 하나가 말하는 것",
+  "reviewStatus": "needs-content-review",
+  "scope": "관계를 순서쌍·화살표·표로 나타내고 성질을 전체 조건으로 설명한다.",
+  "blocks": [
+    {
+      "id": "block:mathematics.binary-relations.question",
+      "text": "사람 집합 A={민,수}, 수업 집합 B={논리,확률}. 민은 두 수업, 수는 확률 수업을 듣는다. 이 연결을 빠짐없이 기록해 보자.",
+      "claimRefs": [
+        "claim:mathematics.binary-relations.relation-definition"
+      ]
+    },
+    {
+      "id": "block:mathematics.binary-relations.pairs",
+      "text": "R={(민,논리),(민,확률),(수,확률)}. 가능한 모든 쌍 A×B 중 실제로 연결된 쌍만 고른 것이 관계다.",
+      "claimRefs": [
+        "claim:mathematics.binary-relations.relation-definition"
+      ]
+    },
+    {
+      "id": "block:mathematics.binary-relations.functions",
+      "text": "관계 자체는 한 입력에 연결이 없거나 여럿이어도 된다. 각 입력에 출력이 정확히 하나인 함수는 특별한 관계다.",
+      "claimRefs": [
+        "claim:mathematics.binary-relations.relation-definition"
+      ]
+    },
+    {
+      "id": "block:mathematics.binary-relations.properties",
+      "text": "A 위의 관계에서는 자기 자신과의 연결, 역방향 연결, 두 단계 연결의 직통 여부를 물을 수 있다. 이름은 반사성·대칭성·추이성이다. 하나의 사례가 아니라 모든 관련 원소를 검사한다.",
+      "claimRefs": [
+        "claim:mathematics.binary-relations.relation-properties"
+      ]
+    },
+    {
+      "id": "block:mathematics.binary-relations.transfer",
+      "text": "≤는 반사적이고 추이적이지만 대칭적이지 않다. 1≤2여도 2≤1은 아니다. 반례 하나면 대칭성이 깨지지만 성립을 보이려면 전체 조건이 필요하다.",
+      "claimRefs": [
+        "claim:mathematics.binary-relations.relation-properties"
+      ]
+    },
+    {
+      "id": "block:mathematics.binary-relations.close",
+      "text": "관계를 알면 가능한 쌍과 선택된 쌍을 구분하고, 어떤 성질을 추가로 요구하는지도 명확히 말할 수 있다.",
+      "claimRefs": [
+        "claim:mathematics.binary-relations.relation-definition"
+      ]
+    }
+  ],
+  "relatedConcepts": []
+}
