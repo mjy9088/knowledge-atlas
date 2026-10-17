@@ -6,7 +6,8 @@ import {browserJavaScript} from '../../scripts/typescript.js';
 import {Studio,codexReviewer} from './engine.js';
 import {POLICIES} from './contracts.js';
 import {Production} from './production.js';
-export function createStudioServer(studio:Studio,production?:Production){
+import {Chats,codexRpc} from './chat.js';
+export function createStudioServer(studio:Studio,production?:Production,chats?:Chats){
   return http.createServer(async(req,res)=>{
     const json=(value:unknown,status=200)=>{res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(value));};
     try{
@@ -16,6 +17,7 @@ export function createStudioServer(studio:Studio,production?:Production){
       if(req.method==='GET'){
         if(url.pathname==='/api/topics'){json({topics:studio.list(),policies:POLICIES});return;}
         if(url.pathname==='/api/work'){json(production?.list()??[]);return;}
+        if(url.pathname==='/api/chats'){json(chats?.list()??[]);return;}
         if(url.pathname==='/api/changes'){if(!production)throw Error('Production not configured');json(await production.changes(url.searchParams.get('id')??''));return;}
         if(url.pathname.startsWith('/api/export/')){json(studio.topic(url.pathname.slice(12)));return;}
         const asset:Record<string,[string,string]>={'/':['index.html','text/html; charset=utf-8'],'/app.js':['app.ts','text/javascript; charset=utf-8'],'/style.css':['style.css','text/css; charset=utf-8']};
@@ -28,6 +30,16 @@ export function createStudioServer(studio:Studio,production?:Production){
       const raw:unknown=JSON.parse(body);if(!raw||typeof raw!=='object'||Array.isArray(raw))throw Error('Expected object');const v=raw as Record<string,unknown>;
       const id=typeof v.id==='string'?v.id:'';
       switch(url.pathname){
+        case '/api/chat-new':if(!chats)throw Error('Chats not configured');studio.topic(id);json(chats.create(id));break;
+        case '/api/chat-send':{
+          if(!chats)throw Error('Chats not configured');const topic=studio.topic(id);if(topic.revision!==v.revision)throw Error('Conflict: reload before sending');
+          if(v.mode!=='ask'&&v.mode!=='work')throw Error('Invalid chat mode');json(chats.send(topic,typeof v.conversationId==='string'?v.conversationId:'',v.mode,typeof v.message==='string'?v.message:''));break;
+        }
+        case '/api/chat-answer':if(!chats)throw Error('Chats not configured');studio.topic(id);chats.answer(id,String(v.conversationId),String(v.requestId),v.response);json({ok:true});break;
+        case '/api/chat-steer':if(!chats)throw Error('Chats not configured');studio.topic(id);await chats.steer(id,String(v.conversationId),String(v.turnId),typeof v.message==='string'?v.message:'');json({ok:true});break;
+        case '/api/chat-stop':{
+          if(!chats)throw Error('Chats not configured');studio.topic(id);if(!chats.list().some(c=>c.id===v.conversationId&&c.topicId===id))throw Error('Unknown conversation');await chats.stop(String(v.conversationId));json({ok:true});break;
+        }
         case '/api/work':{
           if(!production)throw Error('Production not configured');const topic=studio.topic(id);
           if(topic.revision!==v.revision)throw Error('Conflict: reload before starting work');
@@ -50,6 +62,7 @@ if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.ur
   const root=fileURLToPath(new URL('../../',import.meta.url)),dir=path.resolve(process.env.STUDIO_DATA_DIR??path.join(root,'artifacts/studio'));
   const studio=new Studio(root,dir,codexReviewer(root,dir,process.env.STUDIO_CODEX_BIN??'codex'),Number(process.env.STUDIO_CONCURRENCY??2));
   const production=new Production(root,dir,process.env.STUDIO_CODEX_BIN??'codex');await production.restore();
-  const server=createStudioServer(studio,production);server.listen(Number(process.env.STUDIO_PORT??4180),'127.0.0.1',()=>console.log(`Private content studio: http://127.0.0.1:${(server.address() as {port:number}).port}`));
-  for(const signal of ['SIGTERM','SIGINT'] as const)process.on(signal,()=>{studio.dispose();production.dispose();server.close(()=>process.exit(0));});
+  const chats=new Chats(root,dir,production,codexRpc(process.env.STUDIO_CODEX_BIN??'codex'));
+  const server=createStudioServer(studio,production,chats);server.listen(Number(process.env.STUDIO_PORT??4180),'127.0.0.1',()=>console.log(`Private content studio: http://127.0.0.1:${(server.address() as {port:number}).port}`));
+  for(const signal of ['SIGTERM','SIGINT'] as const)process.on(signal,()=>{studio.dispose();chats.dispose();production.dispose();server.close(()=>process.exit(0));});
 }

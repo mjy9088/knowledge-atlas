@@ -38,6 +38,7 @@ function scaffold(directory:string,plan:Plan){
 
 /** One owner per directory. Jobs are explicit, isolated from the primary checkout and never publish. */
 export class Production {
+  private chatLocks=new Set<string>();
   private works:Work[]=[];private controllers=new Map<string,AbortController>();private previews=new Map<string,http.Server>();private disposed=false;
   constructor(private root:string,private data:string,private executable='codex',private runner:Runner=run){
     mkdirSync(data,{recursive:true});
@@ -55,13 +56,23 @@ export class Production {
   private file(){return path.join(this.data,'production.json');}
   private persist(){json(this.file()+'.tmp',this.works);renameSync(this.file()+'.tmp',this.file());}
   list(){return structuredClone(this.works);}
+  conversationTurn(id:string,revision:string,mode:'ask'|'work'){
+    if(this.disposed||this.chatLocks.has(id)||this.works.some(w=>w.id===id&&w.tasks.some(t=>t.status==='running')))throw Error('A writer/build/chat is already running for this content');
+    if(this.controllers.size+this.chatLocks.size>=3)throw Error('Three content tasks already running');
+    const work=this.works.find(w=>w.id===id);if(mode==='work'&&(!work||!existsSync(path.join(work.directory,'.git'))))throw Error('Prepare workspace first');
+    const directory=work?.directory??this.root;this.chatLocks.add(id);
+    const task:WorkTask|undefined=mode==='work'?{id:randomUUID(),kind:'implement',revision,status:'running',createdAt:new Date().toISOString(),log:'Interactive Codex conversation; see chat history.'}:undefined;
+    if(task)work!.tasks.push(task);this.persist();let finished=false;
+    return {directory,finish:(status:'completed'|'failed'|'interrupted',log:string)=>{if(finished)return;finished=true;this.chatLocks.delete(id);if(task){task.status=status;task.log=log.slice(-100_000);}this.persist();}};
+  }
   private find(id:string){const work=this.works.find(w=>w.id===id);if(!work)throw Error('Prepare workspace first');return work;}
   private snapshot(id:string){return path.join(this.data,'builds',id,'site');}
   async restore(){for(const work of this.works)if(work.build&&existsSync(this.snapshot(work.build.id)))await this.preview(work);}
   start(plan:Plan,revision:string,kind:WorkTask['kind'],instruction='',feedback:unknown=[]){
     if(this.disposed)throw Error('Production service closed');
+    if(this.chatLocks.has(plan.id))throw Error('A chat is already running for this content');
     if(this.works.some(w=>w.id===plan.id&&w.tasks.some(t=>t.status==='running')))throw Error('A writer/build is already running for this content');
-    if(this.controllers.size>=3)throw Error('Three content tasks already running');
+    if(this.controllers.size+this.chatLocks.size>=3)throw Error('Three content tasks already running');
     if(kind==='implement'&&(!instruction.trim()||instruction.length>16000))throw Error('Describe the requested implementation change');
     let work=this.works.find(w=>w.id===plan.id);
     if(kind==='prepare'){if(work)throw Error('Workspace already exists; preserve edits and request a change');const token=randomUUID();work={id:plan.id,directory:path.join(this.workspaceRoot(),`${plan.id}-${token}`),branch:`codex/studio/${plan.id}-${token}`,seedRevision:revision,route:`/knowledge/${plan.id}/`,tasks:[]};this.works.push(work);}

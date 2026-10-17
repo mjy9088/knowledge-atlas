@@ -1,6 +1,25 @@
 import {test,expect} from '@playwright/test';
 import {execFileSync} from 'node:child_process';
 import path from 'node:path';
+import type {Conversation} from '../../tools/studio/chat.js';
+
+test('chat failures preserve the user message and topic-specific drafts survive navigation',async({page})=>{
+ await page.goto('/#monty-hall/question');await expect(page.locator('#topic-title')).toContainText('몬티 홀');await page.locator('#work-instruction').fill('채팅 실패 테스트 · 실제 모델 응답 아님');await page.locator('[data-topic="two-children"]').click();await expect(page.locator('#work-instruction')).toHaveValue('');await page.locator('[data-topic="monty-hall"]').click();await expect(page.locator('#work-instruction')).toHaveValue('채팅 실패 테스트 · 실제 모델 응답 아님');
+ await page.locator('#chat-ask').click();await expect(page.locator('#chat-status')).toHaveText('실행 실패');await expect(page.locator('#chat-messages')).toContainText('채팅 실패 테스트');await expect(page.locator('#chat-messages .assistant')).toHaveCount(0);await page.reload();await expect(page.locator('#chat-messages')).toContainText('채팅 실패 테스트');
+});
+
+test('question and approval UI preserves partial answers during polling and sends only explicit scoped responses',async({page},testInfo)=>{
+ // UI protocol fixture only. No inference, command, actual approval or editorial evidence is fabricated.
+ const c:Conversation={id:'ui-fixture',topicId:'monty-hall',threadId:'fixture-thread',turnId:'fixture-turn',mode:'work',revision:'fixture',status:'waiting',messages:[{id:'fixture-reply',role:'assistant',mode:'work',revision:'fixture',text:'UI test fixture: 설명 범위를 알려 주세요.'}],requests:[{id:'fixture-question',rpcId:10,kind:'question',turnId:'fixture-turn',description:'Test question',canAccept:false,questions:[{id:'scope',header:'설명 범위',question:'어느 범위를 다룰까요?',secret:false,options:[{label:'핵심만',description:'짧은 설명'}]}]}]};
+ await page.route('**/api/chats',route=>route.fulfill({json:[c]}));
+ await page.route('**/api/chat-answer',async route=>{const body=route.request().postDataJSON();expect(body.id).toBe('monty-hall');expect(body.conversationId).toBe(c.id);
+  if(body.requestId==='fixture-question'){expect(body.response.answers.scope).toBe('핵심만 + 비교');c.requests=[{id:'fixture-approval',rpcId:11,kind:'command',turnId:'fixture-turn',description:'Test command, not actually executed',canAccept:true,questions:[]}];}
+  else{expect(body.requestId).toBe('fixture-approval');expect(body.response).toEqual({decision:'decline'});c.requests=[];c.status='idle';}await route.fulfill({json:{ok:true}});
+ });
+ await page.goto('/#monty-hall/question');await expect(page.locator('#chat-requests')).toContainText('어느 범위를');await page.locator('#chat-requests').getByRole('button',{name:'핵심만',exact:true}).click();const answer=page.getByLabel('어느 범위를 다룰까요?',{exact:true});await answer.fill('핵심만 + 비교');await page.waitForTimeout(2800);await expect(answer).toHaveValue('핵심만 + 비교');
+ await page.locator('[data-topic="two-children"]').click();await page.locator('[data-topic="monty-hall"]').click();await expect(answer).toHaveValue('핵심만 + 비교');await page.getByRole('button',{name:'답변 보내기',exact:true}).click();await expect(page.locator('#chat-requests')).toContainText('명령 실행 승인 요청');
+ await page.locator('#chat-requests').getByRole('button',{name:'거절',exact:true}).click();await expect(page.locator('#chat-requests').locator('form')).toHaveCount(0);expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(testInfo.project.use.viewport!.width);
+});
 
 test('format, depth and content scope are independently editable and survive reload',async({page})=>{
  await page.goto('/#monty-hall/question');await expect(page.locator('#topic-title')).toContainText('몬티 홀');
