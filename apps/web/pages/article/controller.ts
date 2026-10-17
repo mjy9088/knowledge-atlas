@@ -25,6 +25,10 @@ if(page.interactive==='weekday-worlds'){
   const rail=document.createElement('aside');rail.className='reader-action-rail';rail.setAttribute('aria-label','목차와 설명 이동');
   rail.append(required('.reader-menu'),$('reader-controls'));root.append(rail);
   const chrome=required('.page-chrome');chrome.classList.add('reader-reveal-chrome');chrome.setAttribute('aria-label','상단 탐색 메뉴');
+  const menu=required<HTMLDetailsElement>('.reader-menu'),summary=required<HTMLElement>('summary',menu),closeMenu=document.createElement('button');closeMenu.type='button';closeMenu.className='reader-menu-close';closeMenu.textContent='목차 닫기 ×';required('nav',menu).prepend(closeMenu);
+  const dismissMenu=()=>{menu.open=false;summary.focus({preventScroll:true});};closeMenu.addEventListener('click',dismissMenu);
+  menu.addEventListener('keydown',event=>{if(event.key==='Escape'){event.preventDefault();event.stopPropagation();dismissMenu();}});
+  document.addEventListener('pointerdown',event=>{if(menu.open&&event.target instanceof Node&&!menu.contains(event.target))menu.open=false;});
 }
 const original=scenes.map(node=>({title:required('h2',node).textContent,text:required('.scene-prose',node).textContent,claims:node.dataset.claimRefs??''}));
 const feedback=scenes.map(node=>mountEvaluationFeedback({content:required('.scene-prose',node),message:required('.scene-result',node)}));

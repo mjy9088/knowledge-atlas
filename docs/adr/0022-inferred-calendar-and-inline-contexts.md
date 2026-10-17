@@ -2,6 +2,8 @@
 
 Date: 2026-10-17. Status: implemented locally; review and publication remain separate.
 
+[ADR 0024](0024-continuous-reader-and-inline-choices.md) refines the inline choices into compact captured popovers and consolidates preset labeling. The deduction and saved-state contracts below remain unchanged.
+
 ## Decision
 
 The weekday reader puts each of the four reference-world selectors inside its corresponding original-language expression. Keep accessible names, stable world colors, creation options, cross-reference labels, full ancestry alignment and native select keyboard behavior. The Selection pane has the same white background, border and internal heading as Original and Symbols. Its preset group says “select” explicitly, and each A/B/C button names the selection action rather than resembling a representation tab. Only Selection scrolls.

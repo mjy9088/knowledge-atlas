@@ -33,6 +33,11 @@ test('200% capture fits title, every scene, both translations, four worlds and r
   }
   await page.getByRole('button',{name:'세계 추가',exact:true}).click();await page.getByRole('button',{name:'세계 추가',exact:true}).click();await fit(page);
   const saved=await page.evaluate(()=>window.__atlasRelated.getState());await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(state=>window.__atlasRelated.setState(state),saved);await fit(page);
+  const crossings=await page.evaluate(()=>{
+    const state=window.__atlasRelated.getState().interaction;if(!state||!('worlds'in state))throw new Error('Expected worlds');
+    const circles=[...document.querySelectorAll<SVGCircleElement>('.weekday-modal-diagram circle[data-world]')],edges=[...document.querySelectorAll<SVGPathElement>('.weekday-modal-diagram svg>path')];
+    return edges.flatMap((edge,index)=>{const [from,to]=state.access[index],length=edge.getTotalLength();return circles.flatMap(circle=>{const id=Number(circle.dataset.world);if(id===from||id===to)return [];for(let step=0;step<=100;step++){const p=edge.getPointAtLength(length*step/100);if(Math.hypot(p.x-circle.cx.baseVal.value,p.y-circle.cy.baseVal.value)<circle.r.baseVal.value)return [`${from}→${to} crosses ${id}`];}return [];});});
+  });expect(crossings).toEqual([]);
   await testInfo.attach('youtube-1920x1080-at-200-percent',{body:await page.screenshot(),contentType:'image/png'});expect(errors).toEqual([]);
 });
 
@@ -43,6 +48,11 @@ test('focus chrome reveals on top hover and keyboard focus; side menu and scroll
   await page.mouse.move(480,2);await expect(chrome.locator('nav')).toHaveCSS('opacity','1');await expect(chrome).toHaveCSS('height','40px');
   await page.mouse.move(480,270);await expect(chrome.locator('nav')).toHaveCSS('opacity','0');await link.focus();await expect(chrome.locator('nav')).toHaveCSS('opacity','1');await link.blur();
   await page.locator('.reader-menu summary').click();await expect(page.locator('.reader-menu nav')).toBeVisible();
+  const menuBounds=await page.locator('.reader-menu nav').boundingBox();expect(menuBounds!.y).toBeGreaterThanOrEqual(0);expect(menuBounds!.y+menuBounds!.height).toBeLessThanOrEqual(540);expect(menuBounds!.x).toBeGreaterThanOrEqual(0);expect(menuBounds!.x+menuBounds!.width).toBeLessThanOrEqual(960);
+  const closeMenu=page.getByRole('button',{name:'목차 닫기 ×',exact:true});await expect(closeMenu).toBeVisible();await page.locator('.reader-menu nav').evaluate(e=>e.scrollTop=e.scrollHeight);await closeMenu.click();await expect(page.locator('.reader-menu')).not.toHaveAttribute('open','');
+  await page.locator('.reader-menu summary').click();await page.keyboard.press('Escape');await expect(page.locator('.reader-menu')).not.toHaveAttribute('open','');await expect(page.locator('.reader-menu summary')).toBeFocused();
+  await page.locator('.reader-menu summary').click();await page.mouse.click(450,520);await expect(page.locator('.reader-menu')).not.toHaveAttribute('open','');
+  await page.locator('.reader-menu summary').click();
   await page.locator('.reader-menu a[href="#evidence"]').click();await expect(page.locator('dialog[open]')).toContainText('주장별 조건과 근거 위치');await page.keyboard.press('Escape');
   await page.mouse.move(480,270);
   for(const control of await page.locator('.weekday-settings button,.weekday-settings select').all()){
@@ -51,4 +61,20 @@ test('focus chrome reveals on top hover and keyboard focus; side menu and scroll
   }
   await page.getByRole('button',{name:'세계 · 접근 관계',exact:true}).click();await expect(page.locator('.weekday-world-dialog')).toBeVisible();await page.keyboard.press('Escape');await fit(page);
   await testInfo.attach('youtube-focus-controls',{body:await page.screenshot(),contentType:'image/png'});
+});
+
+test('compact expressions open captured choices and the video frame keeps input and reasoning together',async({page},testInfo)=>{
+  await page.goto('/knowledge/weekday-worlds/#sunday');await page.waitForFunction(()=>window.__atlasRelated);
+  await expect(page.getByRole('button',{name:'입력 보기',exact:true})).toHaveCount(0);await expect(page.getByRole('button',{name:'추론 보기',exact:true})).toHaveCount(0);
+  await expect(page.locator('.weekday-input-panel')).toBeVisible();await expect(page.locator('.weekday-reasoning-panel')).toBeVisible();
+  const term=page.locator('.weekday-sentence-line .weekday-reference-trigger').first(),bounds=await term.boundingBox();expect(bounds!.width).toBeLessThan(150);expect(bounds!.height).toBeGreaterThanOrEqual(26);
+  await term.click({position:{x:12,y:bounds!.height/2}});
+  const menu=page.getByRole('listbox',{name:'① 어제의 기준',exact:true});await expect(menu).toBeVisible();await expect(menu.getByRole('option')).toHaveCount(4);
+  await testInfo.attach('captured-expression-dropdown',{body:await page.screenshot(),contentType:'image/png'});
+  await menu.getByRole('option',{name:'가정 2 (선택하여 추가)',exact:true}).click();await expect(page.getByRole('combobox',{name:'① 어제의 기준',exact:true})).toHaveValue('2');await expect(menu).toBeHidden();
+  const select=page.getByRole('combobox',{name:'② 내일의 기준',exact:true});await select.focus();await page.keyboard.press('Space');await expect(page.getByRole('listbox',{name:'② 내일의 기준',exact:true})).toBeVisible();await page.keyboard.press('Escape');await expect(select).toBeFocused();
+  const metrics=await page.evaluate(()=>({caption:document.querySelector('#reader-scenes')!.getBoundingClientRect().height,height:innerHeight,sourceFont:parseFloat(getComputedStyle(document.querySelector('.weekday-sentence-line')!).fontSize),proseFont:parseFloat(getComputedStyle(document.querySelector('.reader-scene:not([hidden]) .scene-prose')!).fontSize)}));
+  expect(metrics.caption/metrics.height).toBeLessThan(.24);expect(metrics.sourceFont*2).toBeGreaterThanOrEqual(24);expect(metrics.proseFont*2).toBeGreaterThanOrEqual(24);
+  await fit(page);
+  await page.getByRole('button',{name:'A · 현실 어제 고정',exact:true}).click();const goal=page.locator('.weekday-target-trigger');await goal.click();const goalMenu=page.getByRole('listbox',{name:'문장 속 목표 요일',exact:true});await expect(goalMenu).toBeVisible();await goalMenu.getByRole('option',{name:'월요일',exact:true}).click();await expect(page.locator('.weekday-result')).toContainText('수요일');await expect(page.locator('.weekday-settings .weekday-target-select')).toHaveCount(0);await fit(page);
 });

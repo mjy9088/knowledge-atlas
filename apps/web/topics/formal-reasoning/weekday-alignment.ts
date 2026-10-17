@@ -7,6 +7,7 @@ import {worldText} from './weekday-world-style.js';
 // Authored calendar-role alignment, not a Korean parse or counterfactual translation.
 export const WEEKDAY_ALIGNMENT:readonly AlignmentNode[]=[
   {id:'constraints',label:'A·B의 전체 구조'},
+  {id:'weekday-equivalence',parent:'constraints',label:'≡₇: 같은 요일'},
   {id:'wish-marker',parent:'constraints',label:'바람: ~이었으면 좋겠다'},
   {id:'conditional-connective',parent:'constraints',label:'조건 연결: ~이면 ~이다'},
   {id:'antecedent',parent:'constraints',label:'어제·내일의 대응'},
@@ -41,7 +42,12 @@ function term(doc:Document,value:CalendarTerm,id:string){
 export function calendarClause(doc:Document,input:WeekdayInterpretation,clause:'A'|'B',withParent=true){
   const n=weekdayNotation(input),node=doc.createElement('span');if(withParent)markAlignment(node,clause==='A'?'antecedent':'consequent','symbol');
   if(clause==='A')node.append(term(doc,n.left,'yesterday'),' ≡₇ ',term(doc,n.right,'tomorrow'));
-  else{const target=markAlignment(doc.createElement('span'),'target','symbol');target.textContent=String(input.target);node.append(term(doc,n.goal,'consequent-today'),' ≡₇ ',target);}return node;
+  else{const target=markAlignment(doc.createElement('span'),'target','symbol');target.textContent=String(input.target);node.append(term(doc,n.goal,'consequent-today'),' ≡₇ ',target);}annotateWeekdayEquivalence(node);return node;
+}
+export function annotateWeekdayEquivalence(root:HTMLElement){
+  const doc=root.ownerDocument,walker=doc.createTreeWalker(root,4),texts:Text[]=[];
+  while(walker.nextNode())if(walker.currentNode.textContent?.includes('≡₇')&&!walker.currentNode.parentElement?.closest('[data-alignment-node="weekday-equivalence"]'))texts.push(walker.currentNode as Text);
+  for(const text of texts){const fragment=doc.createDocumentFragment();text.data.split('≡₇').forEach((part,index)=>{if(index){const token=markAlignment(doc.createElement('span'),'weekday-equivalence','symbol');token.textContent='≡₇';fragment.append(token);}fragment.append(part);});text.replaceWith(fragment);}
 }
 export function calendarQuery(doc:Document,input:WeekdayInterpretation){
   const n=weekdayNotation(input),node=markAlignment(doc.createElement('span'),'query','symbol');node.append(term(doc,n.query,'query-today'),' = ?');return node;

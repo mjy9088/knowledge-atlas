@@ -2,6 +2,8 @@
 
 Date: 2026-10-17. Status: weekday reader implemented locally; rendered video and publication remain separate.
 
+[ADR 0024](0024-continuous-reader-and-inline-choices.md) further compacts the explanation and inline choices and replaces upward menu placement with a bounded, explicitly dismissible viewport panel, while retaining this capture baseline and focus-navigation contract.
+
 ## Layout and capture target
 
 The weekday article must fit a 1920×1080 physical frame at 200% display scale. This means a 960×540 CSS layout, captured at device scale factor 2 to produce 1920×1080 pixels. Setting DPR 2 on a 1920×1080 CSS viewport would instead produce 3840×2160 and would not exercise the required compact layout. Browser page zoom, OS scaling and screenshot pixel density are distinct mechanisms; the regression profile fixes the effective layout and output dimensions explicitly.

@@ -2,11 +2,11 @@ import {weekdayNotation} from '/packages/models/weekday-notation.js';
 import {WEEKDAYS,type WeekdayInterpretation} from '/packages/models/weekday-worlds.js';
 import {worldText} from './weekday-world-style.js';
 import {markAlignment} from '../../components/alignment/semantic-alignment.js';
-import {calendarClause,calendarQuery} from './weekday-alignment.js';
+import {calendarClause,calendarQuery,annotateWeekdayEquivalence} from './weekday-alignment.js';
 
 export function mountWeekdayLogic(container:HTMLElement){
   const doc=container.ownerDocument;container.className='weekday-logic-diagram';container.setAttribute('role','group');container.setAttribute('aria-label','달력 제약의 논리적 추론');
-  function element(tag:string,text:string,cls:string){const node=doc.createElement(tag);worldText(node,text);node.className=cls;return node;}
+  function element(tag:string,text:string,cls:string){const node=doc.createElement(tag);worldText(node,text);annotateWeekdayEquivalence(node);node.className=cls;return node;}
   return {render(input:WeekdayInterpretation,modal=false){
     const n=weekdayNotation(input);container.dataset.kind=n.kind;container.replaceChildren();
     const premises=markAlignment(element('div','','weekday-logic-premises'),'constraints','symbol');
