@@ -18,7 +18,7 @@ Explore `/knowledge/weekday-worlds/` for a question-led introduction to possible
 
 Try the question-led comparisons at `/knowledge/binary-search/`, `/knowledge/sphere-slices/`, and `/knowledge/base-rates/`: step through a search, move a cutting plane, or compare a fictional detector's expected counts. Predictions are optional; changing a condition updates the explanation and preserves your edits across scenes.
 
-Run `pnpm studio` for the [private content studio](tools/studio/README.md) at `http://127.0.0.1:4180`: edit the three initial manuscripts, queue independent Codex slide/flow reviews and track feedback. Studio drafts and runtime artifacts are excluded from the public build/catalog.
+Run `pnpm studio` for the [private content studio](tools/studio/README.md) at `http://127.0.0.1:4180`: edit the three initial manuscripts, queue independent Codex slide/flow reviews and track feedback. The three initial draft readers are now source-controlled on main and available in local review builds; they remain unapproved for publication. Studio runtime state, chats, feedback and build snapshots stay local and ignored.
 
 ~~~sh
 pnpm typecheck    # strict TypeScript contracts

@@ -32,3 +32,15 @@ test('isolated production preserves edited sources, snapshots successful output,
   p.dispose();const restored=new Production(root,data,'fixture',async()=>{throw Error('Do not replay')});try{await restored.restore();assert.ok(restored.list()[0].build?.url);assert.equal(restored.list()[0].build?.id,lastGoodId);}finally{restored.dispose();}
  }finally{p.dispose();rmSync(root,{recursive:true,force:true});}
 });
+test('preparing an integrated topic preserves its canonical source instead of regenerating the manuscript',async()=>{
+ const root=mkdtempSync(path.join(os.tmpdir(),'atlas-integrated-')),data=path.join(root,'artifacts/data');
+ const original=JSON.stringify({id:'article:mathematics.binary-relations.ko',blocks:[{text:'Accepted canonical prose'}]});
+ const p=new Production(root,data,'fixture',async(command,args)=>{
+  if(command==='git'&&args[0]==='worktree'){
+   const workspace=args[4],base=path.join(workspace,'content/mathematics/binary-relations');mkdirSync(base,{recursive:true});mkdirSync(path.join(workspace,'.git'));
+   writeFileSync(path.join(workspace,'content/catalog.ts'),"export const CONTENT_ENTRIES=[{directory:'mathematics/binary-relations'}];");writeFileSync(path.join(base,'article.ko.json'),original);writeFileSync(path.join(base,'page.ts'),'Accepted page module');
+  }
+ });
+ try{p.start(EXAMPLES[0],'integrated','prepare');await settled(p);const w=p.list()[0];assert.equal(w.tasks[0].status,'completed');assert.match(w.tasks[0].log,/Existing registered topic/);assert.equal(readFileSync(path.join(w.directory,'content/mathematics/binary-relations/article.ko.json'),'utf8'),original);assert.equal(readFileSync(path.join(w.directory,'content/mathematics/binary-relations/page.ts'),'utf8'),'Accepted page module');}
+ finally{p.dispose();rmSync(root,{recursive:true,force:true});}
+});

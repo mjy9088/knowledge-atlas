@@ -66,7 +66,9 @@ test('plan becomes canonical worktree sources and a real static reader build wit
   expect(await frame.locator('.possibility-lab').evaluate(()=>window.__atlasRelated!.getState().interaction)).toEqual(retained);
   await page.locator('#slides button').first().click();await expect(frame.locator('#reader-controls')).toBeVisible();await expect(frame.locator('#question')).toBeVisible();
   const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
-  await page.locator('#inspect-work').click();await page.locator('.production > details > summary').click();await expect(page.locator('#work-changes')).toContainText('content/catalog.ts');
+  await page.locator('#inspect-work').click();await page.locator('.production > details > summary').click();await expect(page.locator('#work-changes')).toBeVisible();
+  const prepared=(await(await request.get('/api/work')).json() as {id:string;directory:string}[]).find(w=>w.id===id)!;
+  expect(execFileSync('git',['show',`HEAD:content/${id==='binary-relations'?'mathematics':'statistics'}/${id}/article.ko.json`],{cwd:prepared.directory,encoding:'utf8'})).toContain(`article:${id==='binary-relations'?'mathematics':'statistics'}.${id}.ko`);
   await page.locator('#feedback-build').click();await expect(page.locator('#feedback-text')).toHaveValue(/build=.*source=.*slide=question/);await page.locator('#feedback-text').press('End');await page.locator('#feedback-text').pressSequentially(' 화면 피드백');await page.locator('#add-feedback').click();await expect(page.locator('#feedback')).toContainText('화면 피드백');
   await page.locator('#built-result').scrollIntoViewIfNeeded();
   expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(testInfo.project.use.viewport!.width);
