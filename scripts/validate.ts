@@ -7,10 +7,12 @@ import {EXPERIMENT_RULE_CLAIMS} from '../apps/web/topics/formal-reasoning/dialog
 import {LESSON} from '../content/formal-logic/explosion/lesson.js';
 import {validateRelatedPages} from '../packages/site/related-site.js';
 import {loadContentCatalog} from '../packages/content/load-catalog.js';
+import {validateDocumentation} from './documentation.js';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const read=<T>(p:string):T=>JSON.parse(readFileSync(path.join(root,p),'utf8'));
 const errors:string[]=[];
+errors.push(...validateDocumentation(root));
 function need(ok:unknown,message:string){if(!ok)errors.push(message);}
 function uniq(arr:Array<string|{id:string}>,label:string){const ids=arr.map(x=>typeof x==='string'?x:x.id); need(new Set(ids).size===ids.length,`duplicate IDs: ${label}`);}
 const sources=read<typeof import('../sources/registry.json')>('sources/registry.json'),concepts=read<typeof import('../knowledge/concepts.json')>('knowledge/concepts.json'),relations=read<typeof import('../knowledge/relations.json')>('knowledge/relations.json');

@@ -105,4 +105,4 @@ An article may select an explicit `interactive` adapter from `apps/web/topics/re
 
 Named collections own explicit `articleRefs`; catalog registration does not imply membership in an existing topic collection. The explosion evidence panel selects its four related articles through that list. Knowledge relations and related-concept links require their own scoped evidence; adding an orbital article does not assert a relation to explosion.
 
-Use `cards: []` when a diagram does not clarify the scene. The enhanced reader then presents a reading panel without reserving a visual area. Meaningful equations and comparisons may use cards; every article does not need a model or animation. The current computing examples deliberately exercise a different interaction shape before any wider adapter abstraction.
+Use `cards: []` when a diagram does not clarify the scene. The enhanced reader then presents a reading panel without reserving a visual area. Meaningful equations and comparisons may use cards; every article does not need a model or animation.
