@@ -25,7 +25,7 @@ export interface ContentPage {
   cover?: boolean;
   coverArtwork?: {src:string;alt:string};
   experiment?: boolean; model?: 'classical' | 'fde' | 'sets' | 'ch' | null;
-  interactive?: 'hydrogenic-orbitals' | 'typed-lambda' | 'binary-search' | 'sphere-slices' | 'base-rates' | 'weekday-worlds';
+  interactive?: 'hydrogenic-orbitals' | 'typed-lambda' | 'binary-search' | 'sphere-slices' | 'base-rates' | 'weekday-worlds' | 'binary-relations' | 'monty-hall' | 'two-children';
   styles?: string[]; claimRefs?: string[]; scenes: Scene[];
 }
 export interface ContentEntry { directory: string; article: string; claims: string; page: ContentPage }
