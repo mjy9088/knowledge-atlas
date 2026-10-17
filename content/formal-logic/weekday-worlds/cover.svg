@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1000" viewBox="0 0 1200 1000" role="img" aria-labelledby="title description">
   <title id="title">IQ 좀 높다면 도전!</title>
-  <desc id="description">어제가 내일이었으면 좋겠다. 그럼 오늘이 금요일일 텐데… 그렇다면 오늘은 무슨 요일일까? 수요일, 목요일, 금요일, 일요일. 가능세계와 양상논리로 기준을 살펴보는 글의 표지.</desc>
+  <desc id="description">어제가 내일이었으면 좋겠다. 그럼 오늘이 금요일일 텐데… 그렇다면 오늘은 무슨 요일일까? 수요일, 목요일, 금요일, 일요일. 요일 수수께끼를 함께 풀어 보는 글의 표지.</desc>
   <metadata>asset:logic.weekday-worlds.cover. Independently drawn editable SVG, 2026-10-17, inspired by the user-supplied puzzle meme. The challenge heading and 20-second motif reproduce its rhetorical framing for discussion, not a validated IQ assessment or an enforced timer. No reference pixels or logos are imported. This is cover artwork, not a catalog thumbnail. Rights review and publication remain pending.</metadata>
   <defs>
     <pattern id="paper" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r=".6" fill="#bfae91" opacity=".2"/></pattern>
@@ -32,6 +32,5 @@
       <text x="205" y="855">① 수요일</text><text x="470" y="855">② 목요일</text>
       <text x="735" y="855">③ 금요일</text><text x="1000" y="855">④ 일요일</text>
     </g>
-    <text x="1110" y="957" text-anchor="end" font-size="25" fill="#84745e" letter-spacing="1">가능세계 · 양상논리</text>
   </g>
 </svg>

@@ -5,7 +5,7 @@ import {calendarClause,calendarQuery,conditionalReading,annotateWeekdayEquivalen
 export type WeekdayRepresentation='sentence'|'symbols';
 export type WeekdayLogicMode='calendar'|'alethic';
 // This riddle's explicit context assignments, not a general indexical parser.
-export function mountWeekdaySentence(container:HTMLElement,{onRepresentationChange=()=>{}}:{onRepresentationChange?:(view:WeekdayRepresentation,logicMode:WeekdayLogicMode)=>void}={}){
+export function mountWeekdaySentence(container:HTMLElement){
   const doc=container.ownerDocument;
   container.className='weekday-sentence';container.setAttribute('role','group');container.setAttribute('aria-label','문장과 논리 기호의 대응');
   const source=doc.createElement('div');source.className='weekday-source';
@@ -13,9 +13,7 @@ export function mountWeekdaySentence(container:HTMLElement,{onRepresentationChan
   const sourceSection=doc.createElement('section');sourceSection.className='weekday-original-section';const sourceTitle=doc.createElement('h2');sourceTitle.textContent='원문';sourceSection.append(sourceTitle,source);
   const alignmentStatus=doc.createElement('div');alignmentStatus.className='alignment-status';alignmentStatus.setAttribute('aria-live','polite');sourceSection.append(alignmentStatus);
   const symbolSection=doc.createElement('section');symbolSection.className='weekday-symbol-section';const symbolTitle=doc.createElement('h2');symbolTitle.textContent='기호';
-  const toggleLabel=doc.createElement('label');toggleLabel.className='weekday-modal-toggle';const toggle=doc.createElement('input');toggle.type='checkbox';toggle.setAttribute('aria-label','양상 논리로 번역');toggle.setAttribute('aria-description','원문을 바람과 반사실 조건문의 구조로 번역합니다. 바람은 별도 표기하며, 반사실의 진리값을 자동 판정하지 않습니다.');toggleLabel.title=toggle.getAttribute('aria-description')!;toggleLabel.append(toggle,'양상 논리로 번역');
-  const symbolHeader=doc.createElement('div');symbolHeader.className='weekday-symbol-header';symbolHeader.append(symbolTitle,toggleLabel);
-  let currentRepresentation:WeekdayRepresentation='symbols';toggle.addEventListener('change',()=>onRepresentationChange(currentRepresentation,toggle.checked?'alethic':'calendar'));symbolSection.append(symbolHeader,formal);container.append(sourceSection,symbolSection);
+  const symbolHeader=doc.createElement('div');symbolHeader.className='weekday-symbol-header';symbolHeader.append(symbolTitle);symbolSection.append(symbolHeader,formal);container.append(sourceSection,symbolSection);
   let references:Partial<Record<keyof WeekdayContexts,HTMLSelectElement>>={};
   function word(text:string,world:WorldIndex,value:string,id:string,offset=false){
     const node=markAlignment(doc.createElement('span'),id,'source');node.classList.add('weekday-word');colorWorld(node,world);
@@ -55,7 +53,7 @@ export function mountWeekdaySentence(container:HTMLElement,{onRepresentationChan
         paragraph('바람은 진리 양상 외 별도 표기 · □→는 단순 □(A→B)가 아님','weekday-symbol-limit'),
       );
     }
-    currentRepresentation=representation;toggle.checked=logicMode==='alethic';
+    container.dataset.representation=representation;
     source.hidden=false;formal.hidden=false;
   }};
 }

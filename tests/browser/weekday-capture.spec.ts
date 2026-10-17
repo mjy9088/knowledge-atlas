@@ -5,12 +5,12 @@ async function fit(page:Page){
   const issues=await page.evaluate(()=>{
     const result:string[]=[];
     if(document.documentElement.scrollWidth>innerWidth||document.documentElement.scrollHeight>innerHeight)result.push('document overflow');
-    for(const node of document.querySelectorAll<HTMLElement>('.weekday-input-panel,.weekday-reasoning-panel,.weekday-original-section,.weekday-symbol-section,.reader-copy,.world-card,.reader-action-rail,.reader-cover')){
+    for(const node of document.querySelectorAll<HTMLElement>('.weekday-input-panel,.weekday-reasoning-panel,.weekday-original-section,.weekday-symbol-section,.weekday-intro-source,.weekday-intro-reasoning,.weekday-intro-step,.weekday-interpretation-comparison,.reader-copy,.world-card,.reader-action-rail,.reader-cover')){
       if(!node.checkVisibility())continue;
       if(node.scrollHeight>node.clientHeight+1||node.scrollWidth>node.clientWidth+1)result.push(node.className+' content overflow '+node.scrollWidth+'x'+node.scrollHeight+' / '+node.clientWidth+'x'+node.clientHeight);
       const r=node.getBoundingClientRect();if(r.top<0||r.left<0||r.bottom>innerHeight+.1||r.right>innerWidth+.1)result.push(node.className+' outside viewport');
     }
-    for(const node of document.querySelectorAll<HTMLElement>('.reader-action-rail button,.reader-action-rail summary,.reader-action-rail a,.weekday-context-select,.weekday-modal-toggle input')){
+    for(const node of document.querySelectorAll<HTMLElement>('.reader-action-rail button,.reader-action-rail summary,.reader-action-rail a,.weekday-context-select')){
       if(!node.checkVisibility()||node.closest('details:not([open]) nav'))continue;
       const r=node.getBoundingClientRect(),hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);
       if(!hit||!node.contains(hit)&&!hit.contains(node))result.push(node.className+' inaccessible');
@@ -27,7 +27,7 @@ test('200% capture fits title, every scene, both translations, four worlds and r
   for(const scene of CONTENT_PAGES.find(p=>p.slug==='weekday-worlds')!.scenes){
     await page.evaluate(sceneId=>window.__atlasRelated.setState({sceneId}),scene.id);
     for(const mode of [false,true]){
-      await page.getByRole('checkbox',{name:'양상 논리로 번역',exact:true}).setChecked(mode);await fit(page);
+      await page.evaluate(modal=>{const state=window.__atlasRelated.getState();window.__atlasRelated.setState({...state,interaction:{...state.interaction,logicMode:modal?'alethic':'calendar',modeSource:'manual'}} as never);},mode);await expect(page.getByRole('checkbox',{name:'양상 논리로 번역',exact:true})).toHaveCount(0);await fit(page);
       const bounds=await page.locator('#reader-next').boundingBox();expect(bounds).toEqual(baseline);
       const caption=await page.locator('#reader-scenes').boundingBox();expect(caption!.height).toBeLessThanOrEqual(100);
       const heading=page.locator('.reader-scene:visible .reader-scene-heading'),progress=heading.locator('.eyebrow'),title=heading.locator('h2');
@@ -47,7 +47,7 @@ test('200% capture fits title, every scene, both translations, four worlds and r
 });
 
 test('focus chrome reveals on top hover and keyboard focus; side menu and scrolling choices stay accessible',async({page},testInfo)=>{
-  await page.goto('/knowledge/weekday-worlds/#sunday');await page.waitForFunction(()=>window.__atlasRelated);
+  await page.goto('/knowledge/weekday-worlds/#notation');await page.waitForFunction(()=>window.__atlasRelated);
   await expect(page.locator('#reader-end-links,#reader-skip-scope')).toHaveCount(0);
   const actions=await Promise.all(['.reader-menu summary','#reader-prev','#reader-next'].map(selector=>page.locator(selector).boundingBox()));
   for(let i=1;i<actions.length;i++){const gap=actions[i]!.y-actions[i-1]!.y-actions[i-1]!.height;expect(gap).toBeGreaterThanOrEqual(0);expect(gap).toBeLessThanOrEqual(5);}
@@ -73,7 +73,7 @@ test('focus chrome reveals on top hover and keyboard focus; side menu and scroll
 });
 
 test('compact expressions open captured choices and the video frame keeps input and reasoning together',async({page},testInfo)=>{
-  await page.goto('/knowledge/weekday-worlds/#sunday');await page.waitForFunction(()=>window.__atlasRelated);
+  await page.goto('/knowledge/weekday-worlds/#notation');await page.waitForFunction(()=>window.__atlasRelated);
   await expect(page.getByRole('button',{name:'입력 보기',exact:true})).toHaveCount(0);await expect(page.getByRole('button',{name:'추론 보기',exact:true})).toHaveCount(0);
   await expect(page.locator('.weekday-input-panel')).toBeVisible();await expect(page.locator('.weekday-reasoning-panel')).toBeVisible();
   const term=page.locator('.weekday-sentence-line .weekday-reference-trigger').first(),bounds=await term.boundingBox();expect(bounds!.width).toBeLessThan(150);expect(bounds!.height).toBeGreaterThanOrEqual(26);
@@ -93,6 +93,6 @@ test('the modal introduction bridge and its authored transition fit the 200% vid
   await page.goto('/knowledge/weekday-worlds/#notation');await page.waitForFunction(()=>window.__atlasRelated);
   await expect(page.locator('.weekday-reading-comparison')).toBeVisible();await fit(page);
   await testInfo.attach('modal-introduction-comparison-200',{body:await page.screenshot(),contentType:'image/png'});
-  await page.locator('#reader-next').click();await expect(page.getByRole('checkbox',{name:'양상 논리로 번역',exact:true})).toBeChecked();await expect(page.locator('.weekday-modal-diagram')).toBeVisible();await fit(page);
+  await page.locator('#reader-next').click();await expect(page.getByRole('checkbox',{name:'양상 논리로 번역',exact:true})).toHaveCount(0);await expect(page.locator('.weekday-experiment')).toHaveAttribute('data-logic-mode','alethic');await expect(page.locator('.weekday-modal-diagram')).toBeVisible();await fit(page);
   await testInfo.attach('modal-introduction-counterfactual-200',{body:await page.screenshot(),contentType:'image/png'});
 });
