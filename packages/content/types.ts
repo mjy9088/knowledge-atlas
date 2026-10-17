@@ -15,6 +15,7 @@ export interface Article {
 }
 export interface Scene {
   id: string; title: string; block: number; from: number; to?: number;
+  figure?: {src:string;alt:string;caption:string};
   cards: string[]; known: string;
   skip?: {to:string;label:string};
   suggestion?: { example: string } | { n: number; basis: string; Z: number; mode?: string };
