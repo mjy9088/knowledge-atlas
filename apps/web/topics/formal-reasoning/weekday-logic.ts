@@ -13,9 +13,10 @@ export function mountWeekdayLogic(container:HTMLElement){
     const a=markAlignment(element('section','','weekday-logic-node'),'antecedent','symbol');a.setAttribute('aria-label','전제 A');const aFormula=element('p','','weekday-logic-formula');aFormula.append(calendarClause(doc,input,'A',false));a.append(element('h3','A · ①어제 = ②내일','weekday-logic-title'),aFormula);
     const b=markAlignment(element('section','','weekday-logic-node'),'consequent','symbol');b.setAttribute('aria-label','조건 B');const bFormula=element('p','','weekday-logic-formula');bFormula.append(calendarClause(doc,input,'B',false));b.append(element('h3',`B · ③오늘 = ${WEEKDAYS[input.target]}(${input.target})`,'weekday-logic-title'),bFormula);
     const and=element('span','∧','weekday-logic-and');and.setAttribute('aria-label','두 조건을 함께 요구');premises.append(a,and,b);
-    const join=element('p',n.kind==='impossible'?'↓ 조건을 함께 만족하는 달력이 없음':'↓ Γ = {A, B}를 만족하는 달력에서','weekday-logic-join');
+    const join=element('p',n.kind==='impossible'?'↓ 조건을 함께 만족하는 달력이 없음':'↓ 두 조건을 함께 만족하는 달력에서','weekday-logic-join');
     const conclusion=element('section','','weekday-logic-conclusion');conclusion.setAttribute('aria-label','질문에 대한 결과');
-    conclusion.append(element('p',n.conclusion,'weekday-logic-formula'));
+    const answer=n.kind==='impossible'?'조건을 만족하는 달력 없음':n.answer===null?'질문의 오늘: 아직 미정':`④ 오늘은 ${WEEKDAYS[n.answer]}`;
+    conclusion.append(element('p',answer,'weekday-logic-formula'));
     const detail=n.kind==='impossible'?'0 ≡₇ 2는 불가능 · 요일 답을 추출하지 않습니다.':n.answer===null?'조건이 질문 세계의 요일을 하나로 정하지 못합니다.':`${n.relation} · ④오늘 = ${WEEKDAYS[n.answer]}`;
     conclusion.append(element('p',detail,'weekday-logic-detail'));
     if(n.kind==='impossible'){
@@ -24,7 +25,7 @@ export function mountWeekdayLogic(container:HTMLElement){
       const link=doc.createElement('a');link.href='/lesson.html#explanation-explosion';link.textContent='모순 폭발 ↗';note.append(link);conclusion.append(note);
     }
     join.prepend('질문: ',calendarQuery(doc,input),' · ');
-    if(modal)container.append(element('p','추가 가정 Γ={A,B}를 함께 채택한 달력 계산 (번역식 자체의 귀결 아님)','weekday-logic-join'));
+    if(modal)container.append(element('p','요일 계산: 두 조건을 추가로 함께 놓음 · 번역식 자체의 귀결 아님','weekday-logic-join'));
     container.append(premises,join,conclusion);
   }};
 }

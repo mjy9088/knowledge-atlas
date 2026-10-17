@@ -232,16 +232,16 @@ test('weekday worlds preserve independent expressions, preset semantics and vali
   const target=page.getByRole('combobox',{name:'문장 속 목표 요일',exact:true});
   await expect(page.locator('.weekday-presets button')).toHaveCount(3);await expect(page.locator('.weekday-symbolic-summary')).toBeVisible();
   const layout=await page.evaluate(()=>{const a=document.querySelector('.weekday-input-panel')!.getBoundingClientRect(),b=document.querySelector('.weekday-reasoning-panel')!.getBoundingClientRect();return {desktop:innerWidth>720,left:a.right<=b.left,sameTop:Math.abs(a.top-b.top)<1};});if(layout.desktop){expect(layout.left).toBe(true);expect(layout.sameTop).toBe(true);}
-  await expect(page.locator('.weekday-logic-conclusion')).toContainText('Γ ⊨₇ t₀ ≡₇ 6');
+  await expect(page.locator('.weekday-logic-conclusion')).toContainText('④ 오늘은 일요일');
   await page.getByRole('button',{name:'B · 현실 내일 고정',exact:true}).click();await expect(controls[0]).toHaveValue('1');await expect(controls[1]).toHaveValue('0');await expect(controls[2]).toHaveValue('1');await expect(page.locator('.weekday-result')).toContainText('현실 답: 수요일');
   await controls[3].selectOption('1');await expect(page.locator('.weekday-result')).toContainText('조건의 재확인: 금요일');
   await controls[2].selectOption('0');await expect(page.locator('.weekday-result')).toContainText('다른 세계의 답: 일요일');
-  await controls[0].selectOption('0');await expect(page.locator('.weekday-result')).toContainText('Γ의 해 없음');
+  await controls[0].selectOption('0');await expect(page.locator('.weekday-result')).toContainText('조건을 만족하는 달력 없음');
   await page.getByRole('button',{name:'B · 현실 내일 고정',exact:true}).click();await page.locator('#reader-next').click();await expect(controls[0]).toHaveValue('1');
-  await expect(page.getByRole('combobox',{name:'현실의 오늘',exact:true})).toHaveCount(0);await expect(page.locator('.weekday-result')).toContainText('Γ의 모든 해에서 성립');
+  await expect(page.getByRole('combobox',{name:'현실의 오늘',exact:true})).toHaveCount(0);await expect(page.locator('.weekday-result')).toContainText('두 조건을 만족하는 모든 경우에 성립');
   await target.selectOption('0');await page.getByRole('button',{name:'A · 현실 어제 고정',exact:true}).click();await expect(page.locator('.weekday-result')).toContainText('현실 답: 수요일');await expect(target).toHaveValue('0');
   await page.getByRole('button',{name:'B · 현실 내일 고정',exact:true}).click();await expect(page.locator('.weekday-result')).toContainText('현실 답: 토요일');
-  await page.getByRole('button',{name:'C · 가능세계 없이',exact:true}).click();await expect(page.locator('.world-card')).toHaveCount(1);for(const control of controls)await expect(control).toHaveValue('0');await expect(page.locator('.weekday-result')).toContainText('Γ의 해 없음');
+  await page.getByRole('button',{name:'C · 가능세계 없이',exact:true}).click();await expect(page.locator('.world-card')).toHaveCount(1);for(const control of controls)await expect(control).toHaveValue('0');await expect(page.locator('.weekday-result')).toContainText('조건을 만족하는 달력 없음');
   await page.getByRole('button',{name:'A · 현실 어제 고정',exact:true}).click();
   const custom=await page.evaluate(()=>window.__atlasRelated.getState());
   for(let mask=0;mask<16;mask++){
@@ -456,7 +456,7 @@ test('weekday contradiction briefly explains classical explosion and links to th
   for(const mode of ['달력','양상']){
     await weekdayView(page,mode);await weekdayReasoning(page);
     await expect(note).toBeVisible();await expect(note).toContainText('모든 요일 명제가 도출됨');await expect(note).toContainText('현실의 사실은 아님');
-    await expect(page.locator('.weekday-logic-conclusion>.weekday-logic-formula')).toHaveText('Mod₇(Γ) = ∅');await expect(page.locator('.weekday-result')).toContainText('요일 답 추출 중지');
+    await expect(page.locator('.weekday-logic-conclusion>.weekday-logic-formula')).toHaveText('조건을 만족하는 달력 없음');await expect(page.locator('.weekday-result')).toContainText('요일 답 추출 중지');
     await expectFrame(page,{...weekdayFrame,content:[...weekdayFrame.content,'.weekday-explosion-note'],controls:[...weekdayFrame.controls,'.weekday-explosion-note a']});
   }
   const saved=await page.evaluate(()=>window.__atlasRelated.getState());await page.locator('#reader-next').click();await expect(note).toBeVisible();
@@ -786,3 +786,39 @@ test('availability feedback supports non-logic content and deterministic restora
   expect(results.reset).toEqual({hidden:false,messageHidden:true});
 });
 
+
+
+test('weekday introduces worlds midway, compares readings, and owns scene defaults until an explicit override',async({page},testInfo)=>{
+  await page.goto('/knowledge/weekday-worlds/#question');await page.waitForFunction(()=>window.__atlasRelated);
+  const toggle=page.getByRole('checkbox',{name:'양상 논리로 번역',exact:true});
+  const sequence=['question','sunday','wednesday','contexts','notation','alethic','transfer','literal','conclusion'];
+  for(const [index,id]of sequence.entries()){
+    await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',id);
+    if(index<5)await expect(toggle).not.toBeChecked();else await expect(toggle).toBeChecked();
+    await expect(page.locator('.weekday-experiment')).not.toContainText('Γ');
+    if(id==='contexts')await expect(page.locator('.scene-prose:visible')).toContainText('가능세계');
+    if(id==='notation'){
+      await expect(page.locator('.weekday-symbol-conditional')).toContainText('A → B');
+      await expect(page.locator('.weekday-reading-comparison')).toContainText('Wishₛ(A) ∧ (A □→ B)');
+      await page.locator('.weekday-reading-comparison [data-alignment-node="conditional-connective"]').hover();
+      await expect(page.locator('.weekday-symbol-conditional [data-alignment-node="conditional-connective"]')).toHaveAttribute('data-alignment-current','');
+      await page.locator('.weekday-reading-comparison [data-alignment-node="wish-marker"]').hover();
+      await expect(page.locator('.weekday-source [data-alignment-node="wish-marker"]')).toHaveAttribute('data-alignment-current','');
+    }else await expect(page.locator('.weekday-reading-comparison')).toHaveCount(0);
+    await expectFrame(page,weekdayFrame);if(index<sequence.length-1)await page.locator('#reader-next').click();
+  }
+  await page.goto('/knowledge/weekday-worlds/#alethic');await page.waitForFunction(()=>window.__atlasRelated);await expect(toggle).toBeChecked();
+  await toggle.uncheck();await page.locator('#reader-next').click();await expect(toggle).not.toBeChecked();
+  const target=page.getByRole('combobox',{name:'문장 속 목표 요일',exact:true});await target.selectOption('2');
+  const saved=await page.evaluate(()=>window.__atlasRelated.getState());
+  await page.evaluate(()=>window.__atlasRelated.setState({sceneId:'notation'}));await expect(target).toHaveValue('2');await expect(toggle).not.toBeChecked();await expect(page.locator('.weekday-reading-comparison')).toBeVisible();
+  await page.evaluate(()=>window.__atlasRelated.setState({sceneId:'alethic'}));await expect(target).toHaveValue('2');await expect(toggle).not.toBeChecked();
+  await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(state=>window.__atlasRelated.setState(state),saved);await expect(target).toHaveValue('2');await expect(toggle).not.toBeChecked();
+  await page.getByRole('button',{name:'장면 예시로',exact:true}).click();await expect(toggle).toBeChecked();await expect(target).toHaveValue('0');
+  // A legacy snapshot's explicit mode remains manual rather than being overwritten by its scene.
+  await page.evaluate(()=>{const state=window.__atlasRelated.getState();const legacy={...state.interaction};delete (legacy as {modeSource?:unknown}).modeSource;window.__atlasRelated.setState({...state,interaction:{...legacy,logicMode:'calendar'}} as never);});
+  await expect(toggle).not.toBeChecked();await page.locator('#reader-prev').click();await expect(toggle).not.toBeChecked();
+  expect(await page.evaluate(()=>{const state=window.__atlasRelated.getState();try{window.__atlasRelated.setState({...state,interaction:{...state.interaction,modeSource:'unknown'}} as never);}catch{return JSON.stringify(state)===JSON.stringify(window.__atlasRelated.getState());}return false;})).toBe(true);
+  await page.goto('/knowledge/weekday-worlds/#notation');await page.waitForFunction(()=>window.__atlasRelated);await expect(toggle).not.toBeChecked();await expectFrame(page,weekdayFrame);
+  await testInfo.attach('weekday-modal-bridge',{body:await page.screenshot(),contentType:'image/png'});
+});

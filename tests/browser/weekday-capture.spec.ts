@@ -78,3 +78,12 @@ test('compact expressions open captured choices and the video frame keeps input 
   await fit(page);
   await page.getByRole('button',{name:'A · 현실 어제 고정',exact:true}).click();const goal=page.locator('.weekday-target-trigger');await goal.click();const goalMenu=page.getByRole('listbox',{name:'문장 속 목표 요일',exact:true});await expect(goalMenu).toBeVisible();await goalMenu.getByRole('option',{name:'월요일',exact:true}).click();await expect(page.locator('.weekday-result')).toContainText('수요일');await expect(page.locator('.weekday-settings .weekday-target-select')).toHaveCount(0);await fit(page);
 });
+
+
+test('the modal introduction bridge and its authored transition fit the 200% video frame',async({page},testInfo)=>{
+  await page.goto('/knowledge/weekday-worlds/#notation');await page.waitForFunction(()=>window.__atlasRelated);
+  await expect(page.locator('.weekday-reading-comparison')).toBeVisible();await fit(page);
+  await testInfo.attach('modal-introduction-comparison-200',{body:await page.screenshot(),contentType:'image/png'});
+  await page.locator('#reader-next').click();await expect(page.getByRole('checkbox',{name:'양상 논리로 번역',exact:true})).toBeChecked();await expect(page.locator('.weekday-modal-diagram')).toBeVisible();await fit(page);
+  await testInfo.attach('modal-introduction-counterfactual-200',{body:await page.screenshot(),contentType:'image/png'});
+});

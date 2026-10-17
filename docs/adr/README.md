@@ -29,3 +29,4 @@ The initial decisions were introduced on 2026-10-16; later additions carry their
 | [0022](0022-inferred-calendar-and-inline-contexts.md) | Inferred calendar days and reference choices inside the original sentence |
 | [0023](0023-focus-reader-and-scaled-capture.md) | Focus reader and 1920×1080 landscape capture at 200% scale |
 | [0024](0024-continuous-reader-and-inline-choices.md) | Continuous input/reasoning, compact captured choices and notation meaning |
+| [0025](0025-weekday-modal-introduction.md) | A short modal-logic introduction, narrative defaults and persistent reader overrides |
