@@ -2,6 +2,8 @@
 
 Date: 2026-10-17. Status: implemented locally; content review and publication pending.
 
+The active sequence and modal presentation are superseded by [ADR 0027](0027-weekday-challenge-and-modal-foundations.md). This document retains the earlier decision and its provenance.
+
 ## Audience and narrative
 
 The user changed the editorial goal to an entertaining introduction that leaves readers aware of modal logic. Classical logic is recommended background, not an enforced prerequisite. Retain the nine stable scene IDs, title and route, but order scenes as question, Sunday, Wednesday, contexts, notation, alethic, transfer, literal and conclusion. Possible worlds are named after the ordinary examples; the notation scene bridges the nonmodal and modal readings, and subsequent scenes use the modal reading by default. The assessment criticism remains a scoped editorial claim in evidence rather than the narrative's main outcome.

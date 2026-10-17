@@ -263,7 +263,21 @@
 
 /* Reveal concepts only after the narrative has introduced them. */
 .weekday-experiment [hidden]{display:none!important}
-.weekday-experiment[data-lesson-stage=question]{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr)}
+.weekday-experiment[data-disclosure=bridge]{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr)}
+.weekday-experiment[data-disclosure=bridge] .weekday-input-panel{justify-content:center}
+.weekday-bridge{display:grid;gap:14px;width:min(100%,920px);margin:auto}
+.weekday-bridge section{padding:18px 24px;border:1px solid #c1d0bd;border-radius:14px;background:#fff}
+.weekday-bridge h2{font-size:15px;color:#63745b;margin:0 0 12px;font-weight:500}
+.weekday-bridge p{font-size:20px;line-height:1.6;margin:7px 0;word-break:keep-all}
+.weekday-bridge .weekday-bridge-formula{font-size:28px}
+.weekday-modal-proposition{font-size:13px;margin:2px 0}
+.weekday-modal-verdict{font-size:16px;font-weight:650;margin:2px 0}
+.weekday-modal-diagram{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(40px,1fr) auto auto auto}
+.weekday-modal-limit{grid-row:auto}
+@media(max-width:720px){.weekday-modal-diagram svg{max-height:72px}.weekday-modal-verdict{padding:2px 6px}.weekday-modal-limit{line-height:1.3}}
+@media(min-width:721px) and (max-height:650px){.weekday-bridge{gap:8px}.weekday-bridge section{padding:10px 16px}.weekday-bridge h2{font-size:12px;margin-bottom:7px}.weekday-bridge p{font-size:14px;margin:4px 0;line-height:1.5}.weekday-bridge .weekday-bridge-formula{font-size:22px}.weekday-modal-proposition{font-size:10px}.weekday-modal-verdict{font-size:12px}}
+@media(max-width:720px){.weekday-bridge{gap:8px}.weekday-bridge section{padding:12px}.weekday-bridge h2{font-size:12px;margin-bottom:8px}.weekday-bridge p{font-size:14px;line-height:1.55;margin:5px 0}.weekday-modal-proposition{font-size:9px}.weekday-modal-verdict{font-size:11px}}
+.weekday-experiment:is([data-lesson-stage=question],[data-lesson-stage=reason]){grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr)}
 .weekday-experiment[data-disclosure=intro] .weekday-input-panel{justify-content:center}
 .weekday-intro-source{background:#fff;border:1px solid #c1d0bd;border-radius:16px;padding:24px;max-width:920px;width:100%;margin:auto;box-sizing:border-box}
 .weekday-intro-heading{font-size:14px;color:#63745b;margin:0 0 16px;font-weight:500}
@@ -281,3 +295,9 @@
 .weekday-interpretation-comparison h3{margin:0 0 6px;font-size:15px}.weekday-interpretation-comparison p{margin:0;font-size:18px;line-height:1.6}.weekday-interpretation-comparison small{display:block;margin-top:6px;font-size:11px;color:#63745b;line-height:1.4}
 @media(max-width:1100px){.weekday-interpretation-comparison{gap:6px}.weekday-interpretation-comparison>div{padding:8px 10px}.weekday-interpretation-comparison h3{font-size:12px;margin-bottom:4px}.weekday-interpretation-comparison p{font-size:13px}.weekday-interpretation-comparison small{font-size:9px;margin-top:4px}}
 @media(max-width:720px){.weekday-interpretation-comparison{gap:3px}.weekday-interpretation-comparison>div{padding:5px 7px}.weekday-interpretation-comparison h3{font-size:10px;margin-bottom:2px}.weekday-interpretation-comparison p{font-size:11px;line-height:1.4}.weekday-interpretation-comparison small{font-size:8px;margin-top:2px}}
+
+.weekday-challenge{margin-top:16px}.weekday-challenge-toolbar{display:flex;align-items:center;gap:12px;font-size:13px}.weekday-challenge-toolbar button{margin-left:auto;min-height:36px}.weekday-challenge-time{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums;min-width:3ch}.weekday-challenge progress{width:100%;height:7px;accent-color:#34766b;margin:7px 0}
+.weekday-challenge-choices{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px}.weekday-challenge-choices button{min-height:36px}.weekday-challenge button:disabled{opacity:.5;cursor:default}.weekday-challenge-hint{font-size:12px;line-height:1.4;margin:8px 0 0;color:#63745b}
+.weekday-challenge-summary{font-size:16px;font-weight:600;margin:0 0 8px}.weekday-challenge-reflection label{display:block;font-size:13px}.weekday-challenge-reflection textarea{display:block;box-sizing:border-box;width:100%;height:64px;resize:none;overflow:auto;border:1px solid #b5c9b3;border-radius:8px;background:#fff;color:#304c3c;font:inherit;line-height:1.5;padding:7px 10px;margin:5px 0 8px}.weekday-challenge-reflection>button{min-height:32px}
+@media(min-width:721px) and (max-height:650px){.weekday-challenge{margin-top:10px}.weekday-challenge-toolbar button,.weekday-challenge-choices button{min-height:30px;font-size:11px}.weekday-challenge-hint{font-size:10px}.weekday-challenge-time{font-size:21px}.weekday-challenge-summary{font-size:14px}.weekday-challenge-reflection label{font-size:11px}.weekday-challenge-reflection textarea{height:56px}}
+@media(max-width:720px){.weekday-challenge{margin-top:12px}.weekday-challenge-toolbar{font-size:11px;gap:8px}.weekday-challenge-time{font-size:21px}.weekday-challenge-choices{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}.weekday-challenge-choices button,.weekday-challenge-toolbar button{font-size:12px;min-height:32px}.weekday-challenge-hint{font-size:10px}.weekday-challenge-summary{font-size:13px}.weekday-challenge-reflection label{font-size:12px}}

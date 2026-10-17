@@ -2,6 +2,8 @@
 
 Date: 2026-10-17. Status: implemented locally as an explicit modeling proposal; expert/content and publication review remain pending.
 
+The active presentation and sequence are superseded by [ADR 0027](0027-weekday-challenge-and-modal-foundations.md); this document retains the earlier decision and its provenance.
+
 Supersedes the separate P/◇P/□P reader comparison in ADR 0018 and the additive modal display described in ADR 0019. Calendar arithmetic, classical-explosion scope, stable IDs and saved calendar/world inputs are preserved.
 
 ## Meaning of the switch

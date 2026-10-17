@@ -25,7 +25,7 @@ export function mountWeekdayLogic(container:HTMLElement){
       const link=doc.createElement('a');link.href='/lesson.html#explanation-explosion';link.textContent='모순 폭발 ↗';note.append(link);conclusion.append(note);
     }
     join.prepend('질문: ',calendarQuery(doc,input),' · ');
-    if(modal)container.append(element('p','요일 계산: 두 조건을 추가로 함께 놓음 · 번역식 자체의 귀결 아님','weekday-logic-join'));
+    if(modal)container.append(element('p','요일 계산: 두 조건을 함께 가정 · 접근 관계와는 별개','weekday-logic-join'));
     container.append(premises,join,conclusion);
   }};
 }

@@ -15,6 +15,8 @@ export type TopicState=OrbitalExperimentState|LambdaState|BinarySearchState|Sphe
 export type TopicInspection=ReturnType<ReturnType<typeof mountOrbitalExperiment>['inspect']>|ReturnType<ReturnType<typeof mountLambdaExperiment>['inspect']>|ReturnType<ReturnType<typeof mountBinarySearchExperiment>['inspect']>|ReturnType<ReturnType<typeof mountSphereSlicesExperiment>['inspect']>|ReturnType<ReturnType<typeof mountBaseRatesExperiment>['inspect']>|ReturnType<ReturnType<typeof mountWeekdayWorldsExperiment>['inspect']>;
 export interface TopicInteraction {
   getState():TopicState;
+  setActive?(active:boolean):void;
+  beforeNext?():void;
   validateState?(state:TopicState):void;
   setState(state:TopicState):void;
   suggest(suggestion?:Scene['suggestion']):void;
@@ -25,8 +27,8 @@ export interface TopicInteraction {
 }
 
 // Explicitly registered topic adapters; source metadata cannot execute arbitrary modules.
-const interactions:Record<string,(container:HTMLElement,options:{onChange?:()=>void})=>TopicInteraction>={'hydrogenic-orbitals':mountOrbitalExperiment,'typed-lambda':mountLambdaExperiment,'binary-search':mountBinarySearchExperiment,'sphere-slices':mountSphereSlicesExperiment,'base-rates':mountBaseRatesExperiment,'weekday-worlds':mountWeekdayWorldsExperiment};
-export function mountTopicInteraction(id:string,container:HTMLElement,options:{onChange?:()=>void}={}):TopicInteraction{
+const interactions:Record<string,(container:HTMLElement,options:{onChange?:()=>void;onSceneRequest?:(sceneId:string)=>void})=>TopicInteraction>={'hydrogenic-orbitals':mountOrbitalExperiment,'typed-lambda':mountLambdaExperiment,'binary-search':mountBinarySearchExperiment,'sphere-slices':mountSphereSlicesExperiment,'base-rates':mountBaseRatesExperiment,'weekday-worlds':mountWeekdayWorldsExperiment};
+export function mountTopicInteraction(id:string,container:HTMLElement,options:{onChange?:()=>void;onSceneRequest?:(sceneId:string)=>void}={}):TopicInteraction{
   if(!Object.hasOwn(interactions,id))throw new RangeError('Unknown topic interaction');
   return interactions[id](container,options);
 }

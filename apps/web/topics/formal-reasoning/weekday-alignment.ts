@@ -8,7 +8,6 @@ import {worldText} from './weekday-world-style.js';
 export const WEEKDAY_ALIGNMENT:readonly AlignmentNode[]=[
   {id:'constraints',label:'A·B의 전체 구조'},
   {id:'weekday-equivalence',parent:'constraints',label:'≡₇: 같은 요일'},
-  {id:'wish-marker',parent:'constraints',label:'바람: ~이었으면 좋겠다'},
   {id:'conditional-connective',parent:'constraints',label:'조건 연결: ~이면 ~이다'},
   {id:'antecedent',parent:'constraints',label:'어제·내일의 대응'},
   {id:'yesterday',parent:'antecedent',label:'① 어제'},
@@ -26,12 +25,11 @@ export const WEEKDAY_ALIGNMENT:readonly AlignmentNode[]=[
   {id:'query-base',parent:'query-today',label:'④ 기준의 오늘'},
 ];
 
-export function conditionalReading(doc:Document,modal=false){
+export function conditionalReading(doc:Document){
   const node=markAlignment(doc.createElement('span'),'constraints','symbol');
   const a=markAlignment(doc.createElement('span'),'antecedent','symbol'),arrow=markAlignment(doc.createElement('span'),'conditional-connective','symbol'),b=markAlignment(doc.createElement('span'),'consequent','symbol');
-  a.textContent='A';arrow.textContent=modal?'□→':'→';b.textContent='B';
-  if(modal){const wish=markAlignment(doc.createElement('span'),'wish-marker','symbol'),wishA=markAlignment(doc.createElement('span'),'antecedent','symbol');wish.textContent='Wishₛ';wishA.textContent='A';node.append(wish,'(',wishA,') ∧ (',a,' ',arrow,' ',b,')');}
-  else node.append(a,' ',arrow,' ',b);return node;
+  a.textContent='A';arrow.textContent='→';b.textContent='B';
+  node.append(a,' ',arrow,' ',b);return node;
 }
 
 function term(doc:Document,value:CalendarTerm,id:string){

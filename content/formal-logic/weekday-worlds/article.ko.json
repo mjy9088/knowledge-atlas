@@ -4,11 +4,11 @@
   "title": "이걸로 IQ를 재겠다고? (어제가 내일이었으면...)",
   "shortTitle": "이걸로 IQ를 재겠다고?",
   "reviewStatus": "needs-content-review",
-  "scope": "요일 수수께끼를 출발점으로 가능세계와 양상 논리가 있다는 사실을 가볍게 소개합니다. 고전 논리를 아는 독자를 권장하지만 배경지식을 요구하는 보조 기호는 최소화합니다. 일반 조건문 단순화, 명시한 기준의 달력 계산, 바람·반사실 번역을 구별하며 원문 전체의 진리값은 판정하지 않습니다.",
+  "scope": "요일 수수께끼에서 조건문과 고전 논리의 추론을 먼저 소개하고, 가능세계와 양상 논리로 확장합니다. 풀이용 조건문은 원문을 설명 목적으로 단순화한 것이며 바람 의미론을 구현하지 않습니다. 양상 연산자는 별도의 요일 명제 P에 적용합니다.",
   "blocks": [
     {
       "id": "block:logic.weekday-worlds.question",
-      "text": "20초 안에 풀면 IQ가 높다고요? 일단 풀어 봅시다. “어제가 내일이 되면, 오늘은 금요일.” 그렇다면 지금은 무슨 요일일까요? 먼저 익숙한 요일 계산으로 시작합니다.",
+      "text": "시작을 누르고 20초 안에 오늘의 요일을 골라 보세요. 답을 고르거나 시간이 끝나면, 왜 그렇게 생각했는지 함께 돌아봅시다.",
       "claimRefs": [
         "claim:logic.weekday-worlds.assessment",
         "claim:logic.weekday-worlds.assignments"
@@ -47,7 +47,7 @@
     },
     {
       "id": "block:logic.weekday-worlds.transfer",
-      "text": "이 읽기로 금요일을 월요일로 바꿔 봅시다. 가정의 내일은 화요일이고, 그날이 현실의 어제라면 현실은 수요일입니다. 이 요일 계산에는 두 날짜의 대응과 가정의 목표 요일을 함께 놓았습니다. 반사실 문장 하나만으로 얻은 답은 아닙니다.",
+      "text": "금요일을 월요일로 바꿔 봅시다. 가정한 오늘의 내일은 화요일이고, 그날이 현실의 어제라면 현실은 수요일입니다. ◇P와 □P의 뜻은 그대로이고, P의 목표 요일과 계산 결과가 바뀝니다.",
       "claimRefs": [
         "claim:logic.weekday-worlds.rules"
       ]
@@ -63,19 +63,52 @@
     },
     {
       "id": "block:logic.weekday-worlds.notation",
-      "text": "양상 논리는 ‘가능·필연’까지 다룹니다. ◇는 살펴볼 세계 중 하나 이상, □는 전부입니다. A가 거짓이면 A→B는 참이지만, “A였더라면 B”는 가정한 상황을 살펴야 합니다. 두 읽기를 나란히 보세요. 원문이나 기호에 마우스를 올리면 대응 부분이 함께 강조됩니다.",
+      "text": "문장을 A와 B로 줄여 볼까요? A는 “어제가 내일이다”, B는 “오늘이 금요일이다”입니다. “A이면 B이다”는 A → B로 적습니다. 기호와 문장에 마우스를 올리면 대응 부분이 함께 강조됩니다.",
       "claimRefs": [
-        "claim:logic.weekday-worlds.notation",
-        "claim:logic.weekday-worlds.conditional-reading",
-        "claim:logic.weekday-worlds.multiverse",
-        "claim:logic.weekday-worlds.modal-introduction"
+        "claim:logic.weekday-worlds.conditional-reading"
       ]
     },
     {
       "id": "block:logic.weekday-worlds.alethic",
-      "text": "이제 “그랬더라면”을 살려 읽어 봅시다. □→는 가장 가까운 A-상황에서 B인지 보는 반사실 조건문입니다. ‘좋겠다’라는 바람은 따로 적었습니다. □·◇만 붙이면 원문 전체가 번역되는 것은 아닙니다.",
+      "text": "P를 “이 세계의 오늘은 금요일이다”로 정합시다. 기본 예시에서는 현실이 일요일, 가정 1이 금요일입니다. 현실에서 두 세계를 모두 살펴보면 ◇P는 참, □P는 거짓입니다. 원문 전체의 번역이 아니라 양상 연산자의 사용 예시입니다.",
       "claimRefs": [
-        "claim:logic.weekday-worlds.modal-translation"
+        "claim:logic.weekday-worlds.deduced-modality"
+      ]
+    },
+    {
+      "id": "block:logic.weekday-worlds.reason",
+      "text": "왜 그렇게 생각했나요? 어떤 날을 기준으로 생각했는지 떠올려 보세요. 이유를 적어도 좋고, 머릿속으로만 정리해도 좋습니다. 아직 정답을 판정하지 않고 다음 장면에서 한 풀이를 살펴봅니다.",
+      "claimRefs": [
+        "claim:logic.weekday-worlds.assessment",
+        "claim:logic.weekday-worlds.rules"
+      ]
+    },
+    {
+      "id": "block:logic.weekday-worlds.conditional",
+      "text": "풀이를 설명하기 쉽게 “만약 어제가 내일이라면, 오늘이 금요일이다.”로 단순화합시다. 원문의 바람 표현을 그대로 번역하는 대신, 그 가정 아래에서 요일을 계산해 보겠습니다.",
+      "claimRefs": [
+        "claim:logic.weekday-worlds.conditional-reading"
+      ]
+    },
+    {
+      "id": "block:logic.weekday-worlds.inference",
+      "text": "고전 논리에는 A → B와 A에서 B를 얻는 ‘전건 긍정’ 규칙이 있습니다. 조건문만으로 B를 얻는 것이 아니라 A라는 가정을 더한 것입니다. 여기서는 그 가정 아래 B의 요일과 날짜 대응을 함께 놓고 풉니다.",
+      "claimRefs": [
+        "claim:logic.weekday-worlds.inference-rules"
+      ]
+    },
+    {
+      "id": "block:logic.weekday-worlds.modal-comparison",
+      "text": "이제 세계 하나에서 참인지에 더해, 다른 세계에서도 참인지 물어봅시다. ◇P는 접근 세계 중 하나 이상에서 P, □P는 모두에서 P입니다. P와 ◇P는 다릅니다. 가정한 세계의 오늘이 금요일이어도 현실의 오늘이 금요일인 것은 아니죠.",
+      "claimRefs": [
+        "claim:logic.weekday-worlds.deduced-modality"
+      ]
+    },
+    {
+      "id": "block:logic.weekday-worlds.modal-rules",
+      "text": "양상 논리도 고전 논리의 추론을 사용하며, K 공리와 필연화 규칙 같은 도구를 더합니다. 필연화는 가정 없이 증명한 정리에 적용합니다. 어떤 공리를 더하느냐에 따라 체계가 달라지고, □P에서 P로 가려면 자기 자신으로의 접근 같은 조건이 필요합니다.",
+      "claimRefs": [
+        "claim:logic.weekday-worlds.inference-rules"
       ]
     }
   ],

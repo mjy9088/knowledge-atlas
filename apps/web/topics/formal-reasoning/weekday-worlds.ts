@@ -1,8 +1,11 @@
+import {freshWeekdayChallenge,validateWeekdayChallenge,advanceWeekdayChallenge,answerWeekdayChallenge,weekdayChallengeAt,type WeekdayChallenge} from '/packages/experiments/weekday-challenge.js';
+import {mountWeekdayChallenge} from './weekday-challenge.js';
 import type {Scene} from '/packages/content/types.js';
 import {WEEKDAYS,PRESET_CONTEXTS,CONTEXT_KEYS,interpretWeekdayWorlds,weekdayDeductions,validateWeekdayInterpretation,type WeekdayInterpretation,type WeekdayContexts,type WeekdayRule,type WorldIndex,type CalendarWorld} from '/packages/models/weekday-worlds.js';
 import {weekdayModal,type ModalFrame} from '/packages/models/weekday-modal.js';
 import {mountWorldComparison} from '../../components/worlds/comparison.js';
 import {mountWeekdaySentence,type WeekdayRepresentation,type WeekdayLogicMode} from './weekday-sentence.js';
+import {mountWeekdayBridge} from './weekday-bridge.js';
 import {mountWeekdayIntro} from './weekday-intro.js';
 import {mountWeekdayLogic} from './weekday-logic.js';
 import {mountWeekdayModal} from './weekday-modal.js';
@@ -11,17 +14,18 @@ import {mountSemanticAlignment} from '../../components/alignment/semantic-alignm
 import {WEEKDAY_ALIGNMENT} from './weekday-alignment.js';
 import {mountInlineSelect} from '../../components/experiment/inline-select.js';
 // Version 3 sample-day fields remain readable for saved-state compatibility, not as UI premises.
-export interface WeekdayWorldsState extends WeekdayInterpretation,ModalFrame {version:3;worlds:CalendarWorld[];example:string;customized:boolean;representation:WeekdayRepresentation;logicMode:WeekdayLogicMode;selectionScope:'all'|'accessible';narrowPanel:'inputs'|'reasoning';modeSource:'scene'|'manual'}
-const EXAMPLES:Record<string,{actual:number;target:number;rule:WeekdayRule}>={notation:{actual:6,target:4,rule:'actual-yesterday'},alethic:{actual:6,target:4,rule:'actual-yesterday'},question:{actual:6,target:4,rule:'actual-yesterday'},contexts:{actual:6,target:4,rule:'actual-yesterday'},sunday:{actual:6,target:4,rule:'actual-yesterday'},wednesday:{actual:2,target:4,rule:'imagined-yesterday'},literal:{actual:6,target:4,rule:'same-context'},transfer:{actual:6,target:0,rule:'actual-yesterday'},conclusion:{actual:6,target:4,rule:'actual-yesterday'}};
-const introScenes=new Set(['question','sunday','wednesday']);
-const modalScenes=new Set(['alethic','transfer','literal','conclusion']);
+export interface WeekdayWorldsState extends WeekdayInterpretation,ModalFrame {version:3;worlds:CalendarWorld[];example:string;customized:boolean;representation:WeekdayRepresentation;logicMode:WeekdayLogicMode;selectionScope:'all'|'accessible';narrowPanel:'inputs'|'reasoning';modeSource:'scene'|'manual';challenge:WeekdayChallenge}
+const EXAMPLES:Record<string,{actual:number;target:number;rule:WeekdayRule}>={conditional:{actual:6,target:4,rule:'actual-yesterday'},inference:{actual:6,target:4,rule:'actual-yesterday'},'modal-comparison':{actual:6,target:4,rule:'actual-yesterday'},'modal-rules':{actual:6,target:4,rule:'actual-yesterday'},reason:{actual:6,target:4,rule:'actual-yesterday'},notation:{actual:6,target:4,rule:'actual-yesterday'},alethic:{actual:6,target:4,rule:'actual-yesterday'},question:{actual:6,target:4,rule:'actual-yesterday'},contexts:{actual:6,target:4,rule:'actual-yesterday'},sunday:{actual:6,target:4,rule:'actual-yesterday'},wednesday:{actual:2,target:4,rule:'imagined-yesterday'},literal:{actual:6,target:4,rule:'same-context'},transfer:{actual:6,target:0,rule:'actual-yesterday'},conclusion:{actual:6,target:4,rule:'actual-yesterday'}};
+const bridgeScenes=new Set(['conditional','notation','inference','modal-rules']);
+const introScenes=new Set(['question','reason','sunday','wednesday']);
+const modalScenes=new Set(['alethic','modal-rules','transfer','literal','conclusion']);
 const sceneMode=(scene:string):WeekdayLogicMode=>modalScenes.has(scene)?'alethic':'calendar';
 const LABELS:Record<keyof WeekdayContexts,string>={yesterday:'① 어제의 기준',tomorrow:'② 내일의 기준',consequent:'③ 그럼 오늘의 기준',question:'④ 묻는 오늘의 기준'};
 const PRESET_LABELS:Record<WeekdayRule,string>={'actual-yesterday':'A · 현실 어제 고정','imagined-yesterday':'B · 현실 내일 고정','same-context':'C · 가능세계 없이'};
 const WORLD_IDS=[0,1,2,3] as const,CONTEXT_NUMBERS=['①','②','③','④'] as const;
 const defaultAccess=():[WorldIndex,WorldIndex][]=>[[0,0],[0,1],[1,1]];
 function record(value:unknown):value is Record<string,unknown>{return typeof value==='object'&&value!==null;}
-const clone=(s:WeekdayWorldsState):WeekdayWorldsState=>({...s,contexts:{...s.contexts},worlds:s.worlds.map(w=>({...w})),access:s.access.map(([a,b])=>[a,b])});
+const clone=(s:WeekdayWorldsState):WeekdayWorldsState=>({...s,challenge:{...s.challenge},contexts:{...s.contexts},worlds:s.worlds.map(w=>({...w})),access:s.access.map(([a,b])=>[a,b])});
 export function normalizeWeekdayState(value:unknown):WeekdayWorldsState{
   if(!record(value)||typeof value.actual!=='number'||typeof value.target!=='number'||typeof value.example!=='string'||!Object.hasOwn(EXAMPLES,value.example)||typeof value.customized!=='boolean')throw new TypeError('Invalid weekday state');
   let contexts:WeekdayContexts;
@@ -41,10 +45,10 @@ export function normalizeWeekdayState(value:unknown):WeekdayWorldsState{
   }else{
     const legacy=interpretWeekdayWorlds({actual:value.actual,target:value.target,contexts});worlds=[{id:0,today:value.actual},{id:1,today:legacy.imaginedDays?.[1]??value.actual}];access=defaultAccess();
   }
-  const next:WeekdayWorldsState={version:3,actual:value.actual,target:value.target,contexts,worlds,access,evaluationWorld,example:value.example,customized:value.customized,representation:value.representation??'sentence',logicMode:value.logicMode??'calendar',selectionScope:value.selectionScope??'all',narrowPanel:value.narrowPanel??'reasoning',modeSource:value.modeSource??'manual'};
+  const next:WeekdayWorldsState={version:3,actual:value.actual,target:value.target,contexts,worlds,access,evaluationWorld,example:value.example,customized:value.customized,representation:value.representation??'sentence',logicMode:value.logicMode??'calendar',selectionScope:value.selectionScope??'all',narrowPanel:value.narrowPanel??'reasoning',modeSource:value.modeSource??'manual',challenge:value.challenge===undefined?freshWeekdayChallenge():validateWeekdayChallenge(value.challenge)};
   validateWeekdayInterpretation(next);weekdayModal(next,next);return next;
 }
-export function mountWeekdayWorldsExperiment(container:HTMLElement,{onChange=()=>{}}:{onChange?:()=>void}={}){
+export function mountWeekdayWorldsExperiment(container:HTMLElement,{onChange=()=>{},onSceneRequest=()=>{}}:{onChange?:()=>void;onSceneRequest?:(sceneId:string)=>void}={}){
   const doc=container.ownerDocument;
   const make=<K extends keyof HTMLElementTagNameMap>(tag:K,text?:string,cls?:string)=>{const node=doc.createElement(tag);if(text)node.textContent=text;if(cls)node.className=cls;return node;};
   container.className='weekday-experiment';
@@ -72,10 +76,24 @@ export function mountWeekdayWorldsExperiment(container:HTMLElement,{onChange=()=
   const footer=make('div',undefined,'weekday-footer'),hint=make('span','새 세계는 선택하여 추가 · 프리셋은 세계·관계도 복원'),reset=make('button','장면 예시로');reset.type='button';footer.append(hint,reset);left.append(quote,settings,footer);
   const right=make('div',undefined,'weekday-reasoning-panel'),visual=make('div',undefined,'weekday-visual'),diagram=make('div'),viewer=mountWorldComparison(diagram),modalDiagram=make('div'),modal=mountWeekdayModal(modalDiagram),logicDiagram=make('div'),logic=mountWeekdayLogic(logicDiagram),result=make('p',undefined,'weekday-result');result.setAttribute('aria-live','polite');visual.append(diagram,modalDiagram,logicDiagram);right.append(visual,result);container.append(left,right);
   const introSource=make('section'),introReasoning=make('div'),intro=mountWeekdayIntro(introSource,introReasoning);left.prepend(introSource);visual.prepend(introReasoning);
+  const challengePanel=make('div'),quiz=mountWeekdayChallenge(challengePanel,{
+    onStart(){stopClock();commit({...state,challenge:{...freshWeekdayChallenge(),phase:'running',playback:'live',promptTarget:state.target}});onSceneRequest('question');},
+    onAnswer(day){captureChallenge();const challenge=answerWeekdayChallenge(state.challenge,day);if(challenge.phase!=='answered'&&challenge.phase!=='expired')return;stopClock(false);commit({...state,challenge});onSceneRequest('reason');},
+    onReason(reason){commit({...state,challenge:{...state.challenge,reason}});},
+  });introSource.append(challengePanel);
   const comparison=make('section',undefined,'weekday-interpretation-comparison');comparison.setAttribute('aria-label','양상 논리 사용 전후의 읽기 비교');visual.insertBefore(comparison,logicDiagram);
+  const bridgeContainer=make('div'),bridge=mountWeekdayBridge(bridgeContainer);left.prepend(bridgeContainer);
   const alignment=mountSemanticAlignment(container,WEEKDAY_ALIGNMENT,sentence.alignmentStatus,{instruction:''});
   const dialog=make('dialog',undefined,'reader-panel weekday-world-dialog'),close=make('button','설정 닫기'),dialogAdd=make('button','설정에서 세계 추가'),dialogWorlds=make('div',undefined,'weekday-dialog-worlds'),matrix=make('div',undefined,'weekday-access-matrix');close.type=dialogAdd.type='button';close.className='reader-panel-close';dialog.append(close,make('h2','세계와 직접 접근 관계'),make('p','최대 4세계. 삭제된 세계를 참조한 표현·평가기준은 현실로 옮깁니다. 새 세계는 평가점에서 접근하도록 연결합니다.'),dialogAdd,dialogWorlds,make('h3','행에서 열로 접근 (R)'),matrix);doc.body.append(dialog);close.addEventListener('click',()=>dialog.close());configure.addEventListener('click',()=>dialog.showModal());
-  let baseline='question',state:WeekdayWorldsState={version:3,actual:6,target:4,contexts:{...PRESET_CONTEXTS['actual-yesterday']},worlds:[{id:0,today:6},{id:1,today:4}],access:defaultAccess(),evaluationWorld:0,example:'question',customized:false,representation:'symbols',logicMode:'calendar',selectionScope:'all',narrowPanel:'reasoning',modeSource:'scene'};
+  let baseline='question',state:WeekdayWorldsState={version:3,actual:6,target:4,contexts:{...PRESET_CONTEXTS['actual-yesterday']},worlds:[{id:0,today:6},{id:1,today:4}],access:defaultAccess(),evaluationWorld:0,example:'question',customized:false,representation:'symbols',logicMode:'calendar',selectionScope:'all',narrowPanel:'reasoning',modeSource:'scene',challenge:freshWeekdayChallenge()};
+  let active=false,anchor:number|null=null,timer:number|undefined;
+  function captureChallenge(){if(anchor===null||state.challenge.phase!=='running'||state.challenge.playback!=='live')return;const now=doc.defaultView!.performance.now();state={...state,challenge:advanceWeekdayChallenge(state.challenge,Math.max(0,now-anchor))};anchor=now;}
+  function stopClock(capture=true){if(capture)captureChallenge();if(timer!==undefined)doc.defaultView!.clearInterval(timer);timer=undefined;anchor=null;}
+  function syncClock(){
+    if(active&&baseline==='question'&&state.challenge.phase==='running'&&state.challenge.playback==='live'){
+      if(anchor!==null)return;anchor=doc.defaultView!.performance.now();timer=doc.defaultView!.setInterval(()=>{captureChallenge();quiz.render(state.challenge,baseline);if(state.challenge.phase==='expired'){stopClock(false);onChange();onSceneRequest('reason');}},100);
+    }else stopClock();
+  }
   let worldSignature='';const edgeControls=new Map<string,HTMLInputElement>();
   function commit(next:WeekdayWorldsState){state=normalizeWeekdayState(next);sync();onChange();}
   function syncDialog(){
@@ -92,17 +110,17 @@ export function mountWeekdayWorldsExperiment(container:HTMLElement,{onChange=()=
   }
   function sync(){
     for(const {popup}of contextControls)popup.close();targetPopup.close();
-    container.dataset.lessonStage=baseline;const early=introScenes.has(baseline),formal=!early&&baseline!=='contexts',effectiveMode=sceneMode(baseline);container.dataset.disclosure=early?'intro':formal?'formal':'worlds';
+    container.dataset.lessonStage=baseline;const bridgeStage=bridgeScenes.has(baseline),early=introScenes.has(baseline),formal=!early&&!bridgeStage&&baseline!=='contexts',effectiveMode=sceneMode(baseline);container.dataset.disclosure=bridgeStage?'bridge':early?'intro':formal?'formal':'worlds';bridgeContainer.hidden=!bridgeStage;bridge.render(state,baseline);
     comparison.replaceChildren();
     for(const [heading,text,note]of [
-      ['양상 논리 없이',`어제가 내일이면, 오늘은 ${WEEKDAYS[state.target]}이다.`, '일반 조건문: 앞의 조건이 거짓이어도 참일 수 있음'],
-      ['양상 논리를 사용해',`어제가 내일이었더라면, 오늘은 ${WEEKDAYS[state.target]}이었을 것이다.`, '반사실: 그 조건이 성립하는 가까운 상황을 살펴봄 · 바람은 별도'],
+      ['양상 논리 없이',`이 세계의 오늘은 ${WEEKDAYS[state.target]}이다.`, 'P: 평가하는 세계 하나에서 확인'],
+      ['양상 논리를 사용해',`오늘이 ${WEEKDAYS[state.target]}인 세계가 가능한가?`, '◇P: 접근 세계 중 하나 이상 · □P: 접근 세계 모두'],
     ]){const card=make('div');card.append(make('h3',heading),make('p',text),make('small',note));comparison.append(card);}
-    intro.render(state,baseline);introSource.hidden=!early;introReasoning.hidden=!early||baseline==='question';quote.hidden=early;quote.setAttribute('aria-label',formal?'문장과 논리 기호의 대응':'문장 속 날짜의 기준');settings.hidden=!formal;footer.hidden=early;hint.hidden=!formal;right.hidden=early&&baseline==='question';logicDiagram.hidden=!formal;comparison.hidden=baseline!=='notation';result.hidden=early;
+    intro.render((baseline==='question'||baseline==='reason')&&state.challenge.promptTarget!==null?{...state,target:state.challenge.promptTarget}:state,baseline);quiz.render(state.challenge,baseline);introSource.hidden=!early;introReasoning.hidden=!early||baseline==='question'||baseline==='reason';quote.hidden=early||bridgeStage;quote.setAttribute('aria-label',formal?'문장과 논리 기호의 대응':'문장 속 날짜의 기준');settings.hidden=!formal;footer.hidden=early||bridgeStage;hint.hidden=!formal;right.hidden=bridgeStage||early&&(baseline==='question'||baseline==='reason');logicDiagram.hidden=!formal;comparison.hidden=baseline!=='modal-comparison';result.hidden=early||bridgeStage;
     if(!formal&&dialog.open)dialog.close();
     const value=weekdayDeductions(state),m=weekdayModal(state,state),c=state.contexts;container.dataset.narrow=state.narrowPanel;container.dataset.representation=state.representation;container.dataset.logicMode=effectiveMode;
-    comparison.hidden=baseline!=='notation'||value.kind==='impossible';
-    const focused=doc.activeElement;sentence.render(state,state.representation,effectiveMode,Object.fromEntries(contextControls.map(({key,input})=>[key,input])),target,baseline==='notation');if(focused instanceof HTMLElement&&(focused===target||contextControls.some(({input})=>input===focused)))focused.focus({preventScroll:true});quote.querySelector<HTMLElement>('.weekday-symbol-section')!.hidden=!formal;logic.render(state,effectiveMode==='alethic');modal.render(state,state);diagram.hidden=early||baseline==='notation'||effectiveMode==='alethic';modalDiagram.hidden=!formal||effectiveMode!=='alethic';target.value=String(state.target);reset.disabled=!state.customized&&state.modeSource==='scene';
+    comparison.hidden=baseline!=='modal-comparison';
+    const focused=doc.activeElement;sentence.render(state,state.representation,effectiveMode,Object.fromEntries(contextControls.map(({key,input})=>[key,input])),target,baseline==='modal-comparison');if(focused instanceof HTMLElement&&(focused===target||contextControls.some(({input})=>input===focused)))focused.focus({preventScroll:true});quote.querySelector<HTMLElement>('.weekday-symbol-section')!.hidden=!formal;logic.render(state,effectiveMode==='alethic');modal.render(state,state);diagram.hidden=early||bridgeStage||baseline==='modal-comparison'||effectiveMode==='alethic';modalDiagram.hidden=!formal||effectiveMode!=='alethic';target.value=String(state.target);reset.disabled=!state.customized&&state.modeSource==='scene';
     const names=state.worlds.map(w=>[String(w.id),worldName(w.id)] as [string,string]);options(evaluation,names,String(state.evaluationWorld));creationOptions(evaluation);worldOptions(evaluation);scope.value=state.selectionScope;
     for(const {key,input}of contextControls){const available=state.worlds.filter(w=>state.selectionScope==='all'||m.accessible.includes(w.id)).map(w=>[String(w.id),worldName(w.id,key)] as [string,string]);options(input,available,String(c[key]));if(!available.some(([id])=>id===String(c[key]))){const outside=make('option',`${worldName(c[key],key)} · 범위 밖 (기존 선택)`);outside.value=String(c[key]);outside.disabled=true;input.append(outside);input.value=String(c[key]);}creationOptions(input);}
     for(const {input}of contextControls)worldOptions(input);
@@ -112,7 +130,7 @@ export function mountWeekdayWorldsExperiment(container:HTMLElement,{onChange=()=
     diagram.querySelectorAll<HTMLElement>('.world-card').forEach((card,i)=>colorWorld(card,value.worlds[i].id));
     const answer=value.questionCandidates.map(d=>WEEKDAYS[d]).join(', '),status=value.kind==='direct'?'조건의 재확인':value.kind==='reversed'?'다른 세계의 답':'현실 답';
     result.textContent=value.kind==='impossible'?'조건을 만족하는 달력 없음 · 요일 답 추출 중지':value.kind==='underdetermined'?`질문 세계의 가능한 요일 ${value.questionCandidates.length}개 · 답을 하나로 정할 수 없음`:`${status}: ${answer} · 두 조건을 만족하는 모든 경우에 성립`;
-    syncDialog();if(doc.activeElement instanceof HTMLElement&&container.contains(doc.activeElement)&&!doc.activeElement.checkVisibility())doc.activeElement.blur();alignment.refresh();
+    syncDialog();if(doc.activeElement instanceof HTMLElement&&container.contains(doc.activeElement)&&!doc.activeElement.checkVisibility())doc.activeElement.blur();alignment.refresh();syncClock();
   }
   function load(example:string){const e=EXAMPLES[example],contexts={...PRESET_CONTEXTS[e.rule]},base=interpretWeekdayWorlds({actual:e.actual,target:e.target,contexts});state={...state,actual:e.actual,target:e.target,contexts,worlds:e.rule==='same-context'?[{id:0,today:e.actual}]:[{id:0,today:e.actual},{id:1,today:base.imaginedDays?.[1]??e.actual}],access:e.rule==='same-context'?[[0,0]]:defaultAccess(),evaluationWorld:0,selectionScope:'all',example,customized:false,logicMode:state.modeSource==='scene'?sceneMode(baseline):state.logicMode};sync();}
   function withAddedWorld(id:WorldIndex):WeekdayWorldsState{
@@ -134,16 +152,18 @@ export function mountWeekdayWorldsExperiment(container:HTMLElement,{onChange=()=
   for(const [id,button]of buttons)button.addEventListener('click',()=>{const e=EXAMPLES[id==='imagined-yesterday'?'wednesday':id==='same-context'?'literal':'sunday'],targetDay=state.target,actualDay=id==='same-context'?state.actual:interpretWeekdayWorlds({actual:state.actual,target:targetDay,contexts:PRESET_CONTEXTS[id]}).actualCandidates[0];const example=state.example;load(id==='imagined-yesterday'?'wednesday':id==='same-context'?'literal':'sunday');const delta=targetDay-e.target;commit({...state,example,target:targetDay,actual:actualDay,worlds:state.worlds.map(w=>({id:w.id,today:id==='same-context'?actualDay:((w.today+delta)%7+7)%7})),customized:true});});
   reset.addEventListener('click',()=>{state={...state,modeSource:'scene'};load(baseline);onChange();});sync();
   return {
-    getState:()=>clone(state),validateState(next:unknown){normalizeWeekdayState(next);},setState(next:unknown){state=normalizeWeekdayState(next);sync();onChange();},
+    getState(){captureChallenge();return clone(state);},setActive(next:boolean){active=next;syncClock();},beforeNext(){if(baseline!=='question')return;captureChallenge();if(state.challenge.phase==='ready'||state.challenge.phase==='running')commit({...state,challenge:{...state.challenge,phase:'skipped',playback:'paused',promptTarget:state.challenge.promptTarget??state.target}});},validateState(next:unknown){normalizeWeekdayState(next);},setState(next:unknown){const normalized=normalizeWeekdayState(next);stopClock(false);state=normalized;sync();onChange();},
     suggest(suggestion?:Scene['suggestion']){if(suggestion&&!('example'in suggestion))throw new TypeError('Expected weekday example');const example=suggestion?.example??baseline;if(!Object.hasOwn(EXAMPLES,example))throw new RangeError('Unknown weekday example');baseline=example;if(!state.customized&&state.example!==example)load(example);else{if(state.modeSource==='scene')state={...state,logicMode:sceneMode(example)};sync();}},
-    reset(){state={...state,modeSource:'scene'};load(baseline);},seek(ms:number){if(!Number.isFinite(ms)||ms<0)throw new RangeError('Invalid time');},inspect:()=>({...clone(state),result:interpretWeekdayWorlds(state),modal:weekdayModal(state,state),alignment:alignment.getState()}),
+    reset(){stopClock(false);state={...state,modeSource:'scene',challenge:freshWeekdayChallenge()};load(baseline);},seek(ms:number){const challenge=weekdayChallengeAt(ms,state.target);stopClock(false);state={...state,challenge};sync();onChange();},inspect(){captureChallenge();return {...clone(state),result:interpretWeekdayWorlds(state),modal:weekdayModal(state,state),alignment:alignment.getState()};},
     describe(scene:Scene){const value=interpretWeekdayWorlds(state);
-      if(introScenes.has(scene.id))return {status:'adapted',text:scene.id==='question'?'먼저 문장만 보고 생각해 보세요. 앞에서 바꾼 설정은 뒤 장면에서도 유지됩니다.':value.questionCandidates.length===1?`지금 선택한 조건으로 물은 오늘은 ${WEEKDAYS[value.questionCandidates[0]]}입니다. 오른쪽에서 요일을 차례로 따라가 보세요.`:value.questionCandidates.length?'지금 선택한 조건으로는 물은 오늘의 요일을 하나로 정할 수 없습니다.':'지금 선택한 조건에 맞는 날짜가 없습니다.'};
+      if(scene.id==='reason')return {status:'adapted',text:'왜 그 요일이라고 생각했나요? 어떤 날을 기준으로 삼았는지 떠올려 보세요. 이유를 적어도 좋고 머릿속으로만 정리해도 좋습니다. 아직 정답은 판정하지 않습니다.'};
+      if(introScenes.has(scene.id))return {status:'adapted',text:scene.id==='question'?'시작을 누르고 20초 안에 요일을 골라 보세요. 답을 고르거나 시간이 끝나면 생각한 이유를 돌아봅니다.':value.questionCandidates.length===1?`지금 선택한 조건으로 물은 오늘은 ${WEEKDAYS[value.questionCandidates[0]]}입니다. 오른쪽에서 요일을 차례로 따라가 보세요.`:value.questionCandidates.length?'지금 선택한 조건으로는 물은 오늘의 요일을 하나로 정할 수 없습니다.':'지금 선택한 조건에 맞는 날짜가 없습니다.'};
       if(scene.id==='contexts')return {status:'adapted',text:'실제 상황과 가정한 상황을 나눠 보고 있습니다. 여기서는 이런 상황을 가능세계로 나타냅니다. 각 표현을 눌러 기준을 바꿔 볼 수 있으며, 앞에서 고른 설정은 유지됩니다.'};
-      if(scene.id==='notation')return {status:'adapted',text:'양상 논리 없이 단순화한 조건문과, 가정한 상황을 살펴보는 반사실 읽기를 나란히 비교합니다. 같은 요일 조건을 쓰지만 원문의 바람과 ‘그랬더라면’을 처리하는 방식이 다릅니다. 다음 장면부터는 반사실 읽기로 이어집니다.'};
+      if(bridgeScenes.has(scene.id))return {status:'adapted',text:scene.id==='conditional'?'설명의 편의를 위해 “만약 어제가 내일이라면, 오늘이 '+WEEKDAYS[state.target]+'이다.”로 단순화합니다. 그 가정 아래 요일을 계산해 봅시다.':scene.id==='notation'?'A는 “어제가 내일이다”, B는 “오늘이 '+WEEKDAYS[state.target]+'이다”입니다. A이면 B를 A → B로 적습니다. 문장이나 기호에 마우스를 올리면 대응 부분이 함께 강조됩니다.':scene.id==='inference'?'전건 긍정: A → B와 A에서 B를 얻습니다. 조건문만으로 B가 참이 되지는 않습니다. A라는 가정을 놓고 B의 요일과 날짜 대응을 함께 사용합니다.':'K 공리와 필연화는 정규 양상 논리의 기본 도구입니다. 필연화는 가정 없이 증명한 정리에만 적용합니다. T 같은 추가 공리는 접근 관계에 조건을 요구합니다.'};
+      if(scene.id==='modal-comparison')return {status:'adapted',text:'같은 명제 P라도 어느 세계에서 보는지에 따라 참과 거짓이 달라집니다. ◇P는 접근 가능한 세계 중 하나 이상, □P는 모두에서 P가 참이라는 뜻입니다. 원문 전체의 번역이 아니라, 그 안의 요일 명제로 사용법을 비교합니다.'};
       if(value.kind==='impossible')return {status:'adapted',text:'지금 선택한 두 조건은 같은 달력에서 성립할 수 없습니다. 고전 논리에서는 모순 폭발로 어떤 요일 명제도 도출됩니다. 현실의 사실을 확인한 것은 아니며, 계산기는 해가 없어 답 추출을 멈춥니다. 접근 관계 자체는 날짜의 등식을 추가하지 않습니다.'};
       if(value.kind==='underdetermined')return {status:'adapted',text:`질문 세계 ${worldLabel(state.contexts.question)}의 요일은 ${value.questionCandidates.length}개가 가능합니다. 새 세계를 추가하는 것만으로 그 세계와 기존 달력 사이의 날짜 대응이 생기지는 않습니다.`};
-      if(sceneMode(scene.id)==='alethic')return {status:'adapted',text:'‘그랬더라면’의 상황을 비교하고 있습니다. 바람은 따로 표시하고, 반사실이 참인지 정하려면 어떤 상황을 가까운 것으로 볼지 더 정해야 합니다. 표시된 요일은 두 달력 조건을 함께 놓았을 때의 계산입니다.'};
+      if(sceneMode(scene.id)==='alethic')return {status:'adapted',text:'이 세계의 오늘이 목표 요일이라는 명제 P를 봅시다. ◇P는 접근 세계 하나 이상에서 P, □P는 전부에서 P입니다. 세계의 요일은 두 달력 조건으로 계산하며, 접근 화살표를 바꾸면 양상 판정 범위가 달라집니다.'};
       const answer=WEEKDAYS[value.questionCandidates[0]];return {status:'adapted',text:value.kind==='direct'?`질문의 오늘과 목표의 오늘이 같은 기준이어서 ${answer}은 조건의 재확인입니다.`:value.kind==='reversed'?`지금은 ${worldLabel(state.contexts.question)}의 오늘을 묻고 있으며 답은 ${answer}입니다. 현실 오늘을 묻는 질문과 구별하세요.`:`선택한 두 조건을 만족하는 모든 달력에서 현실 오늘은 ${answer}로 도출됩니다. `+(scene.id==='contexts'?'날짜의 기준과 양상 접근 관계는 별개의 선택입니다.':'식의 각 항과 원문의 네 표현을 대응해 보세요.')};
     },
   };

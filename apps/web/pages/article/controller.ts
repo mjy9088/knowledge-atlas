@@ -68,8 +68,9 @@ function renderInput(){
   const next=page.scenes[current.index+1];
   // Article scenes have no authored multi-scene skip destination.
   required('.skip-context',node).hidden=true;
-  $('reader-prev').disabled=current.index===0&&!page.cover;$('reader-prev').hidden=coverVisible;$('reader-next').textContent=coverVisible?'내용 보기 →':next?'다음 →':'연관 지식 →';$('reader-skip').hidden=true;
+  $('reader-prev').disabled=current.index===0&&!page.cover;$('reader-prev').hidden=coverVisible;$('reader-next').textContent=coverVisible?'내용 보기 →':page.interactive==='weekday-worlds'&&current.sceneId==='question'?'생각 정리 →':next?'다음 →':'연관 지식 →';$('reader-skip').hidden=true;
   if(page.cover){root.dataset.cover=String(coverVisible);cover.hidden=!coverVisible;$('reader-workbench').hidden=coverVisible||!model&&!interaction;$('reader-scenes').hidden=coverVisible;}
+  interaction?.setActive?.(!coverVisible&&current.sceneId==='question');
   if(page.interactive!=='weekday-worlds'){$('reader-skip-scope').textContent=page.interactive==='hydrogenic-orbitals'?'본문 ← → 장면 이동 · 시각화에 초점을 두면 방향키 회전':'← → 방향키 · Space / Enter 다음';$('reader-end-links').hidden=Boolean(next);}
 }
 function render(view:ReaderView){current=view;renderInput();history.replaceState(null,'',coverVisible?'#title':'#'+view.sceneId);}
@@ -82,9 +83,9 @@ for(const preset of model.presets){const button=document.createElement('button')
 }else if(page.interactive){
   required('.model-toolbar').hidden=true;
   const container=document.createElement('div');$('reader-workbench').append(container);
-  interaction=mountTopicInteraction(page.interactive,container,{onChange:renderInput});
+  interaction=mountTopicInteraction(page.interactive,container,{onChange:renderInput,onSceneRequest(sceneId){if(!page.scenes.some(scene=>scene.id===sceneId))throw new RangeError('Unknown requested scene');coverVisible=false;reader.setState({sceneId});const title=required('h2',scenes[current.index]);title.tabIndex=-1;title.focus({preventScroll:true});}});
 }else $('reader-workbench').hidden=true;
-function next(){if(coverVisible){coverVisible=false;render(reader.inspect());}else if(current.index===page.scenes.length-1)panels.openHash('#connections',$('reader-next'));else reader.next();}
+function next(){if(coverVisible){coverVisible=false;render(reader.inspect());}else if(current.index===page.scenes.length-1)panels.openHash('#connections',$('reader-next'));else{interaction?.beforeNext?.();reader.next();}}
 function previous(){if(coverVisible)return;if(page.cover&&current.index===0){coverVisible=true;render(reader.inspect());}else reader.previous();}
 $('reader-next').addEventListener('click',next);$('reader-prev').addEventListener('click',previous);
 $('reader-reset').hidden=false;$('reader-reset').addEventListener('click',()=>{coverVisible=Boolean(page.cover);experiment?.reset();interaction?.reset();reader.reset();required<HTMLDetailsElement>('.reader-menu').open=false;});

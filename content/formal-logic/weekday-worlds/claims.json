@@ -212,16 +212,51 @@
   {
     "id": "claim:logic.weekday-worlds.modal-introduction",
     "kind": "conceptual",
-    "statement": "가능세계 의미론에서 진리 양상의 가능성 ◇P는 평가점에서 접근 가능한 세계 중 적어도 하나에서 P가 참임을, 필연성 □P는 그 세계 모두에서 P가 참임을 표현한다. 이 설명의 반사실 조건문과 바람은 이 두 연산자만으로 원문을 번역한 것이 아니다.",
-    "scope": "가능세계 의미론을 이용한 간단한 소개. 접근 범위는 모형에 상대적이며 현실의 물리적·형이상학적 가능성을 판정하지 않는다. 세계별 오늘의 기준 지정은 별도 모형 선택이다. 새 원자 명제 진리 평가기를 추가하지 않는다.",
+    "statement": "가능세계 의미론에서 ◇P는 접근 가능한 세계 중 적어도 하나에서 P가 참임을, □P는 모두에서 P가 참임을 표현한다. 이 설명은 풀이용 조건문과 별도의 요일 명제 P로 이를 소개하며 바람 의미론을 사용하지 않는다.",
+    "scope": "모형에 상대적인 진리 양상의 간단한 소개. 원문 전체의 동일한 의미를 보존한 양상 번역이라는 주장은 아니다. 세계별 오늘 기준은 별도로 명시한다.",
     "assumptions": [
       "직접 접근 관계로 살펴볼 세계를 정함",
-      "반사실의 가장 가까운 세계 선택과 바람은 별도 구조를 필요로 함"
+      "요일 조건으로 정해진 달력들에서 P를 평가"
     ],
     "sourceRefs": [
       {
         "sourceId": "source:schwarz-modal-logic",
         "locator": "Chapter 1 §1.1–1.2: modal operators and flavours; Chapter 3 §3.1 Definitions 3.1–3.2, clauses (g)/(h): accessible-world quantification; Chapter 8 §8.3 Definitions 8.2–8.3: distinct closest-antecedent-world reading. Korean riddle application is independently authored."
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:logic.weekday-worlds.deduced-modality",
+    "kind": "model-deduction",
+    "statement": "P를 각 세계의 오늘이 목표 요일이라는 명제로 정하면 ◇P는 직접 접근 가능한 세계 하나 이상에서, □P는 모두에서 P가 참일 때 참이다. 화면은 두 달력 조건을 만족하는 모든 요일 배정에서 평가하며, 판정이 다르면 미정, 해가 없으면 판정 중지로 표시한다.",
+    "scope": "Independently authored finite teaching projection, not a translation of the entire original wish or counterfactual. P is evaluated at each world with its explicitly assigned today reference; accessibility does not move indexicals automatically or add calendar equalities. No scientific fixtures or legacy sample-based evaluator are changed.",
+    "assumptions": [
+      "1–4 worlds; direct R without transitive closure",
+      "Calendar samples do not constrain the satisfying assignments",
+      "Nonempty calendar assignments required for displayed truth results; empty access with a consistent calendar gives diamond false and box true"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:schwarz-modal-logic",
+        "locator": "Chapter 3 §3.1 Definitions 3.1–3.2, atomic clause (a), modal clauses (g)/(h), and empty-access example. Aggregation across calendar completions is independently authored; this source does not translate the riddle."
+      }
+    ],
+    "reviewStatus": "draft-model-deduction-needs-review"
+  },
+  {
+    "id": "claim:logic.weekday-worlds.inference-rules",
+    "kind": "formal",
+    "statement": "고전 논리의 전건 긍정은 A→B와 A에서 B를 얻는다. 정규 양상 논리 K는 고전 논리와 함께 K 공리 □(P→Q)→(□P→□Q), 그리고 가정 없이 증명한 정리 P에 □P를 적용하는 필연화 규칙을 사용한다. T 공리 □P→P는 반사적 접근 관계에서 타당하며 임의의 R에서는 보장되지 않는다.",
+    "scope": "A brief Hilbert-style introduction, not an exhaustive list of rules or a modal proof engine. K and T are axiom schemas; modus ponens and necessitation are inference rules. Necessitation is restricted to theorems, not arbitrary local assumptions. Example P/Q in the schema are schematic, not assertions about this riddle.",
+    "assumptions": [
+      "Normal modal logic K; additional T identified by reflexivity",
+      "No unrestricted necessitation of the local calendar assumptions"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:schwarz-modal-logic",
+        "locator": "Chapter 1 §1.5: axiomatic system, modus ponens, K and necessitation; Chapter 3 §§3.2–3.3: K versus T/reflexivity. Independently authored Korean synopsis."
       }
     ],
     "reviewStatus": "draft-source-aligned"
