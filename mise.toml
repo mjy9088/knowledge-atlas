@@ -1,2 +1,4 @@
 [tools]
 ffmpeg = "latest"
+node = "latest"
+pnpm = "latest"
