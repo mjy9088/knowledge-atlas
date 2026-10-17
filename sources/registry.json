@@ -465,5 +465,19 @@
     "readingScope": "Chapter 1 §1.2 (alethic/circumstantial versus epistemic/deontic uses); Chapter 3 §3.1 Definitions 3.1–3.2 (W,R,V and atom/box/diamond clauses); introductory example of empty accessibility. Chapter 8 §8.1 opening material-conditional definition and limits of the material analysis at https://www.wolfgangschwarz.net/logic2/08-conditionals.html, consulted 2026-10-17 for an explicitly scoped conditional simplification; §8.2 strict-conditional comparison read for orientation, not implemented. Chapter 8 §8.3 indicative/subjunctive distinction and Definitions 8.2–8.3 read on 2026-10-17 for the authored wish/counterfactual translation; no similarity ordering or desire truth evaluator is implemented. Preface authorship footer read.",
     "snapshotStatus": "Live web-tool reading; no source bytes captured",
     "externalMaterialIncluded": false
+  },
+  {
+    "id": "source:levin-dmoi2-number-theory",
+    "title": "Discrete Mathematics: An Open Introduction, second edition — §5.2 Introduction to Number Theory",
+    "author": "Oscar Levin",
+    "canonicalUrl": "https://discrete.openmathbooks.org/dmoi2/sec_addtops-numbth.html",
+    "retrievedAt": "2026-10-18",
+    "providerRevision": "Live second-edition HTML; exact revision and immutable bytes not verified.",
+    "contentHash": null,
+    "license": "Colophon displays CC BY-SA 4.0 International and copyright 2013–2017 Oscar Levin; reference consultation only.",
+    "rightsReview": "Reference-only; no external prose, figures or code imported. Independently authored synopsis and arithmetic trace. Publication review remains pending.",
+    "readingScope": "§5.2 Congruence and Divisibility; Congruence and Equality; Properties of Congruence (equivalence relation); Congruence and Arithmetic (addition/subtraction and replacement). Colophon authorship/license notice consulted.",
+    "snapshotStatus": "Live web-tool reading; no immutable source bytes captured",
+    "externalMaterialIncluded": false
   }
 ]

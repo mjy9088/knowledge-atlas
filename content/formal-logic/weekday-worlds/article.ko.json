@@ -63,7 +63,7 @@
     },
     {
       "id": "block:logic.weekday-worlds.notation",
-      "text": "문장을 A와 B로 줄여 볼까요? A는 “어제가 내일이다”, B는 “오늘이 금요일이다”입니다. “A이면 B이다”는 A → B로 적습니다. 기호와 문장에 마우스를 올리면 대응 부분이 함께 강조됩니다.",
+      "text": "문장에 추론 규칙을 적용할 수 있도록 기호로 나타내 봅시다. A는 “어제가 내일이다”, B는 “오늘이 금요일이다”입니다. “A이면 B이다”는 A → B로 적습니다. 기호와 문장에 마우스를 올리면 대응 부분이 함께 강조됩니다.",
       "claimRefs": [
         "claim:logic.weekday-worlds.conditional-reading"
       ]
@@ -106,9 +106,10 @@
     },
     {
       "id": "block:logic.weekday-worlds.nonmodal-proof",
-      "text": "풀이용 조건문 A → B에 더해 A를 가정합시다. 전건 긍정으로 B를 얻고, 현실의 오늘을 t, 가정한 오늘을 h로 적으면 t − 1 ≡₇ h + 1, h ≡₇ 4입니다. h에 4를 대입하고 계산하면 t ≡₇ 6, 즉 일요일입니다. 양상 연산자 없이도, 정한 기준과 가정 아래에서 답을 도출했습니다.",
+      "text": "문제가 묻는 A인 경우를 전제로 전건 긍정으로 B를 얻습니다. ≡₇의 덧셈·추이 규칙으로 날짜를 계산합니다. 각 줄에 사용한 규칙과 앞줄 번호를 표시했습니다.",
       "claimRefs": [
         "claim:logic.weekday-worlds.classical-basics",
+        "claim:logic.weekday-worlds.congruence-rules",
         "claim:logic.weekday-worlds.conditional-reading",
         "claim:logic.weekday-worlds.rules"
       ]

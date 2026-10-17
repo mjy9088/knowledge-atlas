@@ -46,6 +46,14 @@ test('200% capture fits title, every scene, both translations, four worlds and r
   await testInfo.attach('youtube-1920x1080-at-200-percent',{body:await page.screenshot(),contentType:'image/png'});expect(errors).toEqual([]);
 });
 
+test('explicit congruence rules and the longer reverse proof fit the 200% recording layout',async({page},testInfo)=>{
+  await page.goto('/knowledge/weekday-worlds/#nonmodal-proof');await page.waitForFunction(()=>window.__atlasRelated);await fit(page);
+  await expect(page.locator('.weekday-classical-proof ol li')).toHaveCount(7);
+  await page.evaluate(()=>{const state=window.__atlasRelated.getState();if(!state.interaction||!('contexts'in state.interaction))throw new Error('Expected weekday state');window.__atlasRelated.setState({...state,interaction:{...state.interaction,target:0,contexts:{yesterday:1,tomorrow:0,consequent:1,question:0},customized:true}});});
+  await expect(page.locator('.weekday-classical-proof ol li')).toHaveCount(8);await expect(page.locator('.weekday-classical-proof')).toContainText('2: 대칭');await expect(page.locator('.weekday-classical-answer')).toContainText('토요일');await fit(page);
+  await testInfo.attach('reverse-congruence-proof-at-200-percent',{body:await page.screenshot(),contentType:'image/png'});
+});
+
 test('20-second challenge and reflection fit the 200% recording layout',async({page},testInfo)=>{
   await page.clock.install();await page.goto('/knowledge/weekday-worlds/#question');await page.waitForFunction(()=>window.__atlasRelated);
   await page.getByRole('button',{name:'20초 도전 시작',exact:true}).click();await page.clock.fastForward(8_000);await expect(page.getByRole('timer')).toHaveText('12초');await fit(page);

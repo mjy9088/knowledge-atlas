@@ -265,7 +265,7 @@
     "id": "claim:logic.weekday-worlds.classical-basics",
     "kind": "formal",
     "statement": "고전 명제 논리에서 전건 긍정은 A→B와 A로부터 B, 후건 부정은 A→B와 ¬B로부터 ¬A, 논리곱 도입은 A와 B로부터 A∧B, 논리곱 제거는 A∧B로부터 각각 A 또는 B, 선언 삼단논법은 A∨B와 ¬A로부터 B를 얻는다.",
-    "scope": "A short selection, not a complete rule catalog. Modus tollens and disjunctive syllogism are additional/derived rules in the cited natural-deduction presentation. Letters are schematic. The weekday example adds A as an assumption; A→B alone does not establish A or B. Substitution and modulo-7 arithmetic additionally require the explicit calendar interpretation and weekday order.",
+    "scope": "A short selection, not a complete rule catalog. Modus tollens and disjunctive syllogism are additional/derived rules in the cited natural-deduction presentation. Letters are schematic. The weekday example assumes the antecedent case asked for by the simplified problem; this is not an independent factual assertion or a derivation of A from A→B. Substitution and modulo-7 arithmetic additionally require the explicit calendar interpretation, congruence rules and weekday order.",
     "assumptions": [
       "Classical propositional logic",
       "Date-reference assignments and ordinary seven-day arithmetic are separate from propositional inference"
@@ -313,5 +313,14 @@
       }
     ],
     "reviewStatus": "draft-model-deduction-needs-review"
+  },
+  {
+    "id": "claim:logic.weekday-worlds.congruence-rules",
+    "kind": "formal",
+    "statement": "정수 x,y에 대해 x≡₇y는 x−y가 7의 정수배라는 뜻이다. 이 관계에는 대칭(x≡₇y에서 y≡₇x), 추이(x≡₇y와 y≡₇z에서 x≡₇z), 같은 정수 더하기(x≡₇y에서 x+c≡₇y+c)가 성립한다. 따라서 합동인 수의 덧셈·뺄셈 식 대입과 7의 배수를 빼는 요일 환산을 정당화할 수 있다.",
+    "scope": "Integer arithmetic modulo 7, independently instantiated for the declared t/h date interpretation. These are derived congruence properties used as inference rules, not extra propositional or modal axioms. Congruence is not ordinary integer equality. The displayed finite trace exposes each referenced premise, addition, symmetry where needed, transitivity and final representative reduction; it is not a general arithmetic prover.",
+    "assumptions": ["Ordinary integer arithmetic and equality rewriting", "Seven-day weekday representatives Monday=0 through Sunday=6", "The antecedent case requested by the simplified problem and the chosen date references"],
+    "sourceRefs": [{"sourceId":"source:levin-dmoi2-number-theory","locator":"§5.2: Congruence and Divisibility; Congruence and Equality; Properties of Congruence (equivalence relation); Congruence and Arithmetic (same-addend special case and replacement). Specialization to 7 and weekday traces independently authored."}],
+    "reviewStatus": "draft-source-aligned"
   }
 ]
