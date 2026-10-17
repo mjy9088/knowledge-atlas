@@ -7,7 +7,9 @@ export function mountWeekdayIntro(source:HTMLElement,reasoning:HTMLElement){
   source.className='weekday-intro-source';reasoning.className='weekday-intro-reasoning';
   reasoning.setAttribute('aria-label','요일로 따라가는 풀이');
   const heading=make('h2','요일 수수께끼','weekday-intro-heading'),quote=make('p','','weekday-intro-quote'),question=make('p','그렇다면 오늘은 무슨 요일일까?','weekday-intro-question');source.append(heading,quote,question);
+  const worlds=make('div','','weekday-intro-worlds');worlds.append(make('h3','서로 다른 상황을 ‘가능세계’로',''),make('p','현실과 가정한 상황을 나누어 비교하는 모형입니다. 각 상황의 ‘오늘’도 따로 정합니다.',''));source.append(worlds);
   return {render(input:WeekdayInterpretation,scene:string){
+    worlds.hidden=scene!=='wednesday';
     const value=weekdayDeductions(input),c=input.contexts;
     quote.textContent=scene==='question'||scene==='reason'?`“어제가 내일이었으면 좋겠다. 그럼 오늘이 ${WEEKDAYS[input.target]}일 텐데…”`:`“만약 어제가 내일이라면, 오늘이 ${WEEKDAYS[input.target]}이다.”`;
 

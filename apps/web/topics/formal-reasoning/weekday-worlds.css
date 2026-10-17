@@ -307,6 +307,9 @@
 .weekday-experiment:is([data-lesson-stage=question],[data-lesson-stage=reason]){grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr)}
 .weekday-experiment[data-disclosure=intro] .weekday-input-panel{justify-content:center}
 .weekday-intro-source{background:#fff;border:1px solid #c1d0bd;border-radius:16px;padding:24px;max-width:920px;width:100%;margin:auto;box-sizing:border-box}
+.weekday-intro-worlds{margin-top:18px;padding-top:12px;border-top:1px solid #c1d0bd}
+.weekday-intro-worlds h3{font-size:18px;margin:0 0 8px}.weekday-intro-worlds p{font-size:17px;line-height:1.6;margin:0}
+@media(max-width:1100px){.weekday-intro-worlds{margin-top:12px;padding-top:9px}.weekday-intro-worlds h3{font-size:14px}.weekday-intro-worlds p{font-size:13px}}
 .weekday-intro-heading{font-size:14px;color:#63745b;margin:0 0 16px;font-weight:500}
 .weekday-intro-quote{font-size:28px;line-height:1.7;margin:0;word-break:keep-all}
 .weekday-intro-question{font-size:20px;line-height:1.5;margin:20px 0 0}

@@ -114,7 +114,7 @@ test('weekday review skip keeps edits and lands on a nonmodal worked proof befor
   await page.locator('#reader-next').click();await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id','inference');await expect(skip).toBeHidden();
   await page.evaluate(()=>window.__atlasRelated.setState({sceneId:'notation'}));await skip.click();await expect(page).toHaveURL(/#nonmodal-proof$/);
   await expect(page.locator('.weekday-classical-proof')).toContainText('문제가 묻는 A인 경우를 가정');await expect(page.locator('.weekday-classical-proof')).toContainText('전건 긍정');await expect(page.locator('.weekday-classical-proof')).toContainText('t ≡₇ 0 + 2');await expect(page.locator('.weekday-classical-answer')).toHaveText('따라서 현실의 오늘은 수요일.');
-  await expect(page.locator('.weekday-congruence-rules')).toContainText('차이가 7의 정수배');await expect(page.locator('.weekday-congruence-rules')).toContainText('x + c ≡₇ y + c');await expect(page.locator('.weekday-classical-proof ol li')).toHaveCount(7);await expect(page.locator('.weekday-classical-proof')).toContainText('2·4: 추이');
+  await expect(page.locator('.weekday-classical-inputs')).toContainText('차이가 7의 정수배');await expect(page.locator('.weekday-congruence-rules')).toContainText('x + c ≡₇ y + c');await expect(page.locator('.weekday-classical-proof ol li')).toHaveCount(7);await expect(page.locator('.weekday-classical-proof')).toContainText('2·4: 추이');
   await expect(page.locator('.weekday-classical-inputs')).toContainText('만약 어제가 내일이라면, 오늘이 월요일이다.');await expect(page.locator('.weekday-classical-inputs')).toContainText('A → B');
   expect(await page.locator('.weekday-bridge').innerText()).not.toMatch(/◇|□|가능세계/);await expectFrame(page,weekdayFrame);
   await page.locator('#reader-next').click();await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id','contexts');await expect(page.locator('.weekday-source')).toBeVisible();await expect(page.locator('.weekday-symbol-section')).toBeVisible();
@@ -139,13 +139,27 @@ test('weekday modal systems distinguish the K editor from current S4 or S5 frame
   await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(state=>window.__atlasRelated.setState(state),saved);await expect(status.locator('[data-system="S5"]')).toHaveAttribute('data-satisfied','true');
 });
 
+test('weekday modal notation expands over exactly the current accessible worlds',async({page})=>{
+  await page.goto('/knowledge/weekday-worlds/#modal-comparison');await page.waitForFunction(()=>window.__atlasRelated);
+  const some=page.locator('[data-modal-expansion="◇P"]'),all=page.locator('[data-modal-expansion="□P"]');
+  await expect(some).toHaveText('하나 이상: P(w₀) ∨ P(w₁) ↔ ◇P');await expect(all).toHaveText('모두: P(w₀) ∧ P(w₁) ↔ □P');
+  await page.getByRole('button',{name:'세계 추가',exact:true}).click();await page.getByRole('button',{name:'세계 추가',exact:true}).click();
+  await expect(some).toHaveText('하나 이상: P(w₀) ∨ P(w₁) ∨ P(w₂) ∨ P(w₃) ↔ ◇P');await expect(all).toContainText('P(w₂) ∧ P(w₃)');
+  const saved=await page.evaluate(()=>window.__atlasRelated.getState());
+  await page.evaluate(()=>{const state=window.__atlasRelated.getState();if(!state.interaction||!('access'in state.interaction))throw new Error('Expected weekday state');window.__atlasRelated.setState({...state,interaction:{...state.interaction,access:[],customized:true}});});
+  await expect(some).toHaveText('하나 이상: ⊥ ↔ ◇P');await expect(all).toHaveText('모두: ⊤ ↔ □P');await expectFrame(page,weekdayFrame);
+  await page.evaluate(state=>window.__atlasRelated.setState(state),saved);await expect(some).toContainText('P(w₃)');await expectFrame(page,weekdayFrame);
+});
+
 test('weekday bridge symbols and their A/B meaning lines highlight along the same paths',async({page})=>{
   await page.goto('/knowledge/weekday-worlds/#notation');await page.waitForFunction(()=>window.__atlasRelated);
-  for(const [role,text]of [['antecedent','A: 어제가 내일이다.'],['consequent','B: 오늘이 금요일이다.']]){
+  for(const [role,text]of [['antecedent','A: t − 1 ≡₇ h + 1'],['consequent','B: h ≡₇ 4']]){
     const letter=page.locator(`.weekday-bridge-formula [data-alignment-node="${role}"]`),meaning=page.locator(`.weekday-bridge-definition[data-alignment-node="${role}"]`);
     await letter.hover();await expect(meaning).toHaveText(text);await expect(meaning).toHaveAttribute('data-alignment-current','');await expect(page.locator('.weekday-bridge [data-alignment-side="source"][data-alignment-node="constraints"]')).toHaveAttribute('data-alignment-on-path','');
     await meaning.focus();await expect(letter).toHaveAttribute('data-alignment-current','');await expectFrame(page,weekdayFrame);
   }
+  await page.evaluate(()=>{const state=window.__atlasRelated.getState();if(!state.interaction||!('worlds'in state.interaction))throw new Error('Expected weekday state');window.__atlasRelated.setState({...state,interaction:{...state.interaction,target:0,worlds:[...state.interaction.worlds,{id:2,today:0}],contexts:{yesterday:2,tomorrow:0,consequent:1,question:0},customized:true}});});
+  await expect(page.locator('.weekday-bridge-definition')).toHaveText(['A: t₂ − 1 ≡₇ t + 1','B: h ≡₇ 0']);await expectFrame(page,weekdayFrame);
 });
 
 test('weekday Next keeps the same bounds on title, every scene, both modes and final links',async({page},testInfo)=>{
@@ -862,10 +876,10 @@ test('availability feedback supports non-logic content and deterministic restora
 
 
 
-test('weekday introduces symbols and classical inference before worlds, then compares modalities without a checkbox',async({page})=>{
+test('weekday introduces worlds with Wednesday, then symbols and classical inference before modalities',async({page})=>{
   await page.goto('/knowledge/weekday-worlds/#question');await page.waitForFunction(()=>window.__atlasRelated);
   const scenes=CONTENT_PAGES.find(p=>p.slug==='weekday-worlds')!.scenes;
-  const beforeWorlds=['question','reason','conditional','sunday','wednesday','notation','inference','nonmodal-proof'];
+  const beforeWorlds=['question','reason','conditional','sunday','wednesday','notation','inference','nonmodal-proof','contexts'];
   for(const [index,scene]of scenes.entries()){
     await page.evaluate(sceneId=>window.__atlasRelated.setState({sceneId}),scene.id);
     if(scene.id==='question')await expect(page.locator('#reader-scenes')).toBeHidden();else {await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',scene.id);await expect(page.locator('.reader-scene:visible .eyebrow')).toHaveText(`${index+1} / ${scenes.length}`);}
@@ -873,11 +887,14 @@ test('weekday introduces symbols and classical inference before worlds, then com
     expect(await page.locator('.weekday-experiment').innerText()).not.toMatch(/Wish|□→/);
     if(beforeWorlds.includes(scene.id)){
       await expect(page.locator('.weekday-settings')).toBeHidden();await expect(page.locator('.weekday-modal-diagram')).toBeHidden();
-      expect(await page.locator('.weekday-experiment').innerText()).not.toMatch(/가능세계|접근|w₀|◇|□/);
+      expect(await page.locator('.weekday-experiment').innerText()).not.toMatch(/접근|◇|□/);
     }
+    if(['question','conditional','sunday'].includes(scene.id))expect(await page.locator('.weekday-experiment').innerText()).not.toMatch(/가능세계/);
+    if(scene.id==='wednesday'){await expect(page.locator('.weekday-intro-worlds')).toBeVisible();await expect(page.locator('.weekday-intro-worlds')).toContainText('가능세계');await expect(page.locator('.weekday-symbol-section')).toBeHidden();}
     if(scene.id==='conditional')await expect(page.locator('.weekday-bridge')).toContainText('만약 어제가 내일이라면, 오늘이 금요일이다.');
     if(scene.id==='notation'){
       await expect(page.locator('.weekday-bridge')).toContainText('A → B');
+      await expect(page.locator('.weekday-bridge-definition')).toHaveText(['A: t − 1 ≡₇ h + 1','B: h ≡₇ 4']);
       await page.locator('.weekday-bridge-formula [data-alignment-side="symbol"][data-alignment-node="antecedent"]').hover();
       await expect(page.locator('.weekday-bridge [data-alignment-side="source"][data-alignment-node="antecedent"]')).toHaveAttribute('data-alignment-current','');
     }

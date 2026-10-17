@@ -49,6 +49,8 @@ The modal-system comparison reconsulted Schwarz's [Accessibility](https://www.wo
 
 ## Calendar inference reading
 
+The earlier-world narrative and finite modal-expansion comparison reuse the recorded context and Schwarz §3.1 readings. Expanding diamond/box into the disjunction/conjunction of P at the current direct successors is an independently authored finite instance of clauses (g)/(h), including the existing empty-access convention. It does not translate the whole Korean sentence or claim that classical logic cannot describe possible worlds. Concrete A/B date definitions retain the existing calendar interpretation and congruence references. No new external text or artwork is imported.
+
 On 2026-10-18, Oscar Levin's [Discrete Mathematics: An Open Introduction, second edition §5.2](https://discrete.openmathbooks.org/dmoi2/sec_addtops-numbth.html) was consulted for Congruence and Divisibility/Equality, the equivalence-relation properties, and Congruence and Arithmetic (including same-addend and replacement cases). These support `claim:logic.weekday-worlds.congruence-rules`. The colophon displays Oscar Levin, ©2013–2017, and CC BY-SA 4.0 International; no external prose, tables, figures or code are imported. The modulo-7 specialization and weekday trace are independently authored. Source revision capture and independent content/publication review remain pending. The antecedent is now explicitly the case requested by the simplified problem, not an unrelated extra fact.
 
 ## Exclusions and unresolved evidence

@@ -230,7 +230,7 @@
     "id": "claim:logic.weekday-worlds.deduced-modality",
     "kind": "model-deduction",
     "statement": "P를 각 세계의 오늘이 목표 요일이라는 명제로 정하면 ◇P는 직접 접근 가능한 세계 하나 이상에서, □P는 모두에서 P가 참일 때 참이다. 화면은 두 달력 조건을 만족하는 모든 요일 배정에서 평가하며, 판정이 다르면 미정, 해가 없으면 판정 중지로 표시한다.",
-    "scope": "Independently authored finite teaching projection, not a translation of the entire original wish or counterfactual. P is evaluated at each world with its explicitly assigned today reference; accessibility does not move indexicals automatically or add calendar equalities. No scientific fixtures or legacy sample-based evaluator are changed.",
+    "scope": "Independently authored finite teaching projection, not a translation of the entire original wish or counterfactual. P is evaluated at each world with its explicitly assigned today reference; accessibility does not move indexicals automatically or add calendar equalities. At a fixed evaluation point in the current finite frame, the disjunction/conjunction of P at exactly the accessible worlds expands diamond/box respectively (empty disjunction false, empty conjunction true). This illustrates equivalent semantics, not extra answers or an expressiveness claim against classical first-order logic. No scientific fixtures or legacy sample-based evaluator are changed.",
     "assumptions": [
       "1–4 worlds; direct R without transitive closure",
       "Calendar samples do not constrain the satisfying assignments",

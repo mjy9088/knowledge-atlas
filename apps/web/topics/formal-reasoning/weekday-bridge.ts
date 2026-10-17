@@ -1,4 +1,5 @@
-import {WEEKDAYS,type WeekdayInterpretation} from '/packages/models/weekday-worlds.js';
+import {WEEKDAYS,type WeekdayInterpretation,type WorldIndex} from '/packages/models/weekday-worlds.js';
+import {worldLabel} from './weekday-world-style.js';
 import {markAlignment} from '../../components/alignment/semantic-alignment.js';
 import {weekdayClassicalProof} from '/packages/models/weekday-classical.js';
 import {SYSTEM_ROWS} from './weekday-systems.js';
@@ -37,14 +38,13 @@ export function mountWeekdayBridge(container:HTMLElement){
     const source=card('풀이용 문장 (설명을 위해 간략화)',[]),line=p(''),root=markAlignment(doc.createElement('span'),'constraints','source'),a=markAlignment(doc.createElement('span'),'antecedent','source'),b=markAlignment(doc.createElement('span'),'consequent','source'),connect=markAlignment(doc.createElement('span'),'conditional-connective','source');
     a.textContent='어제가 내일';b.textContent=`오늘이 ${WEEKDAYS[input.target]}이다.`;connect.textContent='이라면, ';root.append('만약 ',a,connect,b);line.append(root);source.append(line);container.append(source);
     if(scene==='conditional'){source.append(p('설명의 편의를 위해 문장을 이렇게 단순화하고, 그 가정 아래 요일을 계산해 봅시다.'));return;}
-    const symbols=card('추론 규칙을 적용할 수 있도록 기호로 나타내면',[]),formula=p('','weekday-bridge-formula');formula.append(conditionalReading(doc));const aDefinition=markAlignment(p('A: 어제가 내일이다.','weekday-bridge-definition'),'antecedent','symbol'),bDefinition=markAlignment(p(`B: 오늘이 ${WEEKDAYS[input.target]}이다.`,'weekday-bridge-definition'),'consequent','symbol');symbols.append(formula,aDefinition,bDefinition);container.append(symbols);
+    const base=(id:WorldIndex)=>id===0?'t':id===1?'h':id===2?'t₂':'t₃';
+    const symbols=card('추론 규칙을 적용할 수 있도록 기호로 나타내면',[]),formula=p('','weekday-bridge-formula');formula.append(conditionalReading(doc));const aDefinition=markAlignment(p(`A: ${base(input.contexts.yesterday)} − 1 ≡₇ ${base(input.contexts.tomorrow)} + 1`,'weekday-bridge-definition'),'antecedent','symbol'),bDefinition=markAlignment(p(`B: ${base(input.contexts.consequent)} ≡₇ ${input.target}`,'weekday-bridge-definition'),'consequent','symbol');symbols.append(formula,p((input.worlds??[{id:0},{id:1}]).map(w=>`${base(w.id)}: ${worldLabel(w.id)}의 오늘`).join(' · ')),p('월=0, …, 일=6 · ≡₇: 같은 요일 (차이가 7의 정수배)'),aDefinition,bDefinition);container.append(symbols);
     if(scene==='nonmodal-proof'){
       const model=weekdayClassicalProof(input),proof=card('가정에서 결론까지',[]);proof.classList.add('weekday-classical-proof');
-      symbols.append(p('t: 현실의 오늘 · h: 가정한 오늘 · 월=0, …, 일=6'));
-      const rules=doc.createElement('div');rules.className='weekday-congruence-rules';rules.append(p('≡₇: 같은 요일 — 차이가 7의 정수배 (정의)'),p('대칭: x ≡₇ y에서 y ≡₇ x'),p('추이: x ≡₇ y, y ≡₇ z에서 x ≡₇ z'),p('덧셈: x ≡₇ y에서 x + c ≡₇ y + c'),p('x·y·z·c는 정수. 뺄셈은 음수 더하기입니다.'));
+      const rules=doc.createElement('div');rules.className='weekday-congruence-rules';rules.append(p('정의에서 얻는 ≡₇의 추론 규칙'),p('대칭: x ≡₇ y에서 y ≡₇ x'),p('추이: x ≡₇ y, y ≡₇ z에서 x ≡₇ z'),p('덧셈: x ≡₇ y에서 x + c ≡₇ y + c'),p('x·y·z·c는 정수. 뺄셈은 음수 더하기입니다.'));
       symbols.append(rules);
       if(model.supported&&model.answer!==null){
-        symbols.append(p('A: '+model.equation),p('B: h ≡₇ '+input.target));
         const list=doc.createElement('ol');
         for(const step of model.steps){const li=doc.createElement('li'),term=doc.createElement('strong'),reason=doc.createElement('small');term.textContent=step.formula;reason.textContent=step.reason;li.append(term,reason);list.append(li);}proof.append(list,p('따라서 현실의 오늘은 '+WEEKDAYS[model.answer]+'.','weekday-classical-answer'),p('문제가 묻는 가정 A가 성립하는 경우의 답입니다. A → B만으로 A를 얻은 것은 아닙니다.'));
       }else{proof.append(p(model.kind==='impossible'?'선택한 날짜 조건에 맞는 달력이 없습니다. 이 순서로 특정 요일을 답으로 추출하지 않습니다.':'기본 두 기준과 다른 선택이므로 위의 t·h 풀이를 그대로 적용하지 않습니다.'),p(model.answer===null?'현재 질문의 요일을 하나로 정할 수 없습니다.':'현재 조건에서 질문의 답: '+WEEKDAYS[model.answer]));}
