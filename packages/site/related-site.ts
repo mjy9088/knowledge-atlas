@@ -3,7 +3,7 @@ import {articleDisplayTitle} from '../content/presentation.js';
 import {CONTENT_PAGES,pageURL,sceneText} from '../../content/catalog.js';
 export const escapeHTML=(value: unknown)=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'} as Record<string,string>)[c]);
 const e=escapeHTML;
-const interactionLabels:Record<NonNullable<ContentPage['interactive']>,string>={
+const interactionLabels:Record<NonNullable<ContentPage['interactive']>,string>={'binary-relations':'연결 선택','monty-hall':'확률 실험','two-children':'관측 실험',
   'hydrogenic-orbitals':'공간 실험','typed-lambda':'타입·계산 실험',
   'binary-search':'탐색 실험','sphere-slices':'단면 실험','base-rates':'경보 비교 실험',
   'weekday-worlds':'가능세계 비교',
