@@ -11,7 +11,7 @@ export function mountWeekdaySentence(container:HTMLElement,{onRepresentationChan
   const source=doc.createElement('div');source.className='weekday-source';
   const formal=doc.createElement('div');formal.className='weekday-symbolic-summary';
   const sourceSection=doc.createElement('section');sourceSection.className='weekday-original-section';const sourceTitle=doc.createElement('h2');sourceTitle.textContent='원문';sourceSection.append(sourceTitle,source);
-  const alignmentStatus=doc.createElement('p');alignmentStatus.className='alignment-status';alignmentStatus.setAttribute('aria-live','polite');sourceSection.append(alignmentStatus);
+  const alignmentStatus=doc.createElement('div');alignmentStatus.className='alignment-status';alignmentStatus.setAttribute('aria-live','polite');sourceSection.append(alignmentStatus);
   const symbolSection=doc.createElement('section');symbolSection.className='weekday-symbol-section';const symbolTitle=doc.createElement('h2');symbolTitle.textContent='기호';
   const toggleLabel=doc.createElement('label');toggleLabel.className='weekday-modal-toggle';const toggle=doc.createElement('input');toggle.type='checkbox';toggle.setAttribute('aria-label','양상 논리로 번역');toggle.setAttribute('aria-description','원문을 바람과 반사실 조건문의 구조로 번역합니다. 바람은 별도 표기하며, 반사실의 진리값을 자동 판정하지 않습니다.');toggleLabel.title=toggle.getAttribute('aria-description')!;toggleLabel.append(toggle,'양상 논리로 번역');
   const symbolHeader=doc.createElement('div');symbolHeader.className='weekday-symbol-header';symbolHeader.append(symbolTitle,toggleLabel);
@@ -21,7 +21,7 @@ export function mountWeekdaySentence(container:HTMLElement,{onRepresentationChan
     const node=markAlignment(doc.createElement('span'),id,'source');node.classList.add('weekday-word');colorWorld(node,world);
     node.setAttribute('aria-label',`${text}: ${worldLabel(world)} 기준, ${value}`);
     const label=doc.createElement('strong');label.textContent=text;if(offset)markAlignment(label,`${id}-offset`,'source');
-    const index=markAlignment(doc.createElement('sub'),id.replace('-today','')+'-base','source');index.append(worldLabel(world),' ▾');const key=({'yesterday':'yesterday','tomorrow':'tomorrow','consequent-today':'consequent','query-today':'question'} as const)[id as 'yesterday'|'tomorrow'|'consequent-today'|'query-today'];const control=references[key];if(control){control.title=`${text}의 기준 선택: ${worldLabel(world)}`;index.append(control);node.classList.add('weekday-reference-trigger');}
+    const index=markAlignment(doc.createElement('sub'),id.replace('-today','')+'-base','source');index.append(worldLabel(world),' ▾');const key=({'yesterday':'yesterday','tomorrow':'tomorrow','consequent-today':'consequent','query-today':'question'} as const)[id as 'yesterday'|'tomorrow'|'consequent-today'|'query-today'];const control=references[key];if(control){index.append(control);node.classList.add('weekday-reference-trigger');}
     node.append(label,index);return node;
   }
   function paragraph(text:string,cls:string){const node=doc.createElement('p');worldText(node,text);annotateWeekdayEquivalence(node);node.className=cls;return node;}

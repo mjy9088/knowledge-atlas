@@ -1,4 +1,4 @@
-.alignment-node{position:relative;border-radius:3px;cursor:help;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.alignment-node{position:relative;border-radius:3px;cursor:default;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 .alignment-node[data-alignment-on-path]{outline:1px solid #a58abf;outline-offset:calc((var(--alignment-path-depth) - var(--alignment-depth))*2px);box-shadow:0 0 0 2px #8853a512;background-color:#9862b310}
 .alignment-node[data-alignment-current]{outline:2px solid #75429a;box-shadow:0 0 0 3px #8853a526}
 .alignment-node:focus-visible{outline:2px solid #75429a}

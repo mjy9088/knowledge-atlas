@@ -62,7 +62,7 @@ for(const topic of questionTopics)test(`${topic.slug}: question-led scenes fit a
     if(scene===topic.scenes[0]||scene===topic.scenes.at(-1))await testInfo.attach(`${topic.slug}-${scene.id}`,{body:await page.screenshot(),contentType:'image/png'});
     if(scene!==topic.scenes.at(-1))await page.locator('#reader-next').click();
   }
-  await expect(page.locator('#reader-end-links')).toBeVisible();
+  if(topic.slug==='weekday-worlds')await expect(page.locator('#reader-end-links')).toHaveCount(0);else await expect(page.locator('#reader-end-links')).toBeVisible();
   await page.locator('.reader-menu summary').click();
   await page.locator('.reader-menu a[href="#evidence"]').click();
   await expect(page.locator('dialog[open]')).toContainText('주장별 조건과 근거 위치');
@@ -77,32 +77,35 @@ async function weekdayView(page:Page,mode:string){await weekdayInputs(page);awai
 test('weekday Next keeps the same bounds on title, every scene, both modes and final links',async({page},testInfo)=>{
   await page.goto('/knowledge/weekday-worlds/');await page.waitForFunction(()=>window.__atlasRelated);
   const baseline=await page.locator('#reader-next').boundingBox();expect(baseline).not.toBeNull();
-  const bottomGap=page.viewportSize()!.height-baseline!.y-baseline!.height;
-  expect(bottomGap).toBeGreaterThanOrEqual(6);expect(bottomGap).toBeLessThanOrEqual(18);
+  const menuBox=await page.locator('.reader-menu summary').boundingBox();expect(baseline!.y-menuBox!.y-menuBox!.height).toBeLessThanOrEqual(40);
   async function stable(){const box=await page.locator('#reader-next').boundingBox();expect(box).not.toBeNull();for(const key of ['x','y','width','height'] as const)expect(Math.abs(box![key]-baseline![key]),key).toBeLessThan(.1);}
   await page.locator('#reader-next').click();
   for(const scene of CONTENT_PAGES.find(p=>p.slug==='weekday-worlds')!.scenes){
     await page.evaluate(sceneId=>window.__atlasRelated.setState({sceneId}),scene.id);
     for(const mode of ['달력','양상']){await weekdayView(page,mode);await stable();await expectFrame(page,weekdayFrame);await weekdayReasoning(page);await stable();await expectFrame(page,weekdayFrame);}
   }
-  await expect(page.locator('#reader-end-links')).toBeVisible();await expectFrame(page,{content:['#reader-end-links','#reader-skip-scope'],controls:['#reader-end-links a','#reader-next']});
+  await expect(page.locator('#reader-end-links,#reader-skip-scope')).toHaveCount(0);await expectFrame(page,{content:['.reader-action-rail'],controls:['#reader-prev','#reader-next']});
   const saved=await page.evaluate(()=>window.__atlasRelated.getState());await page.evaluate(()=>window.__atlasRelated.reset());await stable();await page.evaluate(state=>window.__atlasRelated.setState(state),saved);await stable();await testInfo.attach('weekday-fixed-next-final',{body:await page.screenshot(),contentType:'image/png'});
 });
 
-test('article navigation places hints beside Previous and final links before related knowledge',async({page},testInfo)=>{
-  for(const slug of ['weekday-worlds','binary-search']){
-    const topic=CONTENT_PAGES.find(p=>p.slug===slug)!;await page.goto(`/knowledge/${slug}/#${topic.scenes[0].id}`);await page.waitForFunction(()=>window.__atlasRelated);
-    const hint=page.locator('#reader-controls>#reader-skip-scope'),links=page.locator('#reader-controls>#reader-end-links');
-    await expect(hint).toBeVisible();await expect(links).toBeHidden();
-    await expect(page.locator('#main>#reader-end-links,#main>#reader-skip-scope')).toHaveCount(0);
-    await page.evaluate(sceneId=>window.__atlasRelated.setState({sceneId}),topic.scenes.at(-1)!.id);
-    await expect(links).toBeVisible();await expect(links.locator('a')).toHaveText(['지식 목록 ↗','근거와 범위']);
-    const prev=await page.locator('#reader-prev').boundingBox(),help=await hint.boundingBox(),end=await links.boundingBox(),next=await page.locator('#reader-next').boundingBox();
-    if(slug==='weekday-worlds'){expect(help!.y).toBeGreaterThanOrEqual(prev!.y+prev!.height);expect(end!.y+end!.height).toBeLessThanOrEqual(next!.y);const rail=await page.locator('.reader-action-rail').boundingBox(),copy=await page.locator('#reader-scenes').boundingBox();expect(rail!.x).toBeGreaterThanOrEqual(copy!.x+copy!.width);}else{expect(help!.x).toBeGreaterThanOrEqual(prev!.x+prev!.width);expect(end!.x+end!.width).toBeLessThanOrEqual(next!.x);expect(Math.abs(help!.y+help!.height/2-next!.y-next!.height/2)).toBeLessThan(1);}
-    await expectFrame(page,{content:['#reader-controls','#reader-end-links','#reader-skip-scope'],controls:['#reader-controls button','#reader-end-links a']});
-    await links.getByRole('link',{name:'근거와 범위',exact:true}).click();await expect(page.locator('dialog[open]')).toContainText('주장별 조건과 근거 위치');await page.keyboard.press('Escape');
-    if(slug==='weekday-worlds')await testInfo.attach('weekday-final-navigation',{body:await page.screenshot(),contentType:'image/png'});
-  }
+test('weekday actions stay compact with menu links and tooltip-only keyboard help; other readers keep their navigation',async({page},testInfo)=>{
+  await page.goto('/knowledge/weekday-worlds/#question');await page.waitForFunction(()=>window.__atlasRelated);
+  const hint=page.locator('#reader-skip-scope'),links=page.locator('#reader-end-links'),next=page.locator('#reader-next'),prev=page.locator('#reader-prev'),menu=page.locator('.reader-menu summary');
+  await expect(hint).toHaveCount(0);await expect(links).toHaveCount(0);
+  await expect(next).toHaveAttribute('title','→ 방향키 · Space / Enter: 다음');await expect(prev).toHaveAttribute('title','← 방향키: 이전 장면');
+  const a=await menu.boundingBox(),b=await prev.boundingBox(),c=await next.boundingBox();expect(b!.y).toBeGreaterThanOrEqual(a!.y+a!.height);expect(c!.y).toBeGreaterThanOrEqual(b!.y+b!.height);expect(c!.y-b!.y-b!.height).toBeLessThanOrEqual(5);
+  await expect(page.locator('.scene-prose:visible')).toContainText('마우스를 올리면');
+  expect(await page.locator('.alignment-status').evaluate(e=>({width:e.getBoundingClientRect().width,height:e.getBoundingClientRect().height,clip:getComputedStyle(e).clipPath}))).toEqual({width:1,height:1,clip:'inset(50%)'});await expect(page.locator('.weekday-sentence [data-alignment-node][title],.weekday-context-select[title],.weekday-logic-diagram [data-alignment-node][title]')).toHaveCount(0);
+  const term=page.locator('.weekday-symbol-clause [data-alignment-node="yesterday-base"]');await term.hover();await expect(page.locator('.weekday-source [data-alignment-node="yesterday-base"]')).toHaveAttribute('data-alignment-current','');
+  const snapshot=await page.evaluate(()=>window.__atlasRelated.getState());await page.keyboard.press('ArrowRight');await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id','sunday');
+  await page.evaluate(()=>window.__atlasRelated.setState({sceneId:'conclusion'}));await expect(hint).toHaveCount(0);await expect(links).toHaveCount(0);
+  await menu.click();await expect(page.locator('.reader-menu a[href="/knowledge/"]')).toBeVisible();await expect(page.locator('.reader-menu a[href="#evidence"]')).toHaveCount(1);
+  await page.locator('.reader-menu a[href="#evidence"]').click();await expect(page.locator('dialog[open]')).toContainText('주장별 조건과 근거 위치');await page.keyboard.press('Escape');
+  await page.evaluate(state=>window.__atlasRelated.setState(state),snapshot);await expectFrame(page,weekdayFrame);await testInfo.attach('weekday-compact-actions',{body:await page.screenshot(),contentType:'image/png'});
+  await page.locator('.reader-menu').evaluate(e=>(e as HTMLDetailsElement).open=true);await page.locator('.reader-menu a[href="/knowledge/"]').click();await expect(page).toHaveURL(/\/knowledge\/$/);
+  await page.goto('/knowledge/binary-search/#question');await page.waitForFunction(()=>window.__atlasRelated);
+  const topic=CONTENT_PAGES.find(p=>p.slug==='binary-search')!;await expect(hint).toBeVisible();await expect(links).toBeHidden();
+  await page.evaluate(sceneId=>window.__atlasRelated.setState({sceneId}),topic.scenes.at(-1)!.id);await expect(links).toBeVisible();await expect(links.locator('a')).toHaveText(['지식 목록 ↗','근거와 범위']);
 });
 
 test('weekday title slide, simultaneous original/symbol panels, named worlds and scrollable choices restore independently',async({page},testInfo)=>{

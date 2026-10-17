@@ -27,7 +27,7 @@ export function mountSemanticAlignment(root:HTMLElement,nodes:readonly Alignment
   root.addEventListener('pointermove',over);root.addEventListener('pointerleave',out);root.addEventListener('focusin',focused);root.addEventListener('focusout',blurred);root.addEventListener('keydown',key);
   return {
     getState:():AlignmentState=>({...state}),setState(value:unknown){const next=model.validate(value);pointer=focus=null;paint(next.activeId);},reset,
-    refresh(){for(const node of elements()){const path=model.path(node.dataset.alignmentNode!);if(node.dataset.alignmentSide!=='source'&&node.dataset.alignmentSide!=='symbol')throw new TypeError('Unknown alignment side');node.title=path.map(model.label).join(' → ');node.setAttribute('aria-description',node.title);}reset();},
+    refresh(){for(const node of elements()){const path=model.path(node.dataset.alignmentNode!);if(node.dataset.alignmentSide!=='source'&&node.dataset.alignmentSide!=='symbol')throw new TypeError('Unknown alignment side');node.removeAttribute('title');node.setAttribute('aria-description',path.map(model.label).join(' → '));}reset();},
     destroy(){root.removeEventListener('pointermove',over);root.removeEventListener('pointerleave',out);root.removeEventListener('focusin',focused);root.removeEventListener('focusout',blurred);root.removeEventListener('keydown',key);reset();},
   };
 }

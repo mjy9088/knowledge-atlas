@@ -30,3 +30,4 @@ The initial decisions were introduced on 2026-10-16; later additions carry their
 | [0023](0023-focus-reader-and-scaled-capture.md) | Focus reader and 1920×1080 landscape capture at 200% scale |
 | [0024](0024-continuous-reader-and-inline-choices.md) | Continuous input/reasoning, compact captured choices and notation meaning |
 | [0025](0025-weekday-modal-introduction.md) | A short modal-logic introduction, narrative defaults and persistent reader overrides |
+| [0026](0026-compact-reader-actions.md) | Compact weekday actions, button-only help and unobstructed alignment |

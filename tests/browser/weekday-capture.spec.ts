@@ -43,6 +43,10 @@ test('200% capture fits title, every scene, both translations, four worlds and r
 
 test('focus chrome reveals on top hover and keyboard focus; side menu and scrolling choices stay accessible',async({page},testInfo)=>{
   await page.goto('/knowledge/weekday-worlds/#sunday');await page.waitForFunction(()=>window.__atlasRelated);
+  await expect(page.locator('#reader-end-links,#reader-skip-scope')).toHaveCount(0);
+  const actions=await Promise.all(['.reader-menu summary','#reader-prev','#reader-next'].map(selector=>page.locator(selector).boundingBox()));
+  for(let i=1;i<actions.length;i++){const gap=actions[i]!.y-actions[i-1]!.y-actions[i-1]!.height;expect(gap).toBeGreaterThanOrEqual(0);expect(gap).toBeLessThanOrEqual(5);}
+  await expect(page.locator('#reader-next')).toHaveAttribute('title','→ 방향키 · Space / Enter: 다음');
   const chrome=page.locator('.reader-reveal-chrome'),link=chrome.getByRole('link',{name:'지식 지도',exact:true});
   await page.mouse.move(480,270);await expect(chrome.locator('nav')).toHaveCSS('opacity','0');
   await page.mouse.move(480,2);await expect(chrome.locator('nav')).toHaveCSS('opacity','1');await expect(chrome).toHaveCSS('height','40px');

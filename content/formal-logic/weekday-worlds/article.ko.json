@@ -8,7 +8,7 @@
   "blocks": [
     {
       "id": "block:logic.weekday-worlds.question",
-      "text": "20초 안에 풀면 IQ가 높다고요? 일단 풀어 봅시다. “어제가 내일이 되면, 오늘은 금요일.” 그렇다면 지금은 무슨 요일일까요? 먼저 익숙한 요일 계산으로 시작합니다.",
+      "text": "20초 안에 풀면 IQ가 높다고요? 일단 풀어 봅시다. “어제가 내일이 되면, 오늘은 금요일.” 그렇다면 지금은 무슨 요일일까요? 먼저 익숙한 요일 계산으로 시작합니다. 원문이나 기호에 마우스를 올리면 대응 부분이 함께 강조됩니다.",
       "claimRefs": [
         "claim:logic.weekday-worlds.assessment",
         "claim:logic.weekday-worlds.assignments"
