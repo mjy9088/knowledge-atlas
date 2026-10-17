@@ -49,6 +49,24 @@ For explanation, explicitly simplify to “만약 어제가 내일이라면, 오
 
 Scene identity determines disclosure, including backward/direct entry and restored legacy modes. Before contexts, hide named-world selectors, presets, equations and access controls. The notation/inference steps show only the simple conditional and its rule. Contexts reveals references and inferred calendar cards; modal-comparison reveals the full editor and paired explanations; alethic and later solution steps use the modal graph. Modal-rules is a compact dedicated teaching step. There is no modality checkbox. Keep calendar inputs across navigation. See [ADR 0027](adr/0027-weekday-challenge-and-modal-foundations.md).
 
+## Question-led explanations
+
+New introductory explanations should name a concrete question and an observable learning outcome before introducing terminology. Let readers observe, compare, explain, and try a changed condition. Optional predictions and answer reveals must not block navigation or require a correct answer. This is an authoring pattern, not a mandatory sequence for every subject: proofs may need explicit justifications, observational topics need uncertainty, and prose-only explanations remain valid.
+
+Each interaction must make clear what can be changed, what to look for, and how the result bears on the question. Keep essential assumptions and representation limits visible. Advanced details may be optional, but the primary path must independently answer its opening question. Customized inputs require scene-specific explanation of the current result; preserve reader edits through navigation and restore authored examples only by an explicit action.
+
+Use transfer questions to invite application to a changed case. A revealed explanation is feedback, not proof that a person understood. Automated semantic, restoration, and layout checks are implementation evidence; learning quality still needs observation with intended readers. Do not infer understanding from clicks, time spent, or a passing geometry test.
+
+## Reading, animation, and production
+
+The interactive reader is self-paced and should not resemble a video player. Selected proof steps and restored state remain deterministic. Retired comparison/laboratory prototypes are not part of current navigation.
+
+Mobile web reading and portrait projection are separate layouts. The local renderer supports 1080×1440 (3:4), superseding the earlier 9:16 proposal. Place the title and optional short explanation above/below the central reasoning; do not move essential conditions into optional text. The former standalone portrait and three-iframe comparison pages are retired; the local media tool provides production frame preview.
+
+Short explanations have a project maximum of 180 seconds, not a duration target. The focused pilot is 134 seconds. Do not add filler or compress a long proof merely to fit that maximum. Production tools and MP4 conversion are separate from the reader-facing static site; see [Development](DEVELOPMENT.md).
+
+## Evidence and feedback
+
 Where authored text/formula alignment is available, hover or keyboard focus must reveal the entire nested root-to-selected path on both representations. Do not attach native hover tooltips to the highlighted fragments: the direct emphasis is the feedback. Introduce the hover interaction briefly in the explanation. Keep the path available to assistive technology; the weekday reader does not reserve a visible instruction/breadcrumb row. Repeated terms with different semantic roles remain distinct. Preserve identity colors and layout geometry; clear stale emphasis when inputs change. Explicitly distinguish a partial formalization from a complete translation. The weekday reader maps the simplified conditional's fragments to A→B and its two calendar clauses, preserving full semantic ancestry. P in the modal example corresponds to the consequent's weekday proposition at a world; it is not the translation of the whole conditional. Keep A/B definitions separate, omit unnecessary premise-set notation, and label calendar deductions as simultaneous conditions. Evaluate P/◇P/□P across satisfying calendar completions rather than saved sample weekdays; disagreement means undetermined, and no calendars suspends the verdict. Empty accessibility with consistent calendars still gives the standard empty-set semantics. This supersedes the wish/counterfactual presentation in ADR 0021 while retaining that historical proposal and its fixtures. The shared alignment contract remains [ADR 0019](adr/0019-structural-expression-alignment.md).
 
 Evidence panels expose claim IDs, exact scopes, assumptions, source locators, review states, and rights information. Source synchronization dates and content review dates must be distinguishable. Reader suggestions enter review rather than automatically changing scientific content. Accepted corrections should eventually link to affected web and video versions.
