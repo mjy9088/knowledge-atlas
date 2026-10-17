@@ -63,6 +63,10 @@ export function mountPossibilityLab(topic:LabTopic,container:HTMLElement,options
   getState:()=>({...state}),validateState:(value:unknown)=>validateLabState(value,topic),setState(value:unknown){validateLabState(value,topic);stop();change(value);},
   setActive(value:boolean){active=value;if(!value)stop();},suggest(suggestion?:Scene['suggestion']){const next=suggestion&&'example'in suggestion?suggestion.example:'';if(scene!==next){stop();scene=next;render();}},
   reset(){stop();change(initialLabState(topic));},seek(ms:number){stop();change(labFrameAt(state,ms));},
-  inspect(){return{customized:false,state:{...state},summary:labSummary(state),playing};},describe(scene:Scene){return{status:'example',text:scene.title};}
+  inspect(){const available=({
+   'binary-relations':['question','pairs','functions','close'],
+   'monty-hall':['strategy','compare'],
+   'two-children':['model','filter','child']
+  }[topic]).includes(scene);return{customized:false,available,state:{...state},summary:labSummary(state),playing};},describe(scene:Scene){return{status:'example',text:scene.title};}
  };
 }
