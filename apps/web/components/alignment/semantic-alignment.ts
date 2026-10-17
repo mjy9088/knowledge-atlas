@@ -22,7 +22,7 @@ export function mountSemanticAlignment(root:HTMLElement,nodes:readonly Alignment
   function out(){pointer=null;activate();}
   function focused(event:FocusEvent){pointer=null;focus=closest(event.target)?.dataset.alignmentNode??null;activate();}
   function blurred(event:FocusEvent){focus=closest(event.relatedTarget)?.dataset.alignmentNode??null;activate();}
-  function key(event:KeyboardEvent){if(!closest(event.target))return;if(event.key==='Escape'){event.preventDefault();reset();if(root.ownerDocument.activeElement instanceof HTMLElement)root.ownerDocument.activeElement.blur();}else if(event.key==='Enter'||event.key===' '){event.preventDefault();pointer=null;focus=closest(event.target)!.dataset.alignmentNode!;activate();}}
+  function key(event:KeyboardEvent){if(!closest(event.target)||event.target instanceof Element&&event.target.closest('input,select,textarea,button'))return;if(event.key==='Escape'){event.preventDefault();reset();if(root.ownerDocument.activeElement instanceof HTMLElement)root.ownerDocument.activeElement.blur();}else if(event.key==='Enter'||event.key===' '){event.preventDefault();pointer=null;focus=closest(event.target)!.dataset.alignmentNode!;activate();}}
   function reset(){pointer=focus=null;paint(null);}
   root.addEventListener('pointermove',over);root.addEventListener('pointerleave',out);root.addEventListener('focusin',focused);root.addEventListener('focusout',blurred);root.addEventListener('keydown',key);
   return {

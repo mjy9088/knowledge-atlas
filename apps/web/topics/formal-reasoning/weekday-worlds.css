@@ -81,3 +81,18 @@
 .reader-enhanced [data-page=weekday-worlds] #reader-next{inline-size:128px;min-inline-size:128px;block-size:44px;flex:0 0 128px;white-space:nowrap}
 @media(max-width:720px){.reader-enhanced .related-reader[data-page=weekday-worlds][data-cover]{padding-bottom:16px}.reader-enhanced [data-page=weekday-worlds] #reader-next{inline-size:100px;min-inline-size:100px;flex-basis:100px}}
 @media(max-width:720px){.weekday-sentence{gap:5px}.weekday-original-section,.weekday-symbol-section{padding:6px 8px}.weekday-original-section h2,.weekday-symbol-section h2,.weekday-input-panel>h2{font-size:12px;margin-bottom:3px}.weekday-modal-toggle{font-size:10px;margin-bottom:3px}.weekday-symbol-conditional{font-size:11px}.weekday-symbol-modal-formula{font-size:9px}.weekday-settings{padding:7px}.weekday-settings label{grid-template-columns:minmax(0,1fr)}.weekday-dialog-world label{font-size:11px}.weekday-access-matrix strong{font-size:11px}}
+
+/* Reference choices live with the expressions; only the Selection pane scrolls. */
+.weekday-settings{background:#fff}
+.weekday-settings-heading{margin:0 0 5px;font-size:14px;line-height:1.3}
+.weekday-preset-label{margin:0;font-size:12px;color:#526b56}
+.weekday-presets{gap:8px;align-items:stretch}
+.weekday-presets button{border-radius:8px;min-height:38px;line-height:1.4}
+.weekday-word{display:inline-flex;flex-direction:row;align-items:center;vertical-align:middle;gap:5px;padding:3px 5px;white-space:normal;border-radius:5px}
+.weekday-word sub{display:block;line-height:1;margin:0;max-width:100%}
+.weekday-word small{margin:0;font-size:11px;line-height:1.2}
+.weekday-context-select{font:inherit;font-size:12px;min-height:32px;width:216px;max-width:100%;border:1px solid var(--world-stroke);border-radius:5px;padding:3px 5px;cursor:pointer}
+.weekday-sentence-question{display:block;text-align:center}
+@media(min-width:1200px){.weekday-context-select{font-size:13px;min-height:34px}.weekday-word small{font-size:12px}.weekday-settings-heading{font-size:14px}}
+@media(max-width:720px){.weekday-context-select{font-size:10px;width:158px;min-height:28px;padding:2px 3px}.weekday-word{padding:2px 3px;gap:1px}.weekday-word small{font-size:9px}.weekday-settings-heading{font-size:12px}.weekday-preset-label{font-size:10px}.weekday-presets{gap:5px}.weekday-presets button{min-height:34px}.weekday-source{gap:4px}}
+.weekday-settings{min-height:60px}@media(max-width:720px){.weekday-settings{min-height:52px}}

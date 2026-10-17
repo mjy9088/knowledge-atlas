@@ -1,4 +1,4 @@
-import {WEEKDAYS,interpretWeekdayWorlds,type WeekdayInterpretation,type WorldIndex,worldSymbol} from '/packages/models/weekday-worlds.js';
+import {WEEKDAYS,weekdayDeductions,type WeekdayContexts,type WeekdayInterpretation,type WorldIndex,worldSymbol} from '/packages/models/weekday-worlds.js';
 import {colorWorld,worldText,worldLabel} from './weekday-world-style.js';
 import {markAlignment} from '../../components/alignment/semantic-alignment.js';
 import {calendarClause,calendarQuery,conditionalReading} from './weekday-alignment.js';
@@ -16,24 +16,25 @@ export function mountWeekdaySentence(container:HTMLElement,{onRepresentationChan
   const toggleLabel=doc.createElement('label');toggleLabel.className='weekday-modal-toggle';const toggle=doc.createElement('input');toggle.type='checkbox';toggle.setAttribute('aria-label','양상 논리로 번역');toggle.setAttribute('aria-description','원문을 바람과 반사실 조건문의 구조로 번역합니다. 바람은 별도 표기하며, 반사실의 진리값을 자동 판정하지 않습니다.');toggleLabel.title=toggle.getAttribute('aria-description')!;toggleLabel.append(toggle,'양상 논리로 번역');
   const symbolHeader=doc.createElement('div');symbolHeader.className='weekday-symbol-header';symbolHeader.append(symbolTitle,toggleLabel);
   let currentRepresentation:WeekdayRepresentation='symbols';toggle.addEventListener('change',()=>onRepresentationChange(currentRepresentation,toggle.checked?'alethic':'calendar'));symbolSection.append(symbolHeader,formal);container.append(sourceSection,symbolSection);
+  let references:Partial<Record<keyof WeekdayContexts,HTMLSelectElement>>={};
   function word(text:string,world:WorldIndex,value:string,id:string,offset=false){
     const node=markAlignment(doc.createElement('span'),id,'source');node.classList.add('weekday-word');colorWorld(node,world);
     node.setAttribute('aria-label',`${text}: ${worldLabel(world)} 기준, ${value}`);
     const label=doc.createElement('strong');label.textContent=text;if(offset)markAlignment(label,`${id}-offset`,'source');
-    const index=markAlignment(doc.createElement('sub'),id.replace('-today','')+'-base','source');index.textContent=worldLabel(world);
-    const day=doc.createElement('small');day.textContent=value;node.append(label,index,day);return node;
+    const index=markAlignment(doc.createElement('sub'),id.replace('-today','')+'-base','source');const key=({'yesterday':'yesterday','tomorrow':'tomorrow','consequent-today':'consequent','query-today':'question'} as const)[id as 'yesterday'|'tomorrow'|'consequent-today'|'query-today'];const control=references[key];if(control)index.append(control);else index.textContent=worldLabel(world);
+    node.append(label,index);return node;
   }
   function paragraph(text:string,cls:string){const node=doc.createElement('p');worldText(node,text);node.className=cls;return node;}
-  return {alignmentStatus,render(input:WeekdayInterpretation,representation:WeekdayRepresentation,logicMode:WeekdayLogicMode){
-    const result=interpretWeekdayWorlds(input),c=input.contexts;
-    const value=(world:WorldIndex,index:number)=>{const days=result.worldDays.find(w=>w.id===world)?.days;return days?WEEKDAYS[days[index]]:'미정';};
+  return {alignmentStatus,render(input:WeekdayInterpretation,representation:WeekdayRepresentation,logicMode:WeekdayLogicMode,controls:Partial<Record<keyof WeekdayContexts,HTMLSelectElement>>={}){
+    references=controls;const result=weekdayDeductions(input),c=input.contexts;
+    const value=(world:WorldIndex,index:number)=>{const days=result.worlds.find(w=>w.id===world)!.days[index];return days.length===1?WEEKDAYS[days[0]]:days.length?'미정':'해 없음';};
     const line=doc.createElement('p');line.className='weekday-sentence-line';
     const sentenceRoot=markAlignment(doc.createElement('span'),'constraints','source'),a=markAlignment(doc.createElement('span'),'antecedent','source');a.append(word('① 어제',c.yesterday,value(c.yesterday,0),'yesterday',true),'가 ',word('② 내일',c.tomorrow,value(c.tomorrow,2),'tomorrow',true));
     const b=markAlignment(doc.createElement('span'),'consequent','source'),target=markAlignment(doc.createElement('span'),'target','source');target.textContent=WEEKDAYS[input.target];b.append(word('③ 오늘',c.consequent,value(c.consequent,1),'consequent-today'),'이 ',target);
     const wishPart=markAlignment(doc.createElement('span'),logicMode==='alethic'?'wish-marker':'conditional-connective','source'),ifPart=markAlignment(doc.createElement('span'),'conditional-connective','source'),thenPart=markAlignment(doc.createElement('span'),'conditional-connective','source');wishPart.textContent='이었으면 좋겠다.';ifPart.textContent=' 그럼 ';thenPart.textContent='일 텐데';sentenceRoot.append(a,wishPart,ifPart,b,thenPart);line.append('“',sentenceRoot,'…”');
     const question=markAlignment(doc.createElement('p'),'query','source');question.className='weekday-sentence-question alignment-node';question.append('그렇다면 ',word('④ 오늘',c.question,value(c.question,1),'query-today'),'은 무슨 요일일까?');
-    const worldSet=`W = {${result.worldDays.map(w=>worldSymbol(w.id)).join(', ')}}`;
-    const legend=doc.createElement('p');legend.className='weekday-sentence-legend';legend.textContent='현재 세계: '+result.worldDays.map(w=>worldLabel(w.id)).join(' · ');source.replaceChildren(line,question,legend);
+    const worldSet=`W = {${result.worlds.map(w=>worldSymbol(w.id)).join(', ')}}`;
+    const legend=doc.createElement('p');legend.className='weekday-sentence-legend';legend.textContent='각 표현 아래에서 기준 선택 · 요일은 Γ의 모든 해에서 추론';source.replaceChildren(line,question,legend);
     const clauses=doc.createElement('div');clauses.className='weekday-symbol-constraints';const clauseRoot=markAlignment(doc.createElement('div'),'constraints','symbol');
     for(const id of ['A','B'] as const){const clause=paragraph(id+': ','weekday-symbol-clause');clause.append(calendarClause(doc,input,id));clauseRoot.append(clause);}clauses.append(clauseRoot);
     const queryLine=doc.createElement('span');queryLine.className='weekday-symbol-query';queryLine.append(' · 질문: ',calendarQuery(doc,input));

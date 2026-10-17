@@ -2,6 +2,8 @@
 
 Date: 2026-10-17. Status: accepted as a local implementation design; independent content and publication review remain pending.
 
+The sample-editing/display UI is superseded by [ADR 0022](0022-inferred-calendar-and-inline-contexts.md): reference choices live in the original sentence and every displayed calendar day is inferred from Γ. Saved sample fields remain compatible but are not premises.
+
 ## Ownership and scope
 
 Register `/knowledge/weekday-worlds/` through the shared article reader. Pure calendar enumeration, notation and modal evaluation live in `packages/models/weekday-worlds.ts`, `weekday-notation.ts` and `weekday-modal.ts`. Topic controls, original-sentence annotations, constraint inference and the Kripke graph live in `apps/web/topics/formal-reasoning/`. Generic world cards remain in `apps/web/components/worlds/`. No component parses Korean, ranks worlds by similarity or claims to decide actual metaphysical possibility.

@@ -51,6 +51,13 @@ export function interpretWeekdayWorlds(input:WeekdayInterpretation){
   };
 }
 export function day(value:number){return ((value%7)+7)%7;}
+// Deductions range over every satisfying calendar; saved sample days are not premises.
+export function weekdayDeductions(input:WeekdayInterpretation){
+  const result=interpretWeekdayWorlds(input);
+  return {...result,worlds:(input.worlds?.map(w=>w.id)??[0,1] as WorldIndex[]).map(id=>({id,
+    days:[-1,0,1].map(offset=>[...new Set(result.models.map(model=>day(model.values[id]+offset)))].sort((a,b)=>a-b)),
+  }))};
+}
 export function validateWeekdayInput(input:WeekdayInput){
   if(!input||![input.actual,input.target].every(n=>Number.isInteger(n)&&n>=0&&n<7)||!Object.hasOwn(RULES,input.rule))throw new RangeError('Unsupported weekday input');
 }

@@ -1,6 +1,18 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {weekdayWorlds,interpretWeekdayWorlds,PRESET_CONTEXTS} from '../packages/models/weekday-worlds.js';
+import {weekdayWorlds,interpretWeekdayWorlds,weekdayDeductions,PRESET_CONTEXTS} from '../packages/models/weekday-worlds.js';
+
+test('displayed calendar deductions ignore sample days and leave unlinked worlds undetermined',()=>{
+  for(let actual=0;actual<7;actual++){
+    const input={actual,target:4,contexts:PRESET_CONTEXTS['actual-yesterday'],worlds:[{id:0 as const,today:actual},{id:1 as const,today:0},{id:2 as const,today:1}]};
+    const result=weekdayDeductions(input);
+    assert.deepEqual(result.worlds[0].days,[[5],[6],[0]]);
+    assert.deepEqual(result.worlds[1].days,[[3],[4],[5]]);
+    assert.deepEqual(result.worlds[2].days,Array.from({length:3},()=>[0,1,2,3,4,5,6]));
+    const impossible=weekdayDeductions({...input,contexts:PRESET_CONTEXTS['same-context']});
+    assert.ok(impossible.worlds.every(w=>w.days.every(days=>days.length===0)));
+  }
+});
 
 test('separate context assignments give Sunday and Wednesday for imagined Friday',()=>{
   const a=weekdayWorlds({actual:6,target:4,rule:'actual-yesterday'});
