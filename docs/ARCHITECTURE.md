@@ -21,6 +21,7 @@ Git plus JSON and TypeScript modules currently hold the source. Stable logical I
 | `apps/web/` | Shared components, page controllers, styles, and domain adapters |
 | `packages/experiments/`, `packages/projection/` | Input/state contracts and frozen timeline/presentation data |
 | `tools/media/` | Local Canvas/WebCodecs renderer UI and muxer |
+| `tools/studio/` | Local-only manuscript editing, reusable review policies, bounded Codex jobs and feedback |
 | `scripts/` | Validation, build, preview, impact analysis, local media CLI |
 | `tests/` | Model/state/build unit tests and browser regression tests |
 

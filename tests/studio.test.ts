@@ -19,6 +19,8 @@ test('studio gate requires every current slide and whole-flow review, and unreso
   assert.equal(readiness(plan,'current',jobs,[{id:'note',slideId:'question',text:'Unresolved',resolved:false,revision:'current'}]).ready,false);
   assert.equal(readiness({...plan,totalSeconds:1},'current',jobs,[]).ready,false);
   assert.throws(()=>validatePlan({...plan,slides:[{...plan.slides[0],seconds:NaN}]}));assert.throws(()=>validatePlan({...plan,policies:['core','private-topic-policy']}));
+  assert.throws(()=>validatePlan({...plan,slides:[{...plan.slides[0],seconds:true}]}));
+  assert.throws(()=>validatePlan({...plan,sources:[{...plan.sources[0],url:'https://'}]}));
   assert.throws(()=>validateReport({...report,findings:[{slideId:'absent',criterion:'test',severity:'blocker',evidence:'test',suggestion:'test'}]},plan));
   assert.equal(validateReport({...report,findings:[{slideId:'overall',criterion:'flow',severity:'warning',evidence:'Cross-slide issue',suggestion:'Adjust flow'}]},plan).findings[0].slideId,'overall');
 });

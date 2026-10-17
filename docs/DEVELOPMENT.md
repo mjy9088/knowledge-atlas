@@ -16,6 +16,8 @@ The development server defaults to `http://127.0.0.1:4173`; set `PORT` to choose
 
 | Command | Purpose |
 | --- | --- |
+| `pnpm studio` | Private local manuscript editor, Codex review queue and feedback at port 4180 |
+| `pnpm test:studio` | Private studio browser checks at desktop, narrow and 200% capture sizes |
 | `pnpm typecheck` | Strict TypeScript contracts across source, scripts and tests |
 | `pnpm validate` | Concrete source/claim/content references, semantic metadata, episode bounds |
 | `pnpm test` | Node unit tests for models, state, projections, build/link/hash behavior |
@@ -31,6 +33,8 @@ The development server defaults to `http://127.0.0.1:4173`; set `PORT` to choose
 Equivalent `npm run` commands work when npm is available. The dependency lockfile is `pnpm-lock.yaml`; keep one package-manager lockfile.
 
 `pnpm validate` also checks local inline Markdown link targets/heading anchors and ADR identity/rationale sections through `scripts/documentation.ts`. Numbered identities reserved in the ADR index cannot be reused. These checks do not decide architectural significance, evaluate source truth, or fetch external references. Repository documentation belongs with its owner: global policies in `docs/`, topic specifications in `content/`, component contracts beside implementation. Keep current requirements and unimplemented plans; completed-task/test reports belong in Git and task reports.
+
+The [private studio](../tools/studio/README.md) uses its own loopback server and ignored runtime state. `pnpm test:ui` runs the public static-reader suite followed by the separate studio configuration. Studio manuscripts/reports are not catalog entries, and review readiness never authorizes publication. Authenticated Codex review is an explicit action rather than part of routine browser tests.
 
 ## Browser regression contract
 
