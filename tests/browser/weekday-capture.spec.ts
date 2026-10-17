@@ -29,6 +29,11 @@ test('200% capture fits title, every scene, both translations, four worlds and r
     for(const mode of [false,true]){
       await page.getByRole('checkbox',{name:'양상 논리로 번역',exact:true}).setChecked(mode);await fit(page);
       const bounds=await page.locator('#reader-next').boundingBox();expect(bounds).toEqual(baseline);
+      const caption=await page.locator('#reader-scenes').boundingBox();expect(caption!.height).toBeLessThanOrEqual(100);
+      const heading=page.locator('.reader-scene:visible .reader-scene-heading'),progress=heading.locator('.eyebrow'),title=heading.locator('h2');
+      const a=await progress.boundingBox(),b=await title.boundingBox();expect(b!.x+b!.width).toBeLessThanOrEqual(a!.x);expect(Math.abs(a!.x+a!.width-(await heading.boundingBox())!.x-(await heading.boundingBox())!.width)).toBeLessThan(1);expect(a!.y).toBeLessThan(b!.y+b!.height);expect(a!.y+a!.height).toBeGreaterThan(b!.y);
+      expect(await page.locator('.reader-scene:visible .reader-dialogue').evaluate(e=>parseFloat(getComputedStyle(e).paddingTop)+parseFloat(getComputedStyle(e).paddingBottom))).toBeLessThanOrEqual(12);
+
     }
   }
   await page.getByRole('button',{name:'세계 추가',exact:true}).click();await page.getByRole('button',{name:'세계 추가',exact:true}).click();await fit(page);

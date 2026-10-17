@@ -22,6 +22,8 @@ if(page.cover){cover.append(required('.reader-intro>.eyebrow'),required('.reader
 if(page.cover&&page.coverArtwork){const artwork=document.createElement('img');artwork.className='reader-cover-artwork';artwork.src=page.coverArtwork.src;artwork.alt=page.coverArtwork.alt;artwork.width=1200;artwork.height=1000;cover.classList.add('reader-cover-illustrated');cover.append(artwork);}
 if(page.interactive==='weekday-worlds'){
   root.dataset.focusReader='true';
+  for(const scene of scenes){const copy=required('.reader-copy',scene),title=required('h2',copy),heading=document.createElement('div');heading.className='reader-scene-heading';copy.prepend(heading);heading.append(title,required('.reader-dialogue>.eyebrow',scene));}
+
   const rail=document.createElement('aside');rail.className='reader-action-rail';rail.setAttribute('aria-label','목차와 설명 이동');
   rail.append(required('.reader-menu'),$('reader-controls'));root.append(rail);
   const chrome=required('.page-chrome');chrome.classList.add('reader-reveal-chrome');chrome.setAttribute('aria-label','상단 탐색 메뉴');

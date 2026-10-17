@@ -797,6 +797,9 @@ test('weekday introduces worlds midway, compares readings, and owns scene defaul
   const sequence=['question','sunday','wednesday','contexts','notation','alethic','transfer','literal','conclusion'];
   for(const [index,id]of sequence.entries()){
     await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',id);
+    const heading=page.locator('.reader-scene:visible .reader-scene-heading'),progress=heading.locator('.eyebrow'),title=heading.locator('h2');await expect(progress).toHaveText(`${index+1} / 9`);
+    const progressBox=await progress.boundingBox(),titleBox=await title.boundingBox();expect(titleBox!.x+titleBox!.width).toBeLessThanOrEqual(progressBox!.x);expect(Math.abs(progressBox!.x+progressBox!.width-(await heading.boundingBox())!.x-(await heading.boundingBox())!.width)).toBeLessThan(1);expect(progressBox!.y).toBeLessThan(titleBox!.y+titleBox!.height);expect(progressBox!.y+progressBox!.height).toBeGreaterThan(titleBox!.y);
+
     if(index<5)await expect(toggle).not.toBeChecked();else await expect(toggle).toBeChecked();
     await expect(page.locator('.weekday-experiment')).not.toContainText('Γ');
     if(id==='contexts')await expect(page.locator('.scene-prose:visible')).toContainText('가능세계');

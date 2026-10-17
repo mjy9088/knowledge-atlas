@@ -241,3 +241,22 @@
 .reader-enhanced [data-focus-reader] .reader-controls #reader-prev{grid-row:1;min-height:28px}
 .reader-enhanced [data-focus-reader] .reader-controls #reader-next{grid-row:2;min-height:28px;block-size:28px}
 .weekday-sentence .alignment-status{position:absolute!important;width:1px;height:1px;min-height:0!important;padding:0;margin:0!important;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+/* A single heading row and tight prose padding recover space for the experiment. */
+.reader-enhanced .related-reader[data-focus-reader][data-page]{grid-template-rows:minmax(0,1fr) 104px}
+.reader-enhanced [data-focus-reader] .reader-dialogue{justify-content:flex-start;padding:6px 12px}
+.reader-enhanced [data-focus-reader] .reader-scene-heading{display:flex;align-items:baseline;gap:10px;margin:0 0 4px;min-width:0}
+.reader-enhanced [data-focus-reader] .reader-scene-heading>.eyebrow{flex:none;white-space:nowrap;font-size:10px;line-height:1.4;margin:0}
+.reader-enhanced [data-focus-reader] .reader-scene-heading>h2{margin:0;min-width:0;flex:1}
+@media(min-width:721px) and (max-height:650px){
+ .reader-enhanced .related-reader[data-focus-reader][data-page]{grid-template-rows:minmax(0,1fr) 96px}
+ .reader-enhanced [data-focus-reader] .reader-dialogue{padding:4px 10px}
+ .reader-enhanced [data-focus-reader] .reader-scene-heading{gap:8px;margin-bottom:3px}
+ .reader-enhanced [data-focus-reader] .reader-scene-heading>.eyebrow{font-size:8px}
+}
+@media(max-width:720px){
+ .reader-enhanced .related-reader[data-focus-reader][data-page]{grid-template-rows:minmax(0,1fr) 136px}
+ .reader-enhanced [data-focus-reader] .reader-dialogue{padding:5px 8px}
+ .reader-enhanced [data-focus-reader] .reader-scene-heading{gap:6px;margin-bottom:3px}
+ .reader-enhanced [data-focus-reader] .reader-scene-heading>.eyebrow{font-size:8px}
+}
