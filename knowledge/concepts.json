@@ -159,5 +159,12 @@
     "summary": "현실과 가정을 비교하며 세계와 기준 시점을 구별하기",
     "reviewStatus": "proposed",
     "externalIds": []
+  },
+  {
+    "id": "concept:mathematics.binary-relations",
+    "title": "이항 관계: 화살표 하나가 말하는 것",
+    "summary": "관계를 순서쌍·화살표·표로 나타내고 성질을 전체 조건으로 설명한다.",
+    "reviewStatus": "proposed",
+    "externalIds": []
   }
 ]

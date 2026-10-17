@@ -1,0 +1,34 @@
+[
+  {
+    "id": "claim:mathematics.binary-relations.relation-definition",
+    "kind": "draft-teaching-model",
+    "statement": "이항 관계는 A×B의 부분집합이다. 순서가 중요하며, A 위 관계는 A×A의 부분집합이다.",
+    "scope": "관계를 순서쌍·화살표·표로 나타내고 성질을 전체 조건으로 설명한다.",
+    "assumptions": [
+      "Inherited manuscript scope; scientific and rights review pending"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:studio-binary-relations-levin-relations",
+        "locator": "Definitions 2.6.3, 2.6.6, 2.6.10; Remark 2.6.15"
+      }
+    ],
+    "reviewStatus": "needs-content-review"
+  },
+  {
+    "id": "claim:mathematics.binary-relations.relation-properties",
+    "kind": "draft-teaching-model",
+    "statement": "반사성은 모든 자기 쌍, 대칭성은 모든 화살표의 역방향, 추이성은 이어진 모든 두 화살표에 대한 직통 쌍을 요구한다.",
+    "scope": "관계를 순서쌍·화살표·표로 나타내고 성질을 전체 조건으로 설명한다.",
+    "assumptions": [
+      "Inherited manuscript scope; scientific and rights review pending"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:studio-binary-relations-levin-relations",
+        "locator": "Definitions 2.6.3, 2.6.6, 2.6.10; Remark 2.6.15"
+      }
+    ],
+    "reviewStatus": "needs-content-review"
+  }
+]
