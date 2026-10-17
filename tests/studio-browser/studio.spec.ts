@@ -48,6 +48,7 @@ test('plan becomes canonical worktree sources and a real static reader build wit
   await page.locator('#add-visuals').click();await expect(page.locator('#work-state')).toHaveText('작업 공간 준비됨',{timeout:30000});await page.locator('#add-interactions').click();await expect(page.locator('#work-state')).toHaveText('작업 공간 준비됨',{timeout:30000});await page.locator('#build-work').click();await expect(page.locator('#built-result')).toBeVisible({timeout:45_000});
   const firstLab=id==='binary-relations'?'question':id==='monty-hall'?'strategy':'model';await page.locator(`#slides button[data-slide="${firstLab}"]`).click();
   const frame=page.frameLocator('#build-frame');await expect(frame.locator('body')).toContainText(id==='binary-relations'?'순서쌍':id==='monty-hall'?'공개 규칙':'관측');await expect(frame.locator('#reader-controls')).toBeVisible();await expect(frame.locator('.possibility-lab')).toBeVisible();await frame.locator('[data-action="branch"]').click();await expect(frame.locator('.lab-stage')).toHaveText('분기 1 / 3');
+  await frame.locator('[data-action="animate"]').click();await expect(frame.locator('.lab-stage')).toHaveText('분기 3 / 3');
   if(id==='binary-relations'){await frame.locator('[data-edge="1"]').click();await expect(frame.locator('.lab-note')).toContainText('함수입니다');}
   else{await frame.locator('[data-count="100"]').click();await expect(frame.locator('.lab-status')).toContainText('시도 100회');await frame.locator('[data-action="play"]').click();await expect(frame.locator('[data-action="play"]')).toHaveText('일시정지');await expect(frame.locator('.lab-status')).not.toContainText('시도 100회');await frame.locator('[data-action="play"]').click();await frame.locator('.lab-mode').selectOption(id==='monty-hall'?'blind':'child');await expect(frame.locator('.lab-status')).toContainText('시도 0회');}
   expect(await frame.locator('.possibility-lab').evaluate(e=>{
@@ -58,7 +59,10 @@ test('plan becomes canonical worktree sources and a real static reader build wit
    let rejected=false;try{const invalid=structuredClone(a);if(invalid.interaction&&'count'in invalid.interaction)invalid.interaction.count=-1;api.setState(invalid);}catch{rejected=true;}
    const atomic=JSON.stringify(a)===JSON.stringify(api.getState());api.setState(saved);const restored=JSON.stringify(saved)===JSON.stringify(api.getState());api.reset();return{reproducible,rejected,atomic,restored};
   })).toEqual({reproducible:true,rejected:true,atomic:true,restored:true});
+  if(id==='binary-relations')await frame.locator('[data-edge="0"]').click();else{await frame.locator('.lab-seed').fill('73');await frame.locator('.lab-seed').press('Tab');await frame.locator('[data-count="10"]').click();}
+  const retained=await frame.locator('.possibility-lab').evaluate(()=>window.__atlasRelated!.getState().interaction);
   const next=id==='binary-relations'?'pairs':id==='monty-hall'?'compare':'child';await page.locator(`#slides button[data-slide="${next}"]`).click();await expect(frame.locator('#reader-controls')).toBeVisible();await expect(frame.locator('#'+next)).toBeVisible();await expect(frame.locator('.possibility-lab')).toBeVisible();await expect(frame.locator('#question')).toBeHidden();
+  expect(await frame.locator('.possibility-lab').evaluate(()=>window.__atlasRelated!.getState().interaction)).toEqual(retained);
   await page.locator('#slides button').first().click();await expect(frame.locator('#reader-controls')).toBeVisible();await expect(frame.locator('#question')).toBeVisible();
   const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
   await page.locator('#inspect-work').click();await page.locator('.production > details > summary').click();await expect(page.locator('#work-changes')).toContainText('content/catalog.ts');

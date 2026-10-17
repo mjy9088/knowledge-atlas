@@ -7,7 +7,7 @@ export function initialLabState(topic:LabTopic):LabState{return{topic,seed:42,co
 export function validateLabState(value:unknown,topic:LabTopic):asserts value is LabState{
  if(!value||typeof value!=='object')throw new RangeError('Invalid lab state');
  const s=value as LabState;
- if(s.topic!==topic||!Number.isInteger(s.seed)||s.seed<0||s.seed>0xffffffff||!Number.isInteger(s.count)||s.count<0||s.count>MAX_TRIALS||!Number.isInteger(s.stage)||s.stage<0||s.stage>3||!Number.isInteger(s.edges)||s.edges<0||s.edges>15||!Number.isInteger(s.choice)||s.choice<1||s.choice>3||typeof s.revealed!=='boolean'||!(topic==='two-children'?['filter','child']:['informed','blind']).includes(s.mode))throw new RangeError('Invalid lab state');
+ if(!['binary-relations','monty-hall','two-children'].includes(topic)||s.topic!==topic||!Number.isInteger(s.seed)||s.seed<0||s.seed>0xffffffff||!Number.isInteger(s.count)||s.count<0||s.count>MAX_TRIALS||!Number.isInteger(s.stage)||s.stage<0||s.stage>3||!Number.isInteger(s.edges)||s.edges<0||s.edges>15||!Number.isInteger(s.choice)||s.choice<1||s.choice>3||typeof s.revealed!=='boolean'||!(topic==='two-children'?['filter','child']:['informed','blind']).includes(s.mode))throw new RangeError('Invalid lab state');
 }
 // Counter-based draws make every prefix and sampled frame independent of playback history.
 export function draw(seed:number,index:number,lane:number){let x=(seed^Math.imul(index+1,0x9e3779b9)^Math.imul(lane+1,0x85ebca6b))>>>0;x=Math.imul(x^(x>>>16),0x7feb352d);x=Math.imul(x^(x>>>15),0x846ca68b);return((x^(x>>>16))>>>0)/4294967296;}
@@ -26,6 +26,6 @@ export function labSummary(s:LabState){
  return{attempted:s.count,accepted,successes,rate:accepted?successes/accepted:null,theoretical,points,last:s.count?labTrial(s,s.count-1):null};
 }
 /** 20 attempts/second; seeking is absolute, finite and independent of previous frames. */
-export function labFrameAt(state:LabState,ms:number):LabState{validateLabState(state,state.topic);if(!Number.isFinite(ms)||ms<0)throw new RangeError('Invalid lab time');return{...state,count:Math.min(MAX_TRIALS,Math.floor(ms/50)),stage:Math.min(3,Math.floor(ms/400))};}
+export function labFrameAt(state:LabState,ms:number):LabState{validateLabState(state,state.topic);if(!Number.isFinite(ms)||ms<0)throw new RangeError('Invalid lab time');const count=Math.min(MAX_TRIALS,Math.floor(ms/50));return{...state,count,stage:Math.min(3,Math.floor(ms/400)),revealed:count>0};}
 export function relationPairs(edges:number){return ['민 → 논리','민 → 확률','수 → 논리','수 → 확률'].filter((_,i)=>edges&(1<<i));}
 export function isFunction(edges:number){return[0,2].every(offset=>Number(Boolean(edges&(1<<offset)))+Number(Boolean(edges&(1<<(offset+1))))===1);}

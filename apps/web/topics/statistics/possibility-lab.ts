@@ -10,10 +10,10 @@ export function mountPossibilityLab(topic:LabTopic,container:HTMLElement,options
  const inputs=el('.lab-inputs'),tree=el<SVGSVGElement>('.lab-tree'),chart=el<SVGSVGElement>('.lab-chart');
  if(topic==='binary-relations')inputs.innerHTML=['민 → 논리','민 → 확률','수 → 논리','수 → 확률'].map((label,i)=>`<button type="button" data-edge="${i}" aria-pressed="false">${label}</button>`).join('');
  else inputs.innerHTML=topic==='monty-hall'?`<label>공개 규칙 <select class="lab-mode"><option value="informed">정답을 알고 항상 오답 공개</option><option value="blind">모르고 미선택 문 무작위 공개</option></select></label><label>처음 고를 문 <select class="lab-choice"><option value="1">1번</option><option value="2">2번</option><option value="3">3번</option></select></label><button type="button" data-action="reveal">선택 후 문 열기</button>`:`<label>정보를 얻는 과정 <select class="lab-mode"><option value="filter">가족에게 적어도 한 명이 아들인지 질문</option><option value="child">아이 한 명을 균등하게 골라 아들 관측</option></select></label><button type="button" data-action="reveal">한 가족 살펴보기</button>`;
- const line=(x:number,y:number,x2:number,y2:number,color='#599782')=>`<path d="M${x} ${y} L${x2} ${y2}" stroke="${color}" stroke-width="3" fill="none"/>`;
+ const line=(x:number,y:number,x2:number,y2:number,color='#599782')=>`<path pathLength="1" d="M${x} ${y} L${x2} ${y2}" stroke="${color}" stroke-width="3" fill="none"/>`;
  const label=(x:number,y:number,text:string)=>`<text x="${x}" y="${y}" text-anchor="middle">${text}</text>`;
  const dot=(x:number,y:number,text:string,on=true)=>`<circle cx="${x}" cy="${y-5}" r="23" fill="${on?'#dceee4':'#f0efeb'}" stroke="#81a998"/>${label(x,y,text)}`;
- function stop(){playing=false;cancelAnimationFrame(frame);lastTime=0;remainder=0;el('[data-action="play"]').textContent='반복 재생';}
+ function stop(){delete container.dataset.unfolding;playing=false;cancelAnimationFrame(frame);lastTime=0;remainder=0;el('[data-action="play"]').textContent='반복 재생';}
  function render(){
   const relation=topic==='binary-relations',summary=labSummary(state);
   el('.lab-trials').toggleAttribute('hidden',relation);chart.toggleAttribute('hidden',relation||!state.count);
@@ -49,7 +49,7 @@ export function mountPossibilityLab(topic:LabTopic,container:HTMLElement,options
   switch(button.dataset.action){
    case'reset':stop();change(initialLabState(topic));break;
    case'branch':stop();change({...state,stage:Math.min(3,state.stage+1)});break;
-   case'animate':{stop();const base={...state,stage:0};change(base);const start=performance.now(),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;const unfold=(now:number)=>{if(!active||document.hidden)return;const stage=reduced?3:Math.min(3,Math.floor((now-start)/400));if(stage!==state.stage)change({...state,stage});if(state.stage<3)frame=requestAnimationFrame(unfold);};frame=requestAnimationFrame(unfold);break;}
+   case'animate':{stop();container.dataset.unfolding='true';const base={...state,stage:0};change(base);const start=performance.now(),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;const unfold=(now:number)=>{if(!active||document.hidden)return;const stage=reduced?3:Math.min(3,Math.floor((now-start)/400));if(stage!==state.stage)change({...state,stage});if(state.stage<3)frame=requestAnimationFrame(unfold);else delete container.dataset.unfolding;};frame=requestAnimationFrame(unfold);break;}
    case'reveal':case'one':stop();change({...state,count:Math.min(MAX_TRIALS,state.count+1),stage:3,revealed:true});break;
    case'play':if(playing)stop();else{playing=true;button.textContent='일시정지';frame=requestAnimationFrame(tick);}break;
   }
