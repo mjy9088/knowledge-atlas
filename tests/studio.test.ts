@@ -12,6 +12,22 @@ const root=fileURLToPath(new URL('../',import.meta.url));
 const report:Report={summary:'Test runner report, not an actual editorial review',findings:[],timing:{status:'unverified',note:'Test fixture; no timing evidence'}};
 async function until(check:()=>boolean){for(let i=0;i<100;i++){if(check())return;await new Promise(resolve=>setTimeout(resolve,10));}throw Error('Timed out');}
 
+test('content metadata migrates legacy plans without discarding edits and invalidates review revisions',()=>{
+  const legacy:Record<string,unknown>={...structuredClone(EXAMPLES[0])};delete legacy.metadata;legacy.title='Human edited title';legacy.totalSeconds=900;
+  const migrated=validatePlan(legacy);assert.equal(migrated.title,'Human edited title');assert.equal(migrated.metadata.format,'long');
+  assert.equal(validatePlan({...legacy,goal:'A'.repeat(500)}).metadata.inScope[0].length,500);
+  assert.throws(()=>validatePlan({...legacy,metadata:{format:'unknown'}}));
+  const edited=structuredClone(migrated);edited.metadata.depth='deep';edited.metadata.purpose='practice';edited.metadata.topics=['Relations'];edited.metadata.outOfScope=['Set-theoretic foundations'];
+  assert.deepEqual(validatePlan(edited).metadata,edited.metadata);
+  const dir=mkdtempSync(path.join(os.tmpdir(),'atlas-metadata-')),studio=new Studio(root,dir,async()=>report);
+  try{const before=studio.topic('binary-relations');const next=structuredClone(before.plan);next.metadata=edited.metadata;const saved=studio.save(next,before.revision);assert.notEqual(saved.revision,before.revision);assert.equal(saved.plan.metadata.depth,'deep');}finally{studio.dispose();rmSync(dir,{recursive:true,force:true});}
+});
+
+test('long-form plans can request all slide reviews without the short queue ceiling',async()=>{
+ const dir=mkdtempSync(path.join(os.tmpdir(),'atlas-long-plan-')),studio=new Studio(root,dir,({signal})=>new Promise((_,reject)=>signal.addEventListener('abort',()=>reject(Error('test cancellation')))));
+ try{const before=studio.topic('binary-relations'),plan=structuredClone(before.plan);plan.totalSeconds=9000;plan.metadata.format='long';plan.slides=Array.from({length:110},(_,i)=>({...plan.slides[0],id:'section-'+i}));studio.save(plan,before.revision);assert.equal(studio.queue(plan.id,'all').length,111);assert.equal(studio.topic(plan.id).gate.ready,false);}finally{studio.dispose();await until(()=>!studio.list().some(t=>t.jobs.some(j=>j.status==='running')));rmSync(dir,{recursive:true,force:true});}
+});
+
 test('studio gate requires every current slide and whole-flow review, and unresolved feedback blocks it',()=>{
   const plan=EXAMPLES[0],jobs:Job[]=['overall',...plan.slides.map(s=>s.id)].map(target=>({id:target,topicId:plan.id,target,revision:'current',status:'completed',createdAt:'test',report}));
   assert.equal(readiness(plan,'current',jobs,[]).ready,true);assert.equal(readiness(plan,'changed',jobs,[]).ready,false);
