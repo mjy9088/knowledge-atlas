@@ -19,6 +19,7 @@ export function validateRelatedPages(collection:ContentCollection,claims:Claim[]
     const sceneIds=new Set(),coverage:string[][]=article.blocks.map(()=>[]);
     for(const scene of page.scenes){
       if(sceneIds.has(scene.id))errors.push('Duplicate scene '+scene.id);sceneIds.add(scene.id);
+      if(scene.skip&&(page.scenes.findIndex(item=>item.id===scene.skip!.to)<=page.scenes.indexOf(scene)+1||!scene.skip.label.trim()))errors.push('Invalid forward skip '+scene.id);
       if(!article.blocks[scene.block]||!sceneText(article,scene)){errors.push('Empty scene '+scene.id);continue;}
       coverage[scene.block].push(sceneText(article,scene));
       for(const id of article.blocks[scene.block].claimRefs)if(!ids.has(id))errors.push('Unknown page claim '+id);

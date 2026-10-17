@@ -260,5 +260,22 @@
       }
     ],
     "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:logic.weekday-worlds.classical-basics",
+    "kind": "formal",
+    "statement": "고전 명제 논리에서 전건 긍정은 A→B와 A로부터 B, 후건 부정은 A→B와 ¬B로부터 ¬A, 논리곱 도입은 A와 B로부터 A∧B, 논리곱 제거는 A∧B로부터 각각 A 또는 B, 선언 삼단논법은 A∨B와 ¬A로부터 B를 얻는다.",
+    "scope": "A short selection, not a complete rule catalog. Modus tollens and disjunctive syllogism are additional/derived rules in the cited natural-deduction presentation. Letters are schematic. The weekday example adds A as an assumption; A→B alone does not establish A or B. Substitution and modulo-7 arithmetic additionally require the explicit calendar interpretation and weekday order.",
+    "assumptions": [
+      "Classical propositional logic",
+      "Date-reference assignments and ordinary seven-day arithmetic are separate from propositional inference"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:forallx-calgary-2026",
+        "locator": "HTML Chapter 17 §§17.3–17.4: conjunction introduction/elimination and conditional elimination; Chapter 19 §§19.1–19.2: disjunctive syllogism and modus tollens. Korean synopsis independently authored; no source figure or prose imported."
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
   }
 ]

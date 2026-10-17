@@ -206,6 +206,19 @@
 @media(max-width:1100px){.weekday-modal-translation,.weekday-modal-note{display:none}.weekday-modal-diagram{grid-template-rows:auto minmax(72px,1fr) auto}.weekday-modal-diagram svg{max-height:125px}.weekday-modal-limit{grid-row:3}}@media(max-width:720px){.weekday-modal-diagram svg{max-height:94px}}
 
 .weekday-preset-row{display:flex;align-items:center;gap:7px;min-width:0}
+.reader-scene-heading #reader-skip{flex:none;max-width:160px;min-height:26px;padding:2px 6px;border:1px solid #b8cab0;border-radius:7px;background:#fff;color:#365c42;font:inherit;font-size:11px;line-height:1.4;cursor:pointer}
+.weekday-rule-table{width:100%;border-collapse:collapse;text-align:left;font-size:17px;line-height:1.5}
+.weekday-rule-table th,.weekday-rule-table td{padding:10px 12px;border-bottom:1px solid #d9e3d3}
+.weekday-rule-table th{font-size:13px;color:#63745b}
+.weekday-bridge[data-step=nonmodal-proof]{width:100%;max-width:1500px;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);align-items:center}
+.weekday-classical-inputs{display:grid;gap:12px;min-width:0}
+.weekday-classical-proof ol{padding-left:30px;margin:0}
+.weekday-classical-proof li{padding:6px 8px;line-height:1.4;border-bottom:1px solid #d9e3d3}
+.weekday-classical-proof strong{font-size:21px;font-weight:600}
+.weekday-classical-proof small{display:block;font-size:13px;color:#63745b;margin-top:2px}
+.weekday-classical-answer{font-weight:650}
+@media(max-width:1100px){.reader-scene-heading #reader-skip{font-size:9px;max-width:125px}.weekday-rule-table{font-size:13px}.weekday-rule-table th,.weekday-rule-table td{padding:6px 8px}.weekday-rule-table th{font-size:11px}.weekday-classical-inputs{gap:8px}.weekday-classical-proof li{padding:5px}.weekday-classical-proof strong{font-size:16px}.weekday-classical-proof small{font-size:10px}}
+@media(max-width:720px){.reader-scene-heading #reader-skip{font-size:8px;max-width:98px}.weekday-rule-table{font-size:12px}.weekday-rule-table th,.weekday-rule-table td{padding:7px 4px}.weekday-bridge[data-step=nonmodal-proof]{grid-template-columns:minmax(0,1fr);gap:6px}.weekday-bridge[data-step=nonmodal-proof] section{padding:7px 10px}.weekday-bridge[data-step=nonmodal-proof] p{font-size:11px;margin:3px 0;line-height:1.4}.weekday-bridge[data-step=nonmodal-proof] h2{font-size:11px;margin-bottom:4px}.weekday-classical-proof li{padding:3px}.weekday-classical-proof strong{font-size:13px}.weekday-classical-proof small{font-size:9px}.weekday-classical-inputs{gap:6px}}
 
 .weekday-preset-row>.weekday-presets{flex:1;min-width:0;gap:5px}
 .weekday-preset-row .weekday-presets button{min-height:30px;padding:3px 6px;line-height:1.3}

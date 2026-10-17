@@ -4,7 +4,7 @@ import type {ExperimentInput} from '/packages/experiments/premise-state.js';
 interface ArticleElements {[id:string]:HTMLElement;'reader-prev':HTMLButtonElement;'reader-next':HTMLButtonElement;'reader-reset':HTMLButtonElement;'reader-skip':HTMLButtonElement}
 export interface RelatedState {sceneId:string;cover?:boolean;experiment?:ExperimentInput;visual?:{step:number};interaction?:ReturnType<NonNullable<ReturnType<typeof mountTopicInteraction>>['getState']>}
 import {CONTENT_PAGES} from '/content/catalog.js';
-import {createRelatedReader} from '../../components/reader/state.js';
+import {readerSkip,createRelatedReader} from '../../components/reader/state.js';
 import {mountPremiseExperiment,normalizeExperimentInput,evaluateExperimentInput} from '../../components/experiment/premise-editor.js';
 import {RELATED_MODELS,relatedNarration} from '../../topics/formal-reasoning/experiments.js';
 import {mountInferenceExplorer} from '../../components/inference/explorer.js';
@@ -72,7 +72,8 @@ function renderInput(){
   if(opening)root.dataset.opening=reflecting?'reflection':'challenge';else delete root.dataset.opening;
   // Article scenes have no authored multi-scene skip destination.
   required('.skip-context',node).hidden=true;
-  $('reader-prev').disabled=current.index===0&&!page.cover;$('reader-prev').hidden=coverVisible;$('reader-next').textContent=coverVisible?'내용 보기 →':page.interactive==='weekday-worlds'&&current.sceneId==='question'&&!reflecting?'건너뛰기 →':next?'다음 →':'연관 지식 →';$('reader-skip').hidden=true;
+  $('reader-prev').disabled=current.index===0&&!page.cover;$('reader-prev').hidden=coverVisible;$('reader-next').textContent=coverVisible?'내용 보기 →':page.interactive==='weekday-worlds'&&current.sceneId==='question'&&!reflecting?'건너뛰기 →':next?'다음 →':'연관 지식 →';const skip=!coverVisible?readerSkip(page,current.sceneId):null;$('reader-skip').hidden=!skip;
+  if(skip){const button=$('reader-skip');button.textContent=skip.label+' ↗';button.title='건너뛸 내용: '+skip.scope+' · 이동: '+skip.destination;button.setAttribute('aria-label',skip.label+' · 이동: '+skip.destination);const heading=node.querySelector<HTMLElement>('.reader-scene-heading');if(heading)heading.insertBefore(button,required('.eyebrow',heading));else $('reader-controls').insertBefore(button,$('reader-next'));}
   if(page.cover){root.dataset.cover=String(coverVisible);cover.hidden=!coverVisible;$('reader-workbench').hidden=coverVisible||!model&&!interaction;$('reader-scenes').hidden=coverVisible||opening;}
   interaction?.setActive?.(!coverVisible&&current.sceneId==='question');
   if(page.interactive!=='weekday-worlds'){$('reader-skip-scope').textContent=page.interactive==='hydrogenic-orbitals'?'본문 ← → 장면 이동 · 시각화에 초점을 두면 방향키 회전':'← → 방향키 · Space / Enter 다음';$('reader-end-links').hidden=Boolean(next);}
@@ -91,6 +92,7 @@ for(const preset of model.presets){const button=document.createElement('button')
 }else $('reader-workbench').hidden=true;
 function next(){if(coverVisible){coverVisible=false;render(reader.inspect());}else if(current.index===page.scenes.length-1)panels.openHash('#connections',$('reader-next'));else{if(!interaction?.beforeNext?.())reader.next();}}
 function previous(){if(coverVisible)return;if(page.cover&&current.index===0){coverVisible=true;render(reader.inspect());}else reader.previous();}
+$('reader-skip').addEventListener('click',()=>{const skip=readerSkip(page,current.sceneId);if(skip){reader.setState({sceneId:skip.to});const title=required('h2',scenes[current.index]);title.tabIndex=-1;title.focus({preventScroll:true});}});
 $('reader-next').addEventListener('click',next);$('reader-prev').addEventListener('click',previous);
 $('reader-reset').hidden=false;$('reader-reset').addEventListener('click',()=>{coverVisible=Boolean(page.cover);experiment?.reset();interaction?.reset();reader.reset();required<HTMLDetailsElement>('.reader-menu').open=false;});
 required('.reader-menu nav').addEventListener('click',event=>{const link=eventElement(event)?.closest<HTMLAnchorElement>('a');if(!link||!(page.cover&&link.hash==='#title')&&!page.scenes.some(scene=>scene.id===link.hash.slice(1)))return;event.preventDefault();coverVisible=Boolean(page.cover&&link.hash==='#title');if(coverVisible)render(reader.inspect());else reader.setState({sceneId:link.hash.slice(1)});required<HTMLDetailsElement>('.reader-menu').open=false;});
