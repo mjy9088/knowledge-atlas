@@ -45,7 +45,7 @@ export function createStudioServer(studio:Studio,production?:Production,chats?:C
         case '/api/work':{
           if(!production)throw Error('Production not configured');const topic=studio.topic(id);
           if(topic.revision!==v.revision)throw Error('Conflict: reload before starting work');
-          if(v.kind!=='prepare'&&v.kind!=='implement'&&v.kind!=='build'&&v.kind!=='visuals')throw Error('Invalid production action');
+          if(v.kind!=='prepare'&&v.kind!=='implement'&&v.kind!=='build'&&v.kind!=='visuals'&&v.kind!=='interactions')throw Error('Invalid production action');
           json(production.start(topic.plan,topic.revision,v.kind,typeof v.instruction==='string'?v.instruction:'',topic.feedback));break;
         }
         case '/api/work-cancel':if(!production)throw Error('Production not configured');production.cancel(id);json({ok:true});break;
