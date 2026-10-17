@@ -21,7 +21,7 @@ export interface Scene {
 export interface ContentPage {
   slug: string; articleId: string; label: string; category: string;
   cover?: boolean;
-  thumbnail?: {src:string;alt:string;coverSrc?:string};
+  coverArtwork?: {src:string;alt:string};
   experiment?: boolean; model?: 'classical' | 'fde' | 'sets' | 'ch' | null;
   interactive?: 'hydrogenic-orbitals' | 'typed-lambda' | 'binary-search' | 'sphere-slices' | 'base-rates' | 'weekday-worlds';
   styles?: string[]; claimRefs?: string[]; scenes: Scene[];

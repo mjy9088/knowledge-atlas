@@ -15,7 +15,7 @@ export function validateRelatedPages(collection:ContentCollection,claims:Claim[]
     if(!/^[a-z][a-z-]+$/.test(page.slug)||slugs.has(page.slug))errors.push('Invalid or duplicate page slug');slugs.add(page.slug);
     const article=collection.articles.find(a=>a.id===page.articleId);
     if(!article){errors.push('Missing article '+page.articleId);continue;}
-    if(page.thumbnail&&(!/^\/content\/(?:[a-z][a-z0-9-]*\/)+[a-z][a-z0-9-]*\.svg$/.test(page.thumbnail.src)||typeof page.thumbnail.alt!=='string'||!page.thumbnail.alt.trim()||page.thumbnail.coverSrc!==undefined&&(!page.thumbnail.coverSrc.startsWith(page.thumbnail.src+'#')||!/^[-a-zA-Z0-9]+$/.test(page.thumbnail.coverSrc.slice(page.thumbnail.src.length+1)))))errors.push('Invalid article thumbnail '+page.articleId);
+    if(page.coverArtwork&&(!/^\/content\/(?:[a-z][a-z0-9-]*\/)+[a-z][a-z0-9-]*\.svg$/.test(page.coverArtwork.src)||typeof page.coverArtwork.alt!=='string'||!page.coverArtwork.alt.trim()))errors.push('Invalid article cover artwork '+page.articleId);
     const sceneIds=new Set(),coverage:string[][]=article.blocks.map(()=>[]);
     for(const scene of page.scenes){
       if(sceneIds.has(scene.id))errors.push('Duplicate scene '+scene.id);sceneIds.add(scene.id);
@@ -28,7 +28,7 @@ export function validateRelatedPages(collection:ContentCollection,claims:Claim[]
   return errors;
 }
 export function renderRelatedIndex(collection:ContentCollection){
-  return shell('연결을 따라 읽기','관심 있는 과학 주제의 설명과 근거를 각자의 순서로 탐색합니다.',`<main id="main" class="knowledge-index"><p class="eyebrow">KNOWLEDGE ATLAS / 연결을 따라 읽기</p><h1>다음 질문은 무엇인가요?</h1><p>알고 있는 설명은 건너뛰고, 궁금한 관계부터 살펴보세요.</p><section id="connections" class="knowledge-grid" aria-label="지식 항목">${CONTENT_PAGES.map(page=>{const article=collection.articles.find(a=>a.id===page.articleId)!;return `<a class="knowledge-card" href="${pageURL(page)}" title="${e(article.title)}"${page.thumbnail?" data-thumbnail":""}><span>${e(page.label)}</span>${page.thumbnail?`<img class="knowledge-thumbnail" src="${e(page.thumbnail.src)}" alt="${e(page.thumbnail.alt)}" width="1200" height="720">`:""}<h2>${e(articleDisplayTitle(article))}</h2><small>${page.scenes.length}개 장면 · ${page.interactive?interactionLabels[page.interactive]:page.model?'추론 실험':'해설'} ↗</small></a>`;}).join('')}</section><a href="/lesson.html">모순 폭발: 전제와 목표를 바꾸며 살펴보기 ↗</a><p class="review-note">내용 검토 전 초안</p></main>`);
+  return shell('연결을 따라 읽기','관심 있는 과학 주제의 설명과 근거를 각자의 순서로 탐색합니다.',`<main id="main" class="knowledge-index"><p class="eyebrow">KNOWLEDGE ATLAS / 연결을 따라 읽기</p><h1>다음 질문은 무엇인가요?</h1><p>알고 있는 설명은 건너뛰고, 궁금한 관계부터 살펴보세요.</p><section id="connections" class="knowledge-grid" aria-label="지식 항목">${CONTENT_PAGES.map(page=>{const article=collection.articles.find(a=>a.id===page.articleId)!;return `<a class="knowledge-card" href="${pageURL(page)}" title="${e(article.title)}"><span>${e(page.label)}</span><h2>${e(articleDisplayTitle(article))}</h2><small>${page.scenes.length}개 장면 · ${page.interactive?interactionLabels[page.interactive]:page.model?'추론 실험':'해설'} ↗</small></a>`;}).join('')}</section><a href="/lesson.html">모순 폭발: 전제와 목표를 바꾸며 살펴보기 ↗</a><p class="review-note">내용 검토 전 초안</p></main>`);
 }
 export function renderRelatedPage(page:ContentPage,collection:ContentCollection,claims:Claim[],sources:SourceRecord[]){
   const article=collection.articles.find(a=>a.id===page.articleId)!,used=new Set(article.blocks.flatMap(b=>b.claimRefs));

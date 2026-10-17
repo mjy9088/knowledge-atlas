@@ -55,7 +55,7 @@ Active browser inspection hooks include `window.__atlasLesson`, `window.__atlasL
 
 ## Static build and media boundary
 
-Article presentation separates canonical `title` from optional `shortTitle`; the catalog loader validates both, and compact display surfaces use a shared fallback helper. Optional topic-owned SVG thumbnail metadata supplies a full-poster view and a same-file named cover view. The shared index/reader consume these assets without topic-specific page controllers, and the static manifest hashes the SVG alongside content. See [ADR 0020](adr/0020-article-titles-and-vector-artwork.md).
+Article presentation separates canonical `title` from optional `shortTitle`; the catalog loader validates both, and compact display surfaces use a shared fallback helper. Optional topic-owned SVG cover artwork is consumed only on the title slide; it is independent of catalog thumbnails. The catalog stays text-only, and the static manifest hashes the SVG alongside content. See [ADR 0020](adr/0020-article-titles-and-vector-artwork.md).
 
 `build-site.ts` and the development server share HTML generation. Fourteen catalog articles and the knowledge index are pre-rendered; client modules add navigation and experiments. Root-relative routes require deployment at the domain root; no SPA fallback is needed. The original lesson still uses client enhancement for its complete dialogue/evidence.
 

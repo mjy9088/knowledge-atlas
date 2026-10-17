@@ -1,6 +1,6 @@
 import type {ContentPage} from '../../../packages/content/types.js';
 export default {
-  thumbnail:{src:'/content/formal-logic/weekday-worlds/thumbnail.svg',coverSrc:'/content/formal-logic/weekday-worlds/thumbnail.svg#question',alt:'어제가 내일이었으면 좋겠다는 요일 문제. 수요일·목요일·금요일·일요일의 네 보기를 비교하는 표지'},
+  coverArtwork:{src:'/content/formal-logic/weekday-worlds/cover.svg',alt:'IQ 좀 높다면 도전! 20초. 어제가 내일이었으면 좋겠다. 그럼 오늘이 금요일일 텐데… 그렇다면 오늘은 무슨 요일일까? ① 수요일 ② 목요일 ③ 금요일 ④ 일요일'},
   slug:'weekday-worlds',articleId:'article:logic.weekday-worlds.ko',label:'가능세계와 숨은 기준',category:'논리 · 언어',interactive:'weekday-worlds',cover:true,styles:['/components/worlds/comparison.css','/components/alignment/semantic-alignment.css','/topics/formal-reasoning/weekday-worlds.css'],
   claimRefs:['claim:logic.weekday-worlds.context','claim:logic.weekday-worlds.rules','claim:logic.weekday-worlds.literal','claim:logic.weekday-worlds.explosion','claim:logic.explosion.rule','claim:logic.explosion.not-reality','claim:logic.weekday-worlds.assessment','claim:logic.weekday-worlds.assignments','claim:logic.weekday-worlds.notation','claim:logic.weekday-worlds.conditional-reading','claim:logic.weekday-worlds.modal-translation','claim:logic.weekday-worlds.multiverse'],
   scenes:[
