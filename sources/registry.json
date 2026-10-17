@@ -490,5 +490,16 @@
     "contentHash": null,
     "license": "Unverified; reference-only, no third-party material copied",
     "rightsReview": "pending-publication-audit"
+  },
+  {
+    "id": "source:studio-monty-hall-gill-monty",
+    "canonicalUrl": "https://arxiv.org/abs/1002.0651",
+    "title": "Richard D. Gill — The Monty Hall Problem is not a Probability Puzzle",
+    "author": "Authorship verification pending; see canonical source",
+    "retrievedAt": "2026-10-18",
+    "providerRevision": "unfrozen; inherited manuscript consultation date, not verified by scaffold",
+    "contentHash": null,
+    "license": "Unverified; reference-only, no third-party material copied",
+    "rightsReview": "pending-publication-audit"
   }
 ]

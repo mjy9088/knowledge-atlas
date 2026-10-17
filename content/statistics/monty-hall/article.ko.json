@@ -1,0 +1,61 @@
+{
+  "id": "article:statistics.monty-hall.ko",
+  "conceptId": "concept:statistics.monty-hall",
+  "title": "몬티 홀: 문 하나보다 공개 규칙",
+  "reviewStatus": "needs-content-review",
+  "scope": "원문과 공개 규칙이 생략된 축약판을 비교하고, 정보와 정보 획득 절차를 구분한다.",
+  "blocks": [
+    {
+      "id": "block:statistics.monty-hall.question",
+      "text": "문 셋에 상품 하나. 하나를 골랐고 진행자가 다른 오답 문을 열었다. 바꿀까? 먼저 공개 규칙을 묻자.",
+      "claimRefs": [
+        "claim:statistics.monty-hall.monty-epistemic"
+      ]
+    },
+    {
+      "id": "block:statistics.monty-hall.protocol",
+      "text": "상품은 세 문에 균등하게 숨는다. 진행자는 정답을 알고, 선택하지 않은 오답 문 중 하나를 열고, 항상 교환을 제안한다. 열 수 있는 문이 둘이면 균등하게 고른다고 정하자.",
+      "claimRefs": [
+        "claim:statistics.monty-hall.monty-strategy",
+        "claim:statistics.monty-hall.monty-observation"
+      ]
+    },
+    {
+      "id": "block:statistics.monty-hall.strategy",
+      "text": "초기 선택이 맞을 확률 1/3, 틀릴 확률 2/3. 진행자가 항상 오답 문을 제외하므로 바꾸기는 처음 틀린 경우를 이긴다. 이 무조건 전략 승률에는 동률 선택을 무작위로 할 필요가 없다.",
+      "claimRefs": [
+        "claim:statistics.monty-hall.monty-strategy"
+      ]
+    },
+    {
+      "id": "block:statistics.monty-hall.shortened",
+      "text": "“진행자가 오답 문을 열었다”만 남기면 항상 그렇게 하도록 정해진 것인지, 우연히 그랬는지 모른다. 생략된 정책을 상식으로 보충한 풀이와 주어진 조건의 논리적 귀결은 구분하자.",
+      "claimRefs": [
+        "claim:statistics.monty-hall.monty-epistemic"
+      ]
+    },
+    {
+      "id": "block:statistics.monty-hall.compare",
+      "text": "정답을 모른 채 미선택 문 하나를 무작위로 열었다고 하자. 상품을 공개한 실행은 제외한다. 오답을 본 실행에서는 처음 맞은 경우와 틀린 경우의 가중치가 같아져 바꾸기 승률은 1/2이다.",
+      "claimRefs": [
+        "claim:statistics.monty-hall.monty-observation"
+      ]
+    },
+    {
+      "id": "block:statistics.monty-hall.specific",
+      "text": "특정 번호 문이 열렸다는 정보와 아무 오답 문이나 열렸다는 정보도 다르다. 특정 번호를 조건으로 계산한다면 동률 공개 정책이 중요할 수 있다. 규칙 누락을 모두 같은 오류로 묶지 말자.",
+      "claimRefs": [
+        "claim:statistics.monty-hall.monty-strategy",
+        "claim:statistics.monty-hall.monty-observation"
+      ]
+    },
+    {
+      "id": "block:statistics.monty-hall.close",
+      "text": "축약판에 하나의 수를 강요하기 전에, 어떤 절차가 그 정보를 만들었는지 확인하자. 정책을 명시하면 다시 계산할 수 있다.",
+      "claimRefs": [
+        "claim:statistics.monty-hall.monty-epistemic"
+      ]
+    }
+  ],
+  "relatedConcepts": []
+}

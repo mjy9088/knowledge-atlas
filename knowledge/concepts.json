@@ -166,5 +166,12 @@
     "summary": "관계를 순서쌍·화살표·표로 나타내고 성질을 전체 조건으로 설명한다.",
     "reviewStatus": "proposed",
     "externalIds": []
+  },
+  {
+    "id": "concept:statistics.monty-hall",
+    "title": "몬티 홀: 문 하나보다 공개 규칙",
+    "summary": "원문과 공개 규칙이 생략된 축약판을 비교하고, 정보와 정보 획득 절차를 구분한다.",
+    "reviewStatus": "proposed",
+    "externalIds": []
   }
 ]

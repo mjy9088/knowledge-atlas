@@ -1,3 +1,4 @@
+import montyHallPage from './statistics/monty-hall/page.js';
 import studioDraft from './mathematics/binary-relations/page.js';
 import type {ContentEntry,ContentPage,Article,Scene} from '../packages/content/types.js';
 import weekdayPage from './formal-logic/weekday-worlds/page.js';
@@ -16,6 +17,7 @@ import page2 from './set-theory/zfc/page.js';
 import page3 from './set-theory/continuum-hypothesis/page.js';
 
 export const CONTENT_ENTRIES: ContentEntry[]=[
+  {directory:'statistics/monty-hall',article:'article.ko.json',claims:'claims.json',page:montyHallPage},
   {directory:'mathematics/binary-relations',article:'article.ko.json',claims:'claims.json',page:studioDraft},
   {directory:'formal-logic/weekday-worlds',article:'article.ko.json',claims:'claims.json',page:weekdayPage},
   {directory:'computing/binary-search',article:'article.ko.json',claims:'claims.json',page:searchPage},
