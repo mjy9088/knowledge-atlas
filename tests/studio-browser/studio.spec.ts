@@ -16,7 +16,9 @@ test('plan becomes canonical worktree sources and a real static reader build wit
  try{
   await page.goto('/#'+id+'/question');await expect(page.locator('#work-state')).toContainText('아직');await page.locator('#prepare-work').click();await expect(page.locator('#work-state')).toHaveText('작업 공간 준비됨',{timeout:30_000});
   await page.locator('#build-work').click();await expect(page.locator('#built-result')).toBeVisible({timeout:45_000});
-  const frame=page.frameLocator('#build-frame');await expect(frame.locator('body')).toContainText(id==='binary-relations'?'순서쌍':id==='monty-hall'?'공개 규칙':'관측');
+  const frame=page.frameLocator('#build-frame');await expect(frame.locator('body')).toContainText(id==='binary-relations'?'순서쌍':id==='monty-hall'?'공개 규칙':'관측');await expect(frame.locator('#reader-controls')).toBeVisible();
+  const next=await page.locator('#slides button').nth(1).getAttribute('data-slide');await page.locator('#slides button').nth(1).click();await expect(frame.locator('#reader-controls')).toBeVisible();await expect(frame.locator('#'+next)).toBeVisible();await expect(frame.locator('#question')).toBeHidden();
+  await page.locator('#slides button').first().click();await expect(frame.locator('#reader-controls')).toBeVisible();await expect(frame.locator('#question')).toBeVisible();
   const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
   await page.locator('#inspect-work').click();await page.locator('.production > details > summary').click();await expect(page.locator('#work-changes')).toContainText('content/catalog.ts');
   await page.locator('#feedback-build').click();await expect(page.locator('#feedback-text')).toHaveValue(/build=.*source=.*slide=question/);await page.locator('#feedback-text').press('End');await page.locator('#feedback-text').pressSequentially(' 화면 피드백');await page.locator('#add-feedback').click();await expect(page.locator('#feedback')).toContainText('화면 피드백');

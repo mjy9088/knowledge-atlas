@@ -48,10 +48,10 @@ Run a focused project or inspect failures:
 pnpm test:ui --project=desktop
 pnpm test:ui --project=youtube-200
 pnpm exec playwright show-report
-pnpm exec playwright show-trace test-results/<failure>/trace.zip
+pnpm exec playwright show-trace test-results/public/<failure>/trace.zip
 ```
 
-Failures save screenshots and traces under ignored `test-results/`; the HTML report is under ignored `playwright-report/`. Chromium geometry tests are not cross-browser certification, physical-device testing, screen-reader review, or scientific verification. Preserve meaningful model fixtures separately. Do not add tests that merely enumerate removed filenames or obsolete UI strings.
+Failures save screenshots and traces under ignored `test-results/public/` and `test-results/studio/`; HTML reports are under `playwright-report/public/` and `playwright-report/studio/`. The suites use separate artifact directories so starting one does not delete the other’s traces. Chromium geometry tests are not cross-browser certification, physical-device testing, screen-reader review, or scientific verification. Preserve meaningful model fixtures separately. Do not add tests that merely enumerate removed filenames or obsolete UI strings.
 
 ## Static review build
 

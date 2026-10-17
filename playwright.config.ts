@@ -2,11 +2,12 @@ import {defineConfig} from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests/browser',
+  outputDir: './test-results/public',
   testMatch: '**/*.spec.ts',
   fullyParallel: true,
   workers: 2,
   timeout: 45_000,
-  reporter: [['list'], ['html', {open: 'never'}]],
+  reporter: [['list'], ['html', {open: 'never',outputFolder:'playwright-report/public'}]],
   use: {
     baseURL: 'http://127.0.0.1:4190',
     browserName: 'chromium',

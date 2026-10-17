@@ -24,8 +24,10 @@ test('isolated production preserves edited sources, snapshots successful output,
   writeFileSync(article,'Accepted human edit');assert.throws(()=>p.start(EXAMPLES[0],'r2','prepare'),/preserve edits/);assert.equal(readFileSync(article,'utf8'),'Accepted human edit');
   p.start(EXAMPLES[0],'r1','build');await settled(p);assert.equal(p.list()[0].tasks.at(-1)?.status,'completed');const build=p.list()[0].build!;assert.match(await(await fetch(build.url!)).text(),/Built fixture/);
   assert.equal((await fetch(new URL('/production.json',build.url!))).status,404);
-  fail=true;p.start(EXAMPLES[0],'r2','build');await settled(p);assert.equal(p.list()[0].tasks.at(-1)?.status,'failed');assert.equal(p.list()[0].build?.id,build.id);
+  p.start(EXAMPLES[0],'changed-plan-only','build');await settled(p);assert.equal(p.list()[0].build?.revision,'r1');
+  const lastGoodId=p.list()[0].build?.id;
+  fail=true;p.start(EXAMPLES[0],'r2','build');await settled(p);assert.equal(p.list()[0].tasks.at(-1)?.status,'failed');assert.equal(p.list()[0].build?.id,lastGoodId);
   assert.throws(()=>p.start(EXAMPLES[0],'r2','implement',''),/Describe/);const task=p.start(EXAMPLES[0],'r2','implement','Change the diagram');assert.ok(hold);p.cancel(task.id);await settled(p);assert.equal(p.list()[0].tasks.at(-1)?.status,'interrupted');
-  p.dispose();const restored=new Production(root,data,'fixture',async()=>{throw Error('Do not replay')});try{await restored.restore();assert.ok(restored.list()[0].build?.url);assert.equal(restored.list()[0].build?.id,build.id);}finally{restored.dispose();}
+  p.dispose();const restored=new Production(root,data,'fixture',async()=>{throw Error('Do not replay')});try{await restored.restore();assert.ok(restored.list()[0].build?.url);assert.equal(restored.list()[0].build?.id,lastGoodId);}finally{restored.dispose();}
  }finally{p.dispose();rmSync(root,{recursive:true,force:true});}
 });

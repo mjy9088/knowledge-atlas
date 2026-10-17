@@ -89,7 +89,8 @@ export class Production {
         const dist=path.join(target.directory,'dist');plainTree(dist);
         if(!existsSync(path.join(dist,target.route,'index.html')))throw Error('Build succeeded but content route is missing');
         const buildId=randomUUID(),destination=this.snapshot(buildId);mkdirSync(path.dirname(destination),{recursive:true});cpSync(dist,destination,{recursive:true});
-        const old=target.build;target.build={id:buildId,revision,createdAt:new Date().toISOString(),sourceHash};
+        const sourceRevision=target.tasks.filter(t=>['prepare','implement'].includes(t.kind)&&t.status==='completed').at(-1)?.revision??target.seedRevision;
+        const old=target.build;target.build={id:buildId,revision:sourceRevision,createdAt:new Date().toISOString(),sourceHash};
         try{await this.preview(target);}catch(error){target.build=old;throw error;}
         output('\nStatic build snapshot ready. No publication or content approval.\n');
       }
