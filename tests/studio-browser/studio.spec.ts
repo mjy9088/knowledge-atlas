@@ -57,7 +57,7 @@ test('plan becomes canonical worktree sources and a real static reader build wit
   expect(await frame.locator('.possibility-lab').evaluate(()=>{
    const api=window.__atlasRelated!,saved=api.getState();api.seek(5000);const a=api.getState();api.seek(100);api.seek(5000);const reproducible=JSON.stringify(a)===JSON.stringify(api.getState());
    let rejected=false;try{const invalid=structuredClone(a);if(invalid.interaction&&'count'in invalid.interaction)invalid.interaction.count=-1;api.setState(invalid);}catch{rejected=true;}
-   const atomic=JSON.stringify(a)===JSON.stringify(api.getState());api.setState(saved);const restored=JSON.stringify(saved)===JSON.stringify(api.getState());api.reset();return{reproducible,rejected,atomic,restored};
+   const atomic=JSON.stringify(a)===JSON.stringify(api.getState());api.setState(saved);const restored=JSON.stringify(saved)===JSON.stringify(api.getState());api.reset();api.setState({sceneId:saved.sceneId});return{reproducible,rejected,atomic,restored};
   })).toEqual({reproducible:true,rejected:true,atomic:true,restored:true});
   if(id==='binary-relations')await frame.locator('[data-edge="0"]').click();else{await frame.locator('.lab-seed').fill('73');await frame.locator('.lab-seed').press('Tab');await frame.locator('[data-count="10"]').click();}
   const retained=await frame.locator('.possibility-lab').evaluate(()=>window.__atlasRelated!.getState().interaction);

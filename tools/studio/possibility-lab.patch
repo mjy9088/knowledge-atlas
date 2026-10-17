@@ -1,13 +1,22 @@
 diff --git a/apps/web/pages/article/controller.ts b/apps/web/pages/article/controller.ts
-index d61af4e..732ce5e 100644
+index d61af4e..afe3df0 100644
 --- a/apps/web/pages/article/controller.ts
 +++ b/apps/web/pages/article/controller.ts
-@@ -75,7 +75,7 @@ function renderInput(){
+@@ -52,6 +52,8 @@ function renderInput(){
+   }
+   interaction?.suggest(current.scene.suggestion);
+   const topicInfo=interaction?.inspect(),topicNarration=topicInfo?.customized&&interaction?interaction.describe(current.scene):null;
++  const labTopic=['binary-relations','monty-hall','two-children'].includes(page.interactive??'');
++  if(labTopic){const available=Boolean(topicInfo&&'available'in topicInfo&&topicInfo.available);root.dataset.mode=available?'interactive':'reading';$('reader-workbench').hidden=!available||coverVisible;required('.concept-diagram',node).hidden=available||(!current.scene.figure&&!current.scene.cards.length);}
+   const narration=info?relatedNarration(page.model??'',info):null,copy=required('.reader-copy',node);
+   required('h2',node).textContent=original[current.index].title;
+   if(topicNarration){
+@@ -75,7 +77,7 @@ function renderInput(){
    $('reader-prev').disabled=current.index===0&&!page.cover;$('reader-prev').hidden=coverVisible;$('reader-next').textContent=coverVisible?'내용 보기 →':page.interactive==='weekday-worlds'&&current.sceneId==='question'&&!reflecting?'건너뛰기 →':next?'다음 →':'연관 지식 →';const skip=!coverVisible?readerSkip(page,current.sceneId):null;$('reader-skip').hidden=!skip;
    if(skip){const button=$('reader-skip');button.textContent=skip.label+' ↗';button.title='건너뛸 내용: '+skip.scope+' · 이동: '+skip.destination;button.setAttribute('aria-label',skip.label+' · 이동: '+skip.destination);const heading=node.querySelector<HTMLElement>('.reader-scene-heading');if(heading)heading.insertBefore(button,required('.eyebrow',heading));else $('reader-controls').insertBefore(button,$('reader-next'));}
    if(page.cover){root.dataset.cover=String(coverVisible);cover.hidden=!coverVisible;$('reader-workbench').hidden=coverVisible||!model&&!interaction;$('reader-scenes').hidden=coverVisible||opening;}
 -  interaction?.setActive?.(!coverVisible&&current.sceneId==='question');
-+  interaction?.setActive?.(!coverVisible&&(page.interactive!=='weekday-worlds'||current.sceneId==='question'));
++  interaction?.setActive?.(!coverVisible&&(page.interactive!=='weekday-worlds'||current.sceneId==='question')&&(!labTopic||root.dataset.mode==='interactive'));
    if(page.interactive!=='weekday-worlds'){$('reader-skip-scope').textContent=page.interactive==='hydrogenic-orbitals'?'본문 ← → 장면 이동 · 시각화에 초점을 두면 방향키 회전':'← → 방향키 · Space / Enter 다음';$('reader-end-links').hidden=Boolean(next);}
  }
  function render(view:ReaderView){current=view;renderInput();history.replaceState(null,'',coverVisible?'#title':'#'+view.sceneId);}
@@ -44,17 +53,56 @@ index dacc7a9..9e19889 100644
    return interactions[id](container,options);
 diff --git a/apps/web/topics/statistics/possibility-lab.css b/apps/web/topics/statistics/possibility-lab.css
 new file mode 100644
-index 0000000..71fdd99
+index 0000000..e803dc2
 --- /dev/null
 +++ b/apps/web/topics/statistics/possibility-lab.css
-@@ -0,0 +1 @@
+@@ -0,0 +1,15 @@
 +.possibility-lab{width:min(100%,1100px);margin:auto;padding:10px;background:#fff;border:1px solid #dce5df;border-radius:12px;display:grid;gap:8px;min-width:0;box-sizing:border-box}.possibility-lab [hidden]{display:none!important}.possibility-lab button,.possibility-lab select,.possibility-lab input{font:inherit}.possibility-lab button,.possibility-lab select{padding:5px 9px;border:1px solid #b6c7bf;border-radius:7px;background:#f7faf8;color:#213f35;cursor:pointer}.possibility-lab button[aria-pressed=true]{background:#cde8d9;border-color:#377c5d}.lab-controls,.lab-inputs,.lab-stage-controls,.lab-trials{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.lab-controls{justify-content:space-between}.lab-inputs label,.lab-trials label{display:flex;align-items:center;gap:5px;max-width:100%}.lab-inputs select{max-width:100%;min-width:0}.lab-visuals{display:flex;align-items:center;min-width:0;gap:8px}.lab-visuals svg{width:100%;min-width:0;max-height:230px;flex:1}.lab-visuals text{font:17px system-ui,'Malgun Gothic',sans-serif;fill:#274638}.lab-chart{background:#f6f8fb;border-radius:8px}.lab-status,.lab-note{margin:0;font-size:.85rem;line-height:1.45}.lab-note{color:#51635b}.lab-trials input[type=number]{width:85px}.lab-count{width:110px}.possibility-lab button:focus-visible,.possibility-lab select:focus-visible,.possibility-lab input:focus-visible{outline:3px solid #497dba;outline-offset:2px}@media(max-width:650px){.lab-visuals{flex-direction:column}.lab-visuals svg{flex:auto;max-height:170px}.possibility-lab{font-size:.85rem;padding:8px}.lab-inputs label{flex-wrap:wrap}.lab-trials{gap:4px}.lab-status,.lab-note{font-size:.78rem}}@media(max-height:600px) and (min-width:651px){.possibility-lab{gap:5px;padding:7px;font-size:.8rem}.lab-visuals svg{max-height:135px}.lab-status,.lab-note{font-size:.72rem}.possibility-lab button,.possibility-lab select{padding:3px 6px}}
++/* Size the experiment and narration together; do not let a shrinking grid cover controls. */
++.reader-enhanced .related-reader[data-mode=interactive]:has(.possibility-lab){padding-top:28px;gap:6px}
++.reader-enhanced .related-reader[data-mode=interactive]:has(.possibility-lab) .reader-intro>.eyebrow{display:none}
++.reader-enhanced .related-reader[data-mode=interactive]:has(.possibility-lab) .reader-intro h1{font-size:19px;margin:2px 120px 2px 0;text-align:left}
++.reader-enhanced .related-reader[data-mode=interactive]:has(.possibility-lab) .reader-dialogue{padding:8px 12px}
++.reader-enhanced .related-reader[data-mode=interactive]:has(.possibility-lab) .scene-prose{font-size:12px;line-height:1.5;margin:3px 0}
++.reader-enhanced .related-reader[data-mode=interactive]:has(.possibility-lab) .reader-copy h2{font-size:16px;margin:2px 0}
++.possibility-lab{height:100%;margin:0 auto;grid-template-rows:auto auto auto minmax(70px,1fr) auto auto auto}
++.lab-visuals{height:100%;min-height:0}.lab-visuals svg{height:100%;max-height:230px}
++@media(min-width:651px){.possibility-lab{grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto minmax(75px,1fr) auto auto}.lab-controls{grid-column:2;grid-row:1}.lab-controls>strong{display:none}.lab-inputs{grid-column:1;grid-row:1}.lab-stage-controls{grid-column:1;grid-row:2}.lab-trials{grid-column:2;grid-row:2;justify-content:flex-end}.lab-visuals{grid-column:1/-1;grid-row:3}.lab-status{grid-column:1/-1;grid-row:4}.lab-note{grid-column:1/-1;grid-row:5}}
++@media(max-height:600px) and (min-width:651px){.possibility-lab{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.lab-trials{font-size:.72rem}.lab-trials input[type=range]{width:70px}.lab-trials input[type=number]{width:60px}.lab-visuals svg{max-height:none}}
++@media(max-width:650px){.reader-enhanced .related-reader[data-mode=interactive]:has(.possibility-lab){padding:30px 10px 8px;gap:5px}.reader-enhanced .related-reader[data-mode=interactive]:has(.possibility-lab) .reader-intro h1{font-size:16px;margin-right:115px}.lab-controls>strong{display:none}.lab-controls{position:absolute;right:8px;top:7px}.possibility-lab{position:relative;gap:5px;font-size:.75rem;padding:7px;grid-template-rows:auto auto minmax(130px,1fr) auto auto auto}.lab-inputs{padding-right:70px}.lab-inputs label{font-size:.72rem}.lab-inputs select{width:100%;font-size:.72rem}.lab-stage-controls{grid-row:2}.lab-visuals{grid-row:3;gap:0}.lab-visuals svg{max-height:none;flex:1;min-height:0}.lab-trials{grid-row:4}.lab-status{grid-row:5}.lab-note{grid-row:6}.lab-status,.lab-note{font-size:.7rem}.lab-count{width:80px}.lab-trials input[type=number]{width:62px}.possibility-lab button{padding:4px 6px}}
++.reader-enhanced body:has(.related-reader[data-mode=interactive] .possibility-lab) .page-chrome{height:24px;padding:0 16px;font-size:10px}.reader-enhanced body:has(.related-reader[data-mode=interactive] .possibility-lab) .page-chrome>a{font-size:16px}
++@media(prefers-reduced-motion:no-preference){.possibility-lab[data-unfolding=true] .lab-tree path{stroke-dasharray:1;animation:lab-branch-grow .35s ease-out}@keyframes lab-branch-grow{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}}
+diff --git a/apps/web/topics/statistics/possibility-lab.md b/apps/web/topics/statistics/possibility-lab.md
+new file mode 100644
+index 0000000..fea8916
+--- /dev/null
++++ b/apps/web/topics/statistics/possibility-lab.md
+@@ -0,0 +1,19 @@
++# Possibility exploration adapter
++
++[possibility-lab.ts](possibility-lab.ts) mounts the registered binary-relation, Monty Hall and family-observation experiments. [The pure model](../../../../packages/models/possibility-lab.ts) owns validation, counter-based draws, trial prefixes and absolute `labFrameAt(state, ms)`. [Finite observations](../../../../packages/models/finite-observations.ts) owns exact reference probabilities. DOM animation is a projection, never an authority for the model.
++
++## State and scenes
++
++The adapter implements the shared topic interaction contract: cloned `getState`, atomic validated `setState`, `reset`, absolute `seek`, `inspect`, `suggest` and `setActive`. State contains the topic, uint32 seed, attempted count (0–10,000), branching stage (0–3), four-bit directed relation, initial door, observation mode and reveal flag. Every random draw is indexed by seed, attempt and lane; pausing, seeking and restoring cannot depend on hidden prior draws. Playback advances 20 attempts/second; web reading has no time limit. Changing the observation mode or initial door clears incompatible counts. Relation edits and other reader choices survive scene navigation. Reset restores the declared initial example. Invalid external snapshots leave the reader and adapter unchanged.
++
++Scene suggestions identify authored context without overwriting reader edits. Relation exploration is available in `question`, `pairs`, `functions`, `close`; Monty exploration in `strategy`, `compare`; family exploration in `model`, `filter`, `child`. Other scenes use their original static figure and prose. The opening probability questions therefore reveal no numerical answer. When a selected experiment differs from the authored example, or sampling has begun, scoped model-derived narration replaces the displayed explanation; canonical prose remains intact. Unknown host/reporting policies are never silently assigned probabilities.
++
++## Observation and animation
++
++Monty fixes always-switch, a uniform prize prior, and uniform host tie-breaking. Informed hosts always reveal an unchosen goat; blind hosts open an unchosen door uniformly. Sampling starts from the prior; prize reveals are excluded from the goat-observation denominator. No condition is placed on a specific revealed door number. The family model declares independent, equiprobable boy/girl outcomes in birth order. Family filtering and uniformly selected-child observation have different likelihoods. Counts distinguish attempts, accepted observations and successes; plotted frequencies use the accepted denominator. Reference probabilities are exact model values, not sample averages or population estimates. Fluctuations need not shrink monotonically.
++
++Tree stages expose prior branches, observation likelihoods and the conditional result. Playback highlights the latest sampled branch while updating count and empirical-frequency history. Explicit count controls and the slider select an absolute prefix; play/pause animates its progression. Hidden documents and scene changes pause both sampling and tree animations. Reduced motion disables growing strokes and unfolds the tree without delay. Manual controls remain keyboard accessible, and chart/tree labels provide the interpretation in text.
++
++## Layout and evidence
++
++The lab and explanation share the available reader height. Verify document/internal extents, control access **and lab/narration overlap**, including 960×540 CSS pixels at DPR 2, desktop and narrow reading. Bounded sample count prevents unbounded calculation; clipping controls or hiding overflow is not a layout solution. Studio installs and builds these adapters explicitly in isolated worktrees. Tests, seeded experiment output and local previews do not establish independent source, rights or publication approval.
 diff --git a/apps/web/topics/statistics/possibility-lab.ts b/apps/web/topics/statistics/possibility-lab.ts
 new file mode 100644
-index 0000000..aed43b8
+index 0000000..63667cb
 --- /dev/null
 +++ b/apps/web/topics/statistics/possibility-lab.ts
-@@ -0,0 +1,68 @@
+@@ -0,0 +1,78 @@
 +import {initialLabState,validateLabState,labFrameAt,labSummary,labTrial,relationPairs,isFunction,MAX_TRIALS,type LabState,type LabTopic} from '/packages/models/possibility-lab.js';
 +import type {Scene} from '/packages/content/types.js';
 +
@@ -62,15 +110,15 @@ index 0000000..aed43b8
 +export function mountPossibilityLab(topic:LabTopic,container:HTMLElement,options:{onChange?:()=>void}={}){
 + let state=initialLabState(topic),scene='',active=true,playing=false,frame=0,lastTime=0,remainder=0;
 + container.className='possibility-lab';
-+ container.innerHTML=`<div class="lab-controls"><strong>${topic==='binary-relations'?'연결을 직접 바꿔 보세요':'정보가 생기는 과정을 골라 보세요'}</strong><button type="button" data-action="reset">실험 초기화</button></div><div class="lab-inputs"></div><div class="lab-stage-controls"><button type="button" data-action="branch">가능성 한 단계 펼치기</button><button type="button" data-action="animate">트리 펼쳐 보기</button><span class="lab-stage"></span></div><div class="lab-visuals"><svg class="lab-tree" viewBox="0 0 600 210" role="img" aria-label="가능성 분기와 관측 결과"></svg><svg class="lab-chart" viewBox="0 0 600 190" role="img" aria-label="시행 횟수에 따른 관측 비율"></svg></div><div class="lab-trials"><button type="button" data-action="one">한 번 뽑기</button><button type="button" data-action="play">반복 재생</button><button type="button" data-count="10">10회</button><button type="button" data-count="100">100회</button><button type="button" data-count="1000">1,000회</button><label>시행 <input class="lab-count" type="range" min="0" max="10000" step="1" value="0"></label><label>난수의 종 <input class="lab-seed" type="number" min="0" max="4294967295" value="42"></label></div><p class="lab-status" role="status" aria-live="polite"></p><p class="lab-note"></p>`;
++ container.innerHTML=`<div class="lab-controls"><strong>${topic==='binary-relations'?'연결을 직접 바꿔 보세요':'정보가 생기는 과정을 골라 보세요'}</strong><button type="button" data-action="reset">실험 초기화</button></div><div class="lab-inputs"></div><div class="lab-stage-controls"><button type="button" data-action="branch">가능성 한 단계 펼치기</button><button type="button" data-action="animate">트리 펼쳐 보기</button><span class="lab-stage"></span></div><div class="lab-visuals"><svg class="lab-tree" viewBox="0 0 600 210" role="img" aria-label="가능성 분기와 관측 결과"></svg><svg class="lab-chart" viewBox="0 0 600 190" role="img" aria-label="시행 횟수에 따른 관측 비율"></svg></div><div class="lab-trials"><button type="button" data-action="one">한 번 뽑기</button><button type="button" data-action="play">반복 재생</button><button type="button" data-count="10">10회</button><button type="button" data-count="100">100회</button><button type="button" data-count="1000">1,000회</button><label>시행 <input class="lab-count" type="range" min="0" max="10000" step="1" value="0"></label><label>시드 <input class="lab-seed" type="number" min="0" max="4294967295" value="42"></label></div><p class="lab-status" role="status" aria-live="polite"></p><p class="lab-note"></p>`;
 + const el=<T extends Element=HTMLElement>(selector:string)=>container.querySelector<T>(selector)!;
 + const inputs=el('.lab-inputs'),tree=el<SVGSVGElement>('.lab-tree'),chart=el<SVGSVGElement>('.lab-chart');
 + if(topic==='binary-relations')inputs.innerHTML=['민 → 논리','민 → 확률','수 → 논리','수 → 확률'].map((label,i)=>`<button type="button" data-edge="${i}" aria-pressed="false">${label}</button>`).join('');
 + else inputs.innerHTML=topic==='monty-hall'?`<label>공개 규칙 <select class="lab-mode"><option value="informed">정답을 알고 항상 오답 공개</option><option value="blind">모르고 미선택 문 무작위 공개</option></select></label><label>처음 고를 문 <select class="lab-choice"><option value="1">1번</option><option value="2">2번</option><option value="3">3번</option></select></label><button type="button" data-action="reveal">선택 후 문 열기</button>`:`<label>정보를 얻는 과정 <select class="lab-mode"><option value="filter">가족에게 적어도 한 명이 아들인지 질문</option><option value="child">아이 한 명을 균등하게 골라 아들 관측</option></select></label><button type="button" data-action="reveal">한 가족 살펴보기</button>`;
-+ const line=(x:number,y:number,x2:number,y2:number,color='#599782')=>`<path d="M${x} ${y} L${x2} ${y2}" stroke="${color}" stroke-width="3" fill="none"/>`;
++ const line=(x:number,y:number,x2:number,y2:number,color='#599782')=>`<path pathLength="1" d="M${x} ${y} L${x2} ${y2}" stroke="${color}" stroke-width="3" fill="none"/>`;
 + const label=(x:number,y:number,text:string)=>`<text x="${x}" y="${y}" text-anchor="middle">${text}</text>`;
 + const dot=(x:number,y:number,text:string,on=true)=>`<circle cx="${x}" cy="${y-5}" r="23" fill="${on?'#dceee4':'#f0efeb'}" stroke="#81a998"/>${label(x,y,text)}`;
-+ function stop(){playing=false;cancelAnimationFrame(frame);lastTime=0;remainder=0;el('[data-action="play"]').textContent='반복 재생';}
++ function stop(){delete container.dataset.unfolding;playing=false;cancelAnimationFrame(frame);lastTime=0;remainder=0;el('[data-action="play"]').textContent='반복 재생';}
 + function render(){
 +  const relation=topic==='binary-relations',summary=labSummary(state);
 +  el('.lab-trials').toggleAttribute('hidden',relation);chart.toggleAttribute('hidden',relation||!state.count);
@@ -81,12 +129,14 @@ index 0000000..aed43b8
 +   for(const b of container.querySelectorAll<HTMLButtonElement>('[data-edge]'))b.setAttribute('aria-pressed',String(Boolean(state.edges&(1<<Number(b.dataset.edge)))));
 +   const edges=[0,1,2,3].filter(i=>state.edges&(1<<i));
 +   tree.innerHTML=(state.stage>0?edges.map(i=>line(130,60+Math.floor(i/2)*90,460,60+i%2*90)).join(''):'')+dot(105,65,'민')+dot(105,155,'수')+dot(490,65,'논리')+dot(490,155,'확률');
++   tree.insertAdjacentHTML('afterbegin','<defs><marker id="lab-edge-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7" fill="#599782"/></marker></defs>');for(const edge of tree.querySelectorAll(':scope > path'))edge.setAttribute('marker-end','url(#lab-edge-arrow)');
 +   el('.lab-status').textContent=relationPairs(state.edges).join(' · ')||'빈 관계: 연결 없음';
 +   el('.lab-note').textContent=`행: 민·수 / 열: 논리·확률 → [${[0,1,2,3].map(i=>Number(Boolean(state.edges&(1<<i)))).join(', ')}]. ${isFunction(state.edges)?'각 입력에 출력이 정확히 하나: 함수입니다.':'각 입력에 출력이 정확히 하나여야 함수입니다.'}`;
 +  }else{
 +   el<HTMLSelectElement>('.lab-mode').value=state.mode;if(topic==='monty-hall')el<HTMLSelectElement>('.lab-choice').value=String(state.choice);
 +   const family=topic==='two-children',names=family?['BB','BG','GB','GG']:['상품 1','상품 2','상품 3'],xs=names.map((_,i)=>60+i*480/(names.length-1)),theory=family?(state.mode==='filter'?'1/3':'1/2'):(state.mode==='informed'?'2/3':'1/2');
-+   tree.innerHTML=label(300,22,family?'가족 균등 추출 · B 아들 / G 딸':`상품 균등 배치 · 처음 선택 ${state.choice}번`)+(state.stage>=1?names.map((n,i)=>line(300,30,xs[i],70)+dot(xs[i],88,n)+label(xs[i],126,family?'사전 1/4':'사전 1/3')).join(''):'')+(state.stage>=2?names.map((_,i)=>line(xs[i],137,xs[i],157)+label(xs[i],179,family?`관측 우도 ${i===3?'0':state.mode==='filter'||i===0?'1':'1/2'}`:`오답 우도 ${state.mode==='informed'||i+1===state.choice?'1':'1/2'}`)).join(''):'')+(state.stage>=3?label(300,207,`${family?'둘 다 아들':'항상 교환'} | 관측 조건 → 이론값 ${theory}`):'');
++   const latest=state.count&&state.revealed?labTrial(state,state.count-1):null;
++   tree.innerHTML=label(300,22,family?'가족 균등 추출 · B 아들 / G 딸':`상품 균등 배치 · 처음 선택 ${state.choice}번`)+(state.stage>=1?names.map((n,i)=>{const chosen=latest?.branch===(family?n:`상품 ${i+1}번`);return line(300,30,xs[i],70,chosen?'#c17a31':'#599782')+dot(xs[i],88,n,!latest||chosen)+label(xs[i],126,family?'사전 1/4':'사전 1/3');}).join(''):'')+(state.stage>=2?names.map((_,i)=>line(xs[i],137,xs[i],157)+label(xs[i],179,family?`관측 우도 ${i===3?'0':state.mode==='filter'||i===0?'1':'1/2'}`:`오답 우도 ${state.mode==='informed'||i+1===state.choice?'1':'1/2'}`)).join(''):'')+(state.stage>=3?label(300,207,`${family?'둘 다 아들':'항상 교환'} | 관측 조건 → 이론값 ${theory}`):'');
 +   const points=summary.points.map(p=>`${45+510*p.count/Math.max(1,state.count)},${150-120*p.rate}`).join(' '),y=150-120*summary.theoretical;
 +   chart.innerHTML=line(45,20,45,150,'#a4aaa7')+line(45,150,560,150,'#a4aaa7')+`<path d="M45 ${y} H560" stroke="#ab7850" stroke-dasharray="6 4"/><polyline points="${points}" fill="none" stroke="#356bba" stroke-width="3"/>`+label(300,184,`시도 0 → ${state.count.toLocaleString()}회 · 파랑: 관측 비율 · 점선: 이론값 ${theory}`)+label(23,35,'1')+label(23,155,'0');
 +   const trial=state.revealed?labTrial(state,Math.max(0,state.count-1)):null;
@@ -105,7 +155,7 @@ index 0000000..aed43b8
 +  switch(button.dataset.action){
 +   case'reset':stop();change(initialLabState(topic));break;
 +   case'branch':stop();change({...state,stage:Math.min(3,state.stage+1)});break;
-+   case'animate':{stop();const base={...state,stage:0};change(base);const start=performance.now(),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;const unfold=(now:number)=>{if(!active||document.hidden)return;change({...state,stage:reduced?3:Math.min(3,Math.floor((now-start)/400))});if(state.stage<3)frame=requestAnimationFrame(unfold);};frame=requestAnimationFrame(unfold);break;}
++   case'animate':{stop();container.dataset.unfolding='true';const base={...state,stage:0};change(base);const start=performance.now(),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;const unfold=(now:number)=>{if(!active||document.hidden)return;const stage=reduced?3:Math.min(3,Math.max(0,Math.floor((now-start)/400)));if(stage!==state.stage)change({...state,stage});if(state.stage<3)frame=requestAnimationFrame(unfold);else delete container.dataset.unfolding;};frame=requestAnimationFrame(unfold);break;}
 +   case'reveal':case'one':stop();change({...state,count:Math.min(MAX_TRIALS,state.count+1),stage:3,revealed:true});break;
 +   case'play':if(playing)stop();else{playing=true;button.textContent='일시정지';frame=requestAnimationFrame(tick);}break;
 +  }
@@ -120,7 +170,15 @@ index 0000000..aed43b8
 +  getState:()=>({...state}),validateState:(value:unknown)=>validateLabState(value,topic),setState(value:unknown){validateLabState(value,topic);stop();change(value);},
 +  setActive(value:boolean){active=value;if(!value)stop();},suggest(suggestion?:Scene['suggestion']){const next=suggestion&&'example'in suggestion?suggestion.example:'';if(scene!==next){stop();scene=next;render();}},
 +  reset(){stop();change(initialLabState(topic));},seek(ms:number){stop();change(labFrameAt(state,ms));},
-+  inspect(){return{customized:false,state:{...state},summary:labSummary(state),playing};},describe(scene:Scene){return{status:'example',text:scene.title};}
++  inspect(){const available=({
++   'binary-relations':['question','pairs','functions','close'],
++   'monty-hall':['strategy','compare'],
++   'two-children':['model','filter','child']
++  }[topic]).includes(scene);const expected=topic==='two-children'?(scene==='child'?'child':'filter'):(scene==='compare'?'blind':'informed');return{customized:available&&topic!=='binary-relations'&&(state.count>0||state.mode!==expected),available,state:{...state},summary:labSummary(state),playing};},describe(scene:Scene){
++   const family=topic==='two-children',mode=state.mode,summary=labSummary(state);
++   const text=family?`${scene.id==='model'?'독립이고 아들·딸 확률이 각각 1/2인 단순 모형에서, 출생순 BB·BG·GB·GG는 각각 1/4입니다. ':''}${mode==='filter'?'가족을 균등 추출하고, 적어도 한 명이 아들인 가족을 남깁니다. BB·BG·GB의 관측 우도는 모두 1이므로 둘 다 아들일 이론 확률은 1/3입니다.':'가족을 균등 추출한 뒤 아이 한 명을 균등 선택합니다. 아들을 관측할 우도는 BB에서 1, BG·GB에서 1/2이므로, 둘 다 아들일 이론 확률은 1/2입니다.'}`:`${scene.id==='compare'?'정답을 알고 항상 오답을 공개하는 경우와 모르고 무작위로 공개한 경우는 관측 우도가 다릅니다. ':''}현재 실험은 ${mode==='informed'?'정답을 알고 항상 미선택 오답을 공개하는 규칙입니다. 처음 틀린 2/3의 경우에 교환하면 이기므로 교환 이론 승률은 2/3입니다.':'정답을 모르고 미선택 문 하나를 균등하게 엽니다. 상품이 나온 시행을 제외하고 오답 관측에 조건을 걸면 교환 이론 승률은 1/2입니다.'}`;
++   return{status:'adapted',text:text+` 반복 실험의 표본 비율은 ${percent(summary.rate)}이며, 이론값과 구분합니다.`};
++  }
 + };
 +}
 diff --git a/packages/content/types.ts b/packages/content/types.ts
@@ -138,7 +196,7 @@ index 077b496..be31f5c 100644
  export interface ContentEntry { directory: string; article: string; claims: string; page: ContentPage }
 diff --git a/packages/models/possibility-lab.ts b/packages/models/possibility-lab.ts
 new file mode 100644
-index 0000000..da9cdf0
+index 0000000..7222c94
 --- /dev/null
 +++ b/packages/models/possibility-lab.ts
 @@ -0,0 +1,31 @@
@@ -151,7 +209,7 @@ index 0000000..da9cdf0
 +export function validateLabState(value:unknown,topic:LabTopic):asserts value is LabState{
 + if(!value||typeof value!=='object')throw new RangeError('Invalid lab state');
 + const s=value as LabState;
-+ if(s.topic!==topic||!Number.isInteger(s.seed)||s.seed<0||s.seed>0xffffffff||!Number.isInteger(s.count)||s.count<0||s.count>MAX_TRIALS||!Number.isInteger(s.stage)||s.stage<0||s.stage>3||!Number.isInteger(s.edges)||s.edges<0||s.edges>15||!Number.isInteger(s.choice)||s.choice<1||s.choice>3||typeof s.revealed!=='boolean'||!(topic==='two-children'?['filter','child']:['informed','blind']).includes(s.mode))throw new RangeError('Invalid lab state');
++ if(!['binary-relations','monty-hall','two-children'].includes(topic)||s.topic!==topic||!Number.isInteger(s.seed)||s.seed<0||s.seed>0xffffffff||!Number.isInteger(s.count)||s.count<0||s.count>MAX_TRIALS||!Number.isInteger(s.stage)||s.stage<0||s.stage>3||!Number.isInteger(s.edges)||s.edges<0||s.edges>15||!Number.isInteger(s.choice)||s.choice<1||s.choice>3||typeof s.revealed!=='boolean'||!(topic==='two-children'?['filter','child']:['informed','blind']).includes(s.mode))throw new RangeError('Invalid lab state');
 +}
 +// Counter-based draws make every prefix and sampled frame independent of playback history.
 +export function draw(seed:number,index:number,lane:number){let x=(seed^Math.imul(index+1,0x9e3779b9)^Math.imul(lane+1,0x85ebca6b))>>>0;x=Math.imul(x^(x>>>16),0x7feb352d);x=Math.imul(x^(x>>>15),0x846ca68b);return((x^(x>>>16))>>>0)/4294967296;}
@@ -170,7 +228,7 @@ index 0000000..da9cdf0
 + return{attempted:s.count,accepted,successes,rate:accepted?successes/accepted:null,theoretical,points,last:s.count?labTrial(s,s.count-1):null};
 +}
 +/** 20 attempts/second; seeking is absolute, finite and independent of previous frames. */
-+export function labFrameAt(state:LabState,ms:number):LabState{validateLabState(state,state.topic);if(!Number.isFinite(ms)||ms<0)throw new RangeError('Invalid lab time');return{...state,count:Math.min(MAX_TRIALS,Math.floor(ms/50)),stage:Math.min(3,Math.floor(ms/400))};}
++export function labFrameAt(state:LabState,ms:number):LabState{validateLabState(state,state.topic);if(!Number.isFinite(ms)||ms<0)throw new RangeError('Invalid lab time');const count=Math.min(MAX_TRIALS,Math.floor(ms/50));return{...state,count,stage:Math.min(3,Math.floor(ms/400)),revealed:count>0};}
 +export function relationPairs(edges:number){return ['민 → 논리','민 → 확률','수 → 논리','수 → 확률'].filter((_,i)=>edges&(1<<i));}
 +export function isFunction(edges:number){return[0,2].every(offset=>Number(Boolean(edges&(1<<offset)))+Number(Boolean(edges&(1<<(offset+1))))===1);}
 diff --git a/packages/site/related-site.ts b/packages/site/related-site.ts
