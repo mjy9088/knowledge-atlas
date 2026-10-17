@@ -3,12 +3,19 @@ import assert from 'node:assert/strict';
 import {mkdtempSync,mkdirSync,rmSync,readFileSync,writeFileSync} from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import {Chats,type RpcFactory} from '../tools/studio/chat.js';
+import {Chats,writeChatSnapshot,type RpcFactory} from '../tools/studio/chat.js';
+import {renameSync} from 'node:fs';
 import {Production} from '../tools/studio/production.js';
 import {Studio} from '../tools/studio/engine.js';
 import {fileURLToPath} from 'node:url';
 
 const root=fileURLToPath(new URL('../',import.meta.url));
+test('transient file replacement locks preserve the prior snapshot and eventually save the latest state atomically',()=>{
+ const dir=mkdtempSync(path.join(os.tmpdir(),'atlas-chat-save-')),file=path.join(dir,'chat.json');
+ try{writeChatSnapshot(file,{reply:'old'});let locks=2;writeChatSnapshot(file,{reply:'complete'},(from,to)=>{if(locks-->0){assert.equal(JSON.parse(readFileSync(file,'utf8')).reply,'old');throw Object.assign(Error('Simulated sharing lock'),{code:'EPERM'});}renameSync(from,to);});assert.equal(JSON.parse(readFileSync(file,'utf8')).reply,'complete');
+  assert.throws(()=>writeChatSnapshot(file,{reply:'not saved'},()=>{throw Object.assign(Error('Permanent failure'),{code:'EIO'});}));assert.equal(JSON.parse(readFileSync(file,'utf8')).reply,'complete');
+ }finally{rmSync(dir,{recursive:true,force:true});}
+});
 async function until(check:()=>boolean){for(let i=0;i<200;i++){if(check())return;await new Promise(r=>setTimeout(r,5));}throw Error('Timeout');}
 function harness(){
  const data=mkdtempSync(path.join(os.tmpdir(),'atlas-chat-')),studio=new Studio(root,data,async()=>{throw Error('Not a review test');}),production=new Production(root,data,'unused');
@@ -35,6 +42,16 @@ test('questions require scoped explicit answers, read-only approvals cannot esca
   h.chats.answer(topic.plan.id,c.id,request.id,{answers:{scope:'핵심만'}});assert.deepEqual(connection.replies[0],{id:81,result:{answers:{scope:{answers:['핵심만']}}},error:undefined});assert.throws(()=>h.chats.answer(topic.plan.id,c.id,request.id,{answers:{scope:'again'}}),/expired/);
   connection.event({id:'approval',method:'item/commandExecution/requestApproval',params:{threadId:'thread-1',turnId:'turn-1',reason:'Needs more access',command:'test command',cwd:root}});const approval=h.chats.list()[0].requests[0];assert.equal(approval.canAccept,false);assert.throws(()=>h.chats.answer(topic.plan.id,c.id,approval.id,{decision:'accept'}),/Invalid/);h.chats.answer(topic.plan.id,c.id,approval.id,{decision:'decline'});assert.deepEqual(connection.replies[1].result,{decision:'decline'});
   connection.event({id:90,method:'unknown/tool',params:{threadId:'thread-1',turnId:'turn-1'}});assert.ok(connection.replies.at(-1)?.error);await h.chats.stop(c.id);assert.equal(h.chats.list()[0].requests.length,0);
+ }finally{h.close();}
+});
+test('mid-turn input uses the exact active turn, and restart invalidates unanswered requests without replay',async()=>{
+ const h=harness();try{
+  const topic=h.studio.topic('monty-hall'),c=h.chats.send(topic,'','ask','Connection fixture');await until(()=>h.chats.list()[0].turnId==='turn-1');
+  await assert.rejects(()=>h.chats.steer('two-children',c.id,'turn-1','Wrong content'),/expired/);await assert.rejects(()=>h.chats.steer(topic.plan.id,c.id,'old-turn','Old turn'),/expired/);
+  await h.chats.steer(topic.plan.id,c.id,'turn-1','Clarification during execution');assert.ok(h.connections[0].calls.some(call=>call.method==='turn/steer'&&(call.params as {expectedTurnId:string}).expectedTurnId==='turn-1'));
+  h.connections[0].event({id:42,method:'item/tool/requestUserInput',params:{threadId:'thread-1',turnId:'turn-1',questions:[{id:'scope',header:'Scope',question:'Test question',isSecret:false,options:[]}]}});
+  const copy=path.join(h.data,'restart-copy');mkdirSync(copy);writeFileSync(path.join(copy,'chats.json'),JSON.stringify(h.chats.list()));
+  const restored=new Chats(root,copy,h.production,()=>{throw Error('Do not replay a model or question');});try{const state=restored.list()[0];assert.equal(state.status,'interrupted');assert.equal(state.requests.length,0);assert.equal(state.messages.at(-1)?.text,'Clarification during execution');}finally{restored.dispose();}
  }finally{h.close();}
 });
 test('write conversations retain the production lease through clarification and require one-shot human approval',async()=>{

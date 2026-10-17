@@ -16,6 +16,16 @@ export interface Conversation {id:string;topicId:string;threadId?:string;directo
 export interface Rpc {call(method:string,params:unknown):Promise<unknown>;notify(method:string,params:unknown):void;reply(id:string|number,result:unknown,error?:string):void;close():void}
 export type RpcFactory=(cwd:string,event:(value:unknown)=>void,failed:(error:Error)=>void)=>Rpc;
 
+/** Windows indexers can hold a just-replaced file briefly; retain atomic replacement on retry. */
+export function writeChatSnapshot(file:string,value:unknown,replace:(from:string,to:string)=>void=renameSync){
+  writeFileSync(file+'.tmp',JSON.stringify(value,null,2));
+  for(let attempt=0;;attempt++)try{replace(file+'.tmp',file);return;}catch(error){
+    const code=error&&typeof error==='object'&&'code'in error?error.code:undefined;
+    if(attempt>=8||!['EPERM','EACCES','EBUSY'].includes(String(code)))throw error;
+    Atomics.wait(new Int32Array(new SharedArrayBuffer(4)),0,0,10*(attempt+1));
+  }
+}
+
 /** Private stdio transport: the browser never receives a raw JSON-RPC or shell endpoint. */
 export function codexRpc(executable='codex'):RpcFactory{return(cwd,event,failed)=>{
   const child=spawn(executable,['app-server','--listen','stdio://'],{cwd,windowsHide:true,stdio:['pipe','pipe','pipe']});
@@ -35,6 +45,7 @@ export function codexRpc(executable='codex'):RpcFactory{return(cwd,event,failed)
 interface Live {rpc:Rpc;finish:(status:'completed'|'failed'|'interrupted',log:string)=>void;timer:ReturnType<typeof setTimeout>;ready:boolean}
 export class Chats {
   private conversations:Conversation[]=[];private live=new Map<string,Live>();private disposed=false;
+  private pendingSave?:ReturnType<typeof setTimeout>;
   constructor(private root:string,private data:string,private production:Production,private factory:RpcFactory=codexRpc()){
     mkdirSync(data,{recursive:true});if(existsSync(this.file())){const rows:unknown=JSON.parse(readFileSync(this.file(),'utf8'));if(!Array.isArray(rows))throw Error('Invalid chats');this.conversations=rows.map(raw=>{
       const v=object(raw);if(!['idle','running','waiting','failed','interrupted'].includes(String(v.status))||!['ask','work'].includes(String(v.mode))||!Array.isArray(v.messages)||!Array.isArray(v.requests))throw Error('Invalid conversation');
@@ -44,7 +55,11 @@ export class Chats {
     });}this.persist();
   }
   private file(){return path.join(this.data,'chats.json');}
-  private persist(){writeFileSync(this.file()+'.tmp',JSON.stringify(this.conversations,null,2));renameSync(this.file()+'.tmp',this.file());}
+  private persist(streaming=false){
+    if(streaming){if(!this.pendingSave)this.pendingSave=setTimeout(()=>{this.pendingSave=undefined;try{this.persist();}catch(error){for(const c of this.conversations)if(this.live.has(c.id))this.end(c,'failed',String(error));}},150);return;}
+    if(this.pendingSave){clearTimeout(this.pendingSave);this.pendingSave=undefined;}
+    writeChatSnapshot(this.file(),this.conversations);
+  }
   list(){return structuredClone(this.conversations);}
   private find(id:string){const c=this.conversations.find(c=>c.id===id);if(!c)throw Error('Unknown conversation');return c;}
   create(topicId:string){if(this.disposed)throw Error('Chat service closed');if(this.conversations.length>=1000)throw Error('Conversation limit reached');const c:Conversation={id:randomUUID(),topicId,mode:'ask',revision:'',status:'idle',messages:[],requests:[]};this.conversations.push(c);this.persist();return structuredClone(c);}
@@ -102,7 +117,7 @@ export class Chats {
     }else if(method==='turn/completed'){
       const turn=object(p.turn);if(c.turnId&&turn.id!==c.turnId)return;const status=turn.status==='completed'?'completed':turn.status==='interrupted'?'interrupted':'failed';this.end(c,status,turn.error?JSON.stringify(turn.error):undefined);return;
     }else if(method==='error'){this.message(c,randomUUID(),'system',JSON.stringify(p).slice(0,16000));}else return;
-    this.persist();
+    this.persist(true);
   }
   async steer(topicId:string,id:string,turnId:string,message:string){
     const c=this.find(id),live=this.live.get(id);if(c.topicId!==topicId||!live||!live.ready||c.turnId!==turnId)throw Error('Turn expired; refresh');if(!message.trim()||message.length>16000)throw Error('Enter a message (up to 16000 characters)');
@@ -126,5 +141,5 @@ export class Chats {
     try{if(c.threadId&&c.turnId)await Promise.race([live.rpc.call('turn/interrupt',{threadId:c.threadId,turnId:c.turnId}),new Promise<void>(resolve=>{timer=setTimeout(resolve,5000);})]);}catch{/* Closing the connection remains the fallback. */}finally{if(timer)clearTimeout(timer);this.end(c,'interrupted','사용자가 실행을 중단했습니다.');}
   }
   private end(c:Conversation,status:'completed'|'failed'|'interrupted',error?:string){const live=this.live.get(c.id);if(!live)return;this.live.delete(c.id);clearTimeout(live.timer);live.rpc.close();c.status=status==='completed'?'idle':status;c.requests=[];c.error=error?.slice(-16000);live.finish(status,`Conversation ${c.id}\n${c.messages.filter(m=>m.role==='assistant').at(-1)?.text??''}\n${error??''}`);this.persist();}
-  dispose(){this.disposed=true;for(const id of [...this.live.keys()])this.end(this.find(id),'interrupted','서버 연결이 종료되었습니다.');}
+  dispose(){this.disposed=true;for(const id of [...this.live.keys()])this.end(this.find(id),'interrupted','서버 연결이 종료되었습니다.');this.persist();}
 }
