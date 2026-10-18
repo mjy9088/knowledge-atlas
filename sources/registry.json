@@ -756,14 +756,14 @@
     "author": "Richard Hammack",
     "canonicalUrl": "https://richardhammack.github.io/BookOfProof/Main.pdf",
     "retrievedAt": "2026-10-18",
-    "providerRevision": "Third edition as identified in the author-hosted PDF; immutable bytes and exact provider revision not captured",
+    "providerRevision": "Edition 3.4, third edition, as displayed in the author-hosted PDF; immutable bytes and content hash not captured",
     "contentHash": null,
-    "license": "No reuse license independently verified from the consulted proof section; reference consultation only",
+    "license": "PDF title page displays CC BY-NC-ND 4.0; observed notice only, not project rights clearance",
     "rightsReview": "pending; externalMaterialIncluded=false",
-    "readingScope": "Chapter 6, §6.1, pp. 137–143: proof by contradiction, including the worked proof that √2 is irrational from a lowest-terms assumption and parity contradiction",
+    "readingScope": "Chapter 6, §6.1, printed pp. 137–143: proof by contradiction, including the worked proof that √2 is irrational from a lowest-terms assumption and parity contradiction; Chapter 11, §11.2, Definition 11.2, printed p. 205 (PDF p. 217): reflexive, symmetric, and transitive relations; §11.3, Definition 11.3, printed p. 210 (PDF p. 222) and equivalence-class discussion on printed p. 211 (PDF p. 223); fraction expressions with nonzero denominators, equality by ad=bc, reflexivity and symmetry on printed pp. 213–214 (PDF pp. 225–226), with transitivity assigned as Exercise 16",
     "snapshotStatus": "Live author-hosted PDF reading; no immutable source bytes captured",
     "externalMaterialIncluded": false,
-    "note": "The Korean proof and equation cards are independently authored. Hunter Example 1.8 was rejected as evidence for the parity proof because it assumes √2 is irrational rather than proving it."
+    "note": "The Korean irrationality proof, rational-representation explanation, integer-cancellation transitivity derivation, examples, counterexample, and equation cards are independently authored. The source does not print the candidate's transitivity proof. Hunter Example 1.8 was rejected as evidence for the parity proof because it assumes √2 is irrational rather than proving it."
   },
   {
     "id": "source:trench-real-analysis",
@@ -771,14 +771,14 @@
     "author": "William F. Trench",
     "canonicalUrl": "https://ramanujan.math.trinity.edu/wtrench/texts/trench_real_analysis.pdf",
     "retrievedAt": "2026-10-18",
-    "providerRevision": "University-hosted PDF consulted; edition metadata, immutable bytes, and exact provider revision not captured",
+    "providerRevision": "Free Hyperlinked Edition 2.04, December 2013, as displayed in the university-hosted PDF; immutable bytes and content hash not captured",
     "contentHash": null,
-    "license": "No reuse license independently verified from the consulted theorem; reference consultation only",
+    "license": "PDF front matter displays CC BY-NC-SA 3.0 Unported; observed notice only, not project rights clearance",
     "rightsReview": "pending; externalMaterialIncluded=false",
-    "readingScope": "§1.1, Theorem 1.1.6, p. 7: for real numbers a<b, a rational number lies strictly between a and b",
+    "readingScope": "§1.1, Theorem 1.1.6 and its complete proof, printed p. 6 (PDF p. 14): for real numbers a<b, a rational number lies strictly between them; the proof invokes Theorem 1.1.4 to choose n with n(b−a)>1 and then selects an integer m with na<m≤na+1",
     "snapshotStatus": "Live university-hosted PDF reading; no immutable source bytes captured",
     "externalMaterialIncluded": false,
-    "note": "The density theorem supports the independently adapted rational-gap proof. Hunter Example 1.11 was rejected as density evidence because it concerns a rational Cauchy sequence converging to √2 in R without a limit in Q."
+    "note": "The density theorem supports the independently authored floor-grid explanation and adapted rational-gap proof. No different page is inferred for the invoked Theorem 1.1.4. Hunter Example 1.11 was rejected as density evidence because it concerns a rational Cauchy sequence converging to √2 in R without a limit in Q."
   },
   {
     "id": "source:nist-spectral-lines",

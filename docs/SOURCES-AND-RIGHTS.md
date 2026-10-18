@@ -6,6 +6,8 @@ Free access is not permission to translate, redistribute, adapt, monetize, colle
 
 Each substantive claim needs a stable ID, a precise statement, scope and assumptions, exact source locators, and an explicit review/uncertainty state. Source records need authorship, title, canonical URL, retrieval date, provider revision where known, and rights notes. A content hash is recorded only when the actual bytes have been captured and checked. Never invent revisions, quotations, licenses, or approval results.
 
+For PDFs, distinguish the printed page number from the file viewer's page index when they differ, and record the displayed edition. Verify the actual theorem or passage on that page rather than inferring its location from a neighboring heading or remembered citation.
+
 Encyclopedias and knowledge datasets can suggest terminology and links; a mention is not a verified prerequisite, identity mapping, or derivation. New analogies and inferred relationships are proposals with their own provenance. Conflicting evidence remains visible rather than being silently merged.
 
 ## Consultation versus reuse
