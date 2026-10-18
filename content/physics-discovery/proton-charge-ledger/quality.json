@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "articleId": "article:physics-discovery.proton-charge-ledger.ko",
+  "seriesId": "series:physics-discovery",
+  "openingQuestion": "양성자의 uud와 전하 +1은 왜 ‘정확히 세 입자뿐’이라는 뜻이 아닐까요?",
+  "readerOutcome": "uud를 원자가 순맛 장부로 설명하고 2/3+2/3−1/3=1을 계산한 뒤, 전하와 순맛을 바꾸지 않는 바다 쌍 및 전기적으로 중성이지만 색전하를 지닌 글루온 때문에 이 표기가 정확한 순간 입자 수·운동량 배분·가둠을 결정하지 않음을 말할 수 있습니다.",
+  "assumedKnowledge": ["양성자의 전하가 +1e라는 사실", "입자와 반입자는 반대 전하를 가질 수 있다는 개념", "분수의 덧셈"],
+  "misconception": "uud는 양성자 안에 고전적인 쿼크 구슬 세 개만 항상 존재하고 각자 운동량 1/3을 가진다는 뜻이다.",
+  "transfer": {
+    "question": "원자가 uud 상태에 업–반업 바다 쌍 하나와 글루온 하나를 더하면 총전하는 변할까요?",
+    "answer": "아니요. 총전하는 여전히 +1e입니다.",
+    "rationale": "업–반업 쌍의 전하 +2/3e와 −2/3e가 상쇄되고 글루온의 전기전하는 0입니다. 입자 수가 다른 두 상태가 같은 총전하를 가지므로, 전하 합 하나로 정확한 구성 입자 수를 정할 수 없습니다."
+  },
+  "narration": {
+    "status": "planned",
+    "seconds": 148,
+    "segments": [
+      {"sceneId":"question","seconds":18},
+      {"sceneId":"valence","seconds":25},
+      {"sceneId":"charge","seconds":23},
+      {"sceneId":"sea-gluons","seconds":29},
+      {"sceneId":"limit","seconds":19},
+      {"sceneId":"qcd-scope","seconds":10},
+      {"sceneId":"transfer","seconds":24}
+    ]
+  },
+  "review": {
+    "status": "review-required",
+    "blockers": ["Independent QCD, particle-physics, and pedagogy critique pending.", "Valence-label wording and exact 2025 PDG edition/revision verification pending.", "Exact source-byte capture, rights audit, audio timing, and publication approval pending."]
+  }
+}

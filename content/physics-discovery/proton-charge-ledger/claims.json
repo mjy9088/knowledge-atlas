@@ -1,0 +1,40 @@
+[
+  {
+    "id": "claim:physics-discovery.proton-charge-ledger.valence-label",
+    "kind": "model-interpretation",
+    "statement": "양성자의 uud는 업 원자가 순맛 수 2와 다운 원자가 순맛 수 1을 나타내는 최소 구성 표기다. 같은 맛의 쿼크–반쿼크 쌍은 순맛을 바꾸지 않으므로 이 표기는 바다 쌍을 배제하지 않는다.",
+    "scope": "양성자의 맛 양자수와 최소 qqq 표기에 대한 설명. 임의의 순간에 정확히 세 개의 고전적 입자만 존재한다는 진술이나 완전한 양성자 파동함수가 아니다.",
+    "assumptions": ["원자가 맛 수를 해당 맛 쿼크 수와 반쿼크 수의 차이로 해석함", "쿼크–반쿼크 쌍은 같은 맛의 순양자수를 상쇄함", "양성자의 최소 원자가 표기는 uud임"],
+    "sourceRefs": [
+      {"sourceId":"source:slac-riordan-quarks-1992","locator":"Section ‘The Prediction of Quarks,’ paragraph beginning ‘In seeking a deeper explanation’: baryons as three-quark combinations, proton as two up plus one down (uud), and assigned charges +2/3e and −1/3e."},
+      {"sourceId":"source:pdg-quark-model-2025","locator":"§15.5 printed p.13: baryons in the most general case are composed of three quarks plus any number of quark-antiquark pairs; §15.5.1 printed p.18 calls the three effective quarks in the standard nonrelativistic model valence quarks."},
+      {"sourceId":"source:cern-cms-nucleon-structure-2024","locator":"Opening paragraph: common nucleon picture gives uud for protons and udd for neutrons, while a complex sea of quark-antiquark pairs and gluons makes up a large fraction of nucleon energies."}
+    ],
+    "reviewStatus": "draft-source-aligned-needs-qcd-review"
+  },
+  {
+    "id": "claim:physics-discovery.proton-charge-ledger.charge-sum",
+    "kind": "model-deduction",
+    "statement": "업 쿼크 전하 +2/3e와 다운 쿼크 전하 −1/3e를 양성자의 uud 원자가 장부에 적용하면 2/3+2/3−1/3=+1이므로 총전하 +e를 얻는다.",
+    "scope": "분수 전하와 원자가 맛 배정의 일관성을 확인하는 독립 산술. 전하 합은 구성 입자의 정확한 수, 공간 배치, 운동량 분배, 질량 기원 또는 가둠을 결정하지 않는다.",
+    "assumptions": ["업 쿼크의 전기전하는 +2/3e임", "다운 쿼크의 전기전하는 −1/3e임", "전기전하는 가법적 양자수임"],
+    "sourceRefs": [
+      {"sourceId":"source:pdg-quark-model-2025","locator":"§15.2 printed p.3, Table 15.1 ‘Quark quantum numbers’: u electric charge +2/3 and d electric charge −1/3 in units of e."},
+      {"sourceId":"source:slac-riordan-quarks-1992","locator":"Section ‘The Prediction of Quarks’: proton uud assignment and the statement that assigning +2/3e to u and −1/3e to d and s gives the known hadron charges."}
+    ],
+    "reviewStatus": "draft-source-aligned-independent-calculation"
+  },
+  {
+    "id": "claim:physics-discovery.proton-charge-ledger.composition-limit",
+    "kind": "scope-limit",
+    "statement": "uud와 총전하 +1은 바다 쿼크–반쿼크 쌍이나 글루온을 배제하지 않는다. 글루온은 전기적으로 중성이지만 색전하를 지닌다. 따라서 전자기 산란 한 종류와 전하 장부만으로 양성자의 정확한 순간 입자 수, 동일한 1/3 운동량 배분 또는 쿼크 가둠을 증명할 수 없다.",
+    "scope": "원자가 표기와 전체 QCD 상태의 구별. Bjorken x와 PDF 적분변수 또는 선도차수 운동량 분율의 세부 대응은 이 짧은 콘텐츠에서 도입하지 않는다.",
+    "assumptions": ["쿼크–반쿼크 쌍의 전기전하와 순맛은 상쇄될 수 있음", "글루온의 전기전하는 0이지만 SU(3) 색의 수반표현으로 변환함", "가둠은 장거리 QCD 성질이며 총전하 합의 산술 결과가 아님"],
+    "sourceRefs": [
+      {"sourceId":"source:nobel-physics-1990-dis","locator":"Press release opening description and ‘The first traces of quarks’: gluons described as electrically neutral components/glue, distinguished from the charged hard grains identified as quarks."},
+      {"sourceId":"source:pdg-qcd-2025","locator":"§9.1 printed pp.1–2: gluon fields transform in the adjoint representation of SU(3) color; neither quarks nor gluons are observed as free particles and hadrons are color singlets. §9.1.2 printed pp.3–4 relates absence of free quarks to long-distance confinement."},
+      {"sourceId":"source:atlas-proton-structure-2022","locator":"Opening paragraphs on 12 January 2022 ATLAS page: PDFs describe fractions of proton momentum carried by quarks and gluons, and lepton-proton research reveals a sea of other quark-antiquark pairs in addition to familiar up/down content."}
+    ],
+    "reviewStatus": "draft-source-aligned-needs-qcd-review"
+  }
+]
