@@ -106,6 +106,8 @@ function renderQuestion(question: Question): DocumentFragment {
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     submit.disabled = true;
+    textarea.disabled = true;
+    formStatus.dataset.error = 'false';
     formStatus.textContent = 'Saving...';
     try {
       const updated = parseQuestion(await request('/api/public/answer', {
@@ -114,10 +116,13 @@ function renderQuestion(question: Question): DocumentFragment {
         body: JSON.stringify({id: question.id, answer: textarea.value}),
       }));
       currentQuestions = currentQuestions.map((item) => item.id === updated.id ? updated : item);
-      render('Answer saved. You can close this page or answer another question.');
+      card.replaceWith(renderQuestion(updated));
+      summary.textContent = 'Answer saved. You can close this page or answer another question.';
     } catch (error) {
+      formStatus.dataset.error = 'true';
       formStatus.textContent = error instanceof Error ? error.message : 'Could not save the answer.';
       submit.disabled = false;
+      textarea.disabled = false;
     }
   });
   edit.addEventListener('click', () => {
@@ -128,12 +133,8 @@ function renderQuestion(question: Question): DocumentFragment {
   return fragment;
 }
 
-function render(message?: string): void {
+function render(): void {
   questionsRoot.replaceChildren(...currentQuestions.map(renderQuestion));
-  if (message) {
-    summary.textContent = message;
-    return;
-  }
   const pending = currentQuestions.filter((question) => question.status === 'pending').length;
   summary.textContent = currentQuestions.length === 0 ? 'There are no questions right now.' : `${pending} awaiting answer, ${currentQuestions.length - pending} answered.`;
 }

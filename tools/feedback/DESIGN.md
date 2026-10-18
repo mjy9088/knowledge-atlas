@@ -13,10 +13,10 @@ This is a quiet, trust-first inbox for answering a small number of project quest
 | Field | `--surface-field` | `#fbfcfa` | Answer fields |
 | Subtle | `--surface-subtle` | `#edf3eb` | Status and context labels |
 | Text | `--text-primary` | `#23372f` | Primary copy |
-| Muted text | `--text-muted` | `#66766c` | Metadata and help |
+| Muted text | `--text-muted` | `#5f6f65` | Metadata and help; AA contrast on canvas and answered surface |
 | Accent | `--accent-primary` | `#28644f` | Submit actions and focus context |
 | Accent hover | `--accent-hover` | `#205440` | Primary action hover |
-| Focus | `--accent-focus` | `#8fb4a7` | Focus outline |
+| Focus | `--accent-focus` | `#28644f` | Focus outline with at least 3:1 non-text contrast |
 | Border | `--border-default` | `#dce3db` | Panel and field boundaries |
 | Border strong | `--border-strong` | `#cbd7cd` | Buttons |
 | Success surface | `--success-surface` | `#e8f0e8` | Answered state |
@@ -34,7 +34,7 @@ Accent indicates interaction or current state only. Answer status does not imply
 | Small | `--text-small` | `0.75rem` | 400 | IDs and timestamps |
 | Overline | `--text-overline` | `0.6875rem` | 600 | Private asynchronous context |
 
-Primary stack: `"Segoe UI", "Malgun Gothic", system-ui, sans-serif`. Identifiers use `Consolas, ui-monospace, monospace`. No remote fonts.
+Primary stack: `"Segoe UI", "Malgun Gothic", "Noto Sans CJK KR", Arial, "Liberation Sans", sans-serif`. Identifiers use `Consolas, ui-monospace, monospace`. No remote fonts. Linux review containers install Noto CJK rather than certifying missing-glyph fallback.
 
 ## 4. Spacing & Layout
 
