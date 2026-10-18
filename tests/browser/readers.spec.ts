@@ -602,7 +602,7 @@ test('weekday contradiction briefly explains classical explosion and links to th
 
 test('short titles keep the catalog text-only and the meme illustration on the restorable cover',async({page},testInfo)=>{
   const short='이걸로 IQ를 재겠다고?',full=short+' (어제가 내일이었으면...)';
-  await page.goto('/knowledge/');const card=page.locator('a.knowledge-card[href="/knowledge/weekday-worlds/"]');
+  await page.goto(`/knowledge/?catalog=${Math.floor(CONTENT_PAGES.findIndex(entry=>entry.slug==='weekday-worlds')/12)+1}`);const card=page.locator('a.knowledge-card[href="/knowledge/weekday-worlds/"]');
   await expect(card.locator('h2')).toHaveText(short);await expect(card).toHaveAttribute('title',full);
   await expect(card.locator('img')).toHaveCount(0);
   await card.click();await page.waitForFunction(()=>window.__atlasRelated);await expect(page).toHaveTitle(full+' · Knowledge Atlas');await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content',full);
@@ -706,6 +706,7 @@ test('lesson: every explanation fits and keyboard navigation works', async ({pag
 test('home opens the knowledge catalog and links to an interactive article',async({page})=>{
   await page.goto('/');
   await expect(page.locator('.knowledge-card')).toHaveCount(CONTENT_PAGES.length);
+  await page.goto(`/knowledge/?catalog=${Math.floor(CONTENT_PAGES.findIndex(entry=>entry.slug==='zfc')/12)+1}`);
   await page.locator('a.knowledge-card[href="/knowledge/zfc/"]').click();
   await page.waitForFunction(()=>window.__atlasRelated);
   await expect(page.locator('#reader-controls')).toBeVisible();

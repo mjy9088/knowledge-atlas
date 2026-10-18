@@ -1,5 +1,6 @@
 import type {ContentCollection,Claim,SourceRecord,ContentPage} from '../content/types.js';
 import {articleDisplayTitle} from '../content/presentation.js';
+import {paginateCatalog} from '../content/catalog-pagination.js';
 import {CONTENT_PAGES,pageURL,sceneText} from '../../content/catalog.js';
 export const escapeHTML=(value: unknown)=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'} as Record<string,string>)[c]);
 const e=escapeHTML;
@@ -30,7 +31,21 @@ export function validateRelatedPages(collection:ContentCollection,claims:Claim[]
   return errors;
 }
 export function renderRelatedIndex(collection:ContentCollection){
-  return shell('연결을 따라 읽기','관심 있는 과학 주제의 설명과 근거를 각자의 순서로 탐색합니다.',`<main id="main" class="knowledge-index"><p class="eyebrow">KNOWLEDGE ATLAS / 연결을 따라 읽기</p><h1>다음 질문은 무엇인가요?</h1><p>알고 있는 설명은 건너뛰고, 궁금한 관계부터 살펴보세요.</p><section id="connections" class="knowledge-grid" aria-label="지식 항목">${CONTENT_PAGES.map(page=>{const article=collection.articles.find(a=>a.id===page.articleId)!;return `<a class="knowledge-card" href="${pageURL(page)}" title="${e(article.title)}"><span>${e(page.label)}</span><h2>${e(articleDisplayTitle(article))}</h2><small>${page.scenes.length}개 장면 · ${page.interactive?interactionLabels[page.interactive]:page.model?'추론 실험':'해설'} ↗</small></a>`;}).join('')}</section><a href="/lesson.html">모순 폭발: 전제와 목표를 바꾸며 살펴보기 ↗</a><p class="review-note">내용 검토 전 초안</p></main>`);
+  const pages=paginateCatalog(CONTENT_PAGES);
+  const sections=pages.map((entries,index)=>`<section id="${index===0?'connections':`catalog-page-${index+1}`}" class="catalog-page" data-catalog-page="${index+1}" aria-label="지식 항목 ${index+1}/${pages.length}"><div class="knowledge-grid">${entries.map(page=>{
+    const article=collection.articles.find(a=>a.id===page.articleId)!;
+    const phrases:string[][]=[];
+    for(const word of articleDisplayTitle(article).split(' ')){
+      const previous=phrases.at(-1),last=previous?.at(-1);
+      if(previous&&(last?.endsWith('의')||last==='같은'||last==='모든'||last==='몇'||['것','수','때','하나가','하나는','하나의'].includes(word)))previous.push(word);
+      else phrases.push([word]);
+    }
+    const title=phrases.map(phrase=>phrase.length>1?`<span class="catalog-title-phrase">${e(phrase.join(' '))}</span>`:e(phrase[0])).join(' ');
+    return `<a class="knowledge-card" href="${pageURL(page)}" title="${e(article.title)}"><span>${e(page.label)}</span><h2>${title}</h2><small>${page.scenes.length}개 장면 · ${page.interactive?interactionLabels[page.interactive]:page.model?'추론 실험':'해설'} ↗</small></a>`;
+  }).join('')}</div></section>`).join('');
+  const numbers=pages.map((_,index)=>`<a href="?catalog=${index+1}" data-catalog-link="${index+1}" aria-label="목록 ${index+1}페이지">${index+1}</a>`).join('');
+  const pagination=`<nav class="catalog-pagination" aria-label="지식 목록 페이지" hidden><a href="?catalog=1" class="catalog-previous" aria-label="이전 목록">← 이전</a>${numbers}<p class="catalog-status" aria-live="polite">${pages.length}페이지</p><a href="?catalog=2" class="catalog-next" aria-label="다음 목록">다음 →</a></nav>`;
+  return shell('연결을 따라 읽기','관심 있는 과학 주제의 설명과 근거를 각자의 순서로 탐색합니다.',`<main id="main" class="knowledge-index catalog-index"><p class="eyebrow">KNOWLEDGE ATLAS / 연결을 따라 읽기</p><h1>다음 질문은 무엇인가요?</h1><p>알고 있는 설명은 건너뛰고, 궁금한 관계부터 살펴보세요.</p>${sections}${pagination}<a href="/lesson.html">모순 폭발: 전제와 목표를 바꾸며 살펴보기 ↗</a><p class="review-note">내용 검토 전 초안</p></main>`,`<link rel="stylesheet" href="/pages/catalog/catalog.css"><script type="module" src="/pages/catalog/controller.js"></script>`);
 }
 export function renderRelatedPage(page:ContentPage,collection:ContentCollection,claims:Claim[],sources:SourceRecord[]){
   const article=collection.articles.find(a=>a.id===page.articleId)!,used=new Set(article.blocks.flatMap(b=>b.claimRefs));
