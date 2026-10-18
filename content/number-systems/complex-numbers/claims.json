@@ -1,0 +1,38 @@
+[
+  {
+    "id": "claim:number-systems.complex.definition",
+    "kind": "definition",
+    "statement": "복소수는 실수쌍 (a,b)에 (a,b)+(c,d)=(a+c,b+d), (a,b)(c,d)=(ac-bd,ad+bc)를 준 체이며 실수 a는 (a,0)으로 포함된다.",
+    "scope": "복소수의 실수쌍 모델과 기본 연산 정의. 체 공리 전체의 검증은 생략한다.",
+    "assumptions": ["a,b,c,d는 실수 집합 R의 원소", "등식은 순서쌍의 두 좌표가 각각 같음을 뜻한다"],
+    "sourceRefs": [{"sourceId":"source:beck-first-course-complex-analysis","locator":"§1.1, Definition 1.1.1 and Proposition 1.1.2: C as ordered pairs with addition and multiplication, embedding of R, and field structure"}],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:number-systems.complex.i-square",
+    "kind": "formal",
+    "statement": "복소수 i=(0,1)는 i²=-1을 만족한다.",
+    "scope": "실수쌍 곱셈 정의에서 직접 계산한 등식이다.",
+    "assumptions": ["i=(0,1)", "-1=(-1,0)", "복소수 곱셈 정의를 사용한다"],
+    "sourceRefs": [{"sourceId":"source:beck-first-course-complex-analysis","locator":"§1.1, ordered-pair definition and the identification i=(0,1), yielding i²=-1"}],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:number-systems.complex.rotation",
+    "kind": "formal",
+    "statement": "복소평면에서 i를 곱하는 변환은 (a,b)를 (-b,a)로 보내며, 0은 고정하고 0이 아닌 점은 길이를 보존한 채 원점 중심으로 반시계 90도 회전시킨다. 각도는 360° 또는 2π의 정수배를 법으로 이해한다.",
+    "scope": "i에 의한 곱셈에 한정한다. 각도 증가는 z≠0일 때만 말하며 z=0의 각도를 정의하지 않는다. 일반 복소수 곱셈은 0이 아닌 수에 대해 크기 조절과 2π를 법으로 한 각도 덧셈으로 확장된다.",
+    "assumptions": ["복소수 a+bi를 평면의 점 (a,b)로 나타낸다", "i(a+bi)=-b+ai", "각도에 관한 문장에서는 z≠0", "각도는 2π의 정수배 차이를 같은 방향으로 본다"],
+    "sourceRefs": [{"sourceId":"source:beck-first-course-complex-analysis","locator":"§1.2, geometric interpretation of multiplication: for nonzero factors arguments add modulo 2π and moduli multiply; specialize to i of modulus 1 and argument π/2"}],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:number-systems.complex.not-ordered-field",
+    "kind": "formal",
+    "statement": "실수의 표준 순서를 보존하면서 복소수의 체 연산과 양립하는 전순서를 줄 수 없다.",
+    "scope": "복소수가 크기 비교나 부분순서를 전혀 가질 수 없다는 뜻이 아니라, 실수 집합 R의 순서를 확장하는 순서체가 될 수 없다는 뜻이다.",
+    "assumptions": ["i²=-1이므로 i≠0", "전순서의 삼분법", "양수의 곱은 양수", "실수 순서에서 1>0"],
+    "sourceRefs": [{"sourceId":"source:beck-first-course-complex-analysis","locator":"§1.1 establishes i²=-1 and field structure; after noting i≠0, the trichotomy/positive-square contradiction is independently derived here"}],
+    "reviewStatus": "draft-source-aligned"
+  }
+]

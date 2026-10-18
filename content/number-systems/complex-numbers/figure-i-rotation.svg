@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-labelledby="title desc">
+  <title id="title">0이 아닌 복소수에 i를 곱할 때의 90도 회전</title>
+  <desc id="desc">복소평면의 원점에서 오른쪽 위의 0이 아닌 점 z까지 향한 벡터가 반시계 방향 90도 회전하여 왼쪽 위 점 iz까지 향한다. 각도는 360도를 한 바퀴로 본다. z는 a,b이고 iz는 -b,a이다. 원점 0은 i를 곱해도 원점에 머문다.</desc>
+  <defs>
+    <marker id="axis-arrow" markerUnits="userSpaceOnUse" markerWidth="18" markerHeight="18" refX="16" refY="9" orient="auto">
+      <path d="M0 0L18 9L0 18Z" fill="#64748b"/>
+    </marker>
+    <marker id="z-arrow" markerUnits="userSpaceOnUse" markerWidth="20" markerHeight="20" refX="18" refY="10" orient="auto">
+      <path d="M0 0L20 10L0 20Z" fill="#2563eb"/>
+    </marker>
+    <marker id="iz-arrow" markerUnits="userSpaceOnUse" markerWidth="20" markerHeight="20" refX="18" refY="10" orient="auto">
+      <path d="M0 0L20 10L0 20Z" fill="#c2410c"/>
+    </marker>
+    <marker id="arc-arrow" markerUnits="userSpaceOnUse" markerWidth="16" markerHeight="16" refX="14" refY="8" orient="auto">
+      <path d="M0 0L16 8L0 16Z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+  <rect width="720" height="420" rx="24" fill="#f8fafc"/>
+  <path d="M74 330H654" stroke="#64748b" stroke-width="3" marker-end="url(#axis-arrow)"/>
+  <path d="M360 376V48" stroke="#64748b" stroke-width="3" marker-end="url(#axis-arrow)"/>
+  <text x="628" y="360" fill="#334155" font-family="sans-serif" font-size="20">Re</text>
+  <text x="378" y="70" fill="#334155" font-family="sans-serif" font-size="20">Im</text>
+  <circle cx="360" cy="330" r="6" fill="#0f172a"/>
+  <text x="334" y="357" fill="#334155" font-family="sans-serif" font-size="18">0</text>
+  <path d="M360 330L548 190" stroke="#2563eb" stroke-width="7" stroke-linecap="round" marker-end="url(#z-arrow)"/>
+  <circle cx="548" cy="190" r="7" fill="#2563eb"/>
+  <text x="562" y="178" fill="#1d4ed8" font-family="sans-serif" font-size="23" font-weight="700">z=(a,b)</text>
+  <path d="M360 330L220 142" stroke="#c2410c" stroke-width="7" stroke-linecap="round" marker-end="url(#iz-arrow)"/>
+  <circle cx="220" cy="142" r="7" fill="#c2410c"/>
+  <text x="82" y="122" fill="#9a3412" font-family="sans-serif" font-size="23" font-weight="700">iz=(-b,a)</text>
+  <path d="M437 272A96 96 0 0 0 302 253" fill="none" stroke="#7c3aed" stroke-width="5" stroke-linecap="round" marker-end="url(#arc-arrow)"/>
+  <text x="314" y="218" fill="#6d28d9" font-family="sans-serif" font-size="22" font-weight="700">× i</text>
+  <text x="270" y="242" fill="#6d28d9" font-family="sans-serif" font-size="18">+90° (mod 360°)</text>
+  <path d="M548 190V330M360 190H548M220 142V330M220 142H360" stroke="#94a3b8" stroke-width="2" stroke-dasharray="7 7"/>
+  <text x="454" y="353" fill="#475569" font-family="sans-serif" font-size="18">a</text>
+  <text x="330" y="184" fill="#475569" font-family="sans-serif" font-size="18">b</text>
+  <text x="278" y="353" fill="#475569" font-family="sans-serif" font-size="18">-b</text>
+  <text x="374" y="151" fill="#475569" font-family="sans-serif" font-size="18">a</text>
+</svg>

@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "articleId": "article:number-systems.complex-numbers.ko",
+  "seriesId": "series:number-systems",
+  "openingQuestion": "i를 곱하면 왜 90도 돌아갈까요?",
+  "readerOutcome": "복소수를 실수쌍과 연산으로 정의하고 i²=-1을 계산하며, i 곱셈이 0은 고정하고 0이 아닌 점을 90도 회전시킴을 적용하고, 복소수가 실수 순서를 확장한 순서체가 될 수 없는 이유를 설명할 수 있다.",
+  "assumedKnowledge": ["실수의 덧셈과 곱셈", "좌표평면과 90도 회전", "양수의 곱은 양수라는 순서 규칙"],
+  "misconception": "복소수는 실수보다 큰 수까지 포함한 더 긴 수직선이며 i는 정의 없이 √-1이라는 기호일 뿐이다.",
+  "transfer": {
+    "question": "z=2-i에 i를 곱한 결과를 구하고, 좌표가 90도 회전 규칙과 맞는지 확인하세요.",
+    "answer": "iz=1+2i이며 좌표는 (2,-1)에서 (1,2)로 이동합니다.",
+    "rationale": "i(2-i)=2i-i²=1+2i이고, 일반 규칙 (a,b)→(-b,a)에 a=2,b=-1을 넣어도 (1,2)가 됩니다. 두 점의 원점까지 거리도 √5로 같습니다."
+  },
+  "narration": {
+    "status": "planned",
+    "seconds": 160,
+    "segments": [
+      {"sceneId":"question","seconds":22},
+      {"sceneId":"definition","seconds":31},
+      {"sceneId":"i-square","seconds":24},
+      {"sceneId":"rotation","seconds":30},
+      {"sceneId":"order","seconds":31},
+      {"sceneId":"transfer","seconds":22}
+    ]
+  },
+  "review": {
+    "status": "review-required",
+    "blockers": ["independent mathematical/editorial review", "review of ordered-field terminology for the intended audience", "observed Korean reader comprehension", "960×540 DPR2 figure and scene-fit review", "measured narration pacing and audio", "source revision capture and rights review", "publication authorization"]
+  }
+}
