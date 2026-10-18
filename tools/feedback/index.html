@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Answer project questions asynchronously without interrupting ongoing work.">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Project questions</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header>
+    <div>
+      <p class="overline">PRIVATE ASYNC FEEDBACK</p>
+      <h1>Project questions</h1>
+      <p class="intro">Answer when convenient. Work continues in parallel, and optional questions never block the balanced default.</p>
+    </div>
+    <span class="private-label">Answer only</span>
+  </header>
+  <main>
+    <div id="summary" class="summary" role="status" aria-live="polite">Loading questions...</div>
+    <section id="questions" aria-label="Questions"></section>
+    <noscript><p class="notice">JavaScript is required to submit answers. Please use the documented API instead.</p></noscript>
+  </main>
+  <template id="question-template">
+    <article class="question-card">
+      <div class="question-topline"><span class="status-badge"></span><code class="question-id"></code></div>
+      <h2 class="question-text"></h2>
+      <p class="timestamps"></p>
+      <form>
+        <label><span>Your answer</span><textarea name="answer" rows="5" maxlength="4000" required></textarea></label>
+        <div class="form-actions"><span class="field-hint">1-4,000 characters</span><button type="submit">Save answer</button></div>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
+      <div class="saved-answer" hidden><h3>Saved answer</h3><p></p><button type="button" class="edit-answer">Edit answer</button></div>
+    </article>
+  </template>
+</body>
+</html>

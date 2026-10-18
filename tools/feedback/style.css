@@ -1,0 +1,74 @@
+:root {
+  font-family: "Segoe UI", "Malgun Gothic", system-ui, sans-serif;
+  color: #23372f;
+  background: #f5f6f2;
+  font-size: 15px;
+  line-height: 1.6;
+  --surface-panel: #ffffff;
+  --surface-field: #fbfcfa;
+  --surface-subtle: #edf3eb;
+  --text-muted: #66766c;
+  --accent-primary: #28644f;
+  --accent-hover: #205440;
+  --accent-focus: #8fb4a7;
+  --border-default: #dce3db;
+  --border-strong: #cbd7cd;
+  --success-surface: #e8f0e8;
+  --status-error: #943c32;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; min-block-size: 100dvh; }
+header, main { inline-size: min(760px, calc(100% - 32px)); margin-inline: auto; }
+header { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-6); padding-block: var(--space-10) var(--space-6); }
+h1 { margin: var(--space-1) 0 var(--space-2); font-size: 1.5rem; line-height: 1.3; }
+h2 { margin: var(--space-3) 0 var(--space-2); font-size: 1.125rem; line-height: 1.4; overflow-wrap: anywhere; }
+h3 { margin: 0 0 var(--space-2); font-size: 0.9375rem; }
+p { margin-block: 0; }
+.overline { color: var(--text-muted); font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.12em; }
+.intro { max-inline-size: 58ch; color: var(--text-muted); }
+.private-label, .status-badge { border-radius: 999px; background: var(--surface-subtle); padding: var(--space-1) var(--space-3); font-size: 0.75rem; white-space: nowrap; }
+.summary, .notice { border-block: 1px solid var(--border-default); padding-block: var(--space-4); color: var(--text-muted); }
+#questions { display: grid; gap: var(--space-4); padding-block: var(--space-6) var(--space-10); }
+.question-card { border: 1px solid var(--border-default); border-radius: 12px; background: var(--surface-panel); padding: var(--space-6); }
+.question-card[data-status="answered"] { background: var(--success-surface); }
+.question-topline, .form-actions { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
+.question-id, .timestamps, .field-hint, .form-status { color: var(--text-muted); font-size: 0.75rem; }
+.question-id { overflow-wrap: anywhere; text-align: end; }
+.timestamps { margin-block-end: var(--space-5); }
+label, label span { display: block; }
+label span { margin-block-end: var(--space-2); font-weight: 600; }
+textarea { display: block; inline-size: 100%; min-block-size: 132px; resize: vertical; border: 1px solid var(--border-default); border-radius: 8px; background: var(--surface-field); color: inherit; padding: var(--space-3); font: inherit; }
+button { min-block-size: 44px; border: 1px solid var(--accent-primary); border-radius: 8px; background: var(--accent-primary); color: #ffffff; padding: var(--space-2) var(--space-4); font: inherit; font-weight: 600; cursor: pointer; }
+button:hover { background: var(--accent-hover); }
+button:active { transform: translateY(1px); }
+button:disabled { opacity: 0.6; cursor: wait; }
+button:focus-visible, textarea:focus-visible { outline: 3px solid var(--accent-focus); outline-offset: 2px; }
+.form-actions { margin-block-start: var(--space-3); }
+.form-status { min-block-size: 1.6em; margin-block-start: var(--space-2); color: var(--status-error); }
+.saved-answer p { white-space: pre-wrap; overflow-wrap: anywhere; margin-block-end: var(--space-4); }
+.saved-answer button { border-color: var(--border-strong); background: var(--surface-panel); color: inherit; }
+.saved-answer button:hover { background: var(--surface-subtle); }
+.error { color: var(--status-error); }
+
+@media (max-width: 520px) {
+  header, main { inline-size: min(100% - 24px, 760px); }
+  header { display: grid; padding-block-start: var(--space-6); }
+  .private-label { justify-self: start; }
+  .question-card { padding: var(--space-4); }
+  .question-topline, .form-actions { align-items: flex-start; flex-direction: column; }
+  .question-id { text-align: start; }
+  .form-actions button { inline-size: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto; }
+}
