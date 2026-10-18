@@ -10,15 +10,16 @@ const interactionLabels:Record<NonNullable<ContentPage['interactive']>,string>={
   'weekday-worlds':'가능세계 비교',
 };
 const shell=(title:string,description:string,body:string,script='')=>`<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="${e(description)}"><title>${e(title)} · Knowledge Atlas</title><meta property="og:title" content="${e(title)}"><link rel="stylesheet" href="/pages/article/article.css"><link rel="stylesheet" href="/components/experiment/premise-editor.css"><link rel="stylesheet" href="/components/reader/frame.css"><link rel="stylesheet" href="/components/reader/cover.css">${script}</head><body><a class="skip-link" href="#main">본문으로 건너뛰기</a><header class="page-chrome"><a href="/knowledge/" aria-label="지식 목록">◈</a><nav><a href="/">지식 지도</a><a href="#connections">연관 지식</a></nav></header>${body}</body></html>`;
-export function validateRelatedPages(collection:ContentCollection,claims:Claim[]){
+export function validateRelatedPages(collection:ContentCollection,claims:Claim[],pages:readonly ContentPage[]=CONTENT_PAGES){
   const errors:string[]=[],slugs=new Set<string>(),ids=new Set(claims.map(c=>c.id));
-  for(const page of CONTENT_PAGES){
+  for(const page of pages){
     if(!/^[a-z][a-z-]+$/.test(page.slug)||slugs.has(page.slug))errors.push('Invalid or duplicate page slug');slugs.add(page.slug);
     const article=collection.articles.find(a=>a.id===page.articleId);
     if(!article){errors.push('Missing article '+page.articleId);continue;}
     if(page.coverArtwork&&(!/^\/content\/(?:[a-z][a-z0-9-]*\/)+[a-z][a-z0-9-]*\.svg$/.test(page.coverArtwork.src)||typeof page.coverArtwork.alt!=='string'||!page.coverArtwork.alt.trim()))errors.push('Invalid article cover artwork '+page.articleId);
     const sceneIds=new Set(),coverage:string[][]=article.blocks.map(()=>[]);
     for(const scene of page.scenes){
+      if(['main','connections','evidence'].includes(scene.id)||scene.id.startsWith('reader-'))errors.push('Reserved reader identity '+scene.id);
       if(scene.figure&&(!/^\/content\/(?:[a-z][a-z0-9-]*\/)+[a-z][a-z0-9-]*\.svg$/.test(scene.figure.src)||!scene.figure.alt?.trim()||!scene.figure.caption?.trim()))errors.push('Invalid scene figure '+scene.id);
       if(sceneIds.has(scene.id))errors.push('Duplicate scene '+scene.id);sceneIds.add(scene.id);
       if(scene.skip&&(page.scenes.findIndex(item=>item.id===scene.skip!.to)<=page.scenes.indexOf(scene)+1||!scene.skip.label.trim()))errors.push('Invalid forward skip '+scene.id);
