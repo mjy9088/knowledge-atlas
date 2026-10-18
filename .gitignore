@@ -11,3 +11,6 @@ coverage/
 test-results/
 playwright-report/
 .local/
+.omo/
+/core
+/core.[0-9]*
