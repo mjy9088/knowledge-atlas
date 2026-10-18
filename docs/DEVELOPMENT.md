@@ -12,6 +12,8 @@ pnpm dev
 
 For Linux review containers, install a real CJK font (for example `sudo apt-get install fonts-noto-cjk`). Missing Korean glyphs or a monospaced fallback are environment defects, not acceptable screenshot evidence.
 
+For page-bounded PDF source consultation, optional Poppler tools (`poppler-utils`) can extract a selected page with `pdftotext -f N -l N source.pdf -`. Check the actual page when extraction loses mathematical glyphs; text extraction alone does not verify a source revision, scientific argument, or reuse permission.
+
 The development server defaults to `http://127.0.0.1:4173`; set `PORT` to choose another port. It serves the working tree, including local media helpers. Opening a local server or building files does not publish content.
 
 ## Commands

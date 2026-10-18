@@ -30,7 +30,9 @@ Validated plans, feedback and imported reports live in ignored `artifacts/studio
 
 ## Production workspace and build
 
-The production pane creates one isolated Git worktree per content from committed `HEAD` under ignored `artifacts/studio-workspaces/`, on a `studio/…` branch. Uncommitted host edits are not copied. Preparation projects a new manuscript once into topic-owned article/claims/page sources or retains an already registered topic’s canonical sources. Existing workspace sources are never overwritten by plan saves or repeated preparation.
+The production pane creates one isolated Git worktree per content from committed `HEAD` under ignored `artifacts/studio-workspaces/`, on a `studio/…` branch. Uncommitted host edits are not copied. Preparation projects a new manuscript once into topic-owned article/claims/page sources or retains the integrated seed readers’ canonical sources. Existing workspace sources are never overwritten by plan saves or repeated preparation.
+
+General import of canonical articles into Studio plans, nested-catalog recognition during existing-topic preparation, and bidirectional manuscript synchronization remain planned. Additional registered series are currently authored directly in OpenCode from their topic-owned sources and the `content:review` packet. A failed existing-topic identity/registration check must be resolved explicitly rather than bypassed by regenerating accepted sources.
 
 Studio itself only performs bounded host-owned actions: prepare the worktree, install the registered topic figures, install the registered interactions, inspect Git status/diff, and build. Arbitrary implementation is done externally from the exported packet. The build action runs strict type checking, repository validation and the actual static builder. It fingerprints sources before/after, rejects linked output, preserves the last successful snapshot after failure and never changes the host catalog or public build output.
 
