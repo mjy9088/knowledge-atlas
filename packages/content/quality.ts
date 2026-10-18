@@ -6,7 +6,7 @@ const only=(value:Record<string,unknown>,keys:readonly string[])=>Object.keys(va
 
 export function validateContentLimit(articleIds:readonly string[]):string[]{
   const errors:string[]=[];
-  if(articleIds.length>100)errors.push('Content limit: at most 100 registered articles, including existing topics.');
+  if(articleIds.length>100)errors.push('Content limit: at most 100 content units, including existing articles and standalone episodes.');
   if(new Set(articleIds).size!==articleIds.length)errors.push('Content limit: duplicate article identity.');
   return errors;
 }
