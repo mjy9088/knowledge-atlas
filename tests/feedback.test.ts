@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {mkdtempSync, readFileSync, rmSync} from 'node:fs';
+import {mkdtempSync, readFileSync, rmSync,renameSync,writeFileSync} from 'node:fs';
 import http from 'node:http';
 import os from 'node:os';
 import path from 'node:path';
@@ -57,6 +57,8 @@ test('HTTP API separates authenticated lead access from answer-only capability a
   try {
     // When
     const unauthorized = await fetch(`${url}/api/questions`);
+    const answerAsAdmin = await fetch(`${url}/api/questions`,{headers:{Authorization:`Bearer ${TOKENS.answer}`}});
+    const answerCreatesQuestion = await fetch(`${url}/api/questions`,{method:'POST',headers:{Authorization:`Bearer ${TOKENS.answer}`,'Content-Type':'application/json'},body:JSON.stringify({text:'Not allowed',optional:true})});
     const created = await fetch(`${url}/api/questions`, {
       method: 'POST',
       headers: {'Authorization': `Bearer ${TOKENS.admin}`, 'Content-Type': 'application/json'},
@@ -71,6 +73,8 @@ test('HTTP API separates authenticated lead access from answer-only capability a
 
     // Then
     assert.equal(unauthorized.status, 401);
+    assert.equal(answerAsAdmin.status,401);
+    assert.equal(answerCreatesQuestion.status,401);
     assert.equal(created.status, 201);
     assert.equal(publicList.status, 200);
     assert.equal(answered.status, 200);
@@ -81,6 +85,23 @@ test('HTTP API separates authenticated lead access from answer-only capability a
   } finally {
     await close(server);
     rmSync(directory, {recursive: true, force: true});
+  }
+});
+
+test('failed persistence cannot change the live answer or add a volatile question',()=>{
+  const directory=mkdtempSync(path.join(os.tmpdir(),'atlas-feedback-failure-'));
+  let nextId=0;
+  const store=new QuestionStore(directory,()=>new Date(0).toISOString(),()=>`q_${++nextId}`);
+  store.add({text:'Keep this answer durable',optional:true});
+  const previous=store.list();
+  renameSync(directory,directory+'-saved');writeFileSync(directory,'not a directory');
+  try{
+    assert.throws(()=>store.answer('q_1','Cannot persist'));
+    assert.throws(()=>store.add({text:'Cannot persist',optional:true}));
+    assert.deepEqual(store.list(),previous);
+  }finally{
+    rmSync(directory);renameSync(directory+'-saved',directory);
+    rmSync(directory,{recursive:true,force:true});
   }
 });
 

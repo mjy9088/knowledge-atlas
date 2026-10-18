@@ -82,8 +82,9 @@ export class QuestionStore {
     if (!/^q_[A-Za-z0-9_-]{1,100}$/.test(id) || this.#questions.some((question) => question.id === id)) throw new TypeError('Invalid or duplicate generated question ID');
     const now = this.#clock();
     const question: Question = {id, text, optional: input.optional, status: 'pending', answer: null, createdAt: now, updatedAt: now, answeredAt: null};
-    this.#questions = [...this.#questions, question];
-    this.#persist();
+    const next = [...this.#questions, question];
+    this.#persist(next);
+    this.#questions = next;
     return structuredClone(question);
   }
 
@@ -94,14 +95,15 @@ export class QuestionStore {
     if (!existing) throw new RangeError('Unknown question');
     const now = this.#clock();
     const updated: Question = {...existing, status: 'answered', answer, updatedAt: now, answeredAt: now};
-    this.#questions = this.#questions.map((question) => question.id === id ? updated : question);
-    this.#persist();
+    const next = this.#questions.map((question) => question.id === id ? updated : question);
+    this.#persist(next);
+    this.#questions = next;
     return structuredClone(updated);
   }
 
-  #persist(): void {
+  #persist(questions: readonly Question[]): void {
     const temporary = `${this.#file}.${process.pid}.${randomUUID()}.tmp`;
-    writeFileSync(temporary, `${JSON.stringify({version: 1, questions: this.#questions}, null, 2)}\n`, {encoding: 'utf8', mode: 0o600});
+    writeFileSync(temporary, `${JSON.stringify({version: 1, questions}, null, 2)}\n`, {encoding: 'utf8', mode: 0o600});
     renameSync(temporary, this.#file);
   }
 }
