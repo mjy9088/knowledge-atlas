@@ -66,6 +66,11 @@ export function createFeedbackServer(store: QuestionStore, tokens: Tokens): http
       const adminCapability = req.headers.authorization === `Bearer ${tokens.admin}`;
 
       if (req.method === 'GET' && url.pathname === '/health') { json({ok: true}); return; }
+      if (req.method === 'GET' && url.pathname === '/') {
+        res.writeHead(200, {'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff'});
+        res.end('Private question inbox\n\n질문/답변 페이지는 비공개 전체 링크로 열어 주세요.\n.local/README.md의 Answer URL에서 /a/ 뒤의 경로까지 포함해야 합니다.\n도메인 주소만으로는 질문을 읽거나 답변할 수 없습니다.\n\nOpen the complete private Answer URL in .local/README.md, including its /a/ path. This public entry does not grant access to questions.\n');
+        return;
+      }
       if (req.method === 'GET' && url.pathname === '/api/questions') {
         if (!adminCapability) { json({error: 'Unauthorized'}, 401); return; }
         json({questions: store.list()}); return;

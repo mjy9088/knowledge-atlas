@@ -151,3 +151,28 @@ test('browser application is compiled from TypeScript source before serving', as
     rmSync(directory, {recursive: true, force: true});
   }
 });
+
+test('service root explains private access without exposing a capability or questions', async () => {
+  // Given an inbox with a private question.
+  const directory=mkdtempSync(path.join(os.tmpdir(),'atlas-feedback-entry-'));
+  const store=new QuestionStore(directory);
+  store.add({text:'Private editorial question',optional:true});
+  const server=createFeedbackServer(store,TOKENS);
+  const url=await listen(server);
+  try{
+    // When a respondent opens only the host or an invalid private path.
+    const response=await fetch(url);
+    const text=await response.text();
+    const invalid=await fetch(`${url}/a/invalid-capability`);
+    // Then the public entry is readable, without granting private access.
+    assert.equal(response.status,200);
+    assert.match(response.headers.get('content-type')??'',/^text\/plain/);
+    assert.equal(response.headers.get('cache-control'),'no-store');
+    assert.equal(response.headers.get('location'),null);
+    for(const secret of [TOKENS.admin,TOKENS.answer,store.list()[0].text])assert.ok(!text.includes(secret));
+    assert.equal(invalid.status,404);
+  }finally{
+    await close(server);
+    rmSync(directory,{recursive:true,force:true});
+  }
+});
