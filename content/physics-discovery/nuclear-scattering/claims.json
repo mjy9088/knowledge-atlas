@@ -1,0 +1,35 @@
+[
+  {
+    "id": "claim:physics-discovery.nuclear-scattering.observation",
+    "kind": "historical-observation",
+    "statement": "얇은 금박에 빠른 양전하 알파 입자를 보냈을 때 대부분은 거의 편향 없이 통과했고, 일부는 조금 꺾였으며, 매우 적은 수는 큰 각도 또는 뒤쪽으로 산란되었다.",
+    "scope": "게이거·마스든 계열의 금속박 산란 결과에 대한 정성적 패턴. 이 콘텐츠는 원자료 계수, 검출 효율, 오차 막대 또는 특정 산란 비율을 재분석하지 않는다.",
+    "assumptions": ["알파 입자의 입사 방향과 검출 각도를 구별함", "금박이 충분히 얇아 산란 해석이 가능함", "다수 통과와 희귀 큰각 산란을 함께 고려함"],
+    "sourceRefs": [
+      {"sourceId":"source:openstax-chemistry-atomic-theory","locator":"§2.2, Figure 2.9 and surrounding paragraphs: gold-foil apparatus; most undeflected, some slightly diverted, very few nearly backward"},
+      {"sourceId":"source:aip-rutherford-nuclear-world","locator":"Alpha Particles and the Atom: 1908–1909 foil experiments, scintillation counting at angles, and Geiger–Marsden backward-scattering report"}
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:physics-discovery.nuclear-scattering.nuclear-inference",
+    "kind": "model-inference",
+    "statement": "얇은 박에서 측정한 다수의 작은 편향과 희귀한 큰각 편향을 함께 설명할 때, 전하가 원자 크기에 비해 작은 중심 영역에 집중된 모형은 전하가 퍼진 모형보다 관찰된 각도 분포에 더 잘 맞았다. 그 중심을 양전하로 둔 것은 다른 증거와 결합한 모형 선택이지 산란 각도만으로 부호까지 정한 결과는 아니다.",
+    "scope": "고전적 쿨롱 산란에 따른 초기 중심 전하 모형의 핵심 추론. 산란 각도 분포에서 전하 집중과 전하 부호의 판정을 구별한다. 이 콘텐츠는 이 자료만으로 질량 집중을 별도 결론내리거나, 전자가 없는 문자 그대로의 빈 공간·현대 핵 내부 구조·양자 전자 상태를 주장하지 않는다. 모든 사건이 정확히 한 번의 산란이라는 포괄적 주장도 아니다.",
+    "assumptions": ["박이 충분히 얇아 다중 작은 산란의 큰각 기여를 제한하고 두께 의존성을 검사함", "전기적 중심력이 주요 큰각 편향 원인임", "중심의 양전하 부호는 산란 각도 이외의 증거와 함께 채택함", "희귀 큰각 사건이 장비 오류만이 아님", "각도·박 두께·입자 속도에 따른 추가 예측을 후속 측정으로 검사함"],
+    "sourceRefs": [
+      {"sourceId":"source:openstax-chemistry-atomic-theory","locator":"§2.2, Rutherford deduction list and Figure 2.10: small positive massive nucleus and large region with few strong deflections"},
+      {"sourceId":"source:aip-rutherford-nuclear-world","locator":"Alpha Particles and the Atom, paragraph beginning ‘Rutherford entertained the possibility that the charged center is negative’: central-charge sign did not affect the scattering calculations; preceding paragraph beginning ‘In fact, Rutherford was exceedingly cautious’ gives the intense-field inference and thickness, charge-squared and inverse-fourth-power speed predictions"}
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:physics-discovery.nuclear-scattering.history",
+    "kind": "historical-scope",
+    "statement": "핵 원자 모형은 게이거와 마스든의 1908–1909년 산란 측정, 러더퍼드의 1909–1911년 모형 검토와 계산, 그리고 1912–1913년의 후속 정량 시험을 거쳐 형성되었다.",
+    "scope": "AIP 역사 전시가 서술한 맨체스터 연구 프로그램의 제한적 연대. 한 사람의 한순간 통찰로 필연적으로 현대 원자론에 도달했다는 이야기가 아니며 참여자 전체의 완전한 연구사를 제공하지 않는다.",
+    "assumptions": ["관찰·모형 제안·후속 검증을 서로 다른 단계로 구별함", "후대 용어인 핵을 1909년 관찰에 소급해 완성된 개념으로 부여하지 않음"],
+    "sourceRefs": [{"sourceId":"source:aip-rutherford-nuclear-world","locator":"Alpha Particles and the Atom: sequence from autumn 1908 experiments and May 1909 publication, through 1910–1911 charged-center theory, to Geiger–Marsden 1912–1913 tests"}],
+    "reviewStatus": "draft-source-aligned-needs-history-review"
+  }
+]

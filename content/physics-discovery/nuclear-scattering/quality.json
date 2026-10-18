@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "articleId": "article:physics-discovery.nuclear-scattering.ko",
+  "seriesId": "series:physics-discovery",
+  "openingQuestion": "거의 모든 알파 입자가 통과했는데 극히 일부가 되돌아왔다는 사실은 왜 원자 모형을 바꾸었을까요?",
+  "readerOutcome": "산란 장치와 각도 분포를 설명하고, 다수 직진과 희귀 큰각 사건에서 전하 집중을 추론하되 중심의 양전하 부호는 다른 증거와 결합한 모형 선택임을 말할 수 있습니다.",
+  "assumedKnowledge": ["같은 전하끼리 밀어낸다는 사실", "입자의 진행 방향을 각도로 비교할 수 있다는 개념"],
+  "misconception": "러더퍼드가 되튄 입자 하나를 보고 즉시 오늘날의 원자·핵·쿼크 모형 전체를 발견했다.",
+  "transfer": {
+    "question": "검출기가 금박 바로 뒤의 좁은 앞쪽 각도만 받아들였다면 같은 중심 전하 추론을 할 수 있었을까요?",
+    "answer": "핵심 근거가 크게 약해졌을 것입니다.",
+    "rationale": "좁은 앞쪽 수용 범위는 다수의 거의 직진한 입자를 보여 주지만, 퍼진 전하 모형과 집중된 중심 전하 모형이 갈리는 희귀한 옆·뒤 큰각 사건을 측정하지 못합니다. 이 각도 비교만으로 중심 전하의 부호까지 정하지는 않으며, 검출기의 위치만으로 수용 각도를 단정하지도 않습니다."
+  },
+  "narration": {
+    "status": "planned",
+    "seconds": 168,
+    "segments": [
+      {"sceneId":"question","seconds":20},
+      {"sceneId":"apparatus","seconds":30},
+      {"sceneId":"pattern","seconds":26},
+      {"sceneId":"inference","seconds":22},
+      {"sceneId":"empty-space-limit","seconds":12},
+      {"sceneId":"history-limit","seconds":30},
+      {"sceneId":"transfer","seconds":28}
+    ]
+  },
+  "review": {"status":"review-required","blockers":["Independent nuclear-physics, history-of-science, and pedagogy review pending.","Primary-paper comparison and exact source revision capture pending.","Rights audit and narration production pending."]}
+}
