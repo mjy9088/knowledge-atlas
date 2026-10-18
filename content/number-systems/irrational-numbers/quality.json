@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "articleId": "article:number-systems.irrational-numbers.ko",
+  "seriesId": "series:number-systems",
+  "openingQuestion": "√2를 분수로 정확히 쓸 수 있을까요?",
+  "readerOutcome": "√2가 유리수라고 가정한 뒤 기약분수의 분자와 분모가 모두 짝수라는 모순을 도출하고, 유한소수 근사가 비유리성 증명이 아님을 설명할 수 있다.",
+  "assumedKnowledge": ["유리수와 기약분수", "짝수와 홀수", "귀류법의 기본 형태"],
+  "misconception": "소수 전개를 충분히 많이 계산하면 √2가 무리수라는 사실이 증명된다.",
+  "transfer": {
+    "question": "√8이 유리수라고 가정하면 √2에 관해 어떤 모순이 생기나요?",
+    "answer": "√2=√8/2가 유리수가 되어 √2의 비유리성과 모순이므로 √8도 무리수입니다.",
+    "rationale": "유리수는 0이 아닌 유리수로 나누어도 유리수이며 √8=2√2이므로, √8의 유리성은 √2의 유리성을 강제합니다."
+  },
+  "narration": {
+    "status": "planned",
+    "seconds": 150,
+    "segments": [
+      {"sceneId":"question","seconds":21},
+      {"sceneId":"assumption","seconds":25},
+      {"sceneId":"first-parity","seconds":24},
+      {"sceneId":"second-parity","seconds":30},
+      {"sceneId":"conclusion","seconds":27},
+      {"sceneId":"transfer","seconds":23}
+    ]
+  },
+  "review": {
+    "status": "review-required",
+    "blockers": ["independent mathematical/editorial review", "review of proof load for the intended audience", "observed Korean reader comprehension", "measured narration pacing and audio", "source revision capture and rights review", "publication authorization"]
+  }
+}

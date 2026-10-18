@@ -1,0 +1,41 @@
+{
+  "id": "article:number-systems.irrational-numbers.ko",
+  "conceptId": "concept:number-systems.irrational-numbers",
+  "title": "√2를 분수로 정확히 쓸 수 있을까요?",
+  "shortTitle": "√2가 무리수인 이유",
+  "reviewStatus": "needs-content-review",
+  "scope": "√2가 유리수가 아님을 서로소 정수 표현과 짝수성의 모순으로 증명한다. 실수에서 √2의 존재와 무리수 일반론은 다루지 않는다.",
+  "blocks": [
+    {
+      "id": "block:number-systems.irrational-numbers.question",
+      "text": "1.4, 1.41, 1.414처럼 √2에 가까운 유한소수는 모두 분수로 쓸 수 있습니다. 하지만 가까이 쓰는 것과 정확히 같은 것은 다릅니다. √2 자체가 어떤 정수 p,q의 비 p/q인지 모순을 이용해 판정해 봅시다.",
+      "claimRefs": ["claim:number-systems.irrational.sqrt2"]
+    },
+    {
+      "id": "block:number-systems.irrational-numbers.assumption",
+      "text": "반대로 √2=p/q라고 가정합니다. 여기서 p,q는 정수, q≠0이고 공약수가 1뿐인 서로소 표현을 택합니다. 양변을 제곱하고 q²을 곱하면 p²=2q²입니다.",
+      "claimRefs": ["claim:number-systems.irrational.reduced-form", "claim:number-systems.irrational.sqrt2"]
+    },
+    {
+      "id": "block:number-systems.irrational-numbers.first-parity",
+      "text": "p²=2q²의 오른쪽은 짝수이므로 p²도 짝수입니다. 만약 p가 홀수라면 p=2j+1이고 p²=4j²+4j+1=2(2j²+2j)+1도 홀수여야 합니다. 이는 p²이 짝수라는 식과 모순이므로 p는 짝수이고, p=2k인 정수 k가 있습니다.",
+      "claimRefs": ["claim:number-systems.irrational.parity-lemma"]
+    },
+    {
+      "id": "block:number-systems.irrational-numbers.second-parity",
+      "text": "p=2k를 p²=2q²에 넣으면 4k²=2q², 즉 q²=2k²입니다. 같은 이유로 q도 짝수입니다. 그러면 p와 q가 모두 2로 나누어져 서로소라는 처음 조건과 모순입니다.",
+      "claimRefs": ["claim:number-systems.irrational.parity-lemma", "claim:number-systems.irrational.sqrt2"]
+    },
+    {
+      "id": "block:number-systems.irrational-numbers.conclusion",
+      "text": "모순은 계산이 아니라 √2를 기약분수로 쓸 수 있다는 가정에서 생겼습니다. 따라서 제곱해서 2가 되는 수가 실수 안에 존재한다고 할 때, 그 양의 수 √2는 유리수 집합 Q에 속하지 않는 무리수입니다. 유한소수 표를 아무리 늘리는 것만으로는 이 결론을 증명할 수 없습니다.",
+      "claimRefs": ["claim:number-systems.irrational.sqrt2"]
+    },
+    {
+      "id": "block:number-systems.irrational-numbers.transfer",
+      "text": "같은 구조로 √8이 유리수인지 살펴봅시다. √8=2√2입니다. 만약 √8이 유리수라면 2로 나눈 √2도 유리수여야 하지만 방금 증명과 모순입니다. 따라서 √8도 무리수입니다.",
+      "claimRefs": ["claim:number-systems.irrational.sqrt2", "claim:number-systems.irrational.sqrt8"]
+    }
+  ],
+  "relatedConcepts": ["concept:number-systems.rational-numbers", "concept:number-systems.real-completeness"]
+}

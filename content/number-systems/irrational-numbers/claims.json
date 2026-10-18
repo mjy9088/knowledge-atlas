@@ -1,0 +1,38 @@
+[
+  {
+    "id": "claim:number-systems.irrational.reduced-form",
+    "kind": "formal",
+    "statement": "0이 아닌 모든 유리수는 분자와 분모가 서로소인 정수의 비 p/q로 나타낼 수 있다.",
+    "scope": "유리수의 기약분수 표현을 사용하며 유일성은 요구하지 않는다.",
+    "assumptions": ["p,q는 정수", "q≠0", "공통인수가 있으면 약분한다"],
+    "sourceRefs": [{"sourceId":"source:hammack-book-of-proof","locator":"Chapter 6, §6.1, pp. 137–143: the worked contradiction proof assumes √2=a/b in lowest terms"}],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:number-systems.irrational.parity-lemma",
+    "kind": "formal",
+    "statement": "정수 n에 대해 n²이 짝수이면 n도 짝수이다.",
+    "scope": "정수의 짝수·홀수 분류에 한정한다.",
+    "assumptions": ["모든 정수는 짝수 또는 홀수", "홀수의 제곱은 홀수"],
+    "sourceRefs": [{"sourceId":"source:hammack-book-of-proof","locator":"Chapter 6, §6.1, pp. 137–143: the worked √2 proof uses the contrapositive parity step that an odd integer has an odd square"}],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:number-systems.irrational.sqrt2",
+    "kind": "formal",
+    "statement": "실수에서 양의 제곱근 √2가 존재한다고 할 때 √2는 유리수가 아니다.",
+    "scope": "비유리성 증명이다. √2의 실수 내 존재는 가정하며 이 글에서 실수를 구성하지 않는다.",
+    "assumptions": ["√2는 제곱이 2인 양의 실수를 뜻한다", "유리수라면 서로소 정수 p,q와 q≠0에 대해 p/q로 쓸 수 있다"],
+    "sourceRefs": [{"sourceId":"source:hammack-book-of-proof","locator":"Chapter 6, §6.1, pp. 137–143: worked proof by contradiction that √2 is irrational"}],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:number-systems.irrational.sqrt8",
+    "kind": "formal",
+    "statement": "√8=2√2이므로 √8은 무리수이다.",
+    "scope": "√2의 비유리성과 유리수의 0이 아닌 수에 의한 나눗셈 닫힘을 이용한 전이 예다.",
+    "assumptions": ["√8=2√2", "유리수를 2로 나눈 수는 유리수"],
+    "sourceRefs": [{"sourceId":"source:hammack-book-of-proof","locator":"Chapter 6, §6.1, pp. 137–143 supplies √2 irrationality; the √8=2√2 transfer is independently derived"}],
+    "reviewStatus": "draft-source-aligned"
+  }
+]
