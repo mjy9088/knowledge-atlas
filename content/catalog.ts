@@ -16,6 +16,8 @@ import page0 from './formal-logic/consistency/page.js';
 import page1 from './formal-logic/paraconsistent-logic/page.js';
 import page2 from './set-theory/zfc/page.js';
 import page3 from './set-theory/continuum-hypothesis/page.js';
+import {DISCOVERY_ENTRIES} from './physics-discovery/catalog.js';
+import {NUMBER_ENTRIES} from './number-systems/catalog.js';
 
 export const CONTENT_ENTRIES: ContentEntry[]=[
   {directory:'statistics/two-children',article:'article.ko.json',claims:'claims.json',page:twoChildrenPage},
@@ -34,7 +36,9 @@ export const CONTENT_ENTRIES: ContentEntry[]=[
   {directory:'formal-logic/consistency',article:'article.ko.json',claims:'claims.json',page:page0},
   {directory:'formal-logic/paraconsistent-logic',article:'article.ko.json',claims:'claims.json',page:page1},
   {directory:'set-theory/zfc',article:'article.ko.json',claims:'claims.json',page:page2},
-  {directory:'set-theory/continuum-hypothesis',article:'article.ko.json',claims:'claims.json',page:page3}
+  {directory:'set-theory/continuum-hypothesis',article:'article.ko.json',claims:'claims.json',page:page3},
+  ...DISCOVERY_ENTRIES,
+  ...NUMBER_ENTRIES
 ];
 export const CONTENT_PAGES=CONTENT_ENTRIES.map(entry=>entry.page);
 export const pageURL=(page: ContentPage)=>'/knowledge/'+page.slug+'/';
