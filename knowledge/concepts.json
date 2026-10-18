@@ -224,9 +224,23 @@
     "externalIds": []
   },
   {
+    "id": "concept:number-systems.rational-representations",
+    "title": "유리수의 분수 표현",
+    "summary": "분모가 0이 아닌 정수쌍을 교차곱 동치 관계로 묶어 같은 유리수를 나타내는 여러 분수 표현",
+    "reviewStatus": "proposed",
+    "externalIds": []
+  },
+  {
     "id": "concept:number-systems.irrational-numbers",
     "title": "무리수",
     "summary": "두 정수의 비로 나타낼 수 없는 실수와 √2의 표준 비유리성 증명",
+    "reviewStatus": "proposed",
+    "externalIds": []
+  },
+  {
+    "id": "concept:number-systems.rational-density",
+    "title": "실수에서 유리수의 조밀성",
+    "summary": "아르키메데스 성질로 충분히 촘촘한 정수 격자를 골라 서로 다른 두 실수 사이에 유리수를 구성하는 성질",
     "reviewStatus": "proposed",
     "externalIds": []
   },
