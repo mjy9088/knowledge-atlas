@@ -1,0 +1,41 @@
+{
+  "id": "article:number-systems.rational-density.ko",
+  "conceptId": "concept:number-systems.rational-density",
+  "title": "두 실수 사이의 유리수는 어떻게 찾을까요?",
+  "shortTitle": "정수 격자로 찾는 사이 유리수",
+  "reviewStatus": "needs-content-review",
+  "scope": "아르키메데스 성질과 바닥함수를 이용해 서로 다른 두 실수 사이에 유리수가 있음을 증명한다. 실수의 구성, 아르키메데스 성질의 증명, 실수의 완비성은 다루지 않는다.",
+  "blocks": [
+    {
+      "id": "block:number-systems.rational-density.opening-gap",
+      "text": "두 유리수 사이에서는 평균을 택할 수 있습니다. 하지만 양 끝 x<y가 √2와 √3처럼 유리수가 아닐 수도 있습니다. 이때 평균이 유리수라고 보장할 수는 없습니다. 대신 간격 y−x보다 촘촘한 간격 1/n의 정수 격자를 놓고, x 바로 오른쪽의 격자점을 찾겠습니다.",
+      "claimRefs": ["claim:number-systems.rational-density.theorem"]
+    },
+    {
+      "id": "block:number-systems.rational-density.choose-mesh",
+      "text": "아르키메데스 성질에 따라 양수 y−x에 대해 1/n<y−x가 되도록 양의 정수 n을 고를 수 있습니다. 부등호가 엄격해야 격자 한 칸이 전체 간격보다 확실히 짧습니다. 이제 모든 정수 k에 대한 격자점 k/n을 생각합니다.",
+      "claimRefs": ["claim:number-systems.rational-density.archimedean-mesh"]
+    },
+    {
+      "id": "block:number-systems.rational-density.first-grid-point",
+      "text": "⌊nx⌋를 nx 이하의 가장 큰 정수라 하고 m=⌊nx⌋+1로 두면, m은 정수이고 nx<m≤nx+1입니다. n>0이므로 n으로 나누어 x<m/n≤x+1/n을 얻습니다. 앞에서 1/n<y−x로 골랐으므로 x+1/n<y입니다. 따라서 x<m/n<y이고, m/n은 두 정수의 비이므로 유리수입니다.",
+      "claimRefs": ["claim:number-systems.rational-density.grid-construction", "claim:number-systems.rational-density.theorem"]
+    },
+    {
+      "id": "block:number-systems.rational-density.floor-boundary",
+      "text": "여기서 ⌊nx⌋+1은 nx보다 엄격히 큰 첫 정수를 고릅니다. 단순히 ⌈nx⌉를 쓰면 nx가 이미 정수일 때 ⌈nx⌉=nx가 되어 왼쪽 끝점 x를 다시 고를 수 있습니다. 바닥함수에 1을 더한 선택은 nx가 정수인 경우에도 nx<m을 보장합니다.",
+      "claimRefs": ["claim:number-systems.rational-density.grid-construction"]
+    },
+    {
+      "id": "block:number-systems.rational-density.irrational-endpoints",
+      "text": "예를 들어 √2와 √3 사이에는 유리수 3/2가 있습니다. 양수의 제곱을 비교하면 2<9/4이므로 √2<3/2이고, 9/4<3이므로 3/2<√3입니다. 소수 근삿값 없이도 √2<3/2<√3를 정확히 확인할 수 있습니다.",
+      "claimRefs": ["claim:number-systems.rational-density.irrational-endpoint-example"]
+    },
+    {
+      "id": "block:number-systems.rational-density.transfer-mesh",
+      "text": "x=1, y=1.1=11/10에서 n=10을 택하면 1/n=y−x이고, 공식은 m=11을 주어 m/n=11/10=y에 닿습니다. 이는 열린 구간의 답이 아닙니다. 더 촘촘하게 n=20을 택하면 1/20<1/10이고 m=21이므로 1<21/20<11/10입니다. 이 비교는 왜 1/n≤y−x가 아니라 1/n<y−x가 필요한지 보여 줍니다.",
+      "claimRefs": ["claim:number-systems.rational-density.archimedean-mesh", "claim:number-systems.rational-density.grid-construction"]
+    }
+  ],
+  "relatedConcepts": ["concept:number-systems.rational-numbers", "concept:number-systems.real-completeness"]
+}

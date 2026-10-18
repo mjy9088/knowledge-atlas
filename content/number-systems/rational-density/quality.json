@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "articleId": "article:number-systems.rational-density.ko",
+  "seriesId": "series:number-systems",
+  "openingQuestion": "두 실수 사이의 유리수는 어떻게 찾을까요?",
+  "readerOutcome": "실수 x<y에 대해 1/n<y−x인 격자를 고르고 m=⌊nx⌋+1을 구성하여 x<m/n<y를 증명하며, 엄격한 격자 조건과 끝점 회피가 필요한 이유를 설명할 수 있다.",
+  "assumedKnowledge": ["실수의 순서와 부등식", "정수와 유리수의 정의", "바닥함수의 기본 성질", "아르키메데스 성질"],
+  "misconception": "두 유리수 사이의 평균 논증만으로 임의의 두 실수 사이에도 유리수가 있음을 이미 증명했으며, 격자 간격이 구간 길이와 같아도 열린 구간의 점을 항상 얻는다.",
+  "transfer": {
+    "question": "x=1, y=1.1일 때 n=10으로 얻는 격자점이 왜 답이 아닌지 설명하고, 같은 구성으로 열린 구간 안의 유리수를 하나 찾으세요.",
+    "answer": "n=10이면 m=11이고 m/n=1.1=y라서 열린 구간 안에 있지 않습니다. n=20이면 m=21이고 1<21/20<11/10입니다.",
+    "rationale": "n=10에서는 1/n=y−x로 엄격한 조건이 실패합니다. n=20에서는 1/20<1/10이므로 일반 증명의 부등식 x<m/n≤x+1/n<y가 적용됩니다."
+  },
+  "narration": {
+    "status": "planned",
+    "seconds": 174,
+    "segments": [
+      {"sceneId":"opening-gap","seconds":12},
+      {"sceneId":"grid-plan","seconds":13},
+      {"sceneId":"choose-mesh","seconds":15},
+      {"sceneId":"mesh-points","seconds":12},
+      {"sceneId":"first-grid-point","seconds":12},
+      {"sceneId":"divide-chain","seconds":14},
+      {"sceneId":"strict-result","seconds":13},
+      {"sceneId":"ceiling-boundary","seconds":12},
+      {"sceneId":"floor-escape","seconds":13},
+      {"sceneId":"irrational-lower","seconds":13},
+      {"sceneId":"irrational-upper","seconds":14},
+      {"sceneId":"coarse-mesh","seconds":15},
+      {"sceneId":"fine-mesh","seconds":16}
+    ]
+  },
+  "review": {
+    "status": "review-required",
+    "blockers": ["independent mathematical review of the Archimedean-grid proof and exact-square example", "independent editorial review of the floor-function explanation", "observed Korean reader comprehension", "measured narration pacing and audio", "immutable source revision capture and rights review", "publication authorization"]
+  }
+}

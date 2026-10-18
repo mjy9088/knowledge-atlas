@@ -1,0 +1,58 @@
+[
+  {
+    "id": "claim:number-systems.rational-density.archimedean-mesh",
+    "kind": "formal",
+    "statement": "실수 x<y에 대해 1/n<y−x를 만족하는 양의 정수 n이 존재한다.",
+    "scope": "실수의 아르키메데스 성질을 간격 y−x에 적용한 격자 선택. 아르키메데스 성질 자체의 증명이나 실수 구성은 포함하지 않는다.",
+    "assumptions": ["x와 y는 실수다", "x<y이므로 y−x>0이다", "실수의 아르키메데스 성질을 사용한다"],
+    "sourceRefs": [
+      {
+        "sourceId": "source:trench-real-analysis",
+        "locator": "§1.1, Theorem 1.1.6 proof, printed p. 6 (PDF p. 14): invokes Theorem 1.1.4 to choose a positive integer n with n(b−a)>1, equivalently 1/n<b−a"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:number-systems.rational-density.grid-construction",
+    "kind": "formal",
+    "statement": "양의 정수 n에 대해 m=⌊nx⌋+1로 두면 m은 정수이고 x<m/n≤x+1/n이다.",
+    "scope": "바닥함수로 x의 엄격한 오른쪽에 있는 1/n-격자점을 고르는 구성. m/n의 기약분수 여부는 요구하지 않는다.",
+    "assumptions": ["x는 실수다", "n은 양의 정수다", "바닥함수는 ⌊t⌋≤t<⌊t⌋+1을 만족한다"],
+    "sourceRefs": [
+      {
+        "sourceId": "source:trench-real-analysis",
+        "locator": "§1.1, Theorem 1.1.6 proof, printed p. 6 (PDF p. 14): after choosing n, an integer is selected immediately to the right of na; the displayed floor formulation is an independently written equivalent construction"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:number-systems.rational-density.theorem",
+    "kind": "formal",
+    "statement": "서로 다른 두 실수 x<y 사이에는 x<q<y를 만족하는 유리수 q가 존재한다.",
+    "scope": "유리수 집합 Q가 실수 집합 R 안에서 순서 조밀하다는 명제. 모든 실수가 유리수라는 주장, 실수의 완비성, 또는 실수 구성은 포함하지 않는다.",
+    "assumptions": ["x와 y는 실수다", "x<y", "실수의 아르키메데스 성질과 바닥함수 성질을 사용한다"],
+    "sourceRefs": [
+      {
+        "sourceId": "source:trench-real-analysis",
+        "locator": "§1.1, Theorem 1.1.6 and proof, printed p. 6 (PDF p. 14): Q is dense in R; for real a<b the proof constructs a rational strictly between them using Theorem 1.1.4"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:number-systems.rational-density.irrational-endpoint-example",
+    "kind": "formal",
+    "statement": "양의 실수 √2와 √3에 대해 √2<3/2<√3이다.",
+    "scope": "실수에서 양수의 제곱 비교로 확인하는 독립 작성 예. √2와 √3의 존재나 √2의 비유리성은 이 예에서 증명하지 않는다.",
+    "assumptions": ["√2와 √3은 각각 제곱이 2와 3인 양의 실수다", "비음수 실수에서 제곱함수는 순서를 보존한다"],
+    "sourceRefs": [
+      {
+        "sourceId": "source:trench-real-analysis",
+        "locator": "§1.1, Theorem 1.1.6, printed p. 6 (PDF p. 14) supplies the general density theorem; the exact-square comparison 2<9/4<3 is independently authored"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  }
+]
