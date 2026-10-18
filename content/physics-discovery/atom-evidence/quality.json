@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "articleId": "article:physics-discovery.atom-evidence.ko",
+  "seriesId": "series:physics-discovery",
+  "openingQuestion": "원자 하나를 직접 보지 못하던 시대에 원자의 실재를 어떻게 실험으로 판단할 수 있었을까요?",
+  "readerOutcome": "브라운 운동의 관찰 대상, 분자 모형의 정량 예측, 페랭 측정의 수렴을 연결하고 직접 관찰과 모형을 거친 증거를 구별할 수 있습니다.",
+  "assumedKnowledge": ["물질이 작은 입자로 이루어질 수 있다는 아이디어", "여러 번 측정하면 우연한 움직임의 통계를 비교할 수 있다는 직관"],
+  "misconception": "현미경으로 흔들리는 콜로이드 입자를 본 것이 곧 원자를 직접 본 것이다.",
+  "transfer": {
+    "question": "햇빛 속 먼지가 불규칙하게 움직이면 그것만으로 분자 충돌의 증거라고 할 수 있을까요?",
+    "answer": "그 관찰만으로는 부족합니다.",
+    "rationale": "대류·진동·온도 차 같은 대안을 통제하고, 많은 입자의 통계가 분자 모형의 수량적 예측과 맞는지 확인해야 합니다. 다른 현상에서 얻은 같은 상수와의 수렴이 추가 근거가 됩니다."
+  },
+  "narration": {
+    "status": "planned",
+    "seconds": 164,
+    "segments": [
+      {"sceneId":"question","seconds":20},
+      {"sceneId":"observe","seconds":26},
+      {"sceneId":"predict","seconds":34},
+      {"sceneId":"measure","seconds":18},
+      {"sceneId":"uncertainty","seconds":12},
+      {"sceneId":"limit","seconds":27},
+      {"sceneId":"transfer","seconds":27}
+    ]
+  },
+  "review": {"status":"review-required","blockers":["Independent physics, history-of-science, and pedagogy review pending.","Modern error-analysis cross-check and exact source revision capture pending.","Rights audit and narration production pending."]}
+}

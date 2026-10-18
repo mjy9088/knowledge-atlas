@@ -1,0 +1,17 @@
+{
+  "id": "article:physics-discovery.atom-evidence.ko",
+  "conceptId": "concept:physics.atomic-evidence",
+  "title": "보이지 않는 원자가 있다는 걸 어떻게 알았을까요?",
+  "shortTitle": "원자는 어떻게 증거가 되었을까요?",
+  "reviewStatus": "needs-content-review",
+  "scope": "브라운 운동과 페랭의 정량 측정을 통해 분자적 물질 모형을 지지한 증거의 구조. 콜로이드 입자를 원자 자체로 제시하거나 단일 실험이 원자 내부 구조를 밝혔다고 주장하지 않습니다.",
+  "blocks": [
+    {"id":"block:physics-discovery.atom-evidence.question","text":"현미경으로도 원자 하나를 보지 못하던 때, ‘물질은 원자로 이루어졌다’는 생각은 어떻게 검증 가능한 주장이 되었을까요? 보이지 않는 대상을 직접 보았다는 이야기가 아니라, 그 대상이 있다면 나타나야 할 수량적 흔적을 찾은 이야기입니다.","claimRefs":["claim:physics-discovery.atom-evidence.proxy-observation"]},
+    {"id":"block:physics-discovery.atom-evidence.observe","text":"물속의 아주 작은 콜로이드 입자는 외부가 고요하고 온도가 일정해도 불규칙하게 움직였습니다. 현미경에 보인 것은 원자가 아니라 원자보다 훨씬 큰 입자였습니다. 따라서 흔들림만 보고 곧바로 원자를 보았다고 말할 수는 없습니다.","claimRefs":["claim:physics-discovery.atom-evidence.proxy-observation"]},
+    {"id":"block:physics-discovery.atom-evidence.predict","text":"분자 충돌 모형은 한 입자의 지그재그 모양을 맞히는 대신, 많은 입자의 변위 통계와 높이에 따른 평형 분포에서 같은 미시적 수를 추정하게 합니다. 그래서 서로 다른 측정법이 같은 아보가드로 수를 돌려주는지가 검사가 됩니다.","claimRefs":["claim:physics-discovery.atom-evidence.quantitative-test"]},
+    {"id":"block:physics-discovery.atom-evidence.measure","text":"1926년 연설은 페랭의 세 추정값을 수소 2g당 68.2×10²², 68.8×10²², 65×10²²개로 보고했습니다. 최댓값과 최솟값의 차이는 최솟값의 약 5.8%입니다. 오차 막대가 없어 ‘오차 범위에서 일치’한다고 말할 수는 없지만, 다른 방법들이 가까운 값을 준 수렴은 확인할 수 있습니다.","claimRefs":["claim:physics-discovery.atom-evidence.quantitative-test","claim:physics-discovery.atom-evidence.convergence"]},
+    {"id":"block:physics-discovery.atom-evidence.limit","text":"역사적 값의 단위는 ‘수소 2g 속 분자 수’이고, 현대 SI 아보가드로 상수는 mol⁻¹로 정의됩니다. 단위와 물질 기준을 바꾸지 않은 채 숫자를 현대값과 직접 비교해서는 안 됩니다. 또한 콜로이드 입자는 원자가 아니며, 원자의 내부 구조에는 다른 실험이 필요했습니다.","claimRefs":["claim:physics-discovery.atom-evidence.proxy-observation","claim:physics-discovery.atom-evidence.convergence"]},
+    {"id":"block:physics-discovery.atom-evidence.transfer","text":"햇빛 속 먼지가 마구 움직이는 것만 보아도 원자의 증거가 될까요? 공기 흐름, 진동, 온도 차 같은 원인을 통제하고, 움직임의 통계가 분자 운동 모형의 수량적 예측과 맞는지 확인해야 합니다. 다른 방법으로 얻은 같은 상수까지 합치면 설명의 힘은 더 커집니다.","claimRefs":["claim:physics-discovery.atom-evidence.quantitative-test","claim:physics-discovery.atom-evidence.convergence"]}
+  ],
+  "relatedConcepts": []
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "claim:physics-discovery.atom-evidence.proxy-observation",
+    "kind": "observation-boundary",
+    "statement": "액체 속 미세 콜로이드 입자는 외부 평형과 일정한 온도 조건에서도 불규칙한 브라운 운동을 보인다. 관찰되는 콜로이드 입자는 분자 자체가 아니라 분자 충돌의 효과를 드러내는 더 큰 탐침이다.",
+    "scope": "1926년 노벨상 발표 연설이 서술한 페랭의 콜로이드 관찰에 맞춘 역사적 증거 설명. 모든 임의의 부유 먼지 운동을 분자 충돌만으로 설명하지 않는다.",
+    "assumptions": ["대류·진동·온도 구배 같은 거시적 교란을 통제함", "보이는 입자와 보이지 않는 분자를 구별함"],
+    "sourceRefs": [{"sourceId":"source:nobel-perrin-1926","locator":"Presentation Speech, paragraph beginning ‘It may perhaps be said’: microscopic particles remain in perpetual motion under external equilibrium and constant temperature; molecular-impact interpretation and Einstein theory"}],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:physics-discovery.atom-evidence.quantitative-test",
+    "kind": "historical-experimental-inference",
+    "statement": "분자 운동 모형은 콜로이드의 브라운 운동 통계와 평형 분포를 아보가드로 수에 연결하며, 페랭의 서로 다른 측정은 이 관계를 사용해 같은 상수를 추정했다.",
+    "scope": "노벨상 발표 연설의 역사적 요약에 근거한 설명. 이 콘텐츠는 확산식을 재현하거나 원자료의 오차 막대를 복원하지 않으며 현대값을 독립 재측정하지 않는다.",
+    "assumptions": ["입자 크기와 물성 및 온도를 측정·통제함", "많은 입자의 통계량을 사용함", "적용한 분자 운동·콜로이드 모형의 범위를 지킴"],
+    "sourceRefs": [{"sourceId":"source:nobel-perrin-1926","locator":"Presentation Speech, paragraphs on gamboge preparation and Brownian movement: sedimentation distribution, Einstein-theory agreement, and Avogadro-number determinations"}],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:physics-discovery.atom-evidence.convergence",
+    "kind": "evidence-synthesis",
+    "statement": "1926년 연설이 수소 2g당 68.2×10²², 68.8×10²², 65×10²²개로 보고한 세 추정값은 최댓값과 최솟값 차이가 최솟값의 약 5.8%였다. 이 수렴은 단일한 정성 관찰보다 분자적 물질 모형을 강하게 지지했다.",
+    "scope": "역사적 단위와 보고값의 산술 비교이며, 오차 막대가 제시되지 않아 통계적 합치나 현대값과의 오차를 주장하지 않는다. 현대 SI의 아보가드로 상수는 mol⁻¹ 단위이므로 역사적 물질 기준을 변환하지 않은 직접 숫자 비교도 하지 않는다.",
+    "assumptions": ["각 방법의 체계오차가 완전히 동일하지 않음", "비교하는 값들이 같은 물리 상수를 목표로 함", "역사적 수렴을 현대의 최종 정확도와 혼동하지 않음"],
+    "sourceRefs": [
+      {"sourceId":"source:nobel-perrin-1926","locator":"Presentation Speech, final research-summary paragraphs: translational and rotational Brownian measurements and three reported determinations 68.2×10^22, 68.8×10^22, 65×10^22 per two grams of hydrogen"},
+      {"sourceId":"source:bipm-si-mole","locator":"SI base unit: mole (mol): exact definition of Nₐ as 6.022 140 76×10²³ mol⁻¹ and requirement to specify elementary entities"}
+    ],
+    "reviewStatus": "draft-source-aligned-needs-independent-review"
+  }
+]
