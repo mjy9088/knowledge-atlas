@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "articleId": "article:number-systems.real-completeness.ko",
+  "seriesId": "series:number-systems",
+  "openingQuestion": "유리수의 빈틈을 실수는 어떻게 메울까요?",
+  "readerOutcome": "상한을 찾는 우주를 명시하고, √2 경계 집합이 유리수 집합 Q에서는 최소 상한을 갖지 않지만 실수 집합 R에서는 √2를 최소 상한으로 갖는 이유를 설명할 수 있다.",
+  "assumedKnowledge": ["두 실수 사이에 유리수가 있다는 Q의 R 안에서의 조밀성 정리", "√2의 비유리성", "집합과 대소 관계의 기본 표기"],
+  "misconception": "유리수가 조밀하므로 위로 제한된 모든 유리수 집합의 최소 상한도 유리수이다.",
+  "transfer": {
+    "question": "B={q∈Q | q<3}은 Q에서 최소 상한을 가지나요? √2 경계 사례와 무엇이 다른가요?",
+    "answer": "가집니다. Q에서의 최소 상한은 3입니다.",
+    "rationale": "3은 B의 유리수 상한이고, 3보다 작은 유리수는 그 수와 3 사이의 유리수 B 원소보다 작으므로 상한이 아닙니다. √2와 달리 경계 3은 Q에 속합니다."
+  },
+  "narration": {
+    "status": "planned",
+    "seconds": 164,
+    "segments": [
+      {"sceneId":"question","seconds":25},
+      {"sceneId":"bounds","seconds":29},
+      {"sceneId":"gap","seconds":32},
+      {"sceneId":"property","seconds":27},
+      {"sceneId":"scope","seconds":27},
+      {"sceneId":"transfer","seconds":24}
+    ]
+  },
+  "review": {
+    "status": "review-required",
+    "blockers": ["independent mathematical/editorial review", "review of least-upper-bound terminology for the intended audience", "observed Korean reader comprehension", "measured narration pacing and audio", "source revision capture and rights review", "publication authorization"]
+  }
+}
