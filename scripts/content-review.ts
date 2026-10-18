@@ -22,5 +22,5 @@ if(!entry){
   const sourceIds=new Set(claims.flatMap(claim=>claim.sourceRefs.map(ref=>ref.sourceId)));
   const packet={protocol:'content-review-v1',article,page:entry.page,quality,claims,sources:content.sources.filter(source=>sourceIds.has(source.id)),rubric:readFileSync(path.join(root,'docs/CONTENT-QUALITY.md'),'utf8'),authority:'Local review candidate only; no scientific, rights or publication approval.'};
   const revision=createHash('sha256').update(JSON.stringify(packet)).digest('hex');
-  console.log(JSON.stringify({revision,...packet},null,2));
+  console.log(JSON.stringify({revision,...packet,resultContract:{protocol:packet.protocol,revision,provenance:{origin:'external-review-assertion',reviewer:'',reviewedAt:'',verificationScope:[]},findings:[]}},null,2));
 }

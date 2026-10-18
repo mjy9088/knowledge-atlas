@@ -8,10 +8,12 @@ test('review packet links canonical evidence to its revision without granting ap
   // When requesting an external review packet through the real CLI.
   const packet:unknown=JSON.parse(execFileSync(process.execPath,args,{encoding:'utf8'}));
   // Then the machine-consumed identity and evidence graph are present.
-  assert.ok(packet&&typeof packet==='object'&&'article' in packet&&'claims' in packet&&'sources' in packet&&'revision' in packet);
+  assert.ok(packet&&typeof packet==='object'&&'article' in packet&&'claims' in packet&&'sources' in packet&&'revision' in packet&&'resultContract' in packet);
   assert.match(String(packet.revision),/^[a-f0-9]{64}$/);
   assert.ok(Array.isArray(packet.claims)&&packet.claims.length>0);
   assert.ok(Array.isArray(packet.sources)&&packet.sources.length>0);
+  assert.ok(packet.resultContract&&typeof packet.resultContract==='object'&&'revision' in packet.resultContract);
+  assert.equal(packet.resultContract.revision,packet.revision);
 });
 
 test('review CLI rejects an unregistered topic rather than exporting a misleading empty packet',()=>{

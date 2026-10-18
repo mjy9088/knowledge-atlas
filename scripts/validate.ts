@@ -14,7 +14,7 @@ import {validateContentLimit,validateQuality} from '../packages/content/quality.
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const read=<T>(p:string):T=>JSON.parse(readFileSync(path.join(root,p),'utf8'));
 const errors:string[]=[];
-errors.push(...validateContentLimit(CONTENT_ENTRIES.map(entry=>entry.page.articleId)));
+errors.push(...validateContentLimit([EXPLOSION_EPISODE.id,...CONTENT_ENTRIES.map(entry=>entry.page.articleId)]));
 for(const entry of CONTENT_ENTRIES){
   const domain=entry.directory.split('/')[0];
   if(domain!=='physics-discovery'&&domain!=='number-systems')continue;
