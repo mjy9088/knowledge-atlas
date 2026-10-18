@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "articleId": "article:physics-discovery.photoelectric-evidence.ko",
+  "seriesId": "series:physics-discovery",
+  "openingQuestion": "더 밝은 저주파 빛도 왜 금속에서 전자를 방출하지 못할 수 있을까요?",
+  "readerOutcome": "낮은 세기 단일광자 조건에서 진동수가 광자 하나의 에너지와 방출 문턱을 정하고, 밝기는 문턱 위에서 주로 광전류를 바꾼다는 관찰·모형·적용 한계를 설명할 수 있습니다.",
+  "assumedKnowledge": [
+    "빛에는 진동수와 밝기가 있다는 일상적 구별",
+    "에너지가 보존된다는 직관",
+    "전류가 단위 시간당 전하 흐름이라는 기초 개념"
+  ],
+  "misconception": "빛을 충분히 밝게 하면 진동수와 관계없이 전자 하나가 계속 에너지를 모아 반드시 방출되고, 밝기가 방출 전자의 최대 에너지도 키운다.",
+  "transfer": {
+    "question": "φ=2.30 eV인 같은 표면에 광자 에너지 3.31 eV인 빛 B를 두 배 밝게 비추면 포화 광전류와 정지전위의 크기는 각각 어떻게 될까요?",
+    "answer": "낮은 세기 단일광자 영역과 같은 수집 조건에서는 포화 광전류는 커질 수 있지만 정지전위의 크기는 약 1.01 V로 그대로입니다.",
+    "rationale": "밝기는 단위 시간당 광자 수를 늘리지만 광자당 에너지는 바꾸지 않습니다. 따라서 Kmax=hf−φ와, 접촉전위를 보정하고 공간전하를 무시한 |Vs|=Kmax/e는 그대로입니다."
+  },
+  "narration": {
+    "status": "planned",
+    "seconds": 180,
+    "segments": [
+      {
+        "sceneId": "question",
+        "seconds": 18
+      },
+      {
+        "sceneId": "observations",
+        "seconds": 29
+      },
+      {
+        "sceneId": "single-photon-model",
+        "seconds": 26
+      },
+      {
+        "sceneId": "below-threshold-case",
+        "seconds": 27
+      },
+      {
+        "sceneId": "above-threshold-case",
+        "seconds": 31
+      },
+      {
+        "sceneId": "regime-limit",
+        "seconds": 24
+      },
+      {
+        "sceneId": "transfer",
+        "seconds": 25
+      }
+    ]
+  },
+  "review": {
+    "status": "review-required",
+    "blockers": [
+      "Independent experimental and quantum-physics source critique is pending.",
+      "Exact source revisions and immutable source bytes are not captured.",
+      "Surface-condition phrasing and the boundary between low-intensity single-photon and nonlinear regimes need expert review.",
+      "The idealized stopping-potential calculation requires contact-potential correction and negligible space charge; apparatus-specific validation is pending.",
+      "Rights, narration timing, audio, reader comprehension, and publication approval remain pending."
+    ]
+  }
+}

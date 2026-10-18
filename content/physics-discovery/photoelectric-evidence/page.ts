@@ -1,0 +1,73 @@
+import type {ContentPage} from '../../../packages/content/types.js';
+
+export default {
+  slug: 'photoelectric-evidence',
+  articleId: 'article:physics-discovery.photoelectric-evidence.ko',
+  label: '광전효과의 문턱',
+  category: '물리 · 발견',
+  claimRefs: [
+    'claim:physics-discovery.photoelectric-evidence.observations',
+    'claim:physics-discovery.photoelectric-evidence.single-photon-model',
+    'claim:physics-discovery.photoelectric-evidence.stopping-potential',
+    'claim:physics-discovery.photoelectric-evidence.regime-limit',
+  ],
+  scenes: [
+    {
+      id: 'question',
+      title: '밝게 해도 왜 나오지 않을까요?',
+      block: 0,
+      from: 0,
+      cards: ['장치 | 진공 · 금속 · 단색광', '측정 | 방출 전자의 전류'],
+      known: '질문과 측정량',
+    },
+    {
+      id: 'observations',
+      title: '전류와 에너지는 다르게 움직였습니다',
+      block: 1,
+      from: 0,
+      cards: ['관찰 | f<fc이면 전류 0', '같은 f · 수집 조건 | 밝기↑ 포화 전류↑', '정지전위 | 밝기와 무관'],
+      known: '관찰된 비교',
+    },
+    {
+      id: 'single-photon-model',
+      title: '한 광자의 에너지가 문턱을 넘습니다',
+      block: 2,
+      from: 0,
+      cards: ['광자 | hf', '방출 조건 | hf≥φ', '허용될 때 | Kmax=hf−φ'],
+      known: '단일광자 에너지 장부',
+    },
+    {
+      id: 'below-threshold-case',
+      title: '낮은 진동수는 0.65 eV 부족합니다',
+      block: 3,
+      from: 0,
+      to: 2,
+      cards: ['빛 A | f=4.00×10¹⁴ Hz', 'hf | 1.65 eV', '부족 | 0.65 eV'],
+      known: '독립 수치 예의 문턱 아래',
+    },
+    {
+      id: 'above-threshold-case',
+      title: '진동수를 올리면 1.01 eV가 남습니다',
+      block: 3,
+      from: 2,
+      cards: ['빛 B | f=8.00×10¹⁴ Hz', 'Kmax | 1.01 eV', '이상화 | Vs=−1.01 V · |Vs|=1.01 V'],
+      known: '독립 수치 예와 정지전위',
+    },
+    {
+      id: 'regime-limit',
+      title: '문턱에는 적용 조건이 있습니다',
+      block: 4,
+      from: 0,
+      cards: ['적용 | 낮은 세기 · 단일광자', '제외 | 다광자 · 강한 장', '지지 | 양자적 에너지 교환'],
+      known: '모형의 적용 범위',
+    },
+    {
+      id: 'transfer',
+      title: '밝기를 두 배로 하면 무엇이 바뀔까요?',
+      block: 5,
+      from: 0,
+      cards: ['빛 B | 광자당 에너지 그대로', '포화 광전류 | 커질 수 있음', '|Vs| | 약 1.01 V 그대로'],
+      known: '밝기와 진동수의 역할 구별',
+    },
+  ],
+} satisfies ContentPage;

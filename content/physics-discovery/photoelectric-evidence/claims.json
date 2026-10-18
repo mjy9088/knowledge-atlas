@@ -1,0 +1,80 @@
+[
+  {
+    "id": "claim:physics-discovery.photoelectric-evidence.observations",
+    "kind": "empirical-pattern",
+    "statement": "금속 광전극의 보통 낮은 세기 광전효과에서 차단 진동수 아래에는 광전류가 없고, 차단 진동수 위의 고정된 진동수에서는 빛의 세기가 포화 광전류를 바꾸지만 최대 운동에너지와 정지전위의 크기는 바꾸지 않는다.",
+    "scope": "깨끗하고 균일한 금속 표면, 진공 광전관, 단색광, 낮은 세기의 단일광자 영역. 세기 비교는 같은 진동수·수집 기하에서 방출 전자를 충분히 모으는 전압의 포화 광전류를 사용한다.",
+    "assumptions": [
+      "광전류와 정지전위를 구별함",
+      "표면 상태와 일함수가 비교 중 변하지 않음",
+      "같은 수집 기하와 충분한 수집 전압에서 포화 광전류를 비교함",
+      "다광자·강한 장·열전자 방출을 제외함"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:openstax-university-physics-photoelectric",
+        "locator": "§6.2 ‘Characteristics of the Photoelectric Effect’, subsections ‘The intensity of incident radiation and the kinetic energy of photoelectrons’ and ‘The presence of a cut-off frequency’, Figures 6.9–6.10 discussion"
+      },
+      {
+        "sourceId": "source:nobel-1921-einstein-presentation-speech",
+        "locator": "paragraph beginning ‘A third group of studies’, sentences reporting Lenard's intensity/frequency pattern; paragraph beginning ‘Similarly, when a quantum of light falls’, threshold and fixed-frequency intensity comparison"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:physics-discovery.photoelectric-evidence.single-photon-model",
+    "kind": "physical-model",
+    "statement": "단일광자 광전효과 모형에서 광자 에너지는 hf이고 금속 표면의 일함수가 φ일 때, hf≥φ로 방출이 허용되면 Kmax=hf−φ이며 차단 진동수는 hfc=φ를 만족한다. hf<φ이면 이 모형의 단일광자 방출 조건을 만족하지 못한다.",
+    "scope": "한 광자의 에너지가 전자 하나에 전달되는 표면 방출의 최대 운동에너지 관계. 표면 내부 손실 때문에 모든 방출 전자가 Kmax를 갖는다고 주장하지 않는다.",
+    "assumptions": [
+      "단색광의 단일광자 흡수로 기술함",
+      "일함수 φ는 해당 표면 상태에 대한 최소 탈출 에너지임",
+      "에너지는 eV로, h≈4.136×10⁻¹⁵ eV·s로 계산함"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:openstax-university-physics-photoelectric",
+        "locator": "§6.2 ‘The Work Function’, equations (6.13) Ef=hf, (6.14) Kmax=hf−φ, and (6.15) fc=φ/h with the immediately following threshold explanation"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:physics-discovery.photoelectric-evidence.stopping-potential",
+    "kind": "measurement-model",
+    "statement": "수집 전극을 방출 표면보다 음전위로 두는 저지 전압에서 광전류가 0이 될 때, 접촉전위를 보정하고 공간전하 효과를 무시할 수 있는 이상화에서는 최대 운동에너지가 Kmax=e|Vs|로 연결된다.",
+    "scope": "OpenStax의 부호 관례에서 수집 전극의 저지 전압은 음수이고 ΔVs는 그 양의 크기다. 본문의 수치는 접촉전위가 보정됐고 공간전하가 무시 가능하다고 가정한 이상적 외부 전압이다.",
+    "assumptions": [
+      "전극 사이 에너지 변화가 전기력에 의해 결정됨",
+      "광전류가 사라지는 최소 역전압을 사용함",
+      "전압의 부호와 크기를 명시적으로 구별함",
+      "전극의 접촉전위를 보정함",
+      "공간전하가 저지 곡선을 유의하게 바꾸지 않음"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:openstax-university-physics-photoelectric",
+        "locator": "§6.2 apparatus paragraphs and ‘The intensity of incident radiation and the kinetic energy of photoelectrons’, equation (6.12) Kmax=eΔVs; Example 6.6 identifies measured −0.80 V with magnitude ΔVs=0.80 V"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:physics-discovery.photoelectric-evidence.regime-limit",
+    "kind": "model-scope",
+    "statement": "충분히 강한 레이저장에서는 여러 광자의 흡수에 의한 비선형 광전자 방출과 강한 장 방출이 가능하므로 단일광자 차단 진동수를 모든 세기에 대한 절대 금지선으로 일반화할 수 없다.",
+    "scope": "금속 표면의 강한 레이저 조사에 대한 적용 한계만 기록하며, 이 짧은 글은 다광자 수율이나 터널 방출을 계산하지 않는다.",
+    "assumptions": [
+      "낮은 세기 단일광자 영역과 강한 레이저 영역을 구별함",
+      "다광자 과정은 본문의 수치 예에서 제외함"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:farkas-multiphoton-photoemission-1973",
+        "locator": "§I Introduction, printed p.3 (PDF file p.7 of 36): passages beginning ‘The perturbations which can be achieved’ and ‘Einstein’s equation’, stating simultaneous absorption of n quanta, nhν=A+½mv², j∼Iⁿ, and optical tunnel emission at extremely large perturbations"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  }
+]

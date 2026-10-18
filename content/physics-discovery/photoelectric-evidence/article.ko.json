@@ -1,0 +1,59 @@
+{
+  "id": "article:physics-discovery.photoelectric-evidence.ko",
+  "conceptId": "concept:physics.photoelectric-evidence",
+  "title": "더 밝은 저주파 빛도 왜 전자를 못 튀어나오게 할 수 있을까요?",
+  "shortTitle": "밝기보다 진동수가 먼저인 까닭",
+  "reviewStatus": "needs-content-review",
+  "scope": "깨끗하고 균일한 금속 표면을 진공에서 단색광으로 비추는 보통의 낮은 세기 단일광자 광전효과를 다룹니다. 강한 레이저의 다광자 방출, 표면 오염과 일함수 분포, 열전자 방출, 반도체 광반응에는 결론을 그대로 넓히지 않습니다.",
+  "blocks": [
+    {
+      "id": "block:physics-discovery.photoelectric-evidence.question",
+      "text": "진공관 속 깨끗한 금속 표면에 단색광을 비추고 나온 전자를 전류로 셉니다. 빛을 더 밝게 했는데도 전자가 나오지 않는다면, 밝기 말고 무엇이 문턱을 정할까요?",
+      "claimRefs": [
+        "claim:physics-discovery.photoelectric-evidence.observations"
+      ]
+    },
+    {
+      "id": "block:physics-discovery.photoelectric-evidence.observation",
+      "text": "보통의 낮은 세기 실험에서는 금속마다 차단 진동수 fc가 관찰됩니다. f<fc이면 세기를 높여도 광전류가 나타나지 않습니다. f>fc에서는 수집 기하를 고정하고 방출 전자를 충분히 모으는 전압을 걸었을 때, 밝기가 커지면 포화 광전류가 커집니다. 반면 같은 진동수에서 정지전위의 크기는 밝기를 바꿔도 그대로입니다.",
+      "claimRefs": [
+        "claim:physics-discovery.photoelectric-evidence.observations"
+      ]
+    },
+    {
+      "id": "block:physics-discovery.photoelectric-evidence.model",
+      "text": "단일광자 모형에서는 광자 하나의 에너지가 hf이고, 전자가 표면을 빠져나오는 최소 에너지가 일함수 φ입니다. hf≥φ로 방출이 가능할 때 Kmax=hf−φ입니다. hf<φ이면 단일광자 방출 조건을 만족하지 못하므로, 광자 수만 늘리는 밝기 증가는 한 광자의 부족분을 채우지 못합니다. 문턱에서는 hfc=φ입니다.",
+      "claimRefs": [
+        "claim:physics-discovery.photoelectric-evidence.single-photon-model"
+      ]
+    },
+    {
+      "id": "block:physics-discovery.photoelectric-evidence.worked",
+      "text": "일함수 φ=2.30 eV인 가상 표면에 광자 에너지가 1.65 eV인 빛 A를 비춥니다. A는 0.65 eV 부족하므로 이 조건에서는 밝게 해도 방출되지 않습니다. 빛 B는 광자당 3.31 eV이므로 Kmax=1.01 eV입니다. 접촉전위를 보정하고 공간전하를 무시할 수 있다고 이상화하면, 수집 전극을 방출면보다 음전위로 하는 저지 전압은 −1.01 V이고 크기는 1.01 V입니다.",
+      "claimRefs": [
+        "claim:physics-discovery.photoelectric-evidence.single-photon-model",
+        "claim:physics-discovery.photoelectric-evidence.stopping-potential"
+      ]
+    },
+    {
+      "id": "block:physics-discovery.photoelectric-evidence.limit",
+      "text": "이 문턱은 모든 세기에 대한 절대 금지선이 아닙니다. 강한 레이저에서는 여러 광자를 함께 흡수하는 방출이나 광학 터널 방출이 가능하므로, 결론은 낮은 세기 단일광자 영역에만 적용합니다. 이는 양자적 에너지 교환을 지지한 증거이지 양자역학 전체의 단독 증명은 아닙니다.",
+      "claimRefs": [
+        "claim:physics-discovery.photoelectric-evidence.regime-limit"
+      ]
+    },
+    {
+      "id": "block:physics-discovery.photoelectric-evidence.transfer",
+      "text": "같은 표면에 빛 B를 두 배 밝게 비추면 무엇이 달라질까요? 낮은 세기 단일광자 조건과 같은 수집 조건을 유지하면 포화 광전류는 커질 수 있습니다. 그러나 광자당 에너지와 Kmax=1.01 eV는 그대로이므로 정지전위의 크기도 약 1.01 V입니다.",
+      "claimRefs": [
+        "claim:physics-discovery.photoelectric-evidence.observations",
+        "claim:physics-discovery.photoelectric-evidence.single-photon-model",
+        "claim:physics-discovery.photoelectric-evidence.stopping-potential"
+      ]
+    }
+  ],
+  "relatedConcepts": [
+    "concept:physics.quantum-spectra",
+    "concept:physics.electron-evidence"
+  ]
+}
