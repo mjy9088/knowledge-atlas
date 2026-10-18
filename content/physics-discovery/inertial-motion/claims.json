@@ -1,0 +1,29 @@
+[
+  {
+    "id": "claim:physics-discovery.inertial-motion.friction-evidence",
+    "kind": "empirical-pattern-and-idealization",
+    "statement": "물체, 초기 속도, 면의 수평도와 공기 저항 조건을 맞춘 비교에서 접촉 마찰을 줄이면 같은 시간 동안 감속이 작고 더 멀리 이동한다. 이 경향은 마찰과 공기 저항이 없는 이상적 한계에서 일정한 직선 운동이 유지된다는 관성 설명을 지지한다.",
+    "scope": "OpenStax의 거친 면·윤활면·공기 하키 비교에 맞춘 정성적 패턴. 무마찰 상태에서 무한 시간 운동을 직접 관찰했다는 주장이 아니다.",
+    "assumptions": ["같은 물체를 같은 초기 속도로 출발시킴", "비교 면이 수평이고 공기 흐름·형상에 따른 항력을 비슷하게 유지함", "같은 관찰 시간 또는 같은 측정 구간을 사용함", "이상화와 직접 관찰을 구별함"],
+    "sourceRefs": [{"sourceId":"source:openstax-university-physics-newton-first-law","locator":"§5.2, Newton’s First Law of Motion: rough/smoother/lubricated surface progression; Figure 5.8 and surrounding air-hockey discussion"}],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:physics-discovery.inertial-motion.first-law",
+    "kind": "physical-law",
+    "statement": "관성 기준계에서 물체에 작용하는 알짜 외력이 0이면 속도 벡터는 일정하다. 일정한 속도에는 정지와 일정한 속력의 직선 운동이 모두 포함된다.",
+    "scope": "고전역학의 뉴턴 제1법칙. 힘이 전혀 없다는 조건이 아니라 외력의 벡터 합이 0이라는 조건이며, 상대론적·양자적 운동의 완전한 기술을 주장하지 않는다.",
+    "assumptions": ["관찰 기준계가 해당 정확도에서 관성 기준계로 취급됨", "물체의 계 경계를 정해 외력을 합산함", "속도는 크기와 방향을 가진 벡터임"],
+    "sourceRefs": [{"sourceId":"source:openstax-university-physics-newton-first-law","locator":"§5.2, Newton’s First Law of Motion; Newton’s First Law and Equilibrium, Equation 5.2 and following explanation"}],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:physics-discovery.inertial-motion.frame-limit",
+    "kind": "conceptual-boundary",
+    "statement": "뉴턴 제1법칙이 성립하는 기준계를 관성 기준계라 하며, 관성 기준계에 대해 일정한 속도로 움직이는 기준계도 관성 기준계다. 가속하는 기준계는 이 조건을 그대로 만족하지 않는다.",
+    "scope": "뉴턴 역학에서의 기준계 구별. 지표면 기준을 많은 일상 문제에서 근사적으로 관성계로 취급할 수 있지만 모든 정밀도와 규모에서 정확한 관성계라고 주장하지 않는다.",
+    "assumptions": ["기준계 사이의 상대 운동을 명시함", "필요한 실험 정확도와 시간·공간 규모를 정함"],
+    "sourceRefs": [{"sourceId":"source:openstax-university-physics-newton-first-law","locator":"§5.2, Inertial Reference Frames: definition, constant-velocity related frames, accelerating frames, and Earth-frame approximation"}],
+    "reviewStatus": "draft-source-aligned"
+  }
+]

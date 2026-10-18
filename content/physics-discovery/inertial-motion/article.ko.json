@@ -1,0 +1,17 @@
+{
+  "id": "article:physics-discovery.inertial-motion.ko",
+  "conceptId": "concept:physics.inertial-motion",
+  "title": "손을 떼면, 왜 계속 움직일까요?",
+  "shortTitle": "왜 계속 움직일까요?",
+  "reviewStatus": "needs-content-review",
+  "scope": "고전역학의 관성 기준계에서 알짜 외력이 속도를 바꾼다는 설명. 마찰이 없는 운동은 실험 비교에서 나아간 이상화이며 상대론적·양자적 범위를 다루지 않습니다.",
+  "blocks": [
+    {"id":"block:physics-discovery.inertial-motion.question","text":"책상 위 장난감 차는 손을 떼면 멈춥니다. 그렇다면 움직임을 계속 유지하려면 언제나 힘이 필요할까요? 먼저 멈추는 장면에서 무엇이 차를 밀고 있는지보다 무엇이 운동을 바꾸는지 물어봅시다.","claimRefs":["claim:physics-discovery.inertial-motion.friction-evidence"]},
+    {"id":"block:physics-discovery.inertial-motion.evidence","text":"같은 물체를 같은 초기 속도로 수평인 거친 면과 매끈한 면에서 비교해야 합니다. 공기 흐름도 비슷하게 유지했을 때, 접촉 마찰이 작은 쪽은 같은 관찰 시간 동안 속도가 덜 줄고 더 멀리 갑니다. 공기 하키는 접촉 마찰을 더 줄인 비교입니다.","claimRefs":["claim:physics-discovery.inertial-motion.friction-evidence"]},
+    {"id":"block:physics-discovery.inertial-motion.inference","text":"이 비교는 움직임 자체보다 마찰과 공기 저항이 속도를 바꾼다는 해석을 지지합니다. 관성 기준계에서 알짜 외력이 0이면 물체는 정지해 있거나 속력과 방향을 그대로 유지합니다. 정지와 일정한 직선 운동은 같은 조건의 두 경우입니다.","claimRefs":["claim:physics-discovery.inertial-motion.first-law"]},
+    {"id":"block:physics-discovery.inertial-motion.frame","text":"여기에는 숨은 조건이 있습니다. 이 법칙으로 운동을 기술하는 기준 자체가 가속하지 않는 관성 기준계여야 합니다. 급정거하는 버스 안에서는 몸이 앞으로 쏠려 보이므로, 버스 기준만 보고 원인 없는 가속이라고 결론내리면 안 됩니다.","claimRefs":["claim:physics-discovery.inertial-motion.frame-limit"]},
+    {"id":"block:physics-discovery.inertial-motion.limit","text":"마찰을 완전히 없애 끝없이 가는 물체를 이 비교에서 직접 본 것은 아닙니다. 마찰과 공기 저항을 줄일수록 감속이 작아지는 경향을 이상적인 한계까지 확장한 것입니다. 또 알짜 힘 0은 힘이 하나도 없다는 뜻이 아니라 여러 힘의 벡터 합이 0일 수도 있다는 뜻입니다.","claimRefs":["claim:physics-discovery.inertial-motion.friction-evidence","claim:physics-discovery.inertial-motion.first-law","claim:physics-discovery.inertial-motion.frame-limit"]},
+    {"id":"block:physics-discovery.inertial-motion.transfer","text":"수평 직선 도로를 관성 기준계로 근사해 봅시다. 추진력이 공기·구름 저항을 상쇄하고, 수직 방향에서도 지지력이 중력을 상쇄한다면 알짜 외력은 0입니다. 이 조건에서는 자동차의 속력과 방향이 일정합니다. 일정한 속도라는 관찰만으로 각 힘이 없다고 거꾸로 결론내리지는 않습니다.","claimRefs":["claim:physics-discovery.inertial-motion.first-law","claim:physics-discovery.inertial-motion.frame-limit"]}
+  ],
+  "relatedConcepts": []
+}

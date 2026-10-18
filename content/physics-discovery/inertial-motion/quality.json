@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "articleId": "article:physics-discovery.inertial-motion.ko",
+  "seriesId": "series:physics-discovery",
+  "openingQuestion": "손을 뗀 물체가 멈추는 것은 움직임을 유지하는 힘이 사라졌기 때문일까요?",
+  "readerOutcome": "마찰을 줄인 비교에서 알짜 외력 0과 일정한 속도의 관계를 설명하고, 관성 기준계와 이상화의 조건을 함께 말할 수 있습니다.",
+  "assumedKnowledge": ["속력과 방향이라는 일상적 운동 개념", "여러 힘이 서로 상쇄될 수 있다는 직관"],
+  "misconception": "움직이는 물체에는 진행 방향의 알짜 힘이 계속 작용해야 한다.",
+  "transfer": {
+    "question": "직선 도로에서 자동차가 일정한 속도로 달릴 때 엔진이 힘을 내면 알짜 힘도 앞쪽일까요?",
+    "answer": "수평·수직 방향의 힘이 각각 균형을 이룬다면 알짜 외력은 0입니다.",
+    "rationale": "수평 직선 도로를 관성 기준계로 근사하고 추진력과 저항력, 지지력과 중력이 각각 상쇄된다는 조건을 먼저 둡니다. 그러면 알짜 외력이 0이므로 속력과 방향이 일정합니다. 일정한 속도만 보고 개별 힘이 없다고 거꾸로 결론내리지는 않습니다."
+  },
+  "narration": {
+    "status": "planned",
+    "seconds": 158,
+    "segments": [
+      {"sceneId":"question","seconds":22},
+    {"sceneId":"comparison","seconds":28},
+      {"sceneId":"inference","seconds":30},
+      {"sceneId":"frame","seconds":27},
+      {"sceneId":"limit","seconds":25},
+      {"sceneId":"transfer","seconds":26}
+    ]
+  },
+  "review": {"status":"review-required","blockers":["Independent physics and pedagogy review pending.","Exact source revision capture and rights audit pending.","Narration has not been recorded or speech-timed."]}
+}
