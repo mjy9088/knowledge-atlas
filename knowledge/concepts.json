@@ -180,5 +180,89 @@
     "summary": "동일한 문장도 선별·관측 절차에 따라 다른 조건부확률이 될 수 있음을 설명한다.",
     "reviewStatus": "proposed",
     "externalIds": []
+  },
+  {
+    "id": "concept:physics.inertial-motion",
+    "title": "관성 운동",
+    "summary": "마찰을 줄인 비교에서 알짜 외력, 일정한 속도, 관성 기준계의 관계를 설명한다.",
+    "reviewStatus": "proposed",
+    "externalIds": []
+  },
+  {
+    "id": "concept:physics.atomic-evidence",
+    "title": "원자의 실재를 지지한 증거",
+    "summary": "브라운 운동의 정량 예측과 여러 아보가드로 수 측정의 수렴을 통해 간접 증거의 구조를 살펴본다.",
+    "reviewStatus": "proposed",
+    "externalIds": []
+  },
+  {
+    "id": "concept:physics.nuclear-scattering",
+    "title": "핵 산란과 원자핵",
+    "summary": "알파 입자의 각도별 산란 분포에서 작고 집중된 양전하 중심을 추론한 과정을 설명한다.",
+    "reviewStatus": "proposed",
+    "externalIds": []
+  },
+  {
+    "id": "concept:number-systems.natural-numbers",
+    "title": "자연수와 0",
+    "summary": "빈 모음의 개수 0부터 하나씩 세며 얻는 수와 그 표기 관례",
+    "reviewStatus": "proposed",
+    "externalIds": []
+  },
+  {
+    "id": "concept:number-systems.integers",
+    "title": "정수",
+    "summary": "자연수에 0과 덧셈 역원인 음수를 함께 둔 수 체계",
+    "reviewStatus": "proposed",
+    "externalIds": []
+  },
+  {
+    "id": "concept:number-systems.rational-numbers",
+    "title": "유리수",
+    "summary": "0이 아닌 분모를 가진 정수의 비를 동치인 분수 표현으로 다루는 수 체계",
+    "reviewStatus": "proposed",
+    "externalIds": []
+  },
+  {
+    "id": "concept:number-systems.irrational-numbers",
+    "title": "무리수",
+    "summary": "두 정수의 비로 나타낼 수 없는 실수와 √2의 표준 비유리성 증명",
+    "reviewStatus": "proposed",
+    "externalIds": []
+  },
+  {
+    "id": "concept:number-systems.real-completeness",
+    "title": "실수의 완비성",
+    "summary": "비어 있지 않고 위로 제한된 실수 부분집합이 실수 최소 상한을 갖는 성질",
+    "reviewStatus": "proposed",
+    "externalIds": []
+  },
+  {
+    "id": "concept:number-systems.complex-numbers",
+    "title": "복소수",
+    "summary": "실수쌍의 체 연산과 평면에서의 곱셈 기하를 갖는 수 체계",
+    "reviewStatus": "proposed",
+    "externalIds": []
+  },
+  {
+    "id": "concept:physics.electron-evidence",
+    "title": "전자의 증거",
+    "summary": "교차 전기장·자기장 편향과 전하 대 질량비로 음극선의 공통 입자 성격을 추론하는 과정",
+    "reviewStatus": "proposed",
+    "externalIds": []
+  },
+  {
+    "id": "concept:physics.nuclear-constituents",
+    "title": "핵의 구성 입자",
+    "summary": "핵의 존재와 별도로 양성자·중성자를 식별한 핵변환, 투과, 반동 증거",
+    "reviewStatus": "proposed",
+    "externalIds": []
+  },
+  {
+    "id": "concept:physics.quantum-spectra",
+    "title": "양자와 선 스펙트럼",
+    "summary": "불연속 스펙트럼 선을 에너지 상태 차이와 연결하고 보어 모형의 적용 한계를 구별하는 설명",
+    "reviewStatus": "proposed",
+    "externalIds": []
   }
 ]
