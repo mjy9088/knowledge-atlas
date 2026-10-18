@@ -1,7 +1,7 @@
 import {test,expect} from '@playwright/test';
 import {execFileSync} from 'node:child_process';
+import {writeFileSync} from 'node:fs';
 import path from 'node:path';
-import type {Conversation} from '../../tools/studio/chat.js';
 
 test('brief save buttons persist title, goal, audience and sources; format budgets apply across contents',async({page,request})=>{
  await page.goto('/#binary-relations/question');await page.locator('#plan-settings summary').first().click();const initial={title:await page.locator('#plan-title').inputValue(),goal:await page.locator('#plan-goal').inputValue(),audience:await page.locator('#plan-audience').inputValue()};
@@ -14,22 +14,14 @@ test('slides can be added, referenced, reordered and removed in the web editor',
  await page.goto('/#two-children/question');await page.locator('#reset').click();await expect(page.locator('#position')).toHaveText('1 / 6');await page.locator('#slide-add').click();await page.locator('#slide-title').fill('웹에서 추가한 장면');await page.locator('#slide-goal').fill('관측 절차 확인');await page.locator('#narration').fill('관측 절차를 먼저 확인합니다.');await page.locator('#visual').fill('관측 절차 비교');await page.locator('#observation').fill('관측 절차를 확인');await page.locator('#save').click();await expect(page.locator('#save-status')).toHaveText('저장됨');await expect(page.locator('#position')).toHaveText('2 / 7');await page.locator('#slide-down').click();await page.locator('#save').click();await expect(page.locator('#position')).toHaveText('3 / 7');await page.reload();await expect(page.locator('#slide-title')).toHaveValue('웹에서 추가한 장면');await page.locator('#slide-delete').click();await page.locator('#save').click();await expect(page.locator('#position')).toHaveText('3 / 6');await page.locator('#reset').click();
 });
 
-test('chat failures preserve the user message and topic-specific drafts survive navigation',async({page})=>{
- await page.goto('/#monty-hall/question');await expect(page.locator('#topic-title')).toContainText('몬티 홀');await page.locator('#work-instruction').fill('채팅 실패 테스트 · 실제 모델 응답 아님');await page.locator('[data-topic="two-children"]').click();await expect(page.locator('#work-instruction')).toHaveValue('');await page.locator('[data-topic="monty-hall"]').click();await expect(page.locator('#work-instruction')).toHaveValue('채팅 실패 테스트 · 실제 모델 응답 아님');
- await page.locator('#chat-ask').click();await expect(page.locator('#chat-status')).toHaveText('실행 실패');await expect(page.locator('#chat-messages')).toContainText('채팅 실패 테스트');await expect(page.locator('#chat-messages .assistant')).toHaveCount(0);await page.reload();await expect(page.locator('#chat-messages')).toContainText('채팅 실패 테스트');
-});
-
-test('question and approval UI preserves partial answers during polling and sends only explicit scoped responses',async({page},testInfo)=>{
- // UI protocol fixture only. No inference, command, actual approval or editorial evidence is fabricated.
- const c:Conversation={id:'ui-fixture',topicId:'monty-hall',threadId:'fixture-thread',turnId:'fixture-turn',mode:'work',revision:'fixture',status:'waiting',messages:[{id:'fixture-reply',role:'assistant',mode:'work',revision:'fixture',text:'UI test fixture: 설명 범위를 알려 주세요.'}],requests:[{id:'fixture-question',rpcId:10,kind:'question',turnId:'fixture-turn',description:'Test question',canAccept:false,questions:[{id:'scope',header:'설명 범위',question:'어느 범위를 다룰까요?',secret:false,options:[{label:'핵심만',description:'짧은 설명'}]}]}]};
- await page.route('**/api/chats',route=>route.fulfill({json:[c]}));
- await page.route('**/api/chat-answer',async route=>{const body=route.request().postDataJSON();expect(body.id).toBe('monty-hall');expect(body.conversationId).toBe(c.id);
-  if(body.requestId==='fixture-question'){expect(body.response.answers.scope).toBe('핵심만 + 비교');c.requests=[{id:'fixture-approval',rpcId:11,kind:'command',turnId:'fixture-turn',description:'Test command, not actually executed',canAccept:true,questions:[]}];}
-  else{expect(body.requestId).toBe('fixture-approval');expect(body.response).toEqual({decision:'decline'});c.requests=[];c.status='idle';}await route.fulfill({json:{ok:true}});
- });
- await page.goto('/#monty-hall/question');await expect(page.locator('#chat-requests')).toContainText('어느 범위를');await page.locator('#chat-requests').getByRole('button',{name:'핵심만',exact:true}).click();const answer=page.getByLabel('어느 범위를 다룰까요?',{exact:true});await answer.fill('핵심만 + 비교');await page.waitForTimeout(2800);await expect(answer).toHaveValue('핵심만 + 비교');
- await page.locator('[data-topic="two-children"]').click();await page.locator('[data-topic="monty-hall"]').click();await expect(answer).toHaveValue('핵심만 + 비교');await page.getByRole('button',{name:'답변 보내기',exact:true}).click();await expect(page.locator('#chat-requests')).toContainText('명령 실행 승인 요청');
- await page.locator('#chat-requests').getByRole('button',{name:'거절',exact:true}).click();await expect(page.locator('#chat-requests').locator('form')).toHaveCount(0);expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(testInfo.project.use.viewport!.width);
+test('external handoff controls replace embedded chat and import a validated revision-bound review',async({page,request},testInfo)=>{
+  await page.goto('/#monty-hall/question');await expect(page.locator('#topic-title')).toContainText('몬티 홀');
+  await expect(page.getByRole('heading',{name:'외부 에이전트 전달'})).toBeVisible();await expect(page.locator('.chat-panel')).toHaveCount(0);await expect(page.getByText('Codex와 대화')).toHaveCount(0);
+  expect((await request.get('/api/chats')).status()).toBe(404);expect((await request.post('/api/chat-send',{data:{}})).status()).toBe(404);
+  const download=page.waitForEvent('download');await page.getByRole('button',{name:'독립 리뷰 패킷 내보내기'}).click();expect((await download).suggestedFilename()).toContain('review-packet');
+  const packet=await(await request.get('/api/handoff/review/monty-hall')).json();const result={...packet.resultContract,reviewer:{name:'Browser fixture',kind:'external-agent',tool:'Playwright fixture'},evidence:{reviewedAt:'2026-10-18T00:00:00Z',notes:'Controlled protocol fixture, not editorial evidence',artifactRefs:['fixture://studio-browser']},reports:packet.targets.map((target:string)=>({target,report:{summary:'Browser fixture review; not editorial approval',findings:[],timing:{status:'unverified',note:'No audio or rendered-video inspection'}}}))};
+  const file=testInfo.outputPath('review-result.json');writeFileSync(file,JSON.stringify(result));await page.locator('#review-result-file').setInputFiles(file);await page.getByRole('button',{name:'검증 후 사용자 제공 리뷰 결과 가져오기'}).click();await expect(page.locator('#handoff-status')).toContainText('가져왔습니다');expect(await page.locator('#jobs .job').count()).toBeGreaterThanOrEqual(packet.targets.length);
+  await expect(page.locator('#jobs .job').first()).toContainText('사용자 제공 가져오기');await expect(page.locator('#jobs .job').first()).toContainText('Browser fixture');
 });
 
 test('format, depth and content scope are independently editable and survive reload',async({page})=>{
@@ -45,7 +37,13 @@ test('plan becomes canonical worktree sources and a real static reader build wit
  const id={'studio-desktop':'binary-relations','studio-mobile':'monty-hall','studio-200':'two-children'}[testInfo.project.name]!;
  try{
   await page.goto('/#'+id+'/question');await expect(page.locator('#work-state')).toContainText('아직');await page.locator('#prepare-work').click();await expect(page.locator('#work-state')).toHaveText('작업 공간 준비됨',{timeout:30_000});
-  await page.locator('#add-visuals').click();await expect(page.locator('#work-state')).toHaveText('작업 공간 준비됨',{timeout:30000});await page.locator('#add-interactions').click();await expect(page.locator('#work-state')).toHaveText('작업 공간 준비됨',{timeout:30000});await page.locator('#build-work').click();await expect(page.locator('#built-result')).toBeVisible({timeout:45_000});
+   await page.locator('#add-visuals').click();await expect(page.locator('#work-state')).toHaveText('작업 공간 준비됨',{timeout:30000});await page.locator('#add-interactions').click();await expect(page.locator('#work-state')).toHaveText('작업 공간 준비됨',{timeout:30000});await page.locator('#build-work').click();await expect(page.locator('#built-result')).toBeVisible({timeout:45_000});
+   const packet=await(await request.get('/api/handoff/work/'+id)).json();
+   await page.locator('#work-result-file').setInputFiles({name:'agent-qa-implementation-result.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({...packet.resultContract,summary:'Agent QA external acknowledgement fixture',checks:[]}))});
+   await page.locator('#import-work-result').click();await expect(page.locator('#handoff-status')).toContainText('소스');
+   await page.locator('.production > details > summary').click();
+   await expect(page.locator('#work-tasks > details > summary').first()).toHaveText(/^구현 기록 · /);
+   await page.locator('.production > details > summary').click();
   const firstLab=id==='binary-relations'?'question':id==='monty-hall'?'strategy':'model';await page.locator(`#slides button[data-slide="${firstLab}"]`).click();
   const frame=page.frameLocator('#build-frame');await expect(frame.locator('body')).toContainText(id==='binary-relations'?'순서쌍':id==='monty-hall'?'공개 규칙':'관측');await expect(frame.locator('#reader-controls')).toBeVisible();await expect(frame.locator('.possibility-lab')).toBeVisible();await frame.locator('[data-action="branch"]').click();await expect(frame.locator('.lab-stage')).toHaveText('분기 1 / 3');
   if(id!=='binary-relations'){await page.locator(`#slides button[data-slide="${id==='monty-hall'?'compare':'child'}"]`).click();await expect(frame.locator('.lab-mode')).toHaveValue(id==='monty-hall'?'blind':'child');await page.locator(`#slides button[data-slide="${firstLab}"]`).click();await expect(frame.locator('.lab-mode')).toHaveValue(id==='monty-hall'?'informed':'filter');}
@@ -77,7 +75,7 @@ test('plan becomes canonical worktree sources and a real static reader build wit
   await page.screenshot({path:`test-results/studio-build-${testInfo.project.name}.png`,fullPage:true});
  }finally{
   const works=await(await request.get('/api/work')).json() as {id:string;directory:string;branch:string}[];const w=works.find(w=>w.id===id);
-  if(w){const expected=path.resolve('artifacts/studio-workspaces');if(path.dirname(path.resolve(w.directory))!==expected||!w.branch.startsWith('codex/studio/'))throw Error('Unsafe test workspace cleanup');execFileSync('git',['worktree','remove','--force',w.directory]);execFileSync('git',['branch','-D',w.branch]);}
+  if(w){const expected=path.resolve('artifacts/studio-workspaces');if(path.dirname(path.resolve(w.directory))!==expected||!w.branch.startsWith('studio/'))throw Error('Unsafe test workspace cleanup');execFileSync('git',['worktree','remove','--force',w.directory]);execFileSync('git',['branch','-D',w.branch]);}
  }
 });
 test('private studio preserves edits and feedback across navigation, reload and explicit reset',async({page},testInfo)=>{
@@ -94,8 +92,4 @@ test('private studio preserves edits and feedback across navigation, reload and 
   expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(testInfo.project.use.viewport!.width);
   await page.locator('#add-feedback').scrollIntoViewIfNeeded();await expect(page.locator('#add-feedback')).toBeInViewport();
   await page.screenshot({path:`test-results/studio-${testInfo.project.name}.png`,fullPage:true});
-});
-test('unavailable real runner produces an honest failure and cannot satisfy the review gate',async({page})=>{
-  await page.goto('/#binary-relations/question');await expect(page.locator('#topic-title')).toContainText('이항 관계');await page.locator('#review-one').click();
-  await expect(page.locator('#jobs .job').first()).toContainText('실패');await expect(page.locator('#gate')).toContainText('검토 대기');await expect(page.locator('#jobs .job').first().locator('details')).toHaveCount(0);
 });
