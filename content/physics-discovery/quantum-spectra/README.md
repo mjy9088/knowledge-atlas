@@ -1,0 +1,3 @@
+# Quantum spectra episode
+
+This episode moves from NIST's rounded air wavelengths for low-pressure excited atomic hydrogen to energy differences and keeps Bohr's hydrogen success separate from modern quantum states. It treats `E=hν` and `λvac=nλair` as exact and obtains `410 nm ≈ 3.02 eV` versus `656 nm ≈ 1.89 eV` only after the explicit `n≈1` approximation. NIST §17 and equations (13) and (25) ground the distinction between energy difference, transition type/probability, upper-state population, and line brightness; M1/E2 “forbidden” lines are not erased. Expert review, source snapshots, rights, audio, and publication remain pending.
