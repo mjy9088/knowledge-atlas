@@ -5,7 +5,8 @@ export interface Plan {id:string;domain:string;title:string;goal:string;audience
 export interface Finding {slideId:string;criterion:string;severity:'blocker'|'warning';evidence:string;suggestion:string}
 export interface Report {summary:string;findings:Finding[];timing:{status:'estimated'|'unverified';note:string}}
 export interface Feedback {id:string;slideId:string;text:string;resolved:boolean;revision:string}
-export interface Job {id:string;topicId:string;target:string;revision:string;status:'queued'|'running'|'completed'|'failed'|'cancelled'|'interrupted';createdAt:string;error?:string;report?:Report}
+export interface ReviewProvenance {origin:'user-supplied-import';reviewer:{name:string;kind:'human'|'external-agent';tool?:string};evidence:{reviewedAt:string;notes:string;artifactRefs:string[]}}
+export interface Job {id:string;topicId:string;target:string;revision:string;status:'queued'|'running'|'completed'|'failed'|'cancelled'|'interrupted';createdAt:string;error?:string;report?:Report;provenance?:ReviewProvenance}
 export interface Topic {plan:Plan;revision:string;feedback:Feedback[];jobs:Job[];gate:{ready:boolean;reasons:string[]}}
 export interface VideoBudgets {short:number;long:number}
 export const DEFAULT_VIDEO_BUDGETS:VideoBudgets={short:180,long:900};
