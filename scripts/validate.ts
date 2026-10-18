@@ -8,10 +8,22 @@ import {LESSON} from '../content/formal-logic/explosion/lesson.js';
 import {validateRelatedPages} from '../packages/site/related-site.js';
 import {loadContentCatalog} from '../packages/content/load-catalog.js';
 import {validateDocumentation} from './documentation.js';
+import {CONTENT_ENTRIES} from '../content/catalog.js';
+import {validateContentLimit,validateQuality} from '../packages/content/quality.js';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const read=<T>(p:string):T=>JSON.parse(readFileSync(path.join(root,p),'utf8'));
 const errors:string[]=[];
+errors.push(...validateContentLimit(CONTENT_ENTRIES.map(entry=>entry.page.articleId)));
+for(const entry of CONTENT_ENTRIES){
+  const domain=entry.directory.split('/')[0];
+  if(domain!=='physics-discovery'&&domain!=='number-systems')continue;
+  const file=`content/${entry.directory}/quality.json`;
+  try{
+    const value:unknown=read(file);
+    errors.push(...validateQuality(value,{articleId:entry.page.articleId,seriesId:`series:${domain}`,sceneIds:entry.page.scenes.map(scene=>scene.id)}).map(error=>`${file}: ${error}`));
+  }catch(error){errors.push(`${file}: ${error instanceof Error?error.message:String(error)}`);}
+}
 errors.push(...validateDocumentation(root));
 function need(ok:unknown,message:string){if(!ok)errors.push(message);}
 function uniq(arr:Array<string|{id:string}>,label:string){const ids=arr.map(x=>typeof x==='string'?x:x.id); need(new Set(ids).size===ids.length,`duplicate IDs: ${label}`);}
