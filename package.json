@@ -13,6 +13,7 @@
     "build": "pnpm typecheck && pnpm validate && node --import tsx scripts/build-site.ts",
     "preview": "node --import tsx scripts/serve-static.ts",
     "validate": "node --import tsx scripts/validate.ts",
+    "content:review": "node --import tsx scripts/content-review.ts",
     "test": "node --import tsx --test tests/*.test.ts",
     "storyboard": "node --import tsx scripts/storyboard.ts",
     "release:check": "node --import tsx scripts/release-check.ts",
