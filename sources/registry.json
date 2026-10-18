@@ -574,8 +574,8 @@
     "license": "Copyrighted institutional exhibit; reference consultation only; reuse permission not established",
     "rightsReview": "pending-publication-audit",
     "snapshotStatus": "reference-only; no exhibit images, audio, quotations, or prose imported",
-    "readingScope": "Sections on Geiger and Marsden’s 1908–1909 scattering work, Rutherford’s 1909–1911 model development, central-charge inference, quantitative predictions, and refined 1912–1913 tests",
-    "note": "Used to avoid an inevitable single-eureka history. The episode does not claim that the 1909 observation itself already contained the complete modern nuclear model."
+    "readingScope": "Sections on Geiger and Marsden’s 1908–1909 scattering work and Rutherford’s 1909–1911 model development; paragraph beginning ‘Rutherford entertained the possibility that the charged center is negative’ on why the sign did not affect the scattering calculations; preceding paragraph beginning ‘In fact, Rutherford was exceedingly cautious’ on the intense-field inference and thickness, charge-squared, and inverse-fourth-power speed predictions; and refined 1912–1913 tests",
+    "note": "Used to avoid an inevitable single-eureka history and to distinguish evidence for charge concentration from the separately adopted positive sign. The episode does not claim that the 1909 observation itself already contained the complete modern nuclear model."
   },
   {
     "id": "source:aip-rutherford-cavendish",
@@ -590,7 +590,7 @@
     "rightsReview": "pending-publication-audit",
     "snapshotStatus": "reference-only; no exhibit images, quotations, or prose imported",
     "readingScope": "Section ‘Life and Work in the Cavendish Laboratory for Rutherford’: paragraph beginning ‘Such experiments always involved’ on 1919–1920 nitrogen and light-element experiments ejecting protons under alpha-particle bombardment, and following paragraphs distinguishing Rutherford’s tentative constituent interpretation from Blackett’s later evidence.",
-    "note": "Supports the historical proton evidence and its limits; it is not used to claim that Rutherford demonstrated a complete nitrogen-capture-to-oxygen transmutation pathway in 1919."
+    "note": "Supports the historical proton evidence and its limits; it is not used to claim that Rutherford demonstrated a complete nitrogen-capture-to-oxygen reaction pathway in 1919."
   },
   {
     "id": "source:mathworld-natural-number",
@@ -687,8 +687,8 @@
     "contentHash": null,
     "license": "Live OpenStax reuse terms require publication audit; reference-only",
     "rightsReview": "pending-publication-audit",
-    "readingScope": "§30.2 Thomson crossed-field derivation, equations 30.1–30.5, differing gases and electron-release methods, and the later Millikan combination.",
-    "note": "Supports e/m, not a direct electron-mass measurement; does not support a cathode/electrode-material repeatability claim."
+    "readingScope": "§30.2 equations 30.1–30.3 for perpendicular magnetic force and opposed electric-force velocity selection; the statement that qₑ/mₑ was measured before separate charge and mass; differing gases and electron-release methods; and the later Millikan combination. Equations 30.4–30.5 describe electric deflection and are not used as support for the radial magnetic derivation.",
+    "note": "Supports e/m, not a direct electron-mass measurement; does not support a cathode/electrode-material repeatability claim. The radial step |q|vB=mv²/r is an independently written deduction combining the sourced magnetic-force expression with the standard centripetal-acceleration definition."
   },
   {
     "id": "source:chadwick-neutron-nobel-lecture",
