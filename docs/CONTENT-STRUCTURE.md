@@ -55,6 +55,8 @@ The current public article route is `/knowledge/<slug>/`. Slugs must be unique a
 
 ## Authoring a question-led article
 
+The [agent authoring and evaluation contract](CONTENT-QUALITY.md) defines the reusable rubric, short-episode quality records, independent critique boundaries and capped series iteration workflow.
+
 Before writing scenes, identify the intended reader, opening question, intended explanation the reader can give afterward, minimum background, likely misunderstanding, and evidence/scope. Build scenes around conceptual progress rather than dividing a definition list into screens. Introduce vocabulary when it becomes useful; preserve the exact conditions of the source claims.
 
 For each proposed diagram or control, specify the change, the observation, and the inference it supports. Prefer a static illustration when manipulation adds no understanding. Predictions are optional, never a navigation gate. Include a changed-condition or transfer question with explanatory feedback where useful. Keep proposed analogies distinct from established claims.

@@ -26,6 +26,7 @@ Before changing the system, read [README](README.md), [Vision](docs/VISION.md), 
 - Leave unrelated user changes intact. Commit completed, verified work in small coherent units by default, including intermediate units during longer tasks; do not wait for another commit request. Exclude unrelated edits and generated artifacts. Do not publish or upload merely because a build passes.
 
 - Store new articles and owned claims under content/<domain>/<topic>/ and register them in content/catalog.ts. Reuse the shared article reader; do not copy a page/controller per topic. Keep DOM components, domain adapters, pure models/state, projections, and local media tools in their documented boundaries.
+- For new short series, follow [Content quality](docs/CONTENT-QUALITY.md): author a worked explanation and transfer rationale, preserve planned/unverified timing and review status, and evaluate reasoning rather than vocabulary coverage. Count existing registered articles toward the 100-article ceiling. Use the asynchronous question inbox documented in `.local/README.md` instead of blocking question tools; continue with an explicit reversible default while awaiting feedback.
 
 ## Documentation and feedback
 
