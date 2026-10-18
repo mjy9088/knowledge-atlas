@@ -264,5 +264,33 @@
     "summary": "불연속 스펙트럼 선을 에너지 상태 차이와 연결하고 보어 모형의 적용 한계를 구별하는 설명",
     "reviewStatus": "proposed",
     "externalIds": []
+  },
+  {
+    "id": "concept:physics.photoelectric-evidence",
+    "title": "광전효과의 진동수 문턱",
+    "summary": "낮은 세기 단일광자 영역에서 금속의 일함수, 빛의 진동수, 방출 전자의 최대 운동에너지와 광전류를 구별하는 증거와 모형",
+    "reviewStatus": "proposed",
+    "externalIds": []
+  },
+  {
+    "id": "concept:physics.proper-and-coordinate-time",
+    "title": "고유시간과 좌표시간",
+    "summary": "한 시계 세계선 위 두 사건의 고유시간과 한 관성계의 동기화된 좌표시계들이 부여하는 좌표시간의 구별",
+    "reviewStatus": "proposed",
+    "externalIds": []
+  },
+  {
+    "id": "concept:physics.quark-evidence",
+    "title": "심층 비탄성 산란과 쿼크의 증거",
+    "summary": "전자–양성자 산란의 운동학과 구조함수 추출 조건을 구별하고, 제한된 패턴이 점 모양의 전하 띤 쿼크를 지지한 추론을 설명한다.",
+    "reviewStatus": "proposed",
+    "externalIds": []
+  },
+  {
+    "id": "concept:physics.proton-charge-ledger",
+    "title": "양성자의 원자가 맛과 전하 장부",
+    "summary": "uud 원자가 순맛 표기와 분수 전하 합을 계산하고, 바다 쌍과 색전하를 지닌 글루온이 배제되지 않는 이유를 설명한다.",
+    "reviewStatus": "proposed",
+    "externalIds": []
   }
 ]
