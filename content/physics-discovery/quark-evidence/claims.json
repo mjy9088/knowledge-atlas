@@ -1,0 +1,40 @@
+[
+  {
+    "id": "claim:physics-discovery.quark-evidence.measurement",
+    "kind": "measurement-conditions",
+    "statement": "SLAC–MIT 심층 비탄성 산란은 입사·산란 전자의 에너지와 산란각을 측정해 운동량 전달 Q²와 에너지 전달을 정하고, 큰 Q²와 큰 하드론 최종상태 질량의 사건에서 양성자 내부 구조를 탐사했다. 높은 입사 빔 에너지는 이 영역을 가능하게 하지만 그 자체가 사건의 분해능을 정하지 않는다.",
+    "scope": "포함적 전자–양성자 산란 e+p→e+X의 운동학과 1960년대 말 SLAC–MIT 장치에 대한 정성적 설명. 특정 사건의 완전한 최종상태 재구성, 검출 효율 또는 복사 보정의 수치 재분석은 포함하지 않는다.",
+    "assumptions": ["교환된 가상 광자의 Q²=-q²를 운동량 전달 척도로 사용함", "DIS 조건을 Q²≫M²와 W²≫M²로 구별함", "입사 에너지뿐 아니라 출사 에너지와 산란각을 함께 사용함"],
+    "sourceRefs": [
+      {"sourceId":"source:nobel-physics-1990-dis","locator":"Press release, ‘The prizewinners’ contributions’: 4–21 GeV beams, magnetic spectrometers at 6°, 10°, 18°, 26°, 34°, and measurement of scattered-electron angle and energy; paragraph beginning ‘However, the researchers found’ describes large energy loss and large angle."},
+      {"sourceId":"source:pdg-structure-functions-2025","locator":"§18.1 printed p.1, Eqs. (18.3)–(18.6): Q²≈4EE′sin²(θ/2), x=Q²/(2Mν), and DIS defined by Q²≫M² and W²≫M²."}
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:physics-discovery.quark-evidence.factored-pattern",
+    "kind": "historical-observation",
+    "statement": "초기 SLAC–MIT 자료의 원시 단면적 자체가 Q²에 무관했던 것이 아니다. 연구진은 측정 미분 단면적을 모트 단면적으로 나누어 광자 전파자에서 오는 주된 운동량 의존성을 분리하고 구조함수로 표적 정보를 표현했다. 작은 각도 자료만으로 W₁과 W₂를 분리하지 못해 W₂ 추출은 종편광·횡편광 가상광자 흡수 단면적 비 R의 가정에 조건부였다. 명시한 범위와 오차 안에서 에너지 전달 ν를 곱한 νW₂가 한 변수의 보편 곡선과 양립했으며, 이는 원시 단면적이나 맨 W₂가 일정하다는 주장이 아니다.",
+    "scope": "Breidenbach et al.의 6도·10도 전자–양성자 포함 산란에 대한 제한적 진술. 특정 R 가정을 사실로 고정하지 않고, 원자료 단면적과 모트 인자를 분리한 구조함수를 구별한다. 역사적 도표·계수·오차를 재현하거나 모든 Q²에서 정확한 스케일링을 주장하지 않는다.",
+    "assumptions": ["모트 단면적 나눗셈으로 알려진 주된 전자기 운동량 의존성을 분리함", "W₂ 추정에는 R=σL/σT에 대한 경계 가정이 들어감을 밝힘", "논문이 명시한 운동학 범위와 통계·계통 오차 안에서만 비교함"],
+    "sourceRefs": [
+      {"sourceId":"source:slac-breidenbach-dis-1969","locator":"Printed p.2: measured differential cross section divided by the Mott cross section ‘in order to remove the major part’ of the photon-propagator momentum-transfer dependence; deep-continuum residual q² dependence is much weaker than elastic/resonance scattering."},
+      {"sourceId":"source:slac-breidenbach-dis-1969","locator":"Abstract and printed pp.2–5: conditional W₂ extraction through R=σL/σT and inability to separate W₁/W₂ from the small-angle data; printed pp.3–5 plot and discuss νW₂ versus ω, including the R=0 and R=∞ limits and the stated q²/ω range for a universal curve within experimental errors."},
+      {"sourceId":"source:pdg-structure-functions-2025","locator":"§18.2.1 printed pp.4–5: Bjorken-limit scaling is a quark-parton-model prediction; §18.2.2 printed pp.5–6: hard-gluon radiation produces logarithmic scaling violations."}
+    ],
+    "reviewStatus": "draft-source-aligned-needs-primary-review"
+  },
+  {
+    "id": "claim:physics-discovery.quark-evidence.parton-inference",
+    "kind": "model-inference",
+    "statement": "큰 Q²에서 모트 인자를 분리한 구조함수의 약한 잔여 Q² 의존성과 근사적 스케일링은 전자가 양성자 안의 점 모양 전하 띤 파톤과 짧은 시간에 비결맞게 산란한다는 모형을 지지했다. 이 전자기 하드 산란 중심을 쿼크로 식별한 것은 양성자 패턴 하나가 아니라 중성자 및 후속 산란과 하드론 분류의 수렴에 의존했다. 전기적으로 중성인 글루온은 직접 전하 산란 중심이 아니라 별도의 증거로 추론되었다.",
+    "scope": "역사적 파톤 모형에서 쿼크 해석으로 이어진 증거 관계. ‘점 모양’은 탐사된 분해능에서 내부 크기가 드러나지 않는 산란 중심을 뜻하며 문자 그대로의 사진이나 자유 쿼크 검출을 뜻하지 않는다. 이 단일 실험이 글루온, 가둠 또는 완전한 QCD를 독립적으로 증명했다고 주장하지 않는다.",
+    "assumptions": ["전자기 탐침은 전기적으로 전하를 띤 구성요소에 직접 결합함", "하드 산란의 짧은 시간척도에서 파톤을 근사적으로 자유로운 대상으로 다룸", "쿼크와 글루온 식별에는 독립 관찰과 이론 비교가 필요함"],
+    "sourceRefs": [
+      {"sourceId":"source:nobel-physics-1990-dis","locator":"Illustrated presentation, ‘The SLAC-MIT experiment’: unexpectedly high event probability and charge concentrated in negligible-size components; following paragraph says the parton interpretation was later identified with the quark model and gluon hints followed from detailed analysis."},
+      {"sourceId":"source:slac-dis-history","locator":"‘The hunting of the quarks’: 1967 SLAC–MIT high-energy electron beams on hydrogen and deuterium; inelastic scattering from ‘hard grains’ followed initially unremarkable measurements."},
+      {"sourceId":"source:pdg-qcd-2025","locator":"§9.2.2 printed p.6 after Eq. (9.12): quark-parton-model picture as photon interaction with point-like free quarks/incoherent elastic scattering, followed by higher-order radiation corrections; §9.3 printed p.21: partons are not directly measured, only hadrons and decay products."}
+    ],
+    "reviewStatus": "draft-source-aligned-needs-history-review"
+  }
+]

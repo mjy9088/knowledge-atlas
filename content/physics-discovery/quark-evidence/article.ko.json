@@ -1,0 +1,41 @@
+{
+  "id": "article:physics-discovery.quark-evidence.ko",
+  "conceptId": "concept:physics.quark-evidence",
+  "title": "전자 산란의 어떤 패턴이 쿼크를 지지했을까요?",
+  "shortTitle": "어떤 산란 패턴이 쿼크를 지지했을까요?",
+  "reviewStatus": "needs-content-review",
+  "scope": "SLAC–MIT 심층 비탄성 전자–양성자 산란에서 각도·에너지 측정으로 운동량 전달을 정하고, 알려진 광자 전파자 의존성을 분리한 구조함수의 제한적 패턴에서 점 모양의 전하 띤 파톤을 추론한 과정. 초기 W₂ 추출의 광자 종편광·횡편광 비 가정을 밝히며, 글루온·가둠·uud 구성을 이 한 측정이 직접 확정했다고 주장하지 않습니다.",
+  "blocks": [
+    {
+      "id": "block:physics-discovery.quark-evidence.question",
+      "text": "전자를 양성자에 쏜 뒤 나온 전자의 각도와 에너지를 재면 충돌에서 오간 운동량을 계산할 수 있습니다. 이것은 내부 사진이 아니라 여러 충돌의 확률 패턴입니다. 어떤 패턴이 점 모양의 쿼크를 지지했을까요?",
+      "claimRefs": ["claim:physics-discovery.quark-evidence.measurement"]
+    },
+    {
+      "id": "block:physics-discovery.quark-evidence.measurement",
+      "text": "입사 빔 에너지가 높다는 사실만으로 작은 구조를 보는 것은 아닙니다. 입사·출사 에너지와 산란각으로 정한 운동량 전달 Q²가 커야 짧은 거리 구조에 민감해집니다. 양성자가 그대로 남는 탄성 사건이 아니라 여러 최종상태 X로 부서지는 영역을 함께 골랐기에 심층 비탄성 산란입니다.",
+      "claimRefs": ["claim:physics-discovery.quark-evidence.measurement"]
+    },
+    {
+      "id": "block:physics-discovery.quark-evidence.factoring",
+      "text": "여기서 원자료 산란 단면적이 Q²와 무관했던 것은 아닙니다. 연구진은 먼저 점 전하 산란의 알려진 광자 전파자 의존성을 담은 모트 단면적으로 측정 단면적을 나누고, 남은 표적 구조 정보를 구조함수로 표현했습니다. 그렇게 분리한 비탄성 연속영역의 Q² 의존성이 탄성·공명 산란보다 훨씬 약했습니다.",
+      "claimRefs": ["claim:physics-discovery.quark-evidence.factored-pattern"]
+    },
+    {
+      "id": "block:physics-discovery.quark-evidence.conditional-extraction",
+      "text": "초기 6도·10도 자료만으로는 두 구조함수 W₁과 W₂를 따로 정할 수 없었습니다. W₂ 추정값은 가상 광자의 종편광 흡수와 횡편광 흡수의 비 R을 어떻게 가정하는지에 조건부였고, 논문은 그 가정과 운동학 범위를 함께 밝혔습니다. 그 범위에서 에너지 전달 ν를 곱한 νW₂는 측정 오차 안에 거의 한 변수의 함수로 정리되는 스케일링 패턴과 양립했습니다.",
+      "claimRefs": ["claim:physics-discovery.quark-evidence.factored-pattern"]
+    },
+    {
+      "id": "block:physics-discovery.quark-evidence.inference",
+      "text": "양성자 전체의 퍼진 전하와 한꺼번에 반응한다고 보기보다, 전자가 짧은 시간 동안 점 모양의 전하 띤 구성요소와 단단하게 산란한다고 보면 이 패턴이 자연스러웠습니다. 이 구성요소를 먼저 파톤이라 불렀고, 중성자 자료와 전하·스핀에 민감한 후속 측정 및 하드론 분류가 합쳐져 전하 띤 산란 중심을 쿼크로 식별했습니다. 전기적으로 중성인 글루온은 이 광자와의 직접 전하 산란 중심이 아니라 별도의 스케일 변화와 후속 증거로 추론된 파톤입니다.",
+      "claimRefs": ["claim:physics-discovery.quark-evidence.parton-inference"]
+    },
+    {
+      "id": "block:physics-discovery.quark-evidence.transfer",
+      "text": "검출기가 산란 전자의 총개수만 세고 각도와 출사 에너지를 기록하지 않았다면 어땠을까요? 사건별 Q²와 에너지 전달을 정할 수 없어 탄성·공명·깊은 비탄성 영역을 나누거나 모트 단면적을 같은 운동학 조건에서 제거할 수 없습니다. 그러면 점 모양의 단단한 산란 중심을 가리킨 패턴을 고립시킬 수 없습니다.",
+      "claimRefs": ["claim:physics-discovery.quark-evidence.measurement", "claim:physics-discovery.quark-evidence.factored-pattern"]
+    }
+  ],
+  "relatedConcepts": ["concept:particle.qcd"]
+}
