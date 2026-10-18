@@ -1,0 +1,41 @@
+{
+  "id": "article:number-systems.rational-representations.ko",
+  "conceptId": "concept:number-systems.rational-representations",
+  "title": "서로 다른 분수 표기를 어떻게 한 수로 묶을까요?",
+  "shortTitle": "분수 표기를 한 수로 묶는 규칙",
+  "reviewStatus": "needs-content-review",
+  "scope": "분모가 0이 아닌 정수쌍에서 교차곱 관계가 동치 관계임을 보이고, 그 세 성질이 분수 표기를 일관되게 묶는 이유를 설명한다. 유리수의 사칙연산이나 전체 몫집합 구성은 다루지 않는다.",
+  "blocks": [
+    {
+      "id": "block:number-systems.rational-representations.opening-case",
+      "text": "1/2, 2/4, 3/6은 서로 다른 표기지만 같은 수를 나타냅니다. 첫째와 둘째, 둘째와 셋째를 같은 편에 묶었다면 첫째와 셋째도 반드시 같은 편이어야 합니다. 어떤 규칙이 이 묶음을 중간 표기에 따라 흔들리지 않게 할까요?",
+      "claimRefs": ["claim:number-systems.rational-representations.cross-product"]
+    },
+    {
+      "id": "block:number-systems.rational-representations.cross-product-chain",
+      "text": "대상은 D={(a,b): a,b는 정수이고 b≠0}입니다. (a,b)와 (c,d)는 ad=bc일 때 관계가 있다고 정하고 (a,b)~(c,d)로 씁니다. 실제로 (1,2)~(2,4)는 1×4=2×2에서, (2,4)~(3,6)은 2×6=4×3에서 확인됩니다. 이제 이 두 확인이 (1,2)~(3,6)을 강제하는지가 핵심입니다.",
+      "claimRefs": ["claim:number-systems.rational-representations.domain", "claim:number-systems.rational-representations.cross-product"]
+    },
+    {
+      "id": "block:number-systems.rational-representations.grouping-checks",
+      "text": "구체적인 묶음을 본 뒤 필요한 조건을 살펴봅시다. 모든 표기가 자기 자신과 묶이는 성질은 표기를 묶음 밖에 남기지 않고, 한쪽 방향의 확인을 거꾸로도 인정하는 성질은 묶음의 방향을 없앱니다. 그리고 두 표기가 각각 같은 중간 표기와 묶이면 서로도 묶여야 중간 표기를 바꾸어도 결과가 같아집니다. 이 세 조건을 각각 반사성, 대칭성, 추이성이라고 하며, 모두 만족하는 관계를 동치 관계라고 합니다.",
+      "claimRefs": ["claim:number-systems.rational-representations.equivalence"]
+    },
+    {
+      "id": "block:number-systems.rational-representations.cancellation-proof",
+      "text": "교차곱 규칙은 세 조건을 만족합니다. 반사성은 ab=ba, 대칭성은 ad=bc이면 cb=da라는 정수 등식에서 바로 나옵니다. 추이성은 나눗셈을 미리 가정하지 않고 확인할 수 있습니다. (a,b)~(c,d)와 (c,d)~(e,f)이면 ad=bc이고 cf=de입니다. 첫 등식에 f를, 둘째 등식에 b를 곱하면 adf=bcf=bde이므로 d(af-be)=0입니다. D에서 중간 분모 d는 0이 아니므로 정수에서 0이 아닌 d를 소거하여 af=be를 얻습니다. 따라서 (a,b)~(e,f)이고, 앞의 연쇄에서도 1×6=2×3이 보장됩니다.",
+      "claimRefs": ["claim:number-systems.rational-representations.equivalence"]
+    },
+    {
+      "id": "block:number-systems.rational-representations.zero-pair-limit",
+      "text": "분모 0을 순진하게 허용해 같은 교차곱 규칙을 모든 정수쌍에 쓰면 추이성이 깨집니다. (1,1)~(0,0)은 1×0=1×0이고, (0,0)~(1,2)는 0×2=0×1이어서 성립합니다. 하지만 (1,1)과 (1,2)는 1×2≠1×1이므로 관계가 없습니다. (0,0)이 서로 관계없는 두 표기를 이어 버린 것입니다. 이것은 바로 이 확대된 교차곱 관계가 실패한다는 반례이지, 1/0을 포함하는 모든 가능한 확장 수 체계가 불가능하다는 증명은 아닙니다.",
+      "claimRefs": ["claim:number-systems.rational-representations.zero-pair-boundary"]
+    },
+    {
+      "id": "block:number-systems.rational-representations.transfer-case",
+      "text": "이제 (2,3), (4,6), (10,15)를 확인해 보세요. 2×6=3×4이고 4×15=6×10이므로 앞의 두 관계가 성립합니다. 중간 분모 6이 0이 아니어서 추이성 증명의 소거를 적용할 수 있고, 실제로 2×15=3×10=30이므로 (2,3)~(10,15)입니다. 교차곱 하나만 외우는 대신, 0이 아닌 분모 조건이 표기 묶음을 일관되게 만드는 증명에서 어디에 쓰이는지 확인한 것입니다.",
+      "claimRefs": ["claim:number-systems.rational-representations.equivalence"]
+    }
+  ],
+  "relatedConcepts": ["concept:number-systems.rational-numbers", "concept:number-systems.integers"]
+}

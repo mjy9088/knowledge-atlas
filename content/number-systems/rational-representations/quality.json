@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "articleId": "article:number-systems.rational-representations.ko",
+  "seriesId": "series:number-systems",
+  "openingQuestion": "서로 다른 분수 표기를 어떻게 한 수로 일관되게 묶을까요?",
+  "readerOutcome": "분모가 0이 아닌 정수쌍의 교차곱 관계가 왜 반사적·대칭적·추이적인지 구체적 연쇄와 정수 소거로 설명하고, 이 세 성질이 분수 표현을 일관된 묶음으로 만드는 역할을 말할 수 있다.",
+  "assumedKnowledge": ["정수의 곱셈과 등식", "정수에서 0이 아닌 인수를 소거할 수 있음", "기본적인 분수 표기"],
+  "misconception": "교차곱이 몇 예에서 맞으면 자동으로 같은 수 묶음이 되며, 분모 0을 더해도 같은 규칙이 그대로 동치 관계를 이룬다.",
+  "transfer": {
+    "question": "(2,3)~(4,6)이고 (4,6)~(10,15)임을 교차곱으로 확인한 뒤, 양 끝도 관계가 있는지와 추이성 증명에서 필요한 중간 쌍의 조건을 설명하세요.",
+    "answer": "양 끝 (2,3)과 (10,15)도 관계가 있으며, 중간 쌍의 분모 6이 0이 아니라는 조건이 필요합니다.",
+    "rationale": "2×6=3×4이고 4×15=6×10입니다. 중간 분모 6을 소거할 수 있으므로 추이성이 적용되며, 독립 확인으로도 2×15=3×10=30입니다."
+  },
+  "narration": {
+    "status": "planned",
+    "seconds": 170,
+    "segments": [
+      {"sceneId":"opening-case","seconds":12},
+      {"sceneId":"stable-grouping","seconds":10},
+      {"sceneId":"cross-product-domain","seconds":12},
+      {"sceneId":"cross-product-chain","seconds":15},
+      {"sceneId":"self-and-direction","seconds":14},
+      {"sceneId":"middle-link","seconds":8},
+      {"sceneId":"equivalence-name","seconds":9},
+      {"sceneId":"proof-setup","seconds":10},
+      {"sceneId":"proof-products","seconds":12},
+      {"sceneId":"integer-cancellation","seconds":12},
+      {"sceneId":"proof-result","seconds":8},
+      {"sceneId":"zero-pair-links","seconds":10},
+      {"sceneId":"zero-pair-failure","seconds":10},
+      {"sceneId":"counterexample-scope","seconds":9},
+      {"sceneId":"transfer-checks","seconds":10},
+      {"sceneId":"transfer-result","seconds":9}
+    ]
+  },
+  "review": {
+    "status": "review-required",
+    "blockers": ["independent mathematical review of the transitivity proof and (0,0) counterexample", "independent editorial review of the grouping explanation", "observed Korean reader comprehension", "measured narration pacing and audio", "source revision capture and rights review", "publication authorization"]
+  }
+}
