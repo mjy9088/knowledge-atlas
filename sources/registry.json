@@ -295,7 +295,7 @@
     "contentHash": null,
     "license": "Reuse license not verified; reference consultation only",
     "rightsReview": "reference-only; third-party reuse not proposed",
-    "readingScope": "§§9.1–9.1.2 pp.1–4 Eqs.9.1–9.3; §9.2.3 p.10 and hadronization p.18; §9.3 pp.21–22",
+    "readingScope": "Initial consultation 2026-10-16: §§9.1–9.1.2 pp.1–4 Eqs.9.1–9.3; §9.2.3 p.10 and hadronization p.18; §9.3 pp.21–22. Additional consultation 2026-10-18: §9.2.2 pp.6–7 on quark-parton scattering, radiation, and scale-dependent PDFs.",
     "snapshotStatus": "live reading; no immutable byte snapshot",
     "usage": {
       "evidenceConsulted": true,
@@ -793,5 +793,223 @@
     "rightsReview": "pending-publication-audit",
     "readingScope": "§17 table distinguishing E1 allowed lines from M1/E2 forbidden lines; equation (13) for line emissivity εline=(4π)⁻¹hνAkiNk; equation (25) λvac=nλair=hc/ΔE.",
     "note": "Supports transition-type, probability/population, brightness, and air-to-vacuum wavelength conditions. It does not support saying that only E1-allowed transitions can radiate."
+  },
+  {
+    "id": "source:openstax-university-physics-photoelectric",
+    "title": "University Physics Volume 3 — 6.2 Photoelectric Effect",
+    "author": "Samuel J. Ling, Jeff Sanny, and William Moebs",
+    "kind": "maintained-textbook",
+    "canonicalUrl": "https://openstax.org/books/university-physics-volume-3/pages/6-2-photoelectric-effect",
+    "providerRevision": "Live page displayed © Jun 11, 2026; exact content revision not independently verified",
+    "retrievedAt": "2026-10-18",
+    "contentHash": null,
+    "license": "Live page displays CC BY-NC-SA 4.0 with additional AI and commercial-use restrictions; reference-only use proposed",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "rightsReview": "pending-publication-audit",
+    "snapshotStatus": "reference-only; no verbatim third-party text stored",
+    "readingScope": "§6.2 apparatus paragraphs; ‘Characteristics of the Photoelectric Effect’ intensity and cutoff subsections; equations (6.12)–(6.15); Example 6.6",
+    "note": "Supports the core observation/model chain and stopping-voltage sign convention. Broad threshold language is narrowed to the episode's low-intensity single-photon regime."
+  },
+  {
+    "id": "source:nobel-1921-einstein-presentation-speech",
+    "title": "The Nobel Prize in Physics 1921 — Presentation Speech",
+    "author": "S. Arrhenius, Chairman of the Nobel Committee for Physics",
+    "kind": "institutional-historical-speech",
+    "canonicalUrl": "https://www.nobelprize.org/prizes/physics/1921/ceremony-speech/",
+    "providerRevision": "Speech delivered 10 December 1922; live NobelPrize.org page revision not frozen",
+    "retrievedAt": "2026-10-18",
+    "contentHash": null,
+    "license": "Copyright © The Nobel Foundation 1922; no reuse license established",
+    "rightsReview": "pending-publication-audit",
+    "snapshotStatus": "reference-only; no verbatim third-party text stored",
+    "readingScope": "Paragraphs beginning ‘A third group of studies’ and ‘Similarly, when a quantum of light falls’",
+    "note": "Used for historical intensity/frequency and threshold descriptions, not as current expert review or a claim that one experiment proved all quantum mechanics."
+  },
+  {
+    "id": "source:farkas-multiphoton-photoemission-1973",
+    "title": "Multiphoton Photoemission from Solid State, with Special Regards to Metals",
+    "author": "Gy. Farkas",
+    "kind": "institutional-review-paper",
+    "canonicalUrl": "https://real-eod.mtak.hu/7123/1/KFKIreports_73-058.pdf",
+    "providerRevision": "KFKI-73-58 (1973) as printed; exact repository revision not frozen",
+    "retrievedAt": "2026-10-18",
+    "contentHash": null,
+    "license": "No reuse license established from the consulted document",
+    "rightsReview": "pending-publication-audit",
+    "snapshotStatus": "reference-only; no verbatim third-party text stored",
+    "readingScope": "§I Introduction, printed p.3 (PDF file p.7 of 36), passages stating simultaneous absorption of n quanta, nhν=A+½mv², j∼Iⁿ, and optical tunnel emission at extremely large perturbations",
+    "note": "Exact printed title has singular ‘Solid State’ and plural ‘Regards’. Verified from a complete working download at /tmp/opencode/KFKIreports_73-058.pdf (SHA-256 bb117696364708dc5ae4b84a3273e71ddcecba1bc6549f801b80336c3b18119b); this is not a canonical immutable snapshot. Used only to delimit the single-photon threshold claim."
+  },
+  {
+    "id": "source:openstax-university-physics-time-dilation",
+    "title": "University Physics Volume 3 — 5.3 Time Dilation",
+    "author": "Samuel J. Ling, Jeff Sanny, and William Moebs",
+    "kind": "maintained-university-textbook",
+    "canonicalUrl": "https://openstax.org/books/university-physics-volume-3/pages/5-3-time-dilation",
+    "providerRevision": "Live page; publication date Sep 29, 2016 and footer © Jun 11, 2026 displayed; exact revision unfrozen",
+    "retrievedAt": "2026-10-18",
+    "contentHash": null,
+    "license": "Live page displays CC BY-NC-SA 4.0 plus additional AI and commercial-use restrictions; exact intended use requires audit",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "rightsReview": "pending-publication-audit",
+    "snapshotStatus": "reference-only; no verbatim third-party text, figure, table, media, dataset, or code stored",
+    "readingScope": "§5.3 opening and Figure 5.4; Time Dilation derivation through Equations 5.1–5.2; Proper Time definition; Half-Life of a Muon; final two Twin Paradox paragraphs",
+    "note": "Supports the model derivation and terminology, and separately reports observational support. The page is not an original experimental report; exact source bytes, primary-data uncertainty checks, and rights clearance remain pending.",
+    "externalMaterialIncluded": false
+  },
+  {
+    "id": "source:einstein-1905-moving-bodies-english",
+    "title": "On the Electrodynamics of Moving Bodies",
+    "author": "Albert Einstein; 1923 English translation; PDF edition prepared by John Walker",
+    "kind": "primary-theory-paper-translation",
+    "canonicalUrl": "https://users.physics.ox.ac.uk/~rtaylor/teaching/specrel.pdf",
+    "providerRevision": "Oxford-hosted PDF; p.23 identifies a John Walker edition based on the 1923 English translation; exact file revision unfrozen",
+    "retrievedAt": "2026-10-18",
+    "contentHash": null,
+    "license": "No reuse license established from the inspected PDF; reference-only",
+    "rightsReview": "pending-publication-audit",
+    "snapshotStatus": "reference-only; no verbatim third-party text, figure, table, media, dataset, or code stored",
+    "readingScope": "PDF p.1 introduction; pp.2–3 §1 Definition of Simultaneity; pp.3–4 §2 On the Relativity of Lengths and Times; p.23 edition note",
+    "note": "Supports the relativity/light-speed postulates and the A/B light-signal synchronization convention. Translation and host-version provenance require independent bibliographic review before publication.",
+    "externalMaterialIncluded": false
+  },
+  {
+    "id": "source:nobel-physics-1990-dis",
+    "title": "The Nobel Prize in Physics 1990 — Press release and illustrated presentation",
+    "author": "The Royal Swedish Academy of Sciences / Nobel Prize Outreach",
+    "kind": "institutional-award-record-and-exposition",
+    "canonicalUrl": "https://www.nobelprize.org/prizes/physics/1990/press-release/",
+    "readingUrls": [
+      "https://www.nobelprize.org/prizes/physics/1990/press-release/",
+      "https://www.nobelprize.org/prizes/physics/1990/illustrated-information/"
+    ],
+    "providerRevision": "Press release dated 17 October 1990; illustrated material based on the 1990 Nobel poster; live web adaptation cited as 2026; exact bytes not frozen",
+    "retrievedAt": "2026-10-18",
+    "contentHash": null,
+    "license": "Copyright notices displayed by Nobel Prize Outreach and the Royal Swedish Academy of Sciences; no reuse license verified",
+    "rightsReview": "reference-only; third-party reuse not proposed; publication audit pending",
+    "snapshotStatus": "live reading; no immutable source bytes captured",
+    "readingScope": "Press release: award citation, ‘The prizewinners’ contributions,’ and ‘The first traces of quarks.’ Illustrated presentation: 1967–1968 timeline, ‘The SLAC-MIT experiment,’ and ‘The deep inelastic collision.’",
+    "usage": {
+      "evidenceConsulted": true,
+      "externalMaterialIncluded": false
+    },
+    "note": "Institutional retrospective exposition. Its microscope and collision analogies are not treated as literal event images or sufficient proof of the full quark/gluon model."
+  },
+  {
+    "id": "source:slac-breidenbach-dis-1969",
+    "title": "Observed Behavior of Highly Inelastic Electron-Proton Scattering",
+    "author": "M. Breidenbach, J. I. Friedman, H. W. Kendall, E. D. Bloom, D. H. Coward, H. DeStaebler, J. Drees, L. W. Mo, and R. E. Taylor",
+    "kind": "primary-experimental-paper",
+    "canonicalUrl": "https://slac.stanford.edu/pubs/slacpubs/0500/slac-pub-0650.pdf",
+    "providerRevision": "SLAC-PUB-650, August 1969, submitted to Physical Review Letters; hosted PDF bytes not frozen",
+    "retrievedAt": "2026-10-18",
+    "contentHash": null,
+    "license": "Reuse license not established from the hosted report; reference consultation only",
+    "rightsReview": "reference-only; third-party reuse not proposed; publication audit pending",
+    "snapshotStatus": "live PDF reading; no immutable source bytes captured",
+    "readingScope": "Abstract and printed pp. 2–5: Mott division, 6° and 10° inclusive spectra, weak residual momentum-transfer dependence in the deep continuum, W₁/W₂/R relation and conditional W₂ bounds; printed pp. 3–5 plot and discuss νW₂ versus ω within the stated range, assumptions, and experimental errors, not bare W₂ as the universal quantity.",
+    "usage": {
+      "evidenceConsulted": true,
+      "externalMaterialIncluded": false
+    },
+    "note": "No source plot or data table is reproduced. The article preserves the assumptions, limited range, and ‘within experimental errors’ qualification."
+  },
+  {
+    "id": "source:slac-dis-history",
+    "title": "History of SLAC — The hunting of the quarks",
+    "author": "SLAC National Accelerator Laboratory",
+    "kind": "institutional-history-summary",
+    "canonicalUrl": "https://www6.slac.stanford.edu/about/our-story/history",
+    "providerRevision": "Live institutional history page; exact publication revision and bytes not frozen",
+    "retrievedAt": "2026-10-18",
+    "contentHash": null,
+    "license": "SLAC/Stanford/DOE page copyright and reuse terms not independently verified",
+    "rightsReview": "reference-only; third-party reuse not proposed; publication audit pending",
+    "snapshotStatus": "live reading; no immutable source bytes captured",
+    "readingScope": "Section ‘The hunting of the quarks’: 1967 SLAC–MIT hydrogen/deuterium electron scattering, switch to inelastic scattering, hard-grain interpretation, and 1990 Nobel context.",
+    "usage": {
+      "evidenceConsulted": true,
+      "externalMaterialIncluded": false
+    },
+    "note": "Institutional historical orientation, not the primary numerical source or independent expert review."
+  },
+  {
+    "id": "source:pdg-structure-functions-2025",
+    "title": "Structure Functions — Review of Particle Physics 2025",
+    "author": "Particle Data Group review authors",
+    "kind": "expert-review",
+    "canonicalUrl": "https://pdg.lbl.gov/2025/reviews/rpp2025-rev-structure-functions.pdf",
+    "providerRevision": "2025 Review of Particle Physics PDF; exact footer date and byte revision require verification",
+    "retrievedAt": "2026-10-18",
+    "contentHash": null,
+    "license": "PDG reuse license not verified; reference consultation only",
+    "rightsReview": "reference-only; third-party reuse not proposed; publication audit pending",
+    "snapshotStatus": "live PDF reading; no immutable source bytes captured",
+    "readingScope": "§18.1 printed p.1, Eqs. (18.3)–(18.6); §18.2.1 printed pp.4–5; §18.2.2 printed pp.5–7, Fig. 18.2 caption and Eqs. (18.21)–(18.23).",
+    "usage": {
+      "evidenceConsulted": true,
+      "externalMaterialIncluded": false
+    },
+    "note": "Modern kinematic definitions and the distinction between naive scaling and QCD evolution; not a substitute for the 1969 primary record."
+  },
+  {
+    "id": "source:slac-riordan-quarks-1992",
+    "title": "The Discovery of Quarks",
+    "author": "Michael Riordan",
+    "kind": "author-institutional-history-review",
+    "canonicalUrl": "https://www.slac.stanford.edu/cgi-bin/getdoc/slac-pub-5724.pdf",
+    "readingUrls": ["https://www.slac.stanford.edu/cgi-bin/getdoc/slac-pub-5724.pdf", "https://s3.cern.ch/inspire-prod-files-9/90ba9674ad34bb45f161327cb8cbf442"],
+    "retrievalNote": "The original SLAC endpoint was not reliably retrievable by every review client. The institutional CERN INSPIRE mirror was independently matched to SLAC-PUB-5724, April 1992, Michael Riordan, and the inspected quark-prediction passage; this does not establish immutable-byte or rights verification.",
+    "providerRevision": "SLAC-PUB-5724, April 1992, marked ‘To be published in Science’; hosted PDF bytes not frozen",
+    "retrievedAt": "2026-10-18",
+    "contentHash": null,
+    "license": "Reuse license not established from the hosted report; reference consultation only",
+    "rightsReview": "reference-only; third-party reuse not proposed; publication audit pending",
+    "snapshotStatus": "live PDF reading; no immutable source bytes captured",
+    "readingScope": "Opening and section ‘The Prediction of Quarks,’ especially the paragraph beginning ‘In seeking a deeper explanation’ on u/d/s, proton uud, and fractional electric charges; later historical narrative not used as primary DIS data.",
+    "usage": {
+      "evidenceConsulted": true,
+      "externalMaterialIncluded": false
+    },
+    "note": "Retrospective historical review by a SLAC author, not the primary 1969 experimental paper and not independent expert approval of this episode."
+  },
+  {
+    "id": "source:pdg-quark-model-2025",
+    "title": "Quark Model — Review of Particle Physics 2025",
+    "author": "Particle Data Group review authors",
+    "kind": "expert-review",
+    "canonicalUrl": "https://pdg.lbl.gov/2025/reviews/rpp2025-rev-quark-model.pdf",
+    "providerRevision": "2025 Review of Particle Physics PDF; exact footer date and byte revision require verification",
+    "retrievedAt": "2026-10-18",
+    "contentHash": null,
+    "license": "PDG reuse license not verified; reference consultation only",
+    "rightsReview": "reference-only; third-party reuse not proposed; publication audit pending",
+    "snapshotStatus": "live PDF reading; no immutable source bytes captured",
+    "readingScope": "§15.1 printed pp.1–2; §15.2 printed p.3 Table 15.1; §15.5 printed p.13; §15.5.1 printed pp.18–19.",
+    "usage": {
+      "evidenceConsulted": true,
+      "externalMaterialIncluded": false
+    },
+    "note": "The inspected review supplies charge, valence terminology, and the general three-quarks-plus-pairs limit; the explicit proton uud label is cross-checked against Riordan and CERN."
+  },
+  {
+    "id": "source:cern-cms-nucleon-structure-2024",
+    "title": "CMS uses photons to probe the structure of nuclei",
+    "author": "CMS Collaboration / CERN",
+    "kind": "institutional-experiment-exposition",
+    "canonicalUrl": "https://home.cern/cms-uses-photons-probe-structure-nuclei/",
+    "providerRevision": "Page dated 25 October 2024; live CERN page, exact bytes not frozen",
+    "retrievedAt": "2026-10-18",
+    "contentHash": null,
+    "license": "CERN copyright footer displayed; general prose reuse license not established",
+    "rightsReview": "reference-only; third-party reuse not proposed; publication audit pending",
+    "snapshotStatus": "live reading; no immutable source bytes captured",
+    "readingScope": "Opening paragraph contrasting the common uud/udd three-quark picture with the complex quark-antiquark and gluon sea; later D0 measurement details were not used.",
+    "usage": {
+      "evidenceConsulted": true,
+      "externalMaterialIncluded": false
+    },
+    "note": "Modern anti-bead limitation, not evidence for the historical SLAC scaling observation."
   }
 ]
