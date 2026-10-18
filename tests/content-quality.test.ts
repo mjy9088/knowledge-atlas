@@ -41,7 +41,9 @@ test('quality rejects overlong, malformed and falsely measured or approved recor
     {...fixture(),narration:{status:'measured',seconds:90,segments:[]}},
     {...fixture(),narration:{status:'planned',seconds:181,segments:[{sceneId:'question',seconds:90},{sceneId:'reasoning',seconds:91}]}},
     {...fixture(),transfer:{question:'',answer:'',rationale:''}},
-    {...fixture(),review:{status:'approved',blockers:[]}}];
+    {...fixture(),review:{status:'approved',blockers:[]}},
+    {...fixture(),narration:{...fixture().narration,measuredSeconds:90,audioApproved:true}},
+    {...fixture(),review:{...fixture().review,expertApproved:true}}];
   // When validating each input at the file boundary.
   const results=candidates.map(candidate=>validateQuality(candidate,identity));
   // Then none silently receives candidate status.

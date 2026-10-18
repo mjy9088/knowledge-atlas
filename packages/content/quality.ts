@@ -2,6 +2,7 @@ type QualityIdentity={readonly articleId:string;readonly seriesId:string;readonl
 const record=(value:unknown):value is Record<string,unknown>=>typeof value==='object'&&value!==null&&!Array.isArray(value);
 const text=(value:unknown):value is string=>typeof value==='string'&&value.trim().length>0;
 const texts=(value:unknown):value is string[]=>Array.isArray(value)&&value.every(text);
+const only=(value:Record<string,unknown>,keys:readonly string[])=>Object.keys(value).every(key=>keys.includes(key));
 
 export function validateContentLimit(articleIds:readonly string[]):string[]{
   const errors:string[]=[];
@@ -13,6 +14,7 @@ export function validateContentLimit(articleIds:readonly string[]):string[]{
 export function validateQuality(value:unknown,identity:QualityIdentity):string[]{
   if(!record(value))return ['Quality record must be an object.'];
   const errors:string[]=[];
+  if(!only(value,['schemaVersion','articleId','seriesId','openingQuestion','readerOutcome','assumedKnowledge','misconception','transfer','narration','review']))errors.push('Unknown quality fields; evidence and approval records belong in their own reviewed contracts.');
   if(value['schemaVersion']!==1)errors.push('Unsupported quality schemaVersion.');
   if(value['articleId']!==identity.articleId||value['seriesId']!==identity.seriesId)errors.push('Quality identity mismatch.');
   for(const field of ['openingQuestion','readerOutcome','misconception']){
@@ -20,10 +22,11 @@ export function validateQuality(value:unknown,identity:QualityIdentity):string[]
   }
   if(!texts(value['assumedKnowledge']))errors.push('assumedKnowledge must be an array of nonempty strings.');
   const transfer=value['transfer'];
-  if(!record(transfer)||!['question','answer','rationale'].every(key=>text(transfer[key])))errors.push('Transfer needs question, answer and rationale.');
+  if(!record(transfer)||!only(transfer,['question','answer','rationale'])||!['question','answer','rationale'].every(key=>text(transfer[key])))errors.push('Transfer needs question, answer and rationale only.');
   const narration=value['narration'];
   if(!record(narration))errors.push('Missing planned narration.');
   else{
+    if(!only(narration,['status','seconds','segments']))errors.push('Unknown narration evidence or approval fields.');
     if(narration['status']!=='planned')errors.push('Narration must remain planned; measurement needs separate evidence.');
     const seconds=narration['seconds'];
     if(typeof seconds!=='number'||!Number.isFinite(seconds)||seconds<=0||seconds>180)errors.push('Planned duration must be within 180 seconds.');
@@ -32,7 +35,7 @@ export function validateQuality(value:unknown,identity:QualityIdentity):string[]
     else{
       const sceneIds:string[]=[];let total=0;
       for(const segment of segments){
-        if(!record(segment)||!text(segment['sceneId'])||typeof segment['seconds']!=='number'||!Number.isFinite(segment['seconds'])||segment['seconds']<=0){
+        if(!record(segment)||!only(segment,['sceneId','seconds'])||!text(segment['sceneId'])||typeof segment['seconds']!=='number'||!Number.isFinite(segment['seconds'])||segment['seconds']<=0){
           errors.push('Invalid narration segment.');continue;
         }
         sceneIds.push(segment['sceneId']);total+=segment['seconds'];
@@ -42,6 +45,6 @@ export function validateQuality(value:unknown,identity:QualityIdentity):string[]
     }
   }
   const review=value['review'];
-  if(!record(review)||review['status']!=='review-required'||!texts(review['blockers'])||review['blockers'].length===0)errors.push('Review must retain review-required status and explicit unresolved review.');
+  if(!record(review)||!only(review,['status','blockers'])||review['status']!=='review-required'||!texts(review['blockers'])||review['blockers'].length===0)errors.push('Review must retain review-required status and explicit unresolved review only.');
   return errors;
 }
