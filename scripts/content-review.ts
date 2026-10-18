@@ -1,4 +1,4 @@
-import {readFileSync} from 'node:fs';
+import {readFileSync,lstatSync,realpathSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
@@ -20,7 +20,14 @@ if(!entry){
   const claimIds=new Set([...(entry.page.claimRefs??[]),...(article?.blocks.flatMap(block=>block.claimRefs)??[])]);
   const claims=content.claims.filter(claim=>claimIds.has(claim.id));
   const sourceIds=new Set(claims.flatMap(claim=>claim.sourceRefs.map(ref=>ref.sourceId)));
-  const packet={protocol:'content-review-v1',article,page:entry.page,quality,claims,sources:content.sources.filter(source=>sourceIds.has(source.id)),rubric:readFileSync(path.join(root,'docs/CONTENT-QUALITY.md'),'utf8'),authority:'Local review candidate only; no scientific, rights or publication approval.'};
+  const assets=[...new Set([entry.page.coverArtwork?.src,...entry.page.scenes.map(scene=>scene.figure?.src)].filter((src):src is string=>src!==undefined))];
+  const representations=assets.map(src=>{
+    if(!/^\/content\/(?:[a-z][a-z0-9-]*\/)+[a-z][a-z0-9-]*\.svg$/.test(src))throw new RangeError('Invalid review representation path');
+    const file=path.join(root,src.slice(1));
+    if(lstatSync(file).isSymbolicLink()||!realpathSync(file).startsWith(path.join(root,'content')+path.sep))throw new RangeError('Review representation must be an owned content asset');
+    return {src,sha256:createHash('sha256').update(readFileSync(file)).digest('hex')};
+  });
+  const packet={protocol:'content-review-v1',article,page:entry.page,quality,claims,sources:content.sources.filter(source=>sourceIds.has(source.id)),representations,coverage:{articleAndEvidenceMetadata:true,ownedSvgBytes:true,runtimeCode:false,externalSourceBytes:false},rubric:readFileSync(path.join(root,'docs/CONTENT-QUALITY.md'),'utf8'),authority:'Local review candidate only; no scientific, rights or publication approval.'};
   const revision=createHash('sha256').update(JSON.stringify(packet)).digest('hex');
   console.log(JSON.stringify({revision,...packet,resultContract:{protocol:packet.protocol,revision,provenance:{origin:'external-review-assertion',reviewer:'',reviewedAt:'',verificationScope:[]},findings:[]}},null,2));
 }

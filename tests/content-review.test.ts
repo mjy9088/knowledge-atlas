@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {execFileSync,spawnSync} from 'node:child_process';
+import {readFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
 
 test('review packet links canonical evidence to its revision without granting approval',()=>{
   // Given a registered number-series article and the package-manager argument separator.
@@ -24,4 +26,11 @@ test('review CLI rejects an unregistered topic rather than exporting a misleadin
   // Then it fails without writing a candidate packet.
   assert.equal(result.status,1);
   assert.equal(result.stdout,'');
+});
+
+test('review evidence includes the actual owned diagram bytes rather than only its unchanged URL',()=>{
+  const expected=createHash('sha256').update(readFileSync(new URL('../content/number-systems/complex-numbers/figure-i-rotation.svg',import.meta.url))).digest('hex');
+  const packet:unknown=JSON.parse(execFileSync(process.execPath,['--import','tsx','scripts/content-review.ts','complex-numbers'],{encoding:'utf8'}));
+  assert.ok(packet&&typeof packet==='object'&&'representations'in packet&&Array.isArray(packet.representations));
+  assert.ok(packet.representations.some((asset:unknown)=>asset&&typeof asset==='object'&&'src'in asset&&'sha256'in asset&&asset.src==='/content/number-systems/complex-numbers/figure-i-rotation.svg'&&asset.sha256===expected));
 });
