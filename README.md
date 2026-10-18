@@ -18,7 +18,11 @@ Explore `/knowledge/weekday-worlds/` for a question-led introduction to possible
 
 Try the question-led comparisons at `/knowledge/binary-search/`, `/knowledge/sphere-slices/`, and `/knowledge/base-rates/`: step through a search, move a cutting plane, or compare a fictional detector's expected counts. Predictions are optional; changing a condition updates the explanation and preserves your edits across scenes.
 
-Run `pnpm studio` for the [private content studio](tools/studio/README.md) at `http://127.0.0.1:4180`: edit the three initial manuscripts, queue independent Codex slide/flow reviews and track feedback. The three initial draft readers are now source-controlled on main and available in local review builds; they remain unapproved for publication. Studio runtime state, chats, feedback and build snapshots stay local and ignored.
+Run `pnpm studio` for the [private content studio](tools/studio/README.md) at `http://127.0.0.1:4180`: edit manuscripts, export revision-bound implementation/review packets for OpenCode or another external agent, acknowledge external work against a computed source fingerprint, import review results with user-supplied provenance, and track feedback. No embedded chat or Codex executable is required. Workspaces, legacy chat history, feedback and build snapshots stay local and ignored; imported reports do not certify independent execution or publication approval.
+
+The [content quality contract](docs/CONTENT-QUALITY.md) guides question-led short episodes, worked reasoning and transfer evaluation. The [physics discovery](content/physics-discovery/README.md) and [number systems](content/number-systems/README.md) series exercise it in local review readers. Planned narration remains unmeasured; a source-aligned draft is not expert approval. Use `pnpm content:review -- <slug>` to export canonical evidence for critique. The 100-unit ceiling includes existing articles and standalone episodes.
+
+For asynchronous questions and current review-preview addresses, consult ignored `.local/README.md` in the active workspace. The [answer-only feedback service](tools/feedback/README.md) is separate from Studio and the public static build.
 
 ~~~sh
 pnpm typecheck    # strict TypeScript contracts

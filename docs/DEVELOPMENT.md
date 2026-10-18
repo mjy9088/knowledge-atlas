@@ -10,16 +10,19 @@ pnpm exec playwright install chromium
 pnpm dev
 ```
 
+For Linux review containers, install a real CJK font (for example `sudo apt-get install fonts-noto-cjk`). Missing Korean glyphs or a monospaced fallback are environment defects, not acceptable screenshot evidence.
+
 The development server defaults to `http://127.0.0.1:4173`; set `PORT` to choose another port. It serves the working tree, including local media helpers. Opening a local server or building files does not publish content.
 
 ## Commands
 
 | Command | Purpose |
 | --- | --- |
-| `pnpm studio` | Private local manuscript editor, Codex review queue and feedback at port 4180 |
+| `pnpm studio` | Private manuscript editor, external-agent packets, review imports and feedback at port 4180 |
 | `pnpm test:studio` | Private studio browser checks at desktop, narrow and 200% capture sizes |
 | `pnpm typecheck` | Strict TypeScript contracts across source, scripts and tests |
-| `pnpm validate` | Concrete source/claim/content references, semantic metadata, episode bounds |
+| `pnpm validate` | Source/claim/content references, semantic metadata, series quality records and 100-unit ceiling |
+| `pnpm content:review -- <slug>` | Export revision-bound canonical content/evidence for independent critique |
 | `pnpm test` | Node unit tests for models, state, projections, build/link/hash behavior |
 | `pnpm test:ui` | Chromium regression suite against a fresh static build |
 | `pnpm check` | Type checking, validation, unit tests, then browser tests |
@@ -34,7 +37,7 @@ Equivalent `npm run` commands work when npm is available. The dependency lockfil
 
 `pnpm validate` also checks local inline Markdown link targets/heading anchors and ADR identity/rationale sections through `scripts/documentation.ts`. Numbered identities reserved in the ADR index cannot be reused. These checks do not decide architectural significance, evaluate source truth, or fetch external references. Repository documentation belongs with its owner: global policies in `docs/`, topic specifications in `content/`, component contracts beside implementation. Keep current requirements and unimplemented plans; completed-task/test reports belong in Git and task reports.
 
-The [private studio](../tools/studio/README.md) uses its own loopback server and ignored runtime state. `pnpm test:ui` runs the public static-reader suite followed by the separate studio configuration. Studio manuscripts/reports are not catalog entries, and review readiness never authorizes publication. Authenticated Codex review is an explicit action rather than part of routine browser tests.
+The [private studio](../tools/studio/README.md) uses its own loopback server and ignored runtime state. `pnpm test:ui` runs the public static-reader suite followed by the separate studio configuration. A private manuscript is not a catalog entry until explicitly integrated, and review readiness never authorizes publication. Implementation and independent review take place in the current OpenCode environment or another external agent through exported packets, not an embedded chat or model subprocess. Fixture reports in tests are not actual editorial review.
 
 ## Browser regression contract
 
