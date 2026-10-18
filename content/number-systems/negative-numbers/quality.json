@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "articleId": "article:number-systems.negative-numbers.ko",
+  "seriesId": "series:number-systems",
+  "openingQuestion": "0을 원점으로 둔 높이 좌표 2에서 다섯 칸 내려가면 어디일까요?",
+  "readerOutcome": "정수를 자연수와 덧셈 역원의 확장으로 설명하고, 수직선과 a−b=a+(−b)를 이용해 0을 가로지르는 뺄셈을 계산할 수 있다.",
+  "assumedKnowledge": ["이 시리즈에서 ℕ이 0을 포함한다는 관례", "0의 덧셈 항등원 역할", "자연수 덧셈과 뺄셈"],
+  "misconception": "음수는 빚이나 영하 같은 특정 상황에만 쓰는 표시이고 수학적 수는 아니다.",
+  "transfer": {
+    "question": "계좌 잔액이 −7일 때 10이 들어오면 얼마인가요? 이 결과를 수직선과 덧셈 역원으로 설명해 보세요.",
+    "answer": "3입니다.",
+    "rationale": "−7에서 오른쪽으로 7만큼 이동하면 덧셈 역원 7과 만나 0이 되고, 남은 3만큼 더 이동하므로 −7+10=3입니다."
+  },
+  "narration": {
+    "status": "planned",
+    "seconds": 132,
+    "segments": [
+      {"sceneId":"question","seconds":24},
+      {"sceneId":"construction","seconds":30},
+      {"sceneId":"inverse","seconds":25},
+      {"sceneId":"subtraction","seconds":31},
+      {"sceneId":"transfer","seconds":22}
+    ]
+  },
+  "review": {
+    "status": "review-required",
+    "blockers": ["independent mathematical/editorial review", "historical-scope review", "observed Korean reader comprehension", "measured narration pacing and audio", "source revision capture and rights review", "publication authorization"]
+  }
+}

@@ -1,0 +1,47 @@
+[
+  {
+    "id": "claim:number-systems.integer.extension",
+    "kind": "definition",
+    "statement": "정수 ℤ는 0, 양의 자연수, 그리고 각 양의 자연수의 음수를 모은 {…,−2,−1,0,1,2,…}이다.",
+    "scope": "이 시리즈에서 ℕ={0,1,2,…}를 사용한다. 정수의 집합론적 구성은 주장하지 않는다.",
+    "assumptions": ["음의 부호는 덧셈 역원을 나타낸다"],
+    "sourceRefs": [{"sourceId":"source:openstax-contemporary-integers","locator":"§3.2 Defining and Identifying Integers: extending counting numbers with negatives and zero"}],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:number-systems.integer.additive-inverse",
+    "kind": "formal",
+    "statement": "각 정수 a에는 a+(−a)=0을 만족하는 덧셈 역원 −a가 있다.",
+    "scope": "정수의 통상적인 덧셈. 기호 −a는 방향에 대한 비유가 아니라 이 연산 관계로 확인된다.",
+    "assumptions": ["0은 덧셈의 항등원이다"],
+    "sourceRefs": [{"sourceId":"source:openstax-college-algebra-2e-real-numbers","locator":"§1.1 Properties of Real Numbers, Inverse Properties: a+(−a)=0"}],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:number-systems.integer.number-line",
+    "kind": "formal",
+    "statement": "정수를 수직선에 같은 간격으로 놓으면 0의 오른쪽은 양수, 왼쪽은 음수이며 오른쪽에 있는 정수가 더 크다.",
+    "scope": "통상적인 정수의 순서와 수직선 표현.",
+    "assumptions": ["수직선은 오른쪽 방향을 증가 방향으로 정한다"],
+    "sourceRefs": [{"sourceId":"source:openstax-contemporary-integers","locator":"§3.2 Graphing Integers on a Number Line and Comparing Integers"}],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:number-systems.integer.subtraction",
+    "kind": "formal",
+    "statement": "정수 a,b에 대해 a−b=a+(−b)이며, 따라서 정수의 뺄셈 결과는 다시 정수이다.",
+    "scope": "정수의 표준 덧셈과 뺄셈. 나눗셈에 대한 닫힘은 주장하지 않는다.",
+    "assumptions": ["−b는 b의 덧셈 역원이다"],
+    "sourceRefs": [{"sourceId":"source:openstax-contemporary-integers","locator":"§3.2 Adding and Subtracting Integers, Rule 1 and worked examples"}],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:number-systems.integer.historical-motivation",
+    "kind": "historical",
+    "statement": "재산과 빚 같은 사례는 음수 산술의 역사적 설명에 사용되었지만, 그런 사례 자체가 현대 정수의 정의는 아니다.",
+    "scope": "역사적 동기와 현대 수학적 정의를 구별한다. 최초 발명자나 단일 전파 경로는 주장하지 않는다.",
+    "assumptions": ["역사 사례는 개념의 형식적 구성과 별개다"],
+    "sourceRefs": [{"sourceId":"source:mactutor-zero-history","locator":"Discussion of Brahmagupta's arithmetic rules for positive, negative and zero quantities"}],
+    "reviewStatus": "draft-source-aligned"
+  }
+]

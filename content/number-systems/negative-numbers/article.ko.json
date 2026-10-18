@@ -1,0 +1,36 @@
+{
+  "id": "article:number-systems.negative-numbers.ko",
+  "conceptId": "concept:number-systems.integers",
+  "title": "높이 2에서 다섯 칸 내려가면 어디일까요?",
+  "shortTitle": "0 아래의 수",
+  "reviewStatus": "needs-content-review",
+  "scope": "정수를 자연수와 그 덧셈 역원으로 소개하고 수직선, 순서, 뺄셈을 연결한다. 음수의 완전한 역사나 정수의 공리적 구성은 다루지 않는다.",
+  "blocks": [
+    {
+      "id": "block:number-systems.negative-numbers.question",
+      "text": "0을 기준점으로 정한 수직선의 높이 좌표 2에서 아래로 다섯 칸 이동한다고 합시다. 2에서 1, 0까지 내려온 뒤에도 세 칸이 남습니다. 같은 간격을 계속 표시하면 도착점은 −3입니다. 이것은 일상적인 건물 층 이름이 아니라 0을 원점으로 둔 수학적 좌표입니다.",
+      "claimRefs": ["claim:number-systems.integer.number-line"]
+    },
+    {
+      "id": "block:number-systems.negative-numbers.motivation",
+      "text": "빚, 손실, 영하 온도는 음수가 왜 유용한지 보여 줍니다. 하지만 ‘빚’이 음수의 수학적 정의는 아닙니다. 현대적으로는 각 자연수 n에 덧셈 역원 −n을 붙이고 0과 함께 모아 정수 ℤ={…,−2,−1,0,1,2,…}를 만듭니다.",
+      "claimRefs": ["claim:number-systems.integer.extension", "claim:number-systems.integer.historical-motivation"]
+    },
+    {
+      "id": "block:number-systems.negative-numbers.inverse",
+      "text": "3과 −3은 0에서 거리는 같고 방향은 반대입니다. 둘을 더하면 3+(−3)=0입니다. 일반적으로 n+(−n)=0이며, −n을 n의 덧셈 역원이라고 합니다. 수직선에서는 오른쪽 수가 더 크므로 −2는 −5보다 큽니다.",
+      "claimRefs": ["claim:number-systems.integer.additive-inverse", "claim:number-systems.integer.number-line"]
+    },
+    {
+      "id": "block:number-systems.negative-numbers.subtraction",
+      "text": "뺄셈 a−b는 b의 반대인 −b를 더하는 a+(−b)로 계산할 수 있습니다. 그래서 3−5=3+(−5)=−2입니다. 또 −2−(−4)=−2+4=2입니다. ‘음수를 빼면 더한다’는 구호는 이 덧셈 역원 관계를 줄여 말한 것입니다.",
+      "claimRefs": ["claim:number-systems.integer.subtraction"]
+    },
+    {
+      "id": "block:number-systems.negative-numbers.transfer",
+      "text": "계좌가 −7인 상태에서 10이 들어오면 −7+10=3입니다. 반대로 정수 1을 2로 똑같이 나누면 1÷2는 정수가 아닙니다. 정수는 자연수보다 뺄셈을 넓게 처리하지만, 나눗셈 결과를 모두 담지는 못합니다. 그 빈자리가 다음 질문으로 이어집니다.",
+      "claimRefs": ["claim:number-systems.integer.extension"]
+    }
+  ],
+  "relatedConcepts": ["concept:number-systems.natural-numbers"]
+}
