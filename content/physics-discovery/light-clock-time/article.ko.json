@@ -1,0 +1,51 @@
+{
+  "id": "article:physics-discovery.light-clock-time.ko",
+  "conceptId": "concept:physics.proper-and-coordinate-time",
+  "title": "빛시계의 두 틱은 누구의 시간일까요?",
+  "shortTitle": "빛시계와 두 시간 간격",
+  "reviewStatus": "needs-content-review",
+  "scope": "특수상대론의 두 관성 기준계에서 횡방향 이상적 빛시계의 한 왕복을 비교합니다. 고유시간과 좌표시간의 구별 및 시간 지연 식을 다루되, 가속·중력·쌍둥이 역설이나 모든 실제 시계의 장치별 작동을 증명하지 않습니다.",
+  "blocks": [
+    {
+      "id": "block:physics-discovery.light-clock-time.question",
+      "text": "빛이 두 거울 사이를 왕복해 검출기로 돌아오면 한 틱인 이상적 빛시계를 생각해 봅시다. 시계와 함께 가는 사람과 옆을 일정한 속도로 지나는 사람이 같은 두 틱에 다른 시간 간격을 붙인다면, 어느 시계가 ‘절대적으로 느린’ 것일까요?",
+      "claimRefs": ["claim:physics-discovery.light-clock-time.interval-kind"]
+    },
+    {
+      "id": "block:physics-discovery.light-clock-time.setup",
+      "text": "시계의 기준계에서 출발과 귀환은 같은 검출기에서 일어납니다. 거울 간격을 L, 두 틱의 양의 간격을 Δτ라 하면 빛의 왕복 거리 2L 때문에 2L/c=Δτ입니다. 한 시계의 세계선 위 두 사건을 그 시계가 잰 Δτ가 고유시간입니다.",
+      "claimRefs": ["claim:physics-discovery.light-clock-time.interval-kind"]
+    },
+    {
+      "id": "block:physics-discovery.light-clock-time.triangle",
+      "text": "다른 관성계에서는 빛시계가 일정한 상대속도 v<c로 수평 이동한다고 합시다. 진공의 빛 속력은 두 관성계에서 c이고, 거울 간격 L은 운동에 수직이며 두 계에서 같다고 가정합니다. 한 왕복의 절반 동안 빛은 cΔt/2, 시계는 vΔt/2만큼 가므로 (cΔt/2)²=L²+(vΔt/2)²입니다.",
+      "claimRefs": ["claim:physics-discovery.light-clock-time.light-clock-deduction"]
+    },
+    {
+      "id": "block:physics-discovery.light-clock-time.algebra",
+      "text": "L=cΔτ/2를 넣으면 c²Δt²=c²Δτ²+v²Δt², 곧 (c²−v²)Δt²=c²Δτ²입니다. 양의 간격이므로 Δt=Δτ/√(1−v²/c²)=γΔτ입니다. v=0.6c이면 γ=1/√(1−0.36)=1.25이므로 Δτ=8 ns에 Δt=10 ns입니다. 이는 독립적으로 계산한 설명용 값이지 역사적 측정값이 아닙니다.",
+      "claimRefs": ["claim:physics-discovery.light-clock-time.light-clock-deduction"]
+    },
+    {
+      "id": "block:physics-discovery.light-clock-time.coordinates",
+      "text": "다른 관성계에서 두 틱은 서로 다른 위치의 사건입니다. 그 계에 정지한 여러 시계가 빛 신호의 왕복에서 가는 시간과 오는 시간을 같게 두어 동기화되었다고 해야 각 위치의 판독 차이 Δt를 비교할 수 있습니다. 따라서 Δτ와 Δt는 고장 난 한 시계의 두 값이 아니라, 같은 사건쌍에 두 기준계가 붙인 간격입니다.",
+      "claimRefs": ["claim:physics-discovery.light-clock-time.interval-kind", "claim:physics-discovery.light-clock-time.coordinate-clocks"]
+    },
+    {
+      "id": "block:physics-discovery.light-clock-time.symmetry",
+      "text": "역할을 바꿀 때는 같은 사건쌍을 뒤집지 않습니다. 처음에는 A 시계의 두 틱 E₁·E₂를, 반대 비교에서는 B 시계의 두 틱 F₁·F₂를 고릅니다. 각 계는 자기 시계의 두 틱을 고유시간으로, 상대 시계의 다른 사건쌍을 더 긴 좌표시간으로 잽니다. 그러므로 한쪽의 절대적 느림도, 가속과 재회가 있는 쌍둥이 상황도 이 등속 비교에서 나오지 않습니다.",
+      "claimRefs": ["claim:physics-discovery.light-clock-time.frame-symmetry"]
+    },
+    {
+      "id": "block:physics-discovery.light-clock-time.evidence-limit",
+      "text": "이 삼각형은 가정에서 나온 모형의 연역이지 측정 자료가 아닙니다. 별도의 관측 지지로 OpenStax는 빠른 뮤온의 지상계 수명이 속도에 따라 Δt=γΔτ와 맞게 변한다고 요약합니다. 모형과 관측 보고는 구별해야 합니다.",
+      "claimRefs": ["claim:physics-discovery.light-clock-time.observational-support", "claim:physics-discovery.light-clock-time.light-clock-deduction"]
+    },
+    {
+      "id": "block:physics-discovery.light-clock-time.transfer",
+      "text": "이제 B 시계의 두 틱 F₁·F₂를 고르면 B가 잰 간격이 고유시간이고 A는 좌표시간을 얻습니다. 0.6c 예에서도 역할만 바뀔 뿐 γ=1.25입니다. 고유시간은 ‘누가 느린가’가 아니라 선택한 두 사건이 어느 시계의 같은 세계선 위에 있는가로 정합니다.",
+      "claimRefs": ["claim:physics-discovery.light-clock-time.interval-kind", "claim:physics-discovery.light-clock-time.frame-symmetry"]
+    }
+  ],
+  "relatedConcepts": ["concept:physics.inertial-motion"]
+}

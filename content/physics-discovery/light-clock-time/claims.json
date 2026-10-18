@@ -1,0 +1,59 @@
+[
+  {
+    "id": "claim:physics-discovery.light-clock-time.interval-kind",
+    "kind": "definition-and-conceptual-boundary",
+    "statement": "두 사건이 한 관성계에서 같은 공간 위치, 즉 한 시계의 세계선 위에서 일어날 때 그 시계가 재는 양의 간격 Δτ는 그 사건쌍의 고유시간이다. 다른 관성계에서 두 사건이 서로 다른 위치에 있으면 그 기준계가 부여하는 Δt는 좌표시간 간격이다.",
+    "scope": "평탄한 시공간의 시간꼴로 분리된 두 사건과 관성 기준계. 한 사건쌍의 간격 종류를 구별하며 가속 경로나 중력장을 다루지 않는다.",
+    "assumptions": ["비교할 두 사건을 먼저 고정함", "고유시간은 두 사건을 같은 위치에서 기록하는 한 시계로 측정함", "좌표시간은 하나의 관성계가 정의한 동기화된 시간 좌표의 차이임"],
+    "sourceRefs": [
+      {"sourceId":"source:openstax-university-physics-time-dilation","locator":"§5.3, Figure 5.4; Time Dilation derivation immediately after Equations 5.1–5.2; Proper Time definition"}
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:physics-discovery.light-clock-time.light-clock-deduction",
+    "kind": "model-deduction",
+    "statement": "횡방향 이상적 빛시계의 한 왕복에 대해 (cΔt/2)²=L²+(vΔt/2)²와 2L/c=Δτ를 함께 쓰면 Δt=Δτ/√(1−v²/c²)=γΔτ가 따른다.",
+    "scope": "서로 일정한 상대속도 v<c로 움직이는 관성계, 운동에 수직이고 두 계에서 같다고 둔 거울 간격 L, 진공 속 빛을 사용하는 이상적 빛시계. 직각삼각형 그림 자체를 관측 자료로 취급하지 않는다.",
+    "assumptions": ["두 기준계가 관성계이고 한 왕복 동안 상대속도 v가 일정함", "진공의 빛 속력은 두 관성계에서 c임", "거울 분리 방향은 상대운동에 수직이고 간격 L은 두 계에서 같다고 둠", "출발과 귀환은 같은 검출기의 두 틱이며 Δt와 Δτ는 양수임"],
+    "sourceRefs": [
+      {"sourceId":"source:openstax-university-physics-time-dilation","locator":"§5.3, Figure 5.4 and Time Dilation derivation: 2s=cΔt, 2L=vΔt, 2D=cΔτ, Equations 5.1–5.2"},
+      {"sourceId":"source:einstein-1905-moving-bodies-english","locator":"PDF p.1 introduction and pp.3–4, §2: principle of relativity and constancy of light velocity"}
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:physics-discovery.light-clock-time.coordinate-clocks",
+    "kind": "measurement-convention",
+    "statement": "한 관성계에서 서로 다른 위치의 사건들에 공통 시간 좌표를 붙이려면 그 기준계에 정지한 시계들을 동기화하는 규약이 필요하며, 아인슈타인의 빛 신호 규약은 왕복 경로의 가는·오는 전파시간이 같도록 정의한다.",
+    "scope": "특수상대론의 관성 좌표계와 아인슈타인 동기화. 이 규약의 철학적 유일성이나 실제 장치의 교정 오차를 다루지 않는다.",
+    "assumptions": ["시계들이 선택한 관성계에 정지함", "A→B와 B→A의 빛 전파시간을 같게 두는 동기화 정의를 사용함", "각 사건 위치의 시계 판독을 그 사건의 좌표시간으로 사용함"],
+    "sourceRefs": [
+      {"sourceId":"source:einstein-1905-moving-bodies-english","locator":"PDF pp.2–3, §1 Definition of Simultaneity: clocks at A and B, tB−tA=t′A−tB, and time of the stationary system"}
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:physics-discovery.light-clock-time.frame-symmetry",
+    "kind": "scoped-relativity-deduction",
+    "statement": "두 관성계가 일정한 상대운동을 할 때 각 기준계는 자기 계에 정지한 시계의 두 틱을 고유시간으로 삼고 상대 계 시계의 그와 다른 두 틱에 더 긴 좌표시간을 부여할 수 있다. 따라서 이 대칭 비교는 어느 한 시계의 절대적 느림을 정하지 않는다.",
+    "scope": "각 시계 세계선에서 별도로 고른 사건쌍에 대한 등속 관성계 비교. 한 여행자가 관성계를 바꾸어 재회하는 쌍둥이 경로나 가속 구간을 포함하지 않는다.",
+    "assumptions": ["두 계 모두 전체 비교 동안 관성계임", "역할을 바꿀 때 비교하는 사건쌍도 다른 시계 세계선의 두 틱으로 바뀜", "각 계에서 동일한 상대성 원리와 빛 속력 불변을 적용함"],
+    "sourceRefs": [
+      {"sourceId":"source:einstein-1905-moving-bodies-english","locator":"PDF p.1 introduction and pp.3–4, §2: relativity principle for uniformly translating coordinate systems"},
+      {"sourceId":"source:openstax-university-physics-time-dilation","locator":"§5.3, Proper Time; Twin Paradox opening symmetry discussion and explicit warning that a frame-changing trip is not symmetric"}
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:physics-discovery.light-clock-time.observational-support",
+    "kind": "secondary-source-observational-summary",
+    "statement": "유지된 대학물리 교재는 지상에서 측정한 빠른 뮤온의 수명이 속도에 따라 Δt=γΔτ와 맞게 달라지는 관측을 시간 지연의 별도 실험 근거로 제시한다.",
+    "scope": "OpenStax §5.3의 뮤온 요약에 대한 2차 출처 기록. 원자료 재분석, 불확도 수치 검증, 빛시계 자체의 직접 관측, 또는 삼각형만으로 모든 실제 시계의 동작을 입증했다는 주장이 아니다.",
+    "assumptions": ["모형 유도와 관측 보고를 구별함", "원 실험의 정밀 수치와 불확도는 별도 1차 출처 검토 전까지 인용하지 않음"],
+    "sourceRefs": [
+      {"sourceId":"source:openstax-university-physics-time-dilation","locator":"§5.3, Half-Life of a Muon"}
+    ],
+    "reviewStatus": "draft-source-aligned"
+  }
+]

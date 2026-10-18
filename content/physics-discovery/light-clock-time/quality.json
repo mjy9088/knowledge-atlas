@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "articleId": "article:physics-discovery.light-clock-time.ko",
+  "seriesId": "series:physics-discovery",
+  "openingQuestion": "빛시계의 같은 두 틱에 두 관성계가 다른 간격을 붙일 때 어느 시계가 절대적으로 느린 것일까요?",
+  "readerOutcome": "횡방향 빛시계의 직각삼각형을 조건부터 세워 Δt=γΔτ를 유도하고, 한 시계 세계선의 고유시간과 동기화된 좌표시계의 좌표시간을 구별하며 절대적 느림 주장을 피할 수 있습니다.",
+  "assumedKnowledge": ["거리=속력×시간", "피타고라스 정리", "일정한 상대속도로 움직이는 관성 기준계"],
+  "misconception": "빛길 그림 하나가 한쪽 실제 시계의 절대적 느림을 증명하며, 두 관성계가 비교하는 시간은 언제나 한 시계의 같은 판독값이다.",
+  "transfer": {
+    "question": "처음 빛시계가 아니라 다른 관성계에 고정된 시계의 같은 검출기에서 연속한 두 틱을 고르면, 어느 간격이 고유시간일까요?",
+    "answer": "그 다른 시계가 직접 잰 두 틱 간격이 고유시간이고, 처음 빛시계의 관성계가 두 위치에 붙인 간격은 좌표시간입니다.",
+    "rationale": "고유시간은 기준계의 이름이나 절대적인 빠르기로 정하지 않고, 선택한 두 사건이 어느 한 시계의 같은 세계선 위에서 일어나는지로 정합니다. 역할을 바꾸면 비교하는 사건쌍도 다른 시계의 두 틱으로 바뀝니다."
+  },
+  "narration": {
+    "status": "planned",
+    "seconds": 171,
+    "segments": [
+      {"sceneId":"question","seconds":17},
+      {"sceneId":"proper-time","seconds":20},
+      {"sceneId":"triangle","seconds":26},
+      {"sceneId":"derivation","seconds":30},
+      {"sceneId":"coordinate-time","seconds":25},
+      {"sceneId":"symmetry","seconds":11},
+      {"sceneId":"reciprocity-limit","seconds":11},
+      {"sceneId":"observation","seconds":14},
+      {"sceneId":"transfer","seconds":17}
+    ]
+  },
+  "review": {
+    "status": "review-required",
+    "blockers": [
+      "Independent special-relativity and pedagogy review pending.",
+      "Exact source revision capture, primary experimental-source audit, and rights review pending.",
+      "The 0.6c example needs independent recomputation during critique; narration is planned but not recorded or speech-timed.",
+      "Reader comprehension and publication approval pending."
+    ]
+  }
+}
