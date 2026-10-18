@@ -1,0 +1,36 @@
+{
+  "id": "article:number-systems.counting-zero.ko",
+  "conceptId": "concept:number-systems.natural-numbers",
+  "title": "아무것도 없는데, 개수는 무엇일까요?",
+  "shortTitle": "세기와 0",
+  "reviewStatus": "needs-content-review",
+  "scope": "유한한 모음의 개수, 0의 덧셈 항등원 역할, 이 시리즈의 자연수 표기 관례를 설명한다. 자연수 전체의 공리적 구성이나 수 체계의 완전한 역사는 다루지 않는다.",
+  "blocks": [
+    {
+      "id": "block:number-systems.counting-zero.question",
+      "text": "구슬이 세 개 든 상자에서는 하나씩 짚어 1, 2, 3이라고 셉니다. 마지막 구슬까지 꺼낸 빈 상자에는 몇 개가 있을까요? 셀 물건이 없다는 사실도 개수에 대한 답을 가집니다. 그 답이 0입니다.",
+      "claimRefs": ["claim:number-systems.zero.empty-count"]
+    },
+    {
+      "id": "block:number-systems.counting-zero.empty-set",
+      "text": "모음을 집합이라고 부르면 빈 집합은 원소가 하나도 없는 집합입니다. 기호로 ∅라고 쓰고, 그 원소 수를 |∅|=0이라고 씁니다. 0은 ‘아무 물건’의 이름이 아니라, 이 집합에 원소가 몇 개인지 답하는 수입니다.",
+      "claimRefs": ["claim:number-systems.zero.empty-count"]
+    },
+    {
+      "id": "block:number-systems.counting-zero.identity",
+      "text": "구슬 다섯 개에 아무것도 더하지 않으면 여전히 다섯 개입니다. 수로는 5+0=5이고, 어느 자연수 n에도 n+0=n입니다. 그래서 0을 덧셈의 항등원이라고 부르지만, 이름보다 중요한 것은 ‘더해도 수가 바뀌지 않는다’는 역할입니다.",
+      "claimRefs": ["claim:number-systems.zero.additive-identity"]
+    },
+    {
+      "id": "block:number-systems.counting-zero.convention",
+      "text": "이 시리즈에서는 자연수를 ℕ={0,1,2,3,…}로 정합니다. 책에 따라 1부터 시작하기도 하므로 ℕ만 보고 0의 포함 여부를 추측하면 안 됩니다. 204의 0처럼 빈 자리를 표시하는 쓰임과, 빈 모음의 개수인 0은 역사적으로 구별되어 발전했습니다. 이 역사는 동기를 보여 주지만 현대의 자연수 집합을 정의하지는 않습니다.",
+      "claimRefs": ["claim:number-systems.natural.zero-convention", "claim:number-systems.zero.placeholder-history"]
+    },
+    {
+      "id": "block:number-systems.counting-zero.transfer",
+      "text": "사과 네 개를 모두 주면 4−4=0이므로 결과는 이 시리즈의 자연수입니다. 그런데 네 개에서 여섯 개를 주었다고 장부를 쓰려면 4−6=−2가 됩니다. 0을 포함해도 자연수만으로 모든 뺄셈을 처리할 수는 없습니다. 다음 질문은 이 부족함을 어떤 수가 메우는지입니다.",
+      "claimRefs": ["claim:number-systems.natural.zero-convention"]
+    }
+  ],
+  "relatedConcepts": []
+}

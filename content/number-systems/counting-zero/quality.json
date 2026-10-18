@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "articleId": "article:number-systems.counting-zero.ko",
+  "seriesId": "series:number-systems",
+  "openingQuestion": "아무것도 없는데, 개수는 무엇일까요?",
+  "readerOutcome": "빈 모음의 개수로서 0을 설명하고, 0을 포함하는 이 시리즈의 자연수 관례와 자연수 뺄셈의 한계를 말할 수 있다.",
+  "assumedKnowledge": ["물건을 하나씩 세기", "한 자리 수의 덧셈과 뺄셈"],
+  "misconception": "0은 수가 아니라 단지 아무것도 없다는 말이므로 자연수일 수 없다.",
+  "transfer": {
+    "question": "사탕 네 개를 모두 나누어 주면 남은 개수는 이 시리즈의 자연수인가요? 여섯 개를 나누어 주었다는 장부 결과도 자연수인가요?",
+    "answer": "4−4=0은 자연수입니다. 4−6=−2는 자연수가 아니라 다음 편에서 다룰 정수입니다.",
+    "rationale": "자연수에 0을 넣으면 ‘하나도 남지 않음’은 표현하지만, 시작한 양보다 더 빼는 모든 계산까지 닫히지는 않습니다."
+  },
+  "narration": {
+    "status": "planned",
+    "seconds": 116,
+    "segments": [
+      {"sceneId":"question","seconds":22},
+      {"sceneId":"empty-set","seconds":22},
+      {"sceneId":"identity","seconds":22},
+      {"sceneId":"convention","seconds":28},
+      {"sceneId":"transfer","seconds":22}
+    ]
+  },
+  "review": {
+    "status": "review-required",
+    "blockers": ["independent mathematical/editorial review", "observed Korean reader comprehension", "measured narration pacing and audio", "source revision capture and rights review", "publication authorization"]
+  }
+}

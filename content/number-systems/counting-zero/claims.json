@@ -1,0 +1,38 @@
+[
+  {
+    "id": "claim:number-systems.zero.empty-count",
+    "kind": "definition",
+    "statement": "유한 집합의 원소 수를 셀 때 원소가 없는 빈 집합의 원소 수는 0이다.",
+    "scope": "유한 집합의 기수와 초등적인 세기. 무한 기수의 이론은 포함하지 않는다.",
+    "assumptions": ["서로 다른 원소를 한 번씩 센다", "0을 유한 기수로 사용한다"],
+    "sourceRefs": [{"sourceId":"source:openstax-college-algebra-2e-real-numbers","locator":"§1.1 Classifying a Real Number: zero added to the counting-number sequence; Sets of Numbers"}],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:number-systems.zero.additive-identity",
+    "kind": "formal",
+    "statement": "0은 덧셈의 항등원이다. 즉 모든 자연수 n에 대해 n+0=0+n=n이다.",
+    "scope": "이 시리즈가 채택한 자연수와 통상적인 덧셈.",
+    "assumptions": ["자연수 덧셈의 표준 연산을 사용한다"],
+    "sourceRefs": [{"sourceId":"source:openstax-college-algebra-2e-real-numbers","locator":"§1.1 Properties of Real Numbers, Identity Properties: a+0=a"}],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:number-systems.natural.zero-convention",
+    "kind": "editorial-convention",
+    "statement": "이 시리즈에서는 자연수 기호 ℕ을 {0,1,2,…}로 정의한다. 이는 0을 제외하는 다른 관례의 존재를 부정하지 않는다.",
+    "scope": "series:number-systems의 표기. 다른 저자나 문헌의 ℕ은 그 문헌의 선언을 따른다.",
+    "assumptions": ["문맥마다 자연수의 시작값을 명시할 수 있다"],
+    "sourceRefs": [{"sourceId":"source:mathworld-natural-number","locator":"Opening definition and notation discussion: the term may denote positive or nonnegative integers; no general agreement about zero"}],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:number-systems.zero.placeholder-history",
+    "kind": "historical",
+    "statement": "0을 위치값 표기에서 빈 자리를 나타내는 기호로 쓰는 일과 0을 산술의 수로 다루는 일은 구별되는 역사적 쓰임이다.",
+    "scope": "두 쓰임의 개념적·역사적 구별만 주장하며, 단일 발명자나 직선적인 전파 경로를 주장하지 않는다.",
+    "assumptions": ["역사적 사례는 현대 자연수의 형식적 정의가 아니다"],
+    "sourceRefs": [{"sourceId":"source:mactutor-zero-history","locator":"Opening paragraphs distinguishing an empty-place indicator from zero as a number; discussion of Indian arithmetic"}],
+    "reviewStatus": "draft-source-aligned"
+  }
+]
