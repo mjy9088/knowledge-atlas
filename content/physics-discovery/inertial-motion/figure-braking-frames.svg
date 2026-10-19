@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 440" role="img" aria-labelledby="title desc">
+  <title id="title">제동하는 버스와 지면에서 본 같은 물체</title>
+  <desc id="desc">직접 만든 이상화에서 물체와 버스 원점이 지면 기준 초속 4미터로 함께 출발한 뒤 0초, 1초, 2초의 같은 순간을 한 거리 축으로 비교한다. 수평 알짜 외력이 0인 물체의 지면 위치는 0, 4, 8미터이고, 제동하는 버스 원점은 0, 3, 4미터다. 버스 기준 위치는 둘을 빼서 0, 1, 4미터다. 지면 구간 이동은 4, 4미터로 같고 버스 기준 구간 이동은 1, 3미터로 늘어난다. 물체에 앞쪽 힘이 생긴 것이 아니라 버스 기준이 가속한다. 지면은 관성계로 근사하고 수직 힘은 상쇄하며 공기 저항, 물체의 수평 접촉력과 끝 충돌은 무시한다. 측정 자료나 서 있는 승객 모형이 아니다.</desc>
+  <metadata>Original matched-time coordinate schematic authored for Knowledge Atlas, 2026-10-19. No external figure, prose, measurements, or data are reproduced. It spatially instantiates the authored model x=(4 m/s)t and X=(4 m/s)t−(1 m/s²)t² for 0≤t≤2 s on one common scale, with shared initial ground speed 4 m/s. The ground is approximately inertial; vertical forces balance; horizontal contact force, air resistance, and end collision are ignored. This is not a standing-passenger model.</metadata>
+  <rect width="560" height="440" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text data-essential-label="title" x="280" y="30" text-anchor="middle" font-size="26" font-weight="700">같은 순간, 다른 좌표</text>
+    <text data-essential-label="scope" x="280" y="58" text-anchor="middle" font-size="22" fill="#526b58">지면 ≈ 관성계 · 물체 수평 ΣF = 0</text>
+    <rect x="16" y="72" width="528" height="172" rx="12" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <text data-essential-label="ground-heading" x="32" y="100" font-size="24" font-weight="700">지면 좌표: 물체 x / 버스 원점 X</text>
+    <g id="ground-object-positions" data-series="ground-object">
+      <text data-essential-label="object-row" x="32" y="140" font-size="22" font-weight="700">물체</text>
+      <line x1="108" y1="136" x2="492" y2="136" stroke="#d5dfcc" stroke-width="3"/>
+      <circle data-position="0" data-time="0" cx="108" cy="136" r="10" fill="#e1eee3" stroke="#293f35" stroke-width="2"/>
+      <circle data-position="1" data-time="1" cx="300" cy="136" r="10" fill="#e1eee3" stroke="#293f35" stroke-width="2"/>
+      <circle data-position="2" data-time="2" cx="492" cy="136" r="10" fill="#e1eee3" stroke="#293f35" stroke-width="2"/>
+      <text data-essential-label="object-t0" x="108" y="124" text-anchor="start" font-size="22">0 s · 0 m</text>
+      <text data-essential-label="object-t1" x="300" y="124" text-anchor="middle" font-size="22">1 s · 4 m</text>
+      <text data-essential-label="object-t2" x="492" y="124" text-anchor="end" font-size="22">2 s · 8 m</text>
+    </g>
+    <g id="bus-origin-positions" data-series="bus-origin">
+      <text data-essential-label="bus-row" x="32" y="204" font-size="22" font-weight="700">버스</text>
+      <line x1="108" y1="200" x2="492" y2="200" stroke="#d5dfcc" stroke-width="3"/>
+      <circle data-position="0" data-time="0" cx="108" cy="200" r="10" fill="#fff" stroke="#c2410c" stroke-width="4"/>
+      <circle data-position="1" data-time="1" cx="252" cy="200" r="10" fill="#fff" stroke="#c2410c" stroke-width="4"/>
+      <circle data-position="2" data-time="2" cx="300" cy="200" r="10" fill="#fff" stroke="#c2410c" stroke-width="4"/>
+      <text data-essential-label="bus-t0" x="108" y="180" text-anchor="start" font-size="22">0 s · 0 m</text>
+      <text data-essential-label="bus-t1" x="236" y="228" text-anchor="end" font-size="22">1 s · 3 m</text>
+      <text data-essential-label="bus-t2" x="320" y="228" text-anchor="start" font-size="22">2 s · 4 m</text>
+    </g>
+    <rect x="16" y="260" width="528" height="108" rx="12" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <text data-essential-label="relative-heading" x="32" y="290" font-size="24" font-weight="700">버스 좌표: x′ = x − X</text>
+    <g id="bus-relative-positions" data-series="bus-relative">
+      <line x1="108" y1="324" x2="492" y2="324" stroke="#d5dfcc" stroke-width="3"/>
+      <circle data-position="0" data-time="0" cx="108" cy="324" r="10" fill="#e1eee3" stroke="#293f35" stroke-width="2"/>
+      <circle data-position="1" data-time="1" cx="156" cy="324" r="10" fill="#e1eee3" stroke="#293f35" stroke-width="2"/>
+      <circle data-position="2" data-time="2" cx="300" cy="324" r="10" fill="#e1eee3" stroke="#293f35" stroke-width="2"/>
+      <text data-essential-label="relative-t0" x="108" y="354" text-anchor="end" font-size="22">0 s · 0 m</text>
+      <text data-essential-label="relative-t1" x="156" y="354" text-anchor="start" font-size="22">1 s · 1 m</text>
+      <text data-essential-label="relative-t2" x="300" y="354" text-anchor="middle" font-size="22">2 s · 4 m</text>
+    </g>
+    <text data-essential-label="ground-result" x="32" y="400" font-size="22" font-weight="700">지면 Δx: 4 m, 4 m</text>
+    <text data-essential-label="relative-result" x="280" y="400" font-size="22" font-weight="700">버스 Δx′: 1 m, 3 m</text>
+    <text data-essential-label="interpretation" x="280" y="428" text-anchor="middle" font-size="22" fill="#526b58">앞쪽 힘이 아니라 가속하는 기준의 효과</text>
+  </g>
+</svg>

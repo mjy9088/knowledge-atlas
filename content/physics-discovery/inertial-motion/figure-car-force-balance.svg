@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 360" role="img" aria-labelledby="title desc">
+  <title id="title">일정한 속도의 자동차에 작용하는 네 외력</title>
+  <desc id="desc">수평 직선 도로를 관성 기준계로 근사한 조건에서 자동차 중심으로부터 오른쪽 추진력과 왼쪽 저항력이 같은 길이로 반대 방향을 향하고, 위쪽 지지력과 아래쪽 중력이 같은 길이로 반대 방향을 향한다. 별도의 초록색 속도 화살표는 오른쪽 고정 방향의 일정한 속도를 나타내며 힘 화살표가 아니다. 네 힘이 존재하면서 벡터 합이 0인 조건을 그린 것이며 속도 관찰만으로 힘을 추론한 그림이 아니다.</desc>
+  <metadata>Original qualitative free-body schematic authored for Knowledge Atlas, 2026-10-19. No external figure, vehicle design, data, measurements, or prose are reproduced. Equal arrow lengths encode the stated balanced-force conditions rather than inferred measurements. The diagram assumes a level straight road and an approximately inertial frame; speed alone does not establish the individual forces.</metadata>
+  <defs>
+    <marker id="car-force-arrow" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 0L12 6L0 12Z" fill="#c2410c"/>
+    </marker>
+    <marker id="velocity-arrow" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 0L12 6L0 12Z" fill="#365c42"/>
+    </marker>
+  </defs>
+  <rect width="560" height="360" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text data-essential-label="result" x="280" y="30" text-anchor="middle" font-size="26" font-weight="700">힘 네 개가 있어도 ΣF외력 = 0</text>
+    <text data-essential-label="conditions" x="280" y="56" text-anchor="middle" font-size="22" fill="#526b58">수평 직선 도로 · 고정 방향 등속 · 관성 기준계 근사</text>
+    <g id="car-free-body" data-direction="right" data-net-force="zero">
+      <line data-velocity="constant" x1="420" y1="76" x2="518" y2="76" stroke="#365c42" stroke-width="5" marker-end="url(#velocity-arrow)"/>
+      <text x="464" y="104" text-anchor="middle" font-size="24" data-essential-label="velocity" font-weight="700" fill="#365c42">속도 v 일정</text>
+      <text data-essential-label="velocity-kind" x="464" y="130" text-anchor="middle" font-size="22" fill="#365c42">(힘 아님)</text>
+      <line data-force="drive" x1="280" y1="190" x2="376" y2="190" stroke="#c2410c" stroke-width="6" marker-end="url(#car-force-arrow)"/>
+      <line data-force="resistance" x1="280" y1="190" x2="184" y2="190" stroke="#c2410c" stroke-width="6" marker-end="url(#car-force-arrow)"/>
+      <line data-force="normal" x1="280" y1="190" x2="280" y2="94" stroke="#c2410c" stroke-width="6" marker-end="url(#car-force-arrow)"/>
+      <line data-force="gravity" x1="280" y1="190" x2="280" y2="286" stroke="#c2410c" stroke-width="6" marker-end="url(#car-force-arrow)"/>
+      <path d="M232 164H324L348 184V216H212V184Z" fill="#e1eee3" stroke="#293f35" stroke-width="3"/>
+      <circle cx="240" cy="220" r="12" fill="#fff" stroke="#293f35" stroke-width="4"/>
+      <circle cx="320" cy="220" r="12" fill="#fff" stroke="#293f35" stroke-width="4"/>
+      <circle cx="280" cy="190" r="5" fill="#293f35"/>
+      <text data-essential-label="drive" x="392" y="184" font-size="24" font-weight="700">추진력</text>
+      <text data-essential-label="resistance" x="168" y="184" text-anchor="end" font-size="24" font-weight="700">저항력</text>
+      <text data-essential-label="normal" x="296" y="124" font-size="24" font-weight="700">지지력</text>
+      <text data-essential-label="gravity" x="296" y="282" font-size="24" font-weight="700">중력</text>
+    </g>
+    <rect x="48" y="304" width="464" height="36" rx="12" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <text data-essential-label="force-sums" x="280" y="329" text-anchor="middle" font-size="22">추진력+저항력=0 · 지지력+중력=0</text>
+  </g>
+</svg>

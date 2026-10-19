@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 360" role="img" aria-labelledby="title desc">
+  <title id="title">저항만 바꾼 세 운동의 정성 비교</title>
+  <desc id="desc">같은 물체를 같은 시작점과 같은 초기 속도에서 수평인 거친 면, 매끈한 면, 공기 지지면에 놓고 같은 시간 간격마다 위치를 표시한 정성적 구성도다. 모든 줄의 첫 간격은 같고 이후 간격은 거친 면에서 가장 빠르게 줄며, 매끈한 면에서는 덜 줄고, 공기 지지면에서는 가장 조금 줄어 같은 시간 뒤 가장 멀리 간다. 공기 저항 조건은 비슷하게 유지한다고 둔다. 수치는 측정값이 아니며 무마찰이나 끝없는 운동을 관찰했다는 뜻이 아니다.</desc>
+  <metadata>Original qualitative schematic authored for Knowledge Atlas, 2026-10-19. No external figure, prose, data, or measurements are reproduced. Position spacing is illustrative and not a scaled prediction. The comparison changes surface resistance while holding object, start speed, level, equal observation intervals, and drag conditions fixed; it does not depict observed zero friction or prove Newton's first law.</metadata>
+  <rect width="560" height="360" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text data-essential-label="changed-condition" x="280" y="30" text-anchor="middle" font-size="26" font-weight="700">바꾸는 것: 접촉 저항</text>
+    <rect x="16" y="44" width="528" height="48" rx="12" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <text data-essential-label="fixed-conditions" x="280" y="65" text-anchor="middle" font-size="22" font-weight="700">고정: 같은 물체 · 시작 속도 · 수평 · 공기 조건</text>
+    <text data-essential-label="equal-time" x="280" y="87" text-anchor="middle" font-size="22" fill="#526b58">각 원은 같은 Δt마다 표시한 위치</text>
+    <g id="rough-lane" data-resistance="high" data-object="same" data-level="true" data-drag="fixed">
+      <rect x="16" y="108" width="528" height="64" rx="12" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+      <text x="32" y="128" font-size="22" data-essential-label="rough-surface" font-weight="700">거친 면</text>
+      <line x1="88" y1="164" x2="316" y2="164" stroke="#a56d30" stroke-width="4" stroke-dasharray="4 8"/>
+      <circle data-position="0" cx="96" cy="150" r="10" fill="#e1eee3" stroke="#293f35" stroke-width="2"/>
+      <circle data-position="1" cx="160" cy="150" r="10" fill="#e1eee3" stroke="#293f35" stroke-width="2"/>
+      <circle data-position="2" cx="204" cy="150" r="10" fill="#e1eee3" stroke="#293f35" stroke-width="2"/>
+      <circle data-position="3" cx="232" cy="150" r="10" fill="#e1eee3" stroke="#293f35" stroke-width="2"/>
+      <text data-essential-label="rough-spacing" x="344" y="138" font-size="22">간격 크게 감소</text>
+      <text data-essential-label="rough-result" x="344" y="163" font-size="22" fill="#526b58">감속 가장 큼</text>
+    </g>
+    <g id="smooth-lane" data-resistance="medium" data-object="same" data-level="true" data-drag="fixed">
+      <rect x="16" y="184" width="528" height="64" rx="12" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+      <text x="32" y="204" font-size="22" data-essential-label="smooth-surface" font-weight="700">매끈한 면</text>
+      <line x1="88" y1="240" x2="316" y2="240" stroke="#365c42" stroke-width="3"/>
+      <circle data-position="0" cx="96" cy="226" r="10" fill="#e1eee3" stroke="#293f35" stroke-width="2"/>
+      <circle data-position="1" cx="160" cy="226" r="10" fill="#e1eee3" stroke="#293f35" stroke-width="2"/>
+      <circle data-position="2" cx="216" cy="226" r="10" fill="#e1eee3" stroke="#293f35" stroke-width="2"/>
+      <circle data-position="3" cx="264" cy="226" r="10" fill="#e1eee3" stroke="#293f35" stroke-width="2"/>
+      <text data-essential-label="smooth-spacing" x="344" y="214" font-size="22">간격 조금 감소</text>
+      <text data-essential-label="smooth-result" x="344" y="239" font-size="22" fill="#526b58">감속 더 작음</text>
+    </g>
+    <g id="air-supported-lane" data-resistance="low" data-object="same" data-level="true" data-drag="fixed">
+      <rect x="16" y="260" width="528" height="64" rx="12" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+      <text x="32" y="280" font-size="22" data-essential-label="air-surface" font-weight="700">공기 지지</text>
+      <line x1="88" y1="316" x2="316" y2="316" stroke="#365c42" stroke-width="3" stroke-dasharray="12 6"/>
+      <circle data-position="0" cx="96" cy="302" r="10" fill="#e1eee3" stroke="#293f35" stroke-width="2"/>
+      <circle data-position="1" cx="160" cy="302" r="10" fill="#e1eee3" stroke="#293f35" stroke-width="2"/>
+      <circle data-position="2" cx="220" cy="302" r="10" fill="#e1eee3" stroke="#293f35" stroke-width="2"/>
+      <circle data-position="3" cx="276" cy="302" r="10" fill="#e1eee3" stroke="#293f35" stroke-width="2"/>
+      <text data-essential-label="air-spacing" x="344" y="290" font-size="22">간격 거의 유지</text>
+      <text data-essential-label="air-result" x="344" y="315" font-size="22" fill="#526b58">감속 가장 작음</text>
+    </g>
+  </g>
+</svg>
