@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="title desc">
+  <title id="title">서로 다른 두 유리수 사이의 유리수 중점</title>
+  <desc id="desc">유리수 x와 y가 x보다 y가 큰 조건을 만족할 때 m은 x와 y의 합을 0이 아닌 2로 나눈 유리수이다. 수직선에서 x, m, y는 같은 간격으로 놓인다. 두 간격은 모두 y 빼기 x를 2로 나눈 값이며 양수이므로 x보다 m이 크고 m보다 y가 크다.</desc>
+  <metadata>Original static midpoint argument authored for Knowledge Atlas. It visualizes exact symbolic relations, not measured data or external artwork. It is scoped to rational endpoints in strict order and does not claim that arbitrary irrational endpoints have a rational midpoint. Source, mathematical, learner, rights, audio, publication, and rendered-surface review remain pending.</metadata>
+  <rect width="600" height="300" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text data-essential-label="title" x="300" y="32" text-anchor="middle" font-size="24" font-weight="700">서로 다른 두 유리수 사이의 중점</text>
+    <g id="rational-strict-order">
+      <rect data-endpoints="x,y in Q" data-order="x&lt;y" x="44" y="46" width="512" height="42" rx="10" fill="#ffffff" stroke="#365c42" stroke-width="2"/>
+      <text data-essential-label="condition" x="300" y="75" text-anchor="middle" font-size="24" font-weight="700">조건 · x, y ∈ Q  그리고  x &lt; y</text>
+    </g>
+    <g id="rational-midpoint">
+      <rect data-formula="m=(x+y)/2" data-result-domain="Q" data-divisor="2" data-divisor-nonzero="true" x="112" y="98" width="376" height="66" rx="12" fill="#e1eee3" stroke="#365c42" stroke-width="3"/>
+      <text data-essential-label="midpoint" x="300" y="126" text-anchor="middle" font-size="28" font-weight="700">m = (x+y)/2 ∈ Q</text>
+      <text data-essential-label="closure" x="300" y="155" text-anchor="middle" font-size="24" font-weight="700" fill="#526b58">유리수끼리 더하고 2로 나누면 유리수</text>
+    </g>
+    <g id="left-positive-gap">
+      <line data-expression="m-x=(y-x)/2" data-sign="positive" data-from-x="120" data-to-x="300" x1="120" y1="206" x2="300" y2="206" stroke="#a56d30" stroke-width="5" stroke-linecap="round"/>
+      <text data-essential-label="left-gap" x="210" y="194" text-anchor="middle" font-size="24" font-weight="700" fill="#a56d30">(y−x)/2 &gt; 0</text>
+    </g>
+    <g id="right-positive-gap">
+      <line data-expression="y-m=(y-x)/2" data-sign="positive" data-from-x="300" data-to-x="480" x1="300" y1="206" x2="480" y2="206" stroke="#a56d30" stroke-width="5" stroke-linecap="round"/>
+      <text data-essential-label="right-gap" x="390" y="194" text-anchor="middle" font-size="24" font-weight="700" fill="#a56d30">(y−x)/2 &gt; 0</text>
+    </g>
+    <line x1="84" y1="224" x2="516" y2="224" stroke="#365c42" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="120" cy="224" r="8" fill="#ffffff" stroke="#365c42" stroke-width="3"/>
+    <circle cx="300" cy="224" r="10" fill="#e1eee3" stroke="#365c42" stroke-width="4"/>
+    <circle cx="480" cy="224" r="8" fill="#ffffff" stroke="#365c42" stroke-width="3"/>
+    <text data-essential-label="left-point" x="120" y="258" text-anchor="middle" font-size="26" font-weight="700">x</text>
+    <text data-essential-label="midpoint-point" x="300" y="258" text-anchor="middle" font-size="26" font-weight="700" fill="#365c42">m</text>
+    <text data-essential-label="right-point" x="480" y="258" text-anchor="middle" font-size="26" font-weight="700">y</text>
+    <text data-essential-label="conclusion" x="300" y="290" text-anchor="middle" font-size="24" font-weight="700">두 양의 간격이 같으므로  x &lt; m &lt; y</text>
+  </g>
+</svg>
