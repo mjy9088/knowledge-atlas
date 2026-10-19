@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320" role="img" aria-labelledby="title desc">
+  <title id="title">좌표 2에서 음의 3까지 다섯 칸 이동</title>
+  <desc id="desc">0을 원점으로 둔 수직선에서 좌표 2부터 왼쪽으로 같은 길이의 한 칸을 다섯 번 이동한다. 2, 1, 0, 음의 1, 음의 2를 차례로 지나 음의 3에 도착한다.</desc>
+  <metadata>Original coordinate geometry for Knowledge Atlas. This is a mathematical number line, not a building-floor convention or measured physical height. Source, learner, rights, browser and publication review remain separate.</metadata>
+  <defs>
+    <marker id="left-arrow" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 0L12 6L0 12Z" fill="#b54708"/>
+    </marker>
+  </defs>
+  <rect width="640" height="320" rx="20" fill="#f8fafc"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#172033">
+    <text x="320" y="42" text-anchor="middle" font-size="24" font-weight="700">좌표 2에서 왼쪽으로 같은 한 칸 × 5</text>
+    <text x="320" y="76" text-anchor="middle" font-size="20" font-weight="600" fill="#526078">2 → 1 → 0 → −1 → −2 → −3</text>
+    <line x1="64" y1="190" x2="576" y2="190" stroke="#8792a6" stroke-width="4" stroke-linecap="round"/>
+    <g id="coordinate-ticks" stroke="#8792a6" stroke-width="3">
+      <line data-tick="-3" x1="100" y1="174" x2="100" y2="206"/>
+      <line data-tick="-2" x1="180" y1="174" x2="180" y2="206"/>
+      <line data-tick="-1" x1="260" y1="174" x2="260" y2="206"/>
+      <line data-tick="0" x1="340" y1="170" x2="340" y2="210" stroke="#087f5b" stroke-width="5"/>
+      <line data-tick="1" x1="420" y1="174" x2="420" y2="206"/>
+      <line data-tick="2" x1="500" y1="174" x2="500" y2="206"/>
+    </g>
+    <g id="five-unit-steps" stroke="#b54708" stroke-width="7" stroke-linecap="round" marker-end="url(#left-arrow)">
+      <line data-step="1" data-from="2" data-to="1" x1="500" x2="420" y1="130" y2="130"/>
+      <line data-step="2" data-from="1" data-to="0" x1="420" x2="340" y1="130" y2="130"/>
+      <line data-step="3" data-from="0" data-to="-1" x1="340" x2="260" y1="130" y2="130"/>
+      <line data-step="4" data-from="-1" data-to="-2" x1="260" x2="180" y1="130" y2="130"/>
+      <line data-step="5" data-from="-2" data-to="-3" x1="180" x2="100" y1="130" y2="130"/>
+    </g>
+    <g text-anchor="middle" font-size="20" font-weight="600">
+      <text x="100" y="238">−3</text><text x="180" y="238">−2</text><text x="260" y="238">−1</text>
+      <text x="340" y="238" fill="#087f5b">0</text><text x="420" y="238">1</text><text x="500" y="238">2</text>
+    </g>
+    <circle cx="500" cy="130" r="10" fill="#1d4ed8" stroke="#ffffff" stroke-width="3"/>
+    <circle cx="100" cy="130" r="12" fill="#b54708" stroke="#ffffff" stroke-width="3"/>
+    <text x="320" y="286" text-anchor="middle" font-size="26" font-weight="700">2 − 5 = −3</text>
+  </g>
+</svg>
