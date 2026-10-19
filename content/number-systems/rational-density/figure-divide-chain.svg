@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="title desc">
+  <title id="title">양의 n으로 나눈 뒤 엄격한 격자 조건을 잇는 부등식</title>
+  <desc id="desc">nx보다 m이 크고 m이 nx 더하기 1 이하인 식을 양의 n으로 나누어 x보다 m/n이 크고 x 더하기 1/n 이하임을 얻는다. 1/n이 y 빼기 x보다 작다는 조건으로 마지막 항은 y보다 작다.</desc>
+  <metadata>Original static proof chain authored for Knowledge Atlas. It visualizes the article's independently written reasoning and is not external source artwork.</metadata>
+  <rect width="600" height="300" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="300" y="34" text-anchor="middle" font-size="24" font-weight="700">각 부등호가 어디서 오는지 잇습니다</text>
+    <g id="integer-chain" data-chain="nx&lt;m&lt;=nx+1">
+      <rect x="120" y="54" width="360" height="52" rx="12" fill="#ffffff" stroke="#365c42" stroke-width="3"/>
+      <text x="300" y="88" text-anchor="middle" font-size="26" font-weight="700">nx &lt; m ≤ nx+1</text>
+    </g>
+    <g id="divide-positive-connector" data-from="integer-chain" data-to="divided-chain" data-reason="divide-by-positive-n">
+      <line x1="300" y1="112" x2="300" y2="125" stroke="#365c42" stroke-width="4"/>
+      <polygon data-arrowhead="divide-positive" points="294 125,306 125,300 133" fill="#365c42"/>
+      <text x="324" y="130" font-size="22" font-weight="600" fill="#526b58">n&gt;0</text>
+    </g>
+    <g id="divided-chain" data-chain="x&lt;m/n&lt;=x+1/n" data-order-preserved="true">
+      <rect x="92" y="148" width="416" height="52" rx="12" fill="#e1eee3" stroke="#365c42" stroke-width="3"/>
+      <text x="300" y="183" text-anchor="middle" font-size="26" font-weight="700">x &lt; m/n ≤ x+1/n</text>
+    </g>
+    <g id="strict-mesh-link" data-premise="1/n&lt;y-x" data-consequence="x+1/n&lt;y">
+      <rect x="44" y="218" width="512" height="72" rx="12" fill="#ffffff" stroke="#a56d30" stroke-width="3"/>
+      <text x="300" y="246" text-anchor="middle" font-size="22" font-weight="700">1/n &lt; y−x  ⇒  x+1/n &lt; y</text>
+      <text x="300" y="280" text-anchor="middle" font-size="24" font-weight="700" fill="#365c42">따라서 x&lt;m/n≤x+1/n&lt;y</text>
+    </g>
+    <g id="append-strict-connector" data-from="divided-chain" data-to="strict-mesh-link" data-reason="append-last-link">
+      <line x1="300" y1="204" x2="300" y2="205" stroke="#365c42" stroke-width="4"/>
+      <polygon data-arrowhead="append-strict" points="294 205,306 205,300 213" fill="#365c42"/>
+    </g>
+  </g>
+</svg>

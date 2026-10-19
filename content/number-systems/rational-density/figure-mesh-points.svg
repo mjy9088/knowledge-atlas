@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="title desc">
+  <title id="title">양의 정수 n이 만드는 유리수 격자</title>
+  <desc id="desc">정수 k와 양의 정수 n으로 만든 k/n은 유리수이고, 이웃한 격자점의 간격은 1/n이다.</desc>
+  <metadata>Original exact symbolic grid authored for Knowledge Atlas. It contains no external artwork or measured data.</metadata>
+  <rect width="600" height="300" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="300" y="40" text-anchor="middle" font-size="24" font-weight="700">모든 격자점은 정수의 비입니다</text>
+    <g id="rational-grid-premises" data-k-domain="Z" data-n-domain="positive-Z" data-denominator-nonzero="true">
+      <rect x="70" y="62" width="460" height="52" rx="12" fill="#ffffff" stroke="#365c42" stroke-width="3"/>
+      <text x="300" y="96" text-anchor="middle" font-size="24" font-weight="700">k ∈ Z · n ∈ Z · n &gt; 0</text>
+    </g>
+    <g id="rational-grid-points" data-point-form="k/n" data-domain="Q" data-step="1/n">
+      <line x1="82" y1="190" x2="518" y2="190" stroke="#365c42" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="140" cy="190" r="9" fill="#ffffff" stroke="#365c42" stroke-width="3"/>
+      <circle cx="300" cy="190" r="10" fill="#e1eee3" stroke="#365c42" stroke-width="4"/>
+      <circle cx="460" cy="190" r="9" fill="#ffffff" stroke="#365c42" stroke-width="3"/>
+      <text x="140" y="156" text-anchor="middle" font-size="24" font-weight="700">(k−1)/n</text>
+      <text x="300" y="156" text-anchor="middle" font-size="24" font-weight="700">k/n</text>
+      <text x="460" y="156" text-anchor="middle" font-size="24" font-weight="700">(k+1)/n</text>
+      <text x="220" y="230" text-anchor="middle" font-size="22" font-weight="600">1/n</text>
+      <text x="380" y="230" text-anchor="middle" font-size="22" font-weight="600">1/n</text>
+    </g>
+    <text x="300" y="274" text-anchor="middle" font-size="24" font-weight="700" fill="#365c42">분모 n≠0이므로 k/n ∈ Q</text>
+  </g>
+</svg>

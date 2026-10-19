@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="title desc">
+  <title id="title">x 바로 오른쪽의 첫 유리수 격자점 선택</title>
+  <desc id="desc">균일한 1/n 격자에서 x는 두 격자점 사이에 있고, 바로 오른쪽 격자점을 선택한다. y는 선택점보다 오른쪽에 있다.</desc>
+  <metadata>Original illustrative grid authored for Knowledge Atlas. Uniform coordinates show the selection mechanism, not a proof of the general theorem.</metadata>
+  <rect width="600" height="300" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="300" y="38" text-anchor="middle" font-size="24" font-weight="700">x 바로 오른쪽의 첫 격자점을 고릅니다</text>
+    <g id="uniform-grid" data-step="1/n">
+      <line x1="60" y1="164" x2="540" y2="164" stroke="#365c42" stroke-width="4" stroke-linecap="round"/>
+      <line data-grid-index="-2" data-x="100" x1="100" y1="144" x2="100" y2="184" stroke="#365c42" stroke-width="3"/>
+      <line data-grid-index="-1" data-x="180" x1="180" y1="144" x2="180" y2="184" stroke="#365c42" stroke-width="3"/>
+      <line data-grid-index="0" data-x="260" x1="260" y1="140" x2="260" y2="188" stroke="#365c42" stroke-width="4"/>
+      <line data-grid-index="1" data-x="340" x1="340" y1="144" x2="340" y2="184" stroke="#365c42" stroke-width="3"/>
+      <line data-grid-index="2" data-x="420" x1="420" y1="144" x2="420" y2="184" stroke="#365c42" stroke-width="3"/>
+      <line data-grid-index="3" data-x="500" x1="500" y1="144" x2="500" y2="184" stroke="#365c42" stroke-width="3"/>
+      <text x="140" y="220" text-anchor="middle" font-size="22" font-weight="600">이웃 간격 1/n</text>
+    </g>
+    <g id="first-point-right-of-x" data-x-coordinate="230" data-selected-coordinate="260" data-selection="first-grid-point-right" data-label-stage="pre-m-definition">
+      <circle cx="230" cy="164" r="9" fill="#f3dcb0" stroke="#a56d30" stroke-width="3"/>
+      <text x="230" y="126" text-anchor="middle" font-size="24" font-weight="700" fill="#a56d30">x</text>
+      <circle cx="260" cy="164" r="11" fill="#e1eee3" stroke="#365c42" stroke-width="4"/>
+      <text x="278" y="116" text-anchor="start" font-size="24" font-weight="700" fill="#365c42">선택점</text>
+      <path d="M236 132L255 148" fill="none" stroke="#365c42" stroke-width="3"/>
+    </g>
+    <g id="right-endpoint" data-coordinate="465">
+      <circle cx="465" cy="164" r="9" fill="#ffffff" stroke="#a56d30" stroke-width="3"/>
+      <text x="465" y="126" text-anchor="middle" font-size="24" font-weight="700" fill="#a56d30">y</text>
+    </g>
+    <text x="300" y="270" text-anchor="middle" font-size="22" font-weight="700">예시 배치 · 일반 증명은 부등식 연쇄가 맡습니다</text>
+  </g>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="title desc">
+  <title id="title">정수 경계에서 올림과 바닥 더하기 1 비교</title>
+  <desc id="desc">nx가 정수 2일 때 올림은 같은 정수 2를 돌려주어 x에 머문다. 바닥값 더하기 1은 다음 정수 3을 골라 x보다 엄격히 오른쪽으로 이동한다.</desc>
+  <metadata>Original boundary-choice comparison authored for Knowledge Atlas. The integer value is illustrative; the symbolic distinction is general.</metadata>
+  <rect width="600" height="300" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="300" y="36" text-anchor="middle" font-size="24" font-weight="700">nx가 이미 정수일 때</text>
+    <g id="ceiling-choice" data-nx="2" data-choice="ceil(nx)" data-result="2" data-after-division="x" data-axis-end="420" data-outcome-left="440" data-formula-bottom="88" data-marker-top="99">
+      <rect x="32" y="58" width="536" height="84" rx="14" fill="#ffffff" stroke="#a56d30" stroke-width="3"/>
+      <line id="ceiling-axis" x1="106" y1="110" x2="420" y2="110" stroke="#365c42" stroke-width="4"/>
+      <circle id="ceiling-marker" cx="260" cy="110" r="11" fill="#f3dcb0" stroke="#a56d30" stroke-width="4"/>
+      <text id="ceiling-formula" x="260" y="84" text-anchor="middle" font-size="22" font-weight="700">nx=2=⌈nx⌉</text>
+      <text id="ceiling-outcome" x="532" y="120" text-anchor="end" font-size="22" font-weight="700" fill="#a56d30">나누면 x</text>
+    </g>
+    <g id="floor-plus-one-choice" data-nx="2" data-choice="floor(nx)+1" data-result="3" data-relation="strict-right">
+      <rect x="32" y="158" width="536" height="96" rx="14" fill="#ffffff" stroke="#365c42" stroke-width="3"/>
+      <line x1="106" y1="206" x2="494" y2="206" stroke="#365c42" stroke-width="4"/>
+      <circle cx="260" cy="206" r="9" fill="#ffffff" stroke="#a56d30" stroke-width="3"/>
+      <circle cx="414" cy="206" r="11" fill="#e1eee3" stroke="#365c42" stroke-width="4"/>
+      <g id="floor-plus-one-movement" data-from-clear="273" data-head-tip="397" data-to-clear="399">
+        <line x1="278" y1="206" x2="385" y2="206" stroke="#365c42" stroke-width="4"/>
+        <polygon points="385,199 397,206 385,213" fill="#365c42"/>
+        <text x="338" y="182" text-anchor="middle" font-size="22" font-weight="700" fill="#365c42">⌊nx⌋+1</text>
+      </g>
+      <text x="260" y="246" text-anchor="middle" font-size="22" font-weight="700">nx=2</text>
+      <text x="414" y="246" text-anchor="middle" font-size="22" font-weight="700" fill="#365c42">m=3</text>
+      <text x="532" y="182" text-anchor="end" font-size="22" font-weight="700" fill="#365c42">nx&lt;m</text>
+    </g>
+    <text x="300" y="286" text-anchor="middle" font-size="22" font-weight="700">같은 경계 · 다른 선택 결과</text>
+  </g>
+</svg>

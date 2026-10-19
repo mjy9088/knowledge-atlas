@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="title desc">
+  <title id="title">유리수 끝점의 평균과 임의의 실수 끝점의 평균 비교</title>
+  <desc id="desc">유리수 x와 y의 평균은 유리수이지만, 임의의 실수 x와 y의 평균은 실수일 뿐 유리수라고 보장되지 않는다.</desc>
+  <metadata>Original static scope comparison authored for Knowledge Atlas. It distinguishes two premises; it is not theorem evidence or external artwork.</metadata>
+  <rect width="600" height="300" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="300" y="34" text-anchor="middle" font-size="24" font-weight="700">평균 규칙의 출발점이 다릅니다</text>
+    <g id="rational-endpoints" data-domain="Q" data-midpoint-domain="Q">
+      <rect x="28" y="58" width="256" height="184" rx="14" fill="#ffffff" stroke="#365c42" stroke-width="3"/>
+      <text x="156" y="94" text-anchor="middle" font-size="22" font-weight="700">x, y ∈ Q</text>
+      <text x="156" y="144" text-anchor="middle" font-size="26" font-weight="700">(x+y)/2 ∈ Q</text>
+      <path d="M82 188H230" stroke="#365c42" stroke-width="4"/>
+      <circle cx="82" cy="188" r="7" fill="#ffffff" stroke="#365c42" stroke-width="3"/>
+      <circle cx="156" cy="188" r="9" fill="#e1eee3" stroke="#365c42" stroke-width="3"/>
+      <circle cx="230" cy="188" r="7" fill="#ffffff" stroke="#365c42" stroke-width="3"/>
+      <text x="156" y="226" text-anchor="middle" font-size="22" font-weight="700" fill="#365c42">유리수로 닫힘</text>
+    </g>
+    <g id="arbitrary-real-endpoints" data-domain="R" data-midpoint-domain="not-guaranteed-Q">
+      <rect x="316" y="58" width="256" height="184" rx="14" fill="#ffffff" stroke="#a56d30" stroke-width="3"/>
+      <text x="444" y="94" text-anchor="middle" font-size="22" font-weight="700">x, y ∈ R</text>
+      <text x="444" y="144" text-anchor="middle" font-size="26" font-weight="700">(x+y)/2 ∈ R</text>
+      <path d="M370 188H518" stroke="#365c42" stroke-width="4"/>
+      <circle cx="370" cy="188" r="7" fill="#ffffff" stroke="#365c42" stroke-width="3"/>
+      <circle cx="444" cy="188" r="9" fill="#f3dcb0" stroke="#a56d30" stroke-width="3"/>
+      <circle cx="518" cy="188" r="7" fill="#ffffff" stroke="#365c42" stroke-width="3"/>
+      <text x="444" y="226" text-anchor="middle" font-size="22" font-weight="700" fill="#a56d30">Q인지는 보장 안 됨</text>
+    </g>
+    <text x="300" y="278" text-anchor="middle" font-size="22" font-weight="700">그래서 임의의 실수 끝점에는 정수 격자를 씁니다</text>
+  </g>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="title desc">
+  <title id="title">바닥함수로 nx 바로 오른쪽의 첫 정수 선택</title>
+  <desc id="desc">공통 정수 눈금에서 nx가 음수 비정수인 경우와 정수인 경우를 비교한다. 두 경우 모두 m은 바닥값 더하기 1이며 nx보다 엄격히 크고 nx 더하기 1 이하이다.</desc>
+  <metadata>Original floor-function boundary comparison authored for Knowledge Atlas. Values are illustrative instances of the general symbolic inequality.</metadata>
+  <rect width="600" height="300" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="300" y="34" text-anchor="middle" font-size="24" font-weight="700">m = ⌊nx⌋+1은 정수 경계도 넘습니다</text>
+    <g id="common-integer-scale">
+      <line x1="52" y1="150" x2="548" y2="150" stroke="#365c42" stroke-width="4"/>
+      <line data-scale-value="-3" data-x="60" x1="60" y1="134" x2="60" y2="166" stroke="#365c42" stroke-width="3"/>
+      <line data-scale-value="-2" data-x="140" x1="140" y1="134" x2="140" y2="166" stroke="#365c42" stroke-width="3"/>
+      <line data-scale-value="-1" data-x="220" x1="220" y1="134" x2="220" y2="166" stroke="#365c42" stroke-width="3"/>
+      <line data-scale-value="0" data-x="300" x1="300" y1="130" x2="300" y2="170" stroke="#365c42" stroke-width="4"/>
+      <line data-scale-value="1" data-x="380" x1="380" y1="134" x2="380" y2="166" stroke="#365c42" stroke-width="3"/>
+      <line data-scale-value="2" data-x="460" x1="460" y1="134" x2="460" y2="166" stroke="#365c42" stroke-width="3"/>
+      <line data-scale-value="3" data-x="540" x1="540" y1="134" x2="540" y2="166" stroke="#365c42" stroke-width="3"/>
+      <text x="60" y="194" text-anchor="middle" font-size="22" font-weight="600">−3</text><text x="140" y="194" text-anchor="middle" font-size="22" font-weight="600">−2</text><text x="300" y="194" text-anchor="middle" font-size="22" font-weight="600">0</text><text x="460" y="194" text-anchor="middle" font-size="22" font-weight="600">2</text><text x="540" y="194" text-anchor="middle" font-size="22" font-weight="600">3</text>
+    </g>
+    <g id="negative-noninteger-case" data-nx="-2.4" data-floor="-3" data-m="-2">
+      <circle cx="108" cy="150" r="9" fill="#f3dcb0" stroke="#a56d30" stroke-width="3"/>
+      <circle cx="140" cy="150" r="11" fill="#e1eee3" stroke="#365c42" stroke-width="4"/>
+      <text x="100" y="112" text-anchor="middle" font-size="22" font-weight="700">nx=−2.4</text>
+      <text x="142" y="232" text-anchor="middle" font-size="22" font-weight="700" fill="#365c42">m=−2</text>
+    </g>
+    <g id="integer-boundary-case" data-nx="2" data-floor="2" data-m="3">
+      <circle cx="460" cy="150" r="9" fill="#f3dcb0" stroke="#a56d30" stroke-width="3"/>
+      <circle cx="540" cy="150" r="11" fill="#e1eee3" stroke="#365c42" stroke-width="4"/>
+      <text x="460" y="112" text-anchor="middle" font-size="22" font-weight="700">nx=2</text>
+      <text x="540" y="232" text-anchor="middle" font-size="22" font-weight="700" fill="#365c42">m=3</text>
+    </g>
+    <text x="300" y="276" text-anchor="middle" font-size="24" font-weight="700">⌊nx⌋≤nx&lt;m≤nx+1</text>
+  </g>
+</svg>

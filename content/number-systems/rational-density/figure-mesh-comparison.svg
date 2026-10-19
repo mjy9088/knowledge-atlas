@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="title desc">
+  <title id="title">같은 구간에서 n=10과 n=20 격자 비교</title>
+  <desc id="desc">1에서 11/10까지 같은 구간에서 n=10은 선택점이 오른쪽 끝점 11/10에 닿는다. n=20은 선택점 21/20이 두 끝점 사이의 정확한 중간에 놓인다.</desc>
+  <metadata>Original exact-fraction comparison authored for Knowledge Atlas. Coordinates use one common affine scale and do not rely on floating-point guesses.</metadata>
+  <rect width="600" height="300" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="300" y="34" text-anchor="middle" font-size="24" font-weight="700">구간 (1, 11/10)의 격자 폭 비교</text>
+    <g id="coarse-mesh" data-n="10" data-width="1/10" data-left-x="120" data-selected-x="480" data-right-x="480" data-axis-y="104" data-label-baseline="141" data-max-marker-radius="11">
+      <rect x="38" y="54" width="524" height="92" rx="14" fill="#ffffff" stroke="#a56d30" stroke-width="3"/>
+      <text x="62" y="80" font-size="22" font-weight="700">n=10 · 1/n=1/10</text>
+      <line x1="120" y1="104" x2="480" y2="104" stroke="#365c42" stroke-width="4"/>
+      <circle cx="120" cy="104" r="8" fill="#ffffff" stroke="#365c42" stroke-width="3"/>
+      <circle data-point="11/10" data-status="endpoint" cx="480" cy="104" r="11" fill="#f3dcb0" stroke="#a56d30" stroke-width="4"/>
+      <text x="120" y="141" text-anchor="middle" font-size="22" font-weight="700">1</text>
+      <text x="480" y="141" text-anchor="middle" font-size="22" font-weight="700">11/10=y</text>
+    </g>
+    <g id="fine-mesh" data-n="20" data-width="1/20" data-left-x="120" data-selected-x="300" data-right-x="480" data-axis-y="210" data-label-baseline="251" data-max-marker-radius="11">
+      <rect x="38" y="158" width="524" height="104" rx="14" fill="#ffffff" stroke="#365c42" stroke-width="3"/>
+      <text x="62" y="190" font-size="22" font-weight="700">n=20 · 1/20&lt;1/10</text>
+      <line x1="120" y1="210" x2="480" y2="210" stroke="#365c42" stroke-width="4"/>
+      <circle cx="120" cy="210" r="8" fill="#ffffff" stroke="#365c42" stroke-width="3"/>
+      <circle data-point="21/20" data-status="strict-interior" cx="300" cy="210" r="11" fill="#e1eee3" stroke="#365c42" stroke-width="4"/>
+      <circle cx="480" cy="210" r="8" fill="#ffffff" stroke="#365c42" stroke-width="3"/>
+      <text x="120" y="251" text-anchor="middle" font-size="22" font-weight="700">1</text>
+      <text x="300" y="251" text-anchor="middle" font-size="22" font-weight="700" fill="#365c42">21/20</text>
+      <text x="480" y="251" text-anchor="middle" font-size="22" font-weight="700">11/10</text>
+    </g>
+    <text x="300" y="290" text-anchor="middle" font-size="22" font-weight="700">정확히 1 &lt; 21/20 &lt; 11/10</text>
+  </g>
+</svg>
