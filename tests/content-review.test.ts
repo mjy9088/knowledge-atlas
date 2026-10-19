@@ -34,3 +34,20 @@ test('review evidence includes the actual owned diagram bytes rather than only i
   assert.ok(packet&&typeof packet==='object'&&'representations'in packet&&Array.isArray(packet.representations));
   assert.ok(packet.representations.some((asset:unknown)=>asset&&typeof asset==='object'&&'src'in asset&&'sha256'in asset&&asset.src==='/content/number-systems/complex-numbers/figure-i-rotation.svg'&&asset.sha256===expected));
 });
+
+test('canonical review hands off actual topic intent bytes and every scene target without declaring them approved',()=>{
+  const packet:unknown=JSON.parse(execFileSync(process.execPath,['--import','tsx','scripts/content-review.ts','counting-zero'],{encoding:'utf8'}));
+  assert.ok(packet&&typeof packet==='object'&&'authoringArtifacts'in packet&&'targets'in packet&&'role'in packet&&'authoringIntentStatus'in packet);
+  assert.equal(packet.role,'evaluator');
+  assert.equal(packet.authoringIntentStatus,'provided-unverified');
+  assert.deepEqual(packet.targets,['overall','question','empty-set','identity','convention','transfer']);
+  assert.ok(Array.isArray(packet.authoringArtifacts));
+  for(const name of ['README.md','DESIGN.md']){
+    const relative=`content/number-systems/counting-zero/${name}`;
+    const artifact:unknown=packet.authoringArtifacts.find((item:unknown)=>item&&typeof item==='object'&&'path'in item&&item.path===relative);
+    assert.ok(artifact&&typeof artifact==='object'&&'sha256'in artifact&&'content'in artifact&&typeof artifact.content==='string');
+    const expected=createHash('sha256').update(readFileSync(new URL('../'+relative,import.meta.url))).digest('hex');
+    assert.equal(artifact.sha256,expected);
+    assert.equal(createHash('sha256').update(artifact.content).digest('hex'),expected);
+  }
+});
