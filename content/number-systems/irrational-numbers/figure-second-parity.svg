@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-labelledby="title desc">
+  <title id="title">p는 2k라는 결과를 대입해 q도 짝수임을 얻고 서로소 조건과 충돌하는 구조</title>
+  <desc id="desc">원래 식 p제곱은 2q제곱과 앞 장면의 p는 2k를 함께 사용해 4k제곱은 2q제곱을 얻는다. 2로 나누면 q제곱은 2k제곱이므로 q도 짝수다. 앞서 얻은 p 짝수와 합치면 2가 공약수다. 이는 맨 처음 유리수 가정이 소유한 gcd p q는 1이라는 서로소 조건과 직접 모순이다.</desc>
+  <metadata>Original static proof-dependency diagram authored for Knowledge Atlas. It makes substitution and coprime-assumption ownership visible; it is not external artwork, source evidence, or learner evidence.</metadata>
+  <defs>
+    <marker id="arrow" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 0L12 6L0 12Z" fill="#365c42"/>
+    </marker>
+  </defs>
+  <rect width="720" height="420" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="360" y="30" text-anchor="middle" font-size="22" font-weight="700">대입 결과는 처음의 서로소 조건과 어떻게 충돌할까요?</text>
+    <path data-from="original-equation" data-to="substituted-equation" data-rule="substitution-target" d="M158 112C158 138 274 132 304 154" fill="none" stroke="#365c42" stroke-width="4" marker-end="url(#arrow)"/>
+    <path data-from="p-two-k" data-to="substituted-equation" data-rule="substitute-p" d="M562 112C562 138 446 132 416 154" fill="none" stroke="#365c42" stroke-width="4" marker-end="url(#arrow)"/>
+    <path data-from="substituted-equation" data-to="q-square-equation" data-rule="divide-by-two" d="M360 210V230" stroke="#365c42" stroke-width="4" marker-end="url(#arrow)"/>
+    <text x="374" y="226" font-size="15" fill="#526b58">양변 ÷2</text>
+    <path data-from="q-square-equation" data-to="q-even" data-rule="parity-lemma" d="M360 284V304" stroke="#365c42" stroke-width="4" marker-end="url(#arrow)"/>
+    <path data-from="p-even" data-to="shared-factor" data-rule="factor-two" d="M110 332C110 360 216 358 246 374" fill="none" stroke="#365c42" stroke-width="4" marker-end="url(#arrow)"/>
+    <path data-from="q-even" data-to="shared-factor" data-rule="factor-two" d="M360 354V366" stroke="#365c42" stroke-width="4" marker-end="url(#arrow)"/>
+    <path data-from="coprime-assumption" data-to="gcd-contradiction" data-rule="requires-gcd-one" d="M610 332V366" stroke="#365c42" stroke-width="4" marker-end="url(#arrow)"/>
+    <path data-from="shared-factor" data-to="gcd-contradiction" data-rule="common-factor-two" d="M474 390H510" stroke="#365c42" stroke-width="4" marker-end="url(#arrow)"/>
+    <g id="original-equation" data-owner="global-rational-assumption" data-equation="p2=2q2">
+      <rect x="24" y="54" width="268" height="58" rx="14" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
+      <text x="158" y="77" text-anchor="middle" font-size="15" fill="#526b58">원래 식</text>
+      <text x="158" y="103" text-anchor="middle" font-size="25" font-weight="700">p² = 2q²</text>
+    </g>
+    <g id="p-two-k" data-status="prior-proved-result" data-equation="p=2k">
+      <rect x="428" y="54" width="268" height="58" rx="14" fill="#e1eee3" stroke="#365c42" stroke-width="2"/>
+      <text x="562" y="77" text-anchor="middle" font-size="15" fill="#526b58">앞 장면의 결론</text>
+      <text x="562" y="103" text-anchor="middle" font-size="25" font-weight="700">p = 2k</text>
+    </g>
+    <g id="substituted-equation" data-operation="substitute-p">
+      <rect x="226" y="156" width="268" height="54" rx="14" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
+      <text x="360" y="190" text-anchor="middle" font-size="25" font-weight="700">4k² = 2q²</text>
+    </g>
+    <g id="q-square-equation" data-equation="q2=2k2">
+      <rect x="226" y="232" width="268" height="52" rx="14" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
+      <text x="360" y="265" text-anchor="middle" font-size="25" font-weight="700">q² = 2k²</text>
+    </g>
+    <g id="p-even" data-status="retained-conclusion" data-parity="even">
+      <rect x="24" y="304" width="172" height="50" rx="14" fill="#e1eee3" stroke="#365c42" stroke-width="2"/>
+      <text x="110" y="336" text-anchor="middle" font-size="21" font-weight="700">p는 짝수</text>
+    </g>
+    <g id="q-even" data-status="derived-conclusion" data-parity="even">
+      <rect x="274" y="304" width="172" height="50" rx="14" fill="#e1eee3" stroke="#365c42" stroke-width="2"/>
+      <text x="360" y="336" text-anchor="middle" font-size="21" font-weight="700">q도 짝수</text>
+    </g>
+    <g id="coprime-assumption" data-owner="global-rational-assumption" data-assumption="coprime">
+      <rect x="524" y="304" width="172" height="50" rx="14" fill="#f3dcb0" stroke="#a56d30" stroke-width="2"/>
+      <text x="610" y="336" text-anchor="middle" font-size="21" font-weight="700">gcd(p,q)=1</text>
+    </g>
+    <g id="shared-factor" data-common-factor="2">
+      <rect x="246" y="368" width="228" height="40" rx="14" fill="#ffffff" stroke="#a56d30" stroke-width="2"/>
+      <text x="360" y="395" text-anchor="middle" font-size="21" font-weight="700">2가 p,q의 공약수</text>
+    </g>
+    <g id="gcd-contradiction" data-conflicts-with="coprime-assumption">
+      <rect x="520" y="368" width="176" height="40" rx="14" fill="#ffffff" stroke="#a56d30" stroke-width="3"/>
+      <text x="608" y="395" text-anchor="middle" font-size="21" font-weight="700">서로소와 모순</text>
+    </g>
+  </g>
+</svg>

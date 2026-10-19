@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-labelledby="title desc">
+  <title id="title">제곱근 8이 유리수라는 가정에서 방금 증명한 제곱근 2의 비유리성과 모순을 얻는 전이</title>
+  <desc id="desc">왼쪽 사다리는 제곱근 8이 유리수라고 가정한다. 2는 0이 아닌 유리수이므로 유리수를 2로 나눈 몫도 유리수다. 따라서 제곱근 8 나누기 2가 유리수이고, 제곱근 8은 2 곱하기 제곱근 2이므로 그 몫은 제곱근 2다. 이 결론은 오른쪽에 따로 적은 방금 증명한 제곱근 2는 유리수가 아니라는 결과와 모순이다. 처음 가정을 버려 제곱근 8은 유리수가 아니라고 결론낸다.</desc>
+  <metadata>Original static proof-dependency diagram authored for Knowledge Atlas. It visualizes a worked corollary and rational-closure condition; it is not external artwork, source evidence, learner assessment, or a repeated parity proof.</metadata>
+  <defs>
+    <marker id="arrow" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 0L12 6L0 12Z" fill="#365c42"/>
+    </marker>
+  </defs>
+  <rect width="720" height="420" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="360" y="30" text-anchor="middle" font-size="22" font-weight="700">방금 증명한 결과를 √8에 옮기기</text>
+    <path data-from="sqrt8-rational" data-to="quotient-rational" data-rule="divide-by-two" data-condition="nonzero-rational-divisor" d="M222 120V160" stroke="#365c42" stroke-width="4" marker-end="url(#arrow)"/>
+    <path data-from="divisor-two" data-to="quotient-rational" data-rule="nonzero-rational-condition" d="M582 120C582 144 458 132 410 164" fill="none" stroke="#365c42" stroke-width="4" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+    <text x="236" y="145" font-size="15" fill="#526b58">2로 나눔</text>
+    <path data-from="quotient-rational" data-to="sqrt2-rational" data-rule="sqrt8-identity" d="M222 230V266" stroke="#365c42" stroke-width="4" marker-end="url(#arrow)"/>
+    <text x="236" y="254" font-size="15" fill="#526b58">√8/2 = √2</text>
+    <path data-from="sqrt2-rational" data-to="theorem-contradiction" data-rule="rational-claim" d="M222 326C222 350 304 348 330 364" fill="none" stroke="#365c42" stroke-width="4" marker-end="url(#arrow)"/>
+    <path data-from="sqrt2-irrational" data-to="theorem-contradiction" data-rule="prior-theorem" d="M574 230C574 312 452 330 410 364" fill="none" stroke="#365c42" stroke-width="4" marker-end="url(#arrow)"/>
+    <path data-from="theorem-contradiction" data-to="sqrt8-irrational" data-rule="discharge-sqrt8-assumption" d="M438 386H500" stroke="#365c42" stroke-width="4" marker-end="url(#arrow)"/>
+    <g id="sqrt8-rational" data-owner="local-sqrt8-assumption" data-assumption="sqrt8-rational">
+      <rect x="24" y="56" width="396" height="64" rx="14" fill="#f3dcb0" stroke="#a56d30" stroke-width="2"/>
+      <text x="222" y="78" text-anchor="middle" font-size="15" fill="#526b58">전이를 위한 가정</text>
+      <text x="222" y="108" text-anchor="middle" font-size="25" font-weight="700">√8 ∈ Q</text>
+    </g>
+    <g id="divisor-two" data-rational="true" data-nonzero="true">
+      <rect x="468" y="56" width="228" height="64" rx="14" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
+      <text x="582" y="78" text-anchor="middle" font-size="15" fill="#526b58">나눗셈 조건</text>
+      <text x="582" y="106" text-anchor="middle" font-size="21" font-weight="700">2 ∈ Q, 2 ≠ 0</text>
+    </g>
+    <g id="quotient-rational" data-closure="rational-division-by-nonzero-rational">
+      <rect x="24" y="166" width="396" height="64" rx="14" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
+      <text x="222" y="188" text-anchor="middle" font-size="15" fill="#526b58">Q는 0이 아닌 유리수로 나눈 몫에 닫힘</text>
+      <text x="222" y="218" text-anchor="middle" font-size="25" font-weight="700">√8 / 2 ∈ Q</text>
+    </g>
+    <g id="sqrt2-irrational" data-status="prior-proved-result">
+      <rect x="468" y="166" width="228" height="64" rx="14" fill="#e1eee3" stroke="#365c42" stroke-width="2"/>
+      <text x="582" y="188" text-anchor="middle" font-size="15" fill="#526b58">방금 증명한 결과</text>
+      <text x="582" y="218" text-anchor="middle" font-size="25" font-weight="700">√2 ∉ Q</text>
+    </g>
+    <g id="sqrt2-rational" data-owner="local-sqrt8-assumption" data-derived="sqrt2-rational">
+      <rect x="24" y="272" width="396" height="54" rx="14" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
+      <text x="222" y="306" text-anchor="middle" font-size="25" font-weight="700">√2 ∈ Q</text>
+    </g>
+    <g id="theorem-contradiction" data-conflict="sqrt2-rational-and-irrational">
+      <rect x="282" y="356" width="156" height="52" rx="14" fill="#ffffff" stroke="#a56d30" stroke-width="3"/>
+      <text x="360" y="389" text-anchor="middle" font-size="21" font-weight="700">모순</text>
+    </g>
+    <g id="sqrt8-irrational" data-status="discharged-conclusion">
+      <rect x="510" y="356" width="186" height="52" rx="14" fill="#e1eee3" stroke="#365c42" stroke-width="2"/>
+      <text x="603" y="389" text-anchor="middle" font-size="25" font-weight="700">√8 ∉ Q</text>
+    </g>
+  </g>
+</svg>
