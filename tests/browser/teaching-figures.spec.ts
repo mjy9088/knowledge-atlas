@@ -101,7 +101,7 @@ test('narrow final reader keeps one-row end links separate from accessible navig
   expect(layout.inside).toBe(true);
   expect(layout.separate).toBe(true);
   expect(layout.accessible).toBe(true);
-  for(const button of layout.buttons){expect(button.width).toBeGreaterThanOrEqual(44);expect(button.height).toBeGreaterThanOrEqual(44)}
+  for(const target of [...layout.buttons,...layout.links]){expect(target.width).toBeGreaterThanOrEqual(44);expect(target.height).toBeGreaterThanOrEqual(44)}
 });
 
 const correctedScenes=[

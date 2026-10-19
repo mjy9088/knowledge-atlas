@@ -96,7 +96,7 @@ function renderInput(){
   if(skip){const button=$('reader-skip');button.textContent=skip.label+' ↗';button.title='건너뛸 내용: '+skip.scope+' · 이동: '+skip.destination;button.setAttribute('aria-label',skip.label+' · 이동: '+skip.destination);const heading=node.querySelector<HTMLElement>('.reader-scene-heading');if(heading)heading.insertBefore(button,required('.eyebrow',heading));else $('reader-controls').insertBefore(button,$('reader-next'));}
   if(page.cover){root.dataset.cover=String(coverVisible);cover.hidden=!coverVisible;$('reader-workbench').hidden=coverVisible||!model&&!interaction;$('reader-scenes').hidden=coverVisible||opening;}
   interaction?.setActive?.(!coverVisible&&(page.interactive!=='weekday-worlds'||current.sceneId==='question')&&(!labTopic||root.dataset.mode==='interactive'));
-  if(page.interactive!=='weekday-worlds'){$('reader-skip-scope').textContent=page.interactive==='hydrogenic-orbitals'?'본문 ← → 장면 이동 · 시각화에 초점을 두면 방향키 회전':'← → 방향키 · Space / Enter 다음';$('reader-end-links').hidden=Boolean(next);}
+  if(page.interactive!=='weekday-worlds'){const hint=$('reader-skip-scope');const text=page.interactive==='hydrogenic-orbitals'?'본문 ← → 장면 이동 · 시각화에 초점을 두면 방향키 회전':'← → · Space/Enter';hint.textContent=text;hint.title=page.interactive==='hydrogenic-orbitals'?text:'← → 방향키: 장면 이동 · Space 또는 Enter: 다음';$('reader-end-links').hidden=Boolean(next);}
   interaction?.afterRender?.();
 }
 function render(view:ReaderView){current=view;if(model&&experiment)experiment.suggest(model.scenePresets?.[view.sceneId]??model.presets[0]);renderInput();history.replaceState(null,'',coverVisible?'#title':'#'+view.sceneId);}

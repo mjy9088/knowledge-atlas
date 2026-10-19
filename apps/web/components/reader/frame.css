@@ -15,6 +15,7 @@
 .reader-enhanced .related-reader[data-mode=reading] .reader-scene[data-visual=none]{grid-template-rows:minmax(0,1fr)}
 .reader-enhanced .related-reader[data-mode=interactive] .reader-workbench{grid-template-rows:minmax(0,1fr)}
 .reader-enhanced .reader-menu summary,.reader-enhanced .reader-controls>button{min-height:44px;min-width:44px}
+.reader-enhanced .reader-controls>.reader-end-links>a{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;white-space:nowrap}
 @media(max-width:720px){.reader-enhanced .related-reader[data-page=continuum-hypothesis] .premise-experiment{grid-template-columns:minmax(0,1fr) 148px}}
 @media(max-width:720px){.reader-enhanced #lesson-dialogue-copy{max-block-size:176px}}
 @media(max-width:720px){
@@ -26,8 +27,8 @@
  .reader-enhanced .related-reader:not([data-focus-reader]) .reader-controls:has(>.reader-end-links:not([hidden])){display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;grid-template-rows:44px;gap:4px}
  .reader-enhanced .related-reader:not([data-focus-reader]) .reader-controls:has(>.reader-end-links:not([hidden]))>#reader-prev{grid-column:1;grid-row:1;margin:0}
  .reader-enhanced .related-reader:not([data-focus-reader]) .reader-controls:has(>.reader-end-links:not([hidden]))>.reader-hint{grid-column:2;grid-row:1;min-width:0;margin:0;white-space:normal}
- .reader-enhanced .related-reader:not([data-focus-reader]) .reader-controls:has(>.reader-end-links:not([hidden]))>.reader-end-links{grid-column:3;grid-row:1;display:grid;grid-template-columns:minmax(0,1fr);min-width:0;max-width:100%;margin:0;gap:2px;text-align:center;white-space:normal}
- .reader-enhanced .related-reader:not([data-focus-reader]) .reader-controls:has(>.reader-end-links:not([hidden]))>.reader-end-links>a{min-width:0}
+ .reader-enhanced .related-reader:not([data-focus-reader]) .reader-controls:has(>.reader-end-links:not([hidden]))>.reader-end-links{grid-column:3;grid-row:1;display:flex;flex-direction:row;min-width:0;max-width:100%;margin:0;gap:4px;text-align:center;white-space:normal}
+ .reader-enhanced .related-reader:not([data-focus-reader]) .reader-controls:has(>.reader-end-links:not([hidden]))>.reader-end-links>a{min-width:44px}
  .reader-enhanced .related-reader:not([data-focus-reader]) .reader-controls:has(>.reader-end-links:not([hidden]))>#reader-next{grid-column:4;grid-row:1;margin:0}
 }
 .knowledge-card h2,.reader-intro h1,.reader-copy h2{word-break:keep-all;overflow-wrap:anywhere}
