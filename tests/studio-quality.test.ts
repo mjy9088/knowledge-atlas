@@ -87,6 +87,41 @@ test('handoff templates separate author and evaluator roles and begin review dim
   }
 });
 
+test('handoff packets bind the machine-readable representation policy without changing saved content',()=>{
+  // Given: a saved topic with revision-bound feedback.
+  const feedback=[{id:'feedback-1',slideId:'question',text:'Keep the accepted comparison.',resolved:false,revision:'current'}];
+  const topic={plan:EXAMPLES[0],revision:'current',jobs:[],feedback,gate:{ready:false,reasons:[]}};
+  const expectedPolicy={
+    version:1,
+    selectionBasis:'explanatory-need',
+    choices:[
+      {technology:'dom',explanatoryFits:['semantic-text','controls','tables']},
+      {technology:'svg',explanatoryFits:['labelled-2d','exact-2d-relationships']},
+      {technology:'canvas-2d',explanatoryFits:['sampled-images','dense-2d-drawing']},
+      {technology:'webgl-2',explanatoryFits:['spatial-fields','depth-occlusion','complex-surfaces','dense-model-geometry']}
+    ],
+    execution:{adapterMode:'registered-only',embeddedExecutablePayloads:'forbidden'},
+    geometry:{source:'pure-model-or-authored-data',coordinateAndScaleConventions:'required',numericalAndRenderingLimits:'required'},
+    state:{getState:'required',setState:'validated',reset:'required',independentSeek:'required-when-time-based'},
+    fallback:{usableAlternative:'required',limitationsDisclosure:'required',gpuUnavailable:'required-for-webgl-2',contextLoss:'required-for-webgl-2'},
+    accessibility:{explanatoryAlternative:'required'},
+    resources:{disposal:'required-for-canvas-2d-and-webgl-2'}
+  };
+  // When: author and independent-review packets are exported.
+  const work=createWorkPacket(topic,{directory:'/tmp/workspace',branch:'studio/fixture',route:'/knowledge/fixture/'});
+  const review=createReviewPacket(topic);
+  // Then: both carry the bounded policy while preserving the saved bindings as detached data.
+  assert.deepEqual(work.representationPolicy,expectedPolicy);
+  assert.deepEqual(review.representationPolicy,expectedPolicy);
+  for(const packet of [work,review]){
+    assert.equal(packet.revision,topic.revision);
+    assert.deepEqual(packet.plan,topic.plan);
+    assert.notEqual(packet.plan,topic.plan);
+    assert.deepEqual(packet.feedback,topic.feedback);
+    assert.notEqual(packet.feedback,topic.feedback);
+  }
+});
+
 test('legacy slide intent remains explicitly unplanned and blocks quality readiness',()=>{
   // Given: a legacy manuscript and otherwise adequate protocol-fixture reports.
   const plan=EXAMPLES[0];
