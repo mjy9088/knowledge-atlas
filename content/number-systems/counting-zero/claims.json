@@ -5,7 +5,7 @@
     "statement": "유한 집합의 원소 수를 셀 때 원소가 없는 빈 집합의 원소 수는 0이다.",
     "scope": "유한 집합의 기수와 초등적인 세기. 무한 기수의 이론은 포함하지 않는다.",
     "assumptions": ["서로 다른 원소를 한 번씩 센다", "0을 유한 기수로 사용한다"],
-    "sourceRefs": [{"sourceId":"source:openstax-college-algebra-2e-real-numbers","locator":"§1.1 Classifying a Real Number: zero added to the counting-number sequence; Sets of Numbers"}],
+    "sourceRefs": [{"sourceId":"source:levin-dmoi4-sets","locator":"4th ed. (Fall 2024), §5.1 Sets, Subsection Notation: the paragraph at #subsec_notation-7 identifies ∅={} as the set containing no elements; the cardinality paragraph before Example 5.1.6 defines the cardinality of a finite set as its number of elements. Applying that definition to ∅ gives |∅|=0."}],
     "reviewStatus": "draft-source-aligned"
   },
   {
