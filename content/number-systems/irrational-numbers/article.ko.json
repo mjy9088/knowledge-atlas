@@ -33,7 +33,7 @@
     },
     {
       "id": "block:number-systems.irrational-numbers.transfer",
-      "text": "같은 구조로 √8이 유리수인지 살펴봅시다. √8=2√2입니다. 만약 √8이 유리수라면 2로 나눈 √2도 유리수여야 하지만 방금 증명과 모순입니다. 따라서 √8도 무리수입니다.",
+      "text": "방금 결과를 이용하면 √8이 유리수인지 알 수 있습니다. √8=2√2입니다. 만약 √8이 유리수라면, 2는 0이 아닌 유리수이므로 √8/2=√2도 유리수여야 합니다. 이는 방금 증명한 √2∉Q와 모순입니다. 따라서 √8도 무리수입니다.",
       "claimRefs": ["claim:number-systems.irrational.sqrt2", "claim:number-systems.irrational.sqrt8"]
     }
   ],
