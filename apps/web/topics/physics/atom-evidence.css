@@ -1,0 +1,39 @@
+.reader-enhanced [data-page=atom-evidence] .reader-dialogue,
+.reader-enhanced [data-page=atom-evidence] .scene-figure,
+.reader-enhanced [data-page=atom-evidence] .scene-figure figcaption {
+  font-size: max(13px, 0.82rem);
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+  text-wrap: pretty;
+}
+
+.reader-enhanced [data-page=atom-evidence] .scene-figure img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.reader-enhanced [data-page=atom-evidence] .concept-diagram > span:not(.concept-connector) {
+  padding: 12px 16px;
+  font-size: 24px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+  text-wrap: pretty;
+}
+
+@media (max-width: 720px) {
+  .reader-enhanced [data-page=atom-evidence] .concept-diagram > span:not(.concept-connector) {
+    font-size: 17px;
+  }
+
+  .reader-enhanced [data-page=atom-evidence] .reader-copy,
+  .reader-enhanced [data-page=atom-evidence] .scene-figure figcaption {
+    font-size: max(13px, 3.34vw);
+  }
+
+  .reader-enhanced [data-page=atom-evidence] #transfer .reader-copy {
+    max-height: none;
+    overflow: visible;
+  }
+}
