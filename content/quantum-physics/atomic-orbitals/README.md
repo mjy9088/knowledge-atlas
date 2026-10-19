@@ -8,6 +8,8 @@ The radial implementation follows NIST DLMF 18.39.35/37 (generalized Laguerre co
 
 ## Presentation contract
 
+The [scene and GPU representation contract](DESIGN.md) maps all eight existing scenes to their purpose, meaningful comparison, and observable success check before the renderer correction. It preserves the pure model and existing state contracts; GPU depth and lighting are presentation cues, not new physical evidence.
+
 Implemented `/knowledge/atomic-orbitals/` through the existing article catalog. Explain probability density before asking readers to interpret shapes. Provide state selection, Z, 3D rotation/zoom, a density cloud, a planar slice and a density isosurface. Keep titles stable and dialogue tied to the selected state. Preserve edited state across scenes and expose validated getState/setState/reset; seek must be independent of prior interactions.
 
 Points are deterministic, finite-grid density samples, not electron paths or recorded measurements. Surface thresholds are fractions of the sampled grid's maximum density, not enclosed probabilities or physical boundaries. Slice color/brightness displays signed amplitude and density respectively. Clearly label truncation, resolution, coordinate units, and auto-framing; a reframed Z change does not imply a constant physical size.
