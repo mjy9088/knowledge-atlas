@@ -43,12 +43,13 @@ export function mountPossibilityLab(topic:LabTopic,container:HTMLElement,options
  }
  function change(next:LabState){validateLabState(next,topic);state={...next};render();options.onChange?.();}
  function tick(time:number){if(!playing||!active||document.hidden){stop();return;}if(lastTime){remainder+=time-lastTime;const steps=Math.floor(remainder/50);if(steps){remainder%=50;change({...state,count:Math.min(MAX_TRIALS,state.count+steps),revealed:true,stage:3});}}lastTime=time;if(state.count===MAX_TRIALS){stop();return;}frame=requestAnimationFrame(tick);}
+ function sceneBaseline():LabState{const mode=topic==='two-children'?(scene==='child'?'child':'filter'):(scene==='compare'?'blind':'informed');return{...initialLabState(topic),mode,stage:3};}
  container.addEventListener('click',event=>{
   const button=(event.target as Element).closest<HTMLButtonElement>('button');if(!button)return;
   if(button.dataset.edge!==undefined){stop();change({...state,edges:state.edges^(1<<Number(button.dataset.edge)),stage:3});return;}
   if(button.dataset.count){stop();const target=Math.min(MAX_TRIALS,Number(button.dataset.count));change({...state,count:target,stage:3,revealed:true});return;}
   switch(button.dataset.action){
-   case'reset':stop();change(initialLabState(topic));break;
+   case'reset':stop();change(sceneBaseline());break;
    case'branch':stop();change({...state,stage:Math.min(3,state.stage+1)});break;
    case'animate':{stop();container.dataset.unfolding='true';const base={...state,stage:0};change(base);const start=performance.now(),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;const unfold=(now:number)=>{if(!active||document.hidden)return;const stage=reduced?3:Math.min(3,Math.max(0,Math.floor((now-start)/400)));if(stage!==state.stage)change({...state,stage});if(state.stage<3)frame=requestAnimationFrame(unfold);else delete container.dataset.unfolding;};frame=requestAnimationFrame(unfold);break;}
    case'reveal':case'one':stop();change({...state,count:Math.min(MAX_TRIALS,state.count+1),stage:3,revealed:true});break;
@@ -63,8 +64,8 @@ export function mountPossibilityLab(topic:LabTopic,container:HTMLElement,options
  render();
  return{
   getState:()=>({...state}),validateState:(value:unknown)=>validateLabState(value,topic),setState(value:unknown){validateLabState(value,topic);stop();change(value);},
-  setActive(value:boolean){active=value;if(!value)stop();},suggest(suggestion?:Scene['suggestion']){const next=suggestion&&'example'in suggestion?suggestion.example:'';if(scene!==next){stop();scene=next;if(!state.processSelected&&!state.count){const mode=topic==='two-children'?(scene==='child'?'child':'filter'):(scene==='compare'?'blind':'informed');state={...state,mode};}render();}},
-  reset(){stop();change(initialLabState(topic));},seek(ms:number){stop();change(labFrameAt(state,ms));},
+  setActive(value:boolean){active=value;if(!value)stop();},suggest(suggestion?:Scene['suggestion']){const next=suggestion&&'example'in suggestion?suggestion.example:'';if(scene!==next){stop();scene=next;if(!state.processSelected&&!state.count)state={...state,mode:sceneBaseline().mode,stage:state.stage||3};render();}},
+  reset(){stop();change(sceneBaseline());},seek(ms:number){stop();change(labFrameAt(state,ms));},
   inspect(){const available=({
    'binary-relations':['question','pairs','functions','close'],
    'monty-hall':['strategy','compare'],
