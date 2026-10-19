@@ -28,6 +28,10 @@ This local series follows eight questions rather than a taxonomy: how an empty c
 | `real-completeness` | “유리수의 빈틈을 실수는 어떻게 메울까요?” | 164 s | Name the ambient universe and contrast a missing rational supremum with the real least-upper-bound property. |
 | `complex-numbers` | “i를 곱하면 왜 90도 돌아갈까요?” | 160 s | Compute with the ordered-pair model, interpret multiplication by `i`, and reject an ordered-field extension of the real order. |
 
+## Optional reader paths
+
+The related-question panel offers forward questions as well as background: zero → integers → rationals; rationals branch to representation grouping or irrationality; representation grouping links to rational density; real completeness links to complex arithmetic. Existing links connect irrationality/density to completeness. These are optional editorial connections between the existing explanations, not imposed prerequisites, derivation claims, new source theorems or additional content units. Every article still supplies its own promised explanation without requiring the next page.
+
 ## Source and rights boundary
 
 `sources/registry.json` records the integrated references for all eight episodes, and `knowledge/concepts.json` owns their canonical concept records. Source revision bytes and hashes were not captured. All Korean prose, examples, cards, scene organization, and the complex-rotation SVG are independently authored; no external prose, figures, tables, media, data, or code are included. External rights notices remain observations, not project reuse clearance. Independent mathematical/editorial review, rights review, narration recording and publication authorization remain pending.

@@ -37,5 +37,5 @@
       "claimRefs": ["claim:number-systems.completeness.supremum-definition", "claim:number-systems.completeness.rational-cut"]
     }
   ],
-  "relatedConcepts": ["concept:number-systems.rational-numbers", "concept:number-systems.irrational-numbers"]
+  "relatedConcepts": ["concept:number-systems.rational-numbers", "concept:number-systems.irrational-numbers", "concept:number-systems.complex-numbers"]
 }

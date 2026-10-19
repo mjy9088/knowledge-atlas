@@ -32,5 +32,5 @@
       "claimRefs": ["claim:number-systems.integer.extension"]
     }
   ],
-  "relatedConcepts": ["concept:number-systems.natural-numbers"]
+  "relatedConcepts": ["concept:number-systems.natural-numbers", "concept:number-systems.rational-numbers"]
 }
