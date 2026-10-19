@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 360" role="img" aria-labelledby="title desc">
+  <title id="title">수소와 질소 최대 반동을 비교한 역사적 질량 추정</title>
+  <desc id="desc">공통 입사 속도 V를 가진 보이지 않는 투사체 M이 수소 A=1과 질소 A=14 표적을 각각 정면 탄성 충돌한다. 보고된 최대 반동 속도는 수소 3.7 곱하기 10의 9승, 질소 4.7 곱하기 10의 8승 센티미터 매초다. 속도비 r에서 V가 약분되어 M은 약 0.89 양성자 질량 단위로 추정된다. 이는 역사적 근삿값이며 현대 정밀값이 아니다.</desc>
+  <metadata>Original comparison and independently worked algebra authored for Knowledge Atlas, 2026-10-19. The two reported historical recoil speeds are transcribed from Chadwick's Nobel Lecture printed p. 342; no source figure, table, photograph, or track is reproduced. Geometry is schematic and not to scale. Cancellation of V requires a common incident speed and the scoped maximum-recoil model.</metadata>
+  <defs>
+    <marker id="arrow" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#365c42"/></marker>
+    <marker id="observed-arrow" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#a56d30"/></marker>
+  </defs>
+  <rect width="560" height="360" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="280" y="30" text-anchor="middle" font-size="22" font-weight="700">두 표적 · 같은 입사 속도 V</text>
+    <rect x="16" y="48" width="528" height="92" rx="12" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <g id="hydrogen-case">
+      <text x="32" y="76" font-size="19" font-weight="700">수소 H · A=1</text>
+      <circle data-projectile="unseen" data-speed="1" cx="104" cy="108" r="15" fill="#e1eee3" stroke="#293f35" stroke-width="2" stroke-dasharray="4 3"/>
+      <text x="104" y="114" text-anchor="middle" font-size="17" font-weight="700">M</text>
+      <line x1="126" y1="108" x2="216" y2="108" stroke="#365c42" stroke-width="4" marker-end="url(#arrow)"/>
+      <circle data-target="hydrogen" data-mass="1" cx="252" cy="108" r="19" fill="#f3dcb0" stroke="#293f35" stroke-width="2"/>
+      <line data-observation="charged-recoil" data-recoil-speed="3700000000" x1="278" y1="108" x2="356" y2="108" stroke="#a56d30" stroke-width="5" marker-end="url(#observed-arrow)"/>
+      <text x="372" y="98" font-size="19" font-weight="700">uH=3.7×10⁹</text>
+      <text x="372" y="126" font-size="18">cm/s</text>
+    </g>
+    <rect x="16" y="152" width="528" height="92" rx="12" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <g id="nitrogen-case">
+      <text x="32" y="180" font-size="19" font-weight="700">질소 N · A=14</text>
+      <circle data-projectile="unseen" data-speed="1" cx="104" cy="212" r="15" fill="#e1eee3" stroke="#293f35" stroke-width="2" stroke-dasharray="4 3"/>
+      <text x="104" y="218" text-anchor="middle" font-size="17" font-weight="700">M</text>
+      <line x1="126" y1="212" x2="216" y2="212" stroke="#365c42" stroke-width="4" marker-end="url(#arrow)"/>
+      <circle data-target="nitrogen" data-mass="14" cx="252" cy="212" r="25" fill="#f3dcb0" stroke="#293f35" stroke-width="2"/>
+      <line data-observation="charged-recoil" data-recoil-speed="470000000" x1="284" y1="212" x2="328" y2="212" stroke="#a56d30" stroke-width="5" marker-end="url(#observed-arrow)"/>
+      <text x="344" y="202" font-size="19" font-weight="700">uN=4.7×10⁸</text>
+      <text x="344" y="230" font-size="18">cm/s</text>
+    </g>
+    <rect x="16" y="256" width="528" height="88" rx="12" fill="#293f35"/>
+    <text x="280" y="282" text-anchor="middle" font-size="19" font-weight="700" fill="#fff">r=uH/uN=(M+14)/(M+1) · 공통 V 약분</text>
+    <text data-solution="M=(14-r)/(r-1)" x="280" y="310" text-anchor="middle" font-size="20" font-weight="700" fill="#f3dcb0">M=(14−r)/(r−1)≈0.89</text>
+    <text x="280" y="333" text-anchor="middle" font-size="17" fill="#fff">양성자 질량 단위 · 역사적 추정, 현대 정밀값 아님</text>
+  </g>
+</svg>

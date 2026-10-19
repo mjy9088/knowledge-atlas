@@ -1,0 +1,160 @@
+.nuclear-evidence {
+  --nuclear-ink: #293f35;
+  --nuclear-muted: #526b58;
+  --nuclear-line: #d5dfcc;
+  --nuclear-surface: #fff;
+  --nuclear-paper: #f6f8f0;
+  --nuclear-structure: #365c42;
+  --nuclear-observation: #a56d30;
+  --nuclear-observation-soft: #f3dcb0;
+  --nuclear-space-1: 4px;
+  --nuclear-space-2: 8px;
+  --nuclear-space-3: 12px;
+  --nuclear-space-4: 16px;
+  --nuclear-space-6: 24px;
+  --nuclear-radius-sm: 8px;
+  --nuclear-radius-lg: 16px;
+  display: grid;
+  grid-template-rows: auto minmax(180px, 1fr) auto auto auto auto auto;
+  gap: var(--nuclear-space-2);
+  width: min(100%, 760px);
+  min-width: 0;
+  min-height: 0;
+  margin: auto;
+  color: var(--nuclear-ink);
+}
+.nuclear-evidence-heading { display: flex; justify-content: space-between; gap: var(--nuclear-space-3); align-items: baseline; }
+.nuclear-evidence-heading strong { font-size: 15px; }
+.nuclear-evidence-heading span { color: var(--nuclear-muted); font-size: 11px; text-align: end; }
+.nuclear-evidence-diagram { width: 100%; height: 100%; min-height: 0; border: 1px solid var(--nuclear-line); border-radius: var(--nuclear-radius-lg); background: var(--nuclear-surface); }
+.nuclear-evidence-diagram--compact { display: none; }
+.nuclear-evidence-diagram text { fill: var(--nuclear-ink); font: 15px system-ui, sans-serif; }
+.nuclear-evidence-diagram .nuclear-small { fill: var(--nuclear-muted); font-size: 13px; }
+.nuclear-evidence-diagram .nuclear-label { fill: var(--nuclear-muted); font-size: 13px; font-weight: 650; }
+.nuclear-beam, .nuclear-emission { fill: none; stroke-width: 4; stroke-linecap: round; }
+.nuclear-beam { stroke: var(--nuclear-structure); }
+.nuclear-emission { stroke: var(--nuclear-observation); stroke-dasharray: 7 8; opacity: 0; }
+.nuclear-alpha { --nuclear-progress: 0; }
+.nuclear-evidence-diagram--desktop .nuclear-alpha { transform: translateX(calc(var(--nuclear-progress) * 220px)); }
+.nuclear-evidence-diagram--compact .nuclear-alpha { transform: translateX(calc(var(--nuclear-progress) * 82px)); }
+.nuclear-alpha circle { fill: var(--nuclear-structure); }
+.nuclear-alpha text { fill: var(--nuclear-surface); font-weight: 700; }
+.nuclear-target rect { fill: var(--nuclear-paper); stroke: var(--nuclear-line); stroke-width: 2; }
+.nuclear-unresolved { opacity: 0; }
+.nuclear-unresolved circle { fill: var(--nuclear-observation-soft); fill-opacity: .45; stroke: var(--nuclear-observation); stroke-dasharray: 5 5; }
+.nuclear-unresolved text { fill: var(--nuclear-observation); font-weight: 700; }
+.nuclear-hydrogen { --nuclear-progress: 0; opacity: 0; }
+.nuclear-evidence-diagram--desktop .nuclear-hydrogen { transform: translateX(calc(var(--nuclear-progress) * 138px)); }
+.nuclear-evidence-diagram--compact .nuclear-hydrogen { transform: translate(calc(var(--nuclear-progress) * 57px), calc(var(--nuclear-progress) * 40px)); }
+.nuclear-hydrogen circle { fill: var(--nuclear-observation-soft); stroke: var(--nuclear-observation); stroke-width: 2; }
+.nuclear-hydrogen text { fill: var(--nuclear-observation); font-weight: 700; }
+.nuclear-inference { opacity: 0; }
+.nuclear-inference rect { fill: var(--nuclear-paper); stroke: var(--nuclear-structure); }
+.nuclear-inference text { fill: var(--nuclear-structure); font-size: 13px; font-weight: 650; }
+.nuclear-evidence[data-stage=contact] .nuclear-unresolved,
+.nuclear-evidence[data-stage=emission] .nuclear-unresolved,
+.nuclear-evidence[data-stage=inference] .nuclear-unresolved,
+.nuclear-evidence[data-stage=emission] .nuclear-emission,
+.nuclear-evidence[data-stage=inference] .nuclear-emission,
+.nuclear-evidence[data-stage=emission] .nuclear-hydrogen,
+.nuclear-evidence[data-stage=inference] .nuclear-hydrogen,
+.nuclear-evidence[data-stage=inference] .nuclear-inference { opacity: 1; }
+.nuclear-evidence-stages { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--nuclear-space-1); margin: 0; padding: 0; list-style: none; }
+.nuclear-evidence-stages li { padding: var(--nuclear-space-1) var(--nuclear-space-2); border-block-end: 2px solid var(--nuclear-line); color: var(--nuclear-muted); font-size: 11px; text-align: center; }
+.nuclear-evidence-stages li[aria-current=step] { border-color: var(--nuclear-observation); color: var(--nuclear-ink); font-weight: 700; }
+.nuclear-evidence-status { min-height: 24px; margin: 0; padding-inline: var(--nuclear-space-3); font-size: 15px; font-weight: 650; text-align: center; text-wrap: balance; word-break: keep-all; }
+.nuclear-evidence-controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--nuclear-space-2); }
+.nuclear-evidence-controls button { min-width: 44px; min-height: 44px; padding: var(--nuclear-space-2) var(--nuclear-space-3); border: 1px solid var(--nuclear-line); border-radius: var(--nuclear-radius-sm); background: var(--nuclear-surface); color: var(--nuclear-ink); font-size: 12px; }
+.nuclear-evidence-controls button:nth-child(2) { background: var(--nuclear-structure); color: var(--nuclear-surface); }
+.nuclear-evidence-scrub { display: grid; grid-template-columns: auto minmax(120px, 1fr); align-items: center; gap: var(--nuclear-space-2); min-width: min(100%, 220px); color: var(--nuclear-muted); font-size: 11px; }
+.nuclear-evidence-scrub input { width: 100%; min-width: 0; accent-color: var(--nuclear-observation); }
+.nuclear-evidence-scope, .nuclear-evidence-history { margin: 0; color: var(--nuclear-muted); font-size: 12px; line-height: 1.5; text-align: center; }
+.reader-enhanced [data-page=nuclear-constituents][data-mode=interactive] .reader-workbench { grid-template-rows: minmax(0, 1fr); }
+.reader-enhanced [data-page=nuclear-constituents] .reader-dialogue { overflow-wrap: break-word; word-break: keep-all; }
+@media (max-width: 640px) {
+  .nuclear-evidence { grid-template-rows: auto auto auto auto auto auto auto; gap: var(--nuclear-space-1); }
+  .nuclear-evidence-diagram--desktop { display: none; }
+  .nuclear-evidence-diagram--compact { display: block; height: auto; aspect-ratio: 328 / 200; }
+  .nuclear-evidence-heading { align-items: start; }
+  .nuclear-evidence-heading strong { font-size: 15px; }
+  .nuclear-evidence-heading span { max-width: 136px; font-size: 11px; }
+  .nuclear-evidence-status { min-height: 20px; font-size: 12px; }
+  .nuclear-evidence-controls { gap: var(--nuclear-space-1); }
+  .nuclear-evidence-controls button { min-height: 44px; padding: var(--nuclear-space-2); font-size: 12px; }
+  .nuclear-evidence-scrub { flex-basis: 100%; }
+  .nuclear-evidence-stages li { padding-inline: var(--nuclear-space-1); font-size: 11px; }
+  .nuclear-evidence-diagram text { font-size: 15px; }
+  .nuclear-evidence-diagram .nuclear-label, .nuclear-evidence-diagram .nuclear-small { font-size: 12px; }
+  .nuclear-inference text { font-size: 12px; }
+}
+@media (max-height: 600px) and (min-width: 721px) {
+  .reader-enhanced .related-reader[data-page=nuclear-constituents][data-mode=interactive] {
+    grid-template-columns: minmax(0, 11fr) minmax(360px, 9fr);
+    grid-template-rows: auto minmax(0, 1fr) auto 0 0;
+  }
+  .reader-enhanced .related-reader[data-page=nuclear-constituents][data-mode=interactive] .reader-intro,
+  .reader-enhanced .related-reader[data-page=nuclear-constituents][data-mode=interactive] .reader-controls {
+    grid-column: 1 / -1;
+  }
+  .reader-enhanced .related-reader[data-page=nuclear-constituents][data-mode=interactive] .reader-workbench {
+    grid-column: 1;
+    grid-row: 2;
+    min-width: 0;
+  }
+  .reader-enhanced .related-reader[data-page=nuclear-constituents][data-mode=interactive] #reader-scenes {
+    grid-column: 2;
+    grid-row: 2;
+    min-width: 0;
+    min-height: 0;
+  }
+  .reader-enhanced .related-reader[data-page=nuclear-constituents][data-mode=interactive] .reader-scene,
+  .reader-enhanced .related-reader[data-page=nuclear-constituents][data-mode=interactive] .reader-dialogue {
+    height: 100%;
+    min-height: 0;
+  }
+  .reader-enhanced .related-reader[data-page=nuclear-constituents][data-mode=interactive] .reader-dialogue {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--nuclear-space-3) var(--nuclear-space-4);
+  }
+  .reader-enhanced .related-reader[data-page=nuclear-constituents][data-mode=interactive] .reader-copy {
+    max-height: none;
+    overflow: visible;
+  }
+  .nuclear-evidence {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    grid-template-columns: minmax(0, 6fr) minmax(200px, 4fr);
+    grid-template-rows: auto auto auto minmax(0, 1fr) auto auto;
+    gap: var(--nuclear-space-1) var(--nuclear-space-2);
+  }
+  .nuclear-evidence-heading { grid-column: 1 / -1; }
+  .nuclear-evidence-diagram--desktop { display: none; }
+  .nuclear-evidence-diagram--compact {
+    display: block;
+    grid-column: 1;
+    grid-row: 2 / 7;
+    align-self: stretch;
+    height: 100%;
+    min-height: 0;
+  }
+  .nuclear-evidence-stages { grid-column: 2; grid-row: 2; }
+  .nuclear-evidence-status { grid-column: 2; grid-row: 3; min-height: 20px; font-size: 12px; }
+  .nuclear-evidence-controls {
+    grid-column: 2;
+    grid-row: 4;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-content: center;
+    gap: var(--nuclear-space-1);
+  }
+  .nuclear-evidence-controls button { min-width: 44px; padding: var(--nuclear-space-2); }
+  .nuclear-evidence-scrub { grid-column: 1 / -1; min-width: 0; }
+  .nuclear-evidence-scope { grid-column: 2; grid-row: 5; }
+  .nuclear-evidence-history { grid-column: 2; grid-row: 6; }
+  .nuclear-evidence-scope, .nuclear-evidence-history { line-height: 1.35; text-align: start; }
+  .nuclear-evidence-diagram text { font-size: 15px; }
+  .nuclear-evidence-diagram .nuclear-label, .nuclear-evidence-diagram .nuclear-small, .nuclear-inference text { font-size: 12px; }
+}

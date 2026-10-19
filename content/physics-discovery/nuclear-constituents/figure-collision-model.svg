@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 360" role="img" aria-labelledby="title desc">
+  <title id="title">처음 정지한 표적의 정면 탄성 충돌 최대 반동 모형</title>
+  <desc id="desc">점선 M은 입사 입자 가설의 모형 표시다. 속도 V의 투사체가 처음 정지한 표적 A를 같은 축에서 정면 탄성 충돌한다. 충돌 뒤 관측하는 것은 전하 입자로 나타난 표적의 최대 반동 속도 u다. 입사 입자의 충돌 뒤 경로는 관측한 자국으로 그리지 않는다. 그림은 측정 궤적이나 축척이 아니며 화살표는 속도이지 힘이 아니다.</desc>
+  <metadata>Original idealized collision geometry authored for Knowledge Atlas, 2026-10-19. No apparatus, neutron track, photograph, measured trajectory, or scale is reproduced. The equation applies only to an initially stationary target in an aligned head-on elastic collision and denotes maximum recoil.</metadata>
+  <defs>
+    <marker id="velocity-arrow" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#365c42"/></marker>
+    <marker id="recoil-arrow" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#a56d30"/></marker>
+  </defs>
+  <rect width="560" height="360" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="280" y="30" text-anchor="middle" font-size="22" font-weight="700">정면 탄성 충돌 · 표적은 처음 정지</text>
+    <rect x="16" y="48" width="528" height="130" rx="12" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <g id="initial-state">
+      <text x="32" y="76" font-size="19" font-weight="700">충돌 전</text>
+      <line x1="56" y1="156" x2="504" y2="156" stroke="#d5dfcc" stroke-width="3"/>
+      <circle data-role="unseen-projectile" data-mass-symbol="M" cx="120" cy="156" r="20" fill="#e1eee3" stroke="#293f35" stroke-width="3" stroke-dasharray="5 4"/>
+      <text x="120" y="163" text-anchor="middle" font-size="20" font-weight="700">M</text>
+      <line data-velocity="incident" x1="148" y1="156" x2="270" y2="156" stroke="#365c42" stroke-width="5" marker-end="url(#velocity-arrow)"/>
+      <text x="210" y="140" text-anchor="middle" font-size="19" fill="#365c42">입사 속도 V</text>
+      <circle data-role="stationary-target" data-target-mass-symbol="A" data-initial-speed="0" cx="320" cy="156" r="24" fill="#f3dcb0" stroke="#293f35" stroke-width="3"/>
+      <text x="320" y="163" text-anchor="middle" font-size="20" font-weight="700">A</text>
+      <text x="320" y="112" text-anchor="middle" font-size="18">처음 정지</text>
+    </g>
+    <rect x="16" y="190" width="528" height="106" rx="12" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <g id="maximum-recoil-state" data-model="head-on-elastic">
+      <text x="32" y="218" font-size="19" font-weight="700">충돌 뒤 · 최대 전달 조건</text>
+      <line x1="56" y1="252" x2="504" y2="252" stroke="#d5dfcc" stroke-width="3"/>
+      <text x="48" y="268" font-size="17" fill="#526b58">입사 입자 경로는 미관측</text>
+      <circle data-role="observed-charged-recoil" cx="340" cy="252" r="24" fill="#f3dcb0" stroke="#293f35" stroke-width="3"/>
+      <text x="340" y="259" text-anchor="middle" font-size="20" font-weight="700">A+</text>
+      <line data-velocity="maximum-recoil" x1="372" y1="252" x2="492" y2="252" stroke="#a56d30" stroke-width="5" marker-end="url(#recoil-arrow)"/>
+      <text x="432" y="238" text-anchor="middle" font-size="19" fill="#a56d30">u 최대</text>
+    </g>
+    <rect x="16" y="308" width="528" height="36" rx="10" fill="#293f35"/>
+    <text data-equation="u-max=2MV/(M+A)" x="280" y="333" text-anchor="middle" font-size="20" font-weight="700" fill="#fff">u최대 = 2MV / (M+A) · 화살표는 속도</text>
+  </g>
+</svg>

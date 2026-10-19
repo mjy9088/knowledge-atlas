@@ -6,7 +6,7 @@ export const escapeHTML=(value: unknown)=>String(value).replace(/[&<>"']/g,c=>({
 const e=escapeHTML;
 const interactionLabels:Record<NonNullable<ContentPage['interactive']>,string>={'binary-relations':'연결 선택','monty-hall':'확률 실험','two-children':'관측 실험',
   'hydrogenic-orbitals':'공간 실험','typed-lambda':'타입·계산 실험',
-  'binary-search':'탐색 실험','sphere-slices':'단면 실험','base-rates':'경보 비교 실험',
+  'binary-search':'탐색 실험','sphere-slices':'단면 실험','base-rates':'경보 비교 실험','nuclear-evidence':'핵반응 증거 과정',
   'weekday-worlds':'가능세계 비교',
 };
 const shell=(title:string,description:string,body:string,script='')=>`<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="${e(description)}"><title>${e(title)} · Knowledge Atlas</title><meta property="og:title" content="${e(title)}"><link rel="stylesheet" href="/pages/article/article.css"><link rel="stylesheet" href="/components/experiment/premise-editor.css"><link rel="stylesheet" href="/components/reader/frame.css"><link rel="stylesheet" href="/components/reader/cover.css">${script}</head><body><a class="skip-link" href="#main">본문으로 건너뛰기</a><header class="page-chrome"><a href="/knowledge/" aria-label="지식 목록">◈</a><nav><a href="/">지식 지도</a><a href="#connections">연관 지식</a></nav></header>${body}</body></html>`;
