@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" role="img" aria-labelledby="title desc">
+  <title id="title">자기장만에서 음전하 빔의 곡률로 전하 대 질량비를 얻는 모형</title>
+  <desc id="desc">오른쪽으로 움직이는 음전하가 종이 밖 자기장에서 위로 휜다. 입자 위치의 속도는 접선 방향이고 자기력은 위쪽 중심을 향하며 반지름과 두 힘 식으로 전하 크기 대 질량비를 얻는다.</desc>
+  <defs>
+    <marker id="velocity-arrow" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1L11 6L1 11Z" fill="#365c42"/></marker>
+    <marker id="force-arrow" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M1 1L9 5L1 9Z" fill="#a56d30"/></marker>
+    <marker id="radius-arrow" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M1 1L9 5L1 9Z" fill="#526b58"/></marker>
+  </defs>
+  <rect x="8" y="8" width="584" height="364" rx="16" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
+  <text data-essential-label="model" x="28" y="42" font-size="24" font-weight="600" fill="#293f35">MODEL · B만 켠 뒤의 원운동</text>
+  <g id="curvature-geometry">
+    <path data-path="model-arc" d="M50 100A150 150 0 0 0 200 250" fill="none" stroke="#365c42" stroke-width="7" stroke-dasharray="12 8"/>
+    <circle data-point="center" cx="200" cy="100" r="8" fill="#a56d30"/>
+    <circle data-point="particle" cx="200" cy="250" r="11" fill="#293f35"/>
+    <line data-vector="radius" x1="200" y1="250" x2="200" y2="100" stroke="#526b58" stroke-width="4" stroke-dasharray="8 6" marker-end="url(#radius-arrow)"/>
+    <line data-vector="velocity" x1="200" y1="250" x2="298" y2="250" stroke="#365c42" stroke-width="5" marker-end="url(#velocity-arrow)"/>
+    <line data-vector="magnetic-force" x1="200" y1="250" x2="200" y2="174" stroke="#a56d30" stroke-width="5" marker-end="url(#force-arrow)"/>
+    <text data-essential-label="center" x="222" y="108" font-size="22" font-weight="560" fill="#a56d30">중심</text>
+    <text data-essential-label="radius" x="154" y="184" font-size="24" font-weight="600" fill="#526b58">r</text>
+    <text data-essential-label="velocity" x="252" y="238" font-size="22" font-weight="560" fill="#365c42">접선 v</text>
+    <text data-essential-label="force" x="218" y="176" font-size="22" font-weight="560" fill="#a56d30">안쪽 F_B</text>
+    <circle data-field="magnetic" data-direction="out-of-page" cx="86" cy="286" r="17" fill="#ffffff" stroke="#365c42" stroke-width="3"/>
+    <circle cx="86" cy="286" r="6" fill="#365c42"/>
+    <text data-essential-label="field" x="112" y="294" font-size="22" font-weight="560" fill="#365c42">B · 종이 밖</text>
+  </g>
+  <g id="ratio-ledger">
+    <rect x="346" y="66" width="226" height="244" rx="14" fill="#f6f8f0" stroke="#d5dfcc" stroke-width="2"/>
+    <text data-essential-label="step-one" x="368" y="112" font-size="22" font-weight="560" fill="#293f35">|q|vB = mv²/r</text>
+    <line x1="368" y1="134" x2="548" y2="134" stroke="#d5dfcc" stroke-width="2"/>
+    <text data-essential-label="step-two" x="368" y="180" font-size="24" font-weight="600" fill="#365c42">|q|/m = v/(Br)</text>
+    <text data-essential-label="magnitude" x="368" y="226" font-size="22" font-weight="560" fill="#293f35">곡률 크기 → |q|/m</text>
+    <text data-essential-label="sign" x="368" y="268" font-size="22" font-weight="560" fill="#a56d30">휘는 방향 → 부호</text>
+  </g>
+  <text data-essential-label="caveat" x="36" y="348" font-size="22" font-weight="560" fill="#526b58">점선 MODEL 경로 · 측정 궤적 아님 · 같은 빔의 선택 속도 v 사용</text>
+</svg>

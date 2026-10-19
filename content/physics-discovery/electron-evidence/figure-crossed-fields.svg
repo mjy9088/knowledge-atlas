@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" role="img" aria-labelledby="title desc">
+  <title id="title">교차 장에서 음전하 빔의 힘이 상쇄되는 모형</title>
+  <desc id="desc">빔은 오른쪽, 전기장은 위, 자기장은 종이 밖을 향한다. 음전하에는 전기력이 아래, 자기력이 위로 작용해 두 힘의 크기가 같을 때 직진한다.</desc>
+  <defs>
+    <marker id="velocity-arrow" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1L11 6L1 11Z" fill="#365c42"/></marker>
+    <marker id="force-arrow" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M1 1L9 5L1 9Z" fill="#a56d30"/></marker>
+    <marker id="field-arrow" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M1 1L9 5L1 9Z" fill="#526b58"/></marker>
+  </defs>
+  <rect x="8" y="8" width="584" height="364" rx="16" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
+  <text data-essential-label="model" x="28" y="42" font-size="24" font-weight="600" fill="#293f35">MODEL · 역사 장치 재구성 아님</text>
+  <g id="field-orientation">
+    <rect x="36" y="70" width="332" height="28" rx="8" fill="#f6f8f0" stroke="#d5dfcc" stroke-width="2"/>
+    <rect x="36" y="282" width="332" height="28" rx="8" fill="#f6f8f0" stroke="#d5dfcc" stroke-width="2"/>
+    <text data-essential-label="negative-plate" x="52" y="94" font-size="22" font-weight="560" fill="#293f35">위 판 −</text>
+    <text data-essential-label="positive-plate" x="52" y="306" font-size="22" font-weight="560" fill="#293f35">아래 판 +</text>
+    <line data-vector="electric-field" x1="92" y1="262" x2="92" y2="122" stroke="#526b58" stroke-width="5" marker-end="url(#field-arrow)"/>
+    <text data-essential-label="electric-field" x="110" y="150" font-size="22" font-weight="560" fill="#526b58">E · 위(+y)</text>
+    <circle data-field="magnetic" data-direction="out-of-page" cx="278" cy="138" r="18" fill="#ffffff" stroke="#365c42" stroke-width="3"/>
+    <circle cx="278" cy="138" r="6" fill="#365c42"/>
+    <text data-essential-label="magnetic-field" x="306" y="146" font-size="22" font-weight="560" fill="#365c42">B · 종이 밖</text>
+  </g>
+  <g id="beam-path">
+    <path d="M28 202H356" fill="none" stroke="#365c42" stroke-width="6"/>
+    <circle cx="232" cy="202" r="11" fill="#293f35"/>
+    <text data-essential-label="negative-charge" x="218" y="238" font-size="22" font-weight="560" fill="#293f35">q&lt;0</text>
+    <line data-vector="velocity" x1="142" y1="178" x2="218" y2="178" stroke="#365c42" stroke-width="5" marker-end="url(#velocity-arrow)"/>
+    <text data-essential-label="velocity" x="158" y="166" font-size="22" font-weight="560" fill="#365c42">v</text>
+  </g>
+  <g id="force-vectors">
+    <line data-vector="electric-force" x1="232" y1="202" x2="232" y2="266" stroke="#a56d30" stroke-width="5" marker-end="url(#force-arrow)"/>
+    <line data-vector="magnetic-force" x1="232" y1="202" x2="232" y2="138" stroke="#a56d30" stroke-width="5" marker-end="url(#force-arrow)"/>
+    <text data-essential-label="electric-force" x="250" y="270" font-size="22" font-weight="560" fill="#a56d30">F_E 아래</text>
+    <text data-essential-label="magnetic-force" x="250" y="124" font-size="22" font-weight="560" fill="#a56d30">F_B 위</text>
+  </g>
+  <g id="equation-ledger">
+    <rect x="388" y="70" width="184" height="240" rx="14" fill="#f6f8f0" stroke="#d5dfcc" stroke-width="2"/>
+    <text data-essential-label="straight" x="410" y="112" font-size="24" font-weight="600" fill="#293f35">직진 조건</text>
+    <text data-essential-label="balance" x="410" y="158" font-size="22" font-weight="560" fill="#293f35">|q|E = |q|vB</text>
+    <text data-essential-label="speed" x="410" y="202" font-size="24" font-weight="600" fill="#365c42">v = E/B</text>
+    <text data-essential-label="conditions" x="410" y="244" font-size="22" font-weight="560" fill="#526b58">q ≠ 0 · B &gt; 0</text>
+    <text data-essential-label="conditions-two" x="410" y="278" font-size="22" font-weight="560" fill="#526b58">v ⟂ B · 균일장 · 저속</text>
+  </g>
+  <text data-essential-label="caveat" x="36" y="348" font-size="22" font-weight="560" fill="#526b58">점은 입자가 아니라 B의 종이 밖 방향 기호 · 경로는 측정 궤적 아님</text>
+</svg>
