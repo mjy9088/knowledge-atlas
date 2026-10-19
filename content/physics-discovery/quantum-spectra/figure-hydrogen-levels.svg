@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" role="img" aria-labelledby="title desc">
+  <title id="title">이상화한 수소 에너지 준위와 공기 파장 표의 대응</title>
+  <desc id="desc">마이너스 13.6 전자볼트를 주양자수 제곱으로 나눈 에너지에 비례해 준위를 배치한다. 모형의 진공 파장 예측과 NIST 표의 반올림 공기 파장을 구별한다.</desc>
+  <metadata>Original energy-level schematic; arrows are state changes, not spatial electron paths.</metadata>
+  <defs><marker id="arrow-level" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#c2410c"/></marker></defs>
+  <rect width="600" height="380" rx="16" fill="#f6f8f0"/>
+  <text x="28" y="38" font-size="26" font-weight="700" fill="#293f35">이상화한 수소: E_n≈−13.6 eV/n²</text>
+  <g id="idealized-hydrogen-levels" data-energy-zero-y="48" data-energy-scale="84">
+    <line data-n="2" data-energy-ev="-3.400" x1="82" y1="333.6" x2="408" y2="333.6" stroke="#365c42" stroke-width="4"/>
+    <line data-n="3" data-energy-ev="-1.511" x1="82" y1="174.9" x2="408" y2="174.9" stroke="#365c42" stroke-width="4"/>
+    <line data-n="4" data-energy-ev="-0.850" x1="82" y1="119.4" x2="408" y2="119.4" stroke="#365c42" stroke-width="4"/>
+    <line data-n="5" data-energy-ev="-0.544" x1="82" y1="93.7" x2="408" y2="93.7" stroke="#365c42" stroke-width="4"/>
+    <line data-n="6" data-energy-ev="-0.378" x1="82" y1="79.7" x2="408" y2="79.7" stroke="#365c42" stroke-width="4"/>
+  </g>
+  <text x="30" y="341" font-size="24" font-weight="600" fill="#293f35">n=2</text><text x="30" y="182" font-size="24" font-weight="600" fill="#293f35">n=3</text><text x="30" y="127" font-size="24" font-weight="600" fill="#293f35">n=4</text><text x="30" y="101" font-size="24" font-weight="600" fill="#293f35">n=5</text><text x="30" y="72" font-size="24" font-weight="600" fill="#293f35">n=6</text>
+  <line data-transition="3-2" data-model-vacuum-wavelength-nm="656" data-table-air-wavelength-nm="656.3" x1="206" y1="180" x2="206" y2="326" stroke="#c2410c" stroke-width="5" marker-end="url(#arrow-level)"/>
+  <line data-transition="6-2" data-model-vacuum-wavelength-nm="410" data-table-air-wavelength-nm="410.2" x1="344" y1="86" x2="344" y2="326" stroke="#a56d30" stroke-width="5" marker-end="url(#arrow-level)"/>
+  <text x="420" y="166" font-size="24" font-weight="700" fill="#c2410c">3→2</text><text x="420" y="196" font-size="24" font-weight="600" fill="#526b58">모형 진공≈656</text><text x="420" y="226" font-size="24" font-weight="600" fill="#526b58">공기표 656.3</text>
+  <text x="420" y="76" font-size="24" font-weight="700" fill="#a56d30">6→2</text><text x="420" y="106" font-size="24" font-weight="600" fill="#526b58">모형 진공≈410</text><text x="420" y="136" font-size="24" font-weight="600" fill="#526b58">공기표 410.2</text>
+  <text x="300" y="372" text-anchor="middle" font-size="24" font-weight="600" fill="#526b58">상태 변화 화살표 · 고전 궤도나 실제 경로 아님</text>
+</svg>

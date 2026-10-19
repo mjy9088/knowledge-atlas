@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" role="img" aria-labelledby="title desc" data-source-scope="individual-line-deduction">
+  <title id="title">개별 선의 공기 파장을 광자 에너지로 바꾸는 단계</title>
+  <desc id="desc">한 광자의 정확한 에너지 관계와 같은 진동수에서의 공기-진공 파장 관계를 먼저 쓰고 공기 굴절률을 1로 근사해 410.2 나노미터는 3.02 전자볼트, 656.3 나노미터는 1.89 전자볼트로 계산한다.</desc>
+  <metadata>Original schematic by Knowledge Atlas; values independently calculated from hc.</metadata>
+  <defs><marker id="arrow-energy" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#c2410c"/></marker></defs>
+  <rect width="600" height="380" rx="16" fill="#f6f8f0"/>
+  <text x="30" y="40" font-size="26" font-weight="700" fill="#293f35">개별 선: 파장 → 광자 에너지</text>
+  <g data-relation="exact-photon"><rect x="30" y="60" width="188" height="62" rx="12" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/><text x="124" y="100" text-anchor="middle" font-size="24" font-weight="600" fill="#293f35">E=hν=hc/λvac</text></g>
+  <line x1="222" y1="91" x2="236" y2="91" stroke="#c2410c" stroke-width="3" marker-end="url(#arrow-energy)"/>
+  <g data-relation="exact-air-vacuum"><rect x="244" y="60" width="222" height="62" rx="12" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/><text x="355" y="100" text-anchor="middle" font-size="24" font-weight="600" fill="#293f35">λvac=nₐᵢᵣ λair</text></g>
+  <line x1="470" y1="91" x2="482" y2="91" stroke="#c2410c" stroke-width="3" marker-end="url(#arrow-energy)"/>
+  <g data-relation="approx-air-index"><rect x="490" y="60" width="80" height="62" rx="12" fill="#e1eee3" stroke="#d5dfcc" stroke-width="2"/><text x="530" y="100" text-anchor="middle" font-size="24" font-weight="600" fill="#293f35">n≈1</text></g>
+  <g data-wavelength-nm="410.2" data-energy-ev="3.02"><rect x="30" y="146" width="540" height="72" rx="14" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/><text x="54" y="191" font-size="24" font-weight="600" fill="#a56d30">410.2 nm</text><text x="246" y="191" font-size="24" font-weight="600" fill="#526b58">1239.84/410.2</text><text x="544" y="191" text-anchor="end" font-size="26" font-weight="700" fill="#c2410c">≈ 3.02 eV</text></g>
+  <g data-wavelength-nm="656.3" data-energy-ev="1.89"><rect x="30" y="232" width="540" height="72" rx="14" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/><text x="54" y="277" font-size="24" font-weight="600" fill="#a56d30">656.3 nm</text><text x="246" y="277" font-size="24" font-weight="600" fill="#526b58">1239.84/656.3</text><text x="544" y="277" text-anchor="end" font-size="26" font-weight="700" fill="#c2410c">≈ 1.89 eV</text></g>
+  <text x="300" y="338" text-anchor="middle" font-size="24" font-weight="600" fill="#526b58">h: 플랑크 상수 · ν: 진동수 · c: 진공 광속</text>
+  <text x="300" y="370" text-anchor="middle" font-size="24" font-weight="600" fill="#526b58">eV: 전자볼트 · nₐᵢᵣ: 공기 굴절률</text>
+</svg>

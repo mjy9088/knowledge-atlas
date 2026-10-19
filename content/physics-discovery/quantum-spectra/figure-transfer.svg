@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" role="img" aria-labelledby="title desc">
+  <title id="title">광자 에너지 순서와 관측 밝기 조건의 구별</title>
+  <desc id="desc">410.2 나노미터 광자의 에너지가 656.3 나노미터보다 크다. 전이율과 상위 준위 수밀도가 없으면 국소 방출률을, 불투명도와 기하와 기기 응답이 없으면 관측 밝기를 정할 수 없다.</desc>
+  <metadata>Original worked comparison; no brightness values are asserted.</metadata>
+  <defs><marker id="arrow-transfer" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#c2410c"/></marker></defs>
+  <rect width="600" height="380" rx="16" fill="#f6f8f0"/>
+  <text x="30" y="40" font-size="26" font-weight="700" fill="#293f35">더 큰 에너지 ≠ 더 밝은 관측선</text>
+  <rect x="30" y="64" width="250" height="116" rx="14" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
+  <text x="155" y="102" text-anchor="middle" font-size="24" font-weight="600" fill="#a56d30">410.2 nm</text><text x="155" y="140" text-anchor="middle" font-size="28" font-weight="700" fill="#c2410c">3.02 eV</text><text x="155" y="170" text-anchor="middle" font-size="24" font-weight="600" fill="#526b58">에너지 차이 큼</text>
+  <rect x="320" y="64" width="250" height="116" rx="14" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
+  <text x="445" y="102" text-anchor="middle" font-size="24" font-weight="600" fill="#a56d30">656.3 nm</text><text x="445" y="140" text-anchor="middle" font-size="28" font-weight="700" fill="#c2410c">1.89 eV</text><text x="445" y="170" text-anchor="middle" font-size="24" font-weight="600" fill="#526b58">에너지 차이 작음</text>
+  <line x1="155" y1="188" x2="238" y2="218" stroke="#c2410c" stroke-width="3" marker-end="url(#arrow-transfer)"/>
+  <line x1="445" y1="188" x2="362" y2="218" stroke="#c2410c" stroke-width="3" marker-end="url(#arrow-transfer)"/>
+  <rect x="72" y="226" width="456" height="118" rx="14" fill="#e1eee3" stroke="#365c42" stroke-width="2"/>
+  <text x="300" y="258" text-anchor="middle" font-size="24" font-weight="700" fill="#293f35">국소 방출률: Aki [s⁻¹] · Nk [m⁻³]</text>
+  <text x="300" y="294" text-anchor="middle" font-size="24" font-weight="600" fill="#365c42">관측: 불투명도 · 광원 기하 · 기기 응답</text>
+  <text x="300" y="330" text-anchor="middle" font-size="24" font-weight="600" fill="#526b58">값이 없으므로 밝기 순서는 미정</text>
+  <text x="300" y="374" text-anchor="middle" font-size="24" font-weight="600" fill="#526b58">선 높이는 밝기 자료 아님</text>
+</svg>

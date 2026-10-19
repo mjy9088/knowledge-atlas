@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" role="img" aria-labelledby="title desc" data-observed-dependencies="opacity geometry instrument-response">
+  <title id="title">국소 선 방출률과 관측 밝기의 조건</title>
+  <desc id="desc">광자 에너지, 전이율, 상위 준위 원자 수밀도가 국소 선 방출률을 정한다. 불투명도, 광원 기하, 기기 응답은 관측 밝기에 추가로 필요하다.</desc>
+  <metadata>Original dependency schematic based on the scoped NIST relations.</metadata>
+  <defs><marker id="arrow-condition" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#c2410c"/></marker></defs>
+  <rect width="600" height="380" rx="16" fill="#f6f8f0"/>
+  <text x="30" y="40" font-size="26" font-weight="700" fill="#293f35">에너지 일치만으로 충분하지 않습니다</text>
+  <rect x="24" y="66" width="170" height="104" rx="14" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
+  <text x="109" y="104" text-anchor="middle" font-size="24" font-weight="600" fill="#293f35">광자 에너지</text><text x="109" y="146" text-anchor="middle" font-size="24" font-weight="700" fill="#365c42">|ΔE|=hν</text>
+  <rect x="215" y="66" width="170" height="104" rx="14" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
+  <text x="300" y="100" text-anchor="middle" font-size="24" font-weight="600" fill="#293f35">전이율</text><text x="300" y="132" text-anchor="middle" font-size="24" font-weight="600" fill="#365c42"><tspan data-transition-type="E1">E1</tspan>·<tspan data-transition-type="M1">M1</tspan>·<tspan data-transition-type="E2">E2</tspan></text><text data-factor="Aki" data-quantity="Aki" data-unit="s-1" x="300" y="162" text-anchor="middle" font-size="24" font-weight="700" fill="#c2410c">Aki [s⁻¹]</text>
+  <rect x="406" y="66" width="170" height="104" rx="14" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
+  <text x="491" y="96" text-anchor="middle" font-size="24" font-weight="600" fill="#293f35">상위 준위</text><text x="491" y="126" text-anchor="middle" font-size="24" font-weight="600" fill="#293f35">원자 수밀도</text><text data-factor="Nk" data-quantity="Nk" data-unit="m-3" x="491" y="160" text-anchor="middle" font-size="24" font-weight="700" fill="#365c42">Nk [m⁻³]</text>
+  <g id="line-power-dependencies">
+    <line data-dependency="energy-match" x1="109" y1="174" x2="230" y2="224" stroke="#c2410c" stroke-width="3" marker-end="url(#arrow-condition)"/>
+    <line data-dependency="transition-probability" x1="300" y1="174" x2="300" y2="218" stroke="#c2410c" stroke-width="3" marker-end="url(#arrow-condition)"/>
+    <line data-dependency="upper-population" x1="491" y1="174" x2="370" y2="224" stroke="#c2410c" stroke-width="3" marker-end="url(#arrow-condition)"/>
+  </g>
+  <rect x="116" y="232" width="368" height="82" rx="14" fill="#e1eee3" stroke="#365c42" stroke-width="2"/>
+  <text data-quantity="local-line-emissivity" data-unit="W m-3 sr-1" x="300" y="264" text-anchor="middle" font-size="24" font-weight="700" fill="#293f35">국소 εline [W m⁻³ sr⁻¹]</text>
+  <text x="300" y="298" text-anchor="middle" font-size="24" font-weight="600" fill="#365c42">(4π)⁻¹hνAkiNk</text>
+  <text x="300" y="344" text-anchor="middle" font-size="24" font-weight="600" fill="#526b58">관측 밝기: 불투명도 · 광원 기하 · 기기 응답</text>
+  <text x="300" y="374" text-anchor="middle" font-size="24" font-weight="600" fill="#526b58">M1/E2도 방사 가능 · 수치 밝기 자료 없음</text>
+</svg>
