@@ -652,13 +652,13 @@ test('orbital controls, camera, modes, state persistence and restoration use cur
   await expect(page.locator('.reader-scene:visible .scene-prose')).toContainText('l=2, Z=2');
   for(const mode of ['cloud','slice','surface']){
     await page.getByRole('combobox',{name:'표시 방식',exact:true}).selectOption(mode);await expectFrame(page,orbitalFrame);
-    const image=await page.locator('canvas').evaluate(canvas=>(canvas as HTMLCanvasElement).toDataURL());expect(image.length).toBeGreaterThan(1000);
+    const image=await page.locator('.field-canvas').evaluate(canvas=>(canvas as HTMLCanvasElement).toDataURL());expect(image.length).toBeGreaterThan(1000);
   }
   const surface=await page.evaluate(()=>{const interaction=window.__atlasRelated.getInspectionSnapshot().interaction;if(!interaction||!('viewer' in interaction))throw new Error('Expected spatial inspection');return interaction.viewer.triangleCount;});expect(surface).toBeGreaterThan(0);
   await testInfo.attach('orbital-surface',{body:await page.screenshot(),contentType:'image/png'});
   await page.getByRole('combobox',{name:'표시 방식',exact:true}).selectOption('cloud');
   const before=await page.evaluate(()=>window.__atlasRelated.getState());
-  await page.locator('canvas').focus();await page.keyboard.press('ArrowRight');
+  await page.locator('.field-canvas').focus();await page.keyboard.press('ArrowRight');
   const rotated=await page.evaluate(()=>window.__atlasRelated.getState());expect(rotated.sceneId).toBe(before.sceneId);if(!rotated.interaction||!('view' in rotated.interaction)||!before.interaction||!('view' in before.interaction))throw new Error('Expected orbital camera state');expect(rotated.interaction.view.yaw).toBeGreaterThan(before.interaction.view.yaw);
   await page.locator('#reader-next').click();await expect(page.getByRole('combobox',{name:'핵전하 Z',exact:true})).toHaveValue('2');
   const saved=await page.evaluate(()=>window.__atlasRelated.getState());
@@ -667,8 +667,8 @@ test('orbital controls, camera, modes, state persistence and restoration use cur
   expect(await page.evaluate(()=>window.__atlasRelated.getState())).toEqual(saved);
   const rejection=await page.evaluate(()=>{const before=window.__atlasRelated.getState();let rejected=false;try{window.__atlasRelated.setState({...before,interaction:{...before.interaction,orbital:{n:0,basis:'s',Z:1}}} as never);}catch{rejected=true;}return {before,after:window.__atlasRelated.getState(),rejected};});
   expect(rejection.rejected).toBe(true);expect(rejection.after).toEqual(rejection.before);
-  const pixels=await page.locator('canvas').evaluate(canvas=>(canvas as HTMLCanvasElement).toDataURL());
-  await page.evaluate(()=>window.__atlasRelated.seek(700));expect(await page.locator('canvas').evaluate(canvas=>(canvas as HTMLCanvasElement).toDataURL())).toBe(pixels);
+  const pixels=await page.locator('.field-canvas').evaluate(canvas=>(canvas as HTMLCanvasElement).toDataURL());
+  await page.evaluate(()=>window.__atlasRelated.seek(700));expect(await page.locator('.field-canvas').evaluate(canvas=>(canvas as HTMLCanvasElement).toDataURL())).toBe(pixels);
   await page.getByRole('button',{name:'장면 예시로',exact:true}).click();await expect(page.getByRole('combobox',{name:'핵전하 Z',exact:true})).toHaveValue('1');
 });
 
