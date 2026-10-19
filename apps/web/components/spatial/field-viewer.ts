@@ -4,7 +4,8 @@ export interface FieldDefinition {evaluate:(point:Point3)=>number;weight:(value:
 import {createScalarGrid,weightedCloud,scalarIsosurface} from '/packages/spatial/scalar-field.js';
 
 export const DEFAULT_FIELD_VIEW:Readonly<FieldView>=Object.freeze({yaw:-.65,pitch:.45,zoom:1.65,mode:'cloud',plane:'xz',slice:0,iso:.035});
-export function validateFieldView(input:Partial<FieldView>):FieldView{
+export function validateFieldView(input:unknown):FieldView{
+  if(!input||typeof input!=='object'||Array.isArray(input)||Object.keys(input).some(key=>!['yaw','pitch','zoom','mode','plane','slice','iso'].includes(key)))throw new RangeError('Invalid field view state');
   const state={...DEFAULT_FIELD_VIEW,...input};
   if(!['cloud','slice','surface'].includes(state.mode)||!['xy','xz','yz'].includes(state.plane)||!['yaw','pitch','zoom','slice','iso'].every(key=>Number.isFinite(state[key as 'yaw'|'pitch'|'zoom'|'slice'|'iso']))||Math.abs(state.yaw)>100||Math.abs(state.pitch)>1.5||state.zoom<.5||state.zoom>4||Math.abs(state.slice)>1||state.iso<.005||state.iso>1)throw new RangeError('Invalid field view state');
   return {yaw:state.yaw,pitch:state.pitch,zoom:state.zoom,mode:state.mode,plane:state.plane,slice:state.slice,iso:state.iso};
@@ -25,7 +26,7 @@ export function mountFieldViewer(container:HTMLElement,{label='Spatial scalar fi
     if(disposed||!field||!grid)return;
     const rect=canvas.getBoundingClientRect(),w=Math.max(1,rect.width),h=Math.max(1,rect.height),dpr=Math.min(2,globalThis.devicePixelRatio||1);
     if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);}
-    ctx.setTransform(dpr,0,0,dpr,0,0);ctx.fillStyle='#101e29';ctx.fillRect(0,0,w,h);
+    ctx.setTransform(dpr,0,0,dpr,0,0);ctx.fillStyle='#101e29';ctx.fillRect(0,0,canvas.width/dpr,canvas.height/dpr);
     if(state.mode==='slice'){
       const axes=state.plane.split('').map(c=>'xyz'.indexOf(c)),fixed=[0,1,2].find(i=>!axes.includes(i))??0,pixels=110,span=Math.min(w-34,h-24),left=(w-span)/2,top=(h-span)/2;
       for(let j=0;j<pixels;j++)for(let i=0;i<pixels;i++){

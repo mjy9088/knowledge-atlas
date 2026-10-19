@@ -18,9 +18,10 @@ export type TopicInspection=ReturnType<ReturnType<typeof mountPossibilityLab>['i
 export interface TopicInteraction {
   getState():TopicState;
   setActive?(active:boolean):void;
+  afterRender?():void;
   beforeNext?():boolean;
-  validateState?(state:TopicState):void;
-  setState(state:TopicState):void;
+  validateState(state:unknown):void;
+  setState(state:unknown):void;
   suggest(suggestion?:Scene['suggestion']):void;
   reset():void;
   seek(ms:number):void;

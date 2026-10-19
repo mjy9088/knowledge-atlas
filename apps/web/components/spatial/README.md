@@ -24,7 +24,7 @@ viewer.seek(500); // Static field: independent of time and previous interactions
 viewer.dispose();
 ```
 
-The container must have available width and height; include `field-viewer.css`. The viewer returns detached state containing yaw, pitch, zoom, mode, plane, slice and iso. Unsupported/nonfinite camera state throws before changing the current view. `setField` samples a valid new grid before replacing the previous field. `reset` changes the view, not the caller's scientific input. Topic adapters own their input/reset policy.
+The container must have available width and height; include `field-viewer.css`. The viewer returns detached state containing yaw, pitch, zoom, mode, plane, slice and iso. Unsupported/nonfinite camera state throws before changing the current view. Partial object overrides use declared defaults, but null, arrays, primitives and unknown camera keys are invalid rather than silently resetting a saved view. `setField` samples a valid new grid before replacing the previous field. `reset` changes the view, not the caller's scientific input. Topic adapters own their input/reset policy.
 
 ## Display and approximation
 
@@ -35,6 +35,8 @@ The container must have available width and height; include `field-viewer.css`. 
 Drag or focus the canvas and use arrow keys to rotate. Wheel/+/- adjust zoom. There is no automatic motion. Canvas size follows its container with a device-pixel-ratio cap of two. Resize redraws the same scientific state. `inspect` exposes resolution, bounds, grid integral, sampled maximum, point count, triangle count and camera state.
 
 Rendering is synchronous software rendering. Large grids/surfaces can cost CPU time; the orbital adapter fixes a 30-cell grid and bounds the supported states. Tails beyond the finite box and subgrid features are not resolved. Camera framing and renderer colors are presentation choices and must be explained by each topic. These APIs do not provide arbitrary time-dependent simulation, WebGL volume rendering, mesh export, or video encoding.
+
+Every redraw paints the entire rounded backing store, including the last physical pixel when CSS dimensions are fractional. Background alpha must not accumulate across repeated draws. A consuming reader that changes layout after setting scientific/view state must commit its final geometry through the reader's post-render hook; a later ResizeObserver callback is not a substitute for a complete synchronous restoration.
 
 ## Reader integration
 

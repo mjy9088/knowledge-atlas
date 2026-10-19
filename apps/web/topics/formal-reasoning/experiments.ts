@@ -1,13 +1,13 @@
 import type {DeriveAdapter,ExperimentInspection} from '/packages/experiments/premise-state.js';
 interface Preset {label:string;premises:string[];goal:string}
-interface RelatedModel {label:string;derive:DeriveAdapter;syntax:string;claimRefs:string[];presets:Preset[]}
+interface RelatedModel {label:string;derive:DeriveAdapter;syntax:string;claimRefs:string[];presets:Preset[];scenePresets?:Record<string,Preset>}
 import {deriveFDE,deriveSetRelations,deriveCHConnections,FDE_VALUES} from '/packages/models/related-inference.js';
 import {deriveProof,RULES} from '/packages/models/propositional.js';
 const preset=(label:string,premises:string[],goal:string)=>({label,premises,goal});
 export const RELATED_MODELS:Record<string,RelatedModel>={
   classical:{label:'고전 명제논리',derive:input=>({...deriveProof(input),ruleLabels:Object.fromEntries(RULES.map(rule=>[rule.id,rule.label]))}),syntax:'P, Q… · ¬ ∧ ∨ →',claimRefs:['claim:logic.consistency.nontrivial'],presets:[preset('모순에서 Q',['P','¬P'],'Q'),preset('전제 하나만',['P'],'Q'),preset('조건문 연결',['P','P → Q'],'Q')]},
   fde:{label:'FDE · 네 값의 지정값 보존',derive:deriveFDE,syntax:'P, Q… · ¬ ∧ ∨ · 기호 최대 5개',claimRefs:['claim:logic.fde.four-values'],presets:[preset('모순과 별개인 목표',['P','¬P'],'Q'),preset('그리고 나누기',['P ∧ Q'],'P'),preset('또는 넓히기',['P'],'P ∨ Q'),preset('배중률 비교',[],'P ∨ ¬P')]},
-  sets:{label:'집합 관계 · 부분집합과 외연성',derive:deriveSetRelations,syntax:'∈: 원소로 속함 · ⊆: 부분집합 · =: 같은 집합',claimRefs:['claim:set.relations.membership','claim:set.relations.extensionality'],presets:[preset('원소 전달',['X ∈ A','A ⊆ B'],'X ∈ B'),preset('부분집합 연결',['A ⊆ B','B ⊆ C'],'A ⊆ C'),preset('서로 포함',['A ⊆ B','B ⊆ A'],'A = B'),preset('역방향은?', ['A ⊆ B'],'B ⊆ A')]},
+  sets:{label:'집합 관계 · 부분집합과 외연성',derive:deriveSetRelations,syntax:'∈: 원소로 속함 · ⊆: 부분집합 · =: 같은 집합',claimRefs:['claim:set.relations.membership','claim:set.relations.extensionality'],presets:[preset('원소 전달',['X ∈ A','A ⊆ B'],'X ∈ B'),preset('부분집합 연결',['A ⊆ B','B ⊆ C'],'A ⊆ C'),preset('서로 포함',['A ⊆ B','B ⊆ A'],'A = B'),preset('역방향은?', ['A ⊆ B'],'B ⊆ A')],scenePresets:{extensionality:preset('서로 포함',['A ⊆ B','B ⊆ A'],'A = B')}},
   ch:{label:'CH · 등록된 정리의 연결',derive:deriveCHConnections,syntax:'Con(T): T에서 모순을 증명할 수 없음 · Ind(CH,ZFC): ZFC로부터 독립',claimRefs:['claim:set.ch.relative-consistency','claim:logic.independence.ch'],presets:[preset('두 방향을 결합',['Con(ZFC)'],'Ind(CH,ZFC)'),preset('CH를 더한 확장',['Con(ZFC)'],'Con(ZFC+CH)'),preset('¬CH를 더한 확장',['Con(ZFC)'],'Con(ZFC+¬CH)'),preset('가정을 빼면',[],'Ind(CH,ZFC)')]}
 };
 export function relatedNarration(model:string,info:ExperimentInspection){

@@ -52,6 +52,8 @@ export function mountOrbitalExperiment(container:HTMLElement,{onChange=()=>{}}:{
   apply(input,DEFAULT_FIELD_VIEW,false);
   return {
     getState:()=>({orbital:{...input},view:viewer.getState(),customized}),
+    afterRender(){viewer.seek(0);},
+    validateState(state:OrbitalExperimentState){if(typeof state?.customized!=='boolean')throw new TypeError('Expected customized state');validateOrbitalState(state.orbital);validateFieldView(state.view);},
     setState(state:OrbitalExperimentState){if(typeof state?.customized!=='boolean')throw new TypeError('Expected customized state');apply(state.orbital,state.view,state.customized);onChange();},
     suggest(next?:Scene['suggestion']){if(next&&!('n' in next))throw new TypeError('Expected orbital suggestion');if(next)baseline={...validateOrbitalState(next),mode:(next.mode??'cloud') as FieldView['mode']};if(!customized)reset();},reset,seek:viewer.seek,
     inspect:()=>({orbital:{...input},l:field.l,radialNodes:field.radialNodes,angularNodes:field.angularNodes,energyHartree:field.energyHartree,customized,viewer:viewer.inspect()}),

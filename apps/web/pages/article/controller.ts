@@ -1,8 +1,9 @@
 import {required,byId,eventElement} from '../../components/dom.js';
 import type {ReaderView} from '../../components/reader/state.js';
-import type {ExperimentInput} from '/packages/experiments/premise-state.js';
+import type {ExperimentDraft} from '/packages/experiments/premise-state.js';
 interface ArticleElements {[id:string]:HTMLElement;'reader-prev':HTMLButtonElement;'reader-next':HTMLButtonElement;'reader-reset':HTMLButtonElement;'reader-skip':HTMLButtonElement}
-export interface RelatedState {sceneId:string;cover?:boolean;experiment?:ExperimentInput;visual?:{step:number};interaction?:ReturnType<NonNullable<ReturnType<typeof mountTopicInteraction>>['getState']>}
+export interface RelatedState {readonly sceneId:string;readonly cover?:boolean;readonly experiment?:ExperimentDraft;readonly visual?:{readonly step:number};readonly interaction?:TopicState}
+type ParsedRelatedState=Omit<RelatedState,'interaction'>&{readonly interaction?:unknown};
 import {CONTENT_PAGES} from '/content/catalog.js';
 import {readerSkip,createRelatedReader} from '../../components/reader/state.js';
 import {mountPremiseExperiment,normalizeExperimentInput,evaluateExperimentInput} from '../../components/experiment/premise-editor.js';
@@ -10,7 +11,24 @@ import {RELATED_MODELS,relatedNarration} from '../../topics/formal-reasoning/exp
 import {mountInferenceExplorer} from '../../components/inference/explorer.js';
 import {mountReaderPanels} from '../../components/reader/panels.js';
 import {mountEvaluationFeedback} from '../../components/reader/evaluation-feedback.js';
-import {mountTopicInteraction} from '../../topics/registry.js';
+import {mountTopicInteraction,type TopicState} from '../../topics/registry.js';
+const RELATED_STATE_KEYS=['sceneId','cover','experiment','visual','interaction'] as const;
+function assertExactRecord(value:unknown,keys:readonly string[],message:string):asserts value is Record<string,unknown>{if(!value||typeof value!=='object'||Array.isArray(value)||!Object.keys(value).every(key=>keys.some(allowed=>allowed===key)))throw new RangeError(message);}
+function isTopicStateCandidate(value:unknown):value is Record<string,unknown>{return Boolean(value)&&typeof value==='object'&&!Array.isArray(value);}
+function parseExperiment(value:unknown):ExperimentDraft{
+  assertExactRecord(value,['premises','goal','customized'],'Invalid experiment state');if(!Array.isArray(value['premises'])||typeof value['goal']!=='string')throw new RangeError('Invalid experiment state');
+  const premises=value['premises'].map(row=>{if(typeof row==='string')return row;assertExactRecord(row,['formula','enabled'],'Invalid premise state');if(typeof row['formula']!=='string'||typeof row['enabled']!=='boolean')throw new RangeError('Invalid premise state');return{formula:row['formula'],enabled:row['enabled']};});
+  const customized=value['customized'];if(Object.hasOwn(value,'customized')&&typeof customized!=='boolean')throw new RangeError('Invalid customized state');
+  return{premises,goal:value['goal'],...(typeof customized==='boolean'?{customized}:{})};
+}
+function parseVisual(value:unknown):{readonly step:number}{assertExactRecord(value,['step'],'Invalid visual state');if(typeof value['step']!=='number')throw new RangeError('Invalid visual state');return{step:value['step']};}
+function parseRelatedState(value:unknown):ParsedRelatedState{
+  assertExactRecord(value,RELATED_STATE_KEYS,'Invalid related state');if(typeof value['sceneId']!=='string')throw new RangeError('Invalid related state');
+  const cover=value['cover'];if(Object.hasOwn(value,'cover')&&typeof cover!=='boolean')throw new RangeError('Invalid cover state');
+  const visual=Object.hasOwn(value,'visual')?parseVisual(value['visual']):undefined;
+  const interaction=value['interaction'];if(Object.hasOwn(value,'interaction')&&!isTopicStateCandidate(interaction))throw new RangeError('Invalid interaction state');
+  return{sceneId:value['sceneId'],...(typeof cover==='boolean'?{cover}:{}),...(Object.hasOwn(value,'experiment')?{experiment:parseExperiment(value['experiment'])}:{}),...(visual?{visual}:{}),...(isTopicStateCandidate(interaction)?{interaction}:{})};
+}
 const $=<K extends string & keyof ArticleElements>(id:K)=>byId<ArticleElements[K]>(id),root=required('[data-page]');
 const page=(()=>{const found=CONTENT_PAGES.find(page=>page.slug===root.dataset.page);if(!found)throw new Error('Unknown article');return found;})(),model=page.model?RELATED_MODELS[page.model]:undefined;
 if(page.model&&!model)throw new RangeError('Unknown experiment adapter');
@@ -52,7 +70,7 @@ function renderInput(){
   }
   interaction?.suggest(current.scene.suggestion);
   const topicInfo=interaction?.inspect(),topicNarration=topicInfo?.customized&&interaction?interaction.describe(current.scene):null;
-  const labTopic=['binary-relations','monty-hall','two-children'].includes(page.interactive??'');
+  const labTopic=['binary-relations','monty-hall','two-children','nuclear-evidence'].includes(page.interactive??'');
   if(labTopic){const available=Boolean(topicInfo&&'available'in topicInfo&&topicInfo.available);root.dataset.mode=available?'interactive':'reading';$('reader-workbench').hidden=!available||coverVisible;required('.concept-diagram',node).hidden=available||(!current.scene.figure&&!current.scene.cards.length);}
   const narration=info?relatedNarration(page.model??'',info):null,copy=required('.reader-copy',node);
   required('h2',node).textContent=original[current.index].title;
@@ -79,8 +97,9 @@ function renderInput(){
   if(page.cover){root.dataset.cover=String(coverVisible);cover.hidden=!coverVisible;$('reader-workbench').hidden=coverVisible||!model&&!interaction;$('reader-scenes').hidden=coverVisible||opening;}
   interaction?.setActive?.(!coverVisible&&(page.interactive!=='weekday-worlds'||current.sceneId==='question')&&(!labTopic||root.dataset.mode==='interactive'));
   if(page.interactive!=='weekday-worlds'){$('reader-skip-scope').textContent=page.interactive==='hydrogenic-orbitals'?'본문 ← → 장면 이동 · 시각화에 초점을 두면 방향키 회전':'← → 방향키 · Space / Enter 다음';$('reader-end-links').hidden=Boolean(next);}
+  interaction?.afterRender?.();
 }
-function render(view:ReaderView){current=view;renderInput();history.replaceState(null,'',coverVisible?'#title':'#'+view.sceneId);}
+function render(view:ReaderView){current=view;if(model&&experiment)experiment.suggest(model.scenePresets?.[view.sceneId]??model.presets[0]);renderInput();history.replaceState(null,'',coverVisible?'#title':'#'+view.sceneId);}
 const reader=createRelatedReader(page,{onChange:render});
 if(model){
 $('reader-experiment').hidden=false;$('reader-model-label').textContent=model.label;
@@ -112,15 +131,22 @@ const requestedScene=requestedHash.slice(1);if(page.scenes.some(scene=>scene.id=
 document.documentElement.classList.add('reader-enhanced');window.scrollTo(0,0);panels.openHash(requestedHash);
 export const relatedAPI={
   getState:()=>({...reader.getState(),...(page.cover?{cover:coverVisible}:{}),...(experiment?{experiment:experiment.getState(),visual:explorer.getState()}:{}),...(interaction?{interaction:interaction.getState()}:{})}),
-  setState(state:RelatedState){
-    state={...state,sceneId:resolveSceneId(state?.sceneId)};
-    if(!page.scenes.some(scene=>scene.id===state?.sceneId))throw new RangeError('Unknown related scene');
-    if(state.cover!==undefined&&(typeof state.cover!=='boolean'||!page.cover))throw new RangeError('Unsupported cover state');
-    if(!experiment){if(state.experiment||state.visual)throw new RangeError('This article has no premise experiment');if(state.interaction&&interaction?.validateState){interaction.validateState(state.interaction);coverVisible=state.cover??false;reader.setState(state);interaction.setState(state.interaction);return;}if(state.interaction){if(!interaction)throw new RangeError('This article has no interaction');interaction.setState(state.interaction);}coverVisible=state.cover??false;reader.setState(state);return;}
-    const input=state.experiment?normalizeExperimentInput(state.experiment):experiment.getState(),info=evaluateExperimentInput(input,model?.derive);
-    if(state.visual&&(!Number.isInteger(state.visual.step)||state.visual.step<0||state.visual.step>=Math.max(1,info.proof?.lines.length??0)))throw new RangeError('Unknown proof step');
-    if(state.experiment)experiment.setState(state.experiment);reader.setState(state);
-    if(state.visual&&info.proof?.lines.length)explorer.setState(state.visual);
+  setState(value:unknown){
+    const state=parseRelatedState(value),sceneId=resolveSceneId(state.sceneId),hasCover=Object.hasOwn(state,'cover'),hasExperiment=Object.hasOwn(state,'experiment'),hasVisual=Object.hasOwn(state,'visual'),hasInteraction=Object.hasOwn(state,'interaction');
+    if(!page.scenes.some(scene=>scene.id===sceneId))throw new RangeError('Unknown related scene');
+    if(hasCover&&!page.cover)throw new RangeError('Unsupported cover state');
+    if(!experiment){
+      if(hasExperiment||hasVisual)throw new RangeError('This article has no premise experiment');
+      if(hasInteraction){if(!interaction)throw new RangeError('This article has no interaction');interaction.validateState(state.interaction);}
+      coverVisible=state.cover??false;reader.setState({sceneId});if(state.interaction)interaction?.setState(state.interaction);return;
+    }
+    if(hasInteraction)throw new RangeError('This article has no interaction');
+    const current=experiment.getState(),suggestion=model?.scenePresets?.[sceneId]??model?.presets[0],explicit=state.experiment;
+    const input=explicit?{...normalizeExperimentInput(explicit),customized:explicit.customized??true}:current.customized||!suggestion?current:{...normalizeExperimentInput(suggestion),customized:false};
+    const info=evaluateExperimentInput(input,model?.derive),proofLines=info.proof?.lines.length??0;
+    if(state.visual&&(!Number.isInteger(state.visual.step)||state.visual.step<0||state.visual.step>=Math.max(1,proofLines)))throw new RangeError('Unknown proof step');
+    coverVisible=state.cover??false;reader.setState({sceneId});if(explicit)experiment.setState(explicit);
+    if(state.visual&&proofLines)explorer.setState(state.visual);
   },
   reset(){coverVisible=Boolean(page.cover);experiment?.reset();interaction?.reset();reader.reset();},seek(timeMs:number){if(!interaction)throw new RangeError('No seekable interaction');interaction.seek(timeMs);},
   getInspectionSnapshot(){const node=scenes[current.index],evaluation=feedback[current.index].getState();return {...reader.inspect(),...(page.cover?{cover:coverVisible}:{}),model:page.interactive??page.model??null,experiment:experiment?.inspect()??null,interaction:interaction?.inspect()??null,visual:model?explorer.getState():null,evaluation,displayedDialogue:{title:required('h2',node).textContent,text:evaluation.available?required('.scene-prose',node).textContent:evaluation.detail,status:required('.reader-copy',node).dataset.status}};}
