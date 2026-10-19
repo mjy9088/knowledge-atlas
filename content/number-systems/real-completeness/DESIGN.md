@@ -20,7 +20,7 @@ The figures inherit the shared reader's quiet mathematical-workbook surface. The
 | Exclusion | `figure-exclusion` | `#a56d30` | Missing rational boundary and rejected candidates |
 | Exclusion fill | `figure-exclusion-soft` | `#f3dcb0` | Case assumptions and scope warnings |
 
-Use `'Noto Sans CJK KR', 'Malgun Gothic', sans-serif`. The base spacing unit is 4px; use 8, 12, 16, 24, and 32px steps. Figures use a `600 × 360` view box, a 16px canvas radius, and at least 16px outer inset. Essential labels use at least 22px at the 560px figure width, or 24px at 600px, so the rendered mobile size remains at least 13 CSS px. Korean words and mathematical units remain intact; paragraph explanation belongs in prose, alt text, and captions rather than tiny SVG labels.
+Use `'Noto Sans CJK KR', 'Malgun Gothic', sans-serif`. The base spacing unit is 4px; use 8, 12, 16, 24, and 32px steps. Figures use a `600 × 360` view box, except the dense `gap` proof's `600 × 380` view box, a 16px canvas radius, and at least 16px outer inset. Essential labels use at least 22px at the 560px figure width, or 24px at 600px, so the rendered mobile size remains at least 13 CSS px. Korean words and mathematical units remain intact; paragraph explanation belongs in prose, alt text, and captions rather than tiny SVG labels.
 
 ## 2. Reusable figure primitives
 

@@ -5,7 +5,7 @@
   <rect width="600" height="360" rx="16" fill="#f6f8f0"/>
   <text x="24" y="42" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">B={q∈Q | q&lt;3}</text>
   <g id="upper-bound-three" data-value="3" data-ambient="Q" data-set="B" data-role="upper-bound">
-    <rect x="24" y="64" width="552" height="64" rx="12" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
+    <rect x="24" y="60" width="552" height="68" rx="12" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
     <text x="44" y="90" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">모든 q∈B에 q&lt;3</text>
     <text x="244" y="118" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">Q 안에서 B의 상한: 3</text>
   </g>
