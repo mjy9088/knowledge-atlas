@@ -8,37 +8,39 @@
   </defs>
   <rect x="8" y="8" width="584" height="364" rx="16" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
   <text data-essential-label="model" x="28" y="42" font-size="24" font-weight="600" fill="#293f35">MODEL · 역사 장치 재구성 아님</text>
+  <rect data-panel="field-panel" x="24" y="62" width="308" height="260" rx="14" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
   <g id="field-orientation">
-    <rect x="36" y="70" width="332" height="28" rx="8" fill="#f6f8f0" stroke="#d5dfcc" stroke-width="2"/>
-    <rect x="36" y="282" width="332" height="28" rx="8" fill="#f6f8f0" stroke="#d5dfcc" stroke-width="2"/>
-    <text data-essential-label="negative-plate" x="52" y="94" font-size="22" font-weight="560" fill="#293f35">위 판 −</text>
-    <text data-essential-label="positive-plate" x="52" y="306" font-size="22" font-weight="560" fill="#293f35">아래 판 +</text>
-    <line data-vector="electric-field" x1="92" y1="262" x2="92" y2="122" stroke="#526b58" stroke-width="5" marker-end="url(#field-arrow)"/>
-    <text data-essential-label="electric-field" x="110" y="150" font-size="22" font-weight="560" fill="#526b58">E · 위(+y)</text>
-    <circle data-field="magnetic" data-direction="out-of-page" cx="278" cy="138" r="18" fill="#ffffff" stroke="#365c42" stroke-width="3"/>
-    <circle cx="278" cy="138" r="6" fill="#365c42"/>
-    <text data-essential-label="magnetic-field" x="306" y="146" font-size="22" font-weight="560" fill="#365c42">B · 종이 밖</text>
+    <rect x="36" y="72" width="284" height="28" rx="8" fill="#f6f8f0" stroke="#d5dfcc" stroke-width="2"/>
+    <rect x="36" y="282" width="284" height="28" rx="8" fill="#f6f8f0" stroke="#d5dfcc" stroke-width="2"/>
+    <text data-essential-label="negative-plate" data-panel-ref="field-panel" x="52" y="96" font-size="24" font-weight="600" fill="#293f35">위 판 −</text>
+    <text data-essential-label="positive-plate" data-panel-ref="field-panel" x="52" y="306" font-size="24" font-weight="600" fill="#293f35">아래 판 +</text>
+    <line data-vector="electric-field" x1="76" y1="260" x2="76" y2="126" stroke="#526b58" stroke-width="5" marker-end="url(#field-arrow)"/>
+    <text data-essential-label="electric-field" data-panel-ref="field-panel" x="96" y="164" font-size="24" font-weight="600" fill="#526b58">E ↑</text>
+    <circle data-field="magnetic" data-direction="out-of-page" cx="286" cy="124" r="16" fill="#ffffff" stroke="#365c42" stroke-width="3"/>
+    <circle cx="286" cy="124" r="6" fill="#365c42"/>
+    <text data-essential-label="magnetic-field" data-panel-ref="field-panel" x="112" y="126" font-size="24" font-weight="600" fill="#365c42">B · 종이 밖</text>
   </g>
   <g id="beam-path">
-    <path d="M28 202H356" fill="none" stroke="#365c42" stroke-width="6"/>
-    <circle cx="232" cy="202" r="11" fill="#293f35"/>
-    <text data-essential-label="negative-charge" x="218" y="238" font-size="22" font-weight="560" fill="#293f35">q&lt;0</text>
-    <line data-vector="velocity" x1="142" y1="178" x2="218" y2="178" stroke="#365c42" stroke-width="5" marker-end="url(#velocity-arrow)"/>
-    <text data-essential-label="velocity" x="158" y="166" font-size="22" font-weight="560" fill="#365c42">v</text>
+    <path d="M40 210H320" fill="none" stroke="#365c42" stroke-width="6"/>
+    <circle cx="220" cy="210" r="11" fill="#293f35"/>
+    <text data-essential-label="negative-charge" data-panel-ref="field-panel" x="96" y="232" font-size="24" font-weight="600" fill="#293f35">q&lt;0</text>
+    <line data-vector="velocity" x1="120" y1="186" x2="204" y2="186" stroke="#365c42" stroke-width="5" marker-end="url(#velocity-arrow)"/>
+    <text data-essential-label="velocity" data-panel-ref="field-panel" x="92" y="194" font-size="24" font-weight="600" fill="#365c42">v</text>
   </g>
   <g id="force-vectors">
-    <line data-vector="electric-force" x1="232" y1="202" x2="232" y2="266" stroke="#a56d30" stroke-width="5" marker-end="url(#force-arrow)"/>
-    <line data-vector="magnetic-force" x1="232" y1="202" x2="232" y2="138" stroke="#a56d30" stroke-width="5" marker-end="url(#force-arrow)"/>
-    <text data-essential-label="electric-force" x="250" y="270" font-size="22" font-weight="560" fill="#a56d30">F_E 아래</text>
-    <text data-essential-label="magnetic-force" x="250" y="124" font-size="22" font-weight="560" fill="#a56d30">F_B 위</text>
+    <line data-vector="electric-force" x1="220" y1="210" x2="220" y2="262" stroke="#a56d30" stroke-width="5" marker-end="url(#force-arrow)"/>
+    <line data-vector="magnetic-force" x1="220" y1="210" x2="220" y2="150" stroke="#a56d30" stroke-width="5" marker-end="url(#force-arrow)"/>
+    <text data-essential-label="electric-force" data-panel-ref="field-panel" x="236" y="274" font-size="24" font-weight="600" fill="#a56d30">F_E ↓</text>
+    <text data-essential-label="magnetic-force" data-panel-ref="field-panel" x="236" y="188" font-size="24" font-weight="600" fill="#a56d30">F_B ↑</text>
   </g>
   <g id="equation-ledger">
-    <rect x="388" y="70" width="184" height="240" rx="14" fill="#f6f8f0" stroke="#d5dfcc" stroke-width="2"/>
-    <text data-essential-label="straight" x="410" y="112" font-size="24" font-weight="600" fill="#293f35">직진 조건</text>
-    <text data-essential-label="balance" x="410" y="158" font-size="22" font-weight="560" fill="#293f35">|q|E = |q|vB</text>
-    <text data-essential-label="speed" x="410" y="202" font-size="24" font-weight="600" fill="#365c42">v = E/B</text>
-    <text data-essential-label="conditions" x="410" y="244" font-size="22" font-weight="560" fill="#526b58">q ≠ 0 · B &gt; 0</text>
-    <text data-essential-label="conditions-two" x="410" y="278" font-size="22" font-weight="560" fill="#526b58">v ⟂ B · 균일장 · 저속</text>
+    <rect data-panel="equation-panel" x="344" y="62" width="232" height="260" rx="14" fill="#f6f8f0" stroke="#d5dfcc" stroke-width="2"/>
+    <text data-essential-label="straight" data-panel-ref="equation-panel" x="360" y="100" font-size="24" font-weight="600" fill="#293f35">직진 조건</text>
+    <text data-essential-label="balance" data-panel-ref="equation-panel" x="360" y="142" font-size="24" font-weight="600" fill="#293f35">|q|E=|q|vB</text>
+    <text data-essential-label="speed" data-panel-ref="equation-panel" x="360" y="184" font-size="24" font-weight="600" fill="#365c42">v=E/B</text>
+    <text data-essential-label="conditions" data-panel-ref="equation-panel" x="360" y="226" font-size="24" font-weight="600" fill="#526b58">q≠0 · B≠0</text>
+    <text data-essential-label="conditions-two" data-panel-ref="equation-panel" x="360" y="264" font-size="24" font-weight="600" fill="#526b58">v⊥B · 균일장</text>
+    <text data-essential-label="conditions-three" data-panel-ref="equation-panel" x="360" y="300" font-size="24" font-weight="600" fill="#526b58">저속 근사</text>
   </g>
-  <text data-essential-label="caveat" x="36" y="348" font-size="22" font-weight="560" fill="#526b58">점은 입자가 아니라 B의 종이 밖 방향 기호 · 경로는 측정 궤적 아님</text>
+  <text data-essential-label="caveat" x="36" y="354" font-size="24" font-weight="600" fill="#526b58">B 점 = 종이 밖 · MODEL 경로</text>
 </svg>

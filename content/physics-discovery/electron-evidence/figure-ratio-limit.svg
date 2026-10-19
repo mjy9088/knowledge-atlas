@@ -4,18 +4,18 @@
   <rect x="8" y="8" width="584" height="364" rx="16" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
   <text data-essential-label="heading" x="28" y="44" font-size="24" font-weight="600" fill="#293f35">같은 |q|/m, 다른 두 양</text>
   <g id="matched-ratio-pairs">
-    <rect x="34" y="78" width="232" height="120" rx="14" fill="#f6f8f0" stroke="#d5dfcc" stroke-width="2"/>
-    <text data-essential-label="pair-one" x="64" y="126" font-size="24" font-weight="600" fill="#365c42">(|q|, m)</text>
-    <text data-essential-label="ratio-one" x="64" y="170" font-size="22" font-weight="560" fill="#293f35">비 = |q|/m</text>
-    <rect x="334" y="78" width="232" height="120" rx="14" fill="#f6f8f0" stroke="#d5dfcc" stroke-width="2"/>
-    <text data-essential-label="pair-two" x="360" y="126" font-size="24" font-weight="600" fill="#a56d30">(λ|q|, λm)</text>
-    <text data-essential-label="ratio-two" x="360" y="170" font-size="22" font-weight="560" fill="#293f35">비 = |q|/m</text>
-    <text data-essential-label="lambda" x="274" y="144" font-size="22" font-weight="560" fill="#526b58">λ&gt;0</text>
+    <rect data-panel="pair-one-panel" x="34" y="78" width="232" height="120" rx="14" fill="#f6f8f0" stroke="#d5dfcc" stroke-width="2"/>
+    <text data-essential-label="pair-one" data-panel-ref="pair-one-panel" x="54" y="126" font-size="24" font-weight="600" fill="#365c42">(|q|, m)</text>
+    <text data-essential-label="ratio-one" data-panel-ref="pair-one-panel" x="54" y="170" font-size="24" font-weight="600" fill="#293f35">비 = |q|/m</text>
+    <rect data-panel="pair-two-panel" x="334" y="78" width="232" height="120" rx="14" fill="#f6f8f0" stroke="#d5dfcc" stroke-width="2"/>
+    <text data-essential-label="pair-two" data-panel-ref="pair-two-panel" x="350" y="126" font-size="24" font-weight="600" fill="#a56d30">(λ|q|, λm)</text>
+    <text data-essential-label="ratio-two" data-panel-ref="pair-two-panel" x="350" y="170" font-size="24" font-weight="600" fill="#293f35">비 = |q|/m</text>
+    <text data-essential-label="lambda" x="274" y="144" font-size="24" font-weight="600" fill="#526b58">λ&gt;0</text>
   </g>
   <g id="missing-datum">
-    <rect x="34" y="230" width="532" height="92" rx="14" fill="#ffffff" stroke="#a56d30" stroke-width="3"/>
-    <text data-essential-label="need" x="58" y="270" font-size="24" font-weight="600" fill="#a56d30">더 필요한 것 · 독립 전하 측정/보정</text>
-    <text data-essential-label="insufficient" x="58" y="306" font-size="22" font-weight="560" fill="#526b58">빔 사진만으로는 부족 · 비와 별도 정보가 함께 있어야 m 계산</text>
+    <rect data-panel="datum-panel" x="34" y="230" width="532" height="92" rx="14" fill="#ffffff" stroke="#a56d30" stroke-width="3"/>
+    <text data-essential-label="need" data-panel-ref="datum-panel" x="50" y="270" font-size="24" font-weight="600" fill="#a56d30">필요 · 독립 전하 측정/보정</text>
+    <text data-essential-label="insufficient" data-panel-ref="datum-panel" x="50" y="306" font-size="24" font-weight="600" fill="#526b58">빔 사진만으로는 부족</text>
   </g>
-  <text data-essential-label="caveat" x="34" y="354" font-size="22" font-weight="560" fill="#526b58">기호 비교 · 역사 수치나 측정 자료 아님</text>
+  <text data-essential-label="caveat" x="34" y="354" font-size="24" font-weight="600" fill="#526b58">기호 모형 · 역사 측정값 아님</text>
 </svg>
