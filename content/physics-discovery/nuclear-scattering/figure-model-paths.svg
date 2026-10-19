@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" role="img" aria-labelledby="title desc">
+  <title id="title">전하 집중을 해석하는 가까운 길과 먼 길의 모형</title>
+  <desc id="desc">왼쪽 모형 영역은 같은 중심에서 멀리 지나는 설명용 길이 조금 꺾이고 가까이 지나는 설명용 길이 크게 되돌아가는 경우를 점선으로 비교한다. 오른쪽 추론 장부는 각도 분포가 전하 집중을 제약하지만 전하 부호는 각도만으로 정하지 못하며, 양의 중심은 다른 증거와 함께 채택되었음을 구분한다. 선은 측정 궤적이 아니다.</desc>
+  <metadata>Original illustrative model geometry authored for Knowledge Atlas, 2026-10-19. Dashed paths are not measured trajectories, historical event reconstructions, or a force-sign determination.</metadata>
+  <defs>
+    <marker id="far-arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L10 5L0 10Z" fill="#365c42"/></marker>
+    <marker id="near-arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L10 5L0 10Z" fill="#a56d30"/></marker>
+  </defs>
+  <rect width="600" height="380" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text data-essential-label="heading" x="300" y="32" text-anchor="middle" font-size="26" font-weight="700">MODEL · 분포가 제약하는 것</text>
+    <rect x="20" y="56" width="340" height="268" rx="16" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <g id="illustrative-paths">
+      <circle cx="240" cy="190" r="22" fill="#f3dcb0" stroke="#a56d30" stroke-width="3"/>
+      <text data-essential-label="center" x="240" y="198" text-anchor="middle" font-size="22">중심</text>
+      <polyline data-path="far" points="64,112 150,112 226,106 330,78" fill="none" stroke="#365c42" stroke-width="5" stroke-dasharray="10 8" marker-end="url(#far-arrow)"/>
+      <polyline data-path="near" points="64,236 150,236 205,244 150,282 82,304" fill="none" stroke="#a56d30" stroke-width="5" stroke-dasharray="10 8" marker-end="url(#near-arrow)"/>
+      <text data-essential-label="far" x="44" y="88" font-size="22">먼 통과 · 작은 편향</text>
+      <text data-essential-label="near" x="44" y="212" font-size="22" textLength="154" lengthAdjust="spacingAndGlyphs">가까움 · 큰 편향</text>
+    </g>
+    <rect x="380" y="56" width="200" height="268" rx="16" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <text data-essential-label="ledger" x="480" y="88" text-anchor="middle" font-size="24" font-weight="700">추론 장부</text>
+    <text data-essential-label="observed" x="400" y="122" font-size="22" font-weight="700">관찰</text><text data-essential-label="observed-value" x="400" y="148" font-size="22">각도 분포</text>
+    <text data-essential-label="supports" x="400" y="184" font-size="22" font-weight="700">지지</text><text data-essential-label="supports-value" x="400" y="210" font-size="22">전하 집중</text>
+    <text data-essential-label="limit" x="400" y="246" font-size="22" font-weight="700">한계</text><text data-essential-label="limit-value" aria-label="각도만으로 부호 결정 안 됨" x="400" y="274" font-size="22">각도만으로 부호</text>
+    <text data-essential-label="limit-value-detail" x="400" y="300" font-size="22">결정 안 됨</text>
+    <text data-essential-label="scope" x="300" y="346" text-anchor="middle" font-size="22" fill="#526b58">점선 MODEL 경로 · 측정 궤적 아님</text>
+    <text data-essential-label="scope-detail" x="300" y="370" text-anchor="middle" font-size="22" fill="#526b58">양의 중심: 별도 힌트+후속 연구와 채택</text>
+  </g>
+</svg>

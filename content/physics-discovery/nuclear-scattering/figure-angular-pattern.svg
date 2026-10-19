@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 360" role="img" aria-labelledby="title desc">
+  <title id="title">정성적 각도 관찰과 두 전하 모형의 결과 비교</title>
+  <desc id="desc">위 관찰 띠는 대부분의 방향 표시가 입사 방향 0도 가까이에 모이고, 옆 방향 표시는 더 적으며, 90도를 넘는 뒤 방향 표시도 드물게 있음을 정성적으로 보인다. 아래 모형 띠는 퍼진 전하가 누적된 작은 편향에 어울리는 반면 작은 중심에 집중된 전하는 작은 편향과 드문 큰각 편향을 함께 설명할 수 있음을 비교한다. 수치, 비율, 히스토그램, 원자료가 아니다.</desc>
+  <metadata>Original qualitative comparison authored for Knowledge Atlas, 2026-10-19. Direction marks are illustrative categories, not observations, counts, proportions, bins, or source data.</metadata>
+  <rect width="560" height="360" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text data-essential-label="heading" x="280" y="30" text-anchor="middle" font-size="26" font-weight="700">관찰한 분포와 모형의 결과를 나눠 보기</text>
+    <g id="observed-pattern" data-epistemic-role="observation">
+      <rect x="16" y="48" width="528" height="116" rx="12" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+      <text data-essential-label="observation" x="32" y="78" font-size="24" font-weight="700">관찰 · 정성적 방향 패턴</text>
+      <line x1="48" y1="122" x2="512" y2="122" stroke="#d5dfcc" stroke-width="3"/>
+      <circle data-angle="0" cx="420" cy="122" r="10" fill="#a56d30"/><circle data-angle="0" cx="450" cy="122" r="10" fill="#a56d30"/><circle data-angle="0" cx="480" cy="122" r="10" fill="#a56d30"/>
+      <circle data-angle="25" cx="390" cy="104" r="9" fill="#f3dcb0" stroke="#a56d30" stroke-width="2"/><circle data-angle="90" cx="280" cy="88" r="9" fill="#f3dcb0" stroke="#a56d30" stroke-width="2"/>
+      <circle data-angle="140" cx="120" cy="94" r="10" fill="#fff" stroke="#a56d30" stroke-width="4"/>
+      <text data-essential-label="forward" x="452" y="151" text-anchor="middle" font-size="22">주로 앞쪽</text><text data-essential-label="rare" x="126" y="151" text-anchor="middle" font-size="22">드문 뒤쪽</text>
+    </g>
+    <g id="model-consequences" data-epistemic-role="model-comparison">
+      <rect x="16" y="180" width="252" height="124" rx="12" fill="#fff" stroke="#d5dfcc" stroke-width="2" data-model="diffuse-charge"/>
+      <text data-essential-label="diffuse" x="142" y="212" text-anchor="middle" font-size="24" font-weight="700">모형 A · 퍼진 전하</text>
+      <path d="M48 250Q86 230 122 250T196 250T236 236" fill="none" stroke="#526b58" stroke-width="4" stroke-dasharray="8 7"/>
+      <text data-essential-label="diffuse-result" x="142" y="288" text-anchor="middle" font-size="22">작은 편향 누적에 어울림</text>
+      <rect x="292" y="180" width="252" height="124" rx="12" fill="#fff" stroke="#d5dfcc" stroke-width="2" data-model="localized-charge"/>
+      <text data-essential-label="localized" x="418" y="208" text-anchor="middle" font-size="24" font-weight="700">모형 B · 작은 중심</text>
+      <circle cx="418" cy="246" r="14" fill="#f3dcb0" stroke="#a56d30" stroke-width="3"/>
+      <path d="M318 224Q392 224 510 224M318 258Q390 258 366 240Q348 230 326 234" fill="none" stroke="#365c42" stroke-width="4" stroke-dasharray="8 7"/>
+      <text data-essential-label="localized-result" x="418" y="290" text-anchor="middle" font-size="22">작은 편향 + 드문 큰각 가능</text>
+    </g>
+    <text data-essential-label="scope" x="280" y="328" text-anchor="middle" font-size="22" fill="#526b58">정성 비교 · 수치·비율·히스토그램 아님</text>
+    <text data-essential-label="scope-detail" x="280" y="352" text-anchor="middle" font-size="22" fill="#526b58">원자료 아님 · 얇은 박 조건</text>
+  </g>
+</svg>

@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" role="img" aria-labelledby="title desc">
+  <title id="title">1912–1913년 정교화된 회전 검출 조립체의 개념도</title>
+  <desc id="desc">1912–1913년 후속 검증 장치의 설명용 개념도다. 왼쪽 알파 입자원과 조준 구멍이 가는 빔을 만들고 빔은 가운데 얇은 금박에 닿는다. 하나의 황화아연 검출면과 현미경 조립체가 0도 위치에 실선으로 있고, 90도와 140도 위치의 흐린 윤곽과 회전 호는 같은 조립체의 다른 위치임을 보인다. 초기 1907–1909년 장치 전체의 재현이 아니다.</desc>
+  <metadata>Original explanatory schematic of the refined 1912–1913 arrangement, authored for Knowledge Atlas, 2026-10-19. It is not a source-figure adaptation, historical reconstruction, scale drawing, measured trajectory, or dataset.</metadata>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L12 6L0 12Z" fill="#365c42"/></marker>
+  </defs>
+  <rect width="600" height="380" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text data-essential-label="heading" x="300" y="32" text-anchor="middle" font-size="26" font-weight="700">무엇을 보내고, 어느 방향에서 셌을까?</text>
+    <rect x="24" y="76" width="552" height="232" rx="16" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <g id="beam-apparatus">
+      <rect x="48" y="164" width="72" height="52" rx="12" fill="#e1eee3" stroke="#293f35" stroke-width="2"/>
+      <text data-essential-label="source" x="84" y="154" text-anchor="middle" font-size="22">알파 입자원</text>
+      <rect data-component="collimator" x="140" y="166" width="20" height="48" rx="4" fill="#d5dfcc" stroke="#293f35" stroke-width="2"/>
+      <line x1="120" y1="190" x2="286" y2="190" stroke="#365c42" stroke-width="5" marker-end="url(#arrow)"/>
+      <text data-essential-label="beam" x="202" y="174" text-anchor="middle" font-size="22">조준된 빔</text>
+      <rect data-component="thin-foil" x="294" y="126" width="12" height="128" rx="4" fill="#f3dcb0" stroke="#a56d30" stroke-width="2"/>
+      <text data-essential-label="foil" x="300" y="286" text-anchor="middle" font-size="22">얇은 금박</text>
+    </g>
+    <g id="angular-coverage" data-era="1912-1913-refined">
+      <path data-component="rotation-arc" d="M370 190A70 70 0 0 0 246 145" fill="none" stroke="#526b58" stroke-width="2" stroke-dasharray="7 7"/>
+      <line data-event="forward" x1="300" y1="190" x2="510" y2="190" stroke="#a56d30" stroke-width="4" marker-end="url(#arrow)"/>
+      <line data-event="side" x1="300" y1="190" x2="300" y2="86" stroke="#a56d30" stroke-width="4" marker-end="url(#arrow)"/>
+      <line data-event="backward" x1="300" y1="190" x2="190" y2="98" stroke="#a56d30" stroke-width="4" marker-end="url(#arrow)"/>
+      <path d="M356 190A56 56 0 0 0 300 134" fill="none" stroke="#526b58" stroke-width="2"/>
+      <text data-essential-label="zero" x="516" y="158" font-size="22">0°</text>
+      <text data-essential-label="ninety" x="328" y="102" font-size="22">90°</text>
+      <text data-essential-label="back" x="112" y="106" font-size="22">140°</text>
+      <g data-detector-assembly="primary">
+        <rect data-component="zinc-sulfide-screen" x="488" y="166" width="14" height="48" rx="5" fill="#f3dcb0" stroke="#a56d30" stroke-width="2"/>
+        <line x1="502" y1="190" x2="512" y2="182" stroke="#293f35" stroke-width="3"/>
+        <rect data-component="microscope" x="512" y="172" width="42" height="20" rx="7" fill="#e1eee3" stroke="#293f35" stroke-width="2"/>
+        <circle cx="548" cy="182" r="5" fill="#fff" stroke="#293f35" stroke-width="2"/>
+      </g>
+      <g data-detector-position="ghost" opacity=".32">
+        <rect x="278" y="74" width="44" height="12" rx="5" fill="#f3dcb0" stroke="#a56d30" stroke-width="2"/>
+        <line x1="300" y1="74" x2="292" y2="66" stroke="#293f35" stroke-width="3"/>
+        <rect x="280" y="48" width="40" height="18" rx="7" fill="#e1eee3" stroke="#293f35" stroke-width="2"/>
+      </g>
+      <g data-detector-position="ghost" opacity=".32" transform="rotate(-50 190 98)">
+        <rect x="184" y="74" width="12" height="48" rx="5" fill="#f3dcb0" stroke="#a56d30" stroke-width="2"/>
+        <line x1="184" y1="98" x2="174" y2="90" stroke="#293f35" stroke-width="3"/>
+        <rect x="134" y="80" width="40" height="18" rx="7" fill="#e1eee3" stroke="#293f35" stroke-width="2"/>
+      </g>
+      <text data-essential-label="detector" x="450" y="242" text-anchor="middle" font-size="22">검출면+현미경</text>
+      <text data-essential-label="era" x="450" y="270" text-anchor="middle" font-size="22">1912–13 정교화 예</text>
+      <text data-essential-label="ghosts" x="160" y="246" text-anchor="middle" font-size="22">흐린 위치=같은 조립체</text>
+      <text data-essential-label="rotation" x="160" y="274" text-anchor="middle" font-size="22">한 번에 한 각도</text>
+    </g>
+    <text data-essential-label="scope" x="300" y="334" text-anchor="middle" font-size="22" fill="#526b58">입사 방향=0° · 핵을 직접 본 것이 아님</text>
+    <text data-essential-label="scope-detail" x="300" y="360" text-anchor="middle" font-size="22" fill="#526b58">얇은 박: 다중 산란을 제한하지만 없애지 않음</text>
+  </g>
+</svg>
