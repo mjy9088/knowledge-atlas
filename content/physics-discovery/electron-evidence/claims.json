@@ -1,1 +1,57 @@
-[{"id":"claim:physics-discovery.electron-evidence.crossed-fields","kind":"historical-experimental-method","statement":"빔에 수직인 자기장과 반대 방향 전기장의 편향이 상쇄될 때 |q|E=|q|vB이므로 음극선 입자의 속도는 v=E/B이며, 전하 부호는 편향 방향으로 별도 판정한다.","scope":"고전적 장과 톰슨 장치의 속도 선택 설명. 장 균일도와 기하 보정이 필요하다.","assumptions":["빔 속도와 자기장이 수직임","전기력과 자기력이 반대 방향임","장이 측정 구간에서 충분히 균일함"],"sourceRefs":[{"sourceId":"source:openstax-college-physics-electrons-nuclei","locator":"§30.2, paragraph beginning ‘The English physicist J. J. Thomson’ and equations 30.1–30.3: perpendicular magnetic force, opposing electric force, and v=E/B"}],"reviewStatus":"draft-source-aligned"},{"id":"claim:physics-discovery.electron-evidence.charge-mass-ratio","kind":"measurement-boundary","statement":"속도 선택 뒤 자기장 속 원운동에서 |q|vB=mv²/r이므로 |q|/m=v/(Br)이며, 이 실험은 전하와 질량 각각이 아니라 그 비를 정한다.","scope":"OpenStax가 제공하는 자기력 |q|vB와 e/m 측정 경계에 구심가속도 v²/r를 결합해 독립적으로 유도한 원운동 단계. 후대의 독립 전하 측정과 결합하기 전이며 전자 질량 직접 측정이라는 표현을 배제한다.","assumptions":["속도와 곡률 측정이 같은 입자 빔을 가리킴","자기력이 구심력 역할을 함","속도와 자기장이 수직임"],"sourceRefs":[{"sourceId":"source:openstax-college-physics-electrons-nuclei","locator":"§30.2, equations 30.1–30.3 for |q|vB and paragraph after equations 30.4–30.5 stating qₑ/mₑ was measured first and charge was required to calculate mass; the radial balance with mv²/r is independently derived, not attributed to equations 30.4–30.5"}],"reviewStatus":"draft-source-aligned"},{"id":"claim:physics-discovery.electron-evidence.repeatability","kind":"historical-evidence-synthesis","statement":"톰슨은 시험한 기체와 전자를 방출시키는 방법을 바꾸어도 일관된 e/m을 보고했고 이를 물질에 공통된 음전하 성분의 근거로 해석했다.","scope":"OpenStax가 요약한 톰슨의 시험 범위이며 전극 재료나 모든 가능한 물질을 검사했다는 주장이 아니다.","assumptions":["장치 보정이 비교 사이 유지됨","관측된 빔 성분을 같은 방식으로 선택함"],"sourceRefs":[{"sourceId":"source:openstax-college-physics-electrons-nuclei","locator":"§30.2, paragraph beginning ‘Thomson performed a variety of experiments’: differing gases and methods of freeing electrons with the same properties"}],"reviewStatus":"draft-source-aligned-needs-history-review"}]
+[
+  {
+    "id": "claim:physics-discovery.electron-evidence.crossed-fields",
+    "kind": "historical-experimental-method",
+    "statement": "빔에 수직인 자기장과 반대 방향 전기장의 편향이 상쇄될 때 |q|E=|q|vB이므로 음극선 입자의 속도는 v=E/B이며, 전하 부호는 편향 방향으로 별도 판정한다.",
+    "scope": "고전적 장과 톰슨 장치의 속도 선택 설명. 장 균일도와 기하 보정이 필요하다.",
+    "assumptions": [
+      "전하와 속도가 0이 아님",
+      "빔 속도와 자기장이 수직임",
+      "전기력과 자기력이 반대 방향임",
+      "장이 측정 구간에서 충분히 균일하고 비상대론적 운동으로 근사함"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:openstax-college-physics-electrons-nuclei",
+        "locator": "§30.2, paragraph beginning ‘The English physicist J. J. Thomson’: crossed perpendicular electric and magnetic fields, opposing forces, and the zero-net-force result v=E/B; equations 30.1–30.3 separately give F=qₑE, a=F/mₑ, and a=qₑE/mₑ; the paragraph after equation 30.4 and before numerical equation 30.5 gives Fmag=qₑvB=mₑa"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:physics-discovery.electron-evidence.charge-mass-ratio",
+    "kind": "measurement-boundary",
+    "statement": "속도 선택 뒤 자기장 속 원운동에서 |q|vB=mv²/r이므로 |q|/m=v/(Br)이며, 이 실험은 전하와 질량 각각이 아니라 그 비를 정한다.",
+    "scope": "OpenStax가 제공하는 자기력 |q|vB와 e/m 측정 경계에 구심가속도 v²/r를 결합해 독립적으로 유도한 원운동 단계. 후대의 독립 전하 측정과 결합하기 전이며 전자 질량 직접 측정이라는 표현을 배제한다.",
+    "assumptions": [
+      "선택한 속도와 곡률 측정이 같은 비상대론적 입자 빔을 가리킴",
+      "자기장만 켠 구간이 충분히 균일하고 다른 횡방향 힘을 무시할 수 있음",
+      "0이 아닌 속도가 자기장에 수직이고 전하가 0이 아님",
+      "곡률 반지름 r이 0보다 큼",
+      "자기력이 구심력 역할을 함"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:openstax-college-physics-electrons-nuclei",
+        "locator": "§30.2, paragraph after equation 30.4 and before numerical equation 30.5: with velocity known, magnetic bending gives another qₑ/mₑ measurement and Fmag=qₑvB=mₑa; later Millikan discussion and equations 30.9–30.11 state that independent charge combined with charge-to-mass ratio permits mass calculation. The radial substitution a=v²/r and balance |q|vB=mv²/r are independently derived and are not attributed to equations 30.4–30.5"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:physics-discovery.electron-evidence.repeatability",
+    "kind": "historical-evidence-synthesis",
+    "statement": "OpenStax의 요약에서 톰슨은 시험한 방전관 기체와 전자를 방출시키는 방법을 바꾸어도 전자의 같은 성질을 얻었고, 이를 독립된 공통 입자의 근거로 해석했다.",
+    "scope": "OpenStax가 요약한 시험 범위에 한정한다. 같은 e/m을 반복 측정했다거나 전극 재료 또는 모든 가능한 물질을 검사했다는 주장으로 확장하지 않는다.",
+    "assumptions": [
+      "교과서가 요약한 서로 다른 기체와 전자 방출 방법의 범위에 한정함"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:openstax-college-physics-electrons-nuclei",
+        "locator": "§30.2, paragraph beginning ‘Thomson performed a variety of experiments’: differing discharge-tube gases and other methods of freeing electrons, followed by the statement that he found the same properties for the electron"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned-needs-history-review"
+  }
+]
