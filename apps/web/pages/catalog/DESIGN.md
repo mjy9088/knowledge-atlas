@@ -35,9 +35,9 @@ The catalog uses `Segoe UI`, `Malgun Gothic`, `Noto Sans CJK KR`, Arial, `Libera
 
 The extracted base unit is 4px. Catalog-owned spacing uses `--catalog-space-1: 4px`, `--catalog-space-2: 8px`, `--catalog-space-3: 12px`, `--catalog-space-4: 16px`, `--catalog-space-6: 24px`, and `--catalog-space-8: 32px`.
 
-The content limiter remains 1120px, widening to the existing 1500px at wide desktop. Enhanced desktop pages use one bounded viewport frame and a 12-card grid; narrow and unenhanced documents use normal document scrolling. No container hides overflow. The grid is four columns on wide desktop, three on standard desktop, and one on narrow screens.
+The content limiter remains 1120px, widening to the existing 1500px at wide desktop. Enhanced desktop pages use one bounded viewport frame and a 12-card grid; narrow and unenhanced documents use normal document scrolling. No container hides overflow. The grid uses four columns from 1200px upward so the bounded frame provides three intrinsic rows with enough block space for Korean fallback fonts; 1000–1199px uses three columns, and narrow screens use one column.
 
-At 1000–1599px enhanced desktop widths, cards use `--catalog-space-2` block padding and `--catalog-space-4` inline padding. This extracted compact density preserves the existing type scale while allowing four grid rows to fit the 900px supported height without clipping.
+At 1000–1599px enhanced desktop widths, cards use `--catalog-space-2` block padding and `--catalog-space-4` inline padding. This extracted compact density preserves the existing type scale; at 1200px and above, the four-column layout gives each of the three rows enough intrinsic block space for supported fallback fonts without clipping.
 
 ## 5. Components
 
