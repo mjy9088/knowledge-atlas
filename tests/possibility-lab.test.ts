@@ -14,7 +14,7 @@ test('draws and frames are reproducible independent of traversal, with validated
  const s=initialLabState('monty-hall'),a=labFrameAt(s,5000);labFrameAt(s,400000);assert.deepEqual(labFrameAt(s,5000),a);
  assert.deepEqual(labTrial(a,13),labTrial({...a,count:1},13));assert.equal(a.count,100);
  assert.equal(labFrameAt(s,1e12).count,10000);assert.equal(labSummary(s).rate,null);
- for(const bad of [{...s,count:-1},{...s,seed:NaN},{...s,mode:'child'},{...s,edges:16},{...s,revealed:1}])assert.throws(()=>validateLabState(bad,s.topic));
+  for(const bad of [{...s,count:-1},{...s,seed:NaN},{...s,mode:'child'},{...s,edges:16},{...s,revealed:1},{...s,unexpected:true}])assert.throws(()=>validateLabState(bad,s.topic));
  assert.throws(()=>labFrameAt(s,Infinity));assert.throws(()=>labFrameAt(s,-1));
 });
 test('relation selection preserves direction and checks exactly one image for every input',()=>{

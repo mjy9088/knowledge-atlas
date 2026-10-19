@@ -3,11 +3,13 @@ import {familyObservation,montyObservation} from './finite-observations.js';
 export type LabTopic='binary-relations'|'monty-hall'|'two-children';
 export interface LabState {topic:LabTopic;seed:number;count:number;stage:number;edges:number;choice:number;mode:'informed'|'blind'|'filter'|'child';revealed:boolean;processSelected:boolean}
 export const MAX_TRIALS=10000;
+const LAB_STATE_KEYS=['topic','seed','count','stage','edges','choice','mode','revealed','processSelected'] as const;
+function isRecord(value:unknown):value is Record<string,unknown>{return Boolean(value)&&typeof value==='object'&&!Array.isArray(value);}
 export function initialLabState(topic:LabTopic):LabState{return{topic,seed:42,count:0,stage:0,edges:11,choice:1,mode:topic==='two-children'?'filter':'informed',revealed:false,processSelected:false};}
 export function validateLabState(value:unknown,topic:LabTopic):asserts value is LabState{
- if(!value||typeof value!=='object')throw new RangeError('Invalid lab state');
- const s=value as LabState;
- if(!['binary-relations','monty-hall','two-children'].includes(topic)||s.topic!==topic||!Number.isInteger(s.seed)||s.seed<0||s.seed>0xffffffff||!Number.isInteger(s.count)||s.count<0||s.count>MAX_TRIALS||!Number.isInteger(s.stage)||s.stage<0||s.stage>3||!Number.isInteger(s.edges)||s.edges<0||s.edges>15||!Number.isInteger(s.choice)||s.choice<1||s.choice>3||typeof s.revealed!=='boolean'||typeof s.processSelected!=='boolean'||!(topic==='two-children'?['filter','child']:['informed','blind']).includes(s.mode))throw new RangeError('Invalid lab state');
+ if(!isRecord(value)||Object.keys(value).some(key=>!LAB_STATE_KEYS.some(allowed=>allowed===key)))throw new RangeError('Invalid lab state');
+ const seed=value['seed'],count=value['count'],stage=value['stage'],edges=value['edges'],choice=value['choice'],mode=value['mode'];
+ if(value['topic']!==topic||typeof seed!=='number'||!Number.isInteger(seed)||seed<0||seed>0xffffffff||typeof count!=='number'||!Number.isInteger(count)||count<0||count>MAX_TRIALS||typeof stage!=='number'||!Number.isInteger(stage)||stage<0||stage>3||typeof edges!=='number'||!Number.isInteger(edges)||edges<0||edges>15||typeof choice!=='number'||!Number.isInteger(choice)||choice<1||choice>3||typeof value['revealed']!=='boolean'||typeof value['processSelected']!=='boolean'||typeof mode!=='string'||!(topic==='two-children'?['filter','child']:['informed','blind']).includes(mode))throw new RangeError('Invalid lab state');
 }
 // Counter-based draws make every prefix and sampled frame independent of playback history.
 export function draw(seed:number,index:number,lane:number){let x=(seed^Math.imul(index+1,0x9e3779b9)^Math.imul(lane+1,0x85ebca6b))>>>0;x=Math.imul(x^(x>>>16),0x7feb352d);x=Math.imul(x^(x>>>15),0x846ca68b);return((x^(x>>>16))>>>0)/4294967296;}
