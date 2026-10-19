@@ -275,10 +275,10 @@
 @media(max-width:1100px){.weekday-reading-comparison{font-size:11px;padding:2px 4px}}
 
 /* Only scene actions belong in the explanation rail; help stays in button tooltips. */
-.reader-enhanced [data-focus-reader]>.reader-action-rail{grid-template-rows:max-content minmax(0,1fr);align-content:start;gap:4px}
-.reader-enhanced [data-focus-reader] .reader-controls{grid-template-rows:28px 28px;align-content:start;gap:4px}
-.reader-enhanced [data-focus-reader] .reader-controls #reader-prev{grid-row:1;min-height:28px}
-.reader-enhanced [data-focus-reader] .reader-controls #reader-next{grid-row:2;min-height:28px;block-size:28px}
+.reader-enhanced [data-focus-reader]>.reader-action-rail{grid-template-rows:44px 44px;align-content:start;gap:4px}
+.reader-enhanced [data-focus-reader] .reader-controls{grid-template-columns:repeat(2,minmax(44px,1fr));grid-template-rows:44px;align-content:start;gap:4px}
+.reader-enhanced [data-focus-reader] .reader-controls #reader-prev{grid-column:1;grid-row:1;min-height:44px;block-size:44px;line-height:1.2}
+.reader-enhanced [data-focus-reader] .reader-controls #reader-next{grid-column:2;grid-row:1;min-height:44px;block-size:44px;line-height:1.2;white-space:normal;overflow-wrap:anywhere}
 .weekday-sentence .alignment-status{position:absolute!important;width:1px;height:1px;min-height:0!important;padding:0;margin:0!important;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 
 /* A single heading row and tight prose padding recover space for the experiment. */
@@ -294,7 +294,7 @@
  .reader-enhanced [data-focus-reader] .reader-scene-heading>.eyebrow{font-size:8px}
 }
 @media(max-width:720px){
- .reader-enhanced .related-reader[data-focus-reader][data-page]{grid-template-rows:minmax(0,1fr) 136px}
+ .reader-enhanced .related-reader[data-focus-reader][data-page]{grid-template-columns:minmax(0,1fr) 92px;grid-template-rows:minmax(0,1fr) 136px}
  .reader-enhanced [data-focus-reader] .reader-dialogue{padding:5px 8px}
  .reader-enhanced [data-focus-reader] .reader-scene-heading{gap:6px;margin-bottom:3px}
  .reader-enhanced [data-focus-reader] .reader-scene-heading>.eyebrow{font-size:8px}

@@ -14,6 +14,9 @@
 @media(min-width:1200px){.knowledge-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .reader-enhanced .related-reader[data-mode=reading] .reader-scene[data-visual=none]{grid-template-rows:minmax(0,1fr)}
 .reader-enhanced .related-reader[data-mode=interactive] .reader-workbench{grid-template-rows:minmax(0,1fr)}
+.reader-enhanced .reader-menu summary,.reader-enhanced .reader-controls>button{min-height:44px;min-width:44px}
+@media(max-width:720px){.reader-enhanced .related-reader[data-page=continuum-hypothesis] .premise-experiment{grid-template-columns:minmax(0,1fr) 148px}}
+@media(max-width:720px){.reader-enhanced #lesson-dialogue-copy{max-block-size:176px}}
 .knowledge-card h2,.reader-intro h1,.reader-copy h2{word-break:keep-all;overflow-wrap:anywhere}
 .reader-enhanced [data-mode=reading] .reader-scene[data-visual=none] .reader-dialogue{display:flex;flex-direction:column;justify-content:center;padding:36px 48px}
 .reader-enhanced [data-mode=reading] .reader-scene[data-visual=none] .reader-copy{max-height:none;overflow:visible;max-width:760px;width:100%;margin-inline:auto}
