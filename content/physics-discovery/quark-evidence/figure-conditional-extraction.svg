@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" role="img" aria-labelledby="title desc" data-representation="qualitative-schematic" data-source-data="none" data-warning="not-two-constants">
+  <title id="title">두 구조함수와 두 모형 추출 극단</title>
+  <desc id="desc">6도와 10도 작은 각도 자료는 함수 W1과 W2를 따로 정하지 못한다. R이 0인 횡편광 우세와 R이 무한대로 가는 종편광 우세는 W2 추출을 위한 모형의 극단이며 측정 오차 띠가 아니다.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L10 5L0 10Z" fill="#365c42"/></marker></defs>
+  <rect width="600" height="380" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="300" y="34" text-anchor="middle" font-size="26" font-weight="700">측정 조합 ≠ W₁·W₂의 개별 측정</text>
+    <rect x="22" y="64" width="164" height="220" rx="14" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <text x="104" y="104" text-anchor="middle" font-size="24" font-weight="700">작은 각도</text><text x="104" y="150" text-anchor="middle" font-size="24">6° 자료</text><text x="104" y="192" text-anchor="middle" font-size="24">10° 자료</text><text x="104" y="240" text-anchor="middle" font-size="24">운동학이 다름</text>
+    <line data-arrow="measurements-to-functions" x1="188" y1="174" x2="224" y2="174" stroke="#365c42" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="228" y="64" width="152" height="220" rx="14" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <text x="304" y="104" text-anchor="middle" font-size="24" font-weight="700">미지 함수</text><text data-unknown="W1" data-kind="function" x="304" y="158" text-anchor="middle" font-size="24">W₁(Q², ν)</text><text data-unknown="W2" data-kind="function" x="304" y="208" text-anchor="middle" font-size="24">W₂(Q², ν)</text><text x="304" y="254" text-anchor="middle" font-size="24">두 상수 아님</text>
+    <line data-arrow="functions-to-bounds" x1="382" y1="174" x2="418" y2="174" stroke="#365c42" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="422" y="64" width="156" height="220" rx="14" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <text x="500" y="104" text-anchor="middle" font-size="24" font-weight="700">R=σL/σT</text>
+    <text data-r-bound="zero" data-extraction="transverse-dominance" x="500" y="158" text-anchor="middle" font-size="24">R=0 · 횡 우세</text>
+    <text data-r-bound="infinity" data-extraction="longitudinal-dominance" x="500" y="208" text-anchor="middle" font-size="24">R→∞ · 종 우세</text>
+    <text x="500" y="254" text-anchor="middle" font-size="24">추출 극단</text>
+    <text x="300" y="326" text-anchor="middle" font-size="24" fill="#526b58">두 극단은 측정된 오차 띠가 아님</text>
+    <text x="300" y="362" text-anchor="middle" font-size="24" fill="#526b58">각 가정에서 νW₂ 결과를 따로 비교</text>
+  </g>
+</svg>
