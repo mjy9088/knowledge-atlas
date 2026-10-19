@@ -1,1 +1,50 @@
-{"id":"article:physics-discovery.quantum-spectra.ko","conceptId":"concept:physics.quantum-spectra","title":"원자의 빛은 왜 몇 가지 색으로만 나타날까요?","shortTitle":"선 스펙트럼은 무엇을 말할까요?","reviewStatus":"needs-content-review","scope":"저압에서 들뜬 원자 수소의 선 스펙트럼과 에너지 차이·광자 관계, 보어 모형의 성공과 한계. 에너지 차이만으로 모든 선의 관측 여부나 밝기가 정해지거나 고전적 원 궤도가 실제 경로라고 주장하지 않습니다.","blocks":[{"id":"block:physics-discovery.quantum-spectra.question","text":"저압 기체 속 원자 수소를 들뜨게 한 뒤 빛을 파장별로 나누면 무지개 전체가 아니라 몇 개의 선이 나타납니다. 왜 원자는 아무 에너지로나 빛을 내지 않고 특정 파장만 드러낼까요?","claimRefs":["claim:physics-discovery.quantum-spectra.lines"]},{"id":"block:physics-discovery.quantum-spectra.pattern","text":"NIST 표의 공기 중 발머선은 반올림하면 약 656.3, 486.1, 434.0, 410.2 nm입니다. 이 값들은 n=2와 연결된 리드베리 관계로 정리됩니다. 규칙은 관측값을 압축하지만 그 자체가 원인을 설명하지는 않습니다.","claimRefs":["claim:physics-discovery.quantum-spectra.lines"]},{"id":"block:physics-discovery.quantum-spectra.energy","text":"광자 에너지의 정확한 관계는 E=hν이고, 진공 파장에는 E=hc/λvac를 쓸 수 있습니다. NIST 공기 파장은 λvac=nλair이며 n≈1로 근사하면 410 nm는 약 3.02 eV, 656 nm는 약 1.89 eV입니다. 전이 종류와 확률, 들뜬 원자 수가 선의 관측 여부와 밝기에 관여하므로 에너지 차이만으로 모든 선의 존재나 밝기가 정해지지는 않습니다.","claimRefs":["claim:physics-discovery.quantum-spectra.energy-differences"]},{"id":"block:physics-discovery.quantum-spectra.bohr","text":"보어 모형은 수소의 에너지를 n에 따라 양자화해 발머·리드베리 식을 재현했습니다. 이것은 수소 스펙트럼을 설명한 중요한 성공이지만, 전자가 고전 행성처럼 정해진 원을 돈다는 그림을 현대의 관측 사실로 만들지는 않습니다.","claimRefs":["claim:physics-discovery.quantum-spectra.bohr-limit"]},{"id":"block:physics-discovery.quantum-spectra.limit","text":"보어 모형은 헬륨과 다전자 원자를 정확히 설명하지 못했습니다. 현대 양자역학은 전자를 확률 진폭의 상태로 기술하지만, 방출된 광자의 에너지가 상태 에너지 차이와 연결된다는 관계는 남습니다.","claimRefs":["claim:physics-discovery.quantum-spectra.bohr-limit","claim:physics-discovery.quantum-spectra.energy-differences"]},{"id":"block:physics-discovery.quantum-spectra.transfer","text":"410 nm와 656 nm 공기 파장에서 n≈1로 두면 어느 전이의 에너지 차이가 클까요? E≈hc/λair이므로 410 nm의 약 3.02 eV가 656 nm의 약 1.89 eV보다 큽니다. 하지만 선 밝기는 전이 확률과 들뜬 원자 수에도 달려 있으므로 이 비교만으로 정할 수 없습니다.","claimRefs":["claim:physics-discovery.quantum-spectra.energy-differences"]}],"relatedConcepts":[]}
+{
+  "id": "article:physics-discovery.quantum-spectra.ko",
+  "conceptId": "concept:physics.quantum-spectra",
+  "title": "선택한 수소 발머 전이의 파장은 무엇을 말할까요?",
+  "shortTitle": "발머선 파장은 무엇을 말할까요?",
+  "reviewStatus": "needs-content-review",
+  "scope": "NIST 표에서 고른 원자 수소 발머 전이의 공기 파장과 개별 한 광자의 에너지 차이, 전이율·상위 상태 수밀도가 정하는 국소 선 방출률, 관측 밝기의 추가 조건, 보어 모형의 수소 성공과 다전자 한계. 표의 네 전이가 완전한 수소 스펙트럼이라고 주장하거나, 국소 방출률을 관측 밝기와 동일시하거나, 고전적 원 궤도를 실제 경로로 해석하지 않습니다.",
+  "blocks": [
+    {
+      "id": "block:physics-discovery.quantum-spectra.question",
+      "text": "NIST 원자 수소 표에서 고른 발머 전이 2–3부터 2–6은 각각 656.3, 486.1, 434.0, 410.2 nm의 공기 파장에 놓입니다. 이 선택한 파장과 준위 번호는 원자의 에너지 차이에 대해 무엇을 말할까요?",
+      "claimRefs": ["claim:physics-discovery.quantum-spectra.lines"]
+    },
+    {
+      "id": "block:physics-discovery.quantum-spectra.pattern",
+      "text": "NIST 표에서 고른 원자 수소 발머 전이의 공기 파장은 반올림하면 약 656.3, 486.1, 434.0, 410.2 nm입니다. 이 위치들은 위 껍질의 주양자수 n_k=3, 4, 5, 6에서 아래 껍질의 주양자수 n_i=2로 이어지는 수소의 리드베리 관계로 정리됩니다. 이 네 행은 선택한 선 위치의 수치 규칙을 보여 주지만 관측 밝기나 저압 조건을 제공하지는 않습니다.",
+      "claimRefs": ["claim:physics-discovery.quantum-spectra.lines"]
+    },
+    {
+      "id": "block:physics-discovery.quantum-spectra.energy",
+      "text": "여기서 h는 플랑크 상수, ν는 빛의 진동수, c는 진공에서의 빛의 속도입니다. 개별 한 광자 전이의 정확한 관계는 |⁠ΔE⁠|⁠=⁠hν⁠=⁠hc⁠/⁠λvac입니다. 공기와 진공에서 진동수는 같으므로 공기의 위상 굴절률 nₐᵢᵣ를 쓰면 λvac=nₐᵢᵣλair입니다. eV는 원자 규모의 에너지를 나타내는 전자볼트입니다. nₐᵢᵣ≈1과 hc≈1239.84 eV·nm를 적용하면 410.2 nm는 약 3.02 eV, 656.3 nm는 약 1.89 eV입니다. 그러나 에너지 일치는 한 광자 선에 필요한 조건일 뿐 그 선의 관측 여부나 밝기를 혼자 정하지 않습니다. NIST 식 (13)의 국소 선 방출률 εline=(4π)⁻¹hνAkiNk에서 Aki는 s⁻¹ 단위의 전이율이고 Nk는 m⁻³ 단위의 상위 준위 들뜬 원자 수밀도입니다. 실제 관측 밝기에는 불투명도, 광원 기하, 기기 응답도 관여합니다. E1뿐 아니라 방사 가능한 M1·E2 전이도 있습니다.",
+      "claimRefs": ["claim:physics-discovery.quantum-spectra.energy-differences"]
+    },
+    {
+      "id": "block:physics-discovery.quantum-spectra.bohr",
+      "text": "보어 모형은 이상화한 수소 에너지를 E_n≈−13.6 eV/n²로 두어 발머·리드베리 식을 재현했습니다. 이 근사식은 n_k=3→n_i=2에 약 656 nm, n_k=6→n_i=2에 약 410 nm의 진공 파장을 예측하며, 각각 NIST 표의 반올림한 공기 파장 656.3 nm와 410.2 nm에 대응합니다. 이것은 수소 스펙트럼을 설명한 중요한 성공이지만, 준위 사이 화살표를 전자가 고전 행성처럼 정해진 원을 따라 이동한 실제 경로로 읽어서는 안 됩니다.",
+      "claimRefs": [
+        "claim:physics-discovery.quantum-spectra.bohr-limit",
+        "claim:physics-discovery.quantum-spectra.lines"
+      ]
+    },
+    {
+      "id": "block:physics-discovery.quantum-spectra.limit",
+      "text": "보어 모형은 헬륨과 다전자 원자의 스펙트럼을 정확히 예측하지 못했고 정해진 고전 궤도라는 가정도 현대 모형의 상태 기술이 아닙니다. 현대 양자역학에서는 원자 안 전자의 상태를 파동함수 ψ로 나타내며 |⁠ψ⁠|²는 위치에 따른 확률 밀도입니다. 모형이 달라져도 방출된 한 광자의 에너지가 상태 에너지 차이와 연결된다는 |⁠ΔE⁠|⁠=⁠hν 관계는 남습니다.",
+      "claimRefs": [
+        "claim:physics-discovery.quantum-spectra.bohr-limit",
+        "claim:physics-discovery.quantum-spectra.energy-differences"
+      ]
+    },
+    {
+      "id": "block:physics-discovery.quantum-spectra.transfer",
+      "text": "410.2 nm와 656.3 nm 공기 파장에서 nₐᵢᵣ≈1로 두면 어느 전이의 에너지 차이가 클까요? E≈hc/λair이므로 410.2 nm의 약 3.02 eV가 656.3 nm의 약 1.89 eV보다 큽니다. 그러나 Aki와 Nk 값이 없으면 국소 선 방출률을 비교할 수 없고, 불투명도·광원 기하·기기 응답이 없으면 어느 선이 더 밝게 관측될지도 정할 수 없습니다.",
+      "claimRefs": ["claim:physics-discovery.quantum-spectra.energy-differences"]
+    }
+  ],
+  "relatedConcepts": [
+    "concept:quantum.atomic-orbital",
+    "concept:physics.photoelectric-evidence"
+  ]
+}
