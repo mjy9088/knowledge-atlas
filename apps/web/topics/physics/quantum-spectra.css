@@ -1,0 +1,47 @@
+.reader-enhanced [data-page="quantum-spectra"] .reader-dialogue,
+.reader-enhanced [data-page="quantum-spectra"] .scene-figure,
+.reader-enhanced [data-page="quantum-spectra"] .scene-figure figcaption,
+.reader-enhanced [data-page="quantum-spectra"] .concept-diagram > span:not(.concept-connector) {
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+  text-wrap: pretty;
+}
+
+.reader-enhanced [data-page="quantum-spectra"] .scene-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.reader-enhanced [data-page="quantum-spectra"] .scene-figure figcaption {
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.reader-enhanced [data-page="quantum-spectra"] .concept-diagram > span:not(.concept-connector) {
+  padding: 12px 16px;
+  font-size: 24px;
+  line-height: 1.5;
+}
+
+@media (max-width: 720px) {
+  .reader-enhanced [data-page="quantum-spectra"] .concept-diagram {
+    flex-direction: column;
+  }
+
+  .reader-enhanced [data-page="quantum-spectra"] .concept-diagram > span:not(.concept-connector) {
+    width: 100%;
+    font-size: 17px;
+  }
+
+  .reader-enhanced [data-page="quantum-spectra"] .scene-figure figcaption {
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  .reader-enhanced [data-page="quantum-spectra"] #limit .reader-copy {
+    max-height: none;
+    overflow: visible;
+  }
+}
