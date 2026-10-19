@@ -2,19 +2,19 @@ export type RepresentationTechnology='dom'|'svg'|'canvas-2d'|'webgl-2';
 export type RepresentationFit='semantic-text'|'controls'|'tables'|'labelled-2d'|'exact-2d-relationships'|'sampled-images'|'dense-2d-drawing'|'spatial-fields'|'depth-occlusion'|'complex-surfaces'|'dense-model-geometry';
 
 export type RepresentationSelectionPolicy={
-  readonly version:1;
+  readonly version:2;
   readonly selectionBasis:'explanatory-need';
   readonly choices:readonly {readonly technology:RepresentationTechnology;readonly explanatoryFits:readonly RepresentationFit[]}[];
   readonly execution:{readonly adapterMode:'registered-only';readonly embeddedExecutablePayloads:'forbidden'};
   readonly geometry:{readonly source:'pure-model-or-authored-data';readonly coordinateAndScaleConventions:'required';readonly numericalAndRenderingLimits:'required'};
   readonly state:{readonly getState:'required';readonly setState:'validated';readonly reset:'required';readonly independentSeek:'required-when-time-based'};
-  readonly fallback:{readonly usableAlternative:'required';readonly limitationsDisclosure:'required';readonly gpuUnavailable:'required-for-webgl-2';readonly contextLoss:'required-for-webgl-2'};
+  readonly availability:{readonly alternateRenderer:'not-required';readonly unsupportedRenderer:'explicit-unavailable-state';readonly contextLoss:'clear-stale-output-and-preserve-state'};
   readonly accessibility:{readonly explanatoryAlternative:'required'};
   readonly resources:{readonly disposal:'required-for-canvas-2d-and-webgl-2'};
 };
 
 export const REPRESENTATION_SELECTION_POLICY={
-  version:1,
+  version:2,
   selectionBasis:'explanatory-need',
   choices:[
     {technology:'dom',explanatoryFits:['semantic-text','controls','tables']},
@@ -25,7 +25,7 @@ export const REPRESENTATION_SELECTION_POLICY={
   execution:{adapterMode:'registered-only',embeddedExecutablePayloads:'forbidden'},
   geometry:{source:'pure-model-or-authored-data',coordinateAndScaleConventions:'required',numericalAndRenderingLimits:'required'},
   state:{getState:'required',setState:'validated',reset:'required',independentSeek:'required-when-time-based'},
-  fallback:{usableAlternative:'required',limitationsDisclosure:'required',gpuUnavailable:'required-for-webgl-2',contextLoss:'required-for-webgl-2'},
+  availability:{alternateRenderer:'not-required',unsupportedRenderer:'explicit-unavailable-state',contextLoss:'clear-stale-output-and-preserve-state'},
   accessibility:{explanatoryAlternative:'required'},
   resources:{disposal:'required-for-canvas-2d-and-webgl-2'}
 } as const satisfies RepresentationSelectionPolicy;

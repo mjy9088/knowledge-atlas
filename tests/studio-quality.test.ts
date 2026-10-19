@@ -92,7 +92,7 @@ test('handoff packets bind the machine-readable representation policy without ch
   const feedback=[{id:'feedback-1',slideId:'question',text:'Keep the accepted comparison.',resolved:false,revision:'current'}];
   const topic={plan:EXAMPLES[0],revision:'current',jobs:[],feedback,gate:{ready:false,reasons:[]}};
   const expectedPolicy={
-    version:1,
+    version:2,
     selectionBasis:'explanatory-need',
     choices:[
       {technology:'dom',explanatoryFits:['semantic-text','controls','tables']},
@@ -103,7 +103,7 @@ test('handoff packets bind the machine-readable representation policy without ch
     execution:{adapterMode:'registered-only',embeddedExecutablePayloads:'forbidden'},
     geometry:{source:'pure-model-or-authored-data',coordinateAndScaleConventions:'required',numericalAndRenderingLimits:'required'},
     state:{getState:'required',setState:'validated',reset:'required',independentSeek:'required-when-time-based'},
-    fallback:{usableAlternative:'required',limitationsDisclosure:'required',gpuUnavailable:'required-for-webgl-2',contextLoss:'required-for-webgl-2'},
+    availability:{alternateRenderer:'not-required',unsupportedRenderer:'explicit-unavailable-state',contextLoss:'clear-stale-output-and-preserve-state'},
     accessibility:{explanatoryAlternative:'required'},
     resources:{disposal:'required-for-canvas-2d-and-webgl-2'}
   };
