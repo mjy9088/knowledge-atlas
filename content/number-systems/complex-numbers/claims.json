@@ -21,9 +21,9 @@
     "id": "claim:number-systems.complex.rotation",
     "kind": "formal",
     "statement": "복소평면에서 i를 곱하는 변환은 (a,b)를 (-b,a)로 보내며, 0은 고정하고 0이 아닌 점은 길이를 보존한 채 원점 중심으로 반시계 90도 회전시킨다. 각도는 360° 또는 2π의 정수배를 법으로 이해한다.",
-    "scope": "i에 의한 곱셈에 한정한다. 각도 증가는 z≠0일 때만 말하며 z=0의 각도를 정의하지 않는다. 일반 복소수 곱셈은 0이 아닌 수에 대해 크기 조절과 2π를 법으로 한 각도 덧셈으로 확장된다.",
+    "scope": "i에 의한 곱셈에 한정한다. 각도 증가는 z≠0일 때만 말한다. 이 글은 자체 서술 규약으로 z=0의 방향각을 정의하지 않는다. Beck §1.2 기하 성질 7은 0에 모든 실수 각을 허용하므로, 이 규약은 그 자료의 0 각도 관례를 인용한 것이 아니다. 일반 복소수 곱셈은 0이 아닌 수에 대해 크기 조절과 2π를 법으로 한 각도 덧셈으로 확장된다.",
     "assumptions": ["복소수 a+bi를 평면의 점 (a,b)로 나타낸다", "i(a+bi)=-b+ai", "각도에 관한 문장에서는 z≠0", "각도는 2π의 정수배 차이를 같은 방향으로 본다"],
-    "sourceRefs": [{"sourceId":"source:beck-first-course-complex-analysis","locator":"§1.2, geometric interpretation of multiplication: for nonzero factors arguments add modulo 2π and moduli multiply; specialize to i of modulus 1 and argument π/2"}],
+    "sourceRefs": [{"sourceId":"source:beck-first-course-complex-analysis","locator":"Live HTML §1.2, Geometric Property 17 (#geomprop-17): nonzero factors add arguments modulo 2π and multiply moduli; specialize to i of modulus 1 and argument π/2. Geometric Property 7 (#geomprop-7) permits every real angle for zero, unlike this episode's explicit convention."}],
     "reviewStatus": "draft-source-aligned"
   },
   {
