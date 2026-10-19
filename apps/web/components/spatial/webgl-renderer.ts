@@ -35,13 +35,13 @@ function resources(gl:WebGL2RenderingContext):Resources|null{
 function deleteResources(gl:WebGL2RenderingContext,current:Resources|null):void{if(!current)return;gl.deleteBuffer(current.buffer);gl.deleteProgram(current.program);}
 
 export function createWebGLRenderer(options:Options):WebGLRenderer{
-  const {canvas}=options;let disposed=false,status:RenderBackend={requested:'webgl2',active:'canvas2d',status:'unavailable'};
+  const {canvas}=options;let disposed=false,status:RenderBackend={requested:'webgl2',active:'none',status:'unavailable'};
   let gl=(options.createContext??(target=>target.getContext('webgl2',{alpha:false,antialias:true,preserveDrawingBuffer:true})))(canvas);
   let current=gl?resources(gl):null;
   const report=(next:RenderBackend)=>{if(next.requested===status.requested&&next.active===status.active&&next.status===status.status)return;status={...next};options.onStatusChange({...next});};
-  if(gl&&current)report({requested:'webgl2',active:'canvas2d',status:'ready'});else if(gl)report({requested:'webgl2',active:'canvas2d',status:'failed'});else options.onStatusChange({...status});
-  const lost=(event:Event)=>{event.preventDefault();if(disposed)return;current=null;report({requested:'webgl2',active:'canvas2d',status:'context-lost'});options.onRedraw();};
-  const restored=()=>{if(disposed||!gl)return;current=resources(gl);if(!current)report({requested:'webgl2',active:'canvas2d',status:'failed'});options.onRedraw();if(current&&status.status==='context-lost')report({requested:'webgl2',active:'canvas2d',status:'ready'});};
+  if(gl&&current)report({requested:'webgl2',active:'none',status:'ready'});else if(gl)report({requested:'webgl2',active:'none',status:'failed'});else options.onStatusChange({...status});
+  const lost=(event:Event)=>{event.preventDefault();if(disposed)return;current=null;report({requested:'webgl2',active:'none',status:'context-lost'});options.onRedraw();};
+  const restored=()=>{if(disposed||!gl)return;current=resources(gl);if(!current)report({requested:'webgl2',active:'none',status:'failed'});options.onRedraw();if(current&&status.status==='context-lost')report({requested:'webgl2',active:'none',status:'ready'});};
   canvas.addEventListener('webglcontextlost',lost);canvas.addEventListener('webglcontextrestored',restored);
   return{
     canvas,
@@ -54,7 +54,7 @@ export function createWebGLRenderer(options:Options):WebGLRenderer{
       if(input.mode==='surface'){gl.enableVertexAttribArray(current.normal);gl.vertexAttribPointer(current.normal,3,gl.FLOAT,false,stride,16);}else{gl.disableVertexAttribArray(current.normal);gl.vertexAttrib3f(current.normal,0,0,1);}
       const minimum=Math.min(width,height),zoom=input.view.zoom/input.frame.halfExtent;gl.uniform2f(current.scale,minimum*zoom/width,minimum*zoom/height);gl.uniform3f(current.center,...input.frame.center);gl.uniform1f(current.depthRadius,input.frame.depthRadius);gl.uniform2f(current.yawPitch,input.view.yaw,input.view.pitch);gl.uniform4fv(current.colors,new Float32Array([...options.colors[0],...options.colors[1]]));gl.uniform1i(current.pointMode,input.mode==='cloud'?1:0);gl.uniform1f(current.pointSize,3.2*input.dpr);
       if(input.mode==='cloud'){gl.disable(gl.DEPTH_TEST);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.drawArrays(gl.POINTS,0,input.cloud.length);}else{gl.disable(gl.BLEND);gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.drawArrays(gl.TRIANGLES,0,input.surface.length*3);}
-      gl.finish();const error=gl.getError();if(error===gl.NO_ERROR){report({requested:'webgl2',active:'webgl2',status:'ready'});return true;}if(gl.isContextLost()){current=null;report({requested:'webgl2',active:'canvas2d',status:'context-lost'});return false;}deleteResources(gl,current);current=null;report({requested:'webgl2',active:'canvas2d',status:'failed'});return false;
+      gl.finish();const error=gl.getError();if(error===gl.NO_ERROR){report({requested:'webgl2',active:'webgl2',status:'ready'});return true;}if(gl.isContextLost()){current=null;report({requested:'webgl2',active:'none',status:'context-lost'});return false;}deleteResources(gl,current);current=null;report({requested:'webgl2',active:'none',status:'failed'});return false;
     },
     inspect:()=>({...status}),
     dispose(){if(disposed)return;disposed=true;canvas.removeEventListener('webglcontextlost',lost);canvas.removeEventListener('webglcontextrestored',restored);if(gl&&!gl.isContextLost())deleteResources(gl,current);current=null;gl=null;},

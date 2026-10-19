@@ -24,13 +24,14 @@ export function mountOrbitalExperiment(container:HTMLElement,{onChange=()=>{}}:{
   const cameraReset=make('button','시점 복원'),exampleReset=make('button','장면 예시로');cameraReset.type=exampleReset.type='button';controls.append(cameraReset,exampleReset);
   const hint=make('p','드래그·방향키 회전 · 휠·+/− 확대 · 유한 격자 근사, 전자 궤적 아님','field-hint');
   footer.append(summary,legend,rendererStatus,hint);container.append(controls,view,footer);
-  let input:OrbitalState={...DEFAULT_ORBITAL},baseline:OrbitalSuggestion={...DEFAULT_ORBITAL,mode:'cloud'},customized=false,suppress=false,fieldKey='',field=createHydrogenicField(input),currentMode:FieldView['mode']='cloud',backend:RenderBackend={requested:'webgl2',active:'canvas2d',status:'unavailable'};
+  let input:OrbitalState={...DEFAULT_ORBITAL},baseline:OrbitalSuggestion={...DEFAULT_ORBITAL,mode:'cloud'},customized=false,suppress=false,fieldKey='',field=createHydrogenicField(input),currentMode:FieldView['mode']='cloud',backend:RenderBackend={requested:'webgl2',active:'none',status:'unavailable'};
   function updateRendererPresentation(){
-    legend.textContent=currentMode==='surface'?(backend.active==='webgl2'?'● 청록 ψ ≥ 0　● 주황 ψ < 0 · 명암은 표면 방향 조명이며 밀도가 아님':'● 청록 ψ ≥ 0　● 주황 ψ < 0 · Canvas 2D 삼각형 깊이순 표시 · 조명이나 밀도 명암 아님'):currentMode==='slice'?'● 청록 ψ ≥ 0　● 주황 ψ < 0 · 밝기: |ψ|²의 비선형 표시':'● 청록 ψ ≥ 0　● 주황 ψ < 0 · 점 분포: |ψ|² 가중 샘플';
-    rendererStatus.hidden=currentMode==='slice'||backend.status==='ready';rendererStatus.textContent=backend.status==='context-lost'?'GPU 문맥이 끊겨 Canvas 2D 대체 화면을 표시합니다. 복원되면 같은 상태로 다시 그립니다.':backend.status==='unavailable'?'WebGL2를 사용할 수 없어 Canvas 2D 대체 화면을 표시합니다.':backend.status==='failed'?'GPU 렌더링에 실패해 Canvas 2D 대체 화면을 표시합니다.':'';
+    const threeDimensional=currentMode!=='slice',available=!threeDimensional||backend.active==='webgl2';
+    legend.hidden=!available;legend.textContent=currentMode==='surface'?'● 청록 ψ ≥ 0　● 주황 ψ < 0 · 명암은 표면 방향 조명이며 밀도가 아님':currentMode==='slice'?'● 청록 ψ ≥ 0　● 주황 ψ < 0 · 밝기: |ψ|²의 비선형 표시':'● 청록 ψ ≥ 0　● 주황 ψ < 0 · 점 분포: |ψ|² 가중 샘플';
+    rendererStatus.hidden=available;rendererStatus.textContent=available?'':backend.status==='context-lost'?'GPU 연결이 끊겨 3D 표시를 사용할 수 없습니다. 복원 중이며 단면과 본문은 계속 사용할 수 있습니다.':'GPU를 사용할 수 없어 3D 표시를 사용할 수 없습니다. 단면과 본문은 계속 사용할 수 있습니다.';
   }
   updateRendererPresentation();
-  const viewer=mountFieldViewer(view,{label:'수소형 원자 오비탈의 3차원 확률밀도. 방향키로 회전, +와 -로 확대',useWebGL:true,onBackendChange(next){backend={...next};updateRendererPresentation();},onChange(){if(suppress)return;customized=true;sync();onChange();}});
+  const viewer=mountFieldViewer(view,{label:'수소형 원자 오비탈의 3차원 확률밀도. 방향키로 회전, +와 -로 확대',onBackendChange(next){backend={...next};updateRendererPresentation();},onChange(){if(suppress)return;customized=true;sync();onChange();}});
   function sync(){
     const state=viewer.getState(),basis=basisFor(input.basis);currentMode=state.mode;
     nInput.value=String(input.n);basisInput.value=input.basis;chargeInput.value=String(input.Z);modeInput.value=state.mode;planeInput.value=state.plane;sliceInput.value=String(state.slice);isoInput.value=String(state.iso);

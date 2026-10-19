@@ -1,7 +1,7 @@
 import type {ScalarGrid,Point3,FieldSample} from '/packages/spatial/scalar-field.js';
 export interface FieldView {yaw:number;pitch:number;zoom:number;mode:'cloud'|'slice'|'surface';plane:'xy'|'xz'|'yz';slice:number;iso:number}
 export interface FieldDefinition {evaluate:(point:Point3)=>number;weight:(value:number)=>number;bounds:[[number,number],[number,number],[number,number]];resolution?:number}
-export interface RenderBackend {readonly requested:'canvas2d'|'webgl2';readonly active:'canvas2d'|'webgl2';readonly status:'disabled'|'ready'|'unavailable'|'context-lost'|'failed'}
+export interface RenderBackend {readonly requested:'webgl2';readonly active:'none'|'canvas2d'|'webgl2';readonly status:'ready'|'unavailable'|'context-lost'|'failed'}
 import {createScalarGrid,weightedCloud,scalarIsosurface} from '/packages/spatial/scalar-field.js';
 import {createFieldFrame,projectFieldPoint} from './field-camera.js';
 import {createWebGLRenderer,resolveCssColor} from './webgl-renderer.js';
@@ -13,15 +13,15 @@ export function validateFieldView(input:unknown):FieldView{
   if(!['cloud','slice','surface'].includes(state.mode)||!['xy','xz','yz'].includes(state.plane)||!['yaw','pitch','zoom','slice','iso'].every(key=>Number.isFinite(state[key as 'yaw'|'pitch'|'zoom'|'slice'|'iso']))||Math.abs(state.yaw)>100||Math.abs(state.pitch)>1.5||state.zoom<.5||state.zoom>4||Math.abs(state.slice)>1||state.iso<.005||state.iso>1)throw new RangeError('Invalid field view state');
   return {yaw:state.yaw,pitch:state.pitch,zoom:state.zoom,mode:state.mode,plane:state.plane,slice:state.slice,iso:state.iso};
 }
-export function mountFieldViewer(container:HTMLElement,{label='Spatial scalar field',onChange=()=>{},colors=['#65e2d5','#ffa86b'],background='#101e29',useWebGL=false,onBackendChange=()=>{},createWebGLContext}:{label?:string;onChange?:(state:FieldView)=>void;colors?:[string,string];background?:string;useWebGL?:boolean;onBackendChange?:(backend:RenderBackend)=>void;createWebGLContext?:(canvas:HTMLCanvasElement)=>WebGL2RenderingContext|null}={}){
+export function mountFieldViewer(container:HTMLElement,{label='Spatial scalar field',onChange=()=>{},colors=['#65e2d5','#ffa86b'],background='#101e29',onBackendChange=()=>{},createWebGLContext}:{label?:string;onChange?:(state:FieldView)=>void;colors?:[string,string];background?:string;onBackendChange?:(backend:RenderBackend)=>void;createWebGLContext?:(canvas:HTMLCanvasElement)=>WebGL2RenderingContext|null}={}){
   const doc=container.ownerDocument,canvas=doc.createElement('canvas');canvas.tabIndex=0;canvas.setAttribute('role','img');canvas.setAttribute('aria-label',label);canvas.className='field-canvas';container.append(canvas);
   const ctx=(()=>{const context=canvas.getContext('2d');if(!context)throw new Error('Canvas 2D is unavailable');return context;})();
-  const backing=doc.createElement('canvas');backing.className='field-webgl-backing';backing.hidden=true;if(useWebGL)container.append(backing);
+  const backing=doc.createElement('canvas');backing.className='field-webgl-backing';backing.hidden=true;container.append(backing);
   let state:FieldView={...DEFAULT_FIELD_VIEW},field:FieldDefinition|undefined,grid:ScalarGrid|undefined,cloud:FieldSample[]=[],surface:FieldSample[][]=[],surfaceLevel:number|null=null,drag:{x:number;y:number}|null=null,disposed=false,displayedWithWebGL=false,drawingGpu=false;
-  let rendererBackend:RenderBackend={requested:useWebGL?'webgl2':'canvas2d',active:'canvas2d',status:useWebGL?'unavailable':'disabled'},reportedBackend='';
-  const backendSnapshot=():RenderBackend=>({requested:rendererBackend.requested,active:rendererBackend.requested==='webgl2'&&state.mode!=='slice'&&displayedWithWebGL&&rendererBackend.status==='ready'?'webgl2':'canvas2d',status:rendererBackend.status});
+  let rendererBackend:RenderBackend={requested:'webgl2',active:'none',status:'unavailable'},reportedBackend='';
+  const backendSnapshot=():RenderBackend=>({requested:'webgl2',active:state.mode==='slice'?'canvas2d':displayedWithWebGL&&rendererBackend.status==='ready'?'webgl2':'none',status:rendererBackend.status});
   const publishBackend=()=>{const next=backendSnapshot(),key=JSON.stringify(next);if(key===reportedBackend)return;reportedBackend=key;onBackendChange({...next});};
-  const gpu=useWebGL?createWebGLRenderer({canvas:backing,colors:[resolveCssColor(container,colors[0]),resolveCssColor(container,colors[1])],background:resolveCssColor(container,background),createContext:createWebGLContext,onStatusChange(next){rendererBackend={...next};if(next.status!=='ready')displayedWithWebGL=false;if(!drawingGpu)publishBackend();},onRedraw:draw}):null;
+  const gpu=createWebGLRenderer({canvas:backing,colors:[resolveCssColor(container,colors[0]),resolveCssColor(container,colors[1])],background:resolveCssColor(container,background),createContext:createWebGLContext,onStatusChange(next){rendererBackend={...next};if(next.status!=='ready')displayedWithWebGL=false;if(!drawingGpu)publishBackend();},onRedraw:draw});
   function pointProjection([x,y,z]:readonly number[],w:number,h:number):[number,number,number]{
     if(!grid)throw new Error('Field grid unavailable');
     return projectFieldPoint([x,y,z],{frame:createFieldFrame(grid.bounds),view:state,width:w,height:h});
@@ -46,19 +46,8 @@ export function mountFieldViewer(container:HTMLElement,{label='Spatial scalar fi
       ctx.strokeStyle='#a6c1c444';ctx.beginPath();ctx.moveTo(left,top+span/2);ctx.lineTo(left+span,top+span/2);ctx.moveTo(left+span/2,top);ctx.lineTo(left+span/2,top+span);ctx.stroke();
     }else{
       const level=state.iso*grid.maxWeight;if(state.mode==='surface'&&surfaceLevel!==level){surface=level?scalarIsosurface(grid,level):[];surfaceLevel=level;}
-      const frame=createFieldFrame(grid.bounds);drawingGpu=true;const rendered=gpu?.draw({width:w,height:h,dpr,frame,view:state,mode:state.mode,cloud,surface})??false;drawingGpu=false;displayedWithWebGL=rendered;
-      if(rendered){ctx.drawImage(backing,0,0,backing.width,backing.height,0,0,w,h);}else if(state.mode==='cloud'){
-        const projected=cloud.map(item=>({p:pointProjection(item.point,w,h),value:item.value})).sort((a,b)=>a.p[2]-b.p[2]);
-        ctx.globalAlpha=.5;
-        for(const item of projected){ctx.fillStyle=color(item.value);ctx.fillRect(item.p[0],item.p[1],1.55,1.55);}
-      }else{
-        const projected=surface.map(triangle=>({points:triangle.map(v=>pointProjection(v.point,w,h)),value:triangle.reduce((s,v)=>s+v.value,0)}));
-        projected.sort((a,b)=>a.points.reduce((s,v)=>s+v[2],0)-b.points.reduce((s,v)=>s+v[2],0));ctx.globalAlpha=.8;
-        for(const face of projected){ctx.fillStyle=color(face.value);ctx.beginPath();face.points.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.closePath();ctx.fill();}
-      }
-      ctx.globalAlpha=1;ctx.lineWidth=1;ctx.font='11px system-ui';
-      const origin=pointProjection(frame.center,w,h);
-      for(let axis=0;axis<3;axis++){const p:Point3=[...frame.center];p[axis]+=frame.half[axis]*.45;const end=pointProjection(p,w,h);ctx.strokeStyle='#c7e1e26b';ctx.beginPath();ctx.moveTo(origin[0],origin[1]);ctx.lineTo(end[0],end[1]);ctx.stroke();ctx.fillStyle='#d1e0e2';ctx.fillText('xyz'[axis],end[0]+4,end[1]);}
+      const frame=createFieldFrame(grid.bounds);drawingGpu=true;const rendered=gpu.draw({width:w,height:h,dpr,frame,view:state,mode:state.mode,cloud,surface});drawingGpu=false;displayedWithWebGL=rendered;
+      if(rendered){ctx.drawImage(backing,0,0,backing.width,backing.height,0,0,w,h);ctx.globalAlpha=1;ctx.lineWidth=1;ctx.font='11px system-ui';const origin=pointProjection(frame.center,w,h);for(let axis=0;axis<3;axis++){const p:Point3=[...frame.center];p[axis]+=frame.half[axis]*.45;const end=pointProjection(p,w,h);ctx.strokeStyle='#c7e1e26b';ctx.beginPath();ctx.moveTo(origin[0],origin[1]);ctx.lineTo(end[0],end[1]);ctx.stroke();ctx.fillStyle='#d1e0e2';ctx.fillText('xyz'[axis],end[0]+4,end[1]);}}
     }
     ctx.globalAlpha=1;publishBackend();
   }
@@ -78,6 +67,6 @@ export function mountFieldViewer(container:HTMLElement,{label='Spatial scalar fi
       field=next;grid=nextGrid;cloud=nextCloud;surfaceLevel=null;surface=[];draw();
     },
     inspect(){return {view:getState(),backend:{...backendSnapshot()},gridResolution:grid?.resolution??0,bounds:grid?.bounds.map(p=>[...p])??null,maxWeight:grid?.maxWeight??0,gridIntegral:grid?.integral??0,pointCount:cloud.length,triangleCount:surface.length};},
-    dispose(){disposed=true;observer.disconnect();gpu?.dispose();canvas.remove();backing.remove();},
+    dispose(){disposed=true;observer.disconnect();gpu.dispose();canvas.remove();backing.remove();},
   };
 }
