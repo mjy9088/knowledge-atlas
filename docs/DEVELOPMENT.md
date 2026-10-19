@@ -12,6 +12,8 @@ pnpm dev
 
 For Linux review containers, install real CJK and Latin/math sans fonts (for example `sudo apt-get install fonts-noto-cjk fonts-dejavu-core`). Check mathematical symbols such as floor/ceiling brackets as well as Korean text. Missing glyphs or an accidental monospaced fallback are environment defects, not acceptable screenshot evidence.
 
+The GitHub Actions browser job uses Ubuntu 24.04 and explicitly installs these fonts after Chromium's system dependencies. Playwright's dependency installer alone does not establish the project's Korean/math font environment. Layouts must also tolerate differing installed CJK font metrics; a developer's user-local variable font is not a CI prerequisite. Keep overflow and full-proof checks rather than weakening them to accommodate a missing font or an artificial content-height cap.
+
 For page-bounded PDF source consultation, optional Poppler tools (`poppler-utils`) can extract a selected page with `pdftotext -f N -l N source.pdf -`. Check the actual page when extraction loses mathematical glyphs; text extraction alone does not verify a source revision, scientific argument, or reuse permission.
 
 The development server defaults to `http://127.0.0.1:4173`; set `PORT` to choose another port. It serves the working tree, including local media helpers. Opening a local server or building files does not publish content.
@@ -57,6 +59,8 @@ pnpm exec playwright show-trace test-results/public/<failure>/trace.zip
 ```
 
 Failures save screenshots and traces under ignored `test-results/public/` and `test-results/studio/`; HTML reports are under `playwright-report/public/` and `playwright-report/studio/`. The suites use separate artifact directories so starting one does not delete the other’s traces. Chromium geometry tests are not cross-browser certification, physical-device testing, screen-reader review, or scientific verification. Preserve meaningful model fixtures separately. Do not add tests that merely enumerate removed filenames or obsolete UI strings.
+
+Studio browser tests default to port 4192. If another local review service owns that port, use `STUDIO_TEST_PORT=4193 pnpm check` (or `pnpm test:studio`) rather than terminating someone else's preview or reusing it as the test server. The override changes both the test base URL and the owned fixture server; CI keeps the default.
 
 ## Static review build
 
