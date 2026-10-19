@@ -1,6 +1,6 @@
 import type {Scene} from '/packages/content/types.js';
 import type {OrbitalState} from '/packages/models/hydrogenic.js';
-import type {FieldView} from '../../components/spatial/field-viewer.js';
+import type {FieldView,RenderBackend} from '../../components/spatial/field-viewer.js';
 export interface OrbitalExperimentState {orbital:OrbitalState;view:FieldView;customized:boolean}
 type OrbitalSuggestion=OrbitalState & {mode?:FieldView['mode']};
 function basisFor(id:string){const basis=ORBITAL_BASES.find(b=>b.id===id);if(!basis)throw new RangeError('Unknown orbital basis');return basis;}
@@ -10,8 +10,9 @@ import {mountFieldViewer,validateFieldView,DEFAULT_FIELD_VIEW} from '../../compo
 export function mountOrbitalExperiment(container:HTMLElement,{onChange=()=>{}}:{onChange?:()=>void}={}){
   const doc=container.ownerDocument,make=<K extends keyof HTMLElementTagNameMap>(tag:K,text?:string|null,className?:string)=>{const el=doc.createElement(tag);if(text)el.textContent=text;if(className)el.className=className;return el;};
   container.className='orbital-experiment';
-  const controls=make('div',null,'orbital-controls'),view=make('div',null,'orbital-view'),footer=make('div',null,'orbital-footer'),summary=make('p',null,'orbital-summary'),legend=make('p',null,'field-legend');
+  const controls=make('div',null,'orbital-controls'),view=make('div',null,'orbital-view'),footer=make('div',null,'orbital-footer'),summary=make('p',null,'orbital-summary'),legend=make('p',null,'field-legend'),rendererStatus=make('p',null,'orbital-renderer-status');
   legend.textContent='● 청록 ψ ≥ 0　● 주황 ψ < 0 · 점 분포·밝기: |ψ|²';
+  rendererStatus.setAttribute('role','status');rendererStatus.setAttribute('aria-live','polite');rendererStatus.hidden=true;
   function select(label:string,options:[string|number,string][]){const wrap=make('label',label),input=make('select');input.setAttribute('aria-label',label);for(const [value,text]of options){const option=make('option',text);option.value=String(value);input.append(option);}wrap.append(input);controls.append(wrap);return input;}
   const nInput=select('주양자수 n',[1,2,3,4].map(n=>[n,String(n)]));
   const basisInput=select('오비탈 종류·방향',ORBITAL_BASES.map(b=>[b.id,b.label]));
@@ -22,11 +23,16 @@ export function mountOrbitalExperiment(container:HTMLElement,{onChange=()=>{}}:{
   const sliceInput=range('단면 위치',-1,1,.05),isoInput=range('등값면 기준',.005,.4,.005);
   const cameraReset=make('button','시점 복원'),exampleReset=make('button','장면 예시로');cameraReset.type=exampleReset.type='button';controls.append(cameraReset,exampleReset);
   const hint=make('p','드래그·방향키 회전 · 휠·+/− 확대 · 유한 격자 근사, 전자 궤적 아님','field-hint');
-  footer.append(summary,legend,hint);container.append(controls,view,footer);
-  let input:OrbitalState={...DEFAULT_ORBITAL},baseline:OrbitalSuggestion={...DEFAULT_ORBITAL,mode:'cloud'},customized=false,suppress=false,fieldKey='',field=createHydrogenicField(input);
-  const viewer=mountFieldViewer(view,{label:'수소형 원자 오비탈의 3차원 확률밀도. 방향키로 회전, +와 -로 확대',onChange(){if(suppress)return;customized=true;sync();onChange();}});
+  footer.append(summary,legend,rendererStatus,hint);container.append(controls,view,footer);
+  let input:OrbitalState={...DEFAULT_ORBITAL},baseline:OrbitalSuggestion={...DEFAULT_ORBITAL,mode:'cloud'},customized=false,suppress=false,fieldKey='',field=createHydrogenicField(input),currentMode:FieldView['mode']='cloud',backend:RenderBackend={requested:'webgl2',active:'canvas2d',status:'unavailable'};
+  function updateRendererPresentation(){
+    legend.textContent=currentMode==='surface'?(backend.active==='webgl2'?'● 청록 ψ ≥ 0　● 주황 ψ < 0 · 명암은 표면 방향 조명이며 밀도가 아님':'● 청록 ψ ≥ 0　● 주황 ψ < 0 · Canvas 2D 삼각형 깊이순 표시 · 조명이나 밀도 명암 아님'):currentMode==='slice'?'● 청록 ψ ≥ 0　● 주황 ψ < 0 · 밝기: |ψ|²의 비선형 표시':'● 청록 ψ ≥ 0　● 주황 ψ < 0 · 점 분포: |ψ|² 가중 샘플';
+    rendererStatus.hidden=currentMode==='slice'||backend.status==='ready';rendererStatus.textContent=backend.status==='context-lost'?'GPU 문맥이 끊겨 Canvas 2D 대체 화면을 표시합니다. 복원되면 같은 상태로 다시 그립니다.':backend.status==='unavailable'?'WebGL2를 사용할 수 없어 Canvas 2D 대체 화면을 표시합니다.':backend.status==='failed'?'GPU 렌더링에 실패해 Canvas 2D 대체 화면을 표시합니다.':'';
+  }
+  updateRendererPresentation();
+  const viewer=mountFieldViewer(view,{label:'수소형 원자 오비탈의 3차원 확률밀도. 방향키로 회전, +와 -로 확대',useWebGL:true,onBackendChange(next){backend={...next};updateRendererPresentation();},onChange(){if(suppress)return;customized=true;sync();onChange();}});
   function sync(){
-    const state=viewer.getState(),basis=basisFor(input.basis);
+    const state=viewer.getState(),basis=basisFor(input.basis);currentMode=state.mode;
     nInput.value=String(input.n);basisInput.value=input.basis;chargeInput.value=String(input.Z);modeInput.value=state.mode;planeInput.value=state.plane;sliceInput.value=String(state.slice);isoInput.value=String(state.iso);
     for(const option of basisInput.options)option.disabled=basisFor(option.value).l>=input.n;
     if(planeInput.parentElement)planeInput.parentElement.hidden=state.mode!=='slice';if(sliceInput.parentElement)sliceInput.parentElement.hidden=state.mode!=='slice';if(isoInput.parentElement)isoInput.parentElement.hidden=state.mode!=='surface';
@@ -34,6 +40,7 @@ export function mountOrbitalExperiment(container:HTMLElement,{onChange=()=>{}}:{
     const density=state.mode==='surface'?` · 기준: 격자 최대 밀도의 ${(100*state.iso).toFixed(1)}% (포함 확률 아님)`:state.mode==='slice'?` · ${state.plane} 단면, 위치 ${(state.slice*field.extent).toFixed(1)} a₀`:' · 점은 격자 밀도에 따른 분포 샘플';
     summary.textContent=`${input.n}${basis.label} · l=${basis.l} · 방사 마디 ${field.radialNodes} · E=${field.energyHartree.toFixed(4)} Eₕ${density}`;
     hint.textContent=`${state.mode==='slice'?'단면 위치·평면을 바꿔 내부를 확인':'드래그·방향키 회전 · 휠·+/− 확대'} · 좌표 a₀ · 계산 상자 ±${field.extent.toFixed(1)} a₀ · 자동 구도 · 격자 근사`;
+    updateRendererPresentation();
   }
   function apply(next:OrbitalState,viewState:Partial<FieldView>,edited:boolean){
     const checked=validateOrbitalState(next),checkedView=validateFieldView(viewState),key=JSON.stringify(checked);
@@ -57,6 +64,7 @@ export function mountOrbitalExperiment(container:HTMLElement,{onChange=()=>{}}:{
     setState(state:OrbitalExperimentState){if(typeof state?.customized!=='boolean')throw new TypeError('Expected customized state');apply(state.orbital,state.view,state.customized);onChange();},
     suggest(next?:Scene['suggestion']){if(next&&!('n' in next))throw new TypeError('Expected orbital suggestion');if(next)baseline={...validateOrbitalState(next),mode:(next.mode??'cloud') as FieldView['mode']};if(!customized)reset();},reset,seek:viewer.seek,
     inspect:()=>({orbital:{...input},l:field.l,radialNodes:field.radialNodes,angularNodes:field.angularNodes,energyHartree:field.energyHartree,customized,viewer:viewer.inspect()}),
+    dispose(){viewer.dispose();},
     describe(scene:Scene){
       const label=`${input.n}${basisFor(input.basis).label}`,v=viewer.getState();
       const common=`현재 ${label}, n=${input.n}, l=${field.l}, Z=${input.Z}입니다.`;
