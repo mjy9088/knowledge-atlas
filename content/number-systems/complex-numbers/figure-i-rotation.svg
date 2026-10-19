@@ -10,7 +10,7 @@
   <rect width="600" height="360" rx="16" fill="#f6f8f0"/>
   <g id="axes" data-origin="300,280" data-scale="55">
     <line x1="48" y1="280" x2="566" y2="280" stroke="#526b58" stroke-width="3" marker-end="url(#axis-arrow)"/>
-    <line x1="300" y1="308" x2="300" y2="35" stroke="#526b58" stroke-width="3" marker-end="url(#axis-arrow)"/>
+    <line x1="300" y1="300" x2="300" y2="35" stroke="#526b58" stroke-width="3" marker-end="url(#axis-arrow)"/>
     <text data-essential-label="" x="548" y="316" fill="#293f35" font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" font-size="24" font-weight="700">Re</text>
     <text data-essential-label="" x="316" y="50" fill="#293f35" font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" font-size="24" font-weight="700">Im</text>
   </g>
