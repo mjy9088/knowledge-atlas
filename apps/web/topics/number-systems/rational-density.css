@@ -1,0 +1,5 @@
+.reader-enhanced .related-reader[data-page=rational-density] .reader-scene :is(.reader-copy,.scene-prose,.concept-diagram>span:not(.concept-connector),.scene-figure figcaption){word-break:keep-all;overflow-wrap:anywhere;text-wrap:pretty}
+.reader-enhanced .related-reader[data-page=rational-density] .reader-scene[data-visual=figure] .scene-figure figcaption{width:96%;max-width:96%}
+.reader-enhanced .related-reader[data-page=rational-density] :is(#choose-mesh,#strict-result) .concept-diagram>.concept-connector{display:none}
+.reader-enhanced .related-reader[data-page=rational-density] :is(#irrational-lower,#irrational-upper) .concept-diagram>.concept-connector{display:none}
+@media(max-width:720px){.reader-enhanced .related-reader[data-page=rational-density] :is(#irrational-lower,#irrational-upper) .concept-diagram{min-height:0;flex-direction:column;flex-wrap:nowrap;justify-content:center;gap:8px;padding-block:8px;overflow:visible}.reader-enhanced .related-reader[data-page=rational-density] :is(#irrational-lower,#irrational-upper) .concept-diagram>span:not(.concept-connector){width:100%;max-width:520px;padding:12px 16px;font-size:20px;line-height:1.4}}
