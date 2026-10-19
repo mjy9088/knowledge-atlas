@@ -1,0 +1,4 @@
+.reader-enhanced .related-reader[data-page=rational-representations] .reader-scene :is(.reader-copy,.scene-prose,.concept-diagram>span:not(.concept-connector),.scene-figure figcaption){word-break:keep-all;overflow-wrap:anywhere;text-wrap:pretty}
+.reader-enhanced .related-reader[data-page=rational-representations] :is(#cross-product-domain,#equivalence-name,#proof-setup,#counterexample-scope) .concept-diagram>.concept-connector{display:none}
+.reader-enhanced .related-reader[data-page=rational-representations] :is(#cross-product-domain,#equivalence-name,#proof-setup,#counterexample-scope) .concept-diagram{flex-direction:column;flex-wrap:nowrap;gap:8px;padding-block:8px}
+.reader-enhanced .related-reader[data-page=rational-representations] :is(#cross-product-domain,#equivalence-name,#proof-setup,#counterexample-scope) .concept-diagram>span:not(.concept-connector){width:min(100%,680px);max-width:680px;padding:12px 18px}
