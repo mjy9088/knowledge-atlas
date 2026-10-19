@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" role="img" aria-labelledby="title desc" data-representation="authored-processing-ledger" data-source-data="none">
+  <title id="title">모트 분리 뒤 남는 구조함수 조합</title>
+  <desc id="desc">같은 E, E 프라임, 세타에서 측정 미분 단면적을 모트 단면적으로 나누면 W2 더하기 2W1 탄젠트 제곱 세타 나누기 2가 남는다. 유일한 W2나 원시 단면적 스케일링이 아니다.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L10 5L0 10Z" fill="#365c42"/></marker></defs>
+  <rect width="600" height="380" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="300" y="34" text-anchor="middle" font-size="26" font-weight="700">원자료가 아니라 처리된 조합을 비교</text>
+    <g id="same-kinematics-division" data-condition="same-kinematics" data-output="structure-function-combination" data-combination="W2-plus-2W1-tan2-theta-over-2">
+      <rect data-condition="same-kinematics" x="24" y="68" width="226" height="210" rx="14" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+      <text x="137" y="106" text-anchor="middle" font-size="24" font-weight="700">같은 E, E′, θ</text>
+      <text data-role="measured-cross-section" x="137" y="154" text-anchor="middle" font-size="24">측정 미분 단면적</text>
+      <line x1="54" y1="176" x2="220" y2="176" stroke="#293f35" stroke-width="3"/>
+      <text data-role="known-mott-factor" x="137" y="216" text-anchor="middle" font-size="24">모트 단면적</text>
+      <text x="137" y="254" text-anchor="middle" font-size="24">주된 전파자 의존 분리</text>
+      <line data-arrow="division-to-output" x1="252" y1="172" x2="296" y2="172" stroke="#365c42" stroke-width="4" marker-end="url(#arrow)"/>
+      <rect data-output="structure-function-combination" data-combination="W2-plus-2W1-tan2-theta-over-2" x="300" y="68" width="276" height="210" rx="14" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+      <text x="438" y="112" text-anchor="middle" font-size="24" font-weight="700">남은 표적 정보</text>
+      <text x="438" y="164" text-anchor="middle" font-size="26">W₂ + 2W₁tan²(θ/2)</text>
+      <text x="438" y="216" text-anchor="middle" font-size="24">구조함수 조합</text>
+      <text x="438" y="254" text-anchor="middle" font-size="24">유일한 W₂ 아님</text>
+    </g>
+    <text x="300" y="324" text-anchor="middle" font-size="24" fill="#526b58">1969년 논문 printed p.3의 관계</text>
+    <text x="300" y="360" text-anchor="middle" font-size="24" fill="#526b58">원시 단면적이 일정했다는 뜻 아님</text>
+  </g>
+</svg>

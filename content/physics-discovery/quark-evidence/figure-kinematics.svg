@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" role="img" aria-labelledby="title desc" data-representation="authored-worked-relation" data-source-data="none" data-sign-convention="Q2-equals-minus-qmu-qmu" data-frame="proton-rest-laboratory" data-hadronic-mass="W" data-proton-mass="M">
+  <title id="title">한 사건의 측정값에서 양수 Q 제곱과 하드론 불변질량 W 정의하기</title>
+  <desc id="desc">양성자 정지 실험실계와 c=1에서 빔 에너지 E, 측정한 출사 에너지 E 프라임과 산란각 세타로 뉴, 현대의 양수 Q 제곱, 하드론 최종상태 불변질량 W를 정의한다. W는 구조함수 W1과 W2가 아니다.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L10 5L0 10Z" fill="#365c42"/></marker></defs>
+  <rect width="600" height="380" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="300" y="34" text-anchor="middle" font-size="26" font-weight="700">측정 → 사건 불변량 → DIS 선택</text>
+    <g id="measured-inputs">
+      <rect x="20" y="60" width="174" height="238" rx="14" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+      <text x="107" y="98" text-anchor="middle" font-size="24" font-weight="700">한 사건</text>
+      <text data-variable="E" data-unit="GeV" x="42" y="146" font-size="24">E · 빔</text>
+      <text data-variable="E-prime" data-unit="GeV" x="42" y="194" font-size="24">E′ · 측정</text>
+      <text data-variable="theta" data-unit="degree" x="42" y="242" font-size="24">θ · 측정</text>
+      <text x="107" y="280" text-anchor="middle" font-size="24">에너지: GeV</text>
+    </g>
+    <line data-arrow="inputs-to-derived" x1="196" y1="178" x2="226" y2="178" stroke="#365c42" stroke-width="4" marker-end="url(#arrow)"/>
+    <g id="derived-event-quantities">
+      <rect x="230" y="60" width="350" height="238" rx="14" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+      <text x="405" y="96" text-anchor="middle" font-size="24" font-weight="700">양성자 정지 실험실계 · c=1</text>
+      <text data-variable="nu" data-unit="GeV" x="252" y="138" font-size="24">ν = E − E′</text>
+      <text data-variable="Q-squared" data-unit="GeV-squared" x="252" y="180" font-size="24">Q² = −qμqμ ≈ 4EE′sin²(θ/2)</text>
+      <text x="252" y="222" font-size="24">W² = M² + 2Mν − Q²</text>
+      <rect data-selection="large-Q2-and-W2" x="252" y="246" width="306" height="40" rx="10" fill="#f3dcb0" stroke="#a56d30" stroke-width="2"/>
+      <text x="405" y="274" text-anchor="middle" font-size="24">DIS: 큰 Q²와 큰 W²</text>
+    </g>
+    <text x="300" y="332" text-anchor="middle" font-size="24" fill="#526b58">M = 양성자 질량 · Q²와 W² 단위: GeV²</text>
+    <text x="300" y="366" text-anchor="middle" font-size="24" fill="#526b58">하드론 W ≠ 구조함수 W₁, W₂</text>
+  </g>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" role="img" aria-labelledby="title desc" data-representation="qualitative-schematic" data-source-data="none" data-curve-comparison="vertical-offset-role-lines" data-held-fixed="hadronic-W" data-varied="positive-Q2">
+  <title id="title">하드론 불변질량 W를 고정한 잔여 Q 제곱 비교</title>
+  <desc id="desc">하드론 최종상태 불변질량 W를 고정하고 양수 Q 제곱을 바꾼다. 탄성과 공명 역할선은 더 강하게 낮아지고 깊은 비탄성 연속영역 역할선은 더 완만하다. 측정점이나 역사 곡선이 아니다.</desc>
+  <rect width="600" height="380" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="300" y="34" text-anchor="middle" font-size="26" font-weight="700">고정: 하드론 W · 변화: 양수 Q²</text>
+    <rect x="28" y="58" width="544" height="244" rx="14" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <line x1="76" y1="252" x2="532" y2="252" stroke="#526b58" stroke-width="3"/><text x="530" y="286" text-anchor="end" font-size="24">양수 Q² 증가</text>
+    <text x="52" y="94" font-size="24">모트 분리 뒤 상대 변화</text>
+    <rect data-geometry="deep-curve" x="88" y="118" width="186" height="36" fill="none"/>
+    <path data-role="deep-continuum" d="M92 124C146 128 208 136 270 148" fill="none" stroke="#365c42" stroke-width="6" stroke-dasharray="12 8"/>
+    <rect data-geometry="deep-label" x="314" y="86" width="226" height="62" fill="none"/>
+    <text x="320" y="116" font-size="24" fill="#365c42">깊은 연속영역</text><text x="320" y="144" font-size="24" fill="#365c42">더 약한 의존</text>
+    <rect data-geometry="orange-curve" x="88" y="170" width="186" height="76" fill="none"/>
+    <path data-role="elastic-resonance" d="M92 176C146 192 208 220 270 240" fill="none" stroke="#a56d30" stroke-width="6"/>
+    <rect data-geometry="orange-label" x="314" y="166" width="226" height="62" fill="none"/>
+    <text x="320" y="194" font-size="24" fill="#a56d30">탄성·공명</text><text x="320" y="222" font-size="24" fill="#a56d30">더 강한 의존</text>
+    <text x="300" y="334" text-anchor="middle" font-size="24" fill="#526b58">W ≠ W₁, W₂ · 약함 ≠ 0</text>
+    <text x="300" y="366" text-anchor="middle" font-size="24" fill="#526b58">정성 역할선 · 측정점·수치축·오차 띠 아님</text>
+  </g>
+</svg>

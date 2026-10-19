@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" role="img" aria-labelledby="title desc" data-representation="qualitative-schematic" data-source-data="none">
+  <title id="title">측정에서 해석까지 네 단계 증거 사슬</title>
+  <desc id="desc">전자 산란의 측정 변수에서 시작해 알려진 인자를 분리하고, 가정이 붙은 제한적 패턴을 거쳐 전하 띤 점 모양 파톤 모형을 지지하는 네 단계를 구분한다. 화살표는 논리적 의존이며 자동 결론이나 사진을 뜻하지 않는다.</desc>
+  <metadata>Original epistemic pipeline. No source figure, event data, or historical plot is reproduced.</metadata>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L10 5L0 10Z" fill="#365c42"/></marker></defs>
+  <rect width="600" height="380" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="300" y="34" text-anchor="middle" font-size="26" font-weight="700">사진이 아니라 증거 사슬을 읽습니다</text>
+    <rect data-stage="measured" data-order="1" x="24" y="72" width="126" height="196" rx="14" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <text x="87" y="112" text-anchor="middle" font-size="24" font-weight="700">측정</text><text x="87" y="154" text-anchor="middle" font-size="24">한 사건</text><text x="87" y="194" text-anchor="middle" font-size="24">E′, θ</text><text x="87" y="230" text-anchor="middle" font-size="24">많은 사건</text>
+    <rect data-stage="processed" data-order="2" x="166" y="72" width="126" height="196" rx="14" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <text x="229" y="112" text-anchor="middle" font-size="24" font-weight="700">처리</text><text x="229" y="154" text-anchor="middle" font-size="24">단면적</text><text x="229" y="194" text-anchor="middle" font-size="24">Q², ν</text><text x="229" y="230" text-anchor="middle" font-size="24">모트 분리</text>
+    <rect data-stage="conditional" data-order="3" x="308" y="72" width="126" height="196" rx="14" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <text x="371" y="112" text-anchor="middle" font-size="24" font-weight="700">조건부</text><text x="371" y="154" text-anchor="middle" font-size="24">R 가정</text><text x="371" y="194" text-anchor="middle" font-size="24">νW₂</text><text x="371" y="230" text-anchor="middle" font-size="24">두 결과</text>
+    <rect data-stage="inferred" data-order="4" x="450" y="72" width="126" height="196" rx="14" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <text x="513" y="112" text-anchor="middle" font-size="24" font-weight="700">해석</text><text x="513" y="154" text-anchor="middle" font-size="24">전하 띤</text><text x="513" y="194" text-anchor="middle" font-size="24">미해결</text><text x="513" y="230" text-anchor="middle" font-size="24">파톤 모형</text>
+    <line data-arrow="measured-to-processed" x1="145" y1="170" x2="169" y2="170" stroke="#365c42" stroke-width="4" marker-end="url(#arrow)"/>
+    <line data-arrow="processed-to-conditional" x1="287" y1="170" x2="311" y2="170" stroke="#365c42" stroke-width="4" marker-end="url(#arrow)"/>
+    <line data-arrow="conditional-to-inferred" x1="429" y1="170" x2="453" y2="170" stroke="#365c42" stroke-width="4" marker-end="url(#arrow)"/>
+    <text x="300" y="310" text-anchor="middle" font-size="24" fill="#526b58">한 사건 ≠ 앙상블 단면적 ≠ 내부 사진</text>
+    <text x="300" y="348" text-anchor="middle" font-size="24" fill="#526b58">화살표는 의존 관계이며 자동 결론이 아님</text>
+  </g>
+</svg>
