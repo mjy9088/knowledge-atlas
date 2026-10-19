@@ -1,0 +1,11 @@
+.reader-enhanced [data-page=electron-evidence] :is(.reader-dialogue,.scene-prose,.scene-figure,.scene-figure figcaption){overflow-wrap:anywhere;word-break:keep-all;text-wrap:pretty}
+.reader-enhanced [data-page=electron-evidence] .scene-figure img{width:100%;height:auto;object-fit:contain}
+.reader-enhanced [data-page=electron-evidence] .scene-figure figcaption{width:96%;max-width:96%}
+.reader-enhanced [data-page=electron-evidence] :is(#question,#repeat) .concept-diagram{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-content:center;gap:12px}
+.reader-enhanced [data-page=electron-evidence] :is(#question,#repeat) .concept-diagram>.concept-connector{display:none}
+.reader-enhanced [data-page=electron-evidence] :is(#question,#repeat) .concept-diagram>span:not(.concept-connector){width:100%;max-width:none;padding:12px 16px;font-size:20px;line-height:1.5}
+@media(max-width:720px){
+  .reader-enhanced [data-page=electron-evidence] .scene-prose{font-size:13px;line-height:1.65}
+  .reader-enhanced [data-page=electron-evidence] :is(#question,#repeat) .concept-diagram{grid-template-columns:minmax(0,1fr);gap:8px;padding-block:8px}
+  .reader-enhanced [data-page=electron-evidence] :is(#question,#repeat) .concept-diagram>span:not(.concept-connector){padding:8px 12px;font-size:15px;line-height:1.45}
+}
