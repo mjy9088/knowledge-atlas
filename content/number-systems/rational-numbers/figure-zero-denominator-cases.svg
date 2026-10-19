@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="title desc">
+  <title id="title">분모가 0일 때 되돌린 곱셈의 두 경우</title>
+  <desc id="desc">a 나누기 0을 x라고 가정하면 0 곱하기 x는 a여야 한다. a가 0이 아니면 이 식을 만족하는 x가 없다. a가 0이면 모든 x가 식을 만족하므로 값을 하나로 정하지 못한다. 어느 경우에도 유일한 몫이 정의되지 않는다.</desc>
+  <metadata>Original static algebraic case split authored for Knowledge Atlas. It does not assign a value to division by zero or to 0/0. Source, mathematical, learner, rights, audio, publication, and rendered-surface review remain pending.</metadata>
+  <defs>
+    <marker id="branch-arrow" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#365c42"/>
+    </marker>
+  </defs>
+  <rect width="600" height="300" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="300" y="32" text-anchor="middle" font-size="20" font-weight="700">a/0=x라면 0×x=a여야 합니다</text>
+    <rect x="194" y="48" width="212" height="48" rx="12" fill="#ffffff" stroke="#365c42" stroke-width="2"/>
+    <text x="300" y="80" text-anchor="middle" font-size="26" font-weight="700">0 × x = a</text>
+    <path d="M300 98V116M300 116H150V130M300 116H450V130" fill="none" stroke="#365c42" stroke-width="3" marker-end="url(#branch-arrow)"/>
+    <g id="case-nonzero" data-condition="a!=0">
+      <rect x="28" y="136" width="260" height="126" rx="14" fill="#ffffff" stroke="#a56d30" stroke-width="3"/>
+      <text x="158" y="166" text-anchor="middle" font-size="20" font-weight="700">경우 1 · a ≠ 0</text>
+      <text data-equation="0*x=a" x="158" y="205" text-anchor="middle" font-size="24" font-weight="700">0×x=0 ≠ a</text>
+      <rect data-condition="a!=0" data-solution-count="none" x="62" y="220" width="192" height="30" rx="8" fill="#f3dcb0"/>
+      <text x="158" y="242" text-anchor="middle" font-size="16" font-weight="700">해 없음 · 불가능</text>
+    </g>
+    <g id="case-zero" data-condition="a=0">
+      <rect x="312" y="136" width="260" height="126" rx="14" fill="#ffffff" stroke="#365c42" stroke-width="3"/>
+      <text x="442" y="166" text-anchor="middle" font-size="20" font-weight="700">경우 2 · a = 0</text>
+      <text data-equation="0*x=0" x="442" y="205" text-anchor="middle" font-size="24" font-weight="700">모든 x에서 0×x=0</text>
+      <rect data-condition="a=0" data-solution-count="all-x" data-unique-value="false" x="346" y="220" width="192" height="30" rx="8" fill="#e1eee3"/>
+      <text x="442" y="242" text-anchor="middle" font-size="16" font-weight="700">해가 하나가 아님</text>
+    </g>
+    <text x="300" y="286" text-anchor="middle" font-size="18" font-weight="700" fill="#526b58">두 경우 모두 유일한 몫을 정하지 못함</text>
+  </g>
+</svg>

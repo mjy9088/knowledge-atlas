@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="title desc">
+  <title id="title">2/3와 3/4의 비교와 17/24 중점 구성</title>
+  <desc id="desc">먼저 교차곱 2 곱하기 4는 8이고 3 곱하기 3은 9이므로 두 분수는 같지 않다. 그 다음 2/3를 16/24로, 3/4를 18/24로 맞추고 평균을 계산하면 17/24이다. 하나의 균일한 수직선에서 16/24, 17/24, 18/24가 같은 간격으로 놓인다.</desc>
+  <metadata>Original exact-fraction construction authored for Knowledge Atlas. Coordinates implement a uniform explanatory scale; no decimal approximation, external artwork, or measured data is used. Source, mathematical, learner, rights, audio, publication, and rendered-surface review remain pending.</metadata>
+  <rect width="600" height="300" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="300" y="30" text-anchor="middle" font-size="20" font-weight="700">같은 수 판정과 사이 수 구성은 다른 단계</text>
+    <g id="cross-product-comparison">
+      <rect data-left-product="8" data-right-product="9" data-relation="not-equal" x="28" y="48" width="240" height="86" rx="12" fill="#ffffff" stroke="#a56d30" stroke-width="2"/>
+      <text x="148" y="76" text-anchor="middle" font-size="16" font-weight="700" fill="#526b58">1 · 같은 수인가?</text>
+      <text x="148" y="111" text-anchor="middle" font-size="26" font-weight="700">2×4=8 ≠ 9=3×3</text>
+    </g>
+    <g id="midpoint-construction">
+      <rect data-average-step="(16/24+18/24)/2=17/24" x="284" y="48" width="288" height="86" rx="12" fill="#ffffff" stroke="#365c42" stroke-width="2"/>
+      <text x="428" y="76" text-anchor="middle" font-size="16" font-weight="700" fill="#526b58">2 · 평균으로 사이 수 구성</text>
+      <text x="428" y="108" text-anchor="middle" font-size="22" font-weight="700">(16/24+18/24)/2</text>
+      <text x="428" y="130" text-anchor="middle" font-size="18" font-weight="700" fill="#365c42">= 17/24</text>
+    </g>
+    <g id="common-number-line">
+      <text x="300" y="164" text-anchor="middle" font-size="16" font-weight="700" fill="#526b58">공통 분모 24 · 하나의 균일한 수직선</text>
+      <line x1="72" y1="218" x2="528" y2="218" stroke="#365c42" stroke-width="4" stroke-linecap="round"/>
+      <circle data-point="left" data-numerator="16" data-denominator="24" data-x="120" cx="120" cy="218" r="8" fill="#ffffff" stroke="#365c42" stroke-width="4"/>
+      <circle data-point="midpoint" data-numerator="17" data-denominator="24" data-x="300" cx="300" cy="218" r="10" fill="#e1eee3" stroke="#365c42" stroke-width="4"/>
+      <circle data-point="right" data-numerator="18" data-denominator="24" data-x="480" cx="480" cy="218" r="8" fill="#ffffff" stroke="#365c42" stroke-width="4"/>
+      <line x1="120" y1="202" x2="120" y2="234" stroke="#365c42" stroke-width="2"/>
+      <line x1="300" y1="198" x2="300" y2="238" stroke="#365c42" stroke-width="3"/>
+      <line x1="480" y1="202" x2="480" y2="234" stroke="#365c42" stroke-width="2"/>
+      <text x="120" y="258" text-anchor="middle" font-size="18" font-weight="700">2/3 = 16/24</text>
+      <text x="300" y="258" text-anchor="middle" font-size="20" font-weight="700" fill="#365c42">17/24</text>
+      <text x="480" y="258" text-anchor="middle" font-size="18" font-weight="700">18/24 = 3/4</text>
+      <text x="300" y="286" text-anchor="middle" font-size="18" font-weight="700">16/24 &lt; 17/24 &lt; 18/24</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="title desc">
+  <title id="title">같은 전체의 절반을 이등분과 사등분으로 나타내기</title>
+  <desc id="desc">같은 너비와 넓이의 전체를 위아래에 맞추어 놓는다. 위는 둘로 나누어 한 칸을, 아래는 넷으로 나누어 두 칸을 채운다. 두 채움은 같은 왼쪽 절반을 차지하고 가운데 경계가 정확히 맞는다.</desc>
+  <metadata>Original static relation diagram authored for Knowledge Atlas. It uses explanatory geometry, not external artwork or measured data. Source, mathematical, learner, rights, audio, publication, and rendered-surface review remain pending.</metadata>
+  <rect width="600" height="300" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="300" y="32" text-anchor="middle" font-size="20" font-weight="700">한 전체의 같은 절반, 두 가지 분수 표기</text>
+    <text x="28" y="118" font-size="18" font-weight="700">1/2</text>
+    <text x="28" y="228" font-size="18" font-weight="700">2/4</text>
+    <g id="partition-halves" data-whole="shared-unit" data-denominator="2">
+      <rect data-coverage="half" data-whole="shared-unit" data-denominator="2" x="60" y="76" width="240" height="72" fill="#e1eee3"/>
+      <rect x="60" y="76" width="480" height="72" rx="8" fill="none" stroke="#365c42" stroke-width="3"/>
+      <line data-boundary-position="300" x1="300" y1="76" x2="300" y2="148" stroke="#365c42" stroke-width="3"/>
+      <text x="180" y="120" text-anchor="middle" font-size="18" font-weight="700">1칸</text>
+      <text x="420" y="120" text-anchor="middle" font-size="16" fill="#526b58">전체 2칸</text>
+    </g>
+    <g id="partition-quarters" data-whole="shared-unit" data-denominator="4">
+      <rect data-coverage="half" data-whole="shared-unit" data-denominator="4" x="60" y="186" width="240" height="72" fill="#e1eee3"/>
+      <rect x="60" y="186" width="480" height="72" rx="8" fill="none" stroke="#365c42" stroke-width="3"/>
+      <line data-boundary-position="180" x1="180" y1="186" x2="180" y2="258" stroke="#365c42" stroke-width="2"/>
+      <line data-boundary-position="300" x1="300" y1="186" x2="300" y2="258" stroke="#365c42" stroke-width="3"/>
+      <line data-boundary-position="420" x1="420" y1="186" x2="420" y2="258" stroke="#365c42" stroke-width="2"/>
+      <text x="180" y="230" text-anchor="middle" font-size="18" font-weight="700">2칸</text>
+      <text x="420" y="230" text-anchor="middle" font-size="16" fill="#526b58">전체 4칸</text>
+    </g>
+    <path d="M300 154V180" stroke="#a56d30" stroke-width="3" stroke-dasharray="5 4"/>
+    <text x="316" y="174" font-size="16" font-weight="700" fill="#a56d30">같은 절반 경계</text>
+  </g>
+</svg>
