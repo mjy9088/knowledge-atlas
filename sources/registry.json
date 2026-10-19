@@ -481,6 +481,23 @@
     "externalMaterialIncluded": false
   },
   {
+    "id": "source:levin-dmoi4-sets",
+    "title": "Discrete Mathematics: An Open Introduction, 4th Edition — §5.1 Sets",
+    "author": "Oscar Levin",
+    "kind": "author-maintained-open-textbook",
+    "canonicalUrl": "https://discrete.openmathbooks.org/dmoi4/sec_structures-sets.html",
+    "retrievedAt": "2026-10-19",
+    "providerRevision": "Fourth Edition, Fall 2024 as displayed in the HTML front matter; live HTML exact revision and immutable bytes not verified",
+    "contentHash": null,
+    "license": "Colophon displays ©2013–2025 Oscar Levin and CC BY-NC-SA 4.0 International; observed notice only",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "rightsReview": "reference-only; third-party reuse not proposed; publication audit pending",
+    "readingScope": "§5.1 Sets HTML page: Subsection Notation paragraph #subsec_notation-7 identifies ∅={} as the set containing no elements; the cardinality paragraph immediately before Example 5.1.6 defines finite-set cardinality as the number of elements. These definitions jointly entail |∅|=0; the page is not represented as stating that equation separately. Colophon at https://discrete.openmathbooks.org/dmoi4/front-colophon.html consulted for authorship and license notice.",
+    "snapshotStatus": "live HTML reading; no immutable source bytes, hash, PDF page number, or independently matched provider revision",
+    "externalMaterialIncluded": false,
+    "note": "Consulted to replace a nearby real-number classification citation with direct finite-cardinality and empty-set definitions. Korean prose and diagrams remain independently authored. Source alignment does not confer expert, learner, rights, or publication approval."
+  },
+  {
     "id": "source:studio-binary-relations-levin-relations",
     "canonicalUrl": "https://discrete.openmathbooks.org/dmoi4/sec_gt-relations.html",
     "title": "Oscar Levin — Discrete Mathematics: An Open Introduction, Relations and Graphs",
