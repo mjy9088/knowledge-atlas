@@ -1,0 +1,3 @@
+.reader-enhanced .related-reader[data-page=complex-numbers] .reader-scene :is(.reader-copy,.scene-prose,.scene-figure figcaption){word-break:keep-all;overflow-wrap:anywhere;text-wrap:pretty}
+.reader-enhanced .related-reader[data-page=complex-numbers] .reader-scene[data-visual=figure] .scene-figure figcaption{width:96%;max-width:96%}
+@media(max-width:720px){.reader-enhanced .related-reader[data-page=complex-numbers] #definition .reader-copy{max-height:none}}
