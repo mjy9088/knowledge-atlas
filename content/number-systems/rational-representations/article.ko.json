@@ -13,7 +13,7 @@
     },
     {
       "id": "block:number-systems.rational-representations.cross-product-chain",
-      "text": "대상은 D={(a,b): a,b는 정수이고 b≠0}입니다. (a,b)와 (c,d)는 ad=bc일 때 관계가 있다고 정하고 (a,b)~(c,d)로 씁니다. 실제로 (1,2)~(2,4)는 1×4=2×2에서, (2,4)~(3,6)은 2×6=4×3에서 확인됩니다. 이제 이 두 확인이 (1,2)~(3,6)을 강제하는지가 핵심입니다.",
+      "text": "대상은 D={(a,b): a,b는 정수이고 b≠0}이며, (a,b)는 이 단계에서 아직 몫으로 구성한 유리수가 아니라 분수식 a/b를 나타내는 정수쌍입니다. (a,b)와 (c,d)\u2060는 ad=bc일 때 관계가 있다고 정하고 (a,b)\u2060~\u2060(c,d)\u2060로 씁니다. 실제로 (1,2)~(2,4)는 1×4=2×2에서, (2,4)~(3,6)은 2×6=4×3에서 확인됩니다. 이제 이 두 확인이 (1,2)\u2060~\u2060(3,6)\u2060을 강제하는지가 핵심입니다.",
       "claimRefs": ["claim:number-systems.rational-representations.domain", "claim:number-systems.rational-representations.cross-product"]
     },
     {
@@ -23,7 +23,7 @@
     },
     {
       "id": "block:number-systems.rational-representations.cancellation-proof",
-      "text": "교차곱 규칙은 세 조건을 만족합니다. 반사성은 ab=ba, 대칭성은 ad=bc이면 cb=da라는 정수 등식에서 바로 나옵니다. 추이성은 나눗셈을 미리 가정하지 않고 확인할 수 있습니다. (a,b)~(c,d)와 (c,d)~(e,f)이면 ad=bc이고 cf=de입니다. 첫 등식에 f를, 둘째 등식에 b를 곱하면 adf=bcf=bde이므로 d(af-be)=0입니다. D에서 중간 분모 d는 0이 아니므로 정수에서 0이 아닌 d를 소거하여 af=be를 얻습니다. 따라서 (a,b)~(e,f)이고, 앞의 연쇄에서도 1×6=2×3이 보장됩니다.",
+      "text": "교차곱 규칙은 세 조건을 만족합니다. 반사성은 ab=ba, 대칭성은 ad=bc이면 cb=da라는 정수 등식에서 바로 나옵니다. 추이성은 유리수의 나눗셈을 미리 가정하지 않고 정수의 곱셈과 등식만으로 확인할 수 있습니다. (a,b)~(c,d)와 (c,d)~(e,f)이면 ad=bc이고 cf=de입니다. 두 식에 공통인 c를 포함한 bcf를 만들기 위해 첫 등식에는 f를, 둘째 등식에는 b를 곱하면 adf=bcf이고 bcf=bde이므로 d(af-be)=0입니다. 정수의 영인수 성질에 따르면 d=0 또는 af-be=0인데, D에서 중간 분모 d는 0이 아니므로 첫 갈래가 제외되어 af=be를 얻습니다. 따라서 관계의 정의에 의해 (a,b)~(e,f)이고, 앞의 연쇄에서도 1×6=2×3이 보장됩니다.",
       "claimRefs": ["claim:number-systems.rational-representations.equivalence"]
     },
     {
@@ -33,7 +33,7 @@
     },
     {
       "id": "block:number-systems.rational-representations.transfer-case",
-      "text": "이제 (2,3), (4,6), (10,15)를 확인해 보세요. 2×6=3×4이고 4×15=6×10이므로 앞의 두 관계가 성립합니다. 중간 분모 6이 0이 아니어서 추이성 증명의 소거를 적용할 수 있고, 실제로 2×15=3×10=30이므로 (2,3)~(10,15)입니다. 교차곱 하나만 외우는 대신, 0이 아닌 분모 조건이 표기 묶음을 일관되게 만드는 증명에서 어디에 쓰이는지 확인한 것입니다.",
+      "text": "이제 (2,3), (4,6), (10,15)를 확인해 보세요. 2×6=3×4이고 4×15=6×10이므로 앞의 두 관계가 성립합니다. 중간 분모 6이 0이 아니어서 추이성 증명의 소거를 적용할 수 있고, 실제로 2×15=3×10=30이므로 (2,3)\u2060~\u2060(10,15)\u2060입니다. 교차곱 하나만 외우는 대신, 0이 아닌 분모 조건이 표기 묶음을 일관되게 만드는 증명에서 어디에 쓰이는지 확인한 것입니다.",
       "claimRefs": ["claim:number-systems.rational-representations.equivalence"]
     }
   ],
