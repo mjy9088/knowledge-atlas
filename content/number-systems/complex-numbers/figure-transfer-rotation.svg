@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" role="img" aria-labelledby="title desc">
+  <title id="title">2-i에 i를 곱한 실제 좌표 회전</title>
+  <desc id="desc">같은 눈금 복소평면에서 원점부터 (2,-1)까지의 벡터가 i를 곱해 원점부터 (1,2)까지의 벡터로 반시계 90도 회전한다. 두 벡터의 제곱 길이는 모두 5이다.</desc>
+  <defs>
+    <marker id="axis-arrow" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#526b58"/></marker>
+    <marker id="input-arrow" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" refX="12" refY="7" orient="auto"><path d="M0 0L14 7L0 14Z" fill="#2563a6"/></marker>
+    <marker id="output-arrow" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" refX="12" refY="7" orient="auto"><path d="M0 0L14 7L0 14Z" fill="#b54a1b"/></marker>
+    <marker id="turn-arrow" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#7047a8"/></marker>
+  </defs>
+  <rect width="600" height="360" rx="16" fill="#f6f8f0"/>
+  <g id="axes" data-origin="300,230" data-scale="70">
+    <line x1="52" y1="230" x2="560" y2="230" stroke="#526b58" stroke-width="3" marker-end="url(#axis-arrow)"/>
+    <line x1="300" y1="318" x2="300" y2="32" stroke="#526b58" stroke-width="3" marker-end="url(#axis-arrow)"/>
+    <text data-essential-label="" x="542" y="266" fill="#293f35" font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" font-size="24" font-weight="700">Re</text>
+    <text data-essential-label="" x="316" y="48" fill="#293f35" font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" font-size="24" font-weight="700">Im</text>
+  </g>
+  <g id="input-vector" data-complex-point="2,-1" data-squared-length="5">
+    <line data-x1="300" data-y1="230" data-x2="440" data-y2="300" x1="300" y1="230" x2="440" y2="300" stroke="#2563a6" stroke-width="7" stroke-linecap="round" marker-end="url(#input-arrow)"/>
+    <circle cx="440" cy="300" r="7" fill="#2563a6"/>
+    <text data-essential-label="" x="450" y="298" fill="#2563a6" font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" font-size="24" font-weight="700">(2,-1)</text>
+    <text data-essential-label="" x="350" y="340" fill="#2563a6" font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" font-size="24">2²+(-1)²=5</text>
+  </g>
+  <g id="output-vector" data-complex-point="1,2" data-squared-length="5">
+    <line data-x1="300" data-y1="230" data-x2="370" data-y2="90" x1="300" y1="230" x2="370" y2="90" stroke="#b54a1b" stroke-width="7" stroke-linecap="round" marker-end="url(#output-arrow)"/>
+    <circle cx="370" cy="90" r="7" fill="#b54a1b"/>
+    <text data-essential-label="" x="386" y="88" fill="#b54a1b" font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" font-size="24" font-weight="700">(1,2)</text>
+    <text data-essential-label="" x="386" y="120" fill="#b54a1b" font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" font-size="24">1²+2²=5</text>
+  </g>
+  <g id="coordinate-guides" data-shared-scale="true">
+    <path d="M440 300V230M370 90V230M300 90H370" fill="none" stroke="#d5dfcc" stroke-width="2" stroke-dasharray="7 7"/>
+  </g>
+  <g id="quarter-turn" data-turn="counterclockwise-quarter" data-angle="90">
+    <path d="M358 259A65 65 0 0 0 329 172" fill="none" stroke="#7047a8" stroke-width="5" stroke-linecap="round" marker-end="url(#turn-arrow)"/>
+    <text data-essential-label="" x="382" y="196" fill="#7047a8" font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" font-size="24" font-weight="700">× i · +90°</text>
+  </g>
+  <circle cx="300" cy="230" r="6" fill="#293f35"/>
+</svg>

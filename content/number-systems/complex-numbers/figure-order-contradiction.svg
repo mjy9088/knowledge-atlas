@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 360" role="img" aria-labelledby="title desc">
+  <title id="title">실수 순서를 확장하는 복소수 순서체 전순서의 두 가지 모순</title>
+  <desc id="desc">순서체 전순서를 가정하고 i가 0이 아님을 확인한다. 삼분법의 i가 양수인 가지와 -i가 양수인 가지는 각각 양수의 곱 규칙으로 -1이 양수라는 같은 결론을 낸다. 이는 확장한 실수 순서에서 -1이 0보다 작다는 사실과 모순이다.</desc>
+  <defs><marker id="proof-arrow" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#526b58"/></marker></defs>
+  <rect width="560" height="360" rx="16" fill="#f6f8f0"/>
+  <g id="ordered-field-assumption" data-order="total" data-extends="standard-real-order" data-compatible-with="field-operations">
+    <rect x="35" y="14" width="490" height="48" rx="12" fill="#edf3fb" stroke="#2563a6" stroke-width="2"/>
+    <text data-essential-label="" x="280" y="45" text-anchor="middle" fill="#293f35" font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" font-size="22" font-weight="700">가정: 실수 순서를 확장하는 순서체 전순서</text>
+  </g>
+  <g id="nonzero-step" data-reason="i-squared-is-negative-one" data-conclusion="i-nonzero">
+    <rect x="145" y="76" width="270" height="42" rx="10" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
+    <text data-essential-label="" x="280" y="104" text-anchor="middle" fill="#293f35" font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" font-size="22" font-weight="700">i²=-1 이므로 i≠0</text>
+  </g>
+  <text data-essential-label="" x="280" y="143" text-anchor="middle" fill="#526b58" font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" font-size="22" font-weight="700">삼분법: i&gt;0 또는 -i&gt;0</text>
+  <g id="branch-positive-i" data-premise="i&gt;0" data-square="i^2=-1" data-conclusion="-1&gt;0">
+    <rect x="18" y="158" width="250" height="76" rx="12" fill="#edf3fb" stroke="#2563a6" stroke-width="2"/>
+    <text data-essential-label="" x="143" y="187" text-anchor="middle" fill="#2563a6" font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" font-size="22" font-weight="700">가지 1 · i&gt;0</text>
+    <text data-essential-label="" x="143" y="218" text-anchor="middle" fill="#293f35" font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" font-size="22">i·i=i²=-1&gt;0</text>
+  </g>
+  <g id="branch-positive-negative-i" data-premise="-i&gt;0" data-square="(-i)^2=-1" data-conclusion="-1&gt;0">
+    <rect x="292" y="158" width="250" height="76" rx="12" fill="#edf3fb" stroke="#2563a6" stroke-width="2"/>
+    <text data-essential-label="" x="417" y="187" text-anchor="middle" fill="#2563a6" font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" font-size="22" font-weight="700">가지 2 · -i&gt;0</text>
+    <text data-essential-label="" x="417" y="218" text-anchor="middle" fill="#293f35" font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" font-size="22">(-i)(-i)=i²=-1&gt;0</text>
+  </g>
+  <path data-from="positive-i" data-to="minus-one-positive" data-rule="positive-product" d="M143 234V258H255" fill="none" stroke="#526b58" stroke-width="3" marker-end="url(#proof-arrow)"/>
+  <path data-from="positive-negative-i" data-to="minus-one-positive" data-rule="positive-product" d="M417 234V258H305" fill="none" stroke="#526b58" stroke-width="3" marker-end="url(#proof-arrow)"/>
+  <g id="minus-one-positive" data-derived="-1&gt;0" data-branches="both">
+    <rect x="190" y="246" width="180" height="44" rx="10" fill="#f3dcb0" stroke="#b54a1b" stroke-width="2"/>
+    <text data-essential-label="" x="280" y="275" text-anchor="middle" fill="#b54a1b" font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" font-size="24" font-weight="700">두 가지 모두 -1&gt;0</text>
+  </g>
+  <path data-from="minus-one-positive" data-to="real-order-contradiction" data-rule="compare-inherited-real-order" d="M280 290V306" fill="none" stroke="#526b58" stroke-width="3" marker-end="url(#proof-arrow)"/>
+  <g id="real-order-contradiction" data-real-order="-1&lt;0" data-branch-result="-1&gt;0">
+    <rect x="70" y="307" width="420" height="40" rx="10" fill="#e1eee3" stroke="#293f35" stroke-width="2"/>
+    <text data-essential-label="" x="280" y="334" text-anchor="middle" fill="#293f35" font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" font-size="22" font-weight="700">실수에서 이어받은 -1&lt;0과 모순</text>
+  </g>
+</svg>
