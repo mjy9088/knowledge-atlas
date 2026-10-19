@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" role="img" aria-labelledby="title desc">
+  <title id="title">유리수 후보 r의 세 경우</title>
+  <desc id="desc">유리수 후보 r은 세 경우로 나뉜다. r이 제곱근 2보다 작을 때 r≤0이면 1∈A가 r을 넘고, 0&lt;r이면 조밀성으로 고른 r&lt;q&lt;제곱근 2인 양의 유리수 q∈A가 r을 넘는다. r이 제곱근 2와 같으면 유리수가 아니다. r이 더 크면 제곱근 2&lt;s&lt;r인 유리수 s를 고를 수 있고, 모든 q∈A에 q&lt;제곱근 2&lt;s이므로 s가 더 작은 상한이다.</desc>
+  <metadata>Original Knowledge Atlas figure; no external artwork. Review and publication pending.</metadata>
+  <rect width="600" height="360" rx="16" fill="#f6f8f0"/>
+  <text x="24" y="38" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">r∈Q라면 정확히 세 경우</text>
+  <g id="case-below" data-case="r&lt;sqrt2" data-nonpositive-excluded-by="1-in-A" data-witness-order="r&lt;q&lt;sqrt2" data-witness-membership="q-in-A">
+    <rect x="20" y="50" width="560" height="88" rx="12" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
+    <text x="36" y="82" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">① r&lt;√2</text>
+    <text x="190" y="82" fill="#526b58" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">r≤0 → 1∈A를 놓침</text>
+    <text x="190" y="120" fill="#365c42" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">0&lt;r → r&lt;q&lt;√2인 q∈A</text>
+  </g>
+  <g id="case-equal" data-case="r=sqrt2" data-rejection="sqrt2-not-in-Q">
+    <rect x="20" y="148" width="560" height="58" rx="12" fill="#f3dcb0" stroke="#a56d30" stroke-width="2"/>
+    <text x="36" y="186" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">② r=√2</text>
+    <text x="250" y="186" fill="#a56d30" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">√2∉Q → Q의 후보가 아님</text>
+  </g>
+  <g id="case-above" data-case="r&gt;sqrt2" data-witness-order="sqrt2&lt;s&lt;r" data-upper-bound-reason="forall-q-in-A:q&lt;sqrt2&lt;s" data-conclusion="s-is-smaller-upper-bound">
+    <rect x="20" y="216" width="560" height="88" rx="12" fill="#e1eee3" stroke="#365c42" stroke-width="2"/>
+    <text x="36" y="248" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">③ r&gt;√2</text>
+    <text x="190" y="248" fill="#365c42" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">√2&lt;s&lt;r</text>
+    <text x="190" y="286" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">q∈A → q&lt;√2&lt;s</text>
+    <text x="414" y="286" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">s&lt;r인 상한</text>
+  </g>
+  <line x1="54" y1="326" x2="526" y2="326" stroke="#365c42" stroke-width="3"/>
+  <circle data-point-role="A-elements" data-x="70" cx="70" cy="326" r="7" fill="#365c42"/><text x="48" y="354" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">q∈A</text>
+  <circle data-point-role="sqrt2-boundary" data-x="180" cx="180" cy="326" r="8" fill="#f6f8f0" stroke="#a56d30" stroke-width="3"/><text x="159" y="354" fill="#a56d30" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">√2</text>
+  <circle data-point-role="smaller-upper-bound-s" data-x="310" cx="310" cy="326" r="7" fill="#365c42"/><text x="302" y="354" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">s</text>
+  <circle data-point-role="candidate-r" data-x="470" cx="470" cy="326" r="7" fill="#a56d30"/><text x="462" y="354" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">r</text>
+</svg>

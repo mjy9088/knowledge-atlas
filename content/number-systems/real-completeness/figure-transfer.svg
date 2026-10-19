@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" role="img" aria-labelledby="title desc">
+  <title id="title">B의 최소 상한 3과 중점 증명</title>
+  <desc id="desc">3은 q가 3보다 작은 모든 유리수의 집합 B를 위에서 제한한다. 임의의 유리수 r이 3보다 작으면 q=(r+3)/2는 유리수이고 r과 3 사이에 있어 B에 속하므로 r은 상한이 아니다.</desc>
+  <metadata>Original Knowledge Atlas figure; no external artwork. Review and publication pending.</metadata>
+  <rect width="600" height="360" rx="16" fill="#f6f8f0"/>
+  <text x="24" y="42" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">B={q∈Q | q&lt;3}</text>
+  <g id="upper-bound-three" data-value="3" data-ambient="Q" data-set="B" data-role="upper-bound">
+    <rect x="24" y="64" width="552" height="64" rx="12" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
+    <text x="44" y="90" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">모든 q∈B에 q&lt;3</text>
+    <text x="244" y="118" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">Q 안에서 B의 상한: 3</text>
+  </g>
+  <g id="transfer-midpoint" data-domain="Q" data-formula="q=(r+3)/2" data-order="r&lt;q&lt;3" data-membership="q-in-B">
+    <rect x="24" y="140" width="552" height="72" rx="12" fill="#e1eee3" stroke="#365c42" stroke-width="2"/>
+    <text x="44" y="172" fill="#526b58" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">r∈Q, r&lt;3</text>
+    <text x="230" y="196" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">q=(r+3)/2∈Q, r&lt;q&lt;3</text>
+  </g>
+  <line x1="72" y1="270" x2="528" y2="270" stroke="#365c42" stroke-width="3"/>
+  <g data-point-role="candidate-r" data-x="110"><circle cx="110" cy="270" r="7" fill="#a56d30"/><text x="102" y="310" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">r</text></g>
+  <g data-point-role="midpoint-q" data-x="300"><circle cx="300" cy="270" r="7" fill="#365c42"/><text x="292" y="310" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">q</text></g>
+  <g data-point-role="supremum-three" data-x="490"><circle cx="490" cy="270" r="7" fill="#365c42"/><text x="482" y="310" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">3</text></g>
+  <text x="24" y="342" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">따라서 r은 상한이 아니고, Q에서 sup B=3입니다.</text>
+</svg>

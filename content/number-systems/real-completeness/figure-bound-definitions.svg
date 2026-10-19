@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" role="img" aria-labelledby="title desc">
+  <title id="title">상한, 최소 상한, 최대 원소의 조건 비교</title>
+  <desc id="desc">A는 순서 집합 U의 부분집합이다. 상한 u는 U에 속하고 A의 모든 원소 이상이다. 최소 상한 u는 그 자체로 상한이며 U에 속하는 모든 상한 v 이하이다. 최대 원소는 A 자체에 속하는 상한이다.</desc>
+  <metadata>Original Knowledge Atlas figure; no external artwork. Review and publication pending.</metadata>
+  <rect width="600" height="360" rx="16" fill="#f6f8f0"/>
+  <text x="24" y="42" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">A⊆U · 먼저 비교할 순서 집합 U를 정합니다</text>
+  <g id="upper-bound-definition" data-subset="A-subset-U" data-condition="forall-q-in-A:q&lt;=u" data-membership="u-in-U">
+    <rect x="24" y="64" width="552" height="76" rx="12" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
+    <text x="44" y="96" fill="#526b58" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">상한 u∈U</text>
+    <text x="244" y="120" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">모든 q∈A에 q≤u</text>
+  </g>
+  <g id="least-upper-bound-definition" data-upper-bound="true" data-condition="forall-v-in-U-if-v-upper-bound:u&lt;=v" data-membership="u-in-U">
+    <rect x="24" y="152" width="552" height="76" rx="12" fill="#e1eee3" stroke="#365c42" stroke-width="2"/>
+    <text x="44" y="184" fill="#365c42" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">최소 상한: 상한인 u∈U</text>
+    <text x="244" y="208" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">모든 상한 v∈U에 u≤v</text>
+  </g>
+  <g id="maximum-definition" data-condition="forall-q-in-A:q&lt;=m" data-membership="m-in-A">
+    <rect x="24" y="240" width="552" height="76" rx="12" fill="#ffffff" stroke="#a56d30" stroke-width="2"/>
+    <text x="44" y="272" fill="#a56d30" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">최대 원소 m∈A</text>
+    <text x="244" y="296" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">모든 q∈A에 q≤m</text>
+  </g>
+</svg>

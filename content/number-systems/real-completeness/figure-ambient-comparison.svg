@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" role="img" aria-labelledby="title desc">
+  <title id="title">같은 집합 A를 유리수와 실수에서 비교</title>
+  <desc id="desc">같은 양의 유리수 집합 A는 Q에서 최소 상한이 없다. R에서는 모든 q∈A가 제곱근 2보다 작아 제곱근 2가 상한이다. r≤0은 1∈A가 넘고, 0보다 크고 제곱근 2보다 작은 r은 조밀성으로 고른 양의 유리수 q∈A가 넘는다. 따라서 R에서 A의 최소 상한은 제곱근 2이다.</desc>
+  <metadata>Original Knowledge Atlas figure; no external artwork. Review and publication pending.</metadata>
+  <rect width="600" height="360" rx="16" fill="#f6f8f0"/>
+  <text x="24" y="40" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">같은 A, 다른 상한의 우주</text>
+  <line x1="60" y1="94" x2="540" y2="94" stroke="#365c42" stroke-width="3"/>
+  <circle cx="300" cy="94" r="9" fill="#f6f8f0" stroke="#a56d30" stroke-width="3"/>
+  <text x="276" y="82" fill="#a56d30" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">√2</text>
+  <g id="ambient-Q" data-cut="positive-square-below-two" data-result="no-lub">
+    <rect x="24" y="126" width="264" height="190" rx="12" fill="#ffffff" stroke="#a56d30" stroke-width="2"/>
+    <text x="44" y="162" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">우주 Q</text>
+    <text x="44" y="204" fill="#a56d30" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">√2∉Q</text>
+    <text x="44" y="246" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">모든 유리수 후보 탈락</text>
+    <text x="44" y="288" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">Q에서 최소 상한 없음</text>
+  </g>
+  <g id="ambient-R" data-cut="positive-square-below-two" data-result="sup=sqrt2" data-upper-bound="forall-q-in-A:q&lt;sqrt2" data-leastness="forall-real-r-below-sqrt2:r-is-not-upper-bound" data-leastness-tool="Q-dense-in-R" data-nonpositive-case="r&lt;=0:1-in-A-above-r" data-positive-case="0&lt;r&lt;sqrt2:density-gives-r&lt;q&lt;sqrt2-and-q-in-A">
+    <rect x="312" y="126" width="264" height="190" rx="12" fill="#e1eee3" stroke="#365c42" stroke-width="2"/>
+    <text x="332" y="156" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">우주 R</text>
+    <text x="332" y="188" fill="#365c42" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">q∈A → q&lt;√2</text>
+    <text x="332" y="220" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">r≤0: 1∈A, r&lt;1</text>
+    <text x="332" y="252" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">0&lt;r&lt;√2: 조밀성</text>
+    <text x="332" y="280" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">r&lt;q&lt;√2, q∈A</text>
+    <text x="332" y="308" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">∴ sup A=√2</text>
+  </g>
+</svg>

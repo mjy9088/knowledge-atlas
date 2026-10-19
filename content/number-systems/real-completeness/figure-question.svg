@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" role="img" aria-labelledby="title desc">
+  <title id="title">A가 비어 있지 않고 2로 위가 제한되는 이유</title>
+  <desc id="desc">1은 양수이고 제곱이 2보다 작아 A에 속한다. A의 모든 q는 q보다 제곱근 2가 크고, 제곱근 2보다 2가 크므로 2는 상한이다.</desc>
+  <metadata>Original Knowledge Atlas figure; no external artwork. Review and publication pending.</metadata>
+  <rect width="600" height="360" rx="16" fill="#f6f8f0"/>
+  <text x="24" y="42" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">A={q∈Q | q&gt;0, q²&lt;2}</text>
+  <g id="nonempty-witness" data-value="1" data-positive="true" data-square-less-than-two="true">
+    <rect x="24" y="64" width="552" height="72" rx="12" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
+    <text x="44" y="108" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">1&gt;0, 1²=1&lt;2  →  1∈A</text>
+  </g>
+  <g id="upper-bound-two" data-value="2" data-role="upper-bound" data-quantifier="forall-q-in-A" data-reason="q&lt;sqrt2&lt;2">
+    <rect x="24" y="148" width="552" height="64" rx="12" fill="#e1eee3" stroke="#365c42" stroke-width="2"/>
+    <text x="44" y="189" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">모든 q∈A: q&lt;√2&lt;2  →  2는 상한</text>
+  </g>
+  <line x1="72" y1="278" x2="528" y2="278" stroke="#365c42" stroke-width="3"/>
+  <g data-point-role="member-one" data-x="120">
+    <circle cx="120" cy="278" r="7" fill="#365c42"/>
+    <text x="112" y="318" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">1</text>
+  </g>
+  <g data-point-role="sqrt2-boundary" data-x="330">
+    <circle cx="330" cy="278" r="8" fill="#f6f8f0" stroke="#a56d30" stroke-width="3"/>
+    <text x="309" y="318" fill="#a56d30" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">√2</text>
+  </g>
+  <g data-point-role="upper-bound-two" data-x="500">
+    <circle cx="500" cy="278" r="7" fill="#365c42"/>
+    <text x="492" y="318" fill="#293f35" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" data-essential-label="true">2</text>
+  </g>
+</svg>
