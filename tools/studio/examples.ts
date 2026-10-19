@@ -1,7 +1,7 @@
 import {validatePlan,type Plan,type Slide} from './contracts.js';
 const date='2026-10-18';
 const probability={id:'cmu-probability',title:'Gautam Iyer — Conditional Probability and Independence',url:'https://www.math.cmu.edu/~gautam/c/2026-425/notes/independence.html',locator:'Definition 2; Propositions 5–6. Finite cases below are independently derived teaching models.',consultedOn:date};
-function slide(id:string,title:string,narration:string,visual:string,known:string[],introduces:string[],claimRefs:string[],seconds=20):Slide{return {id,title,goal:title,narration,visual,known,introduces,claimRefs,seconds,observation:'조건을 바꿨을 때 결과가 어떻게 달라지는지 확인한다.'};}
+function slide(id:string,title:string,narration:string,visual:string,known:string[],introduces:string[],claimRefs:string[],seconds=20):Slide{return {id,title,goal:title,narration,visual,known,introduces,claimRefs,seconds,observation:'조건을 바꿨을 때 결과가 어떻게 달라지는지 확인한다.',intent:{status:'unplanned',reason:'legacy-intent-absent'}};}
 export const EXAMPLES:Plan[]=[validatePlan({
   id:'binary-relations',title:'이항 관계: 화살표 하나가 말하는 것',goal:'관계를 순서쌍·화살표·표로 나타내고 성질을 전체 조건으로 설명한다.',audience:'집합의 원소라는 말 정도를 아는 일반 독자',totalSeconds:160,policies:['core','formal'],openQuestions:[],
   sources:[{id:'levin-relations',title:'Oscar Levin — Discrete Mathematics: An Open Introduction, Relations and Graphs',url:'https://discrete.openmathbooks.org/dmoi4/sec_gt-relations.html',locator:'Definitions 2.6.3, 2.6.6, 2.6.10; Remark 2.6.15',consultedOn:date}],

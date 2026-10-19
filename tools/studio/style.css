@@ -24,6 +24,7 @@
   --text-body: 0.875rem;
   --text-small: 0.75rem;
   --text-overline: 0.625rem;
+  --preview-narrow-frame-height: 846px;
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -91,4 +92,4 @@ pre { white-space: pre-wrap; max-height: 17.5rem; overflow: auto; font: var(--te
 a { color: var(--accent-primary); }
 @media (max-width: 60rem) { .columns { grid-template-columns: 1fr; } }
 @media (max-width: 47.5rem) { header { align-items: flex-start; padding: var(--space-4); } main { grid-template-columns: 1fr; } .library { border-right: 0; border-bottom: 1px solid var(--border-default); padding: var(--space-4); } .workspace { padding: var(--space-4); } }
-@media (max-width: 37.5rem) { header { flex-direction: column; } .plan-fields, .split { grid-template-columns: 1fr; } .editor, .review, .production { padding: var(--space-3); } #build-frame { height: 40.625rem; } }
+@media (max-width: 37.5rem) { header { flex-direction: column; } .plan-fields, .split { grid-template-columns: 1fr; } .editor, .review, .production { padding: var(--space-3); } #build-frame { height: var(--preview-narrow-frame-height); } }

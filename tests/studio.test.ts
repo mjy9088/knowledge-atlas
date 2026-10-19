@@ -6,14 +6,15 @@ import os from 'node:os';
 import {fileURLToPath} from 'node:url';
 import {Studio} from '../tools/studio/engine.js';
 import {EXAMPLES} from '../tools/studio/examples.js';
-import {validatePlan,validateReport,readiness,type Report,type Job} from '../tools/studio/contracts.js';
+import {ASSESSMENT_DIMENSIONS,validatePlan,validateReport,readiness,type Report,type Job,type Plan} from '../tools/studio/contracts.js';
 import {createStudioServer} from '../tools/studio/server.js';
 import {createReviewPacket,createWorkPacket} from '../tools/studio/handoff.js';
 import {CONTENT_ENTRIES} from '../content/catalog.js';
 import {EXPLOSION_EPISODE} from '../content/formal-logic/explosion/episode.js';
 const root=fileURLToPath(new URL('../',import.meta.url));
-const report:Report={summary:'Test runner report, not an actual editorial review',findings:[],timing:{status:'unverified',note:'Test fixture; no timing evidence'}};
-const provenance={reviewer:{name:'Fixture reviewer',kind:'external-agent' as const,tool:'controlled-test'},evidence:{reviewedAt:'2026-10-18T00:00:00Z',notes:'Protocol fixture only; no independent review occurred',artifactRefs:['fixture://studio.test']}};
+const report:Report={summary:'Test runner report, not an actual editorial review',findings:[],timing:{status:'unverified',note:'Test fixture; no timing evidence'},assessments:ASSESSMENT_DIMENSIONS.map(dimension=>({dimension,verdict:'adequate',expected:`Controlled ${dimension} fixture expectation`,actual:`Controlled ${dimension} fixture observation`,evidenceRefs:dimension==='surface'?[{kind:'build',ref:'fixture-build'},{kind:'viewport',ref:'1280x720'},{kind:'artifact',ref:'fixture://surface'}]:dimension==='source'?[{kind:'source',ref:'levin-relations'}]:dimension==='interaction'?[{kind:'execution',ref:'fixture://interaction'}]:[{kind:'artifact',ref:`fixture://${dimension}`}],requestedCorrection:'No correction requested by this protocol fixture.',invariant:'Preserve stable IDs and unresolved approval state.'}))};
+const provenance={verification:'user-assertion' as const,reviewer:{name:'Fixture reviewer',kind:'external-agent' as const,tool:'controlled-test'},evidence:{reviewedAt:'2026-10-18T00:00:00Z',notes:'Protocol fixture only; no independent review occurred',artifactRefs:['fixture://studio.test']}};
+function withAuthoredIntent(plan:Plan):Plan{return{...structuredClone(plan),slides:plan.slides.map(slide=>({...structuredClone(slide),intent:{status:'authored',contentRefs:[...slide.claimRefs],prerequisites:[...slide.known],successCheck:`Protocol success check for ${slide.id}`,representationRationale:`Protocol representation rationale for ${slide.id}`,interaction:{kind:'static',rationale:`Protocol static rationale for ${slide.id}`}}}))};}
 
 test('content metadata migrates legacy plans without discarding edits and invalidates review revisions',()=>{
   const legacy:Record<string,unknown>={...structuredClone(EXAMPLES[0])};delete legacy.metadata;legacy.title='Human edited title';legacy.totalSeconds=900;
@@ -61,7 +62,7 @@ test('long-form plans export every review target without a runtime queue ceiling
 });
 
 test('studio gate requires every current slide and whole-flow review, and unresolved feedback blocks it',()=>{
-  const plan=EXAMPLES[0],jobs:Job[]=['overall',...plan.slides.map(s=>s.id)].map(target=>({id:target,topicId:plan.id,target,revision:'current',status:'completed',createdAt:'test',report}));
+  const plan=withAuthoredIntent(EXAMPLES[0]),jobs:Job[]=['overall',...plan.slides.map(s=>s.id)].map(target=>({id:target,topicId:plan.id,target,revision:'current',status:'completed',createdAt:'test',report}));
   assert.equal(readiness(plan,'current',jobs,[]).ready,true);assert.equal(readiness(plan,'changed',jobs,[]).ready,false);
   assert.equal(readiness(plan,'current',jobs.slice(1),[]).ready,false);
   assert.equal(readiness(plan,'current',jobs,[{id:'note',slideId:'question',text:'Unresolved',resolved:false,revision:'current'}]).ready,false);
@@ -76,7 +77,7 @@ test('studio gate requires every current slide and whole-flow review, and unreso
 test('external handoff packets bind work and independent review results to the saved revision',()=>{
   const dir=mkdtempSync(path.join(os.tmpdir(),'atlas-handoff-')),studio=new Studio(root,dir);
   try{
-    const topic=studio.topic('binary-relations');
+    const initial=studio.topic('binary-relations'),topic=studio.save(withAuthoredIntent(initial.plan),initial.revision);
     const work=createWorkPacket(topic,{directory:'/tmp/atlas-worktree',branch:'studio/binary-relations',route:'/knowledge/binary-relations/'});
     assert.equal(work.kind,'implementation');assert.equal(work.revision,topic.revision);assert.equal(work.workspace.directory,'/tmp/atlas-worktree');
     const review=createReviewPacket(topic);assert.equal(review.kind,'independent-review');assert.deepEqual(review.targets,['overall',...topic.plan.slides.map(slide=>slide.id)]);

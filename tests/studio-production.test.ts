@@ -90,6 +90,7 @@ test('cancellation after the final fingerprint command cannot acknowledge empty 
 test('a new manuscript can join a catalog with an existing scaffold import without losing either article',async()=>{
   const root=mkdtempSync(path.join(os.tmpdir(),'atlas-new-draft-')),data=path.join(root,'artifacts/data');
   const plan={...structuredClone(EXAMPLES[0]),id:'fresh-draft'};
+  plan.slides=plan.slides.map(slide=>({...slide,intent:{status:'authored' as const,contentRefs:slide.claimRefs,prerequisites:[],successCheck:'QA protocol fixture: inspect the projected scene identity.',representationRationale:'QA prose-only route, not a completed educational representation.',interaction:{kind:'static' as const,rationale:'This fixture checks source projection, not learner interaction.'}}}));
   const p=new Production(root,data,async(command,args)=>{
     if(command!=='git'||args[0]!=='worktree')return;
     const directory=args[4];
@@ -112,5 +113,21 @@ test('a new manuscript can join a catalog with an existing scaffold import witho
       return entry.page.articleId;
     });
     assert.deepEqual(articleIds,['article:mathematics.fresh-draft.ko','article:existing']);
+    const intent=JSON.parse(readFileSync(path.join(work.directory,'content/mathematics/fresh-draft/slide-plan.json'),'utf8'));
+    assert.equal(intent.articleId,'article:mathematics.fresh-draft.ko');
+    assert.deepEqual(intent.scenes.map((scene:{sceneId:string})=>scene.sceneId),plan.slides.map(slide=>slide.id));
+    assert.ok(intent.scenes.every((scene:{intent:{status:string}})=>scene.intent.status==='authored'));
   }finally{p.dispose();rmSync(root,{recursive:true,force:true});}
+});
+
+test('new source projection rejects unplanned intent before creating a workspace or running commands',()=>{
+  const root=mkdtempSync(path.join(os.tmpdir(),'atlas-unplanned-projection-'));
+  let commands=0;
+  const production=new Production(root,path.join(root,'artifacts/data'),async()=>{commands++;});
+  try{
+    const plan={...structuredClone(EXAMPLES[0]),id:'unplanned-draft'};
+    assert.throws(()=>production.start(plan,'current','prepare'),/authored slide intent/);
+    assert.equal(commands,0);
+    assert.deepEqual(production.list(),[]);
+  }finally{production.dispose();rmSync(root,{recursive:true,force:true});}
 });

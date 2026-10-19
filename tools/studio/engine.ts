@@ -34,7 +34,7 @@ export class Studio {
       if(j.error!==undefined){if(typeof j.error!=='string')throw Error('Invalid job error');job.error=j.error;}
       // Old reports may refer to deleted slides. Keep them as historical, never as a valid current gate.
       if(j.report)job.report=validateReport(j.report,plan,true);
-      if(j.provenance)job.provenance=validateReviewProvenance(j.provenance);
+       if(j.provenance)job.provenance=validateReviewProvenance(j.provenance,true);
       if(job.status==='completed'&&!job.report)throw Error('Completed job needs report');
       return job;
     });

@@ -7,6 +7,7 @@ import type {Plan,Topic} from './contracts.js';
 import {validateWorkResult} from './handoff.js';
 import {planVisualInstallation} from './install-visuals.js';
 import {planInteractionInstallation} from './install-interactions.js';
+import {CONTENT_ENTRIES} from '../../content/catalog.js';
 
 export interface Work {id:string;directory:string;branch:string;seedRevision:string;route:string;tasks:WorkTask[];build?:{id:string;revision:string;createdAt:string;sourceHash:string;url?:string}}
 export interface WorkTask {id:string;kind:'prepare'|'implement'|'visuals'|'interactions'|'build';revision:string;status:'running'|'completed'|'failed'|'interrupted';createdAt:string;log:string;sourceHash?:string}
@@ -37,13 +38,14 @@ function scaffold(directory:string,plan:Plan){
   if(concepts.some(c=>c.id===conceptId))throw Error('Concept ID collision');
   concepts.push(Object.assign({id:conceptId},{title:plan.title,summary:plan.goal,reviewStatus:'proposed',externalIds:[]}));json(conceptsFile,concepts);
   json(path.join(base,'article.ko.json'),{id:`article:${prefix}.ko`,conceptId,title:plan.title,reviewStatus:'needs-content-review',scope:plan.metadata.inScope.join(' / ')||plan.goal,blocks:plan.slides.map(s=>({id:`block:${prefix}.${s.id}`,text:s.narration,claimRefs:s.claimRefs.map(claim)})),relatedConcepts:[]});
+  json(path.join(base,'slide-plan.json'),{schemaVersion:1,kind:'studio-authored-intent',articleId:`article:${prefix}.ko`,planId:plan.id,scenes:plan.slides.map(slide=>({sceneId:slide.id,blockRef:`block:${prefix}.${slide.id}`,claimRefs:slide.claimRefs.map(claim),purpose:slide.goal,intent:slide.intent}))});
   json(path.join(base,'claims.json'),plan.claims.map(c=>({id:claim(c.id),kind:'draft-teaching-model',statement:c.text,scope:plan.goal,assumptions:['Inherited manuscript scope; scientific and rights review pending'],sourceRefs:c.sourceRefs.map(id=>({sourceId:sourceIds.get(id),locator:plan.sources.find(s=>s.id===id)!.locator})),reviewStatus:'needs-content-review'})));
   const page={slug:plan.id,articleId:`article:${prefix}.ko`,label:plan.title,category:domain,model:null,experiment:false,claimRefs:plan.claims.map(c=>claim(c.id)),scenes:plan.slides.map((s,i)=>({id:s.id,title:s.title,block:i,from:0,cards:[],known:s.observation}))};
   writeFileSync(path.join(base,'page.ts'),`import type {ContentPage} from '../../../packages/content/types.js';\nexport default ${JSON.stringify(page,null,2)} satisfies ContentPage;\n`);
   const catalog=path.join(directory,'content/catalog.ts'),original=readFileSync(catalog,'utf8'),binding=`studioDraft_${domain.replaceAll('-','_')}_${plan.id.replaceAll('-','_')}`;
   if(!original.includes('export const CONTENT_ENTRIES: ContentEntry[]=['))throw Error('Catalog registration contract changed');
   writeFileSync(catalog,`import ${binding} from './${topic}/page.js';\n`+original.replace('export const CONTENT_ENTRIES: ContentEntry[]=[',`export const CONTENT_ENTRIES: ContentEntry[]=[\n  {directory:'${topic}',article:'article.ko.json',claims:'claims.json',page:${binding}},`));
-  writeFileSync(path.join(base,'README.md'),'# Draft manuscript projection\n\nGenerated once from the private Studio plan. This is a prose-only shared-reader draft; designed diagrams, audio, timing and independent source/rights review remain pending. Preserve edited sources; request explicit implementation changes instead of regenerating.\n');
+  writeFileSync(path.join(base,'README.md'),'# Draft manuscript projection\n\nGenerated once from the private Studio plan. The [authored scene plan](slide-plan.json) preserves supplied purpose, references, prerequisites, success checks and representation/interaction intent beside the projected source. These are author assertions, not evidence that the objectives were achieved.\n\nThis is a prose-only shared-reader draft; designed diagrams, audio, timing and independent source/rights review remain pending. Preserve edited sources and the scene plan; request explicit implementation changes instead of regenerating.\n');
   return 'created' as const;
 }
 
@@ -71,6 +73,8 @@ export class Production {
   async restore(){for(const work of this.works)if(work.build&&existsSync(this.snapshot(work.build.id)))await this.preview(work);}
   start(plan:Plan,revision:string,kind:ProductionAction){
     if(this.disposed)throw Error('Production service closed');
+    const registered=CONTENT_ENTRIES.some(entry=>entry.page.slug===plan.id&&entry.directory===`${plan.domain}/${plan.id}`);
+    if(kind==='prepare'&&!registered&&plan.slides.some(slide=>slide.intent.status!=='authored'))throw Error('New content projection requires authored slide intent before workspace creation');
     if(this.works.some(w=>w.id===plan.id&&w.tasks.some(t=>t.status==='running')))throw Error('A writer/build is already running for this content');
     if(this.controllers.size>=3)throw Error('Three content tasks already running');
     let work=this.works.find(w=>w.id===plan.id);

@@ -1,11 +1,13 @@
-export interface Slide {id:string;title:string;goal:string;narration:string;seconds:number;known:string[];introduces:string[];claimRefs:string[];visual:string;observation:string}
+import {ASSESSMENT_DIMENSIONS,isCurrentAssessment,parseCurrentAssessment,parseLegacyAssessment,parseSlideIntent,type DimensionAssessment,type LegacyDimensionAssessment,type SlideIntent} from './quality-contract.js';
+export {ASSESSMENT_DIMENSIONS,type AssessmentDimension,type AssessmentVerdict,type DimensionAssessment,type EvidenceRef,type EvidenceRefKind,type InteractionIntent,type LegacyDimensionAssessment,type SlideIntent} from './quality-contract.js';
+export interface Slide {id:string;title:string;goal:string;narration:string;seconds:number;known:string[];introduces:string[];claimRefs:string[];visual:string;observation:string;intent:SlideIntent}
 export interface Source {id:string;title:string;url:string;locator:string;consultedOn:string}
 export interface Metadata {format:'short'|'long';depth:'light'|'deep';purpose:'interest'|'understanding'|'practice';topics:string[];prerequisites:string[];inScope:string[];outOfScope:string[];outcome:string}
 export interface Plan {id:string;domain:string;title:string;goal:string;audience:string;metadata:Metadata;totalSeconds:number;policies:string[];openQuestions:string[];sources:Source[];claims:{id:string;text:string;sourceRefs:string[]}[];slides:Slide[]}
 export interface Finding {slideId:string;criterion:string;severity:'blocker'|'warning';evidence:string;suggestion:string}
-export interface Report {summary:string;findings:Finding[];timing:{status:'estimated'|'unverified';note:string}}
+export interface Report {summary:string;findings:Finding[];timing:{status:'estimated'|'unverified';note:string};assessments?:readonly (DimensionAssessment|LegacyDimensionAssessment)[]}
 export interface Feedback {id:string;slideId:string;text:string;resolved:boolean;revision:string}
-export interface ReviewProvenance {origin:'user-supplied-import';reviewer:{name:string;kind:'human'|'external-agent';tool?:string};evidence:{reviewedAt:string;notes:string;artifactRefs:string[]}}
+export interface ReviewProvenance {origin:'user-supplied-import';verification?:'user-assertion';reviewer:{name:string;kind:'human'|'external-agent';tool?:string};evidence:{reviewedAt:string;notes:string;artifactRefs:string[]}}
 export interface Job {id:string;topicId:string;target:string;revision:string;status:'queued'|'running'|'completed'|'failed'|'cancelled'|'interrupted';createdAt:string;error?:string;report?:Report;provenance?:ReviewProvenance}
 export interface Topic {plan:Plan;revision:string;feedback:Feedback[];jobs:Job[];gate:{ready:boolean;reasons:string[]}}
 export interface VideoBudgets {short:number;long:number}
@@ -28,7 +30,7 @@ function metadata(value:unknown,plan:Record<string,unknown>):Metadata{
   return {format:v.format as Metadata['format'],depth:v.depth as Metadata['depth'],purpose:v.purpose as Metadata['purpose'],topics:list(v.topics).map(x=>text(x)),prerequisites:list(v.prerequisites).map(x=>text(x)),inScope:list(v.inScope).map(x=>text(x)),outOfScope:list(v.outOfScope).map(x=>text(x)),outcome:text(v.outcome)};
 }
 export function validatePlan(value:unknown):Plan{
-  const v=object(value);const plan:Plan={id:id(v.id),domain:id(v.domain??(v.id==='binary-relations'?'mathematics':'statistics')),title:text(v.title,200),goal:text(v.goal),audience:text(v.audience),metadata:metadata(v.metadata,v),totalSeconds:Number(v.totalSeconds),policies:strings(v.policies),openQuestions:strings(v.openQuestions),sources:list(v.sources).map(item=>{const s=object(item);const url=text(s.url),parsed=new URL(url);if(parsed.protocol!=='https:'||!parsed.hostname)throw Error('Source needs HTTPS');return {id:id(s.id),title:text(s.title),url,locator:text(s.locator),consultedOn:text(s.consultedOn,30)};}),claims:list(v.claims).map(item=>{const c=object(item);return {id:id(c.id),text:text(c.text),sourceRefs:strings(c.sourceRefs)};}),slides:list(v.slides,160).map(item=>{const s=object(item);if(typeof s.seconds!=='number')throw Error('Slide seconds must be numeric');return {id:id(s.id),title:text(s.title,200),goal:text(s.goal),narration:text(s.narration),seconds:s.seconds,known:strings(s.known),introduces:strings(s.introduces),claimRefs:strings(s.claimRefs),visual:text(s.visual),observation:text(s.observation)};})};
+  const v=object(value);const plan:Plan={id:id(v.id),domain:id(v.domain??(v.id==='binary-relations'?'mathematics':'statistics')),title:text(v.title,200),goal:text(v.goal),audience:text(v.audience),metadata:metadata(v.metadata,v),totalSeconds:Number(v.totalSeconds),policies:strings(v.policies),openQuestions:strings(v.openQuestions),sources:list(v.sources).map(item=>{const s=object(item);const url=text(s.url),parsed=new URL(url);if(parsed.protocol!=='https:'||!parsed.hostname)throw Error('Source needs HTTPS');return {id:id(s.id),title:text(s.title),url,locator:text(s.locator),consultedOn:text(s.consultedOn,30)};}),claims:list(v.claims).map(item=>{const c=object(item);return {id:id(c.id),text:text(c.text),sourceRefs:strings(c.sourceRefs)};}),slides:list(v.slides,160).map(item=>{const s=object(item);if(typeof s.seconds!=='number')throw Error('Slide seconds must be numeric');return {id:id(s.id),title:text(s.title,200),goal:text(s.goal),narration:text(s.narration),seconds:s.seconds,known:strings(s.known),introduces:strings(s.introduces),claimRefs:strings(s.claimRefs),visual:text(s.visual),observation:text(s.observation),intent:parseSlideIntent(s.intent)};})};
   if(!/^[a-z][a-z0-9-]*$/.test(plan.domain))throw Error('Invalid domain');
   if(!plan.slides.length||typeof v.totalSeconds!=='number'||!Number.isFinite(plan.totalSeconds)||plan.totalSeconds<1||plan.totalSeconds>14400)throw Error('Invalid duration');
   for(const rows of [plan.slides,plan.claims,plan.sources])if(new Set(rows.map(r=>r.id)).size!==rows.length)throw Error('Duplicate IDs');
@@ -39,15 +41,24 @@ export function validatePlan(value:unknown):Plan{
 }
 export function validateReport(value:unknown,plan:Plan,historical=false):Report{
   const r=object(value),timing=object(r.timing);if(!['estimated','unverified'].includes(String(timing.status)))throw Error('Invalid timing review');
-  return {summary:text(r.summary),timing:{status:timing.status as Report['timing']['status'],note:text(timing.note)},findings:list(r.findings).map(item=>{const f=object(item),slideId=id(f.slideId);if(!['blocker','warning'].includes(String(f.severity))||(!historical&&slideId!=='overall'&&!plan.slides.some(s=>s.id===slideId)))throw Error('Invalid finding target/severity');return {slideId,criterion:text(f.criterion),severity:f.severity as Finding['severity'],evidence:text(f.evidence),suggestion:text(f.suggestion)};})};
+  const report:Report={summary:text(r.summary),timing:{status:timing.status as Report['timing']['status'],note:text(timing.note)},findings:list(r.findings).map(item=>{const f=object(item),slideId=id(f.slideId);if(!['blocker','warning'].includes(String(f.severity))||(!historical&&slideId!=='overall'&&!plan.slides.some(s=>s.id===slideId)))throw Error('Invalid finding target/severity');return {slideId,criterion:text(f.criterion),severity:f.severity as Finding['severity'],evidence:text(f.evidence),suggestion:text(f.suggestion)};})};
+  if(r.assessments===undefined){if(historical)return report;throw Error('Current review needs dimension assessments');}
+  const seen=new Set<string>();
+  report.assessments=list(r.assessments).map(item=>{const assessment=historical&&object(item).expected===undefined?parseLegacyAssessment(item):parseCurrentAssessment(item);if(seen.has(assessment.dimension))throw Error('Duplicate assessment dimension');seen.add(assessment.dimension);return assessment;});
+  if(report.assessments.length!==ASSESSMENT_DIMENSIONS.length||ASSESSMENT_DIMENSIONS.some(dimension=>!seen.has(dimension)))throw Error('Review needs every assessment dimension');
+  if(!historical){const source=report.assessments.find(assessment=>assessment.dimension==='source');if(source&&isCurrentAssessment(source)&&source.verdict==='adequate'&&source.evidenceRefs.filter(reference=>reference.kind==='source').some(reference=>!plan.sources.some(item=>item.id===reference.ref)))throw Error('Source assessment references an unchecked source identity');}
+  return report;
 }
 export function readiness(plan:Plan,revision:string,jobs:Job[],feedback:Feedback[]){
   const reasons:string[]=[];if(plan.openQuestions.length)reasons.push('미결 기획 질문');
+  for(const slide of plan.slides)if(slide.intent.status==='unplanned')reasons.push(`${slide.id}: intent unplanned`);
   if(plan.slides.reduce((n,s)=>n+s.seconds,0)>plan.totalSeconds)reasons.push('영상 재생 시간 예산 초과');
   for(const target of ['overall',...plan.slides.map(s=>s.id)]){
     const latest=jobs.filter(j=>j.revision===revision&&j.target===target).at(-1);
     if(!latest||latest.status!=='completed'||!latest.report)reasons.push(`${target}: 유효한 리뷰 없음`);
     else if(latest.report.findings.some(f=>f.severity==='blocker'))reasons.push(`${target}: 차단 지적`);
+    else if(!latest.report.assessments)reasons.push(`${target}: 품질 차원 평가 없음`);
+    else for(const dimension of ASSESSMENT_DIMENSIONS){const rows=latest.report.assessments.filter(assessment=>assessment.dimension===dimension);if(rows.length!==1||!isCurrentAssessment(rows[0]))reasons.push(`${target}: ${dimension} 구조화 평가 없음`);else if(rows[0].verdict!=='adequate'&&rows[0].verdict!=='not-applicable')reasons.push(`${target}: ${dimension} ${rows[0].verdict}`);}
   }
   if(feedback.some(f=>!f.resolved))reasons.push('미해결 사용자 피드백');
   return {ready:reasons.length===0,reasons};
