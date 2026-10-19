@@ -3,9 +3,9 @@
   "articleId": "article:physics-discovery.quark-evidence.ko",
   "seriesId": "series:physics-discovery",
   "openingQuestion": "전자–양성자 산란의 어떤 측정·분석 패턴이 점 모양의 전하 띤 쿼크를 지지했을까요?",
-  "readerOutcome": "입사 빔 에너지와 사건의 운동량 전달을 구별하고, 원시 단면적에서 모트 인자를 분리한 구조함수 및 초기 W₂ 추출 조건을 설명한 뒤, 그 패턴이 전하 띤 점 모양 파톤을 지지하되 쿼크 식별과 글루온 추론에는 다른 증거가 필요함을 말할 수 있습니다.",
+  "readerOutcome": "한 사건의 E′·θ와 앙상블 미분 단면적을 구별하고, 양수 Q²·ν·하드론 W를 정의하며, 모트 분리 뒤 구조함수 조합과 초기 W₂ 추출의 두 R 가정이 서로 다른 결과를 냈음을 설명할 수 있습니다. 또한 약한 잔여 의존성이 미해결 전하 중심의 비결맞은 산란 모형을 지지하지만 완전한 쿼크 식별을 이 독자가 유도하지 않으며, 글루온은 Q² 의존 스케일링 위반의 별도 증거임을 말할 수 있습니다.",
   "assumedKnowledge": ["전자와 양성자가 전하를 띤다는 사실", "산란 전후의 방향과 에너지를 비교할 수 있다는 개념"],
-  "misconception": "원자료 산란 단면적이 Q²와 무관했고, 그 한 사실만으로 쿼크와 글루온이 모두 직접 검출되었다.",
+  "misconception": "원자료 단면적이 모든 운동학에서 Q²와 무관했고 두 R 극단이 같은 보편 곡선을 주었으며, 그 한 패턴으로 쿼크 수와 글루온을 직접 검출했다.",
   "transfer": {
     "question": "산란 전자의 총개수만 세고 각도와 출사 에너지를 기록하지 않았다면 같은 하드 산란 중심 추론을 할 수 있을까요?",
     "answer": "아니요. 핵심 운동학 패턴을 분리할 수 없습니다.",
@@ -29,6 +29,6 @@
   },
   "review": {
     "status": "review-required",
-    "blockers": ["Independent particle-physics, statistics, history-of-science, and pedagogy critique pending.", "Primary-paper R-dependence and 2025 PDG edition/revision verification pending.", "Exact source-byte capture, rights audit, audio timing, and publication approval pending."]
+    "blockers": ["Independent particle-physics, statistics, history-of-science, and pedagogy critique pending.", "Exact provider revision matching and independent source review remain pending despite direct rendered-page checks.", "Immutable source-byte capture, rights audit, audio timing, and publication approval pending."]
   }
 }

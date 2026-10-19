@@ -2,9 +2,9 @@
   {
     "id": "claim:physics-discovery.quark-evidence.measurement",
     "kind": "measurement-conditions",
-    "statement": "SLAC–MIT 심층 비탄성 산란은 입사·산란 전자의 에너지와 산란각을 측정해 운동량 전달 Q²와 에너지 전달을 정하고, 큰 Q²와 큰 하드론 최종상태 질량의 사건에서 양성자 내부 구조를 탐사했다. 높은 입사 빔 에너지는 이 영역을 가능하게 하지만 그 자체가 사건의 분해능을 정하지 않는다.",
+    "statement": "SLAC–MIT 심층 비탄성 산란은 한 사건에서 입사 빔 에너지 E와 산란 전자의 E′·θ를 사용해 양성자 정지 실험실계의 ν=E−E′와 현대의 양수 Q²=−qμqμ를 정했다. 많은 사건의 운동학별 미분 단면적을 만들고 큰 Q²와 큰 하드론 최종상태 불변질량 W²=M²+2Mν−Q² 영역을 골라 내부 구조를 탐사했다. 높은 E는 이 영역을 가능하게 하지만 그 자체가 사건의 분해능을 정하지 않는다.",
     "scope": "포함적 전자–양성자 산란 e+p→e+X의 운동학과 1960년대 말 SLAC–MIT 장치에 대한 정성적 설명. 특정 사건의 완전한 최종상태 재구성, 검출 효율 또는 복사 보정의 수치 재분석은 포함하지 않는다.",
-    "assumptions": ["교환된 가상 광자의 Q²=-q²를 운동량 전달 척도로 사용함", "DIS 조건을 Q²≫M²와 W²≫M²로 구별함", "입사 에너지뿐 아니라 출사 에너지와 산란각을 함께 사용함"],
+    "assumptions": ["c=1과 양성자 정지 실험실계를 사용하고 에너지는 GeV, 제곱 불변량은 GeV²로 표시함", "현대 양수 Q²=-qμqμ를 사용하며 1969년 논문의 양수 q²와 같은 운동량 전달 크기로 대응함", "하드론 불변질량 W를 구조함수 W₁·W₂와 구별하고 DIS 조건을 Q²≫M²와 W²≫M²로 구분함"],
     "sourceRefs": [
       {"sourceId":"source:nobel-physics-1990-dis","locator":"Press release, ‘The prizewinners’ contributions’: 4–21 GeV beams, magnetic spectrometers at 6°, 10°, 18°, 26°, 34°, and measurement of scattered-electron angle and energy; paragraph beginning ‘However, the researchers found’ describes large energy loss and large angle."},
       {"sourceId":"source:pdg-structure-functions-2025","locator":"§18.1 printed p.1, Eqs. (18.3)–(18.6): Q²≈4EE′sin²(θ/2), x=Q²/(2Mν), and DIS defined by Q²≫M² and W²≫M²."}
@@ -14,12 +14,13 @@
   {
     "id": "claim:physics-discovery.quark-evidence.factored-pattern",
     "kind": "historical-observation",
-    "statement": "초기 SLAC–MIT 자료의 원시 단면적 자체가 Q²에 무관했던 것이 아니다. 연구진은 측정 미분 단면적을 모트 단면적으로 나누어 광자 전파자에서 오는 주된 운동량 의존성을 분리하고 구조함수로 표적 정보를 표현했다. 작은 각도 자료만으로 W₁과 W₂를 분리하지 못해 W₂ 추출은 종편광·횡편광 가상광자 흡수 단면적 비 R의 가정에 조건부였다. 명시한 범위와 오차 안에서 에너지 전달 ν를 곱한 νW₂가 한 변수의 보편 곡선과 양립했으며, 이는 원시 단면적이나 맨 W₂가 일정하다는 주장이 아니다.",
-    "scope": "Breidenbach et al.의 6도·10도 전자–양성자 포함 산란에 대한 제한적 진술. 특정 R 가정을 사실로 고정하지 않고, 원자료 단면적과 모트 인자를 분리한 구조함수를 구별한다. 역사적 도표·계수·오차를 재현하거나 모든 Q²에서 정확한 스케일링을 주장하지 않는다.",
-    "assumptions": ["모트 단면적 나눗셈으로 알려진 주된 전자기 운동량 의존성을 분리함", "W₂ 추정에는 R=σL/σT에 대한 경계 가정이 들어감을 밝힘", "논문이 명시한 운동학 범위와 통계·계통 오차 안에서만 비교함"],
+    "statement": "초기 SLAC–MIT 자료의 원시 단면적 자체가 Q²에 무관했던 것이 아니다. 측정 미분 단면적을 같은 운동학의 모트 단면적으로 나눈 값은 W₂+2W₁tan²(θ/2)였고, 하드론 불변질량 W를 고정했을 때 깊은 연속영역의 잔여 Q² 의존성이 탄성·공명보다 약했다. 작은 각도 자료는 W₁과 W₂를 분리하지 못했다. R=σL/σT를 0으로 둔 횡편광 우세 추출에서만 νW₂가 ω=2Mν/Q²의 함수라는 보수적 결론이 측정 오차 안에서 Q²>1 GeV²와 ω>4에 성립했다. R→∞인 종편광 우세 추출은 보편 곡선을 따르지 않고 고정 ω에서 νW₂가 Q²와 함께 증가했다.",
+    "scope": "Breidenbach et al.의 6도·10도 전자–양성자 포함 산란에 대한 제한적 진술. R=0과 R→∞를 모형 추출의 극단으로 구별하고, 고정 하드론 W에서의 잔여 Q² 비교와 고정 ω에서의 R별 νW₂ 결과를 섞지 않는다. 역사적 도표·계수·오차를 재현하거나 모든 Q²에서 정확한 스케일링을 주장하지 않는다.",
+    "assumptions": ["모트 단면적 나눗셈 뒤에도 W₁·W₂ 조합이 남음을 밝힘", "R=0은 횡편광 우세이고 R→∞는 종편광 우세인 모형 추출 극단이지 측정 오차 띠가 아님", "보편 곡선 진술은 추출 가정 R=0과 보수적 범위 Q²>1 GeV², ω>4 및 측정 오차 안으로 제한함"],
     "sourceRefs": [
-      {"sourceId":"source:slac-breidenbach-dis-1969","locator":"Printed p.2: measured differential cross section divided by the Mott cross section ‘in order to remove the major part’ of the photon-propagator momentum-transfer dependence; deep-continuum residual q² dependence is much weaker than elastic/resonance scattering."},
-      {"sourceId":"source:slac-breidenbach-dis-1969","locator":"Abstract and printed pp.2–5: conditional W₂ extraction through R=σL/σT and inability to separate W₁/W₂ from the small-angle data; printed pp.3–5 plot and discuss νW₂ versus ω, including the R=0 and R=∞ limits and the stated q²/ω range for a universal curve within experimental errors."},
+      {"sourceId":"source:slac-breidenbach-dis-1969","locator":"Rendered scan, printed p.2: Mott-divided cross section plotted against the paper's positive q² at constant hadronic invariant mass W; W²=2M(E−E′)+M²−q²; deep-continuum dependence weaker than elastic/resonance behavior."},
+      {"sourceId":"source:slac-breidenbach-dis-1969","locator":"Rendered scan, printed p.3: (d²σ/dΩdE′)/(dσ/dΩ)Mott = W₂+2W₁tan²(θ/2); W₁ and W₂ are functions of q² and ν; small-angle measurements cannot determine them separately."},
+      {"sourceId":"source:slac-breidenbach-dis-1969","locator":"Abstract and rendered scan printed pp.4–5: R=0 and R=∞ are extreme extraction assumptions; conservative transverse-dominance statement is νW₂ versus ω for q²>1 (GeV/c)² and ω>4 within experimental errors; longitudinal dominance does not follow a universal curve and rises with q² at fixed ω."},
       {"sourceId":"source:pdg-structure-functions-2025","locator":"§18.2.1 printed pp.4–5: Bjorken-limit scaling is a quark-parton-model prediction; §18.2.2 printed pp.5–6: hard-gluon radiation produces logarithmic scaling violations."}
     ],
     "reviewStatus": "draft-source-aligned-needs-primary-review"
@@ -27,13 +28,14 @@
   {
     "id": "claim:physics-discovery.quark-evidence.parton-inference",
     "kind": "model-inference",
-    "statement": "큰 Q²에서 모트 인자를 분리한 구조함수의 약한 잔여 Q² 의존성과 근사적 스케일링은 전자가 양성자 안의 점 모양 전하 띤 파톤과 짧은 시간에 비결맞게 산란한다는 모형을 지지했다. 이 전자기 하드 산란 중심을 쿼크로 식별한 것은 양성자 패턴 하나가 아니라 중성자 및 후속 산란과 하드론 분류의 수렴에 의존했다. 전기적으로 중성인 글루온은 직접 전하 산란 중심이 아니라 별도의 증거로 추론되었다.",
+    "statement": "고정 하드론 W에서의 약한 잔여 Q² 의존성과 R=0에서의 제한적 스케일링은, 퍼진 전하의 결맞은 반응에 따른 형태인자 억제보다 전자가 내부 크기가 풀리지 않는 독립적인 전하 띤 파톤과 비결맞게 산란한다는 모형을 지지했다. Nobel 회고 자료는 이 파톤 해석이 뒤에 쿼크 모형과 동일시되었다고 보고하지만, 이 양성자 패턴만으로 완전한 쿼크 정체를 유도하지 않는다. 전기적으로 중성인 글루온은 직접 광자 전하 산란 중심이 아니며 Q² 의존 스케일링 위반과 후속 증거라는 별도 경로에서 추론된다.",
     "scope": "역사적 파톤 모형에서 쿼크 해석으로 이어진 증거 관계. ‘점 모양’은 탐사된 분해능에서 내부 크기가 드러나지 않는 산란 중심을 뜻하며 문자 그대로의 사진이나 자유 쿼크 검출을 뜻하지 않는다. 이 단일 실험이 글루온, 가둠 또는 완전한 QCD를 독립적으로 증명했다고 주장하지 않는다.",
-    "assumptions": ["전자기 탐침은 전기적으로 전하를 띤 구성요소에 직접 결합함", "하드 산란의 짧은 시간척도에서 파톤을 근사적으로 자유로운 대상으로 다룸", "쿼크와 글루온 식별에는 독립 관찰과 이론 비교가 필요함"],
+    "assumptions": ["전자기 탐침은 전기적으로 전하를 띤 구성요소에 직접 결합함", "하드 산란의 짧은 시간척도에서 파톤을 근사적으로 자유로운 독립 중심으로 다루되 수나 내부 사진을 주장하지 않음", "쿼크 동일시는 Nobel의 넓은 후대 요약 수준으로 제한하고 글루온은 Q² 의존 스케일링 위반이라는 별도 증거로 구분함"],
     "sourceRefs": [
-      {"sourceId":"source:nobel-physics-1990-dis","locator":"Illustrated presentation, ‘The SLAC-MIT experiment’: unexpectedly high event probability and charge concentrated in negligible-size components; following paragraph says the parton interpretation was later identified with the quark model and gluon hints followed from detailed analysis."},
-      {"sourceId":"source:slac-dis-history","locator":"‘The hunting of the quarks’: 1967 SLAC–MIT high-energy electron beams on hydrogen and deuterium; inelastic scattering from ‘hard grains’ followed initially unremarkable measurements."},
-      {"sourceId":"source:pdg-qcd-2025","locator":"§9.2.2 printed p.6 after Eq. (9.12): quark-parton-model picture as photon interaction with point-like free quarks/incoherent elastic scattering, followed by higher-order radiation corrections; §9.3 printed p.21: partons are not directly measured, only hadrons and decay products."}
+      {"sourceId":"source:nobel-physics-1990-dis","locator":"Illustrated presentation, ‘The SLAC-MIT experiment’: high probability relative to a soft distributed-charge expectation, charge concentrated in negligible-size components, and the following paragraph's broad retrospective statement that the parton interpretation was later identified with the quark model."},
+      {"sourceId":"source:slac-breidenbach-dis-1969","locator":"Rendered scan, printed p.6 opening: parton models describe incoherent scattering from point-like constituents and lead to a universal form for νW₂."},
+      {"sourceId":"source:pdg-qcd-2025","locator":"Official PDF rendered, §9.2.2 printed p.6 after Eq. (9.12): quark-parton-model photon interaction with point-like free quarks, equivalently incoherent elastic scattering from individual constituents, followed by higher-order radiation and scale-dependent PDFs."},
+      {"sourceId":"source:pdg-structure-functions-2025","locator":"Official PDF rendered, §18.2.2 printed pp.5–6: hard-gluon radiation leads to logarithmic scaling violations and Q² evolution of partons and structure functions."}
     ],
     "reviewStatus": "draft-source-aligned-needs-history-review"
   }
