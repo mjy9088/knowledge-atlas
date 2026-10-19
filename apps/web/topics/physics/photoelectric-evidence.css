@@ -1,0 +1,30 @@
+.reader-enhanced [data-page=photoelectric-evidence] :is(.reader-dialogue,.reader-copy,.scene-prose,.scene-figure figcaption) {
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+  text-wrap: pretty;
+}
+
+.reader-enhanced [data-page=photoelectric-evidence] .reader-scene[data-visual=figure] .concept-diagram {
+  align-items: stretch;
+}
+
+.reader-enhanced [data-page=photoelectric-evidence] .scene-figure img {
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.reader-enhanced [data-page=photoelectric-evidence] .scene-figure figcaption {
+  width: 96%;
+  max-width: 96%;
+  font-size: 13px;
+  font-weight: 560;
+}
+
+@media (max-width: 720px) {
+  .reader-enhanced [data-page=photoelectric-evidence] .reader-scene[data-visual=figure] .scene-prose,
+  .reader-enhanced [data-page=photoelectric-evidence] .scene-figure figcaption {
+    font-size: 13px;
+    line-height: 1.55;
+  }
+}
