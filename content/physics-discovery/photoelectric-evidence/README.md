@@ -5,7 +5,7 @@
 This episode asks why increasing brightness need not eject electrons when the light frequency is below the ordinary photoelectric threshold. Its conclusion is deliberately conditional: a clean, uniform metal surface in vacuum, monochromatic illumination, and the low-intensity single-photon regime. It separates three layers:
 
 - **Measured pattern:** below a material-dependent cutoff frequency no photocurrent is observed; above it, intensity changes the saturation photocurrent at fixed frequency, collection geometry, and adequate collection voltage, while the stopping-potential magnitude stays constant.
-- **Model inference:** when `hf≥φ` permits emission, `Kmax=hf−φ` explains the threshold as an energy balance for one absorbed photon and one electron. For `hf<φ`, the single-photon emission condition fails; the model does not assign a physical negative kinetic energy. It supports quantized light-energy exchange; it is not itself a raw measurement.
+- **Model inference:** for `hf<φ`, the single-photon emission condition fails and the model does not assign a physical negative kinetic energy. At `hf=φ`, the ideal maximum kinetic energy is `Kmax=0`, but that equality does not guarantee a measurable photocurrent. For `hf>φ`, emission is possible and `Kmax=hf−φ`; this does not guarantee that every incident photon produces a collected electron. The cutoff satisfies `hfc=φ`. This model supports quantized light-energy exchange; it is not itself a raw measurement.
 - **Excluded regimes:** sufficiently intense short laser pulses can produce multiphoton or strong-field emission. Thermal emission, semiconductor response, surface contamination, and spatially varying work functions are also outside this short episode.
 
 The episode does not say that every form of classical electromagnetic theory was refuted by one experiment or that the photoelectric effect alone proved all of quantum mechanics.
@@ -33,5 +33,7 @@ Doubling intensity at the second frequency changes the photon arrival rate and m
 ## Current presentation
 
 The reader uses seven scenes. The worked block is presented by exact sentence ranges: `below-threshold-case` uses sentences `[0,2)`, and `above-threshold-case` uses `[2,end)`. The planned segment allocations remain 180 seconds in total.
+
+The scoped visual system, source-to-representation boundary, and retrospective proposed seven-scene pre-production plan are in [DESIGN.md](DESIGN.md). The plan requires original static apparatus, qualitative current–voltage, energy-ledger, polarity, scope, and matched-condition figures; it preserves full worked exposition without a quiz or topic adapter. It is authoring intent, not learner evidence, scientific approval, or a measured narration result.
 
 The 180-second narration budget is planned, not measured; 58 seconds are reserved across the two worked-example scenes so arithmetic and units need not be rushed. The article, concept, and consulted-source identities are registered in the canonical [series catalog](../catalog.ts), [concept registry](../../../knowledge/concepts.json), and [source registry](../../../sources/registry.json). Independent source critique, physics review, exact revision capture, rights review, narration/audio, comprehension review, and publication authorization remain pending.
