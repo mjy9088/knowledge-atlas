@@ -11,10 +11,10 @@ The six stable scene IDs, three existing claim IDs, canonical claim coverage, `n
 - Primary reader: a Korean-speaking learner who knows that charge responds to electric fields but may conflate a force direction, a velocity direction, and a visible beam trace.
 - Every SVG has a Korean title and description. Page metadata supplies nonempty alternative text and a caption that identifies the drawing as an original model schematic.
 - Color is redundant with arrow labels, arrow direction, line style, sign, and grouping. Velocity arrows and force arrows have distinct marker shapes and explicit labels.
-- Essential SVG labels use at least 24 units at weight 600, or 22 units at weight 560, in a bounded `600 × 380` view box. Labels, paths, axes, and panels occupy separate bands.
+- Every essential SVG label uses at least 24 units at weight 600 in the bounded `600 × 380` view box. Labels, paths, axes, and panels occupy separate bands.
 - Every marker declares `markerUnits="userSpaceOnUse"` with a bounded marker box no larger than 12 units in either dimension.
 - Topic-scoped Korean prose and captions retain words with `word-break: keep-all`, use `overflow-wrap: anywhere` only as fallback, and use `text-wrap: pretty`. No shared CSS changes.
-- The six scenes must fit the shared FHD reader and the 390 px narrow slot without clipped conditions, hidden overflow, or copy below 13 px.
+- The six scenes must fit the shared FHD reader and the 390 px narrow slot without clipped conditions or hidden overflow. Figure captions remain at least 13 CSS px in every profile.
 
 ## 3. Existing visual system
 
@@ -36,6 +36,7 @@ All observation language remains source-bounded. The static diagrams expose mode
 - **Inference ledger:** equations and conditions occupy their own panel rather than overlaying the path.
 - **Matched ratio pair:** two unequal positive `( |q|, m )` pairs sharing one ratio, followed by the additional independent datum needed to identify each quantity.
 - **Static comparison:** all cases are visible simultaneously; there is no topic adapter, quiz, hidden answer, animation, or scientific input. Generic reader scene state, reset, restoration, and invalid-state rejection remain the only state contract.
+- **Bounds:** each essential text box stays inside the SVG root and, when assigned to a panel, inside that panel. Bottom scope notes are short; complete representation limits remain in the body, alternative text, and caption rather than a single overlong SVG line.
 
 ## 6. Retrospective proposed six-scene plan
 
@@ -52,7 +53,7 @@ This plan governs the revision before figure production. It reconstructs propose
 
 ## 7. Verification and review boundary
 
-Independent fixtures compute the negative-charge electric and magnetic force directions from vectors rather than trusting labels; inspect the curvature radius and inward-force geometry; verify charge-to-mass dimensions from base units; and prove underdetermination with unequal pairs not derived from SVG output. Page wiring preserves all six IDs and assigns figures only where the plan requires them. Marker bounds, essential-label sizes, model caveats, and separate semantic groups are structural checks, not visual approval.
+Independent fixtures compute the negative-charge electric and magnetic force directions from vectors rather than trusting labels; inspect the curvature radius and inward-force geometry; verify charge-to-mass dimensions from base units; and prove underdetermination with unequal pairs not derived from SVG output. Root and panel bounds are calculated from actual viewBox, rect, text, path, and line attributes with conservative text extents; curve labels retain clearance from their associated arrows. Page wiring preserves all six IDs and assigns figures only where the plan requires them. These structural checks are not visual approval.
 
 The lead owns the full build, browser execution, and independent physics/visual review. Browser QA should inspect every scene at 390 × 844 and 1920 × 1080, full Korean copy and captions, document/internal bounds, 44 px controls and center hit access, direct anchors, reset/restoration, and atomic invalid-state rejection. Static scenes have no topic interaction state; tests must not invent one.
 
