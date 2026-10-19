@@ -2,6 +2,8 @@
 
 This candidate asks why the cross-product rule can group different fraction expressions consistently, rather than offering a glossary of relation properties. Its universe is `D={(a,b)∈Z² : b≠0}` and its only relation is `(a,b)~(c,d)` exactly when `ad=bc`. The worked chain `(1,2)~(2,4)~(3,6)` creates the need for reflexivity, symmetry, and especially transitivity before those terms are introduced.
 
+The [corrective scene and representation plan](DESIGN.md) records the purpose, prerequisite, success check, and deliberate static representation for all sixteen stable scenes before implementation. It is retrospective proposed intent, not original human approval, learner-attainment evidence, or mathematical review.
+
 The transitivity argument is independently written. From `ad=bc` and `cf=de`, multiplying by `f` and `b` gives `adf=bcf=bde`, hence `d(af−be)=0`. Because the middle denominator `d` is nonzero, integer cancellation yields `af=be`. This does not divide rational numbers or assume the quotient construction being explained. The transfer case repeats the reasoning with `(2,3)`, `(4,6)`, and `(10,15)`.
 
 The `(0,0)` case is also an independent counterexample: under the naively expanded cross-product relation on all of `Z²`, `(1,1)~(0,0)` and `(0,0)~(1,2)`, while `(1,1)≁(1,2)`. It establishes failure of that expanded relation, not impossibility of every extended number system that has some convention for `1/0`.
