@@ -8,17 +8,17 @@
   "blocks": [
     {
       "id": "block:number-systems.rational-density.opening-gap",
-      "text": "두 유리수 사이에서는 평균을 택할 수 있습니다. 하지만 양 끝 x<y가 √2와 √3처럼 유리수가 아닐 수도 있습니다. 이때 평균이 유리수라고 보장할 수는 없습니다. 대신 간격 y−x보다 촘촘한 간격 1/n의 정수 격자를 놓고, x 바로 오른쪽의 격자점을 찾겠습니다.",
-      "claimRefs": ["claim:number-systems.rational-density.theorem"]
+      "text": "두 유리수 사이에서는 평균을 택할 수 있습니다. 하지만 양 끝 x<y가 √2와 √3처럼 유리수가 아닐 수도 있습니다. 이때 평균이 유리수라고 보장할 수는 없습니다. 대신 간격 y−x보다 촘촘한 간격 1/n의 정수 격자를 놓고, x\u00a0바로\u00a0오른쪽의 격자점을 찾겠습니다.",
+      "claimRefs": ["claim:number-systems.rational.density", "claim:number-systems.rational-density.theorem"]
     },
     {
       "id": "block:number-systems.rational-density.choose-mesh",
-      "text": "아르키메데스 성질에 따라 양수 y−x에 대해 1/n<y−x가 되도록 양의 정수 n을 고를 수 있습니다. 부등호가 엄격해야 격자 한 칸이 전체 간격보다 확실히 짧습니다. 이제 모든 정수 k에 대한 격자점 k/n을 생각합니다.",
+      "text": "이 글에서 가정하는 아르키메데스 성질에 따라 양수 y−x에 대해 1/n<y−x가 되도록 양의 정수 n을 고를 수 있습니다. 부등호가 엄격해야 격자 한 칸이 전체 간격보다 확실히 짧습니다. 이제 모든 정수 k에 대한 격자점 k/n을 생각하면, k는\u00a0정수이고 n은 0이 아닌 정수이므로 각 k/n은 유리수입니다.",
       "claimRefs": ["claim:number-systems.rational-density.archimedean-mesh"]
     },
     {
       "id": "block:number-systems.rational-density.first-grid-point",
-      "text": "⌊nx⌋를 nx 이하의 가장 큰 정수라 하고 m=⌊nx⌋+1로 두면, m은 정수이고 nx<m≤nx+1입니다. n>0이므로 n으로 나누어 x<m/n≤x+1/n을 얻습니다. 앞에서 1/n<y−x로 골랐으므로 x+1/n<y입니다. 따라서 x<m/n<y이고, m/n은 두 정수의 비이므로 유리수입니다.",
+      "text": "바닥함수의 성질 ⌊nx⌋≤nx<⌊nx⌋+1에서 m\u2060=\u2060⌊nx⌋\u2060+\u20601로\u00a0두면, m은 정수이고 nx<m≤nx+1입니다. n>0이므로 부등호 방향을 보존하며 n으로 나누어 x<m/n≤x+1/n을 얻습니다. 앞에서 1/n<y−x로 골랐으므로 x+1/n<y입니다. 따라서 x<m/n<y이고, m/n은 두\u00a0정수의\u00a0비이므로 유리수입니다.",
       "claimRefs": ["claim:number-systems.rational-density.grid-construction", "claim:number-systems.rational-density.theorem"]
     },
     {
@@ -28,12 +28,12 @@
     },
     {
       "id": "block:number-systems.rational-density.irrational-endpoints",
-      "text": "예를 들어 √2와 √3 사이에는 유리수 3/2가 있습니다. 양수의 제곱을 비교하면 2<9/4이므로 √2<3/2이고, 9/4<3이므로 3/2<√3입니다. 소수 근삿값 없이도 √2<3/2<√3를 정확히 확인할 수 있습니다.",
+      "text": "예를 들어 양의 실수 √2와 √3 사이에는 양의 유리수 3/2가 있습니다. a,b≥0인 실수에서는 a<b일 때 그리고 그때에만 a²<b²이므로, 2<9/4에서 √2<3/2를 얻고 9/4<3에서 3/2<√3를 얻습니다. 소수 근삿값 없이도 √2<3/2<√3를 정확히 확인할\u00a0수\u00a0있습니다.",
       "claimRefs": ["claim:number-systems.rational-density.irrational-endpoint-example"]
     },
     {
       "id": "block:number-systems.rational-density.transfer-mesh",
-      "text": "x=1, y=1.1=11/10에서 n=10을 택하면 1/n=y−x이고, 공식은 m=11을 주어 m/n=11/10=y에 닿습니다. 이는 열린 구간의 답이 아닙니다. 더 촘촘하게 n=20을 택하면 1/20<1/10이고 m=21이므로 1<21/20<11/10입니다. 이 비교는 왜 1/n≤y−x가 아니라 1/n<y−x가 필요한지 보여 줍니다.",
+      "text": "x=1, y=1.1=11/10에서 n=10을 택하면 1/n=y−x이고, 공식은 m=11을 주어 m/n=11/10=y에 닿습니다. 이는\u00a0열린\u00a0구간의\u00a0답이\u00a0아닙니다. 더 촘촘하게 n=20을 택하면 1/20<1/10이고 m=21이므로 1<21/20<11/10입니다. 이 비교는 1/n≤y−x만으로는 이 구성이 열린 구간의 점을 항상 준다고 보장할 수 없고, 그런 보장을 위해 1/n<y−x를 사용함을\u00a0보여\u00a0줍니다.",
       "claimRefs": ["claim:number-systems.rational-density.archimedean-mesh", "claim:number-systems.rational-density.grid-construction"]
     }
   ],

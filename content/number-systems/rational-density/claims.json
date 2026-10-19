@@ -45,8 +45,8 @@
     "id": "claim:number-systems.rational-density.irrational-endpoint-example",
     "kind": "formal",
     "statement": "양의 실수 √2와 √3에 대해 √2<3/2<√3이다.",
-    "scope": "실수에서 양수의 제곱 비교로 확인하는 독립 작성 예. √2와 √3의 존재나 √2의 비유리성은 이 예에서 증명하지 않는다.",
-    "assumptions": ["√2와 √3은 각각 제곱이 2와 3인 양의 실수다", "비음수 실수에서 제곱함수는 순서를 보존한다"],
+    "scope": "비음수 실수에서 제곱함수의 엄격한 증가성을 사용해 확인하는 독립 작성 예. √2와 √3의 존재나 √2의 비유리성은 이 예에서 증명하지 않는다.",
+    "assumptions": ["√2와 √3은 각각 제곱이 2와 3인 양의 실수다", "a,b≥0인 실수에 대해 a<b ⇔ a²<b²이다"],
     "sourceRefs": [
       {
         "sourceId": "source:trench-real-analysis",
