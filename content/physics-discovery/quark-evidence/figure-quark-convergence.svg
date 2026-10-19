@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" role="img" aria-labelledby="title desc" data-representation="qualitative-schematic" data-source-data="none" data-source-boundary="nobel-later-identification">
+  <title id="title">파톤 해석과 후대 쿼크 동일시 사이의 출처 경계</title>
+  <desc id="desc">Nobel 회고 자료는 파톤 해석이 뒤에 쿼크 모형과 동일시되었다고 보고한다. 이 독자는 양성자 산란 패턴만으로 완전한 쿼크 정체를 유도하거나 별도의 역사 증거 목록을 만들지 않는다.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L10 5L0 10Z" fill="#365c42"/></marker></defs>
+  <rect width="600" height="380" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="300" y="34" text-anchor="middle" font-size="26" font-weight="700">보고된 후대 동일시와 이 독자의 한계</text>
+    <rect x="34" y="76" width="224" height="196" rx="14" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <text x="146" y="116" text-anchor="middle" font-size="24" font-weight="700">이 장면이 설명</text><text x="146" y="166" text-anchor="middle" font-size="24">전하 띤</text><text x="146" y="204" text-anchor="middle" font-size="24">점 모양 파톤</text><text x="146" y="244" text-anchor="middle" font-size="24">모형의 지지</text>
+    <line data-arrow="parton-to-later-identification" x1="260" y1="174" x2="338" y2="174" stroke="#365c42" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="342" y="76" width="224" height="196" rx="14" fill="#f3dcb0" stroke="#a56d30" stroke-width="3"/>
+    <text x="454" y="116" text-anchor="middle" font-size="24" font-weight="700">Nobel 회고가 보고</text><text x="454" y="166" text-anchor="middle" font-size="24">뒤에 쿼크</text><text x="454" y="204" text-anchor="middle" font-size="24">모형과 동일시</text><text x="454" y="244" text-anchor="middle" font-size="24">후대의 넓은 요약</text>
+    <text x="300" y="316" text-anchor="middle" font-size="24" fill="#526b58">이 독자는 완전한 정체를 따로 유도하지 않음</text>
+    <text x="300" y="354" text-anchor="middle" font-size="24" fill="#526b58">미확인 역사 증거 목록·정량 가중치 없음</text>
+  </g>
+</svg>

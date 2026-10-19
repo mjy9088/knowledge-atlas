@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" role="img" aria-labelledby="title desc" data-representation="qualitative-schematic" data-source-data="none">
+  <title id="title">각도와 출사 에너지가 없을 때 끊기는 분석 사슬</title>
+  <desc id="desc">총 사건 수만 있고 산란각과 출사 에너지가 없으면 사건별 Q 제곱과 뉴를 계산하지 못하고 영역 분류도 할 수 없다. 실패 표시는 이 두 핵심 설명을 가리지 않고 다음 처리로 가는 연결만 끊는다.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L10 5L0 10Z" fill="#526b58"/></marker></defs>
+  <rect width="600" height="380" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="300" y="34" text-anchor="middle" font-size="26" font-weight="700">총개수만 남으면 분석 사슬이 끊깁니다</text>
+    <rect x="22" y="66" width="150" height="224" rx="14" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <text x="97" y="108" text-anchor="middle" font-size="24" font-weight="700">남은 기록</text><text x="97" y="158" text-anchor="middle" font-size="24">총 사건 수</text><text x="97" y="210" text-anchor="middle" font-size="24">E′ 없음</text><text x="97" y="252" text-anchor="middle" font-size="24">θ 없음</text>
+    <line data-arrow="count-to-kinematics" x1="174" y1="178" x2="204" y2="178" stroke="#526b58" stroke-width="4" stroke-dasharray="8 6" marker-end="url(#arrow)"/>
+    <rect x="208" y="66" width="164" height="224" rx="14" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <text x="290" y="106" text-anchor="middle" font-size="24" font-weight="700">계산 불가</text>
+    <rect data-geometry="derived-quantities" x="224" y="126" width="132" height="48" fill="none"/>
+    <text x="290" y="158" text-anchor="middle" font-size="24">Q², ν</text>
+    <rect data-geometry="region-classification" x="220" y="194" width="140" height="56" fill="none"/>
+    <text x="290" y="220" text-anchor="middle" font-size="24">탄성·공명</text><text x="290" y="248" text-anchor="middle" font-size="24">DIS 분류</text>
+    <rect data-geometry="failure-strike" x="388" y="142" width="38" height="64" fill="none"/>
+    <path d="M390 146L424 202M390 202L424 146" stroke="#a56d30" stroke-width="7"/>
+    <line data-arrow="kinematics-to-processing" x1="374" y1="174" x2="432" y2="174" stroke="#526b58" stroke-width="4" stroke-dasharray="8 6" marker-end="url(#arrow)"/>
+    <rect x="436" y="66" width="142" height="224" rx="14" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <text x="507" y="106" text-anchor="middle" font-size="24" font-weight="700">비교 불가</text><text x="507" y="158" text-anchor="middle" font-size="24">같은 운동학</text><text x="507" y="198" text-anchor="middle" font-size="24">모트 분리</text><text x="507" y="244" text-anchor="middle" font-size="24">하드 패턴</text><text x="507" y="276" text-anchor="middle" font-size="24">고립</text>
+    <text x="300" y="330" text-anchor="middle" font-size="24" fill="#526b58">문제는 표본 수가 아니라 사건별 변수의 누락</text>
+    <text x="300" y="366" text-anchor="middle" font-size="24" fill="#526b58">총계수만으로 같은 추론을 복구할 수 없음</text>
+  </g>
+</svg>

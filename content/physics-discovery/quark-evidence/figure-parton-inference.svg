@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" role="img" aria-labelledby="title desc" data-representation="qualitative-schematic" data-source-data="none" data-epistemic-role="model-interpretation" data-image-claim="none">
+  <title id="title">확장된 결맞은 전하와 미해결 독립 전하 중심의 모형 비교</title>
+  <desc id="desc">확장된 전하 전체가 결맞게 반응하면 분해능이 높아질수록 형태인자 억제가 강해진다. 내부 크기가 풀리지 않는 독립 전하 중심과 비결맞게 산란하는 파톤 근사는 약한 잔여 의존성과 조건부 스케일링을 허용한다. 한 중심 표시는 수를 뜻하지 않는다.</desc>
+  <rect width="600" height="380" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="300" y="34" text-anchor="middle" font-size="26" font-weight="700">어떤 전하 반응 모형이 패턴을 허용하나?</text>
+    <rect x="24" y="64" width="260" height="244" rx="14" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <text x="154" y="102" text-anchor="middle" font-size="24" font-weight="700">확장된 결맞은 전하</text>
+    <ellipse cx="154" cy="170" rx="76" ry="44" fill="#f3dcb0" stroke="#a56d30" stroke-width="3"/>
+    <path d="M74 170H234" stroke="#a56d30" stroke-width="3" stroke-dasharray="8 6"/>
+    <text x="154" y="244" text-anchor="middle" font-size="24">형태인자 억제</text><text x="154" y="278" text-anchor="middle" font-size="24">Q² 증가에 민감</text>
+    <rect x="316" y="64" width="260" height="244" rx="14" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <text x="446" y="102" text-anchor="middle" font-size="24" font-weight="700">비결맞은 독립 중심</text>
+    <circle data-illustrative-center="generic-charged-center" data-count="unspecified" cx="446" cy="168" r="26" fill="#f3dcb0" stroke="#a56d30" stroke-width="4"/>
+    <path d="M354 168H408M484 168H538" stroke="#365c42" stroke-width="4" stroke-dasharray="10 7"/>
+    <text x="446" y="234" text-anchor="middle" font-size="24">미해결 전하 중심</text><text x="446" y="270" text-anchor="middle" font-size="24">한 표시는 설명용</text><text x="446" y="300" text-anchor="middle" font-size="24">수 정보 없음</text>
+    <text x="300" y="346" text-anchor="middle" font-size="24" fill="#526b58">모형 해석 · 내부 사진·자유 파톤 검출 아님</text>
+  </g>
+</svg>

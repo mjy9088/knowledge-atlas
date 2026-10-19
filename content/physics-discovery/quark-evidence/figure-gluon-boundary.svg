@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" role="img" aria-labelledby="title desc" data-representation="qualitative-schematic" data-source-data="none">
+  <title id="title">직접 전하 산란 중심과 Q 제곱 의존 스케일링 위반의 경계</title>
+  <desc id="desc">가상 광자는 전기적으로 전하를 띤 쿼크에 직접 결합한다. 중성 글루온은 직접 광자 전하 산란 중심이 아니며 Q 제곱 의존 스케일링 위반과 후속 증거라는 별도 경로에서 추론된다.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L10 5L0 10Z" fill="#365c42"/></marker></defs>
+  <rect width="600" height="380" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="300" y="34" text-anchor="middle" font-size="26" font-weight="700">직접 결합과 별도 Q² 증거</text>
+    <rect x="24" y="66" width="264" height="234" rx="14" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <text x="156" y="106" text-anchor="middle" font-size="24" font-weight="700">직접 전하 결합</text><text x="52" y="162" font-size="24">가상 광자 γ*</text>
+    <line data-arrow="photon-to-quark" x1="200" y1="154" x2="238" y2="154" stroke="#365c42" stroke-width="4" marker-end="url(#arrow)"/>
+    <circle data-direct-photon-center="charged-quark" cx="250" cy="154" r="18" fill="#f3dcb0" stroke="#a56d30" stroke-width="3"/>
+    <text x="156" y="218" text-anchor="middle" font-size="24">전하 띤 쿼크</text><text x="156" y="260" text-anchor="middle" font-size="24">광자의 직접 중심</text>
+    <rect x="312" y="66" width="264" height="234" rx="14" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <text x="444" y="106" text-anchor="middle" font-size="24" font-weight="700">별도 증거 경로</text>
+    <circle data-direct-photon-center="not-gluon" cx="444" cy="152" r="20" fill="#fff" stroke="#526b58" stroke-width="3" stroke-dasharray="8 6"/>
+    <text x="444" y="202" text-anchor="middle" font-size="24">중성 글루온</text>
+    <text data-evidence-role="Q2-dependent-scaling-violations" x="444" y="244" text-anchor="middle" font-size="24">Q² 의존</text><text x="444" y="278" text-anchor="middle" font-size="24">스케일링 위반</text>
+    <text x="300" y="336" text-anchor="middle" font-size="24" fill="#526b58">직접 광자 중심 아님 · 한 실험의 단독 확정 아님</text>
+    <text x="300" y="368" text-anchor="middle" font-size="24" fill="#526b58">PDG: 글루온 복사가 Q² 진화를 만듦</text>
+  </g>
+</svg>
