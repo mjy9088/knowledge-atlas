@@ -679,7 +679,7 @@
     "contentHash": null,
     "license": "No reuse license verified; reference consultation only",
     "rightsReview": "pending; externalMaterialIncluded=false",
-    "readingScope": "§1.1 Completeness of R, especially Definition 1.3, Theorem 1.7, Example 1.8 and Example 1.11 contrasting real completeness with rational failure at √2."
+    "readingScope": "§1.1: Definition 1.1 for upper bounds, Definition 1.3 for supremum, the maximum-versus-supremum paragraph on printed p. 2, and Theorem 1.7 for the real least-upper-bound property. Example 1.8 supplies the real/rational supremum contrast; Example 1.11 is separately a rational Cauchy-sequence contrast, not density evidence. These live passages were independently reconsulted on 2026-10-19; immutable bytes and exact revision identity remain unverified."
   },
   {
     "id": "source:beck-first-course-complex-analysis",
@@ -691,7 +691,7 @@
     "contentHash": null,
     "license": "No reuse license verified; reference consultation only",
     "rightsReview": "pending; externalMaterialIncluded=false",
-    "readingScope": "Chapter 1, especially §1.1 ordered-pair definition, arithmetic, embedding of R and i²=-1, and §1.2 geometric interpretation of multiplication as scaling and rotation. The ordered-field contradiction is an independently written deduction from these algebraic facts."
+    "readingScope": "Chapter 1, especially §1.1 ordered-pair arithmetic, real embedding, i²=-1, and §1.2 nonzero multiplication as scaling and rotation. On 2026-10-19 the author-hosted live HTML at https://matthbeck.github.io/complexanalysis/sec_defalg.html#def-complex-number and https://matthbeck.github.io/complexanalysis/geomprop.html#geomprop-17 was independently consulted. The zero discussion at #geomprop-7 permits every real argument for zero; this project's undefined direction-angle convention for zero is its own choice, not the source's convention. Exact correspondence between the HTML and the registered PDF revision is unverified. The ordered-field contradiction is an independently written deduction."
   },
   {
     "id": "source:openstax-college-physics-electrons-nuclei",
