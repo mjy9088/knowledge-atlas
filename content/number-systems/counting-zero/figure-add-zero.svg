@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="title desc">
+  <title id="title">다섯 개에 빈 모음을 더해도 다섯 개인 대응</title>
+  <desc id="desc">왼쪽 첫 모음에는 실제 항목 다섯 개가 있다. 가운데 더하는 모음에는 항목이 하나도 없어 개수가 0이다. 등호 오른쪽 결과 모음에도 실제 항목 다섯 개가 그대로 있다. 아래 식 5 더하기 0은 5가 이 세 모음의 개수 대응을 요약한다.</desc>
+  <metadata>Original diagram authored for Knowledge Atlas, 2026-10-18. No external artwork, font, dataset, historical observation, or measured geometry is reproduced. The item groups are explanatory finite-collection geometry for additive identity.</metadata>
+  <rect width="600" height="300" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="300" y="32" text-anchor="middle" font-size="20" font-weight="700">빈 모음을 더하면 처음 개수가 그대로</text>
+    <g id="five-start" data-collection="start">
+      <rect x="18" y="60" width="154" height="140" rx="12" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
+      <text x="95" y="84" text-anchor="middle" font-size="16" fill="#526b58">처음 모음 · 5개</text>
+      <circle data-item="start-1" cx="60" cy="120" r="15" fill="#f3dcb0" stroke="#a56d30" stroke-width="3"/>
+      <circle data-item="start-2" cx="95" cy="120" r="15" fill="#f3dcb0" stroke="#a56d30" stroke-width="3"/>
+      <circle data-item="start-3" cx="130" cy="120" r="15" fill="#f3dcb0" stroke="#a56d30" stroke-width="3"/>
+      <circle data-item="start-4" cx="77" cy="161" r="15" fill="#f3dcb0" stroke="#a56d30" stroke-width="3"/>
+      <circle data-item="start-5" cx="113" cy="161" r="15" fill="#f3dcb0" stroke="#a56d30" stroke-width="3"/>
+    </g>
+    <g id="plus-operation">
+      <text data-operation="plus" x="201" y="143" text-anchor="middle" font-size="30" font-weight="700" fill="#365c42">+</text>
+    </g>
+    <g id="zero-addend" data-collection="addend">
+      <rect x="228" y="60" width="116" height="140" rx="12" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
+      <text x="286" y="84" text-anchor="middle" font-size="16" fill="#526b58">더할 모음</text>
+      <text x="286" y="135" text-anchor="middle" font-size="20" font-weight="700">비어 있음</text>
+      <text x="286" y="172" text-anchor="middle" font-size="26" font-weight="700" fill="#365c42">0개</text>
+    </g>
+    <g id="equals-operation">
+      <text data-operation="equals" x="376" y="143" text-anchor="middle" font-size="30" font-weight="700" fill="#365c42">=</text>
+    </g>
+    <g id="five-result" data-collection="result">
+      <rect x="408" y="60" width="174" height="140" rx="12" fill="#ffffff" stroke="#365c42" stroke-width="3"/>
+      <text x="495" y="84" text-anchor="middle" font-size="16" fill="#526b58">결과 모음 · 5개</text>
+      <circle data-item="result-1" cx="460" cy="120" r="15" fill="#e1eee3" stroke="#365c42" stroke-width="3"/>
+      <circle data-item="result-2" cx="495" cy="120" r="15" fill="#e1eee3" stroke="#365c42" stroke-width="3"/>
+      <circle data-item="result-3" cx="530" cy="120" r="15" fill="#e1eee3" stroke="#365c42" stroke-width="3"/>
+      <circle data-item="result-4" cx="477" cy="161" r="15" fill="#e1eee3" stroke="#365c42" stroke-width="3"/>
+      <circle data-item="result-5" cx="513" cy="161" r="15" fill="#e1eee3" stroke="#365c42" stroke-width="3"/>
+    </g>
+    <path d="M18 220H582" stroke="#d5dfcc" stroke-width="2"/>
+    <g id="identity-equation">
+      <text data-equation="5+0=5" x="300" y="270" text-anchor="middle" font-size="30" font-weight="700">5 + 0 = 5</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="title desc">
+  <title id="title">빈 집합에서 원소 수 0으로 가는 기수 대응</title>
+  <desc id="desc">왼쪽 컨테이너의 ∅는 원소가 없는 모음을 가리킨다. 원소 수를 센다는 화살표가 오른쪽 수 0으로 이어진다. |∅|=0은 그 모음의 개수를 답하는 식이다. 모음을 가리키는 역할과 개수를 답하는 역할을 구별하는 그림이며, 수의 집합론적 구성은 다루지 않는다.</desc>
+  <metadata>Original diagram authored for Knowledge Atlas, 2026-10-18. No external artwork, font, dataset, historical observation, or measured geometry is reproduced. This is a set-to-cardinality mapping schematic, not an identity between the set object and the numeral.</metadata>
+  <defs>
+    <marker id="map-arrow" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" refX="12" refY="7" orient="auto">
+      <path d="M0 0L14 7L0 14Z" fill="#365c42"/>
+    </marker>
+  </defs>
+  <rect width="600" height="300" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="300" y="34" text-anchor="middle" font-size="20" font-weight="700">빈 집합과 그 원소 수의 역할을 구별</text>
+    <g id="empty-set-object">
+      <rect data-kind="set" x="34" y="70" width="190" height="134" rx="16" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
+      <text x="129" y="101" text-anchor="middle" font-size="16" fill="#526b58">집합 객체</text>
+      <text x="129" y="158" text-anchor="middle" font-size="30" font-weight="700">∅</text>
+      <text x="129" y="184" text-anchor="middle" font-size="16" fill="#526b58">원소 없음</text>
+    </g>
+    <g id="cardinality-map">
+      <path data-relation="cardinality" d="M246 137H400" fill="none" stroke="#365c42" stroke-width="5" stroke-linecap="round" marker-end="url(#map-arrow)"/>
+      <text x="323" y="118" text-anchor="middle" font-size="16" font-weight="700" fill="#365c42">원소 수를 센다</text>
+      <text x="323" y="165" text-anchor="middle" font-size="16" fill="#526b58">기수 대응</text>
+    </g>
+    <g id="cardinality-number">
+      <rect data-kind="number" data-count="0" x="422" y="86" width="144" height="102" rx="16" fill="#e1eee3" stroke="#365c42" stroke-width="2"/>
+      <text x="494" y="115" text-anchor="middle" font-size="16" fill="#526b58">수</text>
+      <text x="494" y="163" text-anchor="middle" font-size="30" font-weight="700">0</text>
+    </g>
+    <path d="M34 226H566" stroke="#d5dfcc" stroke-width="2"/>
+    <text x="300" y="268" text-anchor="middle" font-size="28" font-weight="700">|∅| = 0</text>
+  </g>
+</svg>

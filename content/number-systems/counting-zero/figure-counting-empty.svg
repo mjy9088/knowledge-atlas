@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="title desc">
+  <title id="title">같은 상자에서 세 개와 빈 상태를 세기</title>
+  <desc id="desc">같은 크기와 모양의 상자를 두 상태로 비교한다. 왼쪽 상자에는 실제 구슬 세 개가 있고 세기 화살표가 수 3으로 이어진다. 오른쪽 상자에는 구슬이 하나도 없고 세기 화살표가 수 0으로 이어진다.</desc>
+  <metadata>Original diagram authored for Knowledge Atlas, 2026-10-18. No external artwork, font, dataset, historical observation, or measured geometry is reproduced. The repeated box is an explanatory finite-collection schematic.</metadata>
+  <defs>
+    <marker id="count-arrow" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 0L12 6L0 12Z" fill="#365c42"/>
+    </marker>
+  </defs>
+  <rect width="600" height="300" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="300" y="32" text-anchor="middle" font-size="20" font-weight="700">같은 상자에 몇 개가 있나요?</text>
+    <g id="box-with-three" data-collection="marbles" transform="translate(20 0)">
+      <text x="116" y="62" text-anchor="middle" font-size="16" fill="#526b58">구슬이 있을 때</text>
+      <rect x="16" y="72" width="200" height="120" rx="12" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
+      <circle data-item="marble-1" cx="68" cy="132" r="20" fill="#f3dcb0" stroke="#a56d30" stroke-width="3"/>
+      <circle data-item="marble-2" cx="116" cy="132" r="20" fill="#f3dcb0" stroke="#a56d30" stroke-width="3"/>
+      <circle data-item="marble-3" cx="164" cy="132" r="20" fill="#f3dcb0" stroke="#a56d30" stroke-width="3"/>
+      <path d="M116 200V222" stroke="#365c42" stroke-width="4" marker-end="url(#count-arrow)"/>
+      <text x="84" y="218" text-anchor="end" font-size="16" fill="#365c42">세면</text>
+    </g>
+    <g id="count-three">
+      <rect data-count="3" x="94" y="232" width="84" height="52" rx="12" fill="#e1eee3" stroke="#365c42" stroke-width="2"/>
+      <text x="136" y="269" text-anchor="middle" font-size="30" font-weight="700">3</text>
+    </g>
+    <g id="box-with-none" data-collection="marbles" transform="translate(320 0)">
+      <text x="116" y="62" text-anchor="middle" font-size="16" fill="#526b58">모두 꺼낸 뒤</text>
+      <rect x="16" y="72" width="200" height="120" rx="12" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
+      <text x="116" y="142" text-anchor="middle" font-size="20" font-weight="700" fill="#526b58">비어 있음</text>
+      <path d="M116 200V222" stroke="#365c42" stroke-width="4" marker-end="url(#count-arrow)"/>
+      <text x="84" y="218" text-anchor="end" font-size="16" fill="#365c42">세면</text>
+    </g>
+    <g id="count-zero">
+      <rect data-count="0" x="394" y="232" width="84" height="52" rx="12" fill="#e1eee3" stroke="#365c42" stroke-width="2"/>
+      <text x="436" y="269" text-anchor="middle" font-size="30" font-weight="700">0</text>
+    </g>
+  </g>
+</svg>
