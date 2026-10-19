@@ -8,28 +8,28 @@
   "blocks": [
     {
       "id": "block:physics-discovery.photoelectric-evidence.question",
-      "text": "진공관 속 깨끗한 금속 표면에 단색광을 비추고 나온 전자를 전류로 셉니다. 빛을 더 밝게 했는데도 전자가 나오지 않는다면, 밝기 말고 무엇이 문턱을 정할까요?",
+      "text": "진공관 속 깨끗한 금속 방출면에 단색광을 비추고, 전류계로 광전류의 크기를 재며 수집 전극의 전위를 방출면에 대해 바꿉니다. 전자의 이동 방향과 관습적 전류 방향은 반대일 수 있으므로 여기서는 전류의 크기를 비교합니다. 빛을 더 밝게 했는데도 전자가 나오지 않는다면, 밝기 말고 무엇이 문턱을 정할까요?",
       "claimRefs": [
         "claim:physics-discovery.photoelectric-evidence.observations"
       ]
     },
     {
       "id": "block:physics-discovery.photoelectric-evidence.observation",
-      "text": "보통의 낮은 세기 실험에서는 금속마다 차단 진동수 fc가 관찰됩니다. f<fc이면 세기를 높여도 광전류가 나타나지 않습니다. f>fc에서는 수집 기하를 고정하고 방출 전자를 충분히 모으는 전압을 걸었을 때, 밝기가 커지면 포화 광전류가 커집니다. 반면 같은 진동수에서 정지전위의 크기는 밝기를 바꿔도 그대로입니다.",
+      "text": "보통의 낮은 세기 실험에서는 금속마다 차단 진동수 fc가 관찰됩니다. f<fc이면 이 영역 안에서 세기를 높여도 보통의 광전류가 나타나지 않습니다. f>fc에서는 수집 기하를 고정하고 방출 전자를 충분히 모으는 전압을 걸었을 때, 밝기가 커지면 포화 광전류의 크기가 커질 수 있습니다. 반면 같은 진동수에서 광전류가 0이 되는 음의 저지 전압의 크기 |Vs|는 밝기를 바꿔도 그대로입니다.",
       "claimRefs": [
         "claim:physics-discovery.photoelectric-evidence.observations"
       ]
     },
     {
       "id": "block:physics-discovery.photoelectric-evidence.model",
-      "text": "단일광자 모형에서는 광자 하나의 에너지가 hf이고, 전자가 표면을 빠져나오는 최소 에너지가 일함수 φ입니다. hf≥φ로 방출이 가능할 때 Kmax=hf−φ입니다. hf<φ이면 단일광자 방출 조건을 만족하지 못하므로, 광자 수만 늘리는 밝기 증가는 한 광자의 부족분을 채우지 못합니다. 문턱에서는 hfc=φ입니다.",
+      "text": "단일광자 모형에서는 광자 하나의 에너지가 hf이고, 전자가 표면을 빠져나오는 최소 에너지가 일함수 φ입니다. hf<φ이면 방출 조건을 만족하지 못하고, hf=φ이면 이상적인 Kmax는 0이지만 측정 가능한 전류가 반드시 생긴다는 뜻은 아닙니다. hf>φ로 방출이 가능할 때 Kmax=hf−φ이며, 이것도 광자 하나가 전자 하나의 수집을 언제나 보장한다는 뜻은 아닙니다. 전자가 파동 에너지를 단순히 연속해서 모은다고 가정하면 밝기를 높여 부족분을 채울 것으로 기대하지만, 정해진 낮은 세기 영역의 관찰에서는 f<fc일 때 보통 광전류가 나타나지 않습니다. 따라서 이 비교는 그 단순 누적 가설을 가르는 것이며, 모든 고전 이론을 모든 조건에서 반박했다는 뜻은 아닙니다. 문턱에서는 hfc=φ입니다.",
       "claimRefs": [
         "claim:physics-discovery.photoelectric-evidence.single-photon-model"
       ]
     },
     {
       "id": "block:physics-discovery.photoelectric-evidence.worked",
-      "text": "일함수 φ=2.30 eV인 가상 표면에 광자 에너지가 1.65 eV인 빛 A를 비춥니다. A는 0.65 eV 부족하므로 이 조건에서는 밝게 해도 방출되지 않습니다. 빛 B는 광자당 3.31 eV이므로 Kmax=1.01 eV입니다. 접촉전위를 보정하고 공간전하를 무시할 수 있다고 이상화하면, 수집 전극을 방출면보다 음전위로 하는 저지 전압은 −1.01 V이고 크기는 1.01 V입니다.",
+      "text": "일함수 φ=2.30 eV인 가상 표면에 f=4.00×10¹⁴ Hz인 빛 A를 비추면 hf=1.6544 eV≈1.65 eV입니다. A는 0.6456 eV≈0.65 eV 부족하므로 이 조건에서는 밝게 해도 단일광자 방출이 허용되지 않으며 음의 운동에너지를 뜻하지 않습니다. f=8.00×10¹⁴ Hz인 빛 B는 hf=3.3088 eV≈3.31 eV이므로 Kmax=1.0088 eV≈1.01 eV입니다. 접촉전위를 보정하고 공간전하를 무시할 수 있다고 이상화하면, 수집 전극을 방출면보다 음전위로 하는 저지 전압은 −1.01 V이고 크기는 1.01 V입니다. 이때 전기장은 수집 전극 쪽을 향하지만 음전자가 받는 전기력은 반대쪽이어서 오른쪽으로 가던 전자를 되돌립니다.",
       "claimRefs": [
         "claim:physics-discovery.photoelectric-evidence.single-photon-model",
         "claim:physics-discovery.photoelectric-evidence.stopping-potential"
@@ -37,7 +37,7 @@
     },
     {
       "id": "block:physics-discovery.photoelectric-evidence.limit",
-      "text": "이 문턱은 모든 세기에 대한 절대 금지선이 아닙니다. 강한 레이저에서는 여러 광자를 함께 흡수하는 방출이나 광학 터널 방출이 가능하므로, 결론은 낮은 세기 단일광자 영역에만 적용합니다. 이는 양자적 에너지 교환을 지지한 증거이지 양자역학 전체의 단독 증명은 아닙니다.",
+      "text": "이 문턱은 모든 세기에 대한 절대 금지선이 아닙니다. 강한 레이저에서는 여러 광자를 함께 흡수하는 방출이나 광학 터널 방출이 가능하므로, 결론은 낮은 세기 단일광자 영역에만 적용합니다. 이 관찰과 모형의 일치는 양자적 에너지 교환을 지지하지만, 모든 고전 이론을 모든 조건에서 반박했다거나 양자역학 전체를 한 실험이 단독으로 증명했다는 뜻은 아닙니다.",
       "claimRefs": [
         "claim:physics-discovery.photoelectric-evidence.regime-limit"
       ]

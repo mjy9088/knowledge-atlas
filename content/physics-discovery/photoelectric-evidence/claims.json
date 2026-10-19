@@ -25,7 +25,7 @@
   {
     "id": "claim:physics-discovery.photoelectric-evidence.single-photon-model",
     "kind": "physical-model",
-    "statement": "단일광자 광전효과 모형에서 광자 에너지는 hf이고 금속 표면의 일함수가 φ일 때, hf≥φ로 방출이 허용되면 Kmax=hf−φ이며 차단 진동수는 hfc=φ를 만족한다. hf<φ이면 이 모형의 단일광자 방출 조건을 만족하지 못한다.",
+    "statement": "단일광자 광전효과 모형에서 광자 에너지는 hf이고 금속 표면의 일함수는 φ이다. hf<φ이면 단일광자 방출 조건을 만족하지 못한다. hf=φ이면 이상적인 Kmax=0이지만 측정 가능한 광전류를 보장하지 않는다. hf>φ이면 방출이 가능하고 Kmax=hf−φ이며, 차단 진동수는 hfc=φ를 만족한다.",
     "scope": "한 광자의 에너지가 전자 하나에 전달되는 표면 방출의 최대 운동에너지 관계. 표면 내부 손실 때문에 모든 방출 전자가 Kmax를 갖는다고 주장하지 않는다.",
     "assumptions": [
       "단색광의 단일광자 흡수로 기술함",
