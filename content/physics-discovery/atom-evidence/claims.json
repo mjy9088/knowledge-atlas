@@ -4,27 +4,31 @@
     "kind": "observation-boundary",
     "statement": "액체 속 미세 콜로이드 입자는 외부 평형과 일정한 온도 조건에서도 불규칙한 브라운 운동을 보인다. 관찰되는 콜로이드 입자는 분자 자체가 아니라 분자 충돌의 효과를 드러내는 더 큰 탐침이다.",
     "scope": "1926년 노벨상 발표 연설이 서술한 페랭의 콜로이드 관찰에 맞춘 역사적 증거 설명. 모든 임의의 부유 먼지 운동을 분자 충돌만으로 설명하지 않는다.",
-    "assumptions": ["대류·진동·온도 구배 같은 거시적 교란을 통제함", "보이는 입자와 보이지 않는 분자를 구별함"],
+    "assumptions": ["연설이 명시한 외부 평형과 일정한 온도 조건", "보이는 입자와 보이지 않는 분자를 구별함", "대류·진동·온도 구배 점검은 이 콘텐츠가 제안하는 적용 점검표이며 연설의 직접 목록이 아님"],
     "sourceRefs": [{"sourceId":"source:nobel-perrin-1926","locator":"Presentation Speech, paragraph beginning ‘It may perhaps be said’: microscopic particles remain in perpetual motion under external equilibrium and constant temperature; molecular-impact interpretation and Einstein theory"}],
     "reviewStatus": "draft-source-aligned"
   },
   {
     "id": "claim:physics-discovery.atom-evidence.quantitative-test",
     "kind": "historical-experimental-inference",
-    "statement": "분자 운동 모형은 콜로이드의 브라운 운동 통계와 평형 분포를 아보가드로 수에 연결하며, 페랭의 서로 다른 측정은 이 관계를 사용해 같은 상수를 추정했다.",
-    "scope": "노벨상 발표 연설의 역사적 요약에 근거한 설명. 이 콘텐츠는 확산식을 재현하거나 원자료의 오차 막대를 복원하지 않으며 현대값을 독립 재측정하지 않는다.",
-    "assumptions": ["입자 크기와 물성 및 온도를 측정·통제함", "많은 입자의 통계량을 사용함", "적용한 분자 운동·콜로이드 모형의 범위를 지킴"],
-    "sourceRefs": [{"sourceId":"source:nobel-perrin-1926","locator":"Presentation Speech, paragraphs on gamboge preparation and Brownian movement: sedimentation distribution, Einstein-theory agreement, and Avogadro-number determinations"}],
+    "statement": "한 좌표의 평균제곱변위에서 D를 구하고 D=k_BT/γ, 구형 입자의 γ=6πηa, R=Nₐk_B를 결합하면 Nₐ=RT/(6πηaD)를 얻는다. 이 병진 경로는 관찰 가능한 변위 통계를 아보가드로 수에 연결하는 재구성 가능한 모형 다리다.",
+    "scope": "현대 강의 노트의 한 좌표 확산과 요동-소산·스토크스 관계를 설명에 사용한다. 가상 수치나 페랭 원자료를 넣지 않으며, 역사적 수소 2g당 보고값을 이 SI 식에 대입하거나 현대값과 비교하지 않는다. 침강과 회전은 1926년 연설이 서술한 다른 역사적 방법으로만 남기며 여기서 별도 유도하지 않는다.",
+    "assumptions": ["한 좌표에서 평균 표류가 없고 경계 영향이 없는 확산 구간", "열평형과 연속 이동의 통계적 독립을 허용하는 시간 척도", "반지름 a인 고체 구와 점도 η인 비압축성 유체", "희석 용액의 반트호프 비교", "보정 없는 스토크스 항력을 쓸 수 있는 저 레이놀즈 수·뉴턴 유체·무시 가능한 벽 효과 범위"],
+    "sourceRefs": [
+      {"sourceId":"source:uri-muller-brownian-motion-2025","locator":"Einstein’s theory, Eqs. (1)–(3): one coordinate, statistically independent shifts on the chosen time scale, no-boundary Gaussian solution, no mean drift, and mean-square displacement 2Dt; Fluctuation-dissipation relation, Eqs. (13)–(17) and immediately following bullets: equilibrium comparison, D=k_BT/γ, solid sphere, incompressible fluid viscosity η, γ=6πηa, R=Nₐk_B, Nₐ=RT/(6πηaD), with footnote invoking dilute-solution van’t Hoff law"},
+      {"sourceId":"source:philipse-brownian-motion-2011","locator":"Printed p. 5, Eqs. (1.1)–(1.3) and surrounding text: single freely diffusing sphere in a Newtonian liquid, dilute dispersion, distance from particles/walls, concentration and confinement corrections; printed p. 10, Eq. (2.2): k=R_g/N_A; printed pp. 45–46, Stokes flow, Eqs. (5.33)–(5.36): Re much smaller than one, negligible inertia, incompressible Newtonian creeping flow. Source radius R is this article’s a and source gas constant R_g is this article’s R."},
+      {"sourceId":"source:nobel-perrin-1926","locator":"Presentation Speech, paragraphs on gamboge preparation, translational Brownian movement, rotational movement, and the following three-value summary"}
+    ],
     "reviewStatus": "draft-source-aligned"
   },
   {
     "id": "claim:physics-discovery.atom-evidence.convergence",
     "kind": "evidence-synthesis",
-    "statement": "1926년 연설이 수소 2g당 68.2×10²², 68.8×10²², 65×10²²개로 보고한 세 추정값은 최댓값과 최솟값 차이가 최솟값의 약 5.8%였다. 이 수렴은 단일한 정성 관찰보다 분자적 물질 모형을 강하게 지지했다.",
-    "scope": "역사적 단위와 보고값의 산술 비교이며, 오차 막대가 제시되지 않아 통계적 합치나 현대값과의 오차를 주장하지 않는다. 현대 SI의 아보가드로 상수는 mol⁻¹ 단위이므로 역사적 물질 기준을 변환하지 않은 직접 숫자 비교도 하지 않는다.",
-    "assumptions": ["각 방법의 체계오차가 완전히 동일하지 않음", "비교하는 값들이 같은 물리 상수를 목표로 함", "역사적 수렴을 현대의 최종 정확도와 혼동하지 않음"],
+    "statement": "1926년 연설은 침강, 병진 브라운 운동, 회전 브라운 운동을 차례로 서술한 뒤 수소 2g당 68.2×10²², 68.8×10²², 65×10²²개라는 세 값을 같은 순서로 제시한다. 이 순서 대응에서 최댓값과 최솟값 차이는 3.8×10²²개이고 최솟값의 약 5.8%다. 이는 서로 다른 방법의 가까운 역사적 보고값이라는 제한된 수렴이다.",
+    "scope": "마지막 문장은 방법 이름을 붙인 표가 아니라 앞선 세 방법 뒤에 세 값을 순서대로 나열한다. 따라서 대응은 연설의 ordered-text reading이며 명시적 값 표로 과장하지 않는다. 방법이 서로 다르다는 사실을 통계적 독립성이나 독립 오차로 바꾸지 않는다. 오차 막대가 없어 통계적 합치나 현대값과의 오차를 주장하지 않으며, mol⁻¹인 현대값과도 변환 없이 비교하지 않는다.",
+    "assumptions": ["세 값이 앞서 같은 순서로 서술된 침강·병진·회전 방법에 대응한다는 문맥 독해", "비교하는 값들이 같은 물리 상수를 목표로 함", "서로 다른 방법을 통계적으로 독립인 오차로 간주하지 않음", "역사적 수렴을 현대의 최종 정확도와 혼동하지 않음"],
     "sourceRefs": [
-      {"sourceId":"source:nobel-perrin-1926","locator":"Presentation Speech, final research-summary paragraphs: translational and rotational Brownian measurements and three reported determinations 68.2×10^22, 68.8×10^22, 65×10^22 per two grams of hydrogen"},
+      {"sourceId":"source:nobel-perrin-1926","locator":"Presentation Speech, consecutive method paragraphs beginning ‘The idea which Professor Perrin pursued’, ‘It may perhaps be said’, and ‘The molecular impacts produce not only’, followed by ‘What then is the result’: sedimentation, translation, rotation, then the ordered values 68.2×10^22, 68.8×10^22, 65×10^22 per two grams of hydrogen; the final value sentence is not an explicitly method-labeled table"},
       {"sourceId":"source:bipm-si-mole","locator":"SI base unit: mole (mol): exact definition of Nₐ as 6.022 140 76×10²³ mol⁻¹ and requirement to specify elementary entities"}
     ],
     "reviewStatus": "draft-source-aligned-needs-independent-review"
