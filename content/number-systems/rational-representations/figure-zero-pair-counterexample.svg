@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img" aria-labelledby="title desc">
+  <title id="title">0쌍을 가운데 둔 추이성 반례</title>
+  <desc id="desc">(1,1)과 (0,0), (0,0)과 (1,2)는 교차곱이 각각 0과 0으로 같지만, (1,1)과 (1,2)의 교차곱은 2와 1로 다르다.</desc>
+  <rect width="600" height="400" rx="20" fill="#f6f8f0"/>
+  <text data-essential-label="true" x="300" y="42" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#293f35">같은 세 노드에서 안쪽은 참, 바깥은 거짓</text>
+  <g id="pair-1-1" data-pair="1,1"><rect x="35" y="172" width="120" height="76" rx="16" fill="#ffffff" stroke="#d5dfcc" stroke-width="3"/><text data-essential-label="true" x="95" y="220" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="26" font-weight="700" fill="#293f35">(1,1)</text></g>
+  <g id="pair-0-0" data-pair="0,0" data-domain-status="excluded-from-D"><rect x="240" y="172" width="120" height="76" rx="16" fill="#f3dcb0" stroke="#a56d30" stroke-width="4"/><text data-essential-label="true" x="300" y="220" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="26" font-weight="700" fill="#293f35">(0,0)</text></g>
+  <g id="pair-1-2" data-pair="1,2"><rect x="445" y="172" width="120" height="76" rx="16" fill="#ffffff" stroke="#d5dfcc" stroke-width="3"/><text data-essential-label="true" x="505" y="220" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="26" font-weight="700" fill="#293f35">(1,2)</text></g>
+  <path d="M 155 210 L 240 210" data-kind="relation" data-direction="undirected" data-from="pair-1-1" data-to="pair-0-0" data-status="verified" data-products="0=0" data-label="1×0=1×0" stroke="#365c42" stroke-width="5"/>
+  <text data-essential-label="true" x="198" y="276" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#365c42">0=0 유효</text>
+  <path d="M 360 210 L 445 210" data-kind="relation" data-direction="undirected" data-from="pair-0-0" data-to="pair-1-2" data-status="verified" data-products="0=0" data-label="0×2=0×1" stroke="#365c42" stroke-width="5"/>
+  <text data-essential-label="true" x="402" y="276" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#365c42">0=0 유효</text>
+  <path d="M 95 172 C 165 95 435 95 505 172" data-kind="relation" data-direction="undirected" data-from="pair-1-1" data-to="pair-1-2" data-status="failed" data-products="2!=1" data-label="1×2≠1×1" stroke="#9b3f35" stroke-width="6" fill="none"/>
+  <text data-essential-label="true" x="300" y="82" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#9b3f35">바깥: 2≠1 · 관계 없음</text>
+  <text data-essential-label="true" x="300" y="344" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#9b3f35">참인 두 안쪽 관계 ↛ 거짓인 바깥 관계</text>
+  <text x="300" y="376" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="18" font-weight="500" fill="#526b58">실패 범위: 모든 Z²로 넓힌 바로 이 교차곱 관계</text>
+</svg>

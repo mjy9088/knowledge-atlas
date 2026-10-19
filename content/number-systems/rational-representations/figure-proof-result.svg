@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img" aria-labelledby="title desc">
+  <title id="title">바깥 교차곱 등식에서 관계 정의로 돌아가기</title>
+  <desc id="desc">af=be가 바로 (a,b)와 (e,f)의 관계 정의임을 대응시키고, 처음 예에서 1 곱하기 6과 2 곱하기 3이 모두 6임을 확인한다.</desc>
+  <defs><marker id="arrow" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#365c42"/></marker></defs>
+  <rect width="600" height="400" rx="20" fill="#f6f8f0"/>
+  <text data-essential-label="true" x="300" y="42" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#293f35">얻은 등식을 관계의 정의에 되돌려 넣습니다</text>
+  <g id="outer-product-equality" data-equality="af=be"><rect x="45" y="92" width="210" height="90" rx="16" fill="#e1eee3" stroke="#365c42" stroke-width="4"/><text data-essential-label="true" x="150" y="147" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="28" font-weight="700" fill="#365c42">af=be</text></g>
+  <path d="M 255 137 L 345 137" data-from="outer-product-equality" data-to="outer-relation" data-rule="relation-definition" stroke="#365c42" stroke-width="5" marker-end="url(#arrow)"/>
+  <text data-essential-label="true" x="300" y="119" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#526b58">정의</text>
+  <g id="outer-relation" data-relation="(a,b)~(e,f)"><rect x="345" y="92" width="210" height="90" rx="16" fill="#e1eee3" stroke="#365c42" stroke-width="4"/><text data-essential-label="true" x="450" y="147" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="26" font-weight="700" fill="#365c42">(a,b)~(e,f)</text></g>
+  <g id="opening-instance" data-left-product="6" data-right-product="6"><rect x="85" y="235" width="430" height="112" rx="20" fill="#ffffff" stroke="#d5dfcc" stroke-width="3"/><text data-essential-label="true" x="300" y="274" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#526b58">처음 연쇄의 양 끝</text><text data-essential-label="true" x="300" y="319" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="28" font-weight="700" fill="#293f35">1×6 = 6 = 2×3</text></g>
+</svg>

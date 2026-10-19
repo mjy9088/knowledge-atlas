@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img" aria-labelledby="title desc">
+  <title id="title">새 정수쌍 연쇄의 추이성 적용</title>
+  <desc id="desc">(2,3), (4,6), (10,15)의 두 안쪽 교차곱을 확인하고, 가운데 분모 6이 0이 아님을 사용해 양 끝 관계를 얻은 뒤 30과 30으로 독립 확인한다.</desc>
+  <rect width="600" height="400" rx="20" fill="#f6f8f0"/>
+  <text data-essential-label="true" x="300" y="42" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#293f35">새 연쇄에도 같은 조건과 증명을 적용합니다</text>
+  <g id="pair-2-3" data-pair="2,3"><rect x="25" y="172" width="130" height="76" rx="16" fill="#ffffff" stroke="#d5dfcc" stroke-width="3"/><text data-essential-label="true" x="90" y="220" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="26" font-weight="700" fill="#293f35">(2,3)</text></g>
+  <g id="pair-4-6" data-pair="4,6"><rect x="235" y="172" width="130" height="76" rx="16" fill="#f3dcb0" stroke="#a56d30" stroke-width="4"/><text data-essential-label="true" x="300" y="220" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="26" font-weight="700" fill="#293f35">(4,6)</text></g>
+  <g id="pair-10-15" data-pair="10,15"><rect x="445" y="172" width="130" height="76" rx="16" fill="#ffffff" stroke="#d5dfcc" stroke-width="3"/><text data-essential-label="true" x="510" y="220" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="26" font-weight="700" fill="#293f35">(10,15)</text></g>
+  <path d="M 155 210 L 235 210" data-kind="relation" data-direction="undirected" data-from="pair-2-3" data-to="pair-4-6" data-status="verified" data-products="12=12" data-label="2×6=3×4" stroke="#365c42" stroke-width="5"/>
+  <text data-essential-label="true" x="195" y="276" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#365c42">12=12</text>
+  <path d="M 365 210 L 445 210" data-kind="relation" data-direction="undirected" data-from="pair-4-6" data-to="pair-10-15" data-status="verified" data-products="60=60" data-label="4×15=6×10" stroke="#365c42" stroke-width="5"/>
+  <text data-essential-label="true" x="405" y="276" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#365c42">60=60</text>
+  <path d="M 90 172 C 160 96 440 96 510 172" data-kind="relation" data-direction="undirected" data-from="pair-2-3" data-to="pair-10-15" data-status="verified" data-products="30=30" data-label="2×15=3×10" stroke="#365c42" stroke-width="6" fill="none"/>
+  <text data-essential-label="true" x="300" y="82" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#365c42">바깥 독립 확인: 30=30</text>
+  <g id="middle-domain-condition" data-denominator="6" data-nonzero="true"><rect x="205" y="312" width="190" height="58" rx="16" fill="#e1eee3" stroke="#365c42" stroke-width="3"/><text data-essential-label="true" x="300" y="350" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#365c42">중간 분모 6≠0</text></g>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img" aria-labelledby="title desc">
+  <title id="title">서로 다른 세 분수 표기와 하나의 값 묶음</title>
+  <desc id="desc">1/2, 2/4, 3/6 세 표기가 각각 선으로 하나의 같은 절반 묶음에 연결된다.</desc>
+  <rect width="600" height="400" rx="20" fill="#f6f8f0"/>
+  <text data-essential-label="true" x="300" y="45" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#293f35">표기는 셋, 의도한 값 묶음은 하나</text>
+  <g id="representation-one-half" data-pair="1,2"><rect x="45" y="92" width="130" height="76" rx="16" fill="#ffffff" stroke="#d5dfcc" stroke-width="3"/><text data-essential-label="true" x="110" y="141" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="28" font-weight="700" fill="#293f35">1/2</text></g>
+  <g id="representation-two-fourths" data-pair="2,4"><rect x="235" y="92" width="130" height="76" rx="16" fill="#ffffff" stroke="#d5dfcc" stroke-width="3"/><text data-essential-label="true" x="300" y="141" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="28" font-weight="700" fill="#293f35">2/4</text></g>
+  <g id="representation-three-sixths" data-pair="3,6"><rect x="425" y="92" width="130" height="76" rx="16" fill="#ffffff" stroke="#d5dfcc" stroke-width="3"/><text data-essential-label="true" x="490" y="141" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="28" font-weight="700" fill="#293f35">3/6</text></g>
+  <path d="M 110 168 L 245 254" stroke="#365c42" stroke-width="4" fill="none"/>
+  <path d="M 300 168 L 300 244" stroke="#365c42" stroke-width="4" fill="none"/>
+  <path d="M 490 168 L 355 254" stroke="#365c42" stroke-width="4" fill="none"/>
+  <g id="one-intended-group" data-representations="1/2|2/4|3/6"><rect x="160" y="244" width="280" height="112" rx="24" fill="#e1eee3" stroke="#365c42" stroke-width="4"/><text data-essential-label="true" x="300" y="291" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#293f35">같은 값을 나타내는 묶음</text><text data-essential-label="true" x="300" y="329" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="28" font-weight="700" fill="#365c42">하나의 절반</text></g>
+</svg>

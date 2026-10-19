@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img" aria-labelledby="title desc">
+  <title id="title">두 관계가 확인된 분수 표기 연쇄와 바깥 증명 목표</title>
+  <desc id="desc">1/2, 2/4, 3/6이 한 줄에 놓인다. 두 안쪽 연결은 각각 같은 교차곱으로 확인되고, 양 끝 연결은 증명 목표로 표시된다.</desc>
+  <rect width="600" height="400" rx="20" fill="#f6f8f0"/>
+  <text data-essential-label="true" x="300" y="42" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#293f35">확인된 두 연결, 증명해야 할 바깥 연결</text>
+  <g id="one-half" data-pair="1,2"><rect x="35" y="172" width="110" height="76" rx="16" fill="#ffffff" stroke="#d5dfcc" stroke-width="3"/><text data-essential-label="true" x="90" y="221" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="28" font-weight="700" fill="#293f35">1/2</text></g>
+  <g id="two-fourths" data-pair="2,4"><rect x="245" y="172" width="110" height="76" rx="16" fill="#f3dcb0" stroke="#a56d30" stroke-width="3"/><text data-essential-label="true" x="300" y="221" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="28" font-weight="700" fill="#293f35">2/4</text></g>
+  <g id="three-sixths" data-pair="3,6"><rect x="455" y="172" width="110" height="76" rx="16" fill="#ffffff" stroke="#d5dfcc" stroke-width="3"/><text data-essential-label="true" x="510" y="221" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="28" font-weight="700" fill="#293f35">3/6</text></g>
+  <path d="M 145 210 L 245 210" data-kind="relation" data-direction="undirected" data-from="one-half" data-to="two-fourths" data-status="verified" data-products="4=4" data-label="1×4=2×2" stroke="#365c42" stroke-width="5"/>
+  <text data-essential-label="true" x="195" y="273" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#365c42">4=4 확인</text>
+  <path d="M 355 210 L 455 210" data-kind="relation" data-direction="undirected" data-from="two-fourths" data-to="three-sixths" data-status="verified" data-products="12=12" data-label="2×6=4×3" stroke="#365c42" stroke-width="5"/>
+  <text data-essential-label="true" x="405" y="273" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#365c42">12=12 확인</text>
+  <path d="M 90 172 C 160 72 440 72 510 172" data-kind="relation" data-direction="undirected" data-from="one-half" data-to="three-sixths" data-status="target" data-products="6?6" data-label="1×6=2×3?" stroke="#a56d30" stroke-width="5" stroke-dasharray="12 9" fill="none"/>
+  <text data-essential-label="true" x="300" y="92" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#a56d30">바깥 연결은 반드시 성립할까?</text>
+  <text x="300" y="352" text-anchor="middle" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif" font-size="18" font-weight="500" fill="#526b58">가운데 표기 2/4가 묶음의 결과를 바꾸지 않아야 합니다.</text>
+</svg>
