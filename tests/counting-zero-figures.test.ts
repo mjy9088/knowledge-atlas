@@ -68,3 +68,15 @@ test('identity figure preserves five item geometries when an empty group is adde
   assert.match(group(svg, 'equals-operation'), /data-operation="equals"[\s\S]*>=<\/text>/);
   assert.match(group(svg, 'identity-equation'), /data-equation="5\+0=5"[\s\S]*>5 \+ 0 = 5<\/text>/);
 });
+
+test('subtraction figure represents a deficit rather than a negative physical collection',()=>{
+  const svg=readFigure('figure-subtraction-deficit.svg');
+  const available=group(svg,'available-items');
+  const required=group(svg,'required-items');
+  const balance=group(svg,'signed-balance');
+  assert.equal(itemCount(available),4);
+  assert.equal(itemCount(required),6);
+  assert.equal((required.match(/data-unfilled="true"/g)??[]).length,2);
+  assert.match(balance,/data-kind="signed-balance"[^>]*data-value="-2"/);
+  assert.equal(itemCount(balance),0);
+});

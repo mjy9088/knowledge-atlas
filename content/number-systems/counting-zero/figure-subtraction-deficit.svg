@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="title desc">
+  <title id="title">네 개가 있는데 여섯 개가 필요하면 두 개 부족합니다</title>
+  <desc id="desc">왼쪽에는 실제로 있는 항목 네 개가 있다. 오른쪽에는 필요한 여섯 자리 중 네 자리가 채워지고 두 자리는 점선으로 비어 있다. 아래의 4−6=−2는 두 개 부족하다는 장부의 잔액이다. 실제 사과의 개수가 음수라는 뜻이 아니다.</desc>
+  <metadata>Original finite-count and signed-balance schematic for Knowledge Atlas. Required slots are illustrative promises, not measured data or physical negative objects. Source, learner, rights and publication review remain separate.</metadata>
+  <rect width="600" height="300" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="300" y="32" text-anchor="middle" font-size="20" font-weight="700">실제 개수와 장부의 부족분을 구별</text>
+    <g id="available-items">
+      <rect x="24" y="56" width="240" height="136" rx="12" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
+      <text x="144" y="84" text-anchor="middle" font-size="20">있는 것 · 4개</text>
+      <circle data-item="available-1" cx="84" cy="124" r="16" fill="#f3dcb0" stroke="#a56d30" stroke-width="2"/>
+      <circle data-item="available-2" cx="124" cy="124" r="16" fill="#f3dcb0" stroke="#a56d30" stroke-width="2"/>
+      <circle data-item="available-3" cx="164" cy="124" r="16" fill="#f3dcb0" stroke="#a56d30" stroke-width="2"/>
+      <circle data-item="available-4" cx="204" cy="124" r="16" fill="#f3dcb0" stroke="#a56d30" stroke-width="2"/>
+      <text x="144" y="172" text-anchor="middle" font-size="18">실제 개수는 4</text>
+    </g>
+    <g id="required-items">
+      <rect x="304" y="56" width="272" height="136" rx="12" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/>
+      <text x="440" y="84" text-anchor="middle" font-size="20">필요한 것 · 6개</text>
+      <circle data-item="required-1" cx="340" cy="124" r="16" fill="#e1eee3" stroke="#365c42" stroke-width="2"/>
+      <circle data-item="required-2" cx="380" cy="124" r="16" fill="#e1eee3" stroke="#365c42" stroke-width="2"/>
+      <circle data-item="required-3" cx="420" cy="124" r="16" fill="#e1eee3" stroke="#365c42" stroke-width="2"/>
+      <circle data-item="required-4" cx="460" cy="124" r="16" fill="#e1eee3" stroke="#365c42" stroke-width="2"/>
+      <circle data-item="required-5" data-unfilled="true" cx="500" cy="124" r="16" fill="#ffffff" stroke="#a56d30" stroke-width="3" stroke-dasharray="4 3"/>
+      <circle data-item="required-6" data-unfilled="true" cx="540" cy="124" r="16" fill="#ffffff" stroke="#a56d30" stroke-width="3" stroke-dasharray="4 3"/>
+      <text x="440" y="172" text-anchor="middle" font-size="18">점선 두 자리 · 2개 부족</text>
+    </g>
+    <g id="signed-balance">
+      <rect data-kind="signed-balance" data-value="-2" x="24" y="212" width="552" height="72" rx="12" fill="#e1eee3" stroke="#365c42" stroke-width="2"/>
+      <text x="300" y="242" text-anchor="middle" font-size="26" font-weight="700">장부의 잔액 · 4 − 6 = −2</text>
+      <text x="300" y="270" text-anchor="middle" font-size="18">‘사과가 −2개’가 아니라 ‘2개 부족’</text>
+    </g>
+  </g>
+</svg>
