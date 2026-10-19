@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 420" role="img" aria-labelledby="title desc">
+  <title id="title">보이는 콜로이드와 보이지 않는 물 분자의 모형</title>
+  <desc id="desc">큰 콜로이드 입자만 현미경 관찰 대상이다. 작은 물 분자 기호와 충돌 화살표는 관찰이 아니라 분자충돌 모형이다. 점선 지그재그 하나는 저자가 만든 설명용 경로이며 측정값이나 확률 모형 검증 결과가 아니다. 크기는 비례하지 않는다.</desc>
+  <metadata>Original proxy-boundary schematic authored for Knowledge Atlas, 2026-10-19. Molecular symbols, collision arrows, and the dashed path are illustrative model elements, not observations, scale geometry, measured data, simulation, or validation.</metadata>
+  <defs><marker id="impact-arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L10 5L0 10Z" fill="#a56d30"/></marker></defs>
+  <rect width="600" height="420" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="300" y="34" text-anchor="middle" font-size="26" font-weight="700">관찰 대상과 해석 모형을 나눠 보기</text>
+    <rect x="20" y="54" width="560" height="278" rx="16" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <text x="44" y="86" font-size="24" font-weight="600">현미경 관찰 · 콜로이드 입자</text>
+    <g data-unseen="water-molecules" fill="#e1eee3" stroke="#365c42" stroke-width="2">
+      <circle cx="92" cy="136" r="10"/><circle cx="156" cy="266" r="9"/><circle cx="248" cy="120" r="8"/>
+      <circle cx="370" cy="274" r="10"/><circle cx="478" cy="132" r="9"/><circle cx="532" cy="270" r="8"/>
+    </g>
+    <circle data-visible="colloid" cx="300" cy="204" r="54" fill="#f3dcb0" stroke="#a56d30" stroke-width="4"/>
+    <path data-path-role="authored-illustration" d="M66 290L122 230L184 272L242 188L300 232L364 160L430 206L538 108" fill="none" stroke="#365c42" stroke-width="4" stroke-dasharray="10 8"/>
+    <g data-collision-model="not-observation" stroke="#a56d30" stroke-width="3" marker-end="url(#impact-arrow)">
+      <line x1="108" y1="144" x2="250" y2="184"/><line x1="170" y1="258" x2="252" y2="226"/>
+      <line x1="462" y1="142" x2="350" y2="184"/><line x1="514" y1="262" x2="350" y2="226"/>
+    </g>
+    <text data-label-region="colloid" x="382" y="102" font-size="24" font-weight="600">보이는 탐침</text>
+    <line x1="400" y1="112" x2="344" y2="164" stroke="#293f35" stroke-width="2"/>
+    <text x="44" y="316" font-size="24" font-weight="600">작은 기호·화살표 · 분자충돌 모형 · 관찰 아님</text>
+    <text x="300" y="362" text-anchor="middle" font-size="24" font-weight="600" fill="#526b58">저자 설명 경로 · 측정값·확률 모형 검증 아님</text>
+    <text x="300" y="398" text-anchor="middle" font-size="24" font-weight="600" fill="#526b58">크기 비례 아님 · 콜로이드 ≠ 원자</text>
+  </g>
+</svg>

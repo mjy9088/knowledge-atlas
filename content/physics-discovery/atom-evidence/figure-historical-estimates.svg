@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" role="img" aria-labelledby="title desc" data-axis-unit="10^22-molecules-per-2g-hydrogen">
+  <title id="title">1926년 연설에 보고된 세 아보가드로 수 추정값</title>
+  <desc id="desc">64에서 70까지의 한 공통 축에 수소 2그램당 10의 22제곱 개 단위로 침강 68.2, 병진 브라운 운동 68.8, 회전 브라운 운동 65를 표시한다. 최댓값 68.8과 최솟값 65의 범위는 3.8이며, 최솟값으로 나누면 약 5.846퍼센트, 반올림해 5.8퍼센트다. 오차 막대와 현대 몰 역수 값은 표시하지 않는다.</desc>
+  <metadata>Original common-axis plot authored for Knowledge Atlas, 2026-10-19, using only three values reported by the registered 1926 Nobel presentation speech. It is not a source table, dataset, uncertainty reconstruction, or modern-value comparison.</metadata>
+  <rect width="600" height="380" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="300" y="34" text-anchor="middle" font-size="26" font-weight="700">세 방법의 역사적 추정값 · 한 공통 축</text>
+    <rect x="20" y="54" width="560" height="272" rx="16" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <text data-text-box="unit" data-left="184" data-top="54" data-right="416" data-bottom="86" x="300" y="82" text-anchor="middle" font-size="24" font-weight="600">×10²²개 / 수소 2g</text>
+    <text x="300" y="112" text-anchor="middle" font-size="24" font-weight="600" fill="#526b58">연설의 방법 서술 순서 ↔ 뒤이은 값 순서</text>
+    <line data-axis-min="64" data-axis-max="70" x1="92" y1="220" x2="548" y2="220" stroke="#293f35" stroke-width="3"/>
+    <g font-size="24" font-weight="600" text-anchor="middle" fill="#526b58">
+      <line x1="92" y1="212" x2="92" y2="228" stroke="#293f35" stroke-width="2"/><text x="92" y="256">64</text>
+      <line x1="244" y1="212" x2="244" y2="228" stroke="#293f35" stroke-width="2"/><text x="244" y="256">66</text>
+      <line x1="396" y1="212" x2="396" y2="228" stroke="#293f35" stroke-width="2"/><text x="396" y="256">68</text>
+      <line x1="548" y1="212" x2="548" y2="228" stroke="#293f35" stroke-width="2"/><text x="548" y="256">70</text>
+    </g>
+    <g data-source-index="3" data-estimate="rotation" data-value="65" data-mapping-basis="ordered-speech-text-not-labeled-table">
+      <line x1="168" y1="220" x2="168" y2="166" stroke="#a56d30" stroke-width="2"/>
+      <circle cx="168" cy="220" r="9" fill="#fff" stroke="#a56d30" stroke-width="4"/>
+      <text data-text-box="rotation" data-left="104" data-top="132" data-right="232" data-bottom="164" x="168" y="158" text-anchor="middle" font-size="24" font-weight="600">회전 · 65</text>
+    </g>
+    <g data-source-index="1" data-estimate="sedimentation" data-value="68.2" data-mapping-basis="ordered-speech-text-not-labeled-table">
+      <line x1="411.2" y1="220" x2="411.2" y2="160" stroke="#365c42" stroke-width="2"/>
+      <circle cx="411.2" cy="220" r="9" fill="#e1eee3" stroke="#365c42" stroke-width="4"/>
+      <text data-text-box="sedimentation" data-left="330" data-top="126" data-right="492" data-bottom="158" x="411.2" y="152" text-anchor="middle" font-size="24" font-weight="600">침강 · 68.2</text>
+    </g>
+    <g data-source-index="2" data-estimate="translation" data-value="68.8" data-mapping-basis="ordered-speech-text-not-labeled-table">
+      <line x1="456.8" y1="220" x2="456.8" y2="276" stroke="#a56d30" stroke-width="2"/>
+      <circle cx="456.8" cy="220" r="9" fill="#f3dcb0" stroke="#a56d30" stroke-width="4"/>
+      <text data-text-box="translation" data-left="380" data-top="278" data-right="534" data-bottom="310" x="456.8" y="304" text-anchor="middle" font-size="24" font-weight="600">병진 · 68.8</text>
+    </g>
+    <path d="M168 316V326H456.8V316" fill="none" stroke="#293f35" stroke-width="2"/>
+    <text x="312.4" y="350" text-anchor="middle" font-size="24" font-weight="600">범위 68.8−65=3.8</text>
+    <text x="300" y="376" text-anchor="middle" font-size="24" font-weight="600" fill="#526b58">3.8/65≈5.846%≈5.8% · 오차 막대 없음</text>
+  </g>
+</svg>

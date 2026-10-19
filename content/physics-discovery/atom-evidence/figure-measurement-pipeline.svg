@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 480" role="img" aria-labelledby="title desc" data-assumptions="one-coordinate,equilibrium,no-drift,no-boundaries,solid-sphere,incompressible-fluid,dilute-solution,stokes-applicability">
+  <title id="title">병진 변위 통계에서 아보가드로 수까지 이어지는 모형 다리</title>
+  <desc id="desc">한 좌표에서 많은 입자의 평균제곱변위와 시간 간격으로 확산계수 D를 구한다. 아인슈타인 관계, 구형 입자의 스토크스 항력, 기체 상수 관계를 차례로 대입하면 아보가드로 수는 RT를 6파이 곱하기 점도, 입자 반지름, 확산계수로 나눈 식이 된다. 수치 입력이나 역사값 변환은 없다.</desc>
+  <metadata>Original symbolic reconstruction authored for Knowledge Atlas, 2026-10-19, from Müller, Brownian Motion I, Einstein theory and fluctuation-dissipation relation through Eq. 17 and the following Stokes/Avogadro derivation. No source figure, numerical dataset, or prose is copied.</metadata>
+  <defs><marker id="bridge-arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L10 5L0 10Z" fill="#365c42"/></marker></defs>
+  <rect width="600" height="480" rx="16" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="300" y="28" text-anchor="middle" font-size="26" font-weight="700">관찰량에서 Nₐ까지 · 병진 경로 하나를 계산</text>
+    <rect x="20" y="40" width="560" height="72" rx="12" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <text x="42" y="66" font-size="24" font-weight="600">측정 · 한 좌표의 많은 변위</text>
+    <text data-equation="msd-to-diffusion" data-expression="D=MSD/(2*delta-t)" x="300" y="100" text-anchor="middle" font-size="24" font-weight="700">D = ⟨(Δx)²⟩ / (2Δt)</text>
+    <line x1="300" y1="112" x2="300" y2="122" stroke="#365c42" stroke-width="3" marker-end="url(#bridge-arrow)"/>
+    <rect x="20" y="126" width="560" height="84" rx="12" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <text data-equation="einstein" data-expression="D=kB*T/gamma" x="150" y="156" text-anchor="middle" font-size="24" font-weight="600">D = k_B T / γ</text>
+    <text data-equation="stokes" data-expression="gamma=6*pi*eta*a" x="450" y="156" text-anchor="middle" font-size="24" font-weight="600">γ = 6πηa</text>
+    <text data-equation="gas-constant" data-expression="R=NA*kB" x="150" y="198" text-anchor="middle" font-size="24" font-weight="600">R = Nₐk_B</text>
+    <text data-equation="avogadro" data-expression="NA=R*T/(6*pi*eta*a*D)" x="430" y="198" text-anchor="middle" font-size="24" font-weight="700">Nₐ = RT / (6πηaD)</text>
+    <rect x="20" y="214" width="560" height="104" rx="12" fill="#e1eee3" stroke="#d5dfcc" stroke-width="2"/>
+    <text x="300" y="240" text-anchor="middle" font-size="24" font-weight="700">양과 단위</text>
+    <text x="300" y="270" text-anchor="middle" font-size="24" font-weight="600">
+      <tspan data-quantity="D" data-unit="m2/s">D[m²/s]</tspan><tspan> · </tspan><tspan data-quantity="T" data-unit="K">T[K]</tspan><tspan> · </tspan><tspan data-quantity="eta" data-unit="Pa*s">η[Pa·s]</tspan><tspan> · </tspan><tspan data-quantity="a" data-unit="m">a[m]</tspan>
+    </text>
+    <text x="300" y="300" text-anchor="middle" font-size="24" font-weight="600">
+      <tspan data-quantity="R" data-unit="J/(mol*K)">R[J·mol⁻¹·K⁻¹]</tspan><tspan> · </tspan><tspan data-quantity="kB" data-unit="J/K">k_B[J·K⁻¹]</tspan><tspan> · </tspan><tspan data-quantity="NA" data-unit="1/mol">Nₐ[mol⁻¹]</tspan>
+    </text>
+    <rect x="20" y="330" width="560" height="132" rx="12" fill="#fff" stroke="#d5dfcc" stroke-width="2"/>
+    <text x="300" y="352" text-anchor="middle" font-size="24" font-weight="600" fill="#526b58">평형 · 무표류 · 수치 예시 없음</text>
+    <text x="300" y="384" text-anchor="middle" font-size="24" font-weight="600" fill="#526b58">경계 영향 무시 · 고체 구 · 비압축성 유체</text>
+    <text x="300" y="416" text-anchor="middle" font-size="24" font-weight="600" fill="#526b58">희석계 · 저 Re · 뉴턴 유체</text>
+    <text x="300" y="448" text-anchor="middle" font-size="24" font-weight="600" fill="#526b58">스토크스 적용 범위 · 벽·구속 영향 무시</text>
+  </g>
+</svg>
