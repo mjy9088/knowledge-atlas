@@ -16,7 +16,7 @@ Points are deterministic, finite-grid density samples, not electron paths or rec
 
 ## Reuse boundary
 
-The pure orbital model supplies an evaluate(point) scalar field. Generic sampling, density-weighted points, tetrahedral isosurface extraction, and a Canvas 3D/slice viewer accept arbitrary scalar fields and caller-supplied weights/colors/labels. They contain no quantum mechanics. The topic adapter owns orbital controls, scientific descriptions and claims. Existing formal-reasoning adapters remain separate.
+The pure orbital model supplies an evaluate(point) scalar field. Generic sampling, density-weighted points, tetrahedral isosurface extraction, WebGL2 cloud/surface rendering, and native Canvas 2D slices accept arbitrary scalar fields and caller-supplied weights/colors/labels. They contain no quantum mechanics. The topic adapter owns orbital controls, scientific descriptions and claims. Existing formal-reasoning adapters remain separate.
 
 ## Verification
 
