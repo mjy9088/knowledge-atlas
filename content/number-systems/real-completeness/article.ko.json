@@ -8,32 +8,32 @@
   "blocks": [
     {
       "id": "block:number-systems.real-completeness.question",
-      "text": "유리수만 놓인 세계 Q에서 A={q∈Q | q>0이고 q²<2}를 생각합시다. 1은 A에 들어가고 2는 A의 모든 원소보다 크므로 A는 비어 있지 않고 위로 제한됩니다. 그렇다면 Q 안에 A의 가장 작은 위쪽 경계가 있을까요?",
+      "text": "유리수만 놓인 세계 Q에서 A={q∈Q | q>0이고 q²<2}를 생각합시다. 1>0이고 1²<2이므로 1∈A입니다. 또 q∈A이면 q>0이고 q²<2이므로 q<√2<2입니다. 따라서 2는 A의 모든 원소보다 큰 상한이고, A는 비어 있지 않고 위로 제한됩니다. 그렇다면 Q 안에 A의 가장 작은 위쪽 경계가 있을까요?",
       "claimRefs": ["claim:number-systems.completeness.rational-gap"]
     },
     {
       "id": "block:number-systems.real-completeness.bounds",
-      "text": "실수의 표준 정의에서 A⊆R의 상한은 A의 모든 원소 이상인 실수이고, 최소 상한은 그런 실수 상한 가운데 가장 작습니다. 여기서는 Q 안의 실패와 비교하려고 같은 부등식에 더해 상한 자체도 Q에 속해야 한다고 명시하겠습니다. 최소 상한은 A의 최대 원소일 필요는 없지만, 지금 비교하는 우주에는 속해야 합니다.",
+      "text": "비교할 순서 집합을 U라 하고 A⊆U라고 합시다. u∈U가 모든 q∈A에 대해 q≤u이면 u는 A의 상한입니다. u가 상한이면서 U에 속한 모든 상한 v에 대해 u≤v이면 최소 상한입니다. 반면 최대 원소 m은 상한 조건과 함께 m∈A여야 합니다. 따라서 최소 상한은 A의 최대 원소일 필요는 없지만, 지금 비교하는 우주 U에는 속해야 합니다. 표준 실수 정의에서는 U=R이고, Q 내부 비교에서는 U=Q로 제한합니다.",
       "claimRefs": ["claim:number-systems.completeness.supremum-definition"]
     },
     {
       "id": "block:number-systems.real-completeness.gap",
-      "text": "앞 편의 두 유리수 평균보다 강한 별도 정리, ‘두 실수 사이에 유리수가 있다’를 씁니다. Q의 상한 r은 r<√2이면 A의 원소를 놓치고 r=√2는 무리수라서 r>√2입니다. 따라서 √2<s<r인 s∈Q가 있고, s도 A의 상한이므로 r은 최소가 아닙니다.",
+      "text": "앞 편의 두 유리수 평균보다 강한 별도 정리, ‘두 실수 사이에 유리수가 있다’를 씁니다. 후보 r∈Q를 √2와 비교하면 세 경우뿐입니다. r<√2일 때 r≤0이면 1∈A를 놓칩니다. 0<r<√2이면 r<q<√2인 q∈Q를 고를 수 있고, q>0이며 q²<2이므로 q∈A라서 r은 상한이 아닙니다. r=√2이면 √2∉Q이므로 Q의 후보가 아닙니다. r>√2이면 √2<s<r인 s∈Q를 고릅니다. 모든 q∈A에 대해 q<√2<s이므로 s도 A의 상한이고 s<r입니다. 따라서 r은 가장 작은 상한이 아닙니다. 어느 경우에도 Q 안의 최소 상한은 없습니다.",
       "claimRefs": ["claim:number-systems.completeness.rationals-dense-in-reals", "claim:number-systems.completeness.rational-gap"]
     },
     {
       "id": "block:number-systems.real-completeness.property",
-      "text": "이 실패를 기준으로 실수를 구별할 수 있습니다. 최소상한 성질은 ‘비어 있지 않고 위로 제한된 모든 실수 부분집합이 실수 집합 R 안에서 최소 상한을 갖는다’는 명제입니다. A를 R의 부분집합으로 보면 √2∈R가 바로 그 최소 상한입니다.",
-      "claimRefs": ["claim:number-systems.completeness.real-lub"]
+      "text": "이 실패를 기준으로 실수를 구별할 수 있습니다. 최소상한 성질은 ‘비어 있지 않고 위로 제한된 모든 실수 부분집합이 실수 집합 R 안에서 최소 상한을 갖는다’는 명제입니다. 같은 A를 R의 부분집합으로 보면 모든 q∈A에 q<√2이므로 √2∈R는 상한입니다. 또한 실수 r<√2를 잡으면 r과 √2 사이의 유리수 q를 고를 수 있습니다. r≤0이면 q=1을 써도 되고, 0<r<√2이면 r<q<√2에서 q∈A이므로 r은 상한이 아닙니다. 따라서 √2는 R에서 A의 최소 상한입니다. 이 최소성은 Q 안의 실패만으로 가정한 것이 아니라 R에서 다시 확인한 것입니다.",
+      "claimRefs": ["claim:number-systems.completeness.real-lub", "claim:number-systems.completeness.rational-gap", "claim:number-systems.completeness.rationals-dense-in-reals"]
     },
     {
       "id": "block:number-systems.real-completeness.scope",
       "text": "완비성은 ‘두 수 사이에 다른 수가 있다’는 조밀성과 다릅니다. Q도 조밀하지만 방금 A에는 Q 안의 최소 상한이 없습니다. 또한 이 글은 최소상한 성질을 실수의 특징으로 사용하며, 그 성질을 만족하는 R을 어떻게 구성하는지는 증명하지 않습니다.",
-      "claimRefs": ["claim:number-systems.completeness.real-lub", "claim:number-systems.completeness.rational-gap"]
+      "claimRefs": ["claim:number-systems.completeness.real-lub", "claim:number-systems.completeness.rational-gap", "claim:number-systems.completeness.rationals-dense-in-reals"]
     },
     {
       "id": "block:number-systems.real-completeness.transfer",
-      "text": "B={q∈Q | q<3}을 Q에서 보겠습니다. 3은 B의 상한입니다. 3보다 작은 유리수 r과 3 사이에는 B의 원소가 있으므로 r은 상한이 아닙니다. 따라서 Q에서 sup B=3입니다. 이는 앞의 √2 사례와 이 B만 대조하며, 경계의 소속만으로 모든 유리수 부분집합을 판정하지 않습니다.",
+      "text": "B={q∈Q | q<3}을 Q에서 보겠습니다. 3∈Q이고 모든 q∈B가 q<3이므로 3은 B의 상한입니다. 이제 임의의 r∈Q, r<3에 대해 q=(r+3)/2를 잡으면 q∈Q이고 r<q<3입니다. 따라서 q∈B이면서 q>r이므로 r은 상한이 아닙니다. 그러므로 Q에서 sup B=3입니다. 이는 앞의 √2 사례와 이 B만 대조하는 완전한 계산이며, 경계의 소속만으로 모든 유리수 부분집합을 판정하는 일반 기준은 아닙니다.",
       "claimRefs": ["claim:number-systems.completeness.supremum-definition", "claim:number-systems.completeness.rational-cut"]
     }
   ],

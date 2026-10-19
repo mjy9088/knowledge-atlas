@@ -3,9 +3,9 @@
     "id": "claim:number-systems.completeness.supremum-definition",
     "kind": "definition",
     "statement": "A⊆R에 대해 u∈R가 A의 상한이고 모든 실수 상한 v에 대해 u≤v이면 u는 R에서 A의 최소 상한이다.",
-    "scope": "실수 부분집합의 상한과 최소 상한 정의로 한정한다. 글의 Q 내부 비교는 같은 부등식에 u∈Q 조건을 더한 명시적 상대화이다.",
+    "scope": "실수 부분집합의 상한과 최소 상한 정의 및 최대 원소와의 구별이다. 글의 순서 집합 U와 Q 내부 비교는 A⊆U, u∈U 및 U의 모든 상한에 대한 최소성으로 같은 정의를 명시적으로 상대화한 것이다. 최대 원소는 추가로 A 자체에 속한다.",
     "assumptions": ["A⊆R", "A는 실수 상한을 갖는다", "실수의 표준 순서 ≤를 사용한다"],
-    "sourceRefs": [{"sourceId":"source:ucdavis-analysis-real-numbers","locator":"§1.1, Definition 1.3, pp. 1–2: upper bounds and supremum for subsets of R"}],
+    "sourceRefs": [{"sourceId":"source:ucdavis-analysis-real-numbers","locator":"§1.1, Definition 1.1 (upper bounds), Definition 1.3 (supremum), and the maximum-versus-supremum paragraph on printed p. 2; the U-relative formulation is independently adapted"}],
     "reviewStatus": "draft-source-aligned"
   },
   {
@@ -20,13 +20,13 @@
   {
     "id": "claim:number-systems.completeness.rational-gap",
     "kind": "formal",
-    "statement": "A={q∈Q | q>0이고 q²<2}는 유리수 집합 Q에서 비어 있지 않고 위로 제한되지만 Q 안의 최소 상한이 없다.",
+    "statement": "A={q∈Q | q>0이고 q²<2}는 비어 있지 않고 위로 제한되며 Q 안의 최소 상한은 없지만, 같은 A를 R 안에서 보면 최소 상한은 √2이다.",
     "scope": "√2의 비유리성과 Q의 R 안에서의 조밀성을 사용하는 Q의 비완비성 사례이다. 양수이고 제곱이 2보다 작은 유리수로 A를 잡은 구성과 논증은 출처 예를 독립적으로 변형한 것이다.",
-    "assumptions": ["√2∉Q", "√2는 실수에서 A의 경계다", "Q가 R 안에서 조밀하다는 별도 정리를 사용한다"],
+    "assumptions": ["√2는 양의 실수이고 √2∉Q", "양수에서 제곱과 엄격한 순서가 대응한다", "Q가 R 안에서 조밀하다는 별도 정리를 사용한다", "r≤0은 1∈A로, 0<r<√2는 밀도 정리의 A 원소로 배제한다"],
     "sourceRefs": [
       {"sourceId":"source:ucdavis-analysis-real-numbers","locator":"§1.1, Example 1.8, pp. 2–3: contrasts a real supremum at √2 with failure of the corresponding rational supremum; the displayed positive-square set is independently adapted"},
       {"sourceId":"source:trench-real-analysis","locator":"§1.1, Theorem 1.1.6, printed p. 6 (PDF p. 14) supplies density of Q in R used in the adapted proof"},
-      {"sourceId":"source:hammack-book-of-proof","locator":"Chapter 6, §6.1, pp. 137–143 supplies √2 irrationality used in the adapted proof"}
+      {"sourceId":"source:hammack-book-of-proof","locator":"Chapter 6, §6.1, printed p. 139: reduced-fraction parity proof of √2 irrationality used in the independently adapted argument"}
     ],
     "reviewStatus": "draft-source-aligned"
   },
@@ -43,8 +43,8 @@
     "id": "claim:number-systems.completeness.rational-cut",
     "kind": "formal",
     "statement": "B={q∈Q | q<3}의 유리수 집합 Q에서의 최소 상한은 3이다.",
-    "scope": "경계 3이 Q에 속하는 비교 사례로, Q의 모든 위로 제한된 부분집합이 실패한다는 오해를 막는다.",
-    "assumptions": ["3∈Q", "유리수의 순서는 조밀하다"],
+    "scope": "주어진 B와 앞의 A만 대조하는 독립 구성 사례이다. 경계의 소속만으로 모든 유리수 부분집합의 최소 상한을 판정하는 일반 기준이 아니다.",
+    "assumptions": ["3∈Q", "모든 r∈Q, r<3에 대해 q=(r+3)/2∈Q이고 r<q<3이다"],
     "sourceRefs": [{"sourceId":"source:ucdavis-analysis-real-numbers","locator":"§1.1, Definition 1.3, pp. 1–2 supplies the real supremum criterion; its Q-relative specialization and the B example are independently derived"}],
     "reviewStatus": "draft-source-aligned"
   }
