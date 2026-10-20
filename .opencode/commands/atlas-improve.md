@@ -1,0 +1,23 @@
+---
+description: Improve one registered explanation through authored intent, independent content and rendered reviews, correction, and revision-bound gates.
+agent: build
+---
+
+Run the Knowledge Atlas content workflow for this request:
+
+<user-request>
+$ARGUMENTS
+</user-request>
+
+The first argument is a registered article slug. Remaining arguments are the editorial focus, not shell syntax. Do not interpolate the raw request into a shell. Validate the slug through the workflow CLI. If the slug is absent, inspect the open assessment and choose one concrete inspected bottleneck, explaining the choice.
+
+1. Read `AGENTS.md`, the required project documents, `tools/content-workflow/README.md`, and the topic's README, scene plan, design, manuscript and claim/source contracts. Inspect the actual reader before choosing a fix. Preserve existing edits; never grow article count just to continue.
+2. Record scene-by-scene content, purpose, prerequisite, success check, representation and meaningful input before substantive authoring. Implement the smallest coherent correction. Content, source, rendering and observed learning are different judgments. Use the applicable programming/frontend/browser skills. Keep stable IDs, exact scientific fixtures, source scope, saved input, reset and independent seeking.
+3. Run the applicable checks from `AGENTS.md` and build the real static reader. Use it at supported desktop and narrow viewports, including initial/changed/unsupported input, reset, restoration and navigation. Save inspected images and execution evidence only under ignored artifact paths. Do not run simultaneous builds against the same `dist/`.
+4. Freeze the candidate. Run `pnpm content:workflow prepare <slug> <author-identity>`. Use the actual author session ID if exposed; otherwise use an explicitly declared unique author label, never invent a session ID. Retain the printed absolute run directory, packet path, fingerprint and build binding. Native session separation is provided by the next task calls; identity strings alone do not prove independence.
+5. Invoke **two separate task/subagent sessions**, both `atlas-reviewer`, with no author conversation or desired verdict. One owns lane `content`, the other `surface`. Give each the absolute run directory, its lane, a unique declared reviewer identity distinct from the author/other reviewer, owner contracts, actual evidence paths and preview address. Give content reconstruction/source work separately from live rendered/interaction work. They must read `.opencode/commands/atlas-review.md` for the response contract and return only the completed JSON. They must not edit, build, commit or launch children. Record the actual returned task/session identifiers as execution evidence; do not reuse the author or one reviewer for both lanes.
+6. Save each returned JSON verbatim in that run's ignored directory, then run `pnpm content:workflow record <run-directory> <lane> <reviewer-identity> <result-file>`. Do not manufacture adequate rows, rewrite judgments or relabel a Studio v3 result. If output is malformed, ask that reviewer to repair its structure without changing its substantive findings. If a reviewer/tool is unavailable, report the lane as unverified and stop, not passed.
+7. Run `pnpm content:workflow status <run-directory>`. `stale`: re-freeze/re-prepare after resolving concurrent edits. `needs-revision`: repair the earliest concrete finding, preserving the invariant. `awaiting-review`: obtain the missing evidence/lane, never substitute green tests. Every correction requires a **new run** and scoped independent re-review of changed plus adjacent scenes; old reports stay historical. Limit autonomous correction to two rounds per invocation; if substantive blockers remain, report them and the next concrete action without claiming completion. Human decisions, unavailable sources and genuinely external approvals remain pending rather than guessed.
+8. Only on current `reviewed` state, commit the verified change in coherent units, excluding generated evidence and unrelated edits. No push, upload, source approval or publication. Summarize the reader-facing correction, actual tests and browser use, run directory, reviewers, remaining limitations and commits. `reviewed` means structurally complete provisional agent review, not educational or scientific authority.
+
+For an already frozen candidate use `/atlas-review <lane> <absolute-run-directory> <reviewer-identity>`. To continue a previously blocked run use `/atlas-resume <absolute-run-directory>`.
