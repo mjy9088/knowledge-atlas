@@ -7,6 +7,7 @@ export const questionFrame = {
 } as const;
 
 export const weekdayFrame = {
+	scrollableContainers: [".weekday-settings"],
 	content: [
 		...questionFrame.content,
 		".weekday-bridge,.weekday-rule-table,.weekday-classical-proof,.weekday-frame-systems",
