@@ -46,7 +46,7 @@ function scaffold(directory:string,plan:Plan){
   if(!original.includes('export const CONTENT_ENTRIES: ContentEntry[]=[')||!original.includes('export const CONTENT_PAGES=INDEX_PAGES;'))throw Error('Catalog registration contract changed');
   const registered=`import ${binding} from './${topic}/page.js';\n`+original
     .replace('export const CONTENT_ENTRIES: ContentEntry[]=[',`export const CONTENT_ENTRIES: ContentEntry[]=[\n  {directory:'${topic}',article:'article.ko.json',claims:'claims.json',articleId:'article:${prefix}.ko'},`)
-    .replace('export const CONTENT_PAGES=INDEX_PAGES;',`export const CONTENT_PAGES=[...INDEX_PAGES,${binding}];`);
+    .replace('export const CONTENT_PAGES=INDEX_PAGES;',`export const CONTENT_PAGES: readonly ContentPage[]=[...INDEX_PAGES,${binding}];`);
   writeFileSync(catalog,registered);
   writeFileSync(path.join(base,'README.md'),'# Draft manuscript projection\n\nGenerated once from the private Studio plan. The [authored scene plan](slide-plan.json) preserves supplied purpose, references, prerequisites, success checks and representation/interaction intent beside the projected source. These are author assertions, not evidence that the objectives were achieved.\n\nThis is a prose-only shared-reader draft; designed diagrams, audio, timing and independent source/rights review remain pending. Preserve edited sources and the scene plan; request explicit implementation changes instead of regenerating.\n');
   return 'created' as const;
