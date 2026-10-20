@@ -1,5 +1,5 @@
-import {ASSESSMENT_DIMENSIONS,isCurrentAssessment,parseCurrentAssessment,parseLegacyAssessment,parseSlideIntent,type DimensionAssessment,type LegacyDimensionAssessment,type SlideIntent} from './quality-contract.js';
-export {ASSESSMENT_DIMENSIONS,type AssessmentDimension,type AssessmentVerdict,type DimensionAssessment,type EvidenceRef,type EvidenceRefKind,type InteractionIntent,type LegacyDimensionAssessment,type SlideIntent} from './quality-contract.js';
+import {ASSESSMENT_DIMENSIONS,HISTORICAL_ASSESSMENT_DIMENSIONS,isCurrentAssessment,parseCurrentAssessment,parseHistoricalStructuredAssessment,parseLegacyAssessment,parseSlideIntent,type DimensionAssessment,type LegacyDimensionAssessment,type SlideIntent} from './quality-contract.js';
+export {ASSESSMENT_DIMENSIONS,HISTORICAL_ASSESSMENT_DIMENSIONS,type AssessmentDimension,type AssessmentVerdict,type DimensionAssessment,type EvidenceRef,type EvidenceRefKind,type InteractionIntent,type LegacyDimensionAssessment,type SlideIntent} from './quality-contract.js';
 export interface Slide {id:string;title:string;goal:string;narration:string;seconds:number;known:string[];introduces:string[];claimRefs:string[];visual:string;observation:string;intent:SlideIntent}
 export interface Source {id:string;title:string;url:string;locator:string;consultedOn:string}
 export interface Metadata {format:'short'|'long';depth:'light'|'deep';purpose:'interest'|'understanding'|'practice';topics:string[];prerequisites:string[];inScope:string[];outOfScope:string[];outcome:string}
@@ -43,9 +43,10 @@ export function validateReport(value:unknown,plan:Plan,historical=false):Report{
   const r=object(value),timing=object(r.timing);if(!['estimated','unverified'].includes(String(timing.status)))throw Error('Invalid timing review');
   const report:Report={summary:text(r.summary),timing:{status:timing.status as Report['timing']['status'],note:text(timing.note)},findings:list(r.findings).map(item=>{const f=object(item),slideId=id(f.slideId);if(!['blocker','warning'].includes(String(f.severity))||(!historical&&slideId!=='overall'&&!plan.slides.some(s=>s.id===slideId)))throw Error('Invalid finding target/severity');return {slideId,criterion:text(f.criterion),severity:f.severity as Finding['severity'],evidence:text(f.evidence),suggestion:text(f.suggestion)};})};
   if(r.assessments===undefined){if(historical)return report;throw Error('Current review needs dimension assessments');}
-  const seen=new Set<string>();
-  report.assessments=list(r.assessments).map(item=>{const assessment=historical&&object(item).expected===undefined?parseLegacyAssessment(item):parseCurrentAssessment(item);if(seen.has(assessment.dimension))throw Error('Duplicate assessment dimension');seen.add(assessment.dimension);return assessment;});
-  if(report.assessments.length!==ASSESSMENT_DIMENSIONS.length||ASSESSMENT_DIMENSIONS.some(dimension=>!seen.has(dimension)))throw Error('Review needs every assessment dimension');
+  const rawAssessments=list(r.assessments),historicalStructured=historical&&rawAssessments.length===HISTORICAL_ASSESSMENT_DIMENSIONS.length,seen=new Set<string>();
+  report.assessments=rawAssessments.map(item=>{const input=object(item),assessment=historical&&input.expected===undefined?parseLegacyAssessment(input):historicalStructured?parseHistoricalStructuredAssessment(input):parseCurrentAssessment(input);if(seen.has(assessment.dimension))throw Error('Duplicate assessment dimension');seen.add(assessment.dimension);return assessment;});
+  const requiredDimensions=historicalStructured?HISTORICAL_ASSESSMENT_DIMENSIONS:ASSESSMENT_DIMENSIONS;
+  if(report.assessments.length!==requiredDimensions.length||requiredDimensions.some(dimension=>!seen.has(dimension)))throw Error('Review needs every assessment dimension');
   if(!historical){const source=report.assessments.find(assessment=>assessment.dimension==='source');if(source&&isCurrentAssessment(source)&&source.verdict==='adequate'&&source.evidenceRefs.filter(reference=>reference.kind==='source').some(reference=>!plan.sources.some(item=>item.id===reference.ref)))throw Error('Source assessment references an unchecked source identity');}
   return report;
 }

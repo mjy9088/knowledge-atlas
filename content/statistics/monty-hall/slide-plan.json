@@ -1,0 +1,17 @@
+{
+  "articleId": "article:statistics.monty-hall.ko",
+  "status": "prospective-unmeasured-review-required",
+  "projection": "self-paced-worked-explanation",
+  "mainlineSceneIds": ["question", "protocol", "strategy", "shortened", "compare", "specific", "close"],
+  "slides": [
+    {"sceneId":"question","blockRef":"block:statistics.monty-hall.question","purpose":"Distinguish the number of unopened doors from their posterior weights.","successCheck":"Reader asks for the host rule before assigning equal probabilities."},
+    {"sceneId":"protocol","blockRef":"block:statistics.monty-hall.protocol","purpose":"State the complete finite experiment and identify which assumptions matter.","successCheck":"Reader distinguishes always revealing an unchosen goat and offering a switch from optional fair tie-breaking."},
+    {"sceneId":"strategy","blockRef":"block:statistics.monty-hall.strategy","purpose":"Derive unconditional switching success by enumerating three prize positions.","successCheck":"Reader maps the two initially wrong cases to switching wins and derives 2/3 independently of tie policy."},
+    {"sceneId":"shortened","blockRef":"block:statistics.monty-hall.shortened","purpose":"Expose the missing generative policy in the abbreviated question.","successCheck":"Reader explains why one observed goat does not imply an always-goat policy."},
+    {"sceneId":"compare","blockRef":"block:statistics.monty-hall.compare","purpose":"Compute a blind host's retained masses and observation denominator.","successCheck":"Reader derives (1/3)/(1/3+1/6+1/6)=1/2 and identifies excluded prize reveals."},
+    {"sceneId":"specific","blockRef":"block:statistics.monty-hall.specific","purpose":"Condition on numbered event D2 rather than any goat reveal.","successCheck":"Reader derives 1/(1+t) from t/3,0,1/3, checks t=1/2,1,0, and separates this conditional result from overall 2/3."},
+    {"sceneId":"close","blockRef":"block:statistics.monty-hall.close","purpose":"Recover the opening answer from prior, procedure and evidence event.","successCheck":"Reader names the quantities that must be recalculated after a protocol or observation change."}
+  ],
+  "representationContract": "README.md#explanatory-purpose-and-scene-plan",
+  "pending": ["independent content and source review", "learner comprehension", "accessibility", "source revision and rights review", "narration timing and publication authorization"]
+}

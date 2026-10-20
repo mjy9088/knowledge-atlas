@@ -1,17 +1,61 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 460" role="img" aria-labelledby="title desc">
-  <title id="title">자연수에서 복소수까지의 성질 장부</title>
-  <desc id="desc">네 행으로 자연수에서 정수는 덧셈 역원과 뺄셈, 정수에서 유리수는 0이 아닌 곱셈 역원과 나눗셈, 유리수에서 실수는 최소 상한, 실수에서 복소수는 제곱이 음의 1인 수를 얻는다고 정리한다. 마지막 행은 실수 순서를 확장하는 순서체 조건을 보존하지 못함을 따로 표시한다.</desc>
-  <metadata>Original Knowledge Atlas property ledger, 2026-10-20. It is an explanatory synthesis, not external data or a claim that these are the only extensions. Review and publication remain pending.</metadata>
-  <rect width="720" height="460" rx="20" fill="#f6f8f0"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="1550" viewBox="0 0 600 1550" role="img" aria-labelledby="title desc">
+  <title id="title">수 체계 확장의 목표와 보존 조건 장부</title>
+  <desc id="desc">정수와 유리수의 연산 수리, 제곱근 2를 붙인 국소 수리, 완비 순서체 실수의 보편 최소상한 요구, 복소수의 대수적 수리를 각각 수리 범위, 새로 얻는 것, 보존하거나 포기하는 성질로 비교한다. 마지막 체계의 순위표가 아니며, 실수와 복소수에는 각각 진부분체로 포함하는 더 큰 체가 있다.</desc>
+  <metadata>Original Knowledge Atlas property ledger, revised 2026-10-20. It is an explanatory synthesis, not external data or a claim that these are the only extensions. Review and publication remain pending.</metadata>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fbfcf6"/><stop offset="1" stop-color="#edf2e5"/></linearGradient>
+    <filter id="lift" x="-8%" y="-8%" width="116%" height="124%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#293f35" flood-opacity=".1"/></filter>
+  </defs>
+  <rect width="600" height="1550" rx="24" fill="url(#paper)"/>
   <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
-    <text x="360" y="38" text-anchor="middle" font-size="23" font-weight="700">확장할 때의 성질 장부</text>
-    <g font-size="17" font-weight="700"><text x="48" y="78">전환</text><text x="178" y="78">새로 해결</text><text x="395" y="78">계속 보존</text></g>
-    <g id="ledger" font-size="18">
-      <g data-transition="N-Z"><rect x="24" y="92" width="672" height="70" rx="12" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/><text x="48" y="133" font-weight="700">ℕ → ℤ</text><text x="178" y="122">덧셈 역원</text><text x="178" y="147" fill="#526b58">2−5=−3</text><text x="395" y="133">자연수 덧셈·순서</text></g>
-      <g data-transition="Z-Q"><rect x="24" y="172" width="672" height="70" rx="12" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/><text x="48" y="213" font-weight="700">ℤ → ℚ</text><text x="178" y="202">곱셈 역원</text><text x="178" y="227" fill="#526b58">2x=1</text><text x="395" y="213">정수 사칙연산의 값</text></g>
-      <g data-transition="Q-R"><rect x="24" y="252" width="672" height="70" rx="12" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/><text x="48" y="293" font-weight="700">ℚ → ℝ</text><text x="178" y="282">최소 상한</text><text x="178" y="307" fill="#526b58">sup A=√2</text><text x="395" y="293">순서체 구조</text></g>
-      <g data-transition="R-C"><rect x="24" y="332" width="672" height="82" rx="12" fill="#e1eee3" stroke="#365c42" stroke-width="2"/><text x="48" y="379" font-weight="700">ℝ → ℂ</text><text x="178" y="366">i²=−1</text><text x="178" y="393" fill="#526b58">다항방정식의 해</text><text x="395" y="366">실수 체 연산</text><text x="395" y="393" fill="#a56d30" font-weight="700">순서체 전순서는 포기</text></g>
+    <text x="300" y="48" text-anchor="middle" font-size="28" font-weight="700">무엇을 얻고, 무엇을 지킬까요?</text>
+    <text x="300" y="82" text-anchor="middle" font-size="24" fill="#526b58">각 전환은 서로 다른 목표와 비용을 가집니다</text>
+
+    <g filter="url(#lift)" stroke-width="2">
+      <rect x="36" y="112" width="528" height="224" rx="18" fill="#fff" stroke="#d5dfcc"/>
+      <rect x="36" y="356" width="528" height="224" rx="18" fill="#fff" stroke="#d5dfcc"/>
+      <rect x="36" y="600" width="528" height="260" rx="18" fill="#fff8ea" stroke="#d5b67d"/>
+      <rect x="36" y="880" width="528" height="286" rx="18" fill="#e1eee3" stroke="#7c9a83"/>
+      <rect x="36" y="1186" width="528" height="270" rx="18" fill="#fff" stroke="#d5dfcc"/>
     </g>
-    <text x="360" y="444" text-anchor="middle" font-size="17" fill="#526b58">더 큰 체도 존재합니다. 이 장부는 ‘마지막 수’의 순위표가 아닙니다.</text>
+
+    <g font-size="24">
+      <text x="62" y="154" font-size="28" font-weight="700">ℕ → ℤ</text>
+      <text x="62" y="194" fill="#526b58">범위 · 연산 수리</text>
+      <text x="62" y="234"><tspan font-weight="700">얻음 · </tspan>덧셈 역원, 2−5=−3</text>
+      <text x="62" y="274"><tspan font-weight="700">보존 · </tspan>기존 덧셈과 순서</text>
+      <text x="62" y="316" fill="#526b58">보존 조건도 함께 고른 선택</text>
+
+      <text x="62" y="398" font-size="28" font-weight="700">ℤ → ℚ</text>
+      <text x="62" y="438" fill="#526b58">범위 · 연산 수리</text>
+      <text x="62" y="478"><tspan font-weight="700">얻음 · </tspan>0 아닌 원소의 곱셈 역원</text>
+      <text x="62" y="518"><tspan font-weight="700">예 · </tspan>2x=1의 해 1/2</text>
+      <text x="62" y="560"><tspan font-weight="700">보존 · </tspan>정수의 덧셈·곱셈과 순서</text>
+
+      <text x="62" y="642" font-size="28" font-weight="700">ℚ → ℚ(√2)</text>
+      <text x="62" y="682" fill="#a56d30" font-weight="700">범위 · 이름 붙인 한 근</text>
+      <text x="146" y="718" fill="#a56d30" font-weight="700">국소 수리</text>
+      <text x="62" y="758"><tspan font-weight="700">얻음 · </tspan>d²=2의 해 √2</text>
+      <text x="62" y="798"><tspan font-weight="700">보존 · </tspan>체 구조와 순서</text>
+      <text x="62" y="834" fill="#526b58">주어진 실수체 안에서만; ℝ을 강제하지 않음</text>
+
+      <text x="62" y="922" font-size="28" font-weight="700">ℚ → ℝ</text>
+      <text x="62" y="962" fill="#365c42" font-weight="700">범위 · 모든 적격 집합의</text>
+      <text x="146" y="998" fill="#365c42" font-weight="700">보편 구조 요구</text>
+      <text x="62" y="1038"><tspan font-weight="700">얻음 · </tspan>비어 있지 않고 위로 제한된</text>
+      <text x="146" y="1074">모든 A에 대한 최소 상한</text>
+      <text x="62" y="1114"><tspan font-weight="700">조건 · </tspan>완비 순서체</text>
+      <text x="62" y="1150" fill="#526b58">별도 존재 구성과 동형까지 유일성은 구별</text>
+
+      <text x="62" y="1228" font-size="28" font-weight="700">ℝ → ℂ</text>
+      <text x="62" y="1268" fill="#526b58">범위 · 대수 수리</text>
+      <text x="62" y="1308"><tspan font-weight="700">얻음 · </tspan>i²=−1의 해와 체 구조</text>
+      <text x="62" y="1348"><tspan font-weight="700">보존 · </tspan>실수의 체 연산</text>
+      <text x="62" y="1388" fill="#a56d30" font-weight="700">비용 · 실수 순서를 확장하며 체 연산과</text>
+      <text x="146" y="1424" fill="#a56d30" font-weight="700">양립하는 전순서는 포기</text>
+    </g>
+
+    <text x="300" y="1498" text-anchor="middle" font-size="24" fill="#526b58">ℝ(t), ℂ(t)는 각각 기존 체를 진부분체로 포함합니다.</text>
+    <text x="300" y="1534" text-anchor="middle" font-size="24" fill="#526b58">원소 수 비교도, 마지막 수의 순위표도 아닙니다.</text>
   </g>
 </svg>

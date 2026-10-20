@@ -4,12 +4,12 @@ import {readFile,readdir,mkdir,writeFile,rm,lstat} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {CONTENT_PAGES,pageURL} from '../content/catalog.js';
+import {CONTENT_ENTRIES,CONTENT_PAGES,pageURL} from '../content/catalog.js';
 import {renderRelatedIndex,renderRelatedPage,validateRelatedPages} from '../packages/site/related-site.js';
 import {loadContentCatalog} from '../packages/content/load-catalog.js';
 export const projectRoot=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 // Reader-facing assets only. Local production tools must be explicitly excluded from publication.
-export const PUBLIC_ASSET_ROOTS=['components','pages','styles','topics'];
+export const PUBLIC_ASSET_ROOTS=['components','styles'];
 const readJSON=async (name:string):Promise<unknown>=>JSON.parse(await readFile(path.join(projectRoot,name),'utf8'));
 export async function loadSiteContent(){
   const {collection,claims,sources}=await loadContentCatalog(readJSON),errors=validateRelatedPages(collection,claims);
@@ -41,11 +41,32 @@ export async function buildSite(){
       }
     }
   }
-  for(const dir of PUBLIC_ASSET_ROOTS)await copyTree('apps/web/'+dir,dir,['.ts','.css']);
-  await emit('lesson.html',await readFile(path.join(root,'apps/web/pages/lesson/index.html')));
-  for(const dir of ['content','knowledge','sources','packages/models','packages/experiments','packages/projection','packages/content','packages/spatial'])await copyTree(dir,dir,dir==='content'?['.json','.ts','.svg']:['.json','.ts']);
+  for(const dir of PUBLIC_ASSET_ROOTS)await copyTree(`apps/web/${dir}`,dir,['.ts','.css']);
+  for(const dir of ['article','catalog'])await copyTree(`apps/web/pages/${dir}`,`pages/${dir}`,['.ts','.css']);
+  await copyTree('apps/web/topics/quantum','topics/quantum',['.ts','.css']);
+  for(const file of ['weekday-alignment.ts','weekday-bridge.ts','weekday-challenge.ts','weekday-congruence.css','weekday-intro.ts','weekday-logic.ts','weekday-modal-introduction.ts','weekday-modal.ts','weekday-reference-contrast.ts','weekday-sentence.ts','weekday-systems.ts','weekday-world-style.ts','weekday-worlds.css','weekday-worlds.ts']){
+    const sourcePath=path.join(root,'apps/web/topics/formal-reasoning',file);
+    const data=await readFile(sourcePath);
+    await emit(`topics/formal-reasoning/${file.replace(/\.ts$/,'.js')}`,file.endsWith('.ts')?browserJavaScript(data.toString('utf8'),sourcePath):data);
+  }
+  for(const relative of ['statistics/possibility-lab.ts','statistics/possibility-lab.css','physics/physics-history.ts','physics/physics-history-suggestion.ts']){
+    const sourcePath=path.join(root,'apps/web/topics',relative);
+    const data=await readFile(sourcePath);
+    await emit(`topics/${relative.replace(/\.ts$/,'.js')}`,relative.endsWith('.ts')?browserJavaScript(data.toString('utf8'),sourcePath):data);
+  }
+  await emit('topics/registry.js',browserJavaScript(await readFile(path.join(root,'apps/web/topics/registry.ts'),'utf8'),path.join(root,'apps/web/topics/registry.ts')));
+  await emit('packages/projection/proof-view.js',browserJavaScript(await readFile(path.join(root,'packages/projection/proof-view.ts'),'utf8'),path.join(root,'packages/projection/proof-view.ts')));
+  await emit('content/catalog.js',browserJavaScript(await readFile(path.join(root,'content/catalog.ts'),'utf8'),path.join(root,'content/catalog.ts')));
+  for(const page of CONTENT_PAGES){
+    const entry=CONTENT_ENTRIES.find(item=>item.articleId===page.articleId);
+    if(!entry)throw new TypeError(`Missing active content entry ${page.articleId}`);
+    await copyTree(`content/${entry.directory}`,`content/${entry.directory}`,['.ts']);
+  }
+  const contentAssets=new Set(CONTENT_PAGES.flatMap(page=>[page.coverArtwork?.src,...page.scenes.map(scene=>scene.figure?.src)].filter((src):src is string=>src!==undefined)));
+  for(const asset of contentAssets)await emit(asset.slice(1),await readFile(path.join(root,asset.slice(1))));
+  for(const dir of ['knowledge','sources','packages/models','packages/experiments','packages/content','packages/spatial'])await copyTree(dir,dir,['.json','.ts']);
   for(const [url,html]of siteDocuments(content))await emit(url.slice(1)+'index.html',html);
-  const pages=[...new Set(['/','/lesson.html',...siteDocuments(content).keys()])];
+  const pages=[...siteDocuments(content).keys()];
   await emit('404.html','<!doctype html><html lang="ko"><meta charset="utf-8"><title>페이지를 찾지 못했습니다</title><h1>페이지를 찾지 못했습니다</h1><a href="/knowledge/">지식 목록으로</a></html>');
   files.sort((a,b)=>a.path.localeCompare(b.path));
   const buildInputs=[];

@@ -8,20 +8,22 @@ import {LESSON} from '../content/formal-logic/explosion/lesson.js';
 import {validateRelatedPages} from '../packages/site/related-site.js';
 import {loadContentCatalog} from '../packages/content/load-catalog.js';
 import {validateDocumentation} from './documentation.js';
-import {CONTENT_ENTRIES} from '../content/catalog.js';
+import {CONTENT_ENTRIES,CONTENT_PAGES} from '../content/catalog.js';
 import {validateContentLimit,validateQuality} from '../packages/content/quality.js';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const read=<T>(p:string):T=>JSON.parse(readFileSync(path.join(root,p),'utf8'));
 const errors:string[]=[];
-errors.push(...validateContentLimit([EXPLOSION_EPISODE.id,...CONTENT_ENTRIES.map(entry=>entry.page.articleId)]));
+errors.push(...validateContentLimit([EXPLOSION_EPISODE.id,...CONTENT_ENTRIES.map(entry=>entry.articleId)]));
 for(const entry of CONTENT_ENTRIES){
   const domain=entry.directory.split('/')[0];
   if(domain!=='physics-discovery'&&domain!=='number-systems')continue;
+  const page=CONTENT_PAGES.find(item=>item.articleId===entry.articleId);
+  if(!page)continue;
   const file=`content/${entry.directory}/quality.json`;
   try{
     const value:unknown=read(file);
-    errors.push(...validateQuality(value,{articleId:entry.page.articleId,seriesId:`series:${domain}`,sceneIds:entry.page.scenes.map(scene=>scene.id)}).map(error=>`${file}: ${error}`));
+    errors.push(...validateQuality(value,{articleId:entry.articleId,seriesId:`series:${domain}`,sceneIds:page.scenes.map(scene=>scene.id)}).map(error=>`${file}: ${error}`));
   }catch(error){errors.push(`${file}: ${error instanceof Error?error.message:String(error)}`);}
 }
 errors.push(...validateDocumentation(root));

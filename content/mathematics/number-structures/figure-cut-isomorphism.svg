@@ -1,16 +1,78 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-labelledby="title desc">
-  <title id="title">유리수 절단으로 만드는 완비 순서체 동형</title>
-  <desc id="desc">왼쪽 완비 순서체 F의 원소 x 아래에 있는 유리수 집합 Lx를 가운데에 놓고, 오른쪽 완비 순서체 G에서 같은 유리수 집합의 최소 상한을 파이 x로 정한다. 아래에는 유리수 복사가 공통 기준이며 순서, 덧셈, 곱셈을 보존하지만 두 집합의 원소가 문자 그대로 같다는 뜻은 아니라고 적혀 있다.</desc>
-  <metadata>Original Knowledge Atlas proof-sketch diagram, 2026-10-20. It independently visualizes the consulted rational-cut uniqueness argument and reproduces no external figure. Exact source revision, rights, expert, learner, and publication review remain pending.</metadata>
-  <defs><marker id="map-arrow" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11" refY="6.5" orient="auto"><path d="M0 0L13 6.5L0 13Z" fill="#365c42"/></marker></defs>
-  <rect width="720" height="420" rx="20" fill="#f6f8f0"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="1970" viewBox="0 0 600 1970" role="img" aria-labelledby="title desc">
+  <title id="title">완비 순서체 동형 증명의 여섯 연결고리</title>
+  <desc id="desc">자연수의 비유계성에서 정수부분과 유리수 조밀성을 유도하고, 절단의 정의 가능성과 엄격한 순서를 확인한다. 이어 파이가 유리수를 고정함과 유리수 비교 동치를 증명하고, 목표 원소의 아래 유리수에서 역상을 만든다. 마지막으로 순서 동형의 최소 상한 보존을 거쳐 임의의 체 원소를 대상으로 공종인 유리수 합과 양의 곱으로 연산과 부호를 보존한다. 이 단계들이 두 완비 순서체 사이의 순서 보존 체 동형을 구성하며, 두 원소 집합이 문자 그대로 같다는 뜻은 아니다.</desc>
+  <metadata>Original Knowledge Atlas proof diagram, revised 2026-10-20. It independently visualizes proof links assembled from consulted sources and independently supplied deductions. Exact source revision, rights, expert, learner, browser, and publication review remain pending.</metadata>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fbfcf6"/><stop offset="1" stop-color="#edf2e5"/></linearGradient>
+    <filter id="lift" x="-8%" y="-8%" width="116%" height="124%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#293f35" flood-opacity=".11"/></filter>
+    <marker id="arrow" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto"><path d="M0 0L11 5.5L0 11Z" fill="#365c42"/></marker>
+  </defs>
+  <rect width="600" height="1970" rx="24" fill="url(#paper)"/>
   <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
-    <text x="360" y="38" text-anchor="middle" font-size="23" font-weight="700">같은 유리수 절단을 두 체에서 읽기</text>
-    <g id="field-f"><rect x="30" y="78" width="180" height="190" rx="18" fill="#ffffff" stroke="#d5dfcc" stroke-width="3"/><text x="120" y="112" text-anchor="middle" font-size="21" font-weight="700">완비 순서체 F</text><line x1="55" y1="208" x2="185" y2="208" stroke="#526b58" stroke-width="3"/><circle cx="150" cy="208" r="8" fill="#a56d30"/><text x="150" y="193" text-anchor="middle" font-size="20" font-weight="700" fill="#a56d30">x</text><text x="120" y="244" text-anchor="middle" font-size="17" fill="#526b58">q&lt;x인 유리수들</text></g>
-    <g id="cut"><rect x="270" y="102" width="180" height="142" rx="18" fill="#f3dcb0" stroke="#a56d30" stroke-width="3"/><text x="360" y="144" text-anchor="middle" font-size="22" font-weight="700">Lx</text><text x="360" y="177" text-anchor="middle" font-size="18">{q∈ℚ | q&lt;x}</text><text x="360" y="216" text-anchor="middle" font-size="17" fill="#526b58">유리수 절단</text></g>
-    <g id="field-g"><rect x="510" y="78" width="180" height="190" rx="18" fill="#e1eee3" stroke="#365c42" stroke-width="3"/><text x="600" y="112" text-anchor="middle" font-size="21" font-weight="700">완비 순서체 G</text><line x1="535" y1="208" x2="665" y2="208" stroke="#526b58" stroke-width="3"/><circle cx="625" cy="208" r="8" fill="#365c42"/><text x="625" y="191" text-anchor="middle" font-size="20" font-weight="700" fill="#365c42">φ(x)</text><text x="600" y="244" text-anchor="middle" font-size="17" fill="#526b58">supG Lx</text></g>
-    <path d="M210 173H258" stroke="#365c42" stroke-width="4" marker-end="url(#map-arrow)"/><path d="M450 173H498" stroke="#365c42" stroke-width="4" marker-end="url(#map-arrow)"/>
-    <g id="properties"><rect x="40" y="302" width="640" height="82" rx="14" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/><text x="360" y="334" text-anchor="middle" font-size="18" font-weight="700">공통 기준: 0과 1에서 생성한 유리수 복사</text><text x="360" y="365" text-anchor="middle" font-size="18" fill="#365c42">순서 · 덧셈 · 곱셈 보존</text></g>
-    <text x="360" y="407" text-anchor="middle" font-size="16" fill="#a56d30">동형은 구조가 같다는 뜻이며, 원소 집합의 문자 그대로의 동일성이 아닙니다.</text>
+    <text x="300" y="48" text-anchor="middle" font-size="28" font-weight="700">같은 유리수 복사로 두 체를 잇기</text>
+    <text x="300" y="82" text-anchor="middle" font-size="24" fill="#526b58">입력 · 별도 구성으로 얻은 완비 순서체 F와 G</text>
+
+    <g filter="url(#lift)" stroke-width="2">
+      <rect x="36" y="116" width="528" height="244" rx="18" fill="#fff" stroke="#d5dfcc"/>
+      <rect x="36" y="402" width="528" height="270" rx="18" fill="#fff8ea" stroke="#d5b67d"/>
+      <rect x="36" y="714" width="528" height="244" rx="18" fill="#e1eee3" stroke="#7c9a83"/>
+      <rect x="36" y="1000" width="528" height="244" rx="18" fill="#e1eee3" stroke="#7c9a83"/>
+      <rect x="36" y="1286" width="528" height="270" rx="18" fill="#fff8ea" stroke="#d5b67d"/>
+      <rect x="36" y="1598" width="528" height="270" rx="18" fill="#fff" stroke="#d5dfcc"/>
+    </g>
+
+    <g font-size="24">
+      <text x="62" y="158" font-size="28" font-weight="700" fill="#365c42">1 · 정수부분과 유리수 조밀성</text>
+      <text x="62" y="202">ℕ의 비유계성 + 표준 정렬 원리</text>
+      <text x="62" y="242">최소 k로 z&lt;m≤z+1</text>
+      <text x="62" y="282">n(y−x)&gt;1인 n을 선택</text>
+      <text x="62" y="326" font-weight="700">x&lt;m/n&lt;y</text>
+
+      <path d="M300 360V390" stroke="#365c42" stroke-width="3" marker-end="url(#arrow)"/>
+
+      <text x="62" y="444" font-size="28" font-weight="700" fill="#a56d30">2 · 절단 정의와 엄격한 순서</text>
+      <text x="62" y="488">m&lt;x&lt;n이므로 아래 절단은</text>
+      <text x="62" y="526">비어 있지 않고 G에서 위로 제한됨</text>
+      <text x="62" y="568">φ(x)=supG{qG:qF&lt;x}</text>
+      <text x="62" y="610">x&lt;rF&lt;sF&lt;y를 선택</text>
+      <text x="62" y="652" font-weight="700">φ(x)≤rG&lt;sG≤φ(y)</text>
+
+      <path d="M300 672V702" stroke="#365c42" stroke-width="3" marker-end="url(#arrow)"/>
+
+      <text x="62" y="756" font-size="28" font-weight="700" fill="#365c42">3 · 유리수 고정과 비교 동치</text>
+      <text x="62" y="800">aG=supG{qG:q&lt;a}</text>
+      <text x="62" y="840" font-weight="700">φ(aF)=aG</text>
+      <text x="62" y="880">qF&lt;x ⇔ qG&lt;φ(x)</text>
+      <text x="62" y="924">특히 φ(0)=0, φ(1)=1</text>
+
+      <path d="M300 958V988" stroke="#365c42" stroke-width="3" marker-end="url(#arrow)"/>
+
+      <text x="62" y="1042" font-size="28" font-weight="700" fill="#365c42">4 · 역절단에서 전사성</text>
+      <text x="62" y="1086">Ay={qF:qG&lt;y}, x=supF Ay</text>
+      <text x="62" y="1126">qF&lt;x ⇔ qG&lt;y</text>
+      <text x="62" y="1166">y와 φ(x)의 아래 유리수가 같음</text>
+      <text x="62" y="1210" font-weight="700">조밀성으로 φ(x)=y</text>
+
+      <path d="M300 1244V1274" stroke="#365c42" stroke-width="3" marker-end="url(#arrow)"/>
+
+      <text x="62" y="1328" font-size="28" font-weight="700" fill="#a56d30">5 · 최소 상한을 옮기기</text>
+      <text x="62" y="1372">s=supF S이면</text>
+      <text x="62" y="1408">φ(s)는 φ[S]의 상한</text>
+      <text x="62" y="1448">v가 상한이면 φ⁻¹(v)도 상한</text>
+      <text x="62" y="1488">s≤φ⁻¹(v)</text>
+      <text x="62" y="1532" font-weight="700">φ(s)=supG φ[S]</text>
+
+      <path d="M300 1556V1586" stroke="#365c42" stroke-width="3" marker-end="url(#arrow)"/>
+
+      <text x="62" y="1640" font-size="28" font-weight="700" fill="#365c42">6 · 덧셈, 곱셈, 모든 부호</text>
+      <text x="62" y="1684">모든 u&lt;x+y에 u&lt;r+s</text>
+      <text x="62" y="1724">모든 u&lt;xy에 u&lt;rs (x,y&gt;0)</text>
+      <text x="62" y="1764">F와 G 양쪽에서 공종</text>
+      <text x="62" y="1804" font-weight="700">φ(−x)=−φ(x)</text>
+      <text x="62" y="1844" font-weight="700">0과 모든 부호 경우로 환원</text>
+    </g>
+
+    <text x="300" y="1908" text-anchor="middle" font-size="24" font-weight="700">결론 · 0, 1, 순서, 덧셈, 곱셈을 보존하는 전단사</text>
+    <text x="300" y="1948" text-anchor="middle" font-size="24" fill="#a56d30">동형까지 유일하며, 두 원소 집합이 같다는 뜻은 아닙니다.</text>
   </g>
 </svg>

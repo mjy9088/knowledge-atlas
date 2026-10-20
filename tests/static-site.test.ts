@@ -36,14 +36,60 @@ test('pre-rendered pages contain complete readable prose and escaped evidence wi
     assert.ok(html.includes('주장별 조건과 근거 위치'));assert.ok(html.includes('내용 검토 전 초안'));
     assert.ok(!html.includes('reader-scene" hidden'));
   }
-  const untrusted=structuredClone(data);untrusted.collection.articles.find(a=>a.id==='article:logic.consistency.ko')!.title='<script>alert("x")</script>';
-  const html=siteDocuments(untrusted).get('/knowledge/consistency/')!;
+  const untrusted=structuredClone(data);untrusted.collection.articles.find(a=>a.id==='article:physics.newton-to-quantum.ko')!.title='<script>alert("x")</script>';
+  const html=siteDocuments(untrusted).get('/knowledge/newton-to-quantum/')!;
   assert.ok(html.includes('&lt;script&gt;'));assert.ok(!html.includes('<script>alert'));
+});
+test('chaptered works expose long-form presentation and chapter-local progress',async()=>{
+  // Given the complete static documents for main works and retained readers.
+  const docs=siteDocuments(await loadSiteContent());
+  // When each page's presentation and scene progress are inspected.
+  for(const page of CONTENT_PAGES){
+    const html=docs.get(`/knowledge/${page.slug}/`)??'';
+    if(!page.navigation){assert.ok(html.includes('data-presentation="bounded"'));continue;}
+    assert.ok(html.includes('data-presentation="longform"'));
+    const mainline=page.navigation.chapters.filter(chapter=>chapter.kind==='mainline').flatMap(chapter=>chapter.sceneIds);
+    for(const chapter of page.navigation.chapters)chapter.sceneIds.forEach((sceneId,index)=>{
+      const prefix=chapter.kind==='mainline'?'본문':'선택';
+      const position=chapter.kind==='mainline'?mainline.indexOf(sceneId):index;
+      const total=chapter.kind==='mainline'?mainline.length:chapter.sceneIds.length;
+      assert.ok(html.includes(`data-chapter-kind="${chapter.kind}" id="${sceneId}"`));
+      assert.ok(html.includes(`<p class="eyebrow">${prefix} ${position+1} / ${total}</p>`));
+    });
+  }
+  // Then retained readers remain explicitly bounded instead of inheriting the exception.
+  assert.equal(CONTENT_PAGES.filter(page=>!page.navigation).length,1);
+});
+test('site documents expose five active routes and omit retired readers',async()=>{
+  // Given the source-complete catalog.
+  const docs=siteDocuments(await loadSiteContent());
+  // When static route documents are derived.
+  // Then only the two main works and three retained subjects receive article routes.
+  assert.deepEqual([...docs.keys()],['/','/knowledge/','/knowledge/newton-to-quantum/','/knowledge/number-structures/','/knowledge/weekday-worlds/','/knowledge/monty-hall/','/knowledge/two-children/']);
+  for(const retired of ['/lesson.html','/knowledge/binary-search/','/knowledge/atomic-orbitals/','/knowledge/real-completeness/'])assert.equal(docs.has(retired),false);
+});
+test('every catalog card names its authored payoff without substituting a trailing detour',async()=>{
+  const data=await loadSiteContent(),html=siteDocuments(data).get('/knowledge/')??'';
+  for(const page of CONTENT_PAGES){
+    const finalChapter=page.navigation?.chapters.filter(chapter=>chapter.kind==='mainline').at(-1),finalId=finalChapter?.sceneIds.at(-1),finalScene=page.scenes.find(scene=>scene.id===finalId);
+    const payoff=finalScene??page.scenes.at(-1);
+    assert.ok(payoff&&html.includes(`도착점 · ${escapeHTML(payoff.title)}\u00a0→`));
+  }
+});
+test('related navigation links only to active reader routes',async()=>{
+  // Given a main work whose authored related IDs currently identify source-only articles.
+  const html=siteDocuments(await loadSiteContent()).get('/knowledge/number-structures/')??'';
+  // When the public related-navigation section is rendered.
+  const links=[...html.matchAll(/href="(\/knowledge\/[^"#]+)"/g)].map(match=>match[1]);
+  // Then retired source records do not reappear as active reader links.
+  assert.ok(html.includes('href="/knowledge/"'));
+  for(const retired of ['/knowledge/rational-representations/','/knowledge/irrational-numbers/','/knowledge/real-completeness/','/knowledge/complex-numbers/'])assert.ok(!links.includes(retired));
 });
 test('reader supports direct jumps, detached states, reset and rejection without mutation',()=>{
   for(const page of CONTENT_PAGES){
-    const reader=createRelatedReader(page),initial=reader.getState(),last=page.scenes.length-1;reader.setState({sceneId:page.scenes[last].id});
-    reader.next();assert.equal(reader.inspect().index,last);reader.previous();assert.equal(reader.inspect().index,last-1);
+    const reader=createRelatedReader(page),initial=reader.getState(),mainline=page.navigation?.chapters.filter(chapter=>chapter.kind==='mainline').flatMap(chapter=>chapter.sceneIds),lastId=mainline?.at(-1)??page.scenes.at(-1)?.id;
+    assert.ok(lastId);reader.setState({sceneId:lastId});const last=reader.inspect().index;
+    reader.next();assert.equal(reader.inspect().index,last);reader.previous();assert.notEqual(reader.inspect().index,last);
     const detached=reader.inspect();detached.scene.cards[0]='changed';assert.notEqual(reader.inspect().scene.cards[0],'changed');
     const before=reader.getState();assert.throws(()=>reader.setState({sceneId:'invalid'}));assert.deepEqual(reader.getState(),before);
     reader.reset();assert.deepEqual(reader.getState(),initial);

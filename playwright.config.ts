@@ -16,7 +16,7 @@ export default defineConfig({
   },
   webServer: [{
     command: 'node --import tsx scripts/build-site.ts && node --import tsx scripts/serve-static.ts',
-    url: 'http://127.0.0.1:4190/lesson.html',
+    url: 'http://127.0.0.1:4190/knowledge/',
     env: {PORT: '4190'},
     reuseExistingServer: false,
   },{

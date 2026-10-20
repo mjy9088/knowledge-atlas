@@ -14,7 +14,7 @@ if(!sources.some(x=>x.id===id)){console.error('Unknown source ID: '+id);process.
 const impactedClaims=claims.filter(x=>x.sourceRefs.some(r=>r.sourceId===id)).map(x=>x.id);
 const blocks=[...c.blocks,...collection.articles.flatMap(article=>article.blocks)];
 const impactedBlocks=blocks.filter(x=>x.claimRefs.some(id=>impactedClaims.includes(id))).map(x=>x.id);
-const impactedArticles=collection.articles.filter(article=>article.blocks.some(block=>impactedBlocks.includes(block.id))).map(article=>({articleId:article.id,scenes:CONTENT_PAGES.find(page=>page.articleId===article.id)!.scenes.filter(scene=>impactedBlocks.includes(article.blocks[scene.block].id)).map(scene=>scene.id)}));
+const impactedArticles=collection.articles.filter(article=>article.blocks.some(block=>impactedBlocks.includes(block.id))).map(article=>{const page=CONTENT_PAGES.find(item=>item.articleId===article.id);return{articleId:article.id,scenes:page?.scenes.filter(scene=>impactedBlocks.includes(article.blocks[scene.block]?.id??'')).map(scene=>scene.id)??[]};});
 const impactedScene=scene.claimRefs.some(x=>impactedClaims.includes(x))?[scene.id]:[];
 const impactedProjection=impactedScene.includes(scene.id)?[proj.id]:[];
 console.log(JSON.stringify({inputSource:id,impactCandidate:{claims:impactedClaims,blocks:impactedBlocks,articles:impactedArticles,scenes:impactedScene,projections:impactedProjection},status:'potential-impact-only; no automatic changes or re-approval'},null,2));

@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="1840" viewBox="0 0 600 1840" role="img" aria-labelledby="title desc">
+  <title id="title">후대의 양자 틀에서 함께 다룬 서로 다른 질문들</title>
+  <desc id="desc">열복사와 광전효과, 원자 안정성과 선 스펙트럼, 전자 회절이 제기한 서로 다른 질문을 후대 양자 틀의 에너지 양자, 전이 규칙, 결과 진폭과 함께 배치합니다. 연결은 저자의 후대적 종합이지 유일한 역사 경로나 필연적 발견 순서가 아닙니다. 비상대론적 한 전자 수소 모형의 안정성과 선택된 선 위치는 별도 결과로 제한하며 하나의 공간 파동함수가 모든 현상을 설명한다는 뜻이 아닙니다.</desc>
+  <rect width="600" height="1840" rx="24" fill="#F7F8FB"/>
+  <g font-family="system-ui, sans-serif" fill="#172033">
+    <text x="300" y="42" font-size="32" font-weight="700" text-anchor="middle">서로 다른 질문을</text>
+    <text x="300" y="78" font-size="32" font-weight="700" text-anchor="middle">후대의 양자 틀에서 함께 다룹니다</text>
+
+    <text x="52" y="122" font-size="24" font-weight="700" fill="#526079">병렬 질문 묶음</text>
+    <path d="M28 148 V740" stroke="#C8D0DE" stroke-width="3" stroke-dasharray="9 8"/>
+
+    <g transform="translate(52 142)">
+      <path d="M-24 96 H0" stroke="#C8D0DE" stroke-width="3"/>
+      <rect width="516" height="192" rx="16" fill="#FFFFFF" stroke="#B36A17" stroke-width="3"/>
+      <text x="258" y="40" font-size="27" font-weight="700" text-anchor="middle">열복사 · 광전효과</text>
+      <text x="258" y="82" font-size="24" text-anchor="middle" fill="#526079">모드 등분배 + 늘어나는 모드 수</text>
+      <text x="258" y="119" font-size="24" text-anchor="middle" fill="#526079">→ 고주파 발산 / 사건별 문턱</text>
+      <text x="258" y="162" font-size="24" text-anchor="middle" fill="#526079">서로 다른 두 계산 문제</text>
+    </g>
+
+    <g transform="translate(52 354)">
+      <path d="M-24 96 H0" stroke="#C8D0DE" stroke-width="3"/>
+      <rect width="516" height="192" rx="16" fill="#FFFFFF" stroke="#2C63B5" stroke-width="3"/>
+      <text x="258" y="40" font-size="27" font-weight="700" text-anchor="middle">원자 · 선 스펙트럼</text>
+      <text x="258" y="82" font-size="24" text-anchor="middle" fill="#526079">고전 궤도의 복사 붕괴</text>
+      <text x="258" y="119" font-size="24" text-anchor="middle" fill="#526079">연속 에너지의 선택 규칙 부재</text>
+      <text x="258" y="162" font-size="24" text-anchor="middle" fill="#526079">안정성과 고정 선 위치 질문</text>
+    </g>
+
+    <g transform="translate(52 566)">
+      <path d="M-24 96 H0" stroke="#C8D0DE" stroke-width="3"/>
+      <rect width="516" height="192" rx="16" fill="#FFFFFF" stroke="#087F72" stroke-width="3"/>
+      <text x="258" y="40" font-size="27" font-weight="700" text-anchor="middle">물질파 · 전자 회절</text>
+      <text x="258" y="82" font-size="24" text-anchor="middle" fill="#526079">결정 방향별 보강과 상쇄</text>
+      <text x="258" y="119" font-size="24" text-anchor="middle" fill="#526079">진폭 합 뒤 |A|² 상대 가중치</text>
+      <text x="258" y="162" font-size="24" text-anchor="middle" fill="#526079">개별 궤적 사진이 아님</text>
+    </g>
+
+    <path d="M28 740 C28 786 102 786 102 818 H498" fill="none" stroke="#C8D0DE" stroke-width="3"/>
+    <text x="300" y="802" font-size="24" text-anchor="middle" fill="#526079">후대의 설명 틀로 묶은 저자 종합</text>
+
+    <g transform="translate(52 832)">
+      <rect width="516" height="272" rx="20" fill="#172033"/>
+      <text x="258" y="46" font-size="29" font-weight="700" text-anchor="middle" fill="#F7F8FB">후대 양자 틀의 일반 도구</text>
+      <text x="48" y="101" font-size="26" fill="#F7F8FB">• 에너지 양자</text>
+      <text x="48" y="150" font-size="26" fill="#F7F8FB">• 상태와 전이 규칙</text>
+      <text x="48" y="199" font-size="26" fill="#F7F8FB">• 결과 진폭과 |A|²</text>
+      <text x="258" y="246" font-size="24" text-anchor="middle" fill="#C8D0DE">현상마다 적용 모형과 조건이 다름</text>
+    </g>
+
+    <path d="M300 1104 V1151" stroke="#C8D0DE" stroke-width="3"/>
+    <text x="300" y="1184" font-size="24" text-anchor="middle" fill="#526079">적용 결과의 범위를 분리</text>
+
+    <g transform="translate(52 1204)">
+      <rect width="516" height="230" rx="16" fill="#FFFFFF" stroke="#B36A17" stroke-width="3"/>
+      <text x="258" y="43" font-size="27" font-weight="700" text-anchor="middle">열 · 빛 계산의 결과</text>
+      <text x="258" y="91" font-size="24" text-anchor="middle" fill="#526079">고정 T에서 큰 hν 모드의 점유 억제</text>
+      <text x="258" y="132" font-size="24" text-anchor="middle" fill="#526079">사건 하나의 에너지 장부</text>
+      <line x1="42" y1="161" x2="474" y2="161" stroke="#C8D0DE" stroke-width="3"/>
+      <text x="258" y="202" font-size="24" text-anchor="middle" fill="#526079">수소 공간 ψ 하나의 결과가 아님</text>
+    </g>
+
+    <g transform="translate(52 1456)">
+      <rect width="516" height="262" rx="16" fill="#FFFFFF" stroke="#087F72" stroke-width="3"/>
+      <text x="258" y="43" font-size="27" font-weight="700" text-anchor="middle">수소에 적용한 제한된 결과</text>
+      <text x="258" y="91" font-size="24" text-anchor="middle" fill="#526079">비상대론적 한 전자 모형</text>
+      <text x="258" y="132" font-size="24" text-anchor="middle" fill="#526079">바닥 상태 안정성</text>
+      <text x="258" y="173" font-size="24" text-anchor="middle" fill="#526079">선택된 상태 차이와 선 위치</text>
+      <line x1="42" y1="198" x2="474" y2="198" stroke="#C8D0DE" stroke-width="3"/>
+      <text x="258" y="238" font-size="24" text-anchor="middle" fill="#526079">다전자 물질 전체의 증명 아님</text>
+    </g>
+
+    <line x1="52" y1="1750" x2="548" y2="1750" stroke="#C8D0DE" stroke-width="3"/>
+    <text x="300" y="1787" font-size="24" text-anchor="middle" fill="#526079">유일하게 요구된 이론 경로나</text>
+    <text x="300" y="1821" font-size="24" text-anchor="middle" fill="#526079">필연적 발견 순서를 뜻하지 않습니다.</text>
+  </g>
+</svg>

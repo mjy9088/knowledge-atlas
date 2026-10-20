@@ -1,6 +1,6 @@
 import {test, expect, type Page} from '@playwright/test';
 import {CONTENT_PAGES} from '../../content/catalog.js';
-import {EXPLOSION_EPISODE} from '../../content/formal-logic/explosion/episode.js';
+import {activeWork,expectLongformScene,mainlineSceneIds} from './support/main-work.js';
 
 // Measure content, not just CSS overflow:hidden: clipped scroll containers fail too.
 async function expectFrame(page: Page, {content, controls}: {content:string[];controls:string[]}) {
@@ -37,12 +37,7 @@ const relatedFrame = {
   content: ['.reader-copy:not([hidden])', '.explorer-diagram', '.explorer-lines', '.experiment-premises'],
   controls: ['#reader-controls button', '.experiment-goal', '.experiment-heading button', '.reader-menu summary'],
 };
-const lessonFrame = {
-  content: ['#lesson-dialogue-copy', '#lesson-stage', '.experiment-premises'],
-  controls: ['.dialogue-actions button', '.experiment-goal', '#lesson-menu-open'],
-};
-
-const questionTopics=CONTENT_PAGES.filter(p=>['binary-search','sphere-slices','base-rates','weekday-worlds'].includes(p.slug));
+const questionTopics=CONTENT_PAGES.filter(p=>p.slug==='weekday-worlds');
 const questionFrame={
   content:['#reader-workbench>div:last-child','#reader-workbench p','.reader-scene:not([hidden]) .reader-copy'],
   controls:['#reader-controls button','#reader-workbench button','#reader-workbench input','#reader-workbench select','.reader-menu summary'],
@@ -231,9 +226,10 @@ test('weekday actions stay compact with menu links and tooltip-only keyboard hel
   await page.locator('.reader-menu a[href="#evidence"]').click();await expect(page.locator('dialog[open]')).toContainText('주장별 조건과 근거 위치');await page.keyboard.press('Escape');
   await page.evaluate(state=>window.__atlasRelated.setState(state),snapshot);await expectFrame(page,weekdayFrame);await testInfo.attach('weekday-compact-actions',{body:await page.screenshot(),contentType:'image/png'});
   await page.locator('.reader-menu').evaluate(e=>(e as HTMLDetailsElement).open=true);await page.locator('.reader-menu a[href="/knowledge/"]').click();await expect(page).toHaveURL(/\/knowledge\/$/);
-  await page.goto('/knowledge/binary-search/#question');await page.waitForFunction(()=>window.__atlasRelated);
-  const topic=CONTENT_PAGES.find(p=>p.slug==='binary-search')!;await expect(hint).toBeVisible();await expect(links).toBeHidden();
-  await page.evaluate(sceneId=>window.__atlasRelated.setState({sceneId}),topic.scenes.at(-1)!.id);await expect(links).toBeVisible();await expect(links.locator('a')).toHaveText(['지식 목록 ↗','근거와 범위']);
+  await page.goto('/knowledge/number-structures/#question');await page.waitForFunction(()=>window.__atlasRelated);
+  const finalMainline=mainlineSceneIds(activeWork('number-structures')).at(-1);if(!finalMainline)throw new TypeError('Missing number-structures mainline');
+  await expect(hint).toBeVisible();await expect(links).toBeHidden();
+  await page.evaluate(sceneId=>window.__atlasRelated.setState({sceneId}),finalMainline);await expect(links).toBeVisible();await expect(links.locator('a')).toHaveText(['지식 목록 ↗','근거와 범위']);
 });
 
 test('weekday title slide, simultaneous original/symbol panels, named worlds and scrollable choices restore independently',async({page},testInfo)=>{
@@ -260,23 +256,6 @@ test('skip controls appear only for a distinct jump and disclose scope and desti
     await page.evaluate(sceneId=>window.__atlasRelated.setState({sceneId}),scene.id);
     if(scene.skip)await expect(page.locator('#reader-skip')).toBeVisible();else await expect(page.locator('#reader-skip')).toBeHidden();await expect(page.locator('.reader-scene:visible .skip-context')).toBeHidden();
   }
-  await page.goto('/lesson.html');await page.waitForFunction(()=>window.__atlasLesson);
-  for(let index=0;index<EXPLOSION_EPISODE.sections.length;index++){
-    const section=EXPLOSION_EPISODE.sections[index];await page.evaluate(sectionId=>window.__atlasLesson.setState({sectionId}),section.id);
-    const view=await page.evaluate(()=>window.__atlasLesson.inspect()),targetIndex=EXPLOSION_EPISODE.sections.findIndex(s=>s.id===view.nextChapter?.id);
-    const skip=page.locator('#lesson-skip'),scope=page.locator('#lesson-skip-context');
-    if(targetIndex>index+1){
-      await expect(skip).toHaveText(`${view.chapter.title} 건너뛰기 ↗`);await expect(scope).toContainText(view.chapter.known);await expect(scope).toContainText(`이동: ${view.nextChapter!.title}`);
-      for(const item of EXPLOSION_EPISODE.sections.slice(index,targetIndex))await expect(skip).toHaveAttribute('title',new RegExp(item.title.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')));
-      await expectFrame(page,lessonFrame);await skip.click();expect(await page.evaluate(()=>window.__atlasLesson.getState().sectionId)).toBe(view.nextChapter!.id);
-      if(section.id==='premise-p'){
-        await page.evaluate(()=>{window.__atlasLesson.setState({sectionId:'premise-p'});window.__atlasLessonExperiment.setState({...window.__atlasLessonExperiment.getState(),customized:true});});
-        await expect(skip).toContainText('근거에서 결론까지');await expect(scope).toContainText('현재 경로의 전제');
-        await page.evaluate(()=>window.__atlasLessonExperiment.reset());await expect(skip).toHaveText('모순에서 Q까지 건너뛰기 ↗');
-      }
-      await page.evaluate(sectionId=>window.__atlasLesson.setState({sectionId}),section.id);await page.locator('#lesson-next').click();expect(await page.evaluate(()=>window.__atlasLesson.getState().sectionId)).toBe(EXPLOSION_EPISODE.sections[index+1].id);
-    }else{await expect(skip).toBeHidden();await expect(scope).toBeHidden();}
-  }
 });
 
 test('deleting reference and evaluation worlds removes every UI reference and survives navigation and restore',async({page},testInfo)=>{
@@ -300,8 +279,7 @@ test('deleting reference and evaluation worlds removes every UI reference and su
   await page.getByRole('button',{name:'세계 · 접근 관계',exact:true}).click();await expect(page.locator('.weekday-dialog-world')).toHaveCount(1);await expect(page.locator('.weekday-access-matrix input')).toHaveCount(1);await testInfo.attach('weekday-only-remaining-world',{body:await page.screenshot(),contentType:'image/png'});
 });
 
-test('weekday wide layout fills the desktop and keeps every view usable with four worlds',async({page},testInfo)=>{
-  test.skip((page.viewportSize()?.width??0)<1200,'Wide desktop composition');
+test('weekday layout keeps every project viewport usable with four worlds',async({page},testInfo)=>{
   const topic=CONTENT_PAGES.find(p=>p.slug==='weekday-worlds')!;
   for(const scene of topic.scenes){
     await page.goto(`/knowledge/weekday-worlds/#${scene.id}`);await page.waitForFunction(()=>window.__atlasRelated);
@@ -312,8 +290,11 @@ test('weekday wide layout fills the desktop and keeps every view usable with fou
     }
   }
   const measures=await page.evaluate(()=>({width:document.querySelector('.weekday-experiment')!.getBoundingClientRect().width/innerWidth,controls:[...document.querySelectorAll<HTMLSelectElement>('.weekday-context-select')].map(node=>({font:parseFloat(getComputedStyle(node).fontSize),height:node.getBoundingClientRect().height}))}));
-  expect(measures.width).toBeGreaterThan(.9);for(const control of measures.controls){expect(control.font).toBeGreaterThanOrEqual(13);expect(control.height).toBeGreaterThanOrEqual(34);}
-  await testInfo.attach('weekday-wide-four-worlds',{body:await page.screenshot(),contentType:'image/png'});
+  if((page.viewportSize()?.width??0)>=1200)expect(measures.width).toBeGreaterThan(.9);
+  else expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  const desktop=(page.viewportSize()?.width??0)>=1200,minimumFont=desktop?13:10,minimumHeight=desktop?34:24;
+  for(const control of measures.controls){expect(control.font).toBeGreaterThanOrEqual(minimumFont);expect(control.height).toBeGreaterThanOrEqual(minimumHeight);}
+  await testInfo.attach('weekday-four-worlds',{body:await page.screenshot(),contentType:'image/png'});
 });
 
 test('weekday reference choices create absent worlds and identify other expressions using each world',async({page},testInfo)=>{
@@ -432,155 +413,20 @@ test('weekday direct links preserve both nonmodal and alethic views in narrow wi
   }
 });
 
-test('binary search follows comparisons, preserves edits, clears invalid drafts and seeks independently',async({page},testInfo)=>{
-  await page.goto('/knowledge/binary-search/');await page.waitForFunction(()=>window.__atlasRelated);
-  await page.getByRole('combobox',{name:'예상 횟수',exact:true}).selectOption('10');
-  for(let i=0;i<10;i++)await page.getByRole('button',{name:'한 번 비교',exact:true}).click();
-  await expect(page.locator('.binary-summary')).toContainText('10회 비교 · 찾았습니다');
-  await expect(page.locator('.binary-pivot')).toContainText('2000');
-  await expectFrame(page,questionFrame);
-  await testInfo.attach('search-completed',{body:await page.screenshot(),contentType:'image/png'});
-  const target=page.getByRole('textbox',{name:'찾을 값',exact:true});await target.fill('1999');
-  await page.locator('#reader-next').click();await expect(target).toHaveValue('1999');
-  await page.locator('#reader-next').click();
-  await expect(page.locator('.reader-scene:visible .scene-prose')).toContainText('목록에 있다면');
-  await target.fill('');await expect(page.locator('.binary-bar')).toBeHidden();
-  await expect(page.locator('.reader-scene:visible .scene-prose')).toContainText('정수를 입력');
-  const draft=await page.evaluate(()=>window.__atlasRelated.getState());
-  await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(state=>window.__atlasRelated.setState(state),draft);
-  await expect(target).toHaveValue('');await expect(page.locator('.binary-bar')).toBeHidden();
-  await expectFrame(page,questionFrame);
-  await page.getByRole('button',{name:'장면 예시로',exact:true}).click();
-  await page.evaluate(()=>window.__atlasRelated.seek(3000));
-  const sought=await page.evaluate(()=>window.__atlasRelated.getInspectionSnapshot());
-  await page.evaluate(()=>window.__atlasRelated.seek(0));await page.evaluate(()=>window.__atlasRelated.seek(3000));
-  expect(await page.evaluate(()=>window.__atlasRelated.getInspectionSnapshot())).toEqual(sought);
-  const rejected=await page.evaluate(()=>{const before=window.__atlasRelated.getState();try{window.__atlasRelated.setState({...before,interaction:{...before.interaction,step:999}} as never);return false;}catch{return JSON.stringify(before)===JSON.stringify(window.__atlasRelated.getState());}});
-  expect(rejected).toBe(true);
-});
-
-test('sphere slices synchronize geometric boundaries, preserve reveal and reject unsupported saved controls',async({page},testInfo)=>{
-  await page.goto('/knowledge/sphere-slices/#explain');await page.waitForFunction(()=>window.__atlasRelated);
-  const height=page.getByRole('slider',{name:'평면 높이 h',exact:true});
-  const setHeight=async(value:string)=>height.evaluate((input,value)=>{(input as HTMLInputElement).value=value;input.dispatchEvent(new Event('input',{bubbles:true}));},value);
-  await expect(page.locator('.sphere-result')).toContainText('r = 4 cm');
-  await setHeight('-3');await expect(page.locator('.sphere-result')).toContainText('r = 4 cm');
-  await setHeight('5');await expect(page.locator('.sphere-result')).toContainText('한 점');
-  await setHeight('6');await expect(page.locator('.sphere-result')).toContainText('단면이 없습니다');
-  await expect(page.getByRole('img')).toHaveAccessibleName(/구 바깥/);
-  await page.locator('#reader-next').click();await expect(height).toHaveValue('6');
-  await setHeight('3');await page.getByRole('button',{name:'같은 원판의 두 구 보기',exact:true}).click();
-  await expect(page.locator('.sphere-transfer')).toContainText('모두 r=4 cm');
-  const saved=await page.evaluate(()=>window.__atlasRelated.getState());
-  await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(state=>window.__atlasRelated.setState(state),saved);
-  expect(await page.evaluate(()=>window.__atlasRelated.getState())).toEqual(saved);
-  const rejected=await page.evaluate(()=>{const before=window.__atlasRelated.getState();return [0,2.35,Number.NaN].every(radius=>{try{window.__atlasRelated.setState({...before,interaction:{...before.interaction,radius}} as never);return false;}catch{return JSON.stringify(before)===JSON.stringify(window.__atlasRelated.getState());}});});
-  expect(rejected).toBe(true);await expectFrame(page,questionFrame);
-  await testInfo.attach('sphere-comparison',{body:await page.screenshot(),contentType:'image/png'});
-  await page.getByRole('button',{name:'장면 예시로',exact:true}).click();
-  await expect(page.locator('.sphere-transfer span')).toBeHidden();
-});
-
-test('base rates preserve predictions and drafts, change the denominator and handle no alerts',async({page},testInfo)=>{
-  await page.goto('/knowledge/base-rates/');await page.waitForFunction(()=>window.__atlasRelated);
-  const prediction=page.getByRole('combobox',{name:'경보 중 불량 비율 예상',exact:true});
-  await prediction.selectOption('over-half');await page.locator('#reader-next').click();
-  await expect(prediction).toHaveValue('over-half');await expect(page.locator('.base-rates-output')).toBeHidden();
-  await page.locator('#reader-next').click();
-  await expect(page.locator('.base-rates-answer')).toContainText('90 ÷ 585 ≈ 15.38%');
-  const prevalence=page.getByRole('spinbutton',{name:'불량 비율 (%)',exact:true});await prevalence.fill('10');
-  await expect(page.locator('.base-rates-answer')).toContainText('900 ÷ 1,350 ≈ 66.67%');
-  await page.locator('#reader-next').click();await expect(prevalence).toHaveValue('10');
-  await expect(page.locator('.reader-scene:visible .scene-prose')).toContainText('1,350');
-  await testInfo.attach('base-rate-comparison',{body:await page.screenshot(),contentType:'image/png'});
-  await prevalence.fill('');await expect(page.locator('.base-rates-output')).toBeHidden();
-  const draft=await page.evaluate(()=>window.__atlasRelated.getState());
-  await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(state=>window.__atlasRelated.setState(state),draft);
-  await expect(prevalence).toHaveValue('');await expect(page.locator('.base-rates-output')).toBeHidden();
-  await expect(page.locator('.reader-scene:visible .scene-prose')).toContainText('계산할 수 없습니다');
-  await prevalence.fill('10');
-  await page.getByRole('spinbutton',{name:'불량 중 경보 (%)',exact:true}).fill('0');
-  await page.getByRole('spinbutton',{name:'정상 중 경보 (%)',exact:true}).fill('0');
-  await expect(page.locator('.base-rates-answer')).toContainText('정의되지 않습니다');
-  await expect(page.locator('.reader-scene:visible .scene-prose')).toContainText('정의되지 않습니다');
-  const rejected=await page.evaluate(()=>{const before=window.__atlasRelated.getState();try{window.__atlasRelated.setState({...before,interaction:{...before.interaction,prevalence:2}} as never);return false;}catch{return JSON.stringify(before)===JSON.stringify(window.__atlasRelated.getState());}});
-  expect(rejected).toBe(true);await expectFrame(page,questionFrame);
-  await page.getByRole('button',{name:'장면 예시로',exact:true}).click();
-  await expect(page.locator('.base-rates-answer')).toContainText('15.38%');
-});
-
-const lambdaFrame={content:['.lambda-editor','.lambda-output','.lambda-rule-term','.lambda-step-term','.reader-scene:not([hidden]) .reader-copy'],controls:['#reader-controls button','.lambda-experiment button','.lambda-experiment input','.lambda-experiment textarea','.lambda-experiment select','.reader-menu summary']};
-for(const topic of CONTENT_PAGES.filter(p=>p.interactive==='typed-lambda'))test(`${topic.slug}: all typed examples and explanation scenes fit`,async({page},testInfo)=>{
-  const errors: string[]=[];page.on('pageerror',e=>errors.push(e.message));
-  await page.goto(`/knowledge/${topic.slug}/`);await page.waitForFunction(()=>window.__atlasRelated);
-  for(let i=0;i<topic.scenes.length;i++){
-    await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',topic.scenes[i].id);
-    await expect(page.getByRole('combobox',{name:'비교할 예제'})).toHaveValue((topic.scenes[i].suggestion as {example:string}).example);
-    await test.step(topic.scenes[i].id,()=>expectFrame(page,lambdaFrame));
-    if(i+1<topic.scenes.length)await page.locator('#reader-next').click();
-  }
-  for(const option of await page.getByRole('combobox',{name:'비교할 예제'}).locator('option').all()){
-    await page.getByRole('combobox',{name:'비교할 예제'}).selectOption(await option.getAttribute('value'));
-    await expectFrame(page,lambdaFrame);
-  }
-  expect(errors).toEqual([]);await testInfo.attach('typed-lambda',{body:await page.screenshot(),contentType:'image/png'});
-});
-
-test('typed terms update dialogue, compute substitution, reject errors and restore state',async({page})=>{
-  await page.goto('/knowledge/lambda-calculus/#substitution');await page.waitForFunction(()=>window.__atlasRelated);
-  await expect(page.locator('.lambda-judgment')).toContainText('현재 타입: A');
-  await page.getByRole('button',{name:'한 단계 계산',exact:true}).click();await expect(page.locator('.lambda-step-term')).toHaveText('a');
-  const defaultState=await page.evaluate(()=>window.__atlasRelated.getState());await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(s=>window.__atlasRelated.setState(s),defaultState);expect(await page.evaluate(()=>window.__atlasRelated.getState())).toEqual(defaultState);
-  const input=page.getByRole('textbox',{name:'람다 식',exact:true});await input.fill('(λx:A. λy:B. x) a');
-  await expect(page.locator('.lambda-judgment')).toContainText('A');await expect(page.locator('.reader-scene:visible .scene-prose')).toContainText('현재 식의 타입은 B → A');
-  await page.locator('#reader-next').click();await expect(input).toHaveValue('(λx:A. λy:B. x) a');
-  const saved=await page.evaluate(()=>window.__atlasRelated.getState());await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(s=>window.__atlasRelated.setState(s),saved);
-  expect(await page.evaluate(()=>window.__atlasRelated.getState())).toEqual(saved);
-  await input.fill('λx:A. x x');await expect(page.locator('.lambda-output')).toHaveAttribute('data-valid','false');await expect(page.locator('.lambda-results')).toBeHidden();
-  await expect(page.locator('.reader-scene:visible .scene-prose')).toContainText('기본 예시의 해설은 이 입력에 적용하지 않습니다');
-  await expectFrame(page,lambdaFrame);
-  const rejected=await page.evaluate(()=>{const before=window.__atlasRelated.getState();try{window.__atlasRelated.setState({...before,interaction:{...before.interaction,step:99}} as never);return false;}catch{return JSON.stringify(before)===JSON.stringify(window.__atlasRelated.getState());}});expect(rejected).toBe(true);
-  await page.getByRole('button',{name:'장면 예시로',exact:true}).click();await expect(page.locator('.lambda-output')).toHaveAttribute('data-valid','true');
-  await input.focus();const scene=await page.evaluate(()=>window.__atlasRelated.getState().sceneId);await page.keyboard.press('ArrowRight');expect(await page.evaluate(()=>window.__atlasRelated.getState().sceneId)).toBe(scene);
-});
-
-const readingFrame={content:['.reader-scene:not([hidden]) .reader-copy','.reader-scene:not([hidden]) .concept-diagram'],controls:['#reader-controls button','.reader-menu summary']};
-for (const reader of CONTENT_PAGES.filter(page=>!page.interactive)) test(`${reader.slug}: every scene and rule example fits`, async ({page}, testInfo) => {
-  await page.goto(`/knowledge/${reader.slug}/`);
-  await page.waitForFunction(() => window.__atlasRelated);
-  const frame=reader.model?relatedFrame:readingFrame;
-  for (let index = 0; index < reader.scenes.length; index++) {
-    await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id', reader.scenes[index].id);
-    await test.step(reader.scenes[index].id, () => expectFrame(page, frame));
-    if (index + 1 < reader.scenes.length) await page.locator('#reader-next').click();
-  }
+test('number-structures: every authored scene has complete long-form source and reachable controls', async ({page}) => {
+  const work=activeWork('number-structures');await page.goto('/knowledge/number-structures/');await page.waitForFunction(()=>window.__atlasRelated);
+  for(const scene of work.page.scenes){await page.evaluate(sceneId=>window.__atlasRelated.setState({sceneId}),scene.id);await test.step(scene.id,()=>expectLongformScene(page,work,scene.id));}
+  const finalMainline=mainlineSceneIds(work).at(-1);if(!finalMainline)throw new TypeError('Missing number-structures mainline');
+  await page.evaluate(sceneId=>window.__atlasRelated.setState({sceneId}),finalMainline);
   await expect(page.locator('#reader-end-links')).toBeVisible();
-  if (reader.model === 'ch') await testInfo.attach('final-scene', {body: await page.screenshot(), contentType: 'image/png'});
-  for (const preset of await page.locator('#reader-presets button').all()) {
-    await preset.click();
-    await expectFrame(page, frame);
-  }
   await page.locator('.reader-menu summary').click();
   await page.locator('.reader-menu a[href="#evidence"]').click();
   await expect(page.locator('dialog[open]')).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(page.locator('dialog[open]')).toHaveCount(0);
-  await expectFrame(page, frame);
 });
 
-test('direct links restore the requested scene and typing arrows does not navigate', async ({page}) => {
-  await page.goto('/lesson.html#explanation-remove-premise');
-  await page.waitForFunction(() => window.__atlasLesson);
-  await expect.poll(() => page.evaluate(() => window.__atlasLesson.getState().sectionId)).toBe('remove-premise');
-  const goal = page.getByRole('textbox', {name: '목표 명제식', exact: true});
-  await goal.focus();
-  await page.keyboard.press('ArrowLeft');
-  await page.keyboard.press('ArrowRight');
-  await expect.poll(() => page.evaluate(() => window.__atlasLesson.getState().sectionId)).toBe('remove-premise');
-  await expectFrame(page, lessonFrame);
-});
-
-test('weekday contradiction briefly explains classical explosion and links to the existing lesson',async({page},testInfo)=>{
+test('weekday contradiction briefly explains classical explosion and keeps its evidence reachable',async({page},testInfo)=>{
   await page.goto('/knowledge/weekday-worlds/#modal-expansion');await page.waitForFunction(()=>window.__atlasRelated);await weekdayInputs(page);
   const note=page.locator('.weekday-explosion-note');await expect(note).toHaveCount(0);
   // A sample mismatch is not an inconsistent constraint set.
@@ -595,16 +441,15 @@ test('weekday contradiction briefly explains classical explosion and links to th
   const saved=await page.evaluate(()=>window.__atlasRelated.getState());await page.evaluate(()=>window.__atlasRelated.setState({sceneId:'modal-rules'}));await expect(page.locator('.weekday-bridge')).toContainText('K 공리');await page.evaluate(()=>window.__atlasRelated.setState({sceneId:'transfer'}));await expect(note).toBeVisible();
   await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(state=>window.__atlasRelated.setState(state),saved);await weekdayReasoning(page);await expect(note).toBeVisible();
   await testInfo.attach('weekday-explosion-connection',{body:await page.screenshot(),contentType:'image/png'});
-  await note.getByRole('link',{name:'모순 폭발 ↗',exact:true}).click();await expect(page).toHaveURL(/\/lesson\.html#explanation-explosion$/);await expect(page.locator('#dialogue-title')).toHaveText('⊥에서 Q: 폭발 규칙');
-  await page.goto('/knowledge/weekday-worlds/#conclusion');await page.waitForFunction(()=>window.__atlasRelated);await page.locator('#reader-next').click();await expect(page.locator('dialog[open] a[href="/lesson.html"]')).toHaveText('모순 폭발 ↗');
-  await page.keyboard.press('Escape');await page.goto('/knowledge/weekday-worlds/#literal');await page.waitForFunction(()=>window.__atlasRelated);await expect(page.locator('.reader-scene:visible .scene-prose')).toContainText('월요일’부터 ‘일요일');await weekdayReasoning(page);await expect(note).toBeVisible();
+  await note.getByRole('link',{name:'근거와 범위 ↗',exact:true}).click();await expect(page.locator('dialog[open]')).toContainText('주장별 조건과 근거 위치');
+  await page.keyboard.press('Escape');await page.goto('/knowledge/weekday-worlds/#literal');await page.waitForFunction(()=>window.__atlasRelated);await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id','literal');await weekdayReasoning(page);await expect(note).toBeVisible();
   await weekdayInputs(page);await page.getByRole('button',{name:'A · 현실 어제 고정',exact:true}).click();await expect(note).toHaveCount(0);
 });
 
 test('short titles keep the catalog text-only and the meme illustration on the restorable cover',async({page},testInfo)=>{
   const short='이걸로 IQ를 재겠다고?',full=short+' (어제가 내일이었으면...)';
   await page.goto(`/knowledge/?catalog=${Math.floor(CONTENT_PAGES.findIndex(entry=>entry.slug==='weekday-worlds')/12)+1}`);const card=page.locator('a.knowledge-card[href="/knowledge/weekday-worlds/"]');
-  await expect(card.locator('h2')).toHaveText(short);await expect(card).toHaveAttribute('title',full);
+  await expect(card.locator('h3')).toHaveText(short);await expect(card).toHaveAttribute('title',full);
   await expect(card.locator('img')).toHaveCount(0);
   await card.click();await page.waitForFunction(()=>window.__atlasRelated);await expect(page).toHaveTitle(full+' · Knowledge Atlas');await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content',full);
   await expect(page.locator('.reader-cover h1')).toHaveText(short);await expect(page.locator('.reader-cover h1')).toHaveAttribute('title',full);
@@ -613,45 +458,58 @@ test('short titles keep the catalog text-only and the meme illustration on the r
   await expectFrame(page,{content:['.reader-cover','.reader-cover h1','.reader-cover-artwork'],controls:['#reader-next','.reader-menu summary']});
   await testInfo.attach('iq-title-slide',{body:await page.screenshot(),contentType:'image/png'});
   const title=await page.evaluate(()=>window.__atlasRelated.getState());await page.locator('#reader-next').click();await expect(artwork).toBeHidden();await weekdayInputs(page);await expect(page.locator('.weekday-intro-question')).toHaveText('그렇다면 오늘은 무슨 요일일까?');await page.evaluate(state=>window.__atlasRelated.setState(state),title);await expect(artwork).toBeVisible();
-  await page.goto('/knowledge/binary-search/');await expect(page.locator('.reader-intro h1')).toHaveText('1,000개 중 하나, 몇 번이면 찾을까요?');
+  await page.goto('/knowledge/newton-to-quantum/');const physics=CONTENT_PAGES.find(page=>page.slug==='newton-to-quantum');if(!physics)throw new TypeError('Missing physics work');const heading=page.locator('.reader-intro h1'),fullTitle=await heading.getAttribute('title');if(!fullTitle)throw new TypeError('Missing full article title');await expect(heading).toHaveText(physics.label);expect(await page.title()).toBe(`${fullTitle} · Knowledge Atlas`);
 });
 
-test('desktop knowledge index fits with accessible topic cards', async ({page}, testInfo) => {
-  test.skip(testInfo.project.name === 'mobile', 'The narrow index is a normal scrolling document.');
+test('knowledge index fits or scrolls naturally with accessible topic cards', async ({page}, testInfo) => {
   await page.goto('/knowledge/');
   await expect(page.locator('.knowledge-card')).toHaveCount(CONTENT_PAGES.length);
-  await expectFrame(page, {content: ['.knowledge-card'], controls: ['a.knowledge-card']});
+  if(testInfo.project.name==='mobile'){
+    expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+    for(const card of await page.locator('a.knowledge-card').all()){await card.scrollIntoViewIfNeeded();await expect(card).toBeInViewport();}
+  }else await expectFrame(page, {content: ['.knowledge-card'], controls: ['a.knowledge-card']});
 });
 
 const orbitalFrame={
   content:['.reader-copy:not([hidden])','.orbital-controls','.orbital-footer','.orbital-view'],
   controls:['#reader-controls button','.orbital-controls select','.orbital-controls button','.field-canvas','.reader-menu summary'],
 };
+async function expectOrbitalLongform(page:Page){
+  await expect(page.locator('.related-reader')).toHaveAttribute('data-presentation','longform');
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  for(const selector of [...orbitalFrame.content,...orbitalFrame.controls]){
+    const matches=page.locator(selector);expect(await matches.count(),selector).toBeGreaterThan(0);
+    for(let index=0;index<await matches.count();index++){
+      const match=matches.nth(index);if(!await match.isVisible())continue;
+      await match.scrollIntoViewIfNeeded();await expect(match,selector).toBeInViewport();
+    }
+  }
+}
 test('orbitals: each authored scene fits with its corresponding field state',async({page},testInfo)=>{
   const errors: string[]=[];page.on('pageerror',error=>errors.push(error.message));
-  await page.goto('/knowledge/atomic-orbitals/');await page.waitForFunction(()=>window.__atlasRelated);
-  const metadata=CONTENT_PAGES.find(p=>p.slug==='atomic-orbitals')!;
-  for(const scene of metadata.scenes){
+  await page.goto('/knowledge/newton-to-quantum/#orbital-density');await page.waitForFunction(()=>window.__atlasRelated);
+  const metadata=CONTENT_PAGES.find(p=>p.slug==='newton-to-quantum')!,orbitalScenes=metadata.scenes.filter(scene=>scene.id==='orbital-density'||scene.id==='orbital-phase');
+  for(const scene of orbitalScenes){
+    await page.evaluate(sceneId=>window.__atlasRelated.setState({sceneId}),scene.id);
     await expect(page.locator('.reader-scene:visible h2')).toHaveText(scene.title);
     const snapshot=await page.evaluate(()=>window.__atlasRelated.getInspectionSnapshot());
     if(!snapshot.interaction||!('orbital' in snapshot.interaction))throw new Error('Expected orbital inspection');
-    expect(snapshot.interaction.orbital).toEqual({n:(scene.suggestion as {n:number}).n,basis:(scene.suggestion as {basis:string}).basis,Z:(scene.suggestion as {Z:number}).Z});
+    expect(snapshot.interaction.orbital).toEqual({n:2,basis:'px',Z:1});
     expect(snapshot.interaction.viewer.pointCount).toBe(6500);
-    await test.step(scene.id,()=>expectFrame(page,orbitalFrame));
-    if(scene!==metadata.scenes.at(-1))await page.locator('#reader-next').click();
+    await test.step(scene.id,()=>expectOrbitalLongform(page));
   }
   await testInfo.attach('orbital-scene',{body:await page.screenshot(),contentType:'image/png'});
   expect(errors).toEqual([]);
 });
 test('orbital controls, camera, modes, state persistence and restoration use current input',async({page},testInfo)=>{
-  await page.goto('/knowledge/atomic-orbitals/#nodes');await page.waitForFunction(()=>window.__atlasRelated);
+  await page.goto('/knowledge/newton-to-quantum/#orbital-density');await page.waitForFunction(()=>window.__atlasRelated);
   await page.getByRole('combobox',{name:'주양자수 n',exact:true}).selectOption('3');
   await page.getByRole('combobox',{name:'오비탈 종류·방향',exact:true}).selectOption('dxy');
   await page.getByRole('combobox',{name:'핵전하 Z',exact:true}).selectOption('2');
-  await expect(page.locator('.reader-scene:visible h2')).toHaveText('분포 안의 빈 곳: 마디');
+  await expect(page.locator('.reader-scene:visible h2')).toHaveText('점 밀도는 전자 궤적이 아닙니다');
   await expect(page.locator('.reader-scene:visible .scene-prose')).toContainText('l=2, Z=2');
   for(const mode of ['cloud','slice','surface']){
-    await page.getByRole('combobox',{name:'표시 방식',exact:true}).selectOption(mode);await expectFrame(page,orbitalFrame);
+    await page.getByRole('combobox',{name:'표시 방식',exact:true}).selectOption(mode);await expectOrbitalLongform(page);
     const image=await page.locator('.field-canvas').evaluate(canvas=>(canvas as HTMLCanvasElement).toDataURL());expect(image.length).toBeGreaterThan(1000);
   }
   const surface=await page.evaluate(()=>{const interaction=window.__atlasRelated.getInspectionSnapshot().interaction;if(!interaction||!('viewer' in interaction))throw new Error('Expected spatial inspection');return interaction.viewer.triangleCount;});expect(surface).toBeGreaterThan(0);
@@ -660,7 +518,7 @@ test('orbital controls, camera, modes, state persistence and restoration use cur
   const before=await page.evaluate(()=>window.__atlasRelated.getState());
   await page.locator('.field-canvas').focus();await page.keyboard.press('ArrowRight');
   const rotated=await page.evaluate(()=>window.__atlasRelated.getState());expect(rotated.sceneId).toBe(before.sceneId);if(!rotated.interaction||!('view' in rotated.interaction)||!before.interaction||!('view' in before.interaction))throw new Error('Expected orbital camera state');expect(rotated.interaction.view.yaw).toBeGreaterThan(before.interaction.view.yaw);
-  await page.locator('#reader-next').click();await expect(page.getByRole('combobox',{name:'핵전하 Z',exact:true})).toHaveValue('2');
+  await page.evaluate(()=>window.__atlasRelated.setState({sceneId:'orbital-phase',interaction:window.__atlasRelated.getState().interaction}));await expect(page.getByRole('combobox',{name:'핵전하 Z',exact:true})).toHaveValue('2');
   const saved=await page.evaluate(()=>window.__atlasRelated.getState());
   await page.evaluate(()=>window.__atlasRelated.reset());
   await page.evaluate(state=>window.__atlasRelated.setState(state),saved);
@@ -687,31 +545,13 @@ test('spatial viewer can render a non-orbital field and reject an invalid camera
   expect(result.snapshot.triangleCount).toBeGreaterThan(0);expect(result.rejected&&result.unchanged&&result.restored).toBe(true);expect(result.children).toBe(0);
 });
 
-test('lesson: every explanation fits and keyboard navigation works', async ({page}) => {
-  await page.goto('/lesson.html');
-  await page.waitForFunction(() => window.__atlasLesson);
-  await expect(page.locator('.lesson-claim').first()).toBeAttached();
-  await expect(page.locator('#lesson-error')).toBeEmpty();
-  for (let index = 0; index < EXPLOSION_EPISODE.sections.length; index++) {
-    await expect.poll(() => page.evaluate(() => window.__atlasLesson.getState().sectionId)).toBe(EXPLOSION_EPISODE.sections[index].id);
-    await test.step(EXPLOSION_EPISODE.sections[index].id, () => expectFrame(page, lessonFrame));
-    if (index + 1 < EXPLOSION_EPISODE.sections.length) await page.locator('#lesson-next').click();
-  }
-  await expect(page.locator('.lesson-end-links')).toBeVisible();
-  await page.keyboard.press('ArrowLeft');
-  await expect.poll(() => page.evaluate(() => window.__atlasLesson.getState().sectionId)).toBe('consistency');
-  await page.keyboard.press('ArrowRight');
-  await expect.poll(() => page.evaluate(() => window.__atlasLesson.getState().sectionId)).toBe('summary');
-});
-
 test('home opens the knowledge catalog and links to an interactive article',async({page})=>{
   await page.goto('/');
   await expect(page.locator('.knowledge-card')).toHaveCount(CONTENT_PAGES.length);
-  await page.goto(`/knowledge/?catalog=${Math.floor(CONTENT_PAGES.findIndex(entry=>entry.slug==='zfc')/12)+1}`);
-  await page.locator('a.knowledge-card[href="/knowledge/zfc/"]').click();
+  await page.locator('a.knowledge-card[href="/knowledge/newton-to-quantum/"]').click();
   await page.waitForFunction(()=>window.__atlasRelated);
   await expect(page.locator('#reader-controls')).toBeVisible();
-  await expectFrame(page,relatedFrame);
+  await expectLongformScene(page,activeWork('newton-to-quantum'),'question');
 });
 
 test('local media tool loads its moved dependencies and draws the selected projection',async({page})=>{
@@ -728,87 +568,15 @@ test('local media tool loads its moved dependencies and draws the selected proje
 });
 
 test('an article can read and restore scenes without installing an experiment adapter',async({page})=>{
-  const data={...CONTENT_PAGES.find(p=>p.slug==='zfc'),model:null};
-  await page.route('**/content/catalog.js',route=>route.fulfill({contentType:'text/javascript',body:`export const CONTENT_PAGES=${JSON.stringify([data])};`}));
-  await page.goto('/knowledge/zfc/');await page.waitForFunction(()=>window.__atlasRelated);
-  await expect(page.locator('.reader-scene:visible .concept-diagram')).toBeVisible();
-  await expectFrame(page,{content:['.reader-scene:not([hidden]) .concept-diagram','.reader-scene:not([hidden]) .reader-copy'],controls:['#reader-controls button','.reader-menu summary']});
+  const work=activeWork('number-structures'),mainline=mainlineSceneIds(work),nextScene=mainline[1];if(!nextScene)throw new TypeError('Missing second number-structures mainline scene');
+  await page.goto('/knowledge/number-structures/');await page.waitForFunction(()=>window.__atlasRelated);await expectLongformScene(page,work,mainline[0]??'question');
   await page.locator('#reader-next').click();
   const state=await page.evaluate(()=>window.__atlasRelated.getState());
-  expect(state).toEqual({sceneId:'axioms'});
+  expect(state).toEqual({sceneId:nextScene});
   await page.evaluate(()=>window.__atlasRelated.reset());
-  await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id','sets');
+  await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',mainline[0]??'question');
   await page.evaluate(state=>window.__atlasRelated.setState(state),state);
-  await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id','axioms');
-});
-
-test('edited inputs invalidate dialogue and proof, survive navigation, and reset', async ({page}) => {
-  await page.goto('/knowledge/zfc/');
-  await page.waitForFunction(() => window.__atlasRelated);
-  const goal = page.getByRole('textbox', {name: '목표 명제식', exact: true});
-  await goal.fill('invalid(');
-  await expect(page.locator('.reader-scene:visible .reader-copy')).toHaveAttribute('data-status', 'invalid');
-  await expect(page.locator('.explorer-lines button')).toHaveCount(0);
-  await page.locator('#reader-next').click();
-  await expect(goal).toHaveValue('invalid(');
-  await expectFrame(page, relatedFrame);
-  await page.getByRole('button', {name: '장면 예시로', exact: true}).click();
-  await expect(page.locator('.explorer-lines button').first()).toBeVisible();
-  await expectFrame(page, relatedFrame);
-});
-
-test('eight premises remain editable without pushing navigation outside the frame', async ({page}) => {
-  await page.goto('/knowledge/zfc/');
-  await page.waitForFunction(() => window.__atlasRelated);
-  const add = page.getByRole('button', {name: '+ 전제', exact: true});
-  while (await add.isEnabled()) await add.click();
-  const rows = page.locator('.experiment-premises input[type=text]');
-  await expect(rows).toHaveCount(8);
-  await rows.last().fill('x ∈ A');
-  // Long, user-created collections may scroll inside their editor; default scenes may not.
-  await expectFrame(page, {...relatedFrame, content: []});
-  await page.locator('#reader-next').click();
-  await expect(rows.last()).toHaveValue('x ∈ A');
-  await page.getByRole('button', {name: '장면 예시로', exact: true}).click();
-  await expectFrame(page, relatedFrame);
-});
-
-test('unavailable evaluation preserves the scene title, disables its copy, and recovers', async ({page},testInfo) => {
-  await page.goto('/knowledge/paraconsistent-logic/#four-values');
-  await page.waitForFunction(() => window.__atlasRelated);
-  const scene=page.locator('.reader-scene:visible'),heading=scene.locator('h2');
-  const title=await heading.textContent();
-  await page.getByRole('button',{name:'모순과 별개인 목표',exact:true}).click();
-  await expect(heading).toHaveText(title!);
-  await expect(scene.locator('.scene-result')).toContainText('FDE에서 목표가 따라오지 않는 평가입니다');
-  await expect(scene.locator('.scene-prose')).toBeHidden();
-  await expect(scene.locator('.scene-prose')).toHaveAttribute('aria-disabled','true');
-  await expect(page.getByRole('textbox',{name:'목표 명제식',exact:true})).toHaveValue('Q');
-  await expectFrame(page,relatedFrame);
-  await testInfo.attach('evaluation-message',{body:await page.screenshot(),contentType:'image/png'});
-  await page.locator('#reader-next').click();
-  await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id','counterexample');
-  await page.getByRole('button',{name:'그리고 나누기',exact:true}).click();
-  await expect(page.locator('.reader-scene:visible .scene-result')).toBeHidden();
-  await expect(page.locator('.reader-scene:visible .scene-prose')).toBeVisible();
-  await expect(page.locator('.reader-scene:visible .scene-prose')).toHaveAttribute('aria-disabled','false');
-  await expectFrame(page,relatedFrame);
-  await page.getByRole('button',{name:'장면 예시로',exact:true}).click();
-  await expect(page.locator('.reader-scene:visible h2')).toHaveText('모순을 허용하는 반례 평가');
-});
-
-test('lesson keeps its topic while an inapplicable explanation is disabled',async({page})=>{
-  await page.goto('/lesson.html#explanation-explosion');
-  await page.waitForFunction(()=>window.__atlasLesson);
-  const title=await page.locator('#dialogue-title').textContent();
-  await page.getByRole('textbox',{name:'목표 명제식',exact:true}).fill('(');
-  await expect(page.locator('#dialogue-title')).toHaveText(title!);
-  await expect(page.locator('#lesson-evaluation')).toBeVisible();
-  await expect(page.locator('#dialogue-text')).toHaveAttribute('aria-disabled','true');
-  await expectFrame(page,lessonFrame);
-  await page.getByRole('button',{name:'장면 예시로',exact:true}).click();
-  await expect(page.locator('#lesson-evaluation')).toBeHidden();
-  await expect(page.locator('#dialogue-text')).toBeVisible();
+  await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',nextScene);
 });
 
 test('weekday alignment highlights complete paths bidirectionally and refreshes with inputs',async({page},testInfo)=>{

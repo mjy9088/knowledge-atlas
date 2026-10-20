@@ -1,1 +1,30 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="title desc"><title id="title">관측 뒤의 분모를 다시 만들기</title><desc id="desc">모집단 → 정보 과정 → 관측한 것 → 가중치 합. 몬티 홀·검사 결과에서도 먼저 관측 과정을 물어보세요</desc><defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto-start-reverse"><path d="M0 0 L8 4 L0 8" fill="#377b68"/></marker></defs><rect width="600" height="300" rx="18" fill="#f4f8f3"/><g font-family="system-ui,Malgun Gothic,sans-serif"><text x="300" y="32" text-anchor="middle" font-size="23" fill="#263e36">관측 뒤의 분모를 다시 만들기</text><rect x="18" y="95" width="119.5" height="100" rx="12" fill="#fff" stroke="#c4d7cc" stroke-width="2"/><text x="77.75" y="155" text-anchor="middle" font-size="20" fill="#263e36">모집단</text><path d="M138.5 145 L151.5 145" fill="none" stroke="#377b68" stroke-width="4" marker-end="url(#arrow)"/><rect x="155.5" y="95" width="119.5" height="100" rx="12" fill="#fff" stroke="#c4d7cc" stroke-width="2"/><text x="215.25" y="155" text-anchor="middle" font-size="20" fill="#263e36">정보 과정</text><path d="M276 145 L289 145" fill="none" stroke="#377b68" stroke-width="4" marker-end="url(#arrow)"/><rect x="293" y="95" width="119.5" height="100" rx="12" fill="#fff" stroke="#c4d7cc" stroke-width="2"/><text x="352.75" y="155" text-anchor="middle" font-size="20" fill="#263e36">관측한 것</text><path d="M413.5 145 L426.5 145" fill="none" stroke="#377b68" stroke-width="4" marker-end="url(#arrow)"/><rect x="430.5" y="95" width="119.5" height="100" rx="12" fill="#e1eee3" stroke="#c4d7cc" stroke-width="2"/><text x="490.25" y="155" text-anchor="middle" font-size="20" fill="#263e36">가중치 합</text><text x="300" y="252" text-anchor="middle" font-size="20" fill="#263e36">몬티 홀·검사 결과에서도 먼저 관측 과정을 물어보세요</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="760" viewBox="0 0 600 760" role="img" aria-labelledby="title desc">
+  <title id="title">첫째가 아들인 가족만 남기기</title>
+  <desc id="desc">첫 글자는 첫째, 둘째 글자는 둘째입니다. 독립·동일확률 모형에서 BB, BG, GB, GG의 사전확률은 각각 1/4입니다. 모든 가족에게 첫째가 아들인지 묻고 사실대로 답하게 하면 BB와 BG만 예라고 답합니다. 예일 확률은 1/2이고 BB이면서 예일 확률은 1/4이므로 조건부확률은 1/2입니다.</desc>
+  <metadata>Original finite-model explanation, not demographic observations or external artwork. Source, expert, learner, rights and publication review remain pending.</metadata>
+  <rect width="600" height="760" rx="18" fill="#f4f8f3"/>
+  <g font-family="system-ui,Malgun Gothic,sans-serif" fill="#263e36">
+    <text x="300" y="48" text-anchor="middle" font-size="28" font-weight="700">이번 질문은 ‘첫째가 아들인가요?’</text>
+    <text x="300" y="88" text-anchor="middle" font-size="24">첫 글자 = 첫째 · 둘째 글자 = 둘째</text>
+    <text x="90" y="142" text-anchor="middle" font-size="24" font-weight="700">가족</text>
+    <text x="260" y="142" text-anchor="middle" font-size="24" font-weight="700">사전확률</text>
+    <text x="445" y="142" text-anchor="middle" font-size="24" font-weight="700">진실한 답</text>
+    <g stroke="#c4d7cc" stroke-width="2">
+      <rect x="30" y="164" width="540" height="80" rx="12" fill="#e1eee3"/>
+      <rect x="30" y="260" width="540" height="80" rx="12" fill="#e1eee3"/>
+      <rect x="30" y="356" width="540" height="80" rx="12" fill="#fff"/>
+      <rect x="30" y="452" width="540" height="80" rx="12" fill="#fff"/>
+    </g>
+    <g font-size="28" text-anchor="middle">
+      <text x="90" y="214" font-weight="700">BB</text><text x="260" y="214">1/4</text><text x="445" y="214">예 · 남김</text>
+      <text x="90" y="310" font-weight="700">BG</text><text x="260" y="310">1/4</text><text x="445" y="310">예 · 남김</text>
+      <text x="90" y="406" font-weight="700">GB</text><text x="260" y="406">1/4</text><text x="445" y="406">아니요 · 제외</text>
+      <text x="90" y="502" font-weight="700">GG</text><text x="260" y="502">1/4</text><text x="445" y="502">아니요 · 제외</text>
+    </g>
+    <text x="300" y="580" text-anchor="middle" font-size="24">GB에도 아들이 있지만, 첫째는 딸입니다.</text>
+    <path d="M48 612H552" stroke="#c4d7cc" stroke-width="2"/>
+    <text x="300" y="656" text-anchor="middle" font-size="28">P(예) = 1/4 + 1/4 = 1/2</text>
+    <text x="300" y="704" text-anchor="middle" font-size="28" font-weight="700">P(BB | 예) = (1/4)/(1/2) = 1/2</text>
+    <text x="300" y="742" text-anchor="middle" font-size="24">지정된 첫째와 독립인 둘째를 구별하세요.</text>
+  </g>
+</svg>

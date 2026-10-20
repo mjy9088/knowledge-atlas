@@ -1,97 +1,70 @@
 import {test,expect} from '@playwright/test';
 import {CONTENT_PAGES} from '../../content/catalog.js';
-import {CATALOG_PAGE_SIZE} from '../../packages/content/catalog-pagination.js';
-import {loadSiteContent} from '../../scripts/build-site.js';
-import {articleDisplayTitle} from '../../packages/content/presentation.js';
 
-const pageCount=Math.ceil(CONTENT_PAGES.length/CATALOG_PAGE_SIZE);
+const routes=['/knowledge/newton-to-quantum/','/knowledge/number-structures/','/knowledge/weekday-worlds/','/knowledge/monty-hall/','/knowledge/two-children/'] as const;
+const retiredRoutes=[
+  '/lesson.html','/knowledge/binary-search/','/knowledge/atomic-orbitals/',
+  '/knowledge/atom-evidence/','/knowledge/electron-evidence/','/knowledge/nuclear-scattering/','/knowledge/inertial-motion/',
+  '/knowledge/photoelectric-evidence/','/knowledge/quantum-spectra/','/knowledge/quark-evidence/','/knowledge/nuclear-constituents/','/knowledge/light-clock-time/',
+  '/knowledge/counting-zero/','/knowledge/negative-numbers/','/knowledge/rational-numbers/','/knowledge/rational-representations/',
+  '/knowledge/irrational-numbers/','/knowledge/rational-density/','/knowledge/real-completeness/','/knowledge/complex-numbers/',
+] as const;
 
-test('catalog pages expose every registered article exactly once with restorable navigation',async({page},testInfo)=>{
-  // Given
+test('catalog gives every active topic the same entry information and visual treatment',async({page},testInfo)=>{
+  // Given the public catalog with multiple possible starting points.
   await page.goto('/knowledge/');
-  const visited:string[]=[];
-  const {collection}=await loadSiteContent();
-
-  // When
-  for(let catalogPage=1;catalogPage<=pageCount;catalogPage++){
-    await expect(page.locator('.catalog-pagination')).toHaveAttribute('data-page',String(catalogPage));
-    await expect(page.locator('#connections')).toBeVisible();
-    const visible=page.locator('.knowledge-card:visible');
-    const titles=CONTENT_PAGES.slice((catalogPage-1)*CATALOG_PAGE_SIZE,catalogPage*CATALOG_PAGE_SIZE).map(entry=>{
-      const article=collection.articles.find(article=>article.id===entry.articleId);
-      if(!article)throw new Error('Missing canonical article');
-      return articleDisplayTitle(article);
-    });
-    expect(await visible.locator('h2').allTextContents()).toEqual(titles);
-    visited.push(...await visible.evaluateAll(cards=>cards.map(card=>(card as HTMLAnchorElement).pathname)));
-    await testInfo.attach(`catalog-${testInfo.project.name}-page-${catalogPage}`,{body:await page.screenshot({fullPage:true}),contentType:'image/png'});
-    if(catalogPage<pageCount)await page.getByRole('link',{name:'다음 목록'}).click();
+  // When the entries are read and their actual styles and widths are compared.
+  const cards=page.locator('.knowledge-card');
+  await expect(cards).toHaveCount(CONTENT_PAGES.length);
+  const appearance=await cards.evaluateAll(entries=>entries.map(entry=>{
+    const heading=entry.querySelector('h3');
+    if(!heading)throw new TypeError('Missing topic title');
+    const style=getComputedStyle(entry),title=getComputedStyle(heading);
+    return{width:entry.getBoundingClientRect().width,padding:style.padding,background:style.backgroundColor,border:style.border,fontSize:title.fontSize,fontWeight:title.fontWeight};
+  }));
+  // Then no topic gains a larger card, privileged typography, or extra entry information.
+  for(const item of appearance)expect(item).toEqual(appearance[0]);
+  for(const [index,topic]of CONTENT_PAGES.entries()){
+    const card=cards.nth(index),first=topic.scenes[0];
+    const finalId=topic.navigation?.chapters.filter(chapter=>chapter.kind==='mainline').at(-1)?.sceneIds.at(-1);
+    const last=topic.scenes.find(scene=>scene.id===finalId)??topic.scenes.at(-1);
+    if(!first||!last)throw new TypeError('Missing topic opening or payoff');
+    await expect(card.locator('p')).toHaveText(first.title);
+    await expect(card.locator('small')).toContainText(last.title);
+    await expect(card).toHaveAttribute('href',`/knowledge/${topic.slug}/`);
   }
-
-  // Then
-  expect(visited).toEqual(CONTENT_PAGES.map(entry=>`/knowledge/${entry.slug}/`));
-  expect(new Set(visited).size).toBe(CONTENT_PAGES.length);
-  await page.reload();
-  await expect(page.locator('.catalog-pagination')).toHaveAttribute('data-page',String(pageCount));
-  await page.getByRole('link',{name:'이전 목록'}).click();
-  await page.goBack();
-  await expect(page.locator('.catalog-pagination')).toHaveAttribute('data-page',String(pageCount));
+  await testInfo.attach('catalog-starting-points',{body:await page.screenshot({fullPage:true}),contentType:'image/png'});
 });
 
-test('catalog pages fit their viewport without clipping cards or controls',async({page},testInfo)=>{
+test('catalog remains readable without JavaScript',async({browser})=>{
+  // Given a browser with enhancement disabled.
+  const context=await browser.newContext({baseURL:'http://127.0.0.1:4190',javaScriptEnabled:false,viewport:{width:390,height:844}}),page=await context.newPage();
+  // When the catalog is loaded.
   await page.goto('/knowledge/');
-  for(let catalogPage=1;catalogPage<=pageCount;catalogPage++){
-    // Given / When
-    const problems=await page.evaluate(()=>{
-      const issues:string[]=[];
-      const root=document.documentElement;
-      if(root.scrollWidth>innerWidth)issues.push(`document width ${root.scrollWidth} exceeds ${innerWidth}`);
-      if(innerWidth>=1000&&root.scrollHeight>innerHeight)issues.push(`desktop height ${root.scrollHeight} exceeds ${innerHeight}`);
-      for(const node of document.querySelectorAll<HTMLElement>('.knowledge-card,.catalog-pagination a')){
-        if(!node.checkVisibility())continue;
-        const bounds=node.getBoundingClientRect();
-        if(bounds.left<0||bounds.right>innerWidth||bounds.top<0||(innerWidth>=1000&&bounds.bottom>innerHeight))issues.push(`${node.className||node.textContent}: outside viewport`);
-        if(node.scrollWidth>node.clientWidth||node.scrollHeight>node.clientHeight)issues.push(`${node.className||node.textContent}: clipped content`);
-      }
-      return issues;
-    });
-
-    // Then
-    expect(problems).toEqual([]);
-    if(catalogPage<pageCount)await page.getByRole('link',{name:'다음 목록'}).click();
-  }
-});
-
-test('catalog cards fit every page at 1280 by 900',async({page},testInfo)=>{
-  // Given
-  await page.setViewportSize({width:1280,height:900});
-
-  for(let catalogPage=1;catalogPage<=pageCount;catalogPage++){
-    // When
-    await page.goto(`/knowledge/?catalog=${catalogPage}`);
-    const measurements=await page.locator('.knowledge-card:visible').evaluateAll(cards=>cards.map(card=>({
-      title:card.querySelector('h2')?.textContent??'',
-      clientHeight:card.clientHeight,
-      scrollHeight:card.scrollHeight,
-    })));
-
-    // Then
-    expect(measurements.filter(card=>card.scrollHeight>card.clientHeight)).toEqual([]);
-    await testInfo.attach(`catalog-1280-page-${catalogPage}-measurements`,{body:Buffer.from(JSON.stringify(measurements,null,2)),contentType:'application/json'});
-  }
-});
-
-test('catalog remains a readable scrolling document without JavaScript',async({browser})=>{
-  // Given
-  const context=await browser.newContext({baseURL:'http://127.0.0.1:4190',javaScriptEnabled:false,viewport:{width:1920,height:900}});
-  const page=await context.newPage();
-
-  // When
-  await page.goto('/knowledge/');
-
-  // Then
-  await expect(page.locator('.knowledge-card')).toHaveCount(CONTENT_PAGES.length);
-  expect(await page.locator('.knowledge-card').evaluateAll(cards=>cards.every(card=>getComputedStyle(card).display!=='none'))).toBe(true);
-  expect(await page.evaluate(()=>document.documentElement.scrollHeight>innerHeight&&document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  // Then all five canonical entrances remain visible without horizontal overflow.
+  await expect(page.locator('.knowledge-card')).toHaveCount(5);
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await context.close();
+});
+
+test('retired reader routes return not found while active routes render',async({request})=>{
+  // Given the curated route boundary.
+  // When active and retired URLs are requested directly.
+  const active=await Promise.all(routes.map(route=>request.get(route))),retired=await Promise.all(retiredRoutes.map(route=>request.get(route)));
+  // Then active works render and retired executable screens remain absent.
+  expect(active.every(response=>response.status()===200)).toBe(true);
+  expect(retired.every(response=>response.status()===404)).toBe(true);
+});
+
+test('every public article restores a direct scene and reset deterministically',async({page})=>{
+  for(const topic of CONTENT_PAGES){
+    // Given direct entry to the final authored scene.
+    const scene=topic.scenes.at(-1);if(!scene)throw new TypeError('Expected article scene');
+    await page.goto(`/knowledge/${topic.slug}/#${scene.id}`);await page.waitForFunction(()=>window.__atlasRelated);
+    const direct=await page.evaluate(()=>window.__atlasRelated.getState());
+    // When reset and explicit restoration are applied.
+    await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(state=>window.__atlasRelated.setState(state),direct);
+    // Then scene identity and interaction state return exactly.
+    expect(await page.evaluate(()=>window.__atlasRelated.getState())).toEqual(direct);
+  }
 });

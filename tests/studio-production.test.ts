@@ -15,7 +15,7 @@ test('isolated production preserves edited sources, snapshots successful output,
  const p=new Production(root,data,async(command,args,cwd,_input,signal,output)=>{
   if(command==='git'&&args[0]==='worktree'){
    const workspace=args[4];for(const dir of ['.git','content','knowledge','sources'])mkdirSync(path.join(workspace,dir),{recursive:true});
-   writeFileSync(path.join(workspace,'content/catalog.ts'),'export const CONTENT_ENTRIES: ContentEntry[]=[];');writeFileSync(path.join(workspace,'sources/registry.json'),'[]');writeFileSync(path.join(workspace,'knowledge/concepts.json'),'[]');
+    writeFileSync(path.join(workspace,'content/catalog.ts'),'export const CONTENT_ENTRIES: ContentEntry[]=[];\nexport const INDEX_PAGES=[];\nexport const CONTENT_PAGES=INDEX_PAGES;');writeFileSync(path.join(workspace,'sources/registry.json'),'[]');writeFileSync(path.join(workspace,'knowledge/concepts.json'),'[]');
   }else if(args.includes('scripts/build-site.ts')){if(fail)throw Error('Deliberate build failure');const file=path.join(cwd,'dist/knowledge/binary-relations');mkdirSync(file,{recursive:true});writeFileSync(path.join(file,'index.html'),'<p>Built fixture</p>');}
    if(command==='git')output(`changing diagnostic ${diagnostic++}\n`,'stderr');
    if(command==='git'&&args[0]==='diff'){const article=path.join(cwd,'content/mathematics/binary-relations/article.ko.json');output(readFileSync(article,'utf8'),'stdout');}
@@ -39,16 +39,20 @@ test('isolated production preserves edited sources, snapshots successful output,
   p.dispose();const restored=new Production(root,data,async()=>{throw Error('Do not replay')});try{await restored.restore();assert.ok(restored.list()[0].build?.url);assert.equal(restored.list()[0].build?.id,lastGoodId);}finally{restored.dispose();}
  }finally{p.dispose();rmSync(root,{recursive:true,force:true});}
 });
-test('preparing an integrated topic preserves its canonical source instead of regenerating the manuscript',async()=>{
+test('a retired source-only topic is preserved for inspection and reported as non-renderable',async()=>{
  const root=mkdtempSync(path.join(os.tmpdir(),'atlas-integrated-')),data=path.join(root,'artifacts/data');
  const original=JSON.stringify({id:'article:mathematics.binary-relations.ko',blocks:[{text:'Accepted canonical prose'}]});
- const p=new Production(root,data,async(command,args)=>{
-  if(command==='git'&&args[0]==='worktree'){
-   const workspace=args[4],base=path.join(workspace,'content/mathematics/binary-relations');mkdirSync(base,{recursive:true});mkdirSync(path.join(workspace,'.git'));
-   writeFileSync(path.join(workspace,'content/catalog.ts'),"export const CONTENT_ENTRIES=[{directory:'mathematics/binary-relations'}];");writeFileSync(path.join(base,'article.ko.json'),original);writeFileSync(path.join(base,'page.ts'),'Accepted page module');
+  const p=new Production(root,data,async(command,args,cwd)=>{
+   if(command==='git'&&args[0]==='worktree'){
+    const workspace=args[4],base=path.join(workspace,'content/mathematics/binary-relations');mkdirSync(base,{recursive:true});mkdirSync(path.join(workspace,'.git'));
+    writeFileSync(path.join(workspace,'content/catalog.ts'),"export const CONTENT_ENTRIES=[{directory:'mathematics/binary-relations',articleId:'article:mathematics.binary-relations.ko'}];\nexport const CONTENT_PAGES=[];");writeFileSync(path.join(base,'article.ko.json'),original);writeFileSync(path.join(base,'page.ts'),'Accepted page module');
+   }else if(args.includes('scripts/build-site.ts')){
+    mkdirSync(path.join(cwd,'dist/knowledge'),{recursive:true});
+   }
+  });
+  try{p.start(EXAMPLES[0],'integrated','prepare');await settled(p);const w=p.list()[0];assert.equal(w.tasks[0].status,'completed');assert.match(w.tasks[0].log,/Existing registered topic/);assert.equal(readFileSync(path.join(w.directory,'content/mathematics/binary-relations/article.ko.json'),'utf8'),original);assert.equal(readFileSync(path.join(w.directory,'content/mathematics/binary-relations/page.ts'),'utf8'),'Accepted page module');
+   p.start(EXAMPLES[0],'integrated','build');await settled(p);const build=p.list()[0].tasks.at(-1);assert.equal(build?.status,'failed');assert.match(build?.log??'',/retired source-only topic/i);assert.equal(readFileSync(path.join(w.directory,'content/catalog.ts'),'utf8').includes('CONTENT_PAGES=[]'),true);
   }
- });
- try{p.start(EXAMPLES[0],'integrated','prepare');await settled(p);const w=p.list()[0];assert.equal(w.tasks[0].status,'completed');assert.match(w.tasks[0].log,/Existing registered topic/);assert.equal(readFileSync(path.join(w.directory,'content/mathematics/binary-relations/article.ko.json'),'utf8'),original);assert.equal(readFileSync(path.join(w.directory,'content/mathematics/binary-relations/page.ts'),'utf8'),'Accepted page module');}
  finally{p.dispose();rmSync(root,{recursive:true,force:true});}
 });
 
@@ -87,7 +91,7 @@ test('cancellation after the final fingerprint command cannot acknowledge empty 
   }finally{p.dispose();rmSync(root,{recursive:true,force:true});}
 });
 
-test('a new manuscript can join a catalog with an existing scaffold import without losing either article',async()=>{
+test('a new manuscript can join a source registry without losing an existing article entry',async()=>{
   const root=mkdtempSync(path.join(os.tmpdir(),'atlas-new-draft-')),data=path.join(root,'artifacts/data');
   const plan={...structuredClone(EXAMPLES[0]),id:'fresh-draft'};
   plan.slides=plan.slides.map(slide=>({...slide,intent:{status:'authored' as const,contentRefs:slide.claimRefs,prerequisites:[],successCheck:'QA protocol fixture: inspect the projected scene identity.',representationRationale:'QA prose-only route, not a completed educational representation.',interaction:{kind:'static' as const,rationale:'This fixture checks source projection, not learner interaction.'}}}));
@@ -96,8 +100,9 @@ test('a new manuscript can join a catalog with an existing scaffold import witho
     const directory=args[4];
     for(const name of ['.git','content','knowledge','sources'])mkdirSync(path.join(directory,name),{recursive:true});
     writeFileSync(path.join(directory,'package.json'),JSON.stringify({type:'module'}));
-    writeFileSync(path.join(directory,'content/existing.ts'),"export default {articleId:'article:existing'};");
-    writeFileSync(path.join(directory,'content/catalog.ts'),"import studioDraft from './existing.js';\nexport const CONTENT_ENTRIES: ContentEntry[]=[{directory:'mathematics/existing',page:studioDraft}];");
+    const existing=path.join(directory,'content/mathematics/existing');mkdirSync(existing,{recursive:true});
+    writeFileSync(path.join(existing,'page.ts'),"export default {slug:'existing',articleId:'article:existing'};");
+    writeFileSync(path.join(directory,'content/catalog.ts'),"import existingPage from './mathematics/existing/page.js';\ntype ContentEntry={directory:string;article:string;claims:string;articleId:string};\ntype ContentPage={slug:string;articleId:string};\nexport const CONTENT_ENTRIES: ContentEntry[]=[{directory:'mathematics/existing',article:'article.ko.json',claims:'claims.json',articleId:'article:existing'}];\nexport const INDEX_PAGES:ContentPage[]=[existingPage];\nexport const CONTENT_PAGES=INDEX_PAGES;");
     writeFileSync(path.join(directory,'sources/registry.json'),'[]');
     writeFileSync(path.join(directory,'knowledge/concepts.json'),'[]');
   });
@@ -108,11 +113,10 @@ test('a new manuscript can join a catalog with an existing scaffold import witho
     assert.ok(generated&&typeof generated==='object'&&'CONTENT_ENTRIES'in generated&&Array.isArray(generated.CONTENT_ENTRIES));
     const directories=generated.CONTENT_ENTRIES.map((entry:unknown)=>{assert.ok(entry&&typeof entry==='object'&&'directory'in entry);return entry.directory;});
     assert.deepEqual(directories,['mathematics/fresh-draft','mathematics/existing']);
-    const articleIds=generated.CONTENT_ENTRIES.map((entry:unknown)=>{
-      assert.ok(entry&&typeof entry==='object'&&'page'in entry&&entry.page&&typeof entry.page==='object'&&'articleId'in entry.page);
-      return entry.page.articleId;
-    });
+    const articleIds=generated.CONTENT_ENTRIES.map((entry:unknown)=>{assert.ok(entry&&typeof entry==='object'&&'articleId'in entry);return entry.articleId;});
     assert.deepEqual(articleIds,['article:mathematics.fresh-draft.ko','article:existing']);
+    assert.ok('CONTENT_PAGES'in generated&&Array.isArray(generated.CONTENT_PAGES));
+    assert.deepEqual(generated.CONTENT_PAGES.map((page:unknown)=>{assert.ok(page&&typeof page==='object'&&'articleId'in page);return page.articleId;}),['article:existing','article:mathematics.fresh-draft.ko']);
     const intent=JSON.parse(readFileSync(path.join(work.directory,'content/mathematics/fresh-draft/slide-plan.json'),'utf8'));
     assert.equal(intent.articleId,'article:mathematics.fresh-draft.ko');
     assert.deepEqual(intent.scenes.map((scene:{sceneId:string})=>scene.sceneId),plan.slides.map(slide=>slide.id));

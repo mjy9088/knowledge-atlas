@@ -43,8 +43,11 @@ function scaffold(directory:string,plan:Plan){
   const page={slug:plan.id,articleId:`article:${prefix}.ko`,label:plan.title,category:domain,model:null,experiment:false,claimRefs:plan.claims.map(c=>claim(c.id)),scenes:plan.slides.map((s,i)=>({id:s.id,title:s.title,block:i,from:0,cards:[],known:s.observation}))};
   writeFileSync(path.join(base,'page.ts'),`import type {ContentPage} from '../../../packages/content/types.js';\nexport default ${JSON.stringify(page,null,2)} satisfies ContentPage;\n`);
   const catalog=path.join(directory,'content/catalog.ts'),original=readFileSync(catalog,'utf8'),binding=`studioDraft_${domain.replaceAll('-','_')}_${plan.id.replaceAll('-','_')}`;
-  if(!original.includes('export const CONTENT_ENTRIES: ContentEntry[]=['))throw Error('Catalog registration contract changed');
-  writeFileSync(catalog,`import ${binding} from './${topic}/page.js';\n`+original.replace('export const CONTENT_ENTRIES: ContentEntry[]=[',`export const CONTENT_ENTRIES: ContentEntry[]=[\n  {directory:'${topic}',article:'article.ko.json',claims:'claims.json',page:${binding}},`));
+  if(!original.includes('export const CONTENT_ENTRIES: ContentEntry[]=[')||!original.includes('export const CONTENT_PAGES=INDEX_PAGES;'))throw Error('Catalog registration contract changed');
+  const registered=`import ${binding} from './${topic}/page.js';\n`+original
+    .replace('export const CONTENT_ENTRIES: ContentEntry[]=[',`export const CONTENT_ENTRIES: ContentEntry[]=[\n  {directory:'${topic}',article:'article.ko.json',claims:'claims.json',articleId:'article:${prefix}.ko'},`)
+    .replace('export const CONTENT_PAGES=INDEX_PAGES;',`export const CONTENT_PAGES=[...INDEX_PAGES,${binding}];`);
+  writeFileSync(catalog,registered);
   writeFileSync(path.join(base,'README.md'),'# Draft manuscript projection\n\nGenerated once from the private Studio plan. The [authored scene plan](slide-plan.json) preserves supplied purpose, references, prerequisites, success checks and representation/interaction intent beside the projected source. These are author assertions, not evidence that the objectives were achieved.\n\nThis is a prose-only shared-reader draft; designed diagrams, audio, timing and independent source/rights review remain pending. Preserve edited sources and the scene plan; request explicit implementation changes instead of regenerating.\n');
   return 'created' as const;
 }
@@ -73,7 +76,7 @@ export class Production {
   async restore(){for(const work of this.works)if(work.build&&existsSync(this.snapshot(work.build.id)))await this.preview(work);}
   start(plan:Plan,revision:string,kind:ProductionAction){
     if(this.disposed)throw Error('Production service closed');
-    const registered=CONTENT_ENTRIES.some(entry=>entry.page.slug===plan.id&&entry.directory===`${plan.domain}/${plan.id}`);
+  const registered=CONTENT_ENTRIES.some(entry=>entry.articleId===`article:${plan.domain}.${plan.id}.ko`&&entry.directory===`${plan.domain}/${plan.id}`);
     if(kind==='prepare'&&!registered&&plan.slides.some(slide=>slide.intent.status!=='authored'))throw Error('New content projection requires authored slide intent before workspace creation');
     if(this.works.some(w=>w.id===plan.id&&w.tasks.some(t=>t.status==='running')))throw Error('A writer/build is already running for this content');
     if(this.controllers.size>=3)throw Error('Three content tasks already running');
@@ -101,13 +104,15 @@ export class Production {
         if(!readFileSync(path.join(target.directory,'apps/web/pages/article/controller.ts'),'utf8').includes('current.scene.figure')){const patch=path.join(this.root,'tools/studio/scene-figures-runtime.patch');await command('git',['apply','--check',patch]);await command('git',['apply',patch]);}
         installation.apply();output(`\n${installation.count} topic-specific SVG figures added. Existing prose and human-edited assets preserved. Build to inspect actual results.\n`);
       }else{
+        const catalog=readFileSync(path.join(target.directory,'content/catalog.ts'),'utf8');
+        if(!catalog.includes(`from './${plan.domain}/${plan.id}/page.js'`))throw Error('Existing retired source-only topic is preserved for technical inspection and has no public route');
         const sourceBefore=await this.fingerprint(target.directory,controller.signal);
         await command(process.execPath,[path.join(this.root,'node_modules/typescript/bin/tsc'),'--noEmit']);
         await command(process.execPath,['--import','tsx','scripts/validate.ts']);
         await command(process.execPath,['--import','tsx','scripts/build-site.ts']);
         const sourceHash=await this.fingerprint(target.directory,controller.signal);if(sourceBefore!==sourceHash)throw Error('Sources changed during build; build again from stable sources');
         const dist=path.join(target.directory,'dist');plainTree(dist);
-        if(!existsSync(path.join(dist,target.route,'index.html')))throw Error('Build succeeded but content route is missing');
+        if(!existsSync(path.join(dist,target.route,'index.html')))throw Error('Build succeeded but registered public content route is missing');
         const buildId=randomUUID(),destination=this.snapshot(buildId);mkdirSync(path.dirname(destination),{recursive:true});cpSync(dist,destination,{recursive:true});
         const sourceRevision=target.tasks.filter(t=>['prepare','implement','visuals','interactions'].includes(t.kind)&&t.status==='completed'&&t.sourceHash===sourceHash).at(-1)?.revision??'unacknowledged';
         const old=target.build;target.build={id:buildId,revision:sourceRevision,createdAt:new Date().toISOString(),sourceHash};

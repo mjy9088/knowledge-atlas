@@ -31,7 +31,6 @@ const server=http.createServer(async(req,res)=>{
   }
   let matched=paths.filter(([prefix])=>url.pathname.startsWith(prefix)).sort((a,b)=>b[0].length-a[0].length)[0];
   let rel=decodeURIComponent(url.pathname.slice(matched[0].length));
-  if(url.pathname==='/lesson.html')rel='pages/lesson/index.html';
   if(!rel||rel.endsWith('/'))rel+='index.html';
   const target=path.resolve(matched[1],rel);
   if(!target.startsWith(matched[1]+path.sep)){res.writeHead(403);res.end('Forbidden');return;}

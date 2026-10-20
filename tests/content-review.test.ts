@@ -51,3 +51,17 @@ test('canonical review hands off actual topic intent bytes and every scene targe
     assert.equal(createHash('sha256').update(artifact.content).digest('hex'),expected);
   }
 });
+
+test('canonical review result contract starts every target and content dimension unverified',()=>{
+  // Given: a canonical review packet for a registered article.
+  const packet:unknown=JSON.parse(execFileSync(process.execPath,['--import','tsx','scripts/content-review.ts','counting-zero'],{encoding:'utf8'}));
+  assert.ok(packet&&typeof packet==='object'&&'targets'in packet&&Array.isArray(packet.targets)&&'resultContract'in packet&&packet.resultContract&&typeof packet.resultContract==='object'&&'reports'in packet.resultContract&&Array.isArray(packet.resultContract.reports));
+  // When/Then: every target has all eight unverified judgments and machine-visible critique directions.
+  assert.equal(packet.resultContract.reports.length,packet.targets.length);
+  for(const row of packet.resultContract.reports){
+    assert.ok(row&&typeof row==='object'&&'target'in row&&'assessments'in row&&Array.isArray(row.assessments));
+    assert.equal(row.assessments.length,8);
+    assert.deepEqual(row.assessments.map((assessment:Record<string,unknown>)=>assessment.dimension),['value','objective','coherence','reasoning','representation','interaction','surface','source']);
+    assert.ok(row.assessments.every((assessment:Record<string,unknown>)=>assessment.verdict==='unverified'&&typeof assessment.critiqueDirection==='string'&&assessment.critiqueDirection.length>0));
+  }
+});

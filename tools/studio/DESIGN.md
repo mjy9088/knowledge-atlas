@@ -76,6 +76,7 @@ At host widths up to 37.5rem, the built-preview frame reserves `--preview-narrow
 - Variants: production, handoff, review, feedback and built-preview.
 - States: empty guidance, running, completed, warning and error.
 - Accessibility: headings retain hierarchy; status changes use `role=status`/`aria-live` where appropriate.
+- Review vocabulary: show `내용 가치` and `전체 연결성` as first-class labels beside the six established dimensions. Never expose an unknown raw dimension ID, and never imply that rendered evidence substitutes for manuscript or worked-reasoning evidence.
 
 ### Handoff packet control
 - Structure: explanatory evidence panel, work/review download actions, labeled JSON file input and import status.

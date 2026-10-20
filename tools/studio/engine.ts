@@ -11,7 +11,7 @@ interface State {version:1;videoBudgets:VideoBudgets;plans:Plan[];jobs:Job[];fee
 export class Studio {
   private state:State;
   private reference:string;
-  private registeredIds=new Set([...CONTENT_ENTRIES.map(entry=>entry.page.slug),EXPLOSION_EPISODE.id]);
+  private registeredIds=new Set([...CONTENT_ENTRIES.map(entry=>path.basename(entry.directory)),EXPLOSION_EPISODE.id]);
   constructor(private root:string,private directory:string){
     mkdirSync(directory,{recursive:true});
     this.reference=readFileSync(path.join(root,'content/statistics/base-rates/article.ko.json'),'utf8');

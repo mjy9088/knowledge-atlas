@@ -5,7 +5,9 @@
     "statement": "상품 위치 균등·초기 선택 독립, 진행자가 항상 선택하지 않은 오답 문을 열고 교환을 제안하면 항상 바꾸는 전략의 승률은 2/3. 무조건 승률에는 동률 선택의 무작위성이 필요하지 않다.",
     "scope": "원문과 공개 규칙이 생략된 축약판을 비교하고, 정보와 정보 획득 절차를 구분한다.",
     "assumptions": [
-      "Inherited manuscript scope; scientific and rights review pending"
+      "The prize is uniformly distributed across three doors and the initial choice is independent of its location",
+      "The informed host always opens an unchosen goat door and always offers the switch",
+      "The strategy always switches; no condition on a numbered reveal is imposed"
     ],
     "sourceRefs": [
       {
@@ -22,15 +24,18 @@
   {
     "id": "claim:statistics.monty-hall.monty-observation",
     "kind": "draft-teaching-model",
-    "statement": "특정 번호 문 공개 후의 확률은 공개 정책의 우도에 의존한다. 무작위로 미선택 문을 열고 우연히 오답을 본 절차에서는 그 관측 후 교환 승률이 1/2이다.",
+    "statement": "상품 위치가 균등하고 초기 선택이 1번일 때, 모르는 진행자가 미선택 문을 균등 공개하고 오답 관측에 조건을 걸면 남는 확률은 1/3,1/6,1/6이고 교환 승률은 1/2이다. 별도로, 정답을 아는 항상-오답 진행자가 2번을 연 사건 D2에 조건을 걸고 상품이 1번일 때 2번 공개 확률을 t라 두면, 남는 확률은 t/3,0,1/3이고 3번 교환 승률은 1/(1+t)이다.",
     "scope": "원문과 공개 규칙이 생략된 축약판을 비교하고, 정보와 정보 획득 절차를 구분한다.",
     "assumptions": [
-      "Inherited manuscript scope; scientific and rights review pending"
+      "Uniform prize and independent initial choice, fixed as door 1 by relabeling",
+      "Blind-host case conditions on any goat reveal, not a numbered door; opened prizes are excluded",
+      "Numbered case uses a separate informed always-goat host and evidence event D2",
+      "0≤t≤1; t is the probability of opening door 2 when the prize is behind initially chosen door 1"
     ],
     "sourceRefs": [
       {
         "sourceId": "source:iyer-conditional-probability-2026",
-        "locator": "Definition 2; Propositions 5–6. Finite cases below are independently derived teaching models."
+        "locator": "Definition 2; Propositions 5–6. Blind-host masses and the separate numbered-door expression 1/(1+t) are independently derived finite teaching cases, not source examples."
       }
     ],
     "reviewStatus": "needs-content-review"
@@ -41,7 +46,8 @@
     "statement": "공개 규칙이 생략된 축약판만으로 특정 사후확률을 유일하게 확정할 수 없다. 표준 규칙을 보충한 답과 문장이 실제로 보장한 조건을 구분한다.",
     "scope": "원문과 공개 규칙이 생략된 축약판을 비교하고, 정보와 정보 획득 절차를 구분한다.",
     "assumptions": [
-      "Inherited manuscript scope; scientific and rights review pending"
+      "The abbreviated statement specifies a goat reveal but omits the host's generative policy",
+      "Different declared policies may yield the same visible observation with different likelihoods"
     ],
     "sourceRefs": [
       {

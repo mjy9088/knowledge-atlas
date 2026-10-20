@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import test from 'node:test';
-import {DISCOVERY_ENTRIES} from '../content/physics-discovery/catalog.js';
+import {DISCOVERY_ENTRIES,DISCOVERY_PAGES} from '../content/physics-discovery/catalog.js';
 import {validateRelatedPages} from '../packages/site/related-site.js';
 import {loadSiteContent} from '../scripts/build-site.js';
 
@@ -28,7 +28,8 @@ test('physics discovery entries provide bounded narration plans for every scene'
   // Then every scene is timed exactly once within the short-format ceiling.
   for (const {entry, quality} of qualityRecords) {
     assert.ok(typeof quality === 'object' && quality !== null);
-    assert.ok('articleId' in quality && quality.articleId === entry.page.articleId);
+    const page=DISCOVERY_PAGES.find(item=>item.articleId===entry.articleId);assert.ok(page);
+    assert.ok('articleId' in quality && quality.articleId === entry.articleId);
     assert.ok('seriesId' in quality && quality.seriesId === 'series:physics-discovery');
     assert.ok('narration' in quality && typeof quality.narration === 'object' && quality.narration !== null);
     assert.ok('status' in quality.narration && quality.narration.status === 'planned');
@@ -41,7 +42,7 @@ test('physics discovery entries provide bounded narration plans for every scene'
       plannedSeconds += segment.seconds;
       return segment.sceneId;
     });
-    assert.deepEqual(sceneIds, entry.page.scenes.map(scene => scene.id));
+    assert.deepEqual(sceneIds, page.scenes.map(scene => scene.id));
     assert.equal(plannedSeconds, quality.narration.seconds);
   }
 });
@@ -82,7 +83,8 @@ test('physics discovery pages cover topic prose and claim ownership without dang
     assert.ok(topic);
     const article = await readJson(`${topic}/${entry.article}`);
     const claims = await readJsonArray(`${topic}/${entry.claims}`);
-    assert.ok(typeof article === 'object' && article !== null && 'id' in article && article.id === entry.page.articleId);
+    const page=DISCOVERY_PAGES.find(item=>item.articleId===entry.articleId);assert.ok(page);
+    assert.ok(typeof article === 'object' && article !== null && 'id' in article && article.id === entry.articleId);
     assert.ok('blocks' in article && Array.isArray(article.blocks));
     const claimIds = new Set(claims.map(claim => {
       assert.ok(typeof claim === 'object' && claim !== null && 'id' in claim);
@@ -90,7 +92,7 @@ test('physics discovery pages cover topic prose and claim ownership without dang
     }));
 
     // When checking page and block references against topic ownership.
-    for (const claimId of entry.page.claimRefs ?? []) assert.ok(claimIds.has(claimId));
+    for (const claimId of page.claimRefs ?? []) assert.ok(claimIds.has(claimId));
     for (const block of article.blocks) {
       assert.ok(typeof block === 'object' && block !== null && 'claimRefs' in block && Array.isArray(block.claimRefs));
       for (const claimId of block.claimRefs) assert.ok(claimIds.has(claimId));

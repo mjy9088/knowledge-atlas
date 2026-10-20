@@ -1,0 +1,78 @@
+[
+  {
+    "id": "claim:physics.newton-to-quantum.classical-domain",
+    "kind": "model-scope",
+    "statement": "뉴턴 역학은 관성 기준계의 거시적 저속 운동에서 매우 정확한 예측을 제공하지만, 가속 전하의 고전 복사를 결합한 행성 원자 모형은 에너지를 잃으며 수축하는 궤도를 예측해 원자 안정성을 설명하지 못한다. 비상대론적 한 전자 수소 모형에서는 결합된 정상 상태들의 이산 에너지와 아래로 유계인 바닥 상태가 고전적 추락 경로를 대신하며, 결합 상태 차이가 선택된 광자 진동수를 정한다.",
+    "scope": "비상대론적 한 전자 수소 원자의 결합 상태 안정성과 선택된 선 위치를 설명하는 제한된 모형 비교. 이온화 연속 상태, 자발 방출률, 다전자 원자, 양자전기역학의 복사 과정이나 보편적인 고전성 문턱을 설명하지 않는다.",
+    "assumptions": ["뉴턴 역학과 추가적인 고전 전자기·행성 원자 가정을 구별함", "결합 정상 상태와 고전 원궤도를 동일시하지 않음", "이온화 연속 상태를 제외하고 아래로 유계인 한 전자 수소 결합 상태로 범위를 제한함"],
+    "sourceRefs": [
+      {"sourceId": "source:openstax-university-physics-newton-first-law", "locator": "§5.2 Newton’s First Law and inertial-frame scope"},
+      {"sourceId": "source:openstax-chemistry-bohr-model", "locator": "§6.2 opening planetary-model instability discussion and stationary-state postulates; §6.3 ‘The Quantum–Mechanical Model of an Atom’"},
+      {"sourceId": "source:aps-quantum-mechanics-history-2025", "locator": "Sections describing the 1925–1926 replacement of classical trajectories by matrix and wave mechanics"},
+      {"sourceId": "source:mit-804-hydrogen-2016", "locator": "Lecture 22 §2, Coulomb bound-state energies with positive integer n; the finite ground-state bound is independently inferred from that energy formula, not a claim about all many-electron matter"}
+    ],
+    "reviewStatus": "draft-source-aligned-needs-independent-review"
+  },
+  {
+    "id": "claim:physics.newton-to-quantum.planck-energy-elements",
+    "kind": "historical-model-proposal",
+    "statement": "플랑크는 1900년 흑체복사 엔트로피를 계산하면서 같은 진동수 ν인 여러 공명자의 전체 에너지 E를 크기 ε=hν인 P개의 유한한 에너지 요소로 나누어 배분했다. 이 계산의 요소를 개별 공명자의 물리적 에너지 준위나 불연속적인 흡수·방출로 해석했는지는 역사적으로 논쟁 중이다.",
+    "scope": "1900년 12월의 공명자 앙상블 에너지 요소와 그 역사적 해석. 현대 광자 개념, 개별 교환의 물리적 불연속성, 완성된 양자역학을 플랑크의 당시 주장으로 소급하지 않는다.",
+    "assumptions": ["전체 에너지 E와 공명자 한 개의 에너지를 구별함", "P는 에너지 요소 수이고 ε=hν임", "후대의 불연속 해석에 관한 역사학계 논쟁을 미해결로 유지함"],
+    "sourceRefs": [
+      {"sourceId": "source:mpg-planck-quantum-discovery", "locator": "Sections ‘The black body’ and ‘The birth of quantum theory’, for the black-body problem and 1900 chronology"},
+      {"sourceId": "source:gearhart-planck-quantum-historians-2002", "locator": "Printed p. 186 / PDF p. 17 for ensemble energy elements ε=hν; printed pp. 207–208 / PDF pp. 38–39 for the unresolved physical interpretation of Planck’s discontinuity"},
+      {"sourceId": "source:openstax-university-physics-3-blackbody", "locator": "§6.1 observed spectral maximum, classical ultraviolet divergence, and the modern quantum-oscillator explanation; this pedagogical model is distinguished from Planck’s historical interpretation"}
+    ],
+    "reviewStatus": "draft-source-aligned-needs-history-review"
+  },
+  {
+    "id": "claim:physics.newton-to-quantum.einstein-light-quantum-1905",
+    "kind": "historical-model-proposal",
+    "statement": "아인슈타인은 1905년 광전효과 설명에서 플랑크의 에너지 양자에 빛 입자라는 새 의미를 부여했다. 이 빛양자 제안은 플랑크의 1900년 공명자 앙상블 에너지 요소 계산과 구별되며 그 계산에서 자동으로 따라오는 결론으로 취급해서는 안 된다.",
+    "scope": "1905년 빛양자 제안의 연도와 플랑크 1900년 계산과의 개념적 구별에 한정한 역사적 연결. 아인슈타인의 원 논문 전체, 광자 개념의 후속 발전, 우선권 논쟁이나 현대 양자전기역학을 재구성하지 않는다.",
+    "assumptions": ["OpenStax의 ‘new meaning: particle of light’ 역사 요약을 제한적으로 사용함", "플랑크의 공명자 앙상블 계산과 아인슈타인의 빛양자 가설을 동일시하지 않음", "광전효과 관측과 이를 설명하는 모형 제안을 구별함"],
+    "sourceRefs": [
+      {"sourceId": "source:openstax-university-physics-3-blackbody", "locator": "§6.1 final paragraph: in 1905 Einstein’s photoelectric explanation gave Planck’s energy quantum the new meaning of a particle of light"},
+      {"sourceId": "source:gearhart-planck-quantum-historians-2002", "locator": "Printed p. 186 / PDF p. 17 for Planck’s December 1900 ensemble energy-element counting; printed pp. 207–208 / PDF pp. 38–39 for the unresolved physical interpretation boundary"}
+    ],
+    "reviewStatus": "draft-source-aligned-needs-history-review"
+  },
+  {
+    "id": "claim:physics.newton-to-quantum.matter-waves",
+    "kind": "historical-hypothesis-and-evidence",
+    "statement": "드브로이는 1924년 물질의 운동량 p에 파장 λ=h/p를 연결하는 물질파 가설을 제안했고, 1927년 데이비슨·거머의 전자 결정 산란에서 나타난 회절은 전자의 파동적 기술을 지지했다.",
+    "scope": "가설 제안과 후속 전자 회절 증거의 제한된 역사 연결. 회절 패턴을 개별 전자의 고전 궤적 사진이나 양자역학 전체의 단독 증명으로 해석하지 않는다.",
+    "assumptions": ["비상대론적 운동량 표기 p를 사용함", "가설의 연도와 실험 보고의 연도를 구별함", "결정 회절 무늬와 입자 궤적을 구별함"],
+    "sourceRefs": [
+      {"sourceId": "source:nobel-de-broglie-1929-lecture", "locator": "Nobel Lecture, printed p. 253 for λ=h/p and printed pp. 254–255 for crystal directions, diffraction maxima, and electron-diffraction evidence"},
+      {"sourceId": "source:davisson-germer-1927", "locator": "Physical Review 30, abstract: selective reflection of electrons from a nickel crystal and agreement with de Broglie wavelength"},
+      {"sourceId": "source:aps-electron-waves-history-2025", "locator": "Historical account of de Broglie’s proposal and Davisson–Germer electron-diffraction evidence"}
+    ],
+    "reviewStatus": "draft-source-aligned-needs-history-review"
+  },
+  {
+    "id": "claim:physics.newton-to-quantum.quantum-mechanics-formation",
+    "kind": "historical-synthesis",
+    "statement": "1925년 하이젠베르크의 행렬역학과 1926년 슈뢰딩거의 파동역학은 고전 궤도 대신 양자 상태와 관측 가능한 전이·확률을 계산하는 새로운 역학을 형성했고, 보른의 확률 해석은 파동함수의 절댓값 제곱을 위치 확률밀도와 연결했다.",
+    "scope": "1925–1926년 이론 형성의 개괄. 여러 기여자를 한 사람의 단일 발견으로 축소하지 않으며 수학적 동등성, 측정 문제, 해석 논쟁 전체를 다루지 않는다.",
+    "assumptions": ["행렬역학·파동역학·확률 해석을 구별함", "교육 순서와 실제 발견 순서를 동일시하지 않음", "단일입자 공간 파동함수의 확률밀도 해석으로 범위를 제한함"],
+    "sourceRefs": [
+      {"sourceId": "source:aps-quantum-mechanics-history-2025", "locator": "Chronological sections on Heisenberg’s 1925 matrix mechanics, Schrödinger’s 1926 wave mechanics, and Born’s probabilistic interpretation"},
+      {"sourceId": "source:openstax-chemistry-2e-quantum", "locator": "§6.3 subsection ‘The Quantum–Mechanical Model of an Atom’, wavefunction and Born probability interpretation"}
+    ],
+    "reviewStatus": "draft-source-aligned-needs-independent-review"
+  },
+  {
+    "id": "claim:physics.newton-to-quantum.wave-scale-comparison",
+    "kind": "authored-model-calculation",
+    "statement": "예시 운동량 p=0.1 kg·m/s와 p=9.1×10⁻²⁵ kg·m/s에 λ=h/p를 적용하면 각각 약 6.6×10⁻³³ m와 7.3×10⁻¹⁰ m를 얻는다. 파장과 장치의 길이·해상도를 비교하면 파동 효과의 관측 가능성이 달라지는 한 이유를 설명할 수 있다.",
+    "scope": "명시한 두 운동량의 설명용 계산이며 역사적 실험값이나 고전 한계의 충분조건이 아니다. 모든 계의 상태·상호작용·관측량을 무시한 보편적인 고전성 문턱을 주장하지 않는다.",
+    "assumptions": ["h≈6.626×10⁻³⁴ J·s를 사용한다", "두 운동량은 비교를 위한 주어진 입력이지 새 측정 자료가 아니다", "파장 크기만으로 전체 동역학의 고전 근사 정확도를 판정하지 않는다"],
+    "sourceRefs": [
+      {"sourceId": "source:nobel-de-broglie-1929-lecture", "locator": "Printed p. 253, λ=h/p; the displayed two-input comparison is independently calculated from this relation"},
+      {"sourceId": "source:openstax-university-physics-3-blackbody", "locator": "Eq. (6.10), h≈6.626×10⁻³⁴ J·s; used only as the physical constant in the authored wavelength calculation"}
+    ],
+    "reviewStatus": "draft-source-aligned-needs-independent-review"
+  }
+]

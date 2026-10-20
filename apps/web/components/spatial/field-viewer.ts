@@ -29,8 +29,10 @@ export function mountFieldViewer(container:HTMLElement,{label='Spatial scalar fi
   const color=(value:number)=>value<0?colors[1]:colors[0];
   function draw(){
     if(disposed||!field||!grid)return;
-    const rect=canvas.getBoundingClientRect(),w=Math.max(1,rect.width),h=Math.max(1,rect.height),dpr=Math.min(2,globalThis.devicePixelRatio||1);
-    if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);}
+    const rect=canvas.getBoundingClientRect(),dpr=Math.min(2,globalThis.devicePixelRatio||1);
+    const pixelWidth=Math.max(1,Math.round(Math.max(1,rect.width)*dpr)),pixelHeight=Math.max(1,Math.round(Math.max(1,rect.height)*dpr));
+    if(canvas.width!==pixelWidth||canvas.height!==pixelHeight){canvas.width=pixelWidth;canvas.height=pixelHeight;}
+    const w=pixelWidth/dpr,h=pixelHeight/dpr;
     ctx.setTransform(dpr,0,0,dpr,0,0);ctx.globalAlpha=1;ctx.fillStyle=background;ctx.fillRect(0,0,canvas.width/dpr,canvas.height/dpr);
     if(state.mode==='slice'){
       displayedWithWebGL=false;

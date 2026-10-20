@@ -4,131 +4,136 @@
   "title": "왜 수 체계를 넓히나요?",
   "shortTitle": "자연수에서 복소수까지",
   "reviewStatus": "needs-content-review",
-  "scope": "자연수, 정수, 유리수, 실수, 복소수로 옮겨 갈 때 해결되는 구체적 장애와 보존하거나 포기하는 성질을 설명한다. 각 체계의 집합론적 구성 전체, 모든 완비성 개념의 동치, 가장 큰 수 체계의 존재는 주장하지 않는다.",
+  "scope": "자연수, 정수, 유리수, 실수, 복소수로 옮겨 갈 때 선택하는 국소적 수리와 보편적 구조 조건을 비교한다. 각 체계의 집합론적 구성 전체, 모든 완비성 개념의 동치, 가장 큰 수 체계, 집합의 크기 비교는 주장하지 않는다.",
   "blocks": [
     {
       "id": "block:mathematics.number-structures.question",
-      "text": "왜 수를 더 만들까요? 2−5는 자연수 안에서 답이 없고, 2x=1은 정수 안에서 풀리지 않으며, 한 변이 1인 정사각형의 대각선은 유리수로 정확히 적히지 않습니다. x²=−1은 실수에서도 해가 없습니다. 매번 하는 일은 이름표를 하나 더 붙이는 것이 아니라, 현재 체계에서 막힌 연산이나 성질을 확인하고 이전 계산을 보존하는 확장을 고르는 것입니다. 무엇을 해결하고 무엇을 유지할지 정하지 않으면 ‘더 큰 수 체계’라는 말만으로는 선택이 정해지지 않습니다.",
+      "text": "왜 수를 더 만들까요? 2−5는 자연수 안에서, 2x=1은 정수 안에서, d²=2인 정확한 대각선 길이는 유리수 안에서, x²=−1은 실수 안에서 막힙니다. 그러나 한 질문이 막혔다고 다음의 익숙한 체계 전체가 논리적으로 강제되지는 않습니다. 이름 붙인 해 하나를 더하는 국소적 수리도 있고, 어떤 종류의 모든 문제를 한꺼번에 해결하겠다는 구조적 요구도 있습니다. 따라서 매 단계에서 세 가지를 물어야 합니다. 실패한 것은 연산입니까, 방정식입니까, 구조적 성질입니까? 무엇을 보존합니까? 그보다 작은 수리도 가능합니까?",
       "claimRefs": ["claim:mathematics.number-structures.extension-choice"]
     },
     {
-      "id": "block:mathematics.number-structures.counting",
-      "text": "이 글에서는 ℕ={0,1,2,…}로 약속합니다. 다른 문헌은 1부터 시작하기도 하므로 이것은 보편적 표기 법칙이 아니라 이 글의 선언입니다. 세 물건의 개수는 3이고, 아무 원소도 없는 모음의 개수는 0입니다. 또 n+0=n이므로 0은 덧셈의 항등원입니다. 빈 모음의 개수와 덧셈에서 값을 바꾸지 않는 역할은 연결되지만 서로 같은 정의라고 섞어 말하지 않습니다.",
-      "claimRefs": ["claim:number-systems.natural.zero-convention", "claim:number-systems.zero.empty-count", "claim:number-systems.zero.additive-identity"]
-    },
-    {
-      "id": "block:mathematics.number-structures.subtraction",
-      "text": "자연수에서 2−5를 계산해 봅시다. 수직선에서 2로부터 왼쪽으로 다섯 칸 가면 2→1→0→−1→−2→−3입니다. 도착점 −3은 선언한 ℕ에 없으므로 자연수는 뺄셈에 대해 닫혀 있지 않습니다. 그렇다고 자연수 계산이 틀린 것은 아닙니다. 새 체계는 기존의 0,1,2,…와 그 덧셈을 그대로 포함하면서, 5에 더해 2가 되는 수 −3을 허용해야 합니다.",
-      "claimRefs": ["claim:number-systems.natural.zero-convention", "claim:number-systems.integer.number-line", "claim:mathematics.number-structures.extension-choice"]
-    },
-    {
       "id": "block:mathematics.number-structures.integers",
-      "text": "정수 ℤ={…,−2,−1,0,1,2,…}는 각 양의 자연수와 그 덧셈 역원을 함께 둡니다. a의 덧셈 역원 −a는 a+(−a)=0을 만족하고, 뺄셈은 a−b=a+(−b)로 계산합니다. 따라서 2−5=2+(−5)=−3이며 결과가 다시 정수입니다. 자연수끼리 하던 덧셈은 바뀌지 않고, 기존 수의 순서도 같은 수직선 위에서 보존됩니다. 이 확장은 뺄셈 문제를 고치지만 다음 나눗셈 문제까지 자동으로 고치지는 않습니다.",
-      "claimRefs": ["claim:number-systems.integer.extension", "claim:number-systems.integer.additive-inverse", "claim:number-systems.integer.subtraction"]
-    },
-    {
-      "id": "block:mathematics.number-structures.division",
-      "text": "한 개의 같은 전체를 두 사람에게 똑같이 나누면 각 몫은 1/2입니다. 같은 질문을 방정식으로 쓰면 2x=1이고, 어떤 정수 x를 넣어도 성립하지 않습니다. 정수에 덧셈 역원을 추가한 일은 모든 0이 아닌 정수의 곱셈 역원을 추가한 일이 아니기 때문입니다. 이번 목표는 2·(1/2)=1이 되게 하면서 정수의 덧셈과 곱셈을 그대로 포함하는 것입니다. 단, 0에는 곱셈 역원이 없으므로 분모 0은 허용하지 않습니다.",
-      "claimRefs": ["claim:number-systems.rational.definition", "claim:number-systems.rational.zero-denominator", "claim:mathematics.number-structures.extension-choice"]
+      "text": "이 글에서는 ℕ={0,1,2,…}로 약속합니다. 다른 문헌은 1부터 시작하기도 합니다. ℕ에서 2−5를 계산하려 하면 결과 −3이 없으므로 뺄셈에 닫혀 있지 않습니다. 선택한 수리는 각 수 a에 a+(−a)=0인 덧셈 역원을 주는 정수 ℤ={…,−2,−1,0,1,2,…}입니다. 뺄셈을 a−b=a+(−b)로 두면 2−5=2+(−5)=−3입니다. 이때 기존 자연수 덧셈과 수직선 순서를 보존하는 것은 등식 2−5 하나만으로 강제되는 결론이 아니라, 우리가 함께 요구한 구조 조건입니다.",
+      "claimRefs": ["claim:number-systems.natural.zero-convention", "claim:number-systems.integer.extension", "claim:number-systems.integer.additive-inverse", "claim:number-systems.integer.subtraction", "claim:mathematics.number-structures.extension-choice"]
     },
     {
       "id": "block:mathematics.number-structures.rationals",
-      "text": "유리수는 a,b가 정수이고 b≠0일 때 a/b로 나타낼 수 있는 수입니다. 표기 하나가 수 하나를 독점하지는 않습니다. 1/2와 2/4는 모양이 다르지만 1×4=2×2이므로 같은 값을 나타냅니다. 일반적으로 b,d≠0일 때 a/b=c/d인 것은 ad=bc인 것과 같습니다. 모든 정수 n은 n/1이므로 ℤ의 계산은 ℚ 안에 그대로 들어오고, 새 표기들은 2x=1 같은 방정식의 해를 제공합니다.",
-      "claimRefs": ["claim:number-systems.rational.definition", "claim:number-systems.rational.equivalence"]
+      "text": "정수에서는 2x가 언제나 짝수이므로 2x=1을 만족하는 x가 없습니다. 이를 고치려면 2의 곱셈 역원 1/2을 허용할 수 있습니다. 다만 0·y=0은 어떤 y에도 1이 아니므로 0에는 곱셈 역원이 없습니다. 유리수는 a,b∈ℤ, b≠0인 a/b로 나타내며, 정수 n은 n/1로 들어옵니다. 같은 값에는 여러 표현이 있습니다. 1/2와 2/4는 1·4=2·2이므로 같습니다. 따라서 유리수의 핵심은 새 기호뿐 아니라 여러 표현 위에서 연산이 같은 값으로 내려가는가 하는 문제입니다.",
+      "claimRefs": ["claim:number-systems.rational.definition", "claim:number-systems.rational.equivalence", "claim:number-systems.rational.zero-denominator", "claim:mathematics.number-structures.extension-choice"]
     },
     {
-      "id": "block:mathematics.number-structures.fraction-addition",
-      "text": "1/2+1/3을 분자끼리, 분모끼리 더해 2/5로 만들면 같은 전체의 조각 크기가 계산 중에 바뀝니다. 전체를 여섯 등분하면 1/2=3/6이고 1/3=2/6입니다. 이제 같은 크기의 여섯 조각 중 세 조각과 두 조각을 합쳐 5/6을 얻습니다. 즉 1/2+1/3=3/6+2/6=5/6입니다. 유리수 확장이 나눗셈 해를 추가했다는 말은 이런 기존 연산과 표기 동치가 함께 일관되어야 한다는 뜻입니다.",
-      "claimRefs": ["claim:number-systems.rational.equivalence", "claim:number-systems.rational-representations.equivalence"]
+      "id": "block:mathematics.number-structures.representative-independence",
+      "text": "같은 유리수의 표현을 바꾸어도 덧셈 결과는 같아야 합니다. 먼저 한 예를 확인하면 1/2+1/3=5/6이고, 첫 항을 2/4로 바꾸면 2/4+1/3=10/12이며 5·12=6·10=60이므로 두 결과는 같습니다. 그러나 한 예만으로 모든 대표를 다루지는 못합니다. 일반적으로 a/b=a′/b′, c/d=c′/d′라서 ab′=a′b, cd′=c′d이고 모든 분모가 0이 아니라고 합시다. 두 합이 같은지 보는 교차곱은 (ad+bc)b′d′와 (a′d′+b′c′)bd입니다. 첫째는 ab′dd′+bb′cd′이고, 주어진 두 등식을 쓰면 a′bdd′+bb′c′d로 바뀌어 둘째와 같습니다. 따라서 어떤 동치인 대표를 골라도 덧셈 결과는 같은 유리수가 됩니다.",
+      "claimRefs": ["claim:number-systems.rational.equivalence", "claim:number-systems.rational-representations.equivalence", "claim:mathematics.number-structures.rational-addition-well-defined"]
     },
     {
       "id": "block:mathematics.number-structures.diagonal",
-      "text": "한 변의 길이가 1인 정사각형의 대각선 길이를 d라 하면 피타고라스 관계로 d²=1²+1²=2입니다. 실수에서 양의 해를 √2라고 부릅니다. 1.4, 1.41, 1.414처럼 가까운 유한소수를 많이 적는 일은 근삿값을 주지만, 어떤 정수 p,q로도 √2=p/q가 될 수 없다는 증명은 아닙니다. 실제로 √2는 유리수가 아니므로 정확한 대각선 길이는 ℚ 밖에 있습니다. 여기서 ‘√2가 실수로 존재한다’는 사실과 ‘√2가 유리수가 아니다’라는 사실은 서로 다른 주장입니다.",
-      "claimRefs": ["claim:number-systems.irrational.sqrt2"]
+      "text": "한 변이 1인 정사각형의 대각선 d는 d²=2를 만족합니다. 여기서는 양의 실수 √2가 따로 주어졌고 √2∉ℚ임이 증명되었다고 합시다. 그 실수체 안에서 ℚ(√2)={a+b√2 | a,b∈ℚ}를 잡습니다. 두 원소의 합과 곱은 각각 (a+c)+(b+d)√2, (ac+2bd)+(ad+bc)√2 꼴이므로 다시 이 집합에 있고, 덧셈 역원은 −a−b√2입니다. 또한 (a+b√2)(a−b√2)=a²−2b²이므로 0이 아닌 a+b√2의 역원은 (a−b√2)/(a²−2b²)입니다. 분모가 0이라면 b=0일 때 a=0이 되어 원소가 0이고, b≠0일 때 √2=|a/b|가 유리수가 되어 모순이므로 역원이 실제로 정의됩니다. ℚ와 √2를 포함하는 모든 실수의 부분체는 체 연산에 닫혀 있어 모든 a+b√2도 포함하므로, 이 집합은 그 한 근으로 생성되는 최소의 부분체입니다. 유리수는 b=0인 원소로 들어가고 √2는 이 집합에 있지만 ℚ에는 없으므로 ℚ는 ℚ(√2)의 진부분체입니다. 이는 한 근으로 생성한 국소 수리이지 ℝ 전체의 구성도, ℝ보다 원소 수가 적다는 주장도 아닙니다.",
+      "claimRefs": ["claim:number-systems.irrational.sqrt2", "claim:mathematics.number-structures.sqrt2-generated-field", "claim:mathematics.number-structures.extension-choice"]
     },
     {
-      "id": "block:mathematics.number-structures.dense-is-not-complete",
-      "text": "ℚ에는 빈틈이 없어 보이는 성질이 있습니다. 두 유리수 x<y 사이에는 중점 (x+y)/2라는 다른 유리수가 있습니다. 더 강하게 두 실수 사이에도 유리수가 있지만, 이것도 모든 실수 경계가 유리수라는 뜻은 아닙니다. A={q∈ℚ | q>0이고 q²<2}의 원소는 √2 바로 아래까지 얼마든지 접근할 수 있어도 √2 자체는 ℚ에 없습니다. ‘사이에 또 있다’는 조밀성과 ‘모든 비어 있지 않은 위로 제한된 집합에 최소 상한이 있다’는 완비성은 다른 성질입니다.",
-      "claimRefs": ["claim:number-systems.rational.density", "claim:number-systems.completeness.rationals-dense-in-reals", "claim:number-systems.rational.not-complete"]
+      "id": "block:mathematics.number-structures.local-vs-global",
+      "text": "√2 하나를 넣는 일은 이름 붙인 방정식의 국소적 수리입니다. 다른 빠진 경계가 나타날 때마다 원소를 하나씩 붙일 수도 있지만, 그것만으로 모든 경계를 처리했다는 보장은 없습니다. ℚ는 ℝ 안에서 조밀하여 서로 다른 두 실수 사이에 유리수가 있지만, 조밀성은 모든 경계가 ℚ 안에 있다는 뜻이 아닙니다. 여기서 선택하는 더 강한 목표가 최소상한 성질입니다. 비어 있지 않고 위로 제한된 모든 부분집합이 그 체 안에서 최소 상한을 갖게 하자는, 한 방정식이 아니라 모든 해당 집합에 대한 보편 조건입니다. 임의의 완비 순서체 안에서도 유리수가 조밀하다는 일반 정리와 증명은 뒤의 선택 증명에서 따로 다룹니다.",
+      "claimRefs": ["claim:number-systems.rational.density", "claim:number-systems.rational.not-complete", "claim:number-systems.completeness.real-lub", "claim:mathematics.number-structures.completeness-scope"]
     },
     {
       "id": "block:mathematics.number-structures.real-completion",
-      "text": "순서 우주 U에서 u∈U가 A의 모든 원소보다 크거나 같으면 상한이고, 모든 상한 v∈U에 u≤v이면 최소 상한입니다. 최대 원소는 추가로 A 자체에 속해야 하므로 최소 상한과 다릅니다. 실수의 최소상한 성질은 비어 있지 않고 위로 제한된 모든 A⊆ℝ가 ℝ 안에서 최소 상한을 갖는다는 조건입니다. 앞의 A를 ℚ 안에서 보면 최소 상한이 없지만 ℝ 안에서는 sup A=√2입니다. 이 글에서 말하는 데데킨트/순서 완비성은 이 최소상한 성질이며, ‘모든 코시 수열이 수렴한다’는 코시 완비성만을 아무 대수·순서 조건 없이 대신 말하는 것이 아닙니다.",
-      "claimRefs": ["claim:number-systems.completeness.supremum-definition", "claim:number-systems.completeness.rational-gap", "claim:number-systems.completeness.real-lub", "claim:mathematics.number-structures.completeness-scope"]
+      "text": "정의를 먼저 적겠습니다. A⊆F에 대해 u∈F가 상한이라는 말은 모든 a∈A에 a≤u라는 뜻입니다. s가 최소 상한이라는 말은 s가 상한이고, 다른 모든 상한 v에 s≤v라는 뜻입니다. s는 A에 속할 필요가 없습니다. 반면 최대 원소는 A에 속하면서 A의 모든 원소보다 크거나 같아야 합니다. 최소상한 성질은 비어 있지 않고 상한이 하나라도 있는 모든 A⊆F가 F 안에서 최소 상한을 갖는다는 조건입니다. 여기서 순서체는 전순서 <가 체 연산과 맞아서 a<b이면 모든 c에 a+c<b+c이고, 0<a,0<b이면 0<ab인 체입니다. 이 글은 데데킨트 절단으로 실수를 처음부터 만드는 존재 증명을 수행하지 않고, 그런 별도 구성으로 얻은 완비 순서체 하나를 ℝ이라는 입력으로 사용합니다. 뒤의 선택 증명은 임의의 두 완비 순서체가 순서와 0,1, 덧셈, 곱셈을 보존하는 동형으로 대응함을 보입니다. 존재와 유일성은 서로 다른 주장입니다.",
+      "claimRefs": ["claim:number-systems.completeness.supremum-definition", "claim:number-systems.completeness.real-lub", "claim:mathematics.number-structures.completeness-scope", "claim:mathematics.number-structures.complete-ordered-field-uniqueness"]
     },
     {
       "id": "block:mathematics.number-structures.negative-square",
-      "text": "실수는 앞선 경계를 채우지만 x²=−1은 풀지 못합니다. 실수 x가 양수이면 x·x≥0이고, x가 음수이면 −x가 양수라서 x²=(−x)²≥0이며, x=0이면 x²=0입니다. 따라서 모든 실수 제곱은 0 이상이고 −1이 될 수 없습니다. 이번에는 순서의 빈틈이 아니라 다항방정식의 해를 추가하는 것이 목표입니다. 이 선택은 실수의 표준 순서와 양립하는 순서체 구조를 끝까지 보존할 수 없다는 비용을 가집니다.",
+      "text": "완비 순서체 ℝ도 x²=−1은 풀지 못합니다. x>0이면 양수의 곱이 양수라서 x²>0입니다. x<0이면 −x>0이고 x²=(−x)²>0입니다. x=0이면 x²=0입니다. 따라서 실수의 어떤 제곱도 −1이 아닙니다. 이번 목표는 경계를 모두 채우는 순서 조건이 아니라 새 다항방정식의 해를 넣는 것입니다. 이 선택은 실수의 표준 순서를 확장하면서 체 연산과 양립하는 전순서를 보존할 수 없다는 비용을 냅니다.",
       "claimRefs": ["claim:number-systems.complex.i-square", "claim:number-systems.complex.not-ordered-field", "claim:mathematics.number-structures.extension-choice"]
     },
     {
       "id": "block:mathematics.number-structures.complex-pairs",
-      "text": "복소수를 실수쌍 (a,b)로 만들고 (a,b)(c,d)=(ac−bd,ad+bc)로 곱합니다. 실수 a는 (a,0)으로 넣으면 (a,0)(c,0)=(ac,0)이므로 기존 실수 곱셈이 보존됩니다. i=(0,1)로 두면 i²=(0,1)(0,1)=(−1,0)=−1입니다. 실제 계산으로 (1,1)(1,−1)=(1·1−1·(−1),1·(−1)+1·1)=(2,0)=2를 얻습니다. 새 기호를 선언하는 데서 그치지 않고 쌍의 연산이 목표 방정식과 기존 실수 연산을 함께 실현합니다.",
+      "text": "복소수를 실수쌍으로 구성합니다. 덧셈은 (a,b)+(c,d)=(a+c,b+d), 곱셈은 (a,b)(c,d)=(ac−bd,ad+bc)로 둡니다. 0=(0,0), 1=(1,0)이고 실수 a는 (a,0)으로 들어가 기존 실수 덧셈과 곱셈을 보존합니다. (a,b)≠(0,0)이면 a²+b²>0이므로 역원 (a/(a²+b²),−b/(a²+b²))가 존재합니다. 실제로 곱하면 ((a²+b²)/(a²+b²),0)=(1,0)입니다. i=(0,1)로 두면 i²=(−1,0)=−1이고, (1,1)(1,−1)=(2,0)입니다. 이제 쌍의 연산이 단지 원하는 제곱 하나가 아니라 체 구조를 이룹니다.",
       "claimRefs": ["claim:number-systems.complex.definition", "claim:number-systems.complex.i-square"]
     },
     {
       "id": "block:mathematics.number-structures.rotation",
-      "text": "쌍 (a,b)에 i=(0,1)를 곱하면 (0,1)(a,b)=(−b,a)입니다. 예를 들어 z=(2,−1)은 iz=(1,2)로 갑니다. 두 점의 제곱 길이는 2²+(−1)²=5와 1²+2²=5로 같고, 공통 원점과 같은 눈금에서 방향은 반시계로 90도 바뀝니다. 따라서 0이 아닌 점에서 i의 곱셈은 길이를 보존하는 사분 회전입니다. 0은 고정되며 이 글에서는 0의 방향각을 정의하지 않습니다.",
+      "text": "i=(0,1)를 (a,b)에 곱하면 (−b,a)입니다. 예를 들어 (2,−1)은 (1,2)로 갑니다. 두 벡터의 제곱 길이는 2²+(−1)²=5와 1²+2²=5로 같고, 방향은 공통 원점에서 반시계 90도 바뀝니다. 따라서 0이 아닌 점에서 i의 곱셈은 길이를 보존하는 사분 회전입니다. 0은 고정되며 이 글에서는 0의 방향각을 정의하지 않습니다.",
       "claimRefs": ["claim:number-systems.complex.rotation"]
     },
     {
       "id": "block:mathematics.number-structures.payoff",
-      "text": "이제 확장을 하나의 사다리가 아니라 성질 장부로 읽을 수 있습니다. ℕ→ℤ는 덧셈 역원을 넣어 뺄셈을, ℤ→ℚ는 0이 아닌 수의 곱셈 역원을 넣어 나눗셈을, ℚ→ℝ은 순서체의 최소상한 성질을, ℝ→ℂ는 x²=−1의 해를 얻습니다. 각 단계는 앞선 수와 연산을 적절한 포함 또는 동형인 복사로 보존하지만, ℂ에서는 실수 순서를 확장하는 순서체 조건을 포기합니다. 더 큰 체와 수 체계도 있으므로 ℂ가 ‘마지막 수’라는 결론은 나오지 않습니다. 어떤 문제가 풀리고 어떤 구조가 유지되는지를 먼저 말해야 다음 체계가 의미 있게 정해집니다.",
+      "text": "이제 하나의 사다리 대신 수리의 종류를 비교할 수 있습니다. ℕ→ℤ는 덧셈 역원, ℤ→ℚ는 0이 아닌 곱셈 역원이라는 연산 수리입니다. √2로 생성한 ℚ(√2)는 한 방정식의 국소 수리이고, ℚ→ℝ에서 선택한 최소상한 성질은 모든 비어 있지 않고 위로 제한된 집합에 대한 보편 요구입니다. ℝ→ℂ는 x²=−1의 해와 체 구조를 얻는 대신 체 연산과 양립하는 전순서를 포기합니다. 어느 단계도 ‘마지막 수’를 만들지 않습니다. 예를 들어 복소계수 다항식의 비로 만든 ℂ(t)는 상수 복소수체를 진부분체로 포함하고 형식적 비상수 t를 더한 체입니다. 이는 집합의 원소 수를 비교하는 주장이 아닙니다. 다음 체계는 늘 해결할 문제와 보존할 구조를 함께 써야 정해집니다.",
       "claimRefs": ["claim:mathematics.number-structures.extension-choice", "claim:mathematics.number-structures.larger-systems", "claim:number-systems.complex.not-ordered-field"]
     },
     {
       "id": "block:mathematics.number-structures.fraction-domain",
-      "text": "분수 표현의 바탕을 D={(a,b)∈ℤ² | b≠0}로 두고 (a,b)~(c,d)를 ad=bc일 때로 정의합니다. 이 단계의 (a,b)는 아직 유리수 자체가 아니라 a/b라는 표현입니다. b=0을 제외하는 이유는 단지 관습이 아닙니다. 교차곱 규칙을 (0,0)까지 허용하면 (1,1)~(0,0), (0,0)~(1,2)이지만 (1,1)≁(1,2)여서 추이성이 깨집니다. 0이 아닌 분모 영역이 일관된 표현 묶음의 일부입니다.",
+      "text": "분수 표현의 바탕을 D={(a,b)∈ℤ² | b≠0}로 두고 (a,b)~(c,d)를 ad=bc일 때로 정의합니다. (a,b)는 아직 유리수 자체가 아니라 a/b라는 표현입니다. b=0을 제외하는 이유는 단지 관습이 아닙니다. 교차곱 규칙을 (0,0)까지 허용하면 (1,1)~(0,0), (0,0)~(1,2)이지만 (1,1)≁(1,2)여서 추이성이 깨집니다. 0이 아닌 분모 영역이 일관된 표현 묶음의 일부입니다.",
       "claimRefs": ["claim:number-systems.rational-representations.domain", "claim:number-systems.rational-representations.cross-product", "claim:number-systems.rational-representations.zero-pair-boundary"]
     },
     {
       "id": "block:mathematics.number-structures.fraction-transitivity",
-      "text": "추이성을 유리수 나눗셈 없이 정수 계산으로 증명해 봅시다. (a,b)~(c,d), (c,d)~(e,f)이면 ad=bc, cf=de입니다. 첫 식에 f를, 둘째 식에 b를 곱하면 adf=bcf=bde이므로 d(af−be)=0입니다. 중간 분모 d≠0이고 정수에는 영인수가 없으므로 af−be=0, 즉 af=be입니다. 따라서 (a,b)~(e,f)입니다. 만들려는 유리수의 나눗셈을 미리 사용하지 않고 정수의 소거만 썼습니다.",
+      "text": "(a,b)~(c,d), (c,d)~(e,f)이면 ad=bc, cf=de입니다. 첫 식에 f를, 둘째 식에 b를 곱하면 adf=bcf=bde이므로 d(af−be)=0입니다. 정수 ℤ에는 영인수가 없고 중간 분모 d≠0이므로 af−be=0, 즉 af=be입니다. 따라서 (a,b)~(e,f)입니다. 만들려는 유리수의 나눗셈을 미리 사용하지 않고 정수의 곱셈과 소거만 썼습니다.",
       "claimRefs": ["claim:number-systems.rational-representations.equivalence"]
     },
     {
       "id": "block:mathematics.number-structures.sqrt-lowest-terms",
-      "text": "√2의 실수 내 존재는 별도로 가정하고, 이제 유리수라고 가정해 모순을 찾습니다. 유리수라면 서로소 정수 p,q와 q≠0에 대해 √2=p/q로 쓸 수 있습니다. 양변을 제곱하고 q²을 곱하면 p²=2q²입니다. 오른쪽이 짝수이므로 p²은 짝수이고, 정수 n에 대해 n²이 짝수이면 n도 짝수이므로 p=2k인 정수 k가 있습니다. 이 단계는 √2를 구성한 것이 아니라 유리수라는 가정이 p의 짝수성을 강제함을 보인 것입니다.",
+      "text": "먼저 짝홀수 보조정리를 증명합니다. n이 홀수라면 n=2k+1이고 n²=4k²+4k+1=4k(k+1)+1이므로 홀수입니다. 따라서 대우로 n²이 짝수이면 n도 짝수입니다. 이제 양의 실수 √2의 존재는 별도로 가정하고, 유리수라면 서로소 정수 p,q, q≠0에 √2=p/q라고 합시다. 제곱하면 p²=2q²이므로 p²은 짝수이고, 보조정리에 따라 p=2k입니다.",
       "claimRefs": ["claim:number-systems.irrational.reduced-form", "claim:number-systems.irrational.parity-lemma", "claim:number-systems.irrational.sqrt2"]
     },
     {
       "id": "block:mathematics.number-structures.sqrt-parity-contradiction",
-      "text": "p=2k를 p²=2q²에 넣으면 4k²=2q², 따라서 q²=2k²입니다. 같은 짝홀수 보조정리로 q도 짝수입니다. 그러면 p와 q가 모두 2를 공약수로 가지므로 처음의 서로소 조건과 모순입니다. 따라서 √2=p/q라는 가정이 거짓이고 √2∉ℚ입니다. p만 짝수라고 끝내면 모순이 완성되지 않으며, q도 짝수라는 두 번째 가지까지 가야 합니다. 비유리성 증명과 양의 실수 √2의 존재 증명은 여전히 구별됩니다.",
+      "text": "p=2k를 p²=2q²에 넣으면 4k²=2q², 따라서 q²=2k²입니다. 같은 보조정리로 q도 짝수입니다. 그러면 p와 q가 모두 2를 공약수로 가져 서로소라는 처음 조건과 모순입니다. 따라서 √2∉ℚ입니다. p만 짝수라고 끝내면 모순이 완성되지 않습니다. 또한 이 증명은 이미 존재한다고 둔 √2가 유리수가 아님을 보일 뿐, √2나 ℝ의 존재를 구성하지 않습니다.",
       "claimRefs": ["claim:number-systems.irrational.parity-lemma", "claim:number-systems.irrational.sqrt2"]
     },
     {
       "id": "block:mathematics.number-structures.bounds-and-ambient",
-      "text": "A={q∈ℚ | q>0, q²<2}를 어느 우주에서 보는지 고정합시다. 1∈A이므로 비어 있지 않고, 모든 q∈A에 q<√2<2이므로 2∈ℚ는 상한입니다. U=ℚ이면 상한 후보도 ℚ에 있어야 하고, U=ℝ이면 √2도 후보가 됩니다. 상한 u는 모든 q∈A에 q≤u를 만족해야 하고, 최소 상한은 그와 함께 모든 다른 상한 v에 u≤v를 만족해야 합니다. √2는 A에 속하지 않으므로 ℝ에서 최소 상한이어도 최대 원소는 아닙니다.",
+      "text": "이미 실수체가 주어졌다고 하고 A={q∈ℚ | q>0, q²<2}를 봅시다. 1∈A이고 모든 q∈A에 q<√2<2이므로 2는 상한입니다. U=ℚ이면 상한 후보도 ℚ에 있어야 하고, U=ℝ이면 √2도 후보입니다. 상한 u는 모든 q∈A에 q≤u를 만족하고, 최소 상한은 모든 다른 상한 v에 u≤v를 만족합니다. 최대 원소는 추가로 A에 속해야 합니다. 이 비교는 ℚ의 결함을 진단하고 ℝ 안에서 경계를 확인하지만, ℝ을 무에서 구성하는 논증은 아닙니다.",
       "claimRefs": ["claim:number-systems.completeness.supremum-definition", "claim:number-systems.completeness.rational-gap"]
     },
     {
       "id": "block:mathematics.number-structures.rational-boundary",
-      "text": "유리수 후보 r을 모두 배제합니다. r<√2이면서 r≤0이면 1∈A가 r보다 커서 상한이 아닙니다. 0<r<√2이면 ℚ가 ℝ 안에서 조밀하므로 r<q<√2인 유리수 q를 잡을 수 있고, q∈A라서 역시 상한이 아닙니다. r=√2는 √2∉ℚ이므로 유리수 후보가 아닙니다. r>√2이면 √2<s<r인 유리수 s를 잡습니다. 모든 q∈A에 q<√2<s이므로 s도 상한이지만 s<r이어서 r은 최소가 아닙니다. 따라서 A는 ℚ 안에서 최소 상한이 없습니다.",
+      "text": "유리수 후보 r을 모두 배제합니다. r≤0이면 1∈A가 r보다 커서 상한이 아닙니다. 0<r<√2이면 ℚ가 ℝ 안에서 조밀하므로 r<q<√2인 유리수 q를 잡을 수 있고 q∈A라서 r은 상한이 아닙니다. r=√2는 √2∉ℚ이므로 후보가 아닙니다. r>√2이면 √2<s<r인 유리수 s를 잡습니다. 모든 q∈A에 q<√2<s이므로 s도 상한이지만 s<r입니다. 따라서 A는 ℚ 안에서 최소 상한이 없습니다.",
       "claimRefs": ["claim:number-systems.completeness.rationals-dense-in-reals", "claim:number-systems.completeness.rational-gap"]
     },
     {
       "id": "block:mathematics.number-structures.archimedean-consequence",
-      "text": "증명 개요: 최소상한 성질을 가진 순서체 F에서 자연수 집합이 위로 제한된다고 가정합니다. 그러면 s=sup ℕ이 존재합니다. s−1은 상한보다 작으므로 상한일 수 없고, 어떤 n∈ℕ에 s−1<n이 성립합니다. 양변에 1을 더하면 s<n+1입니다. 그러나 n+1∈ℕ이므로 s가 ℕ의 상한이라는 가정에 어긋납니다. 따라서 ℕ은 F에서 위로 제한되지 않습니다. 즉 완비 순서체는 무한히 큰 원소가 자연수 전체보다 큰 비아르키메데스 순서체일 수 없습니다.",
+      "text": "완비 순서체 F에서 자연수 복사가 위로 제한된다고 가정하고 s=supF ℕ이라 합시다. s−1은 상한이 아니므로 어떤 n∈ℕ에 s−1<n이고, 양변에 1을 더하면 s<n+1입니다. 그러나 n+1∈ℕ이므로 이는 s가 ℕ의 상한이라는 가정과 모순입니다. 따라서 자연수 복사는 위로 제한되지 않습니다. 다시 말해 F의 모든 양의 원소 M보다 큰 자연수 n이 있습니다. 이것이 여기서 쓰는 아르키메데스 성질입니다.",
       "claimRefs": ["claim:mathematics.number-structures.complete-ordered-field-archimedean"]
     },
     {
-      "id": "block:mathematics.number-structures.rational-cut-uniqueness",
-      "text": "증명 개요: 두 완비 순서체 F,G는 각각 0과 1에서 시작한 정수와 유리수의 복사를 갖습니다. x∈F에 대해 Lx={q∈ℚ | q<x}라는 유리수 절단을 만들고, G에서 같은 유리수 복사들의 최소 상한을 φ(x)=supG Lx로 둡니다. x<y이면 아르키메데스 성질로 x<q<y인 유리수 q를 골라 두 절단을 구별할 수 있으므로 φ는 순서를 보존하며 단사입니다. 반대로 y∈G의 유리수 절단을 F에서 최소 상한으로 올리면 그 원소가 φ를 통해 y로 가므로 전사입니다. 절단의 유리수 합·곱과 최소상한이 대응함을 확인하면 φ(x+x′)=φ(x)+φ(x′), φ(xx′)=φ(x)φ(x′)이고 φ(1)=1입니다. 따라서 두 체는 순서와 체 연산을 보존하는 동형입니다. 이것은 원소가 문자 그대로 같은 집합이라는 주장이 아닙니다.",
+      "id": "block:mathematics.number-structures.integer-part-density",
+      "text": "이제 아르키메데스 순서체 안에서 정수부분 보조정리를 증명합니다. 임의의 z에 대해 자연수 N>−z를 고르면 z+N>0입니다. 집합 E={k∈ℕ | k>z+N}는 아르키메데스 성질로 비어 있지 않습니다. 표준 자연수 복사가 갖는 정렬 원리, 즉 비어 있지 않은 자연수 부분집합에는 최소 원소가 있다는 성질로 E의 최소 원소 k를 잡습니다. z+N>0이므로 k≥1이고 k−1도 자연수입니다. k가 최소이므로 k−1∉E, 따라서 k−1≤z+N<k입니다. m=k−N이라 두면 z<m≤z+1입니다. 이제 x<y일 때 n(y−x)>1인 자연수 n을 고르고 z=nx에 보조정리를 적용합니다. nx<m≤nx+1이므로 x<m/n≤x+1/n<y입니다. 따라서 두 원소 사이에는 유리수 복사 m/n이 있습니다.",
+      "claimRefs": ["claim:mathematics.number-structures.archimedean-integer-part-density"]
+    },
+    {
+      "id": "block:mathematics.number-structures.cut-definition-order",
+      "text": "두 완비 순서체 F,G 안에서 0과 1로 생성한 유리수 복사를 각각 qF,qG로 씁니다. x∈F에 대해 Lx={q∈ℚ | qF<x}를 잡습니다. 정수부분 보조정리를 x와 −x에 적용하면 정수 m,n에 m<x<n을 얻습니다. 따라서 m∈Lx이고 nG는 {qG | qF<x}의 상한이므로 φ(x)=supG{qG | qF<x}가 정의됩니다. x<y이면 유리수 조밀성으로 x<rF<sF<y인 두 유리수 r,s를 고릅니다. rG는 φ(x) 자체의 상한이라고 말하는 것이 아니라 φ(x)를 정의하는 집합 {qG | qF<x}의 상한입니다. 그러므로 φ(x)≤rG입니다. 또 sF<y이므로 sG는 φ(y)를 정의하는 집합에 속해 sG≤φ(y)입니다. 따라서 φ(x)≤rG<sG≤φ(y)이고, φ는 순서를 엄격히 보존하므로 단사입니다.",
+      "claimRefs": ["claim:mathematics.number-structures.complete-ordered-field-uniqueness", "claim:mathematics.number-structures.archimedean-integer-part-density"]
+    },
+    {
+      "id": "block:mathematics.number-structures.cut-rational-fixing",
+      "text": "다음 두 연결고리를 증명합니다. 첫째, 모든 a∈ℚ에 φ(aF)=aG입니다. aG는 {qG | q<a}의 상한입니다. z<aG이면 G 안의 유리수 조밀성으로 z<qG<aG인 q를 고를 수 있으므로 z는 그 집합의 상한이 아닙니다. 따라서 aG가 최소 상한입니다. 특히 φ(0F)=0G, φ(1F)=1G입니다. 둘째, 모든 q∈ℚ와 x∈F에 qF<x ⇔ qG<φ(x)입니다. 앞으로는 qF<rF<x인 유리수 r을 넣으면 qG<rG≤φ(x)입니다. 뒤로는 qF≥x라면 qG가 {rG | rF<x}의 상한이어서 φ(x)≤qG이므로, qG<φ(x)일 수 없습니다. 이 동치는 이후 F와 G에서 같은 유리수 근사 조건을 식별하게 해 줍니다.",
+      "claimRefs": ["claim:mathematics.number-structures.complete-ordered-field-uniqueness", "claim:mathematics.number-structures.archimedean-integer-part-density"]
+    },
+    {
+      "id": "block:mathematics.number-structures.cut-surjectivity",
+      "text": "y∈G를 잡고 Ay={qF∈F | qG<y}로 둡니다. 정수 경계 때문에 Ay는 비어 있지 않고 위로 제한되므로 x=supF Ay가 존재합니다. qG<y이면 조밀성으로 qG<rG<y인 유리수 r을 고를 수 있고, rF∈Ay이므로 qF<rF≤x입니다. 반대로 qF<x인데 qG≥y라면 Ay의 모든 aF에 aG<y≤qG이므로 a≤q이고, qF가 Ay의 상한이 됩니다. 그러면 x≤qF여야 해서 qF<x와 모순입니다. 따라서 qF<x ⇔ qG<y입니다. 앞 장면의 비교 동치 qF<x ⇔ qG<φ(x)와 합치면 y와 φ(x) 아래에 놓인 유리수가 정확히 같습니다. 만약 y<φ(x) 또는 φ(x)<y라면 G의 유리수 조밀성으로 둘 사이의 유리수를 골라 두 아래집합이 같다는 사실과 모순됩니다. 따라서 φ(x)=y이고 φ는 전사입니다.",
+      "claimRefs": ["claim:mathematics.number-structures.complete-ordered-field-uniqueness"]
+    },
+    {
+      "id": "block:mathematics.number-structures.cut-operations",
+      "text": "먼저 순서 동형은 최소 상한을 보존합니다. s=supF S이면 φ(s)는 φ[S]의 상한입니다. v가 φ[S]의 상한이면 전사성으로 v=φ(w)인 w가 있고, 순서 보존과 역방향 보존 때문에 w는 S의 상한입니다. 따라서 s≤w이고 φ(s)≤v이므로 φ(s)=supG φ[S]입니다. 이제 SF={rF+sF | rF<x, sF<y}를 봅시다. 모든 원소가 x+y보다 작습니다. 반대로 임의의 u∈F가 u<x+y이면 u−y<rF<x인 유리수 r을 고르고, 다시 u−rF<sF<y인 유리수 s를 골라 u<rF+sF<x+y를 얻습니다. 즉 SF는 유리수뿐 아니라 F의 임의의 u를 상대로 x+y 바로 아래까지 올라가므로 supF SF=x+y입니다. φ가 유리수를 고정하고 유리수 비교 동치가 성립하므로 φ[SF]는 SG={rG+sG | rG<φ(x),sG<φ(y)}와 같습니다. G에서도 임의의 u∈G에 같은 선택을 하면 supG SG=φ(x)+φ(y)입니다. 따라서 φ(x+y)=φ(x)+φ(y)입니다. 곱셈은 x,y>0부터 봅니다. PF={rFsF | 0<rF<x,0<sF<y}에는 조밀성으로 원소가 있습니다. 임의의 u<xy에 대해 u≤0이면 아무 양의 곱이나 u보다 큽니다. 0<u<xy이면 u/y<rF<x인 유리수 r을 고르고 u/rF<sF<y인 유리수 s를 골라 u<rFsF<xy를 얻습니다. 그러므로 supF PF=xy입니다. G에서도 비교 동치와 같은 임의-u 논증으로 대응 집합의 최소 상한은 φ(x)φ(y)이고, 최소 상한 보존으로 φ(xy)=φ(x)φ(y)입니다. 유리수 고정으로 φ(0)=0이며 덧셈 보존에서 φ(−x)=−φ(x)를 얻습니다. 인수 하나가 0인 경우는 직접 확인하고, 음수 인수가 하나 또는 둘이면 − 부호를 밖으로 빼 양수 곱셈으로 환원합니다. 이로써 φ는 0,1, 순서, 덧셈, 곱셈을 모두 보존합니다.",
       "claimRefs": ["claim:mathematics.number-structures.complete-ordered-field-uniqueness"]
     },
     {
       "id": "block:mathematics.number-structures.larger-systems",
-      "text": "더 큰 체가 없다는 결론은 나오지 않습니다. 예를 들어 실수계수 유리함수체 ℝ(t)에 ‘충분히 큰 양의 t에서 함수값이 양수’라는 순서를 줄 수 있습니다. 이 순서에서는 모든 자연수 n에 대해 t>n이므로 아르키메데스 성질이 실패하고, 따라서 앞 증명에 의해 최소상한 성질을 가진 완비 순서체일 수 없습니다. 반면 ℂ는 ℝ보다 대수적으로 넓지만 실수의 표준 순서를 확장하는 순서체가 아닙니다. 더 큰 체들은 존재하며, 각각 완비 순서체 조건 가운데 완비성이나 양립 가능한 순서 같은 다른 조건을 포기합니다.",
-      "claimRefs": ["claim:mathematics.number-structures.larger-systems", "claim:number-systems.complex.not-ordered-field"]
+      "text": "유일성은 완비 순서체라는 조건 묶음 안의 정리이지 더 큰 체를 금지하는 말이 아닙니다. ℝ(t)는 실수계수 다항식의 비로 이루어진 체입니다. 상수 함수로 ℝ이 들어가고 형식적 비상수 t는 상수가 아니므로 ℝ을 진부분체로 포함합니다. 이는 집합의 원소 수가 더 많다는 주장이 아닙니다. 0이 아닌 유리함수 f를 충분히 큰 실수 입력에서 양수가 될 때 양수라고 정합시다. 이는 분자와 분모의 최고차항 계수의 비가 양수라는 것과 같습니다. 0이 아닌 f는 결국 양수이거나 −f가 결국 양수이므로 두 원소는 차의 부호로 항상 비교됩니다. 결국 양수인 두 함수는 공통으로 충분히 큰 입력에서 합과 곱도 양수이므로 양수 부분은 덧셈과 곱셈에 닫혀 있습니다. 따라서 이 정의는 체 연산과 맞는 전순서를 줍니다. 모든 자연수 n에 t−n은 충분히 큰 입력에서 양수이므로 t>n입니다. 따라서 ℝ(t)는 아르키메데스적이지 않고, 앞 정리에 의해 최소상한 성질을 가진 순서체일 수 없습니다. 같은 형식적 구성을 복소계수에 적용하면 ℂ를 진부분체로 포함하는 ℂ(t)를 얻습니다. 여기서는 ℂ(t)에 위와 같은 순서를 주지 않습니다.",
+      "claimRefs": ["claim:mathematics.number-structures.larger-systems", "claim:mathematics.number-structures.complete-ordered-field-archimedean"]
     },
     {
       "id": "block:mathematics.number-structures.ordered-field-contradiction",
-      "text": "ℂ에 실수의 표준 순서를 확장하는 순서체 전순서가 있다고 가정합니다. i²=−1이므로 i≠0이고, 삼분법에 따라 i>0 또는 −i>0입니다. 첫 갈래에서는 양수의 곱이 양수이므로 i²=−1>0입니다. 둘째 갈래에서도 (−i)²=−1>0입니다. 어느 쪽이든 실수 순서의 −1<0과 모순입니다. 따라서 그런 순서체 전순서는 없습니다. 이는 복소수에 크기, 사전식 비교, 부분순서 같은 다른 비교를 전혀 둘 수 없다는 말이 아닙니다.",
+      "text": "ℂ에 실수의 표준 순서를 확장하는 순서체 전순서가 있다고 가정합니다. i²=−1이므로 i≠0이고, 삼분법에 따라 i>0 또는 −i>0입니다. 첫 갈래에서는 양수의 곱이 양수이므로 i²=−1>0입니다. 둘째 갈래에서도 (−i)²=−1>0입니다. 어느 쪽이든 실수 순서의 −1<0과 모순입니다. 따라서 그런 순서체 전순서는 없습니다. 이는 복소수에 크기나 사전식 비교, 부분순서 같은 다른 비교를 전혀 둘 수 없다는 말이 아닙니다.",
       "claimRefs": ["claim:number-systems.complex.i-square", "claim:number-systems.complex.not-ordered-field"]
     },
     {
       "id": "block:mathematics.number-structures.choice-of-properties",
-      "text": "실수에서 복소수로 갈 때 얻는 것은 x²=−1 같은 방정식의 해와 풍부한 대수 구조이고, 잃는 것은 실수 순서를 그대로 확장하면서 곱셈과 양립하는 전순서입니다. 반대로 완비 순서체라는 목표를 유지하면 그 구조는 ℝ과 순서체 동형인 범위로 특징지어집니다. ‘완비’라는 한 단어만 떼어 놓거나 임의의 비교 관계를 허용하면 이 결론은 성립하지 않습니다. 그러므로 확장은 언제나 선택입니다. 풀고 싶은 문제, 보존할 연산, 요구할 순서·완비 조건을 함께 적어야 합니다.",
+      "text": "실수에서 복소수로 갈 때 얻는 것은 x²=−1 같은 방정식의 해와 체 구조이고, 잃는 것은 실수 순서를 그대로 확장하면서 체 연산과 양립하는 전순서입니다. 반대로 전순서, 이동 불변성, 양수 곱의 양수성, 최소상한 성질을 모두 요구하면 존재 정리로 얻은 ℝ과 동형인 구조로 특징지어집니다. ‘완비’라는 한 단어만 떼거나 임의의 비교를 허용하면 이 결론은 성립하지 않습니다. 확장은 풀고 싶은 문제와 지킬 구조를 함께 정하는 선택입니다.",
       "claimRefs": ["claim:mathematics.number-structures.extension-choice", "claim:mathematics.number-structures.completeness-scope", "claim:mathematics.number-structures.complete-ordered-field-uniqueness", "claim:number-systems.complex.not-ordered-field"]
     }
   ],

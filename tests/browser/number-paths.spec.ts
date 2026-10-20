@@ -1,20 +1,24 @@
-import {test,expect} from '@playwright/test';
+import {expect,test} from '@playwright/test';
+import {activeWork,detours,expectLongformScene,openMainWorkScene} from './support/main-work.js';
 
-for(const [from,to,last] of [
-  ['counting-zero','negative-numbers','transfer'],
-  ['negative-numbers','rational-numbers','transfer'],
-  ['rational-numbers','rational-representations','transfer'],
-  ['rational-numbers','irrational-numbers','transfer'],
-  ['rational-representations','rational-density','transfer-result'],
-  ['real-completeness','complex-numbers','transfer'],
-] as const){
-  test(`${from}: related questions offer the optional ${to} reader`,async({page})=>{
-    await page.goto(`/knowledge/${from}/#${last}`);
-    await page.waitForFunction(()=>window.__atlasRelated);
-    await page.locator('#reader-next').click();
-    const link=page.locator(`dialog[open] a[href="/knowledge/${to}/"]`);
-    await expect(link).toBeVisible();
-    await link.click();
-    await expect(page.locator('main[data-page]')).toHaveAttribute('data-page',to);
-  });
-}
+const work=activeWork('number-structures');
+
+test('number-structure detours use inline chapter entry, native history, and declared returns',async({page})=>{
+  // Given every detour declared by the current number-structure metadata.
+  for(const detour of detours(work)){
+    await test.step(detour.id,async()=>{
+      await openMainWorkScene(page,work,detour.parentSceneId);
+      const entry=page.locator(`.reader-branch-links a[href="#${detour.sceneIds[0]}"]`);
+      await expect(entry).toBeVisible();
+      // When an inline branch link is followed, traversed by native history, and explicitly returned.
+      await entry.click();
+      await expect(page).toHaveURL(new RegExp(`#${detour.sceneIds[0]}$`));
+      await expectLongformScene(page,work,detour.sceneIds[0]??'');
+      await page.goBack();await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',detour.parentSceneId);
+      await page.goForward();await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',detour.sceneIds[0]??'');
+      await page.locator(`.reader-scene:visible .reader-branch-links a[href="#${detour.returnSceneId}"]`).click();
+      // Then the authored parent, first detour scene, and return target—not retired route chains—own navigation.
+      await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',detour.returnSceneId);
+    });
+  }
+});

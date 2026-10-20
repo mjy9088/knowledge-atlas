@@ -10,15 +10,10 @@ import protonChargeLedgerPage from './proton-charge-ledger/page.js';
 import quarkEvidencePage from './quark-evidence/page.js';
 import quantumSpectraPage from './quantum-spectra/page.js';
 
-export const DISCOVERY_ENTRIES: ContentEntry[] = [
-  {directory: 'physics-discovery/inertial-motion', article: 'article.ko.json', claims: 'claims.json', page: inertialMotionPage},
-  {directory: 'physics-discovery/atom-evidence', article: 'article.ko.json', claims: 'claims.json', page: atomEvidencePage},
-  {directory: 'physics-discovery/nuclear-scattering', article: 'article.ko.json', claims: 'claims.json', page: nuclearScatteringPage},
-  {directory: 'physics-discovery/electron-evidence', article: 'article.ko.json', claims: 'claims.json', page: electronEvidencePage},
-  {directory: 'physics-discovery/nuclear-constituents', article: 'article.ko.json', claims: 'claims.json', page: nuclearConstituentsPage},
-  {directory: 'physics-discovery/quark-evidence', article: 'article.ko.json', claims: 'claims.json', page: quarkEvidencePage},
-  {directory: 'physics-discovery/proton-charge-ledger', article: 'article.ko.json', claims: 'claims.json', page: protonChargeLedgerPage},
-  {directory: 'physics-discovery/quantum-spectra', article: 'article.ko.json', claims: 'claims.json', page: quantumSpectraPage},
-  {directory: 'physics-discovery/photoelectric-evidence', article: 'article.ko.json', claims: 'claims.json', page: photoelectricEvidencePage},
-  {directory: 'physics-discovery/light-clock-time', article: 'article.ko.json', claims: 'claims.json', page: lightClockTimePage},
+const entry=(topic:string):ContentEntry=>({directory:`physics-discovery/${topic}`,article:'article.ko.json',claims:'claims.json',articleId:`article:physics-discovery.${topic}.ko`});
+
+export const DISCOVERY_ENTRIES:ContentEntry[]=[
+  entry('inertial-motion'),entry('atom-evidence'),entry('nuclear-scattering'),entry('electron-evidence'),entry('nuclear-constituents'),
+  entry('quark-evidence'),entry('proton-charge-ledger'),entry('quantum-spectra'),entry('photoelectric-evidence'),entry('light-clock-time'),
 ];
+export const DISCOVERY_PAGES=[inertialMotionPage,atomEvidencePage,nuclearScatteringPage,electronEvidencePage,nuclearConstituentsPage,quarkEvidencePage,protonChargeLedgerPage,quantumSpectraPage,photoelectricEvidencePage,lightClockTimePage] as const;

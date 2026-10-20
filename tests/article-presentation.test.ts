@@ -11,5 +11,5 @@ test('short article titles opt into compact surfaces while preserving the canoni
 });
 
 test('catalog input rejects an unsupported short title rather than rendering it',async()=>{
-  await assert.rejects(loadContentCatalog(async name=>name==='content/measurement/example/article.en.json'?{id:'article:example',title:'Example',shortTitle:42}:name==='sources/registry.json'?[]:{id:'collection:example'},{entries:[{directory:'measurement/example',article:'article.en.json',page:{slug:'example',articleId:'article:example'}}],claimFiles:[],collectionFile:'content/collections/example.json'}),/short article title/);
+  await assert.rejects(loadContentCatalog(async name=>name==='content/measurement/example/article.en.json'?{id:'article:example',title:'Example',shortTitle:42}:name==='sources/registry.json'?[]:{id:'collection:example'},{entries:[{directory:'measurement/example',article:'article.en.json',claims:'claims.json',articleId:'article:example'}],claimFiles:[],collectionFile:'content/collections/example.json'}),/short article title/);
 });

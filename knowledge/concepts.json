@@ -210,6 +210,13 @@
     "externalIds": []
   },
   {
+    "id": "concept:number-systems.counting-zero",
+    "title": "셈과 0",
+    "summary": "셈의 시작과 빈 모음의 개수 및 덧셈 항등원으로서 0의 역할",
+    "reviewStatus": "proposed",
+    "externalIds": []
+  },
+  {
     "id": "concept:number-systems.integers",
     "title": "정수",
     "summary": "자연수에 0과 덧셈 역원인 음수를 함께 둔 수 체계",
@@ -305,6 +312,20 @@
     "title": "양성자의 원자가 맛과 전하 장부",
     "summary": "uud 원자가 순맛 표기와 분수 전하 합을 계산하고, 바다 쌍과 색전하를 지닌 글루온이 배제되지 않는 이유를 설명한다.",
     "reviewStatus": "proposed",
+    "externalIds": []
+  },
+  {
+    "id": "concept:physics.newton-to-quantum",
+    "title": "뉴턴의 예측에서 양자 상태로",
+    "summary": "고전 역학의 유효 범위와 원자·복사 증거가 요구한 상태 기반 양자 기술의 연결",
+    "reviewStatus": "needs-content-review",
+    "externalIds": []
+  },
+  {
+    "id": "concept:mathematics.number-structures",
+    "title": "수 체계의 확장",
+    "summary": "자연수에서 복소수까지 연산의 장애와 보존하거나 포기하는 구조를 비교하는 설명",
+    "reviewStatus": "needs-content-review",
     "externalIds": []
   }
 ]

@@ -1,12 +1,12 @@
 import {test,expect} from '@playwright/test';
 
 test('spatial restoration synchronously draws the final reader layout before any resize callback',async({page})=>{
-  await page.goto('/knowledge/atomic-orbitals/#nodes');
+  await page.goto('/knowledge/newton-to-quantum/#orbital-density');
   await page.waitForFunction(()=>window.__atlasRelated);
   await page.getByRole('combobox',{name:'주양자수 n',exact:true}).selectOption('3');
   await page.getByRole('combobox',{name:'오비탈 종류·방향',exact:true}).selectOption('dxy');
   await page.getByRole('combobox',{name:'핵전하 Z',exact:true}).selectOption('2');
-  for(const sceneId of ['nodes','phase','views','charge']){
+  for(const sceneId of ['orbital-density','orbital-phase']){
     const result=await page.evaluate(sceneId=>{
       const api=window.__atlasRelated;
       api.setState({sceneId});
@@ -25,7 +25,7 @@ test('spatial restoration synchronously draws the final reader layout before any
 });
 
 test('a fractional-size field canvas clears every backing-store pixel before redrawing',async({page})=>{
-  await page.goto('/knowledge/atomic-orbitals/');
+  await page.goto('/knowledge/');
   const result=await page.evaluate(async()=>{
     const {mountFieldViewer}=await import('/components/spatial/field-viewer.js');
     const container=document.createElement('div');
@@ -48,7 +48,7 @@ test('a fractional-size field canvas clears every backing-store pixel before red
 });
 
 test('malformed saved camera values cannot silently reset a valid orbital view',async({page})=>{
-  await page.goto('/knowledge/atomic-orbitals/#views');
+  await page.goto('/knowledge/newton-to-quantum/#orbital-phase');
   await page.waitForFunction(()=>window.__atlasRelated);
   await page.getByRole('combobox',{name:'표시 방식',exact:true}).selectOption('slice');
   const results=await page.evaluate(()=>{

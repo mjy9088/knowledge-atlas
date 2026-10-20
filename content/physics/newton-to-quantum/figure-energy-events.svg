@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="1260" viewBox="0 0 600 1260" role="img" aria-labelledby="title desc">
+  <title id="title">같은 온도에서 본 열 스펙트럼의 세 가지 정성 비교</title>
+  <desc id="desc">같은 온도에서 관측된 봉우리와 감소, 고전적 등분배와 모드 수 증가가 만드는 고주파 발산, 현대 양자 열모형의 고주파 점유 억제를 위에서 아래로 비교합니다. 곡선은 측정 자료가 아닌 정성 도식이며 플랑크 자신의 역사적 물리 해석을 나타내지 않습니다.</desc>
+  <rect width="600" height="1260" rx="24" fill="#F7F8FB"/>
+  <g font-family="system-ui, sans-serif" fill="#172033">
+    <text x="300" y="48" font-size="32" font-weight="700" text-anchor="middle">고주파에서 무엇이 달라져야 했을까요?</text>
+    <text x="300" y="78" font-size="24" text-anchor="middle" fill="#526079">공동 벽과 복사 · 같은 온도 T의 열평형</text>
+
+    <g transform="translate(32 106)">
+      <rect width="536" height="310" rx="16" fill="#FFFFFF" stroke="#C8D0DE" stroke-width="3"/>
+      <text x="28" y="42" font-size="27" font-weight="700">1 · 관측 스펙트럼</text>
+      <text x="508" y="42" font-size="24" text-anchor="end" fill="#526079">봉우리 뒤 감소</text>
+      <g stroke="#526079" stroke-width="3">
+        <line x1="62" y1="242" x2="482" y2="242"/>
+        <line x1="62" y1="242" x2="62" y2="82"/>
+      </g>
+      <path d="M72 232 C132 218 164 163 218 111 C261 70 310 87 351 132 C393 178 438 218 472 232" fill="none" stroke="#B36A17" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="267" cy="84" r="8" fill="#B36A17"/>
+      <text x="286" y="100" font-size="24" font-weight="700">봉우리</text>
+      <text x="62" y="280" font-size="24" fill="#526079">낮은 ν</text>
+      <text x="482" y="280" font-size="24" text-anchor="end" fill="#526079">높은 ν</text>
+    </g>
+
+    <g transform="translate(32 436)">
+      <rect width="536" height="326" rx="16" fill="#FFFFFF" stroke="#C8D0DE" stroke-width="3"/>
+      <text x="28" y="42" font-size="27" font-weight="700">2 · 고전적 계산</text>
+      <text x="508" y="42" font-size="24" text-anchor="end" fill="#2C63B5">고주파 발산</text>
+      <g stroke="#526079" stroke-width="3">
+        <line x1="62" y1="250" x2="482" y2="250"/>
+        <line x1="62" y1="250" x2="62" y2="90"/>
+      </g>
+      <path d="M72 240 C144 230 209 211 272 179 C340 144 410 99 472 67" fill="none" stroke="#2C63B5" stroke-width="6" stroke-linecap="round"/>
+      <rect x="78" y="102" width="388" height="91" rx="12" fill="#F7F8FB" stroke="#C8D0DE" stroke-width="3"/>
+      <text x="272" y="139" font-size="24" text-anchor="middle">모드마다 같은 평균 에너지</text>
+      <text x="272" y="174" font-size="24" text-anchor="middle">+ 진동수에 따라 모드 수 증가</text>
+      <text x="62" y="291" font-size="24" fill="#526079">낮은 ν</text>
+      <text x="482" y="291" font-size="24" text-anchor="end" fill="#526079">높은 ν</text>
+    </g>
+
+    <g transform="translate(32 782)">
+      <rect width="536" height="326" rx="16" fill="#FFFFFF" stroke="#C8D0DE" stroke-width="3"/>
+      <text x="28" y="42" font-size="27" font-weight="700">3 · 현대 양자 열모형</text>
+      <text x="508" y="42" font-size="24" text-anchor="end" fill="#087F72">고주파 억제</text>
+      <g stroke="#526079" stroke-width="3">
+        <line x1="62" y1="250" x2="482" y2="250"/>
+        <line x1="62" y1="250" x2="62" y2="90"/>
+      </g>
+      <path d="M72 240 C132 226 164 171 218 119 C261 78 310 95 351 140 C393 186 438 226 472 240" fill="none" stroke="#087F72" stroke-width="6" stroke-linecap="round"/>
+      <g stroke="#087F72" stroke-width="5">
+        <line x1="354" y1="211" x2="354" y2="238"/>
+        <line x1="382" y1="202" x2="382" y2="238"/>
+        <line x1="410" y1="211" x2="410" y2="238"/>
+        <line x1="438" y1="219" x2="438" y2="238"/>
+      </g>
+      <text x="357" y="113" font-size="24" text-anchor="middle" fill="#526079">고정 T에서 hν가 크면</text>
+      <text x="357" y="148" font-size="24" text-anchor="middle" fill="#526079">점유와 기여가 억제됨</text>
+      <text x="62" y="291" font-size="24" fill="#526079">낮은 ν</text>
+      <text x="482" y="291" font-size="24" text-anchor="end" fill="#526079">높은 ν</text>
+    </g>
+
+    <line x1="52" y1="1140" x2="548" y2="1140" stroke="#C8D0DE" stroke-width="3"/>
+    <text x="300" y="1177" font-size="24" text-anchor="middle" fill="#526079">축과 곡선은 관계만 보이는 정성 도식입니다.</text>
+    <text x="300" y="1212" font-size="24" text-anchor="middle" fill="#526079">실제 측정값·척도나 플랑크 개인의 해석이 아닙니다.</text>
+  </g>
+</svg>

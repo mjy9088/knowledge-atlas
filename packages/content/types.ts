@@ -20,15 +20,19 @@ export interface Scene {
   skip?: {to:string;label:string};
   suggestion?: { example: string } | { n: number; basis: string; Z: number; mode?: string };
 }
+export interface ContentMainlineChapter { kind: 'mainline'; id: string; title: string; sceneIds: string[] }
+export interface ContentDetourChapter { kind: 'detour'; id: string; title: string; sceneIds: string[]; parentSceneId: string; returnSceneId: string }
+export type ContentChapter=ContentMainlineChapter|ContentDetourChapter;
 export interface ContentPage {
   slug: string; articleId: string; label: string; category: string;
   cover?: boolean;
   coverArtwork?: {src:string;alt:string};
   experiment?: boolean; model?: 'classical' | 'fde' | 'sets' | 'ch' | null;
-  interactive?: 'hydrogenic-orbitals' | 'typed-lambda' | 'binary-search' | 'sphere-slices' | 'base-rates' | 'nuclear-evidence' | 'weekday-worlds' | 'binary-relations' | 'monty-hall' | 'two-children';
+  interactive?: 'hydrogenic-orbitals' | 'physics-history' | 'typed-lambda' | 'binary-search' | 'sphere-slices' | 'base-rates' | 'nuclear-evidence' | 'weekday-worlds' | 'binary-relations' | 'monty-hall' | 'two-children';
+  navigation?: {chapters:ContentChapter[];relatedArticleIds?:string[]};
   styles?: string[]; claimRefs?: string[]; scenes: Scene[];
 }
-export interface ContentEntry { directory: string; article: string; claims: string; page: ContentPage }
+export interface ContentEntry { directory: string; article: string; claims: string; articleId: string }
 export interface CollectionMetadata {
   id: string; reviewStatus: string; sourceSnapshotVerified: boolean;
   articleRefs?: string[]; published?: boolean; schemaVersion?: number; title?: string;

@@ -25,6 +25,10 @@ Topic-owned teaching figures keep Korean words intact in their prose and caption
 - Narrow Explosion dialogue budget: 176 CSS px, retaining the bounded long-input exception. Its normal invalid-input explanation needs 162 px with the installed fonts and must not be clipped by the older 160 px cap.
 - For standard narrow readers with a visible authored multi-scene Skip, the keyboard hint owns a complete first row and Previous/Skip/Next share the second row. Keep 4px gaps, full labels and 44px targets; the hint must not collapse into a one-character-wide column. Focus-reader rails retain their separately owned layout.
 - For standard narrow readers on the final scene, Previous, the bounded keyboard hint, side-by-side end links, and Next share one row in four explicit grid columns. The footer stays within 48px; hint text may wrap naturally inside its column, end links must never underlap another column, and every button or end link retains a 44×44px minimum target and center hit access. Focus-reader rails remain excluded because they own a separate action layout.
+- A page with authored chapter navigation uses the long-form document primitive at desktop and narrow widths. The document, not `.reader-copy`, owns vertical scrolling; the selected scene has no viewport-height row, prose maximum height or internal overflow. Keep the established body scale and a readable line measure rather than reducing type to recover height.
+- A long-form spatial detour includes the viewer and domain styles, retains spatial mode while available, and reserves the existing 620px/72dvh desktop or 560px narrow workbench budget. Its displayed canvas must remain at least 240px tall; a populated backing store does not establish a visible visualization. Return to prose hides the workbench without discarding edited scientific state.
+- Long-form concept cards preserve Korean words with `word-break: keep-all` and pretty wrapping; emergency wrapping remains available for overlong formulas rather than splitting ordinary words.
+- Long-form prose also preserves Korean words, with emergency `anywhere` wrapping for overlong technical tokens. Headings balance complete words; authors may bind a short auxiliary phrase, number-unit pair or formula with nonbreaking spaces or word joiners, but never an entire overlong sentence.
 
 ## 5. Reusable primitives and states
 
@@ -32,15 +36,20 @@ Topic-owned teaching figures keep Korean words intact in their prose and caption
 - Previous/Next: enabled/disabled and first/last-scene behavior. Keep labels and focus rings; minimum hit area applies to both states.
 - Scientific goal input: editable valid/invalid draft, current value in full for normal examples, explicit focus, preserved draft during scene changes. Do not replace the actual input with a visual-only shortened formula.
 - Static teaching figure: intrinsic-ratio image followed immediately by its caption. It remains a live image with nonempty alternative text, never a background or bitmap substitute for topic-owned SVG geometry.
+- Chapter group: a labelled mainline or optional group inside the existing contents panel. Mainline groups preserve authored reading order; optional groups use the existing muted ink and never masquerade as required progress.
+- Optional branch link: a compact bordered link after readable scene prose. A mainline parent names each optional chapter; every detour exposes a visible `본문 돌아가기` link to its declared return scene. Default, hover and keyboard-focus states reuse the current link, line, paper and focus colors.
+- Long-form scene: one complete selected scene in document flow, identified by the read-only `data-presentation="longform"` marker derived from chapter navigation. Its eyebrow is local to the current chapter (`본문 k/n` or `선택 · k/n`), and its branch and return links remain visible after the prose. Previous/Next remain deterministic but do not replace native Space/Enter scrolling.
 
 ## 6. Responsive and motion behavior
 
-Test desktop and 390×844 narrow against the actual static build, including the last scene, open menu, restored state and CH's full default goal. Retain native focus and the existing reduced-motion rule. These corrections add no animation.
+Test desktop and 390×844 narrow against the actual static build, including long-form opening and longest-proof scenes, detour entry/return, restored state, the last scene, open menu and CH's full default goal. Retain native focus and the existing reduced-motion rule. These corrections add no animation. Readers without chapter navigation keep their current bounded geometry.
 
 ## 7. Accessibility constraints
 
-Measure real scroll extents, content bounds and center hit testing; capture screenshots and inspect the formula and menu area. A larger bounding box is insufficient if another element obscures it. No hidden-overflow fix, disabled zoom or scientific notation abbreviation is permitted.
+Measure real document and internal scroll extents, content bounds and center hit testing; capture screenshots and inspect the formula and menu area. Long-form prose must satisfy `scrollHeight === clientHeight` internally while the document may exceed the viewport. A larger bounding box is insufficient if another element obscures it. No hidden-overflow fix, disabled zoom or scientific notation abbreviation is permitted.
 
 ## 8. Unresolved debt
 
 The scene-by-scene [catalog assessment](../../../../docs/reviews/content-quality/README.md) remains unresolved. Dense proofs, sparse conceptual visuals, source presentation, broader accessibility and observed comprehension require their own corrective review. This scoped contract cannot certify them.
+
+The long-form chapter treatment has not yet received rendered desktop/narrow review. It deliberately adds no hidden navigation stack: scene identity, chapter metadata and the existing saved interaction snapshot remain the complete restoration contract.

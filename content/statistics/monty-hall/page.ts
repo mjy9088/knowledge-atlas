@@ -6,6 +6,10 @@ export default {
   "category": "statistics",
   "model": null,
   "experiment": false,
+  "navigation": {
+    "chapters": [{"kind":"mainline","id":"host-and-observation","title":"공개 규칙과 관측의 무게","sceneIds":["question","protocol","strategy","shortened","compare","specific","close"]}],
+    "relatedArticleIds": ["article:statistics.two-children.ko"]
+  },
   "claimRefs": [
     "claim:statistics.monty-hall.monty-strategy",
     "claim:statistics.monty-hall.monty-observation",
@@ -78,7 +82,7 @@ export default {
     },
     {
       "id": "compare",
-      "title": "같은 오답 공개, 다른 우도",
+      "title": "우연히 오답을 본 게임은 얼마나 남을까요?",
       "block": 4,
       "from": 0,
       "cards": [],
@@ -94,15 +98,15 @@ export default {
     },
     {
       "id": "specific",
-      "title": "어떤 관측에 조건을 걸었나요?",
+      "title": "2번을 열었다는 정보까지 쓰면?",
       "block": 5,
       "from": 0,
       "cards": [],
       "known": "조건을 바꿨을 때 결과가 어떻게 달라지는지 확인한다.",
       "figure": {
         "src": "/content/statistics/monty-hall/figure-specific.svg",
-        "alt": "아무 오답 문 공개와 특정 번호 문 공개는 서로 다른 조건 사건이다. 특정 번호를 조건으로 삼으면 동률 공개 정책이 중요할 수 있다.",
-        "caption": "무조건 전략 승률과 특정 관측 후 확률을 구분"
+        "alt": "처음 1번을 골랐고 정답을 아는 진행자가 2번을 열어 오답을 보인 사건 D2에 조건을 겁니다. 상품 위치가 1,2,3번일 때 남는 확률은 t/3,0,1/3입니다. 여기서 t는 상품이 1번일 때 진행자가 2번을 여는 확률입니다. 3번으로 교환해 이길 조건부확률은 1/(1+t)입니다.",
+        "caption": "공개 번호를 가리지 않은 전체 전략과, 2번이 열린 게임만 남긴 계산은 서로 다른 질문입니다."
       },
       "suggestion": {
         "example": "specific"

@@ -22,7 +22,7 @@ export function mountWeekdayLogic(container:HTMLElement){
     if(n.kind==='impossible'){
       const note=element('p','고전 논리: ⊥에서 모든 요일 명제가 도출됨. 현실의 사실은 아님. ','weekday-logic-detail weekday-explosion-note');
       note.dataset.claimRefs='claim:logic.weekday-worlds.explosion claim:logic.explosion.rule claim:logic.explosion.not-reality';
-      const link=doc.createElement('a');link.href='/lesson.html#explanation-explosion';link.textContent='모순 폭발 ↗';note.append(link);conclusion.append(note);
+  const link=doc.createElement('a');link.href='#evidence';link.textContent='근거와 범위 ↗';note.append(link);conclusion.append(note);
     }
     join.prepend('질문: ',calendarQuery(doc,input),' · ');
     if(modal)container.append(element('p','요일 계산: 두 조건을 함께 가정 · 접근 관계와는 별개','weekday-logic-join'));

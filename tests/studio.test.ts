@@ -12,7 +12,7 @@ import {createReviewPacket,createWorkPacket} from '../tools/studio/handoff.js';
 import {CONTENT_ENTRIES} from '../content/catalog.js';
 import {EXPLOSION_EPISODE} from '../content/formal-logic/explosion/episode.js';
 const root=fileURLToPath(new URL('../',import.meta.url));
-const report:Report={summary:'Test runner report, not an actual editorial review',findings:[],timing:{status:'unverified',note:'Test fixture; no timing evidence'},assessments:ASSESSMENT_DIMENSIONS.map(dimension=>({dimension,verdict:'adequate',expected:`Controlled ${dimension} fixture expectation`,actual:`Controlled ${dimension} fixture observation`,evidenceRefs:dimension==='surface'?[{kind:'build',ref:'fixture-build'},{kind:'viewport',ref:'1280x720'},{kind:'artifact',ref:'fixture://surface'}]:dimension==='source'?[{kind:'source',ref:'levin-relations'}]:dimension==='interaction'?[{kind:'execution',ref:'fixture://interaction'}]:[{kind:'artifact',ref:`fixture://${dimension}`}],requestedCorrection:'No correction requested by this protocol fixture.',invariant:'Preserve stable IDs and unresolved approval state.'}))};
+const report:Report={summary:'Test runner report, not an actual editorial review',findings:[],timing:{status:'unverified',note:'Test fixture; no timing evidence'},assessments:ASSESSMENT_DIMENSIONS.map(dimension=>({dimension,verdict:'adequate',expected:`Controlled ${dimension} fixture expectation`,actual:`Controlled ${dimension} fixture observation`,evidenceRefs:dimension==='surface'?[{kind:'build',ref:'fixture-build'},{kind:'viewport',ref:'1280x720'},{kind:'artifact',ref:'fixture://surface'}]:dimension==='source'?[{kind:'source',ref:'levin-relations'}]:dimension==='interaction'?[{kind:'execution',ref:'fixture://interaction'}]:dimension==='reasoning'||dimension==='coherence'?[{kind:'manuscript',ref:'fixture://manuscript'},{kind:'worked-reasoning',ref:'fixture://worked-reasoning'}]:dimension==='objective'||dimension==='value'?[{kind:'manuscript',ref:'fixture://manuscript'}]:[{kind:'artifact',ref:`fixture://${dimension}`}],requestedCorrection:'No correction requested by this protocol fixture.',invariant:'Preserve stable IDs and unresolved approval state.'}))};
 const provenance={verification:'user-assertion' as const,reviewer:{name:'Fixture reviewer',kind:'external-agent' as const,tool:'controlled-test'},evidence:{reviewedAt:'2026-10-18T00:00:00Z',notes:'Protocol fixture only; no independent review occurred',artifactRefs:['fixture://studio.test']}};
 function withAuthoredIntent(plan:Plan):Plan{return{...structuredClone(plan),slides:plan.slides.map(slide=>({...structuredClone(slide),intent:{status:'authored',contentRefs:[...slide.claimRefs],prerequisites:[...slide.known],successCheck:`Protocol success check for ${slide.id}`,representationRationale:`Protocol representation rationale for ${slide.id}`,interaction:{kind:'static',rationale:`Protocol static rationale for ${slide.id}`}}}))};}
 
@@ -42,15 +42,15 @@ test('video budgets are shared by format, ignore per-content overrides, persist 
 test('content creation counts the unique union of registered entries and private plans',()=>{
  const dir=mkdtempSync(path.join(os.tmpdir(),'atlas-content-limit-')),studio=new Studio(root,dir);
  try{
-  const registered=CONTENT_ENTRIES.find(entry=>!EXAMPLES.some(plan=>plan.id===entry.page.slug));assert.ok(registered);
+   const registered=CONTENT_ENTRIES.find(entry=>!EXAMPLES.some(plan=>plan.id===path.basename(entry.directory)));assert.ok(registered);const registeredId=path.basename(registered.directory);
   const template=studio.topic('two-children').plan;
-  assert.throws(()=>studio.create({...template,id:registered.page.slug,title:'Registered duplicate'}),/exists/);
+   assert.throws(()=>studio.create({...template,id:registeredId,title:'Registered duplicate'}),/exists/);
   let created=0;
   for(let index=0;index<100;index++){
    const suffix='a'.repeat(Math.floor(index/26)+1)+String.fromCharCode(97+index%26);
    try{studio.create({...template,id:`private-${suffix}`,title:`Private ${suffix}`});created++;}catch(error){assert.match(error instanceof Error?error.message:String(error),/limit/);break;}
   }
-  const registeredIds=new Set([...CONTENT_ENTRIES.map(entry=>entry.page.slug),EXPLOSION_EPISODE.id]);
+   const registeredIds=new Set([...CONTENT_ENTRIES.map(entry=>path.basename(entry.directory)),EXPLOSION_EPISODE.id]);
   assert.equal(new Set([...registeredIds,...studio.list().map(topic=>topic.plan.id)]).size,100);
   assert.ok(created>0);
  }finally{studio.dispose();rmSync(dir,{recursive:true,force:true});}

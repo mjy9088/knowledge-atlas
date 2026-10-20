@@ -7,7 +7,7 @@
   "blocks": [
     {
       "id": "block:statistics.two-children.question",
-      "text": "“자녀 둘 중 적어도 한 명이 아들이다. 둘 다 아들일 확률은?” 답을 정하기 전에 이 정보를 얻은 절차를 물어 보자.",
+      "text": "“자녀 둘 중 적어도 한 명이 아들이다. 둘\u00a0다 아들일 확률은?” 아들이 있다는 사실이 참이어도 아직 계산할 조건은 정해지지 않았습니다. 모든 가족에게 같은 질문을 한 것과, 무작위로 만난 아이가 아들이었던 것은 다른 실험입니다. 두 절차에서 어떤 경우가 더 자주 남는지 직접 세어 보면, 같은 문장에 서로 다른 답이 나오는 이유를 설명할 수 있습니다.",
       "claimRefs": [
         "claim:statistics.two-children.family-filter",
         "claim:statistics.two-children.family-child"
@@ -15,39 +15,41 @@
     },
     {
       "id": "block:statistics.two-children.model",
-      "text": "각 자녀의 성별을 독립인 두 결과로 단순화하고 각각 1/2로 둔다. 출생순으로 BB,BG,GB,GG 네 가족이 균등하다. 현실 인구 통계와 혼동하지 않는다.",
+      "text": "B는 아들, G는 딸로 쓰고 첫 글자는 첫째, 둘째 글자는 둘째를 나타냅니다. 각 자녀를 서로 독립인 두 결과로 단순화하고 B와 G의 확률을 각각 1/2로 둡니다. 그러면 BB, BG, GB, GG는 각각 1/2×1/2=1/4입니다. BG와 GB는 서로 다른 출생순입니다. 둘을 아들과\u00a0딸이\u00a0하나씩인 가족으로 묶으면 그 항목의 확률은 1/2이지 1/4이 아닙니다. 이후 계산은 이 가정 안의 결과이며 실제 인구 통계의 주장이 아닙니다.",
       "claimRefs": [
         "claim:statistics.two-children.family-model"
       ]
     },
     {
       "id": "block:statistics.two-children.filter",
-      "text": "가족을 균등 추출해 질문하고 예라고 한 가족만 남긴다. BB,BG,GB가 같은 가중치로 남아 두 아들은 1/3이다.",
+      "text": "먼저 가족을 균등하게 뽑아 모두에게 ‘적어도 한 명이 아들인가요?’라고 묻고, 빠짐없이 사실대로 답하게 합니다. BB, BG, GB는 반드시 ‘예’, GG는 반드시 ‘아니요’입니다. 따라서 ‘예’와 함께 남는 확률은 BB, BG, GB에서 각각 1/4이고, 그 합인 3/4가 관측 뒤의 분모입니다. 둘 다 아들이면서 ‘예’일 확률은 1/4이므로 답은 (1/4)/(3/4)=1/3입니다. 여기서 아들이 있다는 말은 첫째나 둘째 중 누구인지를 지정하지 않았습니다. 그래서 ‘이미 정해진 한 아이를 제외하면 다른 아이는 반반’이라는 계산을 그대로 적용할 수 없습니다.",
       "claimRefs": [
         "claim:statistics.two-children.family-filter"
       ]
     },
     {
       "id": "block:statistics.two-children.child",
-      "text": "가족을 균등 추출한 뒤 그 집 자녀 한 명을 균등하게 골랐다. 아들을 관측할 가능성은 BB에서 1, BG와 GB에서는 1/2. 남은 세 가족이 균등하지 않아 두 아들은 1/2이다.",
+      "text": "이번에는 같은 네 가족 중 하나를 균등하게 뽑은 뒤 그 집의 첫째와 둘째 중 한 명을 각각 1/2로 고릅니다. 가족과 선택한 아이를 함께 적은 조합은 여덟 가지이고 각각 1/8입니다. 아들을 만난 조합만 남기면 BB의 첫째, BB의 둘째, BG의 첫째, GB의 둘째라는 네 가지입니다. 이 중 두\u00a0가지가 BB이므로 답은 2/4=1/2입니다. 확률로 쓰면 BB는 1/4을 전부 남기지만 BG와 GB는 아들을 고른 절반인 1/8씩만 남깁니다. 분모는 1/4+1/8+1/8=1/2, 분자는 1/4이므로 같은 답을 얻습니다. 가족의 종류는 여전히 세 가지지만, 관측을 통과하는 횟수가 달라졌으므로 세 종류를 똑같이 세면 안 됩니다.",
       "claimRefs": [
         "claim:statistics.two-children.family-child"
       ]
     },
     {
       "id": "block:statistics.two-children.missing",
-      "text": "왜 아들 이야기를 했는지 규칙이 없다. 가족별로 그 말을 할 확률을 모르면 하나의 답을 확정할 수 없다. 정보가 참이어도 보고 확률이 같다고 가정할 수는 없다.",
+      "text": "같은 네 가족의 사전확률을 유지하되, 부모가 스스로 아들이 적어도 한 명 있다고 말한 경우만 남기면 어떨까요? 이 보고를 들었다는 사건을 E라 하고, BB, BG, GB에서 E가 생길 확률을 각각 a, b, c라고 합시다. 거짓말은 하지 않는다면 GG에서는 0입니다. E와 함께 남는 확률은 a/4, b/4, c/4이므로, a+b+c>0일 때 보고 뒤 두 아들일 확률은 a/(a+b+c)입니다. 다른 절차에 이 식을 쓸 때는 E도 다시 정해야 합니다. 가족 질문에서는 E가 예라는 응답을 들은 사건이고 a=b=c=1입니다. 아이 관측에서는 선택한 아이가 아들이었던 다른 사건을 E로 두며 a=1, b=c=1/2입니다. 자발적인 참인 말만으로는 이런 확률이 정해지지 않습니다. 답을 모른다는 것은 계산의 포기가 아니라, 필요한 보고 규칙이 빠졌다는 결론입니다.",
       "claimRefs": [
         "claim:statistics.two-children.family-filter",
-        "claim:statistics.two-children.family-child"
+        "claim:statistics.two-children.family-child",
+        "claim:statistics.two-children.reporting-rule"
       ]
     },
     {
       "id": "block:statistics.two-children.transfer",
-      "text": "모집단에서 무엇을 골랐고 어떤 절차로 관측했는지 적자. 기존 base-rates 콘텐츠처럼 관측된 쪽의 분모를 다시 만든다. 문장만 같다고 같은 정보 실험은 아니다.",
+      "text": "이제 질문만 ‘첫째가 아들인가요?’로 바꾸고 모든 가족이 사실대로 답하게 합시다. ‘예’인 가족은 BB와 BG뿐입니다. GB도 아들이 있지만 첫째가 딸이므로 이번에는 제외됩니다. 두 경우의 확률은 각각 1/4이어서 두 아들일 확률은 (1/4)/(1/4+1/4)=1/2입니다. 이때는 어느 아이가 아들인지 첫째로 지정되어 있으므로, 독립인 둘째의 확률이 1/2라는 직관도 맞습니다. 앞의 무작위 아이 관측과 답은 같아도 남긴 경우와 절차는 다릅니다. 답의 숫자보다 먼저 관측이 어느 경우를 얼마나 남기는지 확인해야 합니다.",
       "claimRefs": [
         "claim:statistics.two-children.family-child",
-        "claim:statistics.two-children.family-filter"
+        "claim:statistics.two-children.family-filter",
+        "claim:statistics.two-children.reporting-rule"
       ]
     }
   ],

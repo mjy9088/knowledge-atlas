@@ -2,8 +2,8 @@
   {
     "id": "claim:mathematics.number-structures.extension-choice",
     "kind": "synthesis",
-    "statement": "수 체계의 확장은 현재 체계에서 실패하는 연산이나 방정식을 해결하는 새 원소를 더하면서, 명시적으로 선택한 기존 연산과 포함 관계를 보존하는 구조적 선택이다.",
-    "scope": "ℕ→ℤ의 덧셈 역원, ℤ→ℚ의 0이 아닌 곱셈 역원, ℚ→ℝ의 최소상한 성질, ℝ→ℂ의 x²=−1 해를 비교하는 이 글의 연결 주장이다. 모든 확장이 집합 포함으로 주어지거나 유일하다는 주장은 아니며, 동형인 복사를 통한 보존도 허용한다.",
+    "statement": "수 체계의 확장은 현재 체계에서 실패하는 연산, 방정식 또는 구조적 성질 가운데 목표를 고르고, 명시적으로 선택한 기존 구조를 보존하는 선택이다.",
+    "scope": "ℕ→ℤ의 덧셈 역원, ℤ→ℚ의 0이 아닌 곱셈 역원, 한 근을 붙이는 ℚ→ℚ(√2)의 국소 수리, ℚ→ℝ의 보편 최소상한 성질, ℝ→ℂ의 x²=−1 해를 비교하는 이 글의 연결 주장이다. 모든 확장이 집합 포함으로 주어지거나 유일하다는 주장은 아니며, 동형인 복사를 통한 보존도 허용한다.",
     "assumptions": [
       "각 단계에서 보존할 연산과 구조를 따로 명시한다",
       "기존 체계는 새 체계 안의 부분구조 또는 그와 동형인 복사로 식별한다",
@@ -21,6 +21,53 @@
       {
         "sourceId": "source:beck-first-course-complex-analysis",
         "locator": "§1.1, Definition 1.1.1 and Proposition 1.1.2: ordered-pair construction of C, embedding of R, and i²=-1"
+      },
+      {
+        "sourceId": "source:mit-18-100b-lecture-3",
+        "locator": "Lecture 3, PDF p. 1: completeness is the global requirement that every bounded nonempty subset have a least upper bound; used for the structural-property branch of this synthesis"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:mathematics.number-structures.rational-addition-well-defined",
+    "kind": "formal",
+    "statement": "분모가 0이 아닌 정수쌍에서 교차곱 동치관계로 유리수를 나타낼 때, 동치인 두 대표를 다른 동치인 두 대표로 바꾸어도 분수 덧셈이 만드는 결과는 동치이므로 덧셈은 동치류 위에서 잘 정의된다.",
+    "scope": "ab′=a′b와 cd′=c′d에서 (ad+bc)b′d′=(a′d′+b′c′)bd를 직접 유도하는 독립 작성 증명이다. 곱셈을 포함한 유리수 체 공리 전체를 증명하지 않는다.",
+    "assumptions": [
+      "a,b,a′,b′,c,d,c′,d′는 정수다",
+      "b,b′,d,d′는 0이 아니다",
+      "분수 합의 대표는 (ad+bc,bd)로 정의한다",
+      "정수의 결합법칙과 교환법칙을 사용한다"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:hammack-book-of-proof",
+        "locator": "Chapter 11, §11.3, printed pp. 213–214: the nonzero-denominator fraction-expression domain and cross-product equivalence are source premises; the displayed representative-independence calculation is independently derived"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:mathematics.number-structures.sqrt2-generated-field",
+    "kind": "formal",
+    "statement": "양의 실수 √2가 존재하고 √2가 유리수가 아니라고 가정하면 ℚ(√2)={a+b√2 | a,b∈ℚ}는 덧셈, 덧셈 역원, 곱셈 및 0이 아닌 원소의 역원에 닫힌 체이며, ℚ와 √2를 포함하는 실수의 부분체 가운데 가장 작고 ℚ를 진부분체로 포함한다.",
+    "scope": "이미 주어진 실수체 안에서 한 근으로 생성한 국소 수리를 확인하는 독립 작성 구성이다. 실수체 자체를 구성하지 않고, ℚ(√2)가 ℝ의 진부분체이거나 더 작은 집합 크기를 가진다고 주장하지 않는다.",
+    "assumptions": [
+      "실수체 안에 양의 원소 √2가 있고 (√2)²=2다",
+      "√2∉ℚ다",
+      "(a+b√2)(a−b√2)=a²−2b²이고 a+b√2≠0이면 a²−2b²≠0임을 비유리성으로 확인한다",
+      "ℚ와 √2를 포함하는 모든 부분체는 체 연산에 닫혀 있어 모든 a+b√2를 포함한다",
+      "유리수는 a+0√2로 포함한다"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:mit-18-100b-lecture-3",
+        "locator": "Lecture 3, PDF pp. 2–3: existence of the positive real square root of 2 is used only as an input premise"
+      },
+      {
+        "sourceId": "source:hammack-book-of-proof",
+        "locator": "Chapter 6, §6.1, pp. 137–143: the worked contradiction proof that √2 is irrational is used only as an input premise; closure and the inverse formula are independently derived"
       }
     ],
     "reviewStatus": "draft-source-aligned"
@@ -29,7 +76,7 @@
     "id": "claim:mathematics.number-structures.completeness-scope",
     "kind": "scope-boundary",
     "statement": "이 글에서 실수의 순서 완비성은 비어 있지 않고 위로 제한된 모든 부분집합이 최소 상한을 갖는다는 성질을 뜻하며, 대수와 순서 가정 없이 ‘완비성’ 또는 코시 완비성만 말해서는 완비 순서체의 유일성 결론을 얻을 수 없다.",
-    "scope": "최소상한 성질과 코시 수열 완비성을 같은 정의로 취급하지 않기 위한 경계다. 적절한 순서체 가정 아래 알려진 동치 정리 전체를 증명하거나 부정하지 않는다.",
+    "scope": "최소상한 성질과 코시 수열 완비성을 같은 정의로 취급하지 않기 위한 독립 작성 범위 경계다. 인용한 MIT 구절은 최소상한 정의를, Goldmakher는 완비 순서체 유일성의 가정을 뒷받침할 뿐, 두 완비성 개념의 동치나 비동치를 증명하는 출처로 사용하지 않는다.",
     "assumptions": [
       "최소상한 성질의 우주는 해당 순서체다",
       "유일성 정리에는 체 연산과 그에 양립하는 전순서가 함께 가정된다",
@@ -38,11 +85,11 @@
     "sourceRefs": [
       {
         "sourceId": "source:mit-18-100b-lecture-3",
-        "locator": "Lecture 3, opening definitions: completeness is stated as every bounded nonempty subset having a least upper bound, followed by the theorem that R is a complete ordered field containing Q"
+        "locator": "Lecture 3, PDF p. 1: completeness is stated as every bounded nonempty subset having a least upper bound, together with the theorem that R is a complete ordered field containing Q"
       },
       {
         "sourceId": "source:goldmakher-complete-ordered-field",
-        "locator": "Theorem 1.1 and §§2–4: the uniqueness conclusion is explicitly for complete ordered fields and the bijection preserves order, addition, and multiplication"
+        "locator": "Theorem 1.1, PDF p. 1, and §§2–4, PDF pp. 1–5: the uniqueness conclusion is explicitly for complete ordered fields and the map is required to preserve order, addition, and multiplication"
       }
     ],
     "reviewStatus": "draft-source-aligned"
@@ -60,7 +107,26 @@
     "sourceRefs": [
       {
         "sourceId": "source:mit-18-100b-lecture-3",
-        "locator": "Lecture 3, ‘Archimedean property’ and theorem ‘The set of natural number is not bounded from above,’ including the least-upper-bound contradiction immediately following"
+        "locator": "Lecture 3, PDF p. 4, ‘Archimedean property’ and theorem ‘The set of natural number is not bounded from above,’ including the least-upper-bound contradiction immediately following"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:mathematics.number-structures.archimedean-integer-part-density",
+    "kind": "formal",
+    "statement": "자연수 복사가 위로 제한되지 않는 순서체에서는 모든 z에 대해 z<m≤z+1인 정수 m이 존재하며, 따라서 x<y인 두 체 원소 사이에는 유리수 복사가 존재한다.",
+    "scope": "자연수의 표준 정렬 원리를 함께 가정하여 E={k∈ℕ:k>z+N}의 최소 원소를 고르는 정수부분 보조정리와, n(y−x)>1인 격자에서 x<m/n<y를 얻는 독립 작성 일반 순서체 증명이다. 실수에만 정의된 바닥함수를 임의의 순서체에 전용하지 않는다.",
+    "assumptions": [
+      "체의 순서는 덧셈과 곱셈에 양립한다",
+      "자연수 복사는 위로 제한되지 않는다",
+      "표준 자연수 복사의 비어 있지 않은 부분집합에는 최소 원소가 있다",
+      "정수와 유리수 복사는 0과 1 및 체 연산으로 생성한다"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:mit-18-100b-lecture-3",
+        "locator": "Lecture 3, PDF p. 4: unboundedness of the natural-number copy supplies the Archimedean premise; the integer-part and rational-density derivations stated here are independently authored"
       }
     ],
     "reviewStatus": "draft-source-aligned"
@@ -69,7 +135,7 @@
     "id": "claim:mathematics.number-structures.complete-ordered-field-uniqueness",
     "kind": "formal",
     "statement": "임의의 두 완비 순서체 사이에는 0과 1, 덧셈, 곱셈, 순서를 보존하는 체 동형이 존재하므로 완비 순서체는 동형까지 유일하다.",
-    "scope": "각 원소를 그보다 작은 유리수들의 절단으로 기록하고 상대 체에서 그 절단의 최소 상한을 취하는 표준 유일성 논증이다. 두 체가 문자 그대로 같은 원소 집합이라는 뜻이 아니며, 완비성만으로 얻는 결론도 아니다.",
+    "scope": "각 원소를 그보다 작은 유리수들의 절단으로 기록하고 상대 체에서 그 절단의 최소 상한을 취하는 표준 유일성 논증이다. 정수부분·유리수 조밀성, 유리수 고정, 최소 상한 보존, 임의의 체 원소를 대상으로 한 합과 양의 곱의 공종성, 부호 환원까지 글 안에서 연결한다. 이 가운데 임의 원소를 대상으로 한 완전한 양의 곱 공종성 전개는 인용문을 옮긴 것이 아니라 출처가 남긴 단계를 독립적으로 채운 것이다. 두 체가 문자 그대로 같은 원소 집합이라는 뜻이 아니며, 완비성만으로 얻는 결론도 아니다.",
     "assumptions": [
       "두 구조 모두 체이며 연산과 양립하는 전순서를 가진다",
       "두 구조 모두 최소상한 성질을 만족한다",
@@ -78,11 +144,11 @@
     "sourceRefs": [
       {
         "sourceId": "source:goldmakher-complete-ordered-field",
-        "locator": "Theorem 1.1 and §§2–4: embeds the rationals, defines φ(α)=sup{φ(q):q<α}, proves bijectivity and preservation of order, addition, and multiplication"
+        "locator": "Theorem 1.1, PDF p. 1; cut nonempty/bounded on p. 2; two-rational strict order and exercise-only surjectivity on p. 3; addition on pp. 3–4; positive-only multiplication on pp. 4–5. Baggett supplies the completed surjection and sign reduction."
       },
       {
         "sourceId": "source:baggett-complete-ordered-field-appendix",
-        "locator": "Appendix, Theorem A.6, printed pp. 228–229: maps each element to its rational Dedekind cut, proves one-to-one and onto using completeness, then verifies addition, multiplication, and positivity"
+        "locator": "Appendix, Theorem A.6, PDF pp. 6–7 / printed pp. 228–229: maps elements to rational cuts and prints injection, surjection, and addition; printed p. 229 says multiplication is analogous and records sign reduction and positivity, but does not print the full positive-product cofinality proof"
       }
     ],
     "reviewStatus": "draft-source-aligned"
@@ -90,8 +156,8 @@
   {
     "id": "claim:mathematics.number-structures.larger-systems",
     "kind": "formal",
-    "statement": "실수보다 큰 수 체계와 체는 존재하며, 예를 들어 실수계수 유리함수체 ℝ(t)는 모든 자연수 n에 t>n이 되는 순서를 가질 수 있으므로 비아르키메데스 순서체이고 최소상한 의미의 완비 순서체는 아니다.",
-    "scope": "‘실수나 복소수보다 큰 체가 없다’는 오해를 반박하는 한 예다. ℝ(t)의 모든 대수·순서 성질이나 가능한 모든 확장을 분류하지 않으며, 집합 크기의 ‘더 큼’과 체 확장의 ‘더 큼’을 동일시하지 않는다.",
+    "statement": "실수계수 유리함수체 ℝ(t)는 상수 복사 ℝ을 진부분체로 포함하며, 0이 아닌 함수의 충분히 큰 양의 입력에서의 부호로 체 연산과 양립하는 전순서를 줄 수 있다. 이 순서에서는 모든 자연수 n에 t>n이므로 ℝ(t)는 아르키메데스적이지 않고 최소상한 성질을 가진 순서체가 아니다.",
+    "scope": "0이 아닌 유리함수의 최종 부호가 최고차항 계수의 비로 결정되고, 최종 양수인 함수들이 덧셈과 곱셈에 닫힌다는 확인을 포함한다. ‘더 큰’은 진부분체 포함을 뜻하며 집합의 원소 수 비교를 주장하지 않는다. ℂ(t)가 ℂ를 진부분체로 포함한다는 별도 관찰은 같은 형식적 유리함수체 정의를 적용한 독립 작성 예이며 Boas의 직접 진술이나 ℂ(t)의 순서 주장으로 돌리지 않는다.",
     "assumptions": [
       "ℝ(t)는 실수계수 다항식 비의 체다",
       "분자와 분모의 최고차항 계수 부호가 같을 때 양수로 정하는 순서를 사용한다",
@@ -100,11 +166,11 @@
     "sourceRefs": [
       {
         "sourceId": "source:boas-ordered-fields",
-        "locator": "‘Another example of an ordered field,’ slides 2–3 of the consulted PDF: orders the rational-function field by leading-coefficient signs and derives x>n for every natural number n"
+        "locator": "PDF slide 2, ‘Another example of an ordered field’: orders the rational-function field by leading-coefficient signs and derives x>n for every natural number n"
       },
       {
         "sourceId": "source:mit-18-100b-lecture-3",
-        "locator": "Lecture 3, Archimedean theorem: natural numbers are unbounded above in a complete ordered field; used to infer that the displayed non-Archimedean field is not complete"
+        "locator": "Lecture 3, PDF p. 4, Archimedean theorem: natural numbers are unbounded above in a complete ordered field; used to infer that the displayed non-Archimedean field is not complete"
       }
     ],
     "reviewStatus": "draft-source-aligned"
