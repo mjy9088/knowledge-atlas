@@ -12,15 +12,15 @@ pnpm exec playwright install chromium
 pnpm dev
 ~~~
 
-Open http://127.0.0.1:4173/ for the knowledge catalog, or /lesson.html for the self-paced explosion explanation. Premises and goals are editable inside explanations; dialogue and diagrams follow the selected model or invalidate unsupported input.
+Open http://127.0.0.1:4173/ for the knowledge catalog. Every active explanation is an equal possible starting point, not a flagship or secondary product. `/knowledge/newton-to-quantum/` and `/knowledge/number-structures/` are examples of chaptered explanations with a self-contained mainline and optional detours; they do not define the platform's subject scope or receive special catalog treatment.
 
-Explore `/knowledge/weekday-worlds/` for a question-led introduction to possible worlds and modal logic. The [topic specification](content/formal-logic/weekday-worlds/README.md) owns its narrative, interpretation limits, world editor and timed opening.
+Other current starting points include `/knowledge/weekday-worlds/`, `/knowledge/monty-hall/`, and `/knowledge/two-children/`. The [weekday topic specification](content/formal-logic/weekday-worlds/README.md) owns its narrative, interpretation limits, world editor, and timed opening.
 
-Try the question-led comparisons at `/knowledge/binary-search/`, `/knowledge/sphere-slices/`, and `/knowledge/base-rates/`: step through a search, move a cutting plane, or compare a fictional detector's expected counts. Predictions are optional; changing a condition updates the explanation and preserves your edits across scenes.
+The Newton-to-quantum orbital detour reuses the deterministic hydrogenic spatial viewer. Reader state, optional interaction state, reset, and direct scene restoration remain validated contracts; retired topics remain available as source records rather than public routes.
 
 Run `pnpm studio` for the [private content studio](tools/studio/README.md) at `http://127.0.0.1:4180`: edit manuscripts, export revision-bound implementation/review packets for OpenCode or another external agent, acknowledge external work against a computed source fingerprint, import review results with user-supplied provenance, and track feedback. No embedded chat or Codex executable is required. Workspaces, legacy chat history, feedback and build snapshots stay local and ignored; imported reports do not certify independent execution or publication approval.
 
-The [content quality contract](docs/CONTENT-QUALITY.md) guides question-led short episodes, worked reasoning and transfer evaluation. The [physics discovery](content/physics-discovery/README.md) and [number systems](content/number-systems/README.md) series exercise it in local review readers. Planned narration remains unmeasured; a source-aligned draft is not expert approval. Use `pnpm content:review -- <slug>` to export canonical evidence for critique. The 100-unit ceiling includes existing articles and standalone episodes.
+The [content quality contract](docs/CONTENT-QUALITY.md) requires content value and whole-flow coherence as well as reasoning, source, representation, interaction, and rendered review. [Newton to quantum](content/physics/newton-to-quantum/README.md) and [number structures](content/mathematics/number-structures/README.md) demonstrate optional depth, not a privileged content tier; older episode records preserve evidence rather than automatically create public products. Use `pnpm content:review -- <slug>` to export a revision-bound manuscript and unverified assessment contract. A green test, source-aligned draft, or attractive image is not content approval or evidence that the work is worth a reader's time.
 
 For asynchronous questions and current review-preview addresses, consult ignored `.local/README.md` in the active workspace. The [answer-only feedback service](tools/feedback/README.md) is separate from Studio and the public static build.
 
