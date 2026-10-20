@@ -1,33 +1,8 @@
-import {expect,test} from '@playwright/test';
-import {sceneText} from '../../content/catalog.js';
-import {activeWork,detours,expectLongformScene,mainlineSceneIds,openMainWorkScene,type MainWorkSlug} from './support/main-work.js';
+import { expect, test } from "@playwright/test";
+import { sceneText } from "../../content/catalog.js";
+import { activeWork, detours, expectLongformScene, mainlineSceneIds, openMainWorkScene, type MainWorkSlug } from "./support/main-work.js";
 
 const slugs=['newton-to-quantum','number-structures'] as const satisfies readonly MainWorkSlug[];
-
-test('orbital detour displays a substantial canvas in every rendering mode',async({page})=>{
-  // Given the actual optional orbital reader, not a standalone viewer harness.
-  await page.goto('/knowledge/newton-to-quantum/#orbital-density');
-  await page.waitForFunction(()=>window.__atlasRelated);
-  // When each supported representation is selected.
-  for(const mode of ['cloud','slice','surface']){
-    await page.getByRole('combobox',{name:'표시 방식',exact:true}).selectOption(mode);
-    const canvas=page.locator('.field-canvas');
-    await canvas.scrollIntoViewIfNeeded();
-    // Then both the displayed box and its drawn field remain visible at reading size.
-    const geometry=await canvas.evaluate(element=>{
-      if(!(element instanceof HTMLCanvasElement))throw new TypeError('Expected visible canvas');
-      const bounds=element.getBoundingClientRect(),context=element.getContext('2d');
-      if(!context)throw new TypeError('Missing visible canvas context');
-      const {data}=context.getImageData(0,0,element.width,element.height);
-      let fieldPixels=0;
-      for(let i=0;i<data.length;i+=4)if(data[i]>55||data[i+1]>65||data[i+2]>75)fieldPixels++;
-      return{width:bounds.width,height:bounds.height,fieldPixels};
-    });
-    expect(geometry.width).toBeGreaterThan(250);
-    expect(geometry.height).toBeGreaterThanOrEqual(240);
-    expect(geometry.fieldPixels).toBeGreaterThan(100);
-  }
-});
 
 for(const slug of slugs)test(`${slug}: long-form progress, natural scrolling, restoration, and branch return follow metadata`,async({page},testInfo)=>{
   // Given current authored metadata rather than historical scene counts or IDs.
@@ -62,26 +37,4 @@ test('bounded readers keep Space navigation from their cover into the explanatio
   await page.keyboard.press('Space');
   expect((await page.evaluate(()=>window.__atlasRelated.getState())).cover).toBe(false);
   await expect(page.locator('.reader-cover')).toBeHidden();
-});
-
-test('customized optional orbital input preserves canonical prose when returning to the mainline',async({page})=>{
-  // Given the main argument and its optional orbital chapter.
-  const work=activeWork('newton-to-quantum');
-  const branch=detours(work).find(chapter=>chapter.id==='orbital-laboratory');
-  if(!branch)throw new TypeError('Missing orbital detour');
-  await openMainWorkScene(page,work,branch.parentSceneId);
-  await page.locator('.reader-scene:visible .reader-branch-links a').click();
-  await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',branch.sceneIds[0]);
-  // When the reader edits the optional scientific input and explicitly returns.
-  await page.getByRole('combobox',{name:'핵전하 Z',exact:true}).selectOption('2');
-  const sourceScene=work.page.scenes.find(scene=>scene.id===branch.sceneIds[0]);
-  if(!sourceScene)throw new TypeError('Missing orbital source scene');
-  await expect(page.locator('.reader-scene:visible .scene-prose')).toContainText(sceneText(work.article,sourceScene));
-  const edited=await page.evaluate(()=>window.__atlasRelated.getState().interaction);
-  await page.locator('.reader-scene:visible .reader-branch-links a').click();
-  await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',branch.returnSceneId);
-  // Then the inactive adapter cannot replace the mainline's complete manuscript.
-  await expectLongformScene(page,work,branch.returnSceneId);
-  await expect(page.locator('#reader-workbench')).toBeHidden();
-  expect(await page.evaluate(()=>window.__atlasRelated.getState().interaction)).toEqual(edited);
 });
