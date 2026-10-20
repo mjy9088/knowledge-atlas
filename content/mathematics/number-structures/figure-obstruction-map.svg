@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 420" role="img" aria-labelledby="title desc">
+  <title id="title">막히는 질문에서 다음 수 체계로 이어지는 지도</title>
+  <desc id="desc">네 행이 자연수에서 2 빼기 5, 정수에서 2x는 1, 유리수에서 제곱이 2인 대각선, 실수에서 x 제곱은 음의 1이라는 장애를 보여 준다. 각 행의 화살표는 각각 정수, 유리수, 실수, 복소수로 이어지고, 오른쪽에는 덧셈 역원, 곱셈 역원, 최소 상한, 새로운 제곱근이라는 목표가 적혀 있다.</desc>
+  <metadata>Original Knowledge Atlas obstruction map, 2026-10-20. No external artwork, font, data, or measured geometry is reproduced. Source, mathematical, learner, rights, browser, and publication review remain separate.</metadata>
+  <defs>
+    <marker id="arrow" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#365c42"/></marker>
+  </defs>
+  <rect width="680" height="420" rx="20" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="340" y="38" text-anchor="middle" font-size="23" font-weight="700">어디서 막히고, 무엇을 더하나요?</text>
+    <g id="rows" font-size="20">
+      <g data-from="N" data-to="Z"><rect x="24" y="62" width="632" height="72" rx="14" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/><text x="54" y="105" font-weight="700">ℕ</text><text x="120" y="105">2−5</text><line x1="215" y1="98" x2="326" y2="98" stroke="#365c42" stroke-width="4" marker-end="url(#arrow)"/><text x="354" y="105" font-weight="700">ℤ</text><text x="416" y="105" fill="#526b58">덧셈 역원</text></g>
+      <g data-from="Z" data-to="Q"><rect x="24" y="144" width="632" height="72" rx="14" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/><text x="54" y="187" font-weight="700">ℤ</text><text x="120" y="187">2x=1</text><line x1="215" y1="180" x2="326" y2="180" stroke="#365c42" stroke-width="4" marker-end="url(#arrow)"/><text x="354" y="187" font-weight="700">ℚ</text><text x="416" y="187" fill="#526b58">0 아닌 곱셈 역원</text></g>
+      <g data-from="Q" data-to="R"><rect x="24" y="226" width="632" height="72" rx="14" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/><text x="54" y="269" font-weight="700">ℚ</text><text x="120" y="269">d²=2</text><line x1="215" y1="262" x2="326" y2="262" stroke="#365c42" stroke-width="4" marker-end="url(#arrow)"/><text x="354" y="269" font-weight="700">ℝ</text><text x="416" y="269" fill="#526b58">최소 상한</text></g>
+      <g data-from="R" data-to="C"><rect x="24" y="308" width="632" height="72" rx="14" fill="#e1eee3" stroke="#365c42" stroke-width="2"/><text x="54" y="351" font-weight="700">ℝ</text><text x="120" y="351">x²=−1</text><line x1="215" y1="344" x2="326" y2="344" stroke="#365c42" stroke-width="4" marker-end="url(#arrow)"/><text x="354" y="351" font-weight="700">ℂ</text><text x="416" y="351" fill="#365c42">새 제곱근</text></g>
+    </g>
+    <text x="340" y="406" text-anchor="middle" font-size="17" fill="#a56d30">화살표마다 보존할 연산과 포기할 조건을 다시 확인합니다.</text>
+  </g>
+</svg>
