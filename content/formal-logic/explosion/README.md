@@ -10,7 +10,7 @@ Never equate search failure with falsity, consistency, unprovability, or indepen
 
 ## Focused explanation
 
-`episode.ts` defines `lesson:logic.explosion.short.ko`; `packages/projection/explosion.ts` creates `projection:logic.explosion.short.ko`. `/lesson.html` reads it at the reader's pace; the local renderer projects the same source. The original 30-second `projection.json` is a separate historical draft, not overwritten by this episode.
+`episode.ts` defines `lesson:logic.explosion.short.ko`; `packages/projection/explosion.ts` creates `projection:logic.explosion.short.ko`. The standalone `/lesson.html` reader is retired from public output; the local renderer retains the same source for projection. The original 30-second `projection.json` is a separate historical draft, not overwritten by this episode.
 
 | Start | Scene |
 | --- | --- |
@@ -31,9 +31,9 @@ Every cue contains a complete presentation snapshot. Changing the goal updates i
 
 The proof-scene adapter's web reset enables both premises and Q, while the separate storyboard's `seek(0)` restores its own baseline with neither premise. These initial states are deliberately distinct; projection seeking must not inherit the web reader's state.
 
-## Related readers and model scopes
+## Retained sources and model scopes
 
-| Route | Calculation | Boundaries |
+| Retired standalone route | Retained calculation | Boundaries |
 | --- | --- | --- |
 | `/knowledge/consistency/` | Existing classical forward inference | Incomplete finite search; not a consistency decision procedure |
 | `/knowledge/paraconsistent-logic/` | FDE designated-value preservation, or a concrete countervaluation | At most five atoms; ¬, ∧, ∨; T/F/B/N values; T and B designated; rejects → and ⊥; not every paraconsistent logic |
