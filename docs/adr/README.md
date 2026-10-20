@@ -20,6 +20,7 @@ Every active ADR requires Context, Project impact, Alternatives, Decision and Co
 | [0014](0014-topic-layout-and-prototype-retirement.md) | Topic ownership and shared catalog |
 | [0016](0016-typescript-source.md) | Strict TypeScript source and static JavaScript delivery |
 | [0020](0020-article-titles-and-vector-artwork.md) | Canonical titles and optional compact presentation |
+| [0035](0035-curated-works-and-source-provenance.md) | Curated public works separate from canonical source provenance |
 
 ## Reserved historical identities
 
