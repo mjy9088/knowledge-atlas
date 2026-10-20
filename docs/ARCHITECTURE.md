@@ -24,7 +24,7 @@ Git plus JSON and TypeScript modules currently hold the source. Stable logical I
 | `tools/studio/` | Local-only manuscript editing, revision-bound external-agent handoffs, review imports and feedback |
 | `tools/feedback/` | Separate capability-scoped asynchronous question/answer inbox; never included in the static site |
 | `scripts/` | Validation, build, preview, impact analysis, local media CLI |
-| `tests/` | Model/state/build unit tests and browser regression tests |
+| `tests/` | Cross-module integration contracts and shared browser support; owner-specific checks live with their source |
 
 The browser application has no runtime npm dependencies. TypeScript, tsx, esbuild, Node declarations and Playwright are development dependencies. Astro/React, Remotion, TTS, graph databases, and job orchestration are not installed adapters.
 
@@ -53,7 +53,7 @@ Browser inspection hooks expose reader state for local testing. They do not gran
 
 Article presentation separates canonical `title` from optional `shortTitle`; the catalog loader validates both, and compact display surfaces use a shared fallback helper. Optional topic-owned SVG cover artwork is consumed only on the title slide; it is independent of catalog thumbnails. The catalog stays text-only, and the static manifest hashes the SVG alongside content. See [ADR 0020](adr/0020-article-titles-and-vector-artwork.md).
 
-`build-site.ts` and the development server share HTML generation. Catalog articles and the knowledge index are pre-rendered; client modules add navigation and experiments. Root-relative routes require deployment at the domain root; no SPA fallback is needed. The original lesson still uses client enhancement for its complete dialogue/evidence.
+`build-site.ts` and the development server share HTML generation. Catalog articles and the knowledge index are pre-rendered; client modules add navigation and experiments. Root-relative routes require deployment at the domain root; no SPA fallback is needed. The original focused-lesson source remains available to local projection tools rather than a public lesson route.
 
 The builder regenerates the fixed `dist/` directory and copies modules/styles from explicit reader asset roots plus content/model/spatial/experiment/projection data. It rejects linked output directories. Local render helpers are outside that public asset list. The static server supports GET/HEAD and directory redirects, with no conversion API.
 

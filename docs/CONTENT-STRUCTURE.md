@@ -88,12 +88,24 @@ packages/
   site/                          # Static HTML generation
 tools/media/                     # Development-only Canvas/WebCodecs UI and encoder/muxer
 scripts/                         # Build/validation/server/media commands
-tests/                           # Semantic/state/build tests and browser behavior
+tests/                           # Cross-module integration and shared browser support
 ```
 
 Keep page wiring out of models. Shared projection modules must not import page controllers or a browser DOM adapter. `proof-view.ts` provides the same presentation data to DOM and Canvas, and `premise-state.ts` provides input state without depending on its DOM editor. The original proof adapter remains a tested reference contract, although its old standalone screen is retired.
 
-The builder publishes CSS/modules only from the selected reader asset roots (`components`, `pages`, `styles`, `topics`), maps the custom lesson HTML explicitly, and generates index/article HTML from the catalog. Content/model/spatial/experiment/projection/catalog data are copied under their matching paths. New local tools belong outside `apps/web`; do not add production tools to public asset roots.
+The builder publishes CSS/modules only from the selected reader asset roots (`components`, `pages`, `styles`, `topics`) and generates active index/article HTML from the catalog. Content/model/spatial/experiment/projection/catalog data are copied under their matching paths. Test directories, fixtures and test-like filenames are excluded from both publication and development HTTP access. New local tools belong outside `apps/web`; do not add production tools to public asset roots.
+
+## Test ownership
+
+Keep a check with the narrowest source contract it verifies, not in a root folder grouped by topic name:
+
+- Scientific and mathematical fixtures, owned figures, claims and authored scene behavior belong in `content/<domain>/<topic>/tests/`; a series-wide content check may live in its domain's `tests/` directory.
+- Pure models, projections, reusable components, domain adapters and local tools keep checks in their own `tests/` directory. A topic used as an input fixture does not turn a generic component contract into a topic-owned test.
+- Node checks use `*.test.ts`. Playwright specs use `tests/browser/*.spec.ts` beneath the owner. Keep helpers and fixtures inside the same excluded test subtree; do not scatter undiscovered standalone browser scripts beside root tests.
+- Root `tests/` contains only cross-module integration and shared browser support. Split mixed reader suites by their actual contract owner rather than retaining a growing per-topic monolith.
+- Test moves preserve assertions, source locators and independent scientific fixtures. Compare runner inventories so relocation cannot silently drop coverage. Consolidate duplicate routing cases without deleting their distinct control or availability assertions.
+
+The builder and development server reserve directory segments `tests`, `__tests__` and `test-support`, and filename markers `.test.`, `.spec.` and `.browser.`, for nonpublic test material. These paths are not runtime imports or public media locations. Runner commands, project partitions and artifact directories are owned by [Development](DEVELOPMENT.md), not a second topic registry.
 
 ## Public readers and local tools
 

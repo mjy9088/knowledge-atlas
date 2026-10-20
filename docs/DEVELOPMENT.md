@@ -27,7 +27,7 @@ The development server defaults to `http://127.0.0.1:4173`; set `PORT` to choose
 | `pnpm typecheck` | Strict TypeScript contracts across source, scripts and tests |
 | `pnpm validate` | Source/claim/content references, semantic metadata, series quality records and 100-unit ceiling |
 | `pnpm content:review -- <slug>` | Export revision-bound canonical content/evidence for independent critique |
-| `pnpm test` | Node unit tests for models, state, projections, build/link/hash behavior |
+| `pnpm test` | Discover owner-local Node checks plus root integration contracts |
 | `pnpm test:ui` | Chromium regression suite against a fresh static build |
 | `pnpm check` | Type checking, validation, unit tests, then browser tests |
 | `pnpm build` | Type check, validate and generate `dist/` |
@@ -47,13 +47,15 @@ The [private studio](../tools/studio/README.md) uses its own loopback server and
 
 `playwright.config.ts` builds and serves the actual static output on dedicated port 4190, with two Chromium workers. It also starts the development server on port 4191 for the local media smoke test. Stop unrelated services on these ports before running; the runner does not reuse an existing server. The general projects use CSS viewports 1920×1080, 1920×940, 1920×900, and 390×844. The dedicated `youtube-200` project tests the weekday focus reader at 960×540 CSS pixels and DPR 2, producing a 1920×1080 screenshot that represents the required 200% physical capture. DPR alone does not change layout: a 1920×1080 CSS viewport at DPR 2 is not this target.
 
-`tests/browser/readers.spec.ts` checks catalog entry navigation, optional experiments, local media preview, all focused-lesson and related-reader scenes, every related model preset, navigation, evidence panels, input invalidation, reset, and eight-premise editing. Orbital cases additionally cover eight chapters, current-state dialogue, cloud/slice/isosurface modes, camera controls, state restoration, invalid state rejection, and deterministic seeking. Typed-lambda cases cover every chapter/example, editable terms/contexts/goals, type errors with cleared results, rule/reduction navigation, and customized/default snapshot restoration. Prose-only physics scenes are checked for actual text and control fitting. A separate browser fixture exercises the same viewer with a non-orbital spherical field. It measures document extents and actual content scroll extents, plus control bounds and hit targets. Hiding overflowing content with CSS does not satisfy these checks. Default content must fit; deliberately expanded user collections and opened reference panels may scroll internally as specified in [Product](PRODUCT.md).
+Tests follow their [source owner](CONTENT-STRUCTURE.md#test-ownership). Topic checks live under `content/<domain>/<topic>/tests/`; models, components, projections and tools keep their own `tests/`. Root `tests/` retains catalog/build/review integration and shared browser support rather than per-topic scientific checks. Browser suites cover authored scene behavior, current-input correspondence, navigation, reset/restoration and unsupported input where relevant. Generic spatial contracts include a non-orbital field, while topic fixtures retain their independently derived mathematics. Measure document and internal extents, content bounds and hit targets; hiding overflow is not a fitting solution. Use the normal and long-form scrolling contracts in [Product](PRODUCT.md).
+
+`pnpm test` passes six separately quoted recursive `*.test.ts` patterns to Node, for `apps`, `content`, `packages`, `scripts`, `tests` and `tools`. This uses native test discovery rather than a hand-maintained content test list. Public Playwright discovers owner-local `tests/browser/**/*.spec.ts` across the repository, explicitly excluding generated output, ignored workspaces and the private Studio browser tree. Studio uses `tools/studio/tests/browser/` with its own configuration. The weekday capture basename remains exclusive to `youtube-200`. TypeScript already includes all source-owner roots. Tests and helpers are never public build assets or development HTTP modules.
 
 Run a focused project or inspect failures:
 
 ```sh
-pnpm test:ui --project=desktop
-pnpm test:ui --project=youtube-200
+pnpm exec playwright test --config=playwright.config.ts --project=desktop
+pnpm exec playwright test --config=playwright.config.ts --project=youtube-200
 pnpm exec playwright show-report
 pnpm exec playwright show-trace test-results/public/<failure>/trace.zip
 ```
@@ -64,11 +66,7 @@ Studio browser tests default to port 4192. If another local review service owns 
 
 ## Static review build
 
-Additional focused routes: `/knowledge/curry-howard/`, `/knowledge/lambda-calculus/`, `/knowledge/field-quanta/`, `/knowledge/particle-interactions/`, and `/knowledge/quark-confinement/`.
-
-Question-led comparisons: `/knowledge/binary-search/`, `/knowledge/sphere-slices/`, and `/knowledge/base-rates/`. Browser regressions exercise every authored scene and default restoration, plus search completion/absence/independent seeking, sphere symmetry/tangency/empty sections/reveal, base-rate prediction/denominator/zero alerts, customized navigation, invalid drafts, rejected snapshots, reset, and actual geometry at all four supported viewports. Screenshots of initial/final scenes and changed inputs are attached to the browser report.
-
-Useful routes: `/knowledge/atomic-orbitals/` (interactive hydrogenic orbitals), `/` (knowledge catalog), `/lesson.html`, `/knowledge/`, `/knowledge/consistency/`, `/knowledge/paraconsistent-logic/`, `/knowledge/zfc/`, and `/knowledge/continuum-hypothesis/`. See [Content structure](CONTENT-STRUCTURE.md) to add a topic.
+The home page `/` and `/knowledge/` present equal starting points from the active catalog; `CONTENT_PAGES` selects routable explanations independently of preserved source records. Chaptered readers use a self-contained mainline, with directly addressable detours and declared returns where authored. The weekday focus reader retains its separate bounded layout. Browser regressions exercise scene/state contracts rather than assume that format makes one topic a flagship. Retired article URLs return the static 404 page; their source records and scientific/model fixtures remain available for review. See [Content structure](CONTENT-STRUCTURE.md) to add a topic.
 
 Deployable files are generated in `dist/`; `build-manifest.json` records builder inputs, output hashes, and pending review states. Hosting must support directory indexes and root-relative paths. A successful build is a local candidate, not authorization to upload it. Never deploy the repository or development server as the public site.
 
