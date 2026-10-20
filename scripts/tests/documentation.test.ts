@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {mkdtempSync,mkdirSync,writeFileSync,rmSync} from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import {validateDocumentation} from '../scripts/documentation.js';
+import {validateDocumentation} from '../documentation.js';
 
 function fixture(run:(root:string,write:(name:string,text:string)=>void)=>void){
   const root=mkdtempSync(path.join(os.tmpdir(),'atlas-docs-'));

@@ -3,10 +3,10 @@ import assert from 'node:assert/strict';
 import {mkdtempSync,mkdirSync,readFileSync,writeFileSync,rmSync} from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import {planVisualInstallation} from '../tools/studio/install-visuals.js';
-import {topicVisuals} from '../tools/studio/visuals.js';
-import {EXAMPLES} from '../tools/studio/examples.js';
-import {planInteractionInstallation} from '../tools/studio/install-interactions.js';
+import {planVisualInstallation} from '../install-visuals.js';
+import {topicVisuals} from '../visuals.js';
+import {EXAMPLES} from '../examples.js';
+import {planInteractionInstallation} from '../install-interactions.js';
 test('every authored scene gets a bounded, accessible, topic-specific figure without advancing its narrative',()=>{
  for(const plan of EXAMPLES){const figures=topicVisuals(plan.id);for(const slide of plan.slides){const f=figures[slide.id];assert.ok(f,`${plan.id}/${slide.id}`);assert.match(f.svg,/viewBox="0 0 600 300"/);assert.ok(f.alt.length>20&&f.caption.length>5);assert.ok(!f.svg.includes('<script'));}if(plan.id==='monty-hall')assert.ok(!figures.question.alt.includes('2/3'));if(plan.id==='two-children')assert.ok(!figures.question.alt.includes('1/3'));}
 });

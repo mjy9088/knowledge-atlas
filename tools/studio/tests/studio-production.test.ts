@@ -3,9 +3,9 @@ import assert from 'node:assert/strict';
 import {mkdtempSync,mkdirSync,writeFileSync,readFileSync,rmSync} from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import {Production} from '../tools/studio/production.js';
-import {EXAMPLES} from '../tools/studio/examples.js';
-import {createWorkPacket} from '../tools/studio/handoff.js';
+import {Production} from '../production.js';
+import {EXAMPLES} from '../examples.js';
+import {createWorkPacket} from '../handoff.js';
 import {pathToFileURL} from 'node:url';
 
 async function settled(p:Production){for(let i=0;i<200;i++){if(!p.list().some(w=>w.tasks.some(t=>t.status==='running')))return;await new Promise(r=>setTimeout(r,10));}throw Error('Timeout');}

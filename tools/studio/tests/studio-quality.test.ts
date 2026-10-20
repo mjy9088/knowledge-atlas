@@ -4,8 +4,8 @@ import {mkdtempSync,readFileSync,rmSync,writeFileSync} from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {EXAMPLES} from '../tools/studio/examples.js';
-import {Studio} from '../tools/studio/engine.js';
+import {EXAMPLES} from '../examples.js';
+import {Studio} from '../engine.js';
 import {
   ASSESSMENT_DIMENSIONS,
   readiness,
@@ -14,10 +14,10 @@ import {
   type Job,
   type Plan,
   type Report
-} from '../tools/studio/contracts.js';
-import {createReviewPacket,createWorkPacket} from '../tools/studio/handoff.js';
+} from '../contracts.js';
+import {createReviewPacket,createWorkPacket} from '../handoff.js';
 
-const root=fileURLToPath(new URL('../',import.meta.url));
+const root=fileURLToPath(new URL('../../../',import.meta.url));
 const V2_DIMENSIONS=['objective','reasoning','representation','interaction','surface','source'] as const;
 const evidenceFor=(dimension:DimensionAssessment['dimension'])=>dimension==='surface'
   ?[{kind:'build' as const,ref:'fixture-build'},{kind:'viewport' as const,ref:'1280x720'},{kind:'artifact' as const,ref:'fixture://surface'}]

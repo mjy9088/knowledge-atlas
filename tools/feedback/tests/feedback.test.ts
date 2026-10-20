@@ -4,8 +4,8 @@ import http from 'node:http';
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
-import {createFeedbackServer} from '../tools/feedback/server.js';
-import {QuestionStore} from '../tools/feedback/store.js';
+import {createFeedbackServer} from '../server.js';
+import {QuestionStore} from '../store.js';
 
 const TOKENS = {admin: 'admin-test-token-with-enough-entropy', answer: 'answer-test-token-with-enough-entropy'} as const;
 

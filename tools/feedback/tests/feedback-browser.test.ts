@@ -4,8 +4,8 @@ import {mkdtempSync,mkdirSync,rmSync} from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import {chromium,expect} from '@playwright/test';
-import {QuestionStore} from '../tools/feedback/store.js';
-import {createFeedbackServer} from '../tools/feedback/server.js';
+import {QuestionStore} from '../store.js';
+import {createFeedbackServer} from '../server.js';
 
 test('answering and editing one question preserves a sibling draft across request states',async()=>{
   const directory=mkdtempSync(path.join(os.tmpdir(),'atlas-feedback-browser-'));

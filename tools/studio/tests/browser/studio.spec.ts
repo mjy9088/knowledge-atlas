@@ -2,8 +2,8 @@ import {test,expect} from '@playwright/test';
 import {execFileSync} from 'node:child_process';
 import {readFileSync,writeFileSync} from 'node:fs';
 import path from 'node:path';
-import {ASSESSMENT_DIMENSIONS} from '../../tools/studio/contracts.js';
-import type {Plan} from '../../tools/studio/contracts.js';
+import {ASSESSMENT_DIMENSIONS} from '../../contracts.js';
+import type {Plan} from '../../contracts.js';
 
 test('brief save buttons persist title, goal, audience and sources; format budgets apply across contents',async({page,request})=>{
  await page.goto('/#binary-relations/question');await page.locator('#plan-settings summary').first().click();const initial={title:await page.locator('#plan-title').inputValue(),goal:await page.locator('#plan-goal').inputValue(),audience:await page.locator('#plan-audience').inputValue()};

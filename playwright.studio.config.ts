@@ -3,7 +3,7 @@ const studioPort=process.env['STUDIO_TEST_PORT']??'4192';
 if(!/^\d+$/.test(studioPort)||Number(studioPort)<1024||Number(studioPort)>65535)throw new RangeError('STUDIO_TEST_PORT must be a port from 1024 to 65535');
 const studioUrl=`http://127.0.0.1:${studioPort}`;
 export default defineConfig({
-  testDir:'./tests/studio-browser',workers:1,timeout:30_000,
+  testDir:'./tools/studio/tests/browser',workers:1,timeout:30_000,
   outputDir:'./test-results/studio',
   reporter:[['list'],['html',{outputFolder:'playwright-report/studio',open:'never'}]],
   use:{baseURL:studioUrl,browserName:'chromium',screenshot:'only-on-failure',trace:'retain-on-failure'},

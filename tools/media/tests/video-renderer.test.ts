@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {renderPlan,frameTime} from '../tools/media/renderer.js';
-import {ebmlSize,muxWebM} from '../tools/media/webm-muxer.js';
+import {renderPlan,frameTime} from '../renderer.js';
+import {ebmlSize,muxWebM} from '../webm-muxer.js';
 test('render clock covers all frames without gaps and rejects unsupported settings',()=>{
   for(const fps of [24,30]){const plan=renderPlan({durationMs:180000},{fps});assert.equal(plan.frameCount,180*fps);let end=0;for(let i=0;i<plan.frameCount;i++){const clock=frameTime(i,plan);assert.equal(clock.timestamp,end);end+=clock.duration;}assert.equal(end,180e6);assert.throws(()=>frameTime(plan.frameCount,plan));}
   assert.throws(()=>renderPlan({durationMs:180000},{fps:60}));assert.throws(()=>renderPlan({durationMs:180000},{width:13}));assert.throws(()=>renderPlan({durationMs:180000},{durationMs:0}));assert.throws(()=>renderPlan({durationMs:180000},{durationMs:180001}));

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {validateMedia,runMediaTool} from '../scripts/encode-mp4.js';
+import {validateMedia,runMediaTool} from '../encode-mp4.js';
 import {spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 test('MP4 conversion preflight rejects missing streams, unsupported size and excessive duration',()=>{
@@ -14,7 +14,7 @@ test('MP4 conversion preflight rejects missing streams, unsupported size and exc
 });
 
 test('MP4 CLI exposes standalone help and rejects unsupported arguments before invoking media tools',()=>{
-  const cli=fileURLToPath(new URL('../scripts/encode-mp4.ts',import.meta.url));
+  const cli=fileURLToPath(new URL('../encode-mp4.ts',import.meta.url));
   const help=spawnSync(process.execPath,['--import','tsx',cli,'--help'],{encoding:'utf8',windowsHide:true});
   assert.equal(help.status,0,help.stderr);assert.match(help.stdout,/mise exec -- ffmpeg\/ffprobe/);assert.match(help.stdout,/never overwritten/);
   for(const args of [[],['input.webm'],['--unknown','output.mp4'],['a.webm','b.mp4','extra']]){
