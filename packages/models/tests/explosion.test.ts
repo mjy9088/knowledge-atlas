@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {deriveExplosion,assertState} from '../packages/models/explosion.js';
+import {deriveExplosion,assertState} from '../explosion.js';
 
 test('both premises produce contradiction and any allowed conclusion by this route',()=>{
  for(const conclusion of ['Q','R','S']){

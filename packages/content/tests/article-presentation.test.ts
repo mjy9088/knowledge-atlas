@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {articleDisplayTitle,validateArticleTitles} from '../packages/content/presentation.js';
-import {loadContentCatalog} from '../packages/content/load-catalog.js';
+import {articleDisplayTitle,validateArticleTitles} from '../presentation.js';
+import {loadContentCatalog} from '../load-catalog.js';
 
 test('short article titles opt into compact surfaces while preserving the canonical full title',()=>{
   const article={title:'A full question (with its subject)',shortTitle:'A full question'};validateArticleTitles(article);

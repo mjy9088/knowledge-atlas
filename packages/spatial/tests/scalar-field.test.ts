@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createScalarGrid,weightedCloud,scalarIsosurface} from '../packages/spatial/scalar-field.js';
+import {createScalarGrid,weightedCloud,scalarIsosurface} from '../scalar-field.js';
 const bounds=[[-1,1],[-1,1],[-1,1]];
 test('generic constant field integrates its volume and seeded cloud samples are reproducible',()=>{
   const grid=createScalarGrid({evaluate:()=>2,weight:()=>1,bounds,resolution:10});

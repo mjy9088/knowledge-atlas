@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {weekdayNotation} from '../packages/models/weekday-notation.js';
-import {PRESET_CONTEXTS,interpretWeekdayWorlds,type WorldIndex} from '../packages/models/weekday-worlds.js';
+import {weekdayNotation} from '../weekday-notation.js';
+import {PRESET_CONTEXTS,interpretWeekdayWorlds,type WorldIndex} from '../weekday-worlds.js';
 
 test('Friday A and B display the independently derived calendar equalities and answers',()=>{
   const a=weekdayNotation({actual:6,target:4,contexts:PRESET_CONTEXTS['actual-yesterday']});

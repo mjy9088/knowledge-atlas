@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {DEFAULT_BASE_RATES,evaluateBaseRates} from '../packages/models/base-rates.js';
+import {DEFAULT_BASE_RATES,evaluateBaseRates} from '../base-rates.js';
 const close=(actual:number,expected:number)=>assert.ok(Math.abs(actual-expected)<1e-9,`${actual} differs from ${expected}`);
 test('fictional default counts distinguish detector sensitivity from posterior probability',()=>{
   const r=evaluateBaseRates(DEFAULT_BASE_RATES);

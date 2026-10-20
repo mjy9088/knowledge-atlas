@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {deducedWeekdayModal} from '../packages/models/weekday-modal.js';
-import {PRESET_CONTEXTS,type WeekdayInterpretation} from '../packages/models/weekday-worlds.js';
+import {deducedWeekdayModal} from '../weekday-modal.js';
+import {PRESET_CONTEXTS,type WeekdayInterpretation} from '../weekday-worlds.js';
 
 const input:WeekdayInterpretation={actual:0,target:4,contexts:PRESET_CONTEXTS['actual-yesterday'],worlds:[{id:0,today:0},{id:1,today:0},{id:3,today:4}]};
 test('modal projection uses deduced calendars and preserves undetermined worlds',()=>{

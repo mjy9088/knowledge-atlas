@@ -2,7 +2,7 @@
 // expectations merely to accommodate implementation changes.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {deriveProof, parseFormula} from '../packages/models/propositional.js';
+import {deriveProof, parseFormula} from '../propositional.js';
 
 function evaluate(node: ReturnType<typeof parseFormula>, values: Record<string,boolean>): boolean {
   if (node.type === 'atom') return values[node.name];

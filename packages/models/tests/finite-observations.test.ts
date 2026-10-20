@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {familyObservation,montyObservation} from '../packages/models/finite-observations.js';
+import {familyObservation,montyObservation} from '../finite-observations.js';
 test('family filtering and individual observation preserve different evidence multiplicities',()=>{
  const filter=familyObservation('filter'),child=familyObservation('child');
  assert.deepEqual(filter.map(r=>r.posterior),[1/3,1/3,1/3,0]);assert.deepEqual(child.map(r=>r.posterior),[.5,.25,.25,0]);

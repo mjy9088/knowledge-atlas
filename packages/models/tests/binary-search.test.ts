@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {analyzeBinarySearch,worstCaseProbes} from '../packages/models/binary-search.js';
+import {analyzeBinarySearch,worstCaseProbes} from '../binary-search.js';
 
 test('search finds every present target and rejects every missing integer in small arrays',()=>{
   for(let size=1;size<=64;size++)for(let target=1;target<=2*size+1;target++){

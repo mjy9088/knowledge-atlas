@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {freshWeekdayChallenge,validateWeekdayChallenge,advanceWeekdayChallenge,answerWeekdayChallenge,weekdayChallengeAt,type WeekdayChallenge} from '../packages/experiments/weekday-challenge.js';
+import {freshWeekdayChallenge,validateWeekdayChallenge,advanceWeekdayChallenge,answerWeekdayChallenge,weekdayChallengeAt,type WeekdayChallenge} from '../weekday-challenge.js';
 
 const live=():WeekdayChallenge=>({...freshWeekdayChallenge(),phase:'running',promptTarget:4,playback:'live'});
 test('a weekday choice before the deadline records a choice without grading it',()=>{

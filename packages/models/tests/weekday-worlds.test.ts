@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {weekdayWorlds,interpretWeekdayWorlds,weekdayDeductions,PRESET_CONTEXTS} from '../packages/models/weekday-worlds.js';
+import {weekdayWorlds,interpretWeekdayWorlds,weekdayDeductions,PRESET_CONTEXTS} from '../weekday-worlds.js';
 
 test('displayed calendar deductions ignore sample days and leave unlinked worlds undetermined',()=>{
   for(let actual=0;actual<7;actual++){

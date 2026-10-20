@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {validateQuality,validateContentLimit} from '../packages/content/quality.js';
+import {validateQuality,validateContentLimit} from '../quality.js';
 
 function fixture(){
   return {

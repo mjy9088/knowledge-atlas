@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {sphereSlice} from '../packages/models/sphere-slices.js';
+import {sphereSlice} from '../sphere-slices.js';
 
 test('sphere plane section recovers independent 3–4–5 triangle and central disk',()=>{
   assert.deepEqual(sphereSlice({radius:5,height:3}),{kind:'disk',radius:4,area:16*Math.PI,radiusSquared:16});

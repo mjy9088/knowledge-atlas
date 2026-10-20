@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createAlignmentModel} from '../packages/experiments/semantic-alignment.js';
+import {createAlignmentModel} from '../semantic-alignment.js';
 
 test('alignment paths preserve the entire declared ancestry and distinguish repeated text and separate roots',()=>{
   const nodes=[{id:'root',label:'expression'},{id:'left',parent:'root',label:'branch'},{id:'left-value',parent:'left',label:'x'},{id:'right',parent:'root',label:'branch'},{id:'right-value',parent:'right',label:'x'},{id:'question',label:'question'}];

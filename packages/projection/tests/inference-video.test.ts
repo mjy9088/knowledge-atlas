@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {deriveProof} from '../packages/models/propositional.js';
-import {createVideoTimeline,frameAt,timelineVtt} from '../packages/projection/timeline.js';
+import {deriveProof} from '../../models/propositional.js';
+import {createVideoTimeline,frameAt,timelineVtt} from '../timeline.js';
 
 const input = () => {const premises = ['A','A -> B']; const goal = 'B'; return {premises,goal,proof:deriveProof({premises,goal})};};
 test('video preserves model proof and freezes input rather than recomputing it',() => {

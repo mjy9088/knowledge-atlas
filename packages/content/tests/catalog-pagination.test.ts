@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {paginateCatalog} from '../packages/content/catalog-pagination.js';
+import {paginateCatalog} from '../catalog-pagination.js';
 
 test('catalog pagination assigns one hundred entries to bounded pages exactly once',()=>{
   // Given

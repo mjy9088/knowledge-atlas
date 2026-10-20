@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {displayFormula, normalizedSelection} from '../packages/experiments/formula-display.js';
-import {parseFormula, formatFormula} from '../packages/models/propositional.js';
+import {displayFormula, normalizedSelection} from '../formula-display.js';
+import {parseFormula, formatFormula} from '../../models/propositional.js';
 
 test('display aliases preserve parsed meaning and are idempotent', () => {
   for (const formula of ['P -> Q', '!(A & B) | ~C', 'RAIN_1 -> (WET | COLD)', '¬A ∧ (B → C)']) {

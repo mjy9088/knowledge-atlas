@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {deriveProof} from '../packages/models/propositional.js';
-import {INFERENCE_PRESETS} from '../packages/projection/presets.js';
-import {createVideoTimeline,frameAt,timelineVtt} from '../packages/projection/timeline.js';
+import {deriveProof} from '../../models/propositional.js';
+import {INFERENCE_PRESETS} from '../presets.js';
+import {createVideoTimeline,frameAt,timelineVtt} from '../timeline.js';
 test('lab explanation uses content length rather than padding to three minutes, with unchanged proof',()=>{
   for(const preset of Object.values(INFERENCE_PRESETS)){
     const proof=deriveProof(preset),timeline=createVideoTimeline({...preset,proof},{expanded:true});

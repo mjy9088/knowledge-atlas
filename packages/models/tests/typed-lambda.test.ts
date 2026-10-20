@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {type LambdaInput,analyzeLambda,parseType,parseTerm,formatType,formatTerm} from '../packages/models/typed-lambda.js';
+import {type LambdaInput,analyzeLambda,parseType,parseTerm,formatType,formatTerm} from '../typed-lambda.js';
 
 function validAnalysis(input: LambdaInput){const result=analyzeLambda(input);assert.ok(result.valid, !result.valid?result.message:'Expected valid lambda expression');return result;}
 

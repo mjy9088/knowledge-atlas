@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {modalFrameSystems} from '../packages/models/modal-frame-systems.js';
-import type {WorldIndex} from '../packages/models/weekday-worlds.js';
+import {modalFrameSystems} from '../modal-frame-systems.js';
+import type {WorldIndex} from '../weekday-worlds.js';
 
 test('the default frame meets S4 conditions and the reverse edge adds the S5 conditions',()=>{
   const frame={evaluationWorld:0 as const,access:[[0,0],[0,1],[1,1]] as [WorldIndex,WorldIndex][]};

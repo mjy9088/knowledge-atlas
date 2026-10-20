@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {initialLabState,validateLabState,labFrameAt,labSummary,labTrial,isFunction,relationPairs} from '../packages/models/possibility-lab.js';
+import {initialLabState,validateLabState,labFrameAt,labSummary,labTrial,isFunction,relationPairs} from '../possibility-lab.js';
 test('sampling retains the observation denominator and agrees with exact finite models',()=>{
  for(const topic of ['monty-hall','two-children'] as const)for(const mode of topic==='monty-hall'?['informed','blind'] as const:['filter','child'] as const){
   const s={...initialLabState(topic),count:10000,mode},summary=labSummary(s);

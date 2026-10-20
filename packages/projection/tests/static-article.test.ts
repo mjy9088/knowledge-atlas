@@ -1,13 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import article from '../content/number-systems/counting-zero/article.ko.json';
-import quality from '../content/number-systems/counting-zero/quality.json';
-import page from '../content/number-systems/counting-zero/page.js';
-import physicsArticle from '../content/physics-discovery/inertial-motion/article.ko.json';
-import physicsQuality from '../content/physics-discovery/inertial-motion/quality.json';
-import physicsPage from '../content/physics-discovery/inertial-motion/page.js';
-import {sceneText} from '../content/catalog.js';
-import {createStaticArticleTimeline,staticArticleFrameAt,createStaticArticleCursor} from '../packages/projection/static-article.js';
+import article from '../../../content/number-systems/counting-zero/article.ko.json';
+import quality from '../../../content/number-systems/counting-zero/quality.json';
+import page from '../../../content/number-systems/counting-zero/page.js';
+import physicsArticle from '../../../content/physics-discovery/inertial-motion/article.ko.json';
+import physicsQuality from '../../../content/physics-discovery/inertial-motion/quality.json';
+import physicsPage from '../../../content/physics-discovery/inertial-motion/page.js';
+import {sceneText} from '../../../content/catalog.js';
+import {createStaticArticleTimeline,staticArticleFrameAt,createStaticArticleCursor} from '../static-article.js';
 
 test('canonical static articles preserve all scene text and planned timing',()=>{
   // Given canonical inputs from two domains.

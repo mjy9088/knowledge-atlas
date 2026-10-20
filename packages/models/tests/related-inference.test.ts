@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {parseFormula} from '../packages/models/propositional.js';
-import {deriveFDE,evaluateFDE,deriveSetRelations,deriveCHConnections,parseSetStatement} from '../packages/models/related-inference.js';
-import {createPremiseExperiment} from '../apps/web/components/experiment/premise-editor.js';
+import {parseFormula} from '../propositional.js';
+import {deriveFDE,evaluateFDE,deriveSetRelations,deriveCHConnections,parseSetStatement} from '../related-inference.js';
+import {createPremiseExperiment} from '../../../apps/web/components/experiment/premise-editor.js';
 
 test('FDE operators agree with the published T/B/N/F truth matrices (Sutcliffe et al., Table 1)',()=>{
   const order=[1,3,0,2],and=[[1,3,0,2],[3,3,2,2],[0,2,0,2],[2,2,2,2]],or=[[1,1,1,1],[1,3,1,3],[1,1,0,0],[1,3,0,2]],not=[2,3,0,1];

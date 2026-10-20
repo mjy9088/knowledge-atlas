@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {weekdayModal} from '../packages/models/weekday-modal.js';
-import {interpretWeekdayWorlds,PRESET_CONTEXTS,type WorldIndex,type CalendarWorld} from '../packages/models/weekday-worlds.js';
+import {weekdayModal} from '../weekday-modal.js';
+import {interpretWeekdayWorlds,PRESET_CONTEXTS,type WorldIndex,type CalendarWorld} from '../weekday-worlds.js';
 
 test('alethic evaluation agrees with some/all accessible worlds for every two-world frame and valuation',()=>{
   for(let edges=0;edges<16;edges++)for(let truth=0;truth<4;truth++)for(const evaluationWorld of [0,1] as const){

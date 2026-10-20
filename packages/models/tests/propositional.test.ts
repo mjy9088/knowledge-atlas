@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {parseFormula, formatFormula, deriveProof, LIMITS, RULES} from '../packages/models/propositional.js';
+import {parseFormula, formatFormula, deriveProof, LIMITS, RULES} from '../propositional.js';
 
 test('parser normalizes aliases, operator precedence and right-associated implication safely', () => {
   assert.equal(formatFormula(parseFormula('!A & B | C -> D -> ~E')), '(((¬A ∧ B) ∨ C) → (D → ¬E))');
