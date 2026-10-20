@@ -1,5 +1,5 @@
 import {expect,test} from '@playwright/test';
-import {activeWork,detours,expectDetourReturn,expectLongformScene,expectReaderStateBoundary,openMainWorkScene} from './support/main-work.js';
+import {activeWork,detours,expectDetourReturn,expectLongformScene,expectReaderStateBoundary,openMainWorkScene} from '../../../../../tests/browser/support/main-work.js';
 
 const work=activeWork('newton-to-quantum');
 const scenes=['nuclear-atom','scattering-inference'] as const;

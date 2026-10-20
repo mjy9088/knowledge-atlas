@@ -1,5 +1,5 @@
 import {expect,test} from '@playwright/test';
-import {activeWork,detours,expectLongformScene,openMainWorkScene} from './support/main-work.js';
+import {activeWork,detours,expectLongformScene,openMainWorkScene} from '../../../../../tests/browser/support/main-work.js';
 
 const work=activeWork('number-structures');
 

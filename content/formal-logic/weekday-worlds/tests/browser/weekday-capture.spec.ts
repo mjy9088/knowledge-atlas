@@ -1,5 +1,5 @@
 import {test,expect,type Page} from '@playwright/test';
-import {CONTENT_PAGES} from '../../content/catalog.js';
+import {CONTENT_PAGES} from '../../../../catalog.js';
 
 async function fit(page:Page){
   const issues=await page.evaluate(()=>{
