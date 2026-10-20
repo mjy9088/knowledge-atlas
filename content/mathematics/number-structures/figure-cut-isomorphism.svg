@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-labelledby="title desc">
+  <title id="title">유리수 절단으로 만드는 완비 순서체 동형</title>
+  <desc id="desc">왼쪽 완비 순서체 F의 원소 x 아래에 있는 유리수 집합 Lx를 가운데에 놓고, 오른쪽 완비 순서체 G에서 같은 유리수 집합의 최소 상한을 파이 x로 정한다. 아래에는 유리수 복사가 공통 기준이며 순서, 덧셈, 곱셈을 보존하지만 두 집합의 원소가 문자 그대로 같다는 뜻은 아니라고 적혀 있다.</desc>
+  <metadata>Original Knowledge Atlas proof-sketch diagram, 2026-10-20. It independently visualizes the consulted rational-cut uniqueness argument and reproduces no external figure. Exact source revision, rights, expert, learner, and publication review remain pending.</metadata>
+  <defs><marker id="map-arrow" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11" refY="6.5" orient="auto"><path d="M0 0L13 6.5L0 13Z" fill="#365c42"/></marker></defs>
+  <rect width="720" height="420" rx="20" fill="#f6f8f0"/>
+  <g font-family="'Noto Sans CJK KR','Malgun Gothic',sans-serif" fill="#293f35">
+    <text x="360" y="38" text-anchor="middle" font-size="23" font-weight="700">같은 유리수 절단을 두 체에서 읽기</text>
+    <g id="field-f"><rect x="30" y="78" width="180" height="190" rx="18" fill="#ffffff" stroke="#d5dfcc" stroke-width="3"/><text x="120" y="112" text-anchor="middle" font-size="21" font-weight="700">완비 순서체 F</text><line x1="55" y1="208" x2="185" y2="208" stroke="#526b58" stroke-width="3"/><circle cx="150" cy="208" r="8" fill="#a56d30"/><text x="150" y="193" text-anchor="middle" font-size="20" font-weight="700" fill="#a56d30">x</text><text x="120" y="244" text-anchor="middle" font-size="17" fill="#526b58">q&lt;x인 유리수들</text></g>
+    <g id="cut"><rect x="270" y="102" width="180" height="142" rx="18" fill="#f3dcb0" stroke="#a56d30" stroke-width="3"/><text x="360" y="144" text-anchor="middle" font-size="22" font-weight="700">Lx</text><text x="360" y="177" text-anchor="middle" font-size="18">{q∈ℚ | q&lt;x}</text><text x="360" y="216" text-anchor="middle" font-size="17" fill="#526b58">유리수 절단</text></g>
+    <g id="field-g"><rect x="510" y="78" width="180" height="190" rx="18" fill="#e1eee3" stroke="#365c42" stroke-width="3"/><text x="600" y="112" text-anchor="middle" font-size="21" font-weight="700">완비 순서체 G</text><line x1="535" y1="208" x2="665" y2="208" stroke="#526b58" stroke-width="3"/><circle cx="625" cy="208" r="8" fill="#365c42"/><text x="625" y="191" text-anchor="middle" font-size="20" font-weight="700" fill="#365c42">φ(x)</text><text x="600" y="244" text-anchor="middle" font-size="17" fill="#526b58">supG Lx</text></g>
+    <path d="M210 173H258" stroke="#365c42" stroke-width="4" marker-end="url(#map-arrow)"/><path d="M450 173H498" stroke="#365c42" stroke-width="4" marker-end="url(#map-arrow)"/>
+    <g id="properties"><rect x="40" y="302" width="640" height="82" rx="14" fill="#ffffff" stroke="#d5dfcc" stroke-width="2"/><text x="360" y="334" text-anchor="middle" font-size="18" font-weight="700">공통 기준: 0과 1에서 생성한 유리수 복사</text><text x="360" y="365" text-anchor="middle" font-size="18" fill="#365c42">순서 · 덧셈 · 곱셈 보존</text></g>
+    <text x="360" y="407" text-anchor="middle" font-size="16" fill="#a56d30">동형은 구조가 같다는 뜻이며, 원소 집합의 문자 그대로의 동일성이 아닙니다.</text>
+  </g>
+</svg>
