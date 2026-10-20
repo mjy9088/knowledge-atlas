@@ -22,6 +22,8 @@ Run `pnpm studio` for the [private content studio](tools/studio/README.md) at `h
 
 The [content quality contract](docs/CONTENT-QUALITY.md) requires content value and whole-flow coherence as well as reasoning, source, representation, interaction, and rendered review. [Newton to quantum](content/physics/newton-to-quantum/README.md) and [number structures](content/mathematics/number-structures/README.md) demonstrate optional depth, not a privileged content tier; older episode records preserve evidence rather than automatically create public products. Use `pnpm content:review -- <slug>` to export a revision-bound manuscript and unverified assessment contract. A green test, source-aligned draft, or attractive image is not content approval or evidence that the work is worth a reader's time.
 
+In OpenCode, run `/atlas-improve <slug> [editorial focus]` for the author → separate content/surface reviewers → correction → current-revision gate workflow, `/atlas-review <lane> <absolute-run-directory> <reviewer-identity>` for a frozen review, or `/atlas-resume <absolute-run-directory>` to continue a saved run. These are project-local native commands, not an embedded model service. The [executable workflow tool](tools/content-workflow/README.md) persists packets and reports, rejects stale candidates and incomplete results, and keeps approval pending. Restart OpenCode after pulling command/agent changes so it discovers them.
+
 For asynchronous questions and current review-preview addresses, consult ignored `.local/README.md` in the active workspace. The [answer-only feedback service](tools/feedback/README.md) is separate from Studio and the public static build.
 
 ~~~sh
