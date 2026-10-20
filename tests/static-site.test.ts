@@ -4,7 +4,7 @@ import {readFile,stat} from 'node:fs/promises';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {CONTENT_PAGES,sceneText} from '../content/catalog.js';
-import {loadSiteContent,siteDocuments,buildSite} from '../scripts/build-site.js';
+import {loadSiteContent,siteDocuments,buildSite,projectRoot} from '../scripts/build-site.js';
 import {validateRelatedPages,escapeHTML} from '../packages/site/related-site.js';
 import {createRelatedReader} from '../apps/web/components/reader/state.js';
 import type {Article,Scene} from '../packages/content/types.js';
@@ -100,6 +100,10 @@ test('static build resolves HTML links and module imports and hashes artifacts d
   assert.equal(manifest.published,false);assert.equal(manifest.sourceSnapshotVerified,false);
   assert.ok(manifest.files.every(file=>!file.path.startsWith('tools/')),'Local production tools and private manuscripts must not enter public assets');
   assert.ok(manifest.pages.every(url=>!url.startsWith('/tools/')),'Local production tools must not become public routes');
+  assert.ok(manifest.files.every(file=>!/(?:^|\/)(?:tests|__tests__|test-support)(?:\/|$)|\.(?:test|spec|browser)\./u.test(file.path)),'Test code and supporting fixtures must not enter public output');
+  const modelTest='packages/models/tests/hydrogenic.test.ts';
+  assert.ok((await stat(path.join(projectRoot,modelTest))).isFile());
+  assert.equal(manifest.files.some(file=>file.path===modelTest.replace(/\.ts$/,'.js')),false);
   for(const file of manifest.files){
     const data=await readFile(path.join(first.output,file.path));
     assert.equal(createHash('sha256').update(data).digest('hex'),file.sha256);

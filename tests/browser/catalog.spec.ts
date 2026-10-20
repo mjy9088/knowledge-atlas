@@ -1,5 +1,6 @@
 import {test,expect} from '@playwright/test';
 import {CONTENT_PAGES} from '../../content/catalog.js';
+import {expectRetiredRoute} from './support/main-work.js';
 
 const routes=['/knowledge/newton-to-quantum/','/knowledge/number-structures/','/knowledge/weekday-worlds/','/knowledge/monty-hall/','/knowledge/two-children/'] as const;
 const retiredRoutes=[
@@ -47,13 +48,26 @@ test('catalog remains readable without JavaScript',async({browser})=>{
   await context.close();
 });
 
-test('retired reader routes return not found while active routes render',async({request})=>{
+test('retired reader routes return not found while active routes render',async({page,request})=>{
   // Given the curated route boundary.
   // When active and retired URLs are requested directly.
   const active=await Promise.all(routes.map(route=>request.get(route))),retired=await Promise.all(retiredRoutes.map(route=>request.get(route)));
   // Then active works render and retired executable screens remain absent.
   expect(active.every(response=>response.status()===200)).toBe(true);
   expect(retired.every(response=>response.status()===404)).toBe(true);
+  for(const base of ['http://127.0.0.1:4190','http://127.0.0.1:4191']){
+    const testSource=await request.get(`${base}/packages/models/tests/hydrogenic.test.js`);
+    expect(testSource.status()).toBe(404);
+  }
+  await test.step('nuclear constituents screen is deliberately retired without leaving process controls',async()=>{
+    await expectRetiredRoute(page,request,'/knowledge/nuclear-constituents/#proton','.nuclear-evidence,[data-stage],#reader-controls');
+  });
+  await test.step('quark evidence screen is deliberately retired without leaving old controls',async()=>{
+    await expectRetiredRoute(page,request,'/knowledge/quark-evidence/','.quark-evidence,#reader-controls');
+  });
+  await test.step('light-clock screen is deliberately retired without leaving old controls',async()=>{
+    await expectRetiredRoute(page,request,'/knowledge/light-clock-time/','.light-clock,#reader-controls');
+  });
 });
 
 test('every public article restores a direct scene and reset deterministically',async({page})=>{

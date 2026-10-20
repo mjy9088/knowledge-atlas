@@ -1,5 +1,6 @@
 import type {SiteContent} from '../packages/content/types.js';
 import {browserJavaScript} from './typescript.js';
+import {isTestPath} from './public-assets.js';
 import {readFile,readdir,mkdir,writeFile,rm,lstat} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import path from 'node:path';
@@ -32,6 +33,7 @@ export async function buildSite(){
   const emit=async(relative:string,data:string|Uint8Array)=>{await mkdir(path.dirname(path.join(output,relative)),{recursive:true});await writeFile(path.join(output,relative),data);files.push({path:relative,sha256:createHash('sha256').update(data).digest('hex')});};
   async function copyTree(source:string,dest:string,extensions:string[]):Promise<void>{
     for(const entry of (await readdir(path.join(root,source),{withFileTypes:true})).sort((a,b)=>a.name.localeCompare(b.name))){
+      if(isTestPath(source+'/'+entry.name))continue;
       if(entry.isSymbolicLink())throw new Error('Refusing source symlink '+entry.name);
       if(entry.isDirectory())await copyTree(source+'/'+entry.name,dest?dest+'/'+entry.name:entry.name,extensions);
       else if(extensions.includes(path.extname(entry.name))){
@@ -70,7 +72,7 @@ export async function buildSite(){
   await emit('404.html','<!doctype html><html lang="ko"><meta charset="utf-8"><title>페이지를 찾지 못했습니다</title><h1>페이지를 찾지 못했습니다</h1><a href="/knowledge/">지식 목록으로</a></html>');
   files.sort((a,b)=>a.path.localeCompare(b.path));
   const buildInputs=[];
-  for(const file of ['package.json','scripts/build-site.ts','scripts/typescript.ts','tsconfig.json','packages/site/related-site.ts'])buildInputs.push({path:file,sha256:createHash('sha256').update(await readFile(path.join(root,file))).digest('hex')});
+   for(const file of ['package.json','scripts/build-site.ts','scripts/typescript.ts','scripts/public-assets.ts','tsconfig.json','packages/site/related-site.ts'])buildInputs.push({path:file,sha256:createHash('sha256').update(await readFile(path.join(root,file))).digest('hex')});
   const manifest={schemaVersion:1,kind:'static-review-build',published:false,sourceSnapshotVerified:content.collection.sourceSnapshotVerified,reviewStatus:content.collection.reviewStatus,pages,articles:CONTENT_PAGES.map(p=>({articleId:p.articleId,url:pageURL(p)})),sources:content.sources.map(s=>({id:s.id,contentHash:s.contentHash,rightsReview:s.rightsReview})),buildInputs,files};
   await writeFile(path.join(output,'build-manifest.json'),JSON.stringify(manifest,null,2)+'\n');
   return {output,manifest};

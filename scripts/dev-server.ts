@@ -1,4 +1,5 @@
 import {browserJavaScript} from './typescript.js';
+import {isTestPath} from './public-assets.js';
 import http from 'node:http';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -30,7 +31,8 @@ const server=http.createServer(async(req,res)=>{
     res.writeHead(200,{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store','Content-Security-Policy':"default-src 'self'; style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'none'"});res.end(req.method==='HEAD'?undefined:html);return;
   }
   let matched=paths.filter(([prefix])=>url.pathname.startsWith(prefix)).sort((a,b)=>b[0].length-a[0].length)[0];
-  let rel=decodeURIComponent(url.pathname.slice(matched[0].length));
+   let rel=decodeURIComponent(url.pathname.slice(matched[0].length));
+   if(isTestPath(rel)){res.writeHead(404);res.end('Not found');return;}
   if(!rel||rel.endsWith('/'))rel+='index.html';
   const target=path.resolve(matched[1],rel);
   if(!target.startsWith(matched[1]+path.sep)){res.writeHead(403);res.end('Forbidden');return;}

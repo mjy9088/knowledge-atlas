@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createHydrogenicField,radialWavefunction,realAngular,ORBITAL_BASES} from '../packages/models/hydrogenic.js';
+import {createHydrogenicField,radialWavefunction,realAngular,ORBITAL_BASES} from '../hydrogenic.js';
 
 const near=(a: number,b: number,tolerance=1e-10)=>assert.ok(Math.abs(a-b)<tolerance,`${a} vs ${b}`);
 test('hydrogen 1s, 2s and Cartesian 2p agree with independent closed forms',()=>{

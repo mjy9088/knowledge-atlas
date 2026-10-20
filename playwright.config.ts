@@ -1,9 +1,13 @@
 import {defineConfig} from '@playwright/test';
 
+const excludedTestPaths=['**/node_modules/**','**/.git/**','**/.local/**','**/artifacts/**','**/dist/**','**/test-results/**','**/playwright-report/**','**/tools/studio/tests/browser/**'];
+const standardTestIgnores=[...excludedTestPaths,'**/weekday-capture.spec.ts'];
+
 export default defineConfig({
-  testDir: './tests/browser',
+  testDir: '.',
   outputDir: './test-results/public',
-  testMatch: '**/*.spec.ts',
+  testMatch: '**/tests/browser/**/*.spec.ts',
+  testIgnore: excludedTestPaths,
   fullyParallel: true,
   workers: 2,
   timeout: 45_000,
@@ -26,11 +30,11 @@ export default defineConfig({
     reuseExistingServer: false,
   }],
   projects: [
-    {name: 'fhd', testIgnore:'**/weekday-capture.spec.ts', use: {viewport: {width: 1920, height: 1080}}},
-    {name: 'desktop', testIgnore:'**/weekday-capture.spec.ts', use: {viewport: {width: 1920, height: 940}}},
-    {name: 'compact-desktop', testIgnore:'**/weekday-capture.spec.ts', use: {viewport: {width: 1920, height: 900}}},
-    {name: 'mobile', testIgnore:'**/weekday-capture.spec.ts', use: {viewport: {width: 390, height: 844}, isMobile: true, hasTouch: true}},
+    {name: 'fhd', testIgnore:standardTestIgnores, use: {viewport: {width: 1920, height: 1080}}},
+    {name: 'desktop', testIgnore:standardTestIgnores, use: {viewport: {width: 1920, height: 940}}},
+    {name: 'compact-desktop', testIgnore:standardTestIgnores, use: {viewport: {width: 1920, height: 900}}},
+    {name: 'mobile', testIgnore:standardTestIgnores, use: {viewport: {width: 390, height: 844}, isMobile: true, hasTouch: true}},
     // 1920×1080 physical capture at 200% scale: layout at 960×540 CSS pixels.
-    {name:'youtube-200',testMatch:'**/weekday-capture.spec.ts',use:{viewport:{width:960,height:540},deviceScaleFactor:2}},
+    {name:'youtube-200',testMatch:'**/tests/browser/weekday-capture.spec.ts',testIgnore:excludedTestPaths,use:{viewport:{width:960,height:540},deviceScaleFactor:2}},
   ],
 });
