@@ -1,13 +1,26 @@
 import {initialLabState,validateLabState,labFrameAt,labSummary,labTrial,relationPairs,isFunction,MAX_TRIALS,type LabState,type LabTopic} from '/packages/models/possibility-lab.js';
 import type {Scene} from '/packages/content/types.js';
+import {probabilityEquation,probabilityLedgerView,renderProbabilityLedger} from './possibility-ledger.js';
 
 const percent=(n:number|null)=>n===null?'아직 없음':(n*100).toFixed(1)+'%';
+const modeLabel=(mode:LabState['mode'])=>{
+ switch(mode){
+  case'filter':return'가족에게 적어도 한 명이 아들인지 묻는 절차';
+  case'child':return'가족을 고른 뒤 아이 한 명을 균등하게 관측하는 절차';
+  case'informed':return'정답을 알고 항상 미선택 염소 문을 여는 절차';
+  case'blind':return'정답을 모르고 미선택 문을 균등하게 여는 절차';
+ }
+};
+const authoredMode=(topic:LabTopic,scene:string):LabState['mode']=>topic==='two-children'?(scene==='child'?'child':'filter'):(scene==='compare'?'blind':'informed');
 export function mountPossibilityLab(topic:LabTopic,container:HTMLElement,options:{onChange?:()=>void}={}){
  let state=initialLabState(topic),scene='',active=true,playing=false,frame=0,lastTime=0,remainder=0;
+ const relation=topic==='binary-relations';
  container.className='possibility-lab';
- container.innerHTML=`<div class="lab-controls"><strong>${topic==='binary-relations'?'연결을 직접 바꿔 보세요':'정보가 생기는 과정을 골라 보세요'}</strong><button type="button" data-action="reset">실험 초기화</button></div><div class="lab-inputs"></div><div class="lab-stage-controls"><button type="button" data-action="branch">가능성 한 단계 펼치기</button><button type="button" data-action="animate">트리 펼쳐 보기</button><span class="lab-stage"></span></div><div class="lab-visuals"><svg class="lab-tree" viewBox="0 0 600 210" role="img" aria-label="가능성 분기와 관측 결과"></svg><svg class="lab-chart" viewBox="0 0 600 190" role="img" aria-label="시행 횟수에 따른 관측 비율"></svg></div><div class="lab-trials"><button type="button" data-action="one">한 번 뽑기</button><button type="button" data-action="play">반복 재생</button><button type="button" data-count="10">10회</button><button type="button" data-count="100">100회</button><button type="button" data-count="1000">1,000회</button><label>시행 <input class="lab-count" type="range" min="0" max="10000" step="1" value="0"></label><label>시드 <input class="lab-seed" type="number" min="0" max="4294967295" value="42"></label></div><p class="lab-status" role="status" aria-live="polite"></p><p class="lab-note"></p>`;
+ const trials=`<div class="lab-trials"><button type="button" data-action="one">한 번 뽑기</button><button type="button" data-action="play">반복 재생</button><button type="button" data-count="10">10회</button><button type="button" data-count="100">100회</button><button type="button" data-count="1000">1,000회</button><label>시행 <input class="lab-count" type="range" min="0" max="10000" step="1" value="0"></label><label>시드 <input class="lab-seed" type="number" min="0" max="4294967295" value="42"></label></div>`;
+ container.innerHTML=`<div class="lab-controls"><strong>${relation?'연결을 직접 바꿔 보세요':'정보가 생기는 과정을 골라 보세요'}</strong><button type="button" data-action="reset">실험 초기화</button></div><div class="lab-inputs"></div><div class="lab-stage-controls"><button type="button" data-action="branch">가능성 한 단계 펼치기</button><button type="button" data-action="animate">${relation?'트리':'계산'} 펼쳐 보기</button><span class="lab-stage"></span></div>${relation?`<div class="lab-visuals"><svg class="lab-tree" viewBox="0 0 600 210" role="img" aria-label="가능성 분기와 관측 결과"></svg><svg class="lab-chart" viewBox="0 0 600 190" role="img" aria-label="시행 횟수에 따른 관측 비율"></svg></div>${trials}<p class="lab-status" role="status" aria-live="polite"></p>`:`<div class="lab-ledger"></div><p class="lab-note"></p><details class="lab-sampling"><summary>표본 실험 (선택)</summary>${trials}<svg class="lab-chart" viewBox="0 0 600 190" role="img" aria-label="시행 횟수에 따른 관측 비율"></svg><p class="lab-status" role="status" aria-live="polite"></p><p class="lab-sample-note">표본 비율은 흔들리며, 매번 이론값에 더 가까워지지는 않습니다.</p></details>`}${relation?'<p class="lab-note"></p>':''}`;
  const el=<T extends Element=HTMLElement>(selector:string)=>container.querySelector<T>(selector)!;
- const inputs=el('.lab-inputs'),tree=el<SVGSVGElement>('.lab-tree'),chart=el<SVGSVGElement>('.lab-chart');
+  const inputs=el('.lab-inputs'),tree=container.querySelector<SVGSVGElement>('.lab-tree'),chart=el<SVGSVGElement>('.lab-chart');
+  const chartLegend=document.createElement('p');chartLegend.className='lab-chart-legend';chart.after(chartLegend);
  if(topic==='binary-relations')inputs.innerHTML=['민 → 논리','민 → 확률','수 → 논리','수 → 확률'].map((label,i)=>`<button type="button" data-edge="${i}" aria-pressed="false">${label}</button>`).join('');
  else inputs.innerHTML=topic==='monty-hall'?`<label>공개 규칙 <select class="lab-mode"><option value="informed">정답을 알고 항상 오답 공개</option><option value="blind">모르고 미선택 문 무작위 공개</option></select></label><label>처음 고를 문 <select class="lab-choice"><option value="1">1번</option><option value="2">2번</option><option value="3">3번</option></select></label><button type="button" data-action="reveal">선택 후 문 열기</button>`:`<label>정보를 얻는 과정 <select class="lab-mode"><option value="filter">가족에게 적어도 한 명이 아들인지 질문</option><option value="child">아이 한 명을 균등하게 골라 아들 관측</option></select></label><button type="button" data-action="reveal">한 가족 살펴보기</button>`;
  const line=(x:number,y:number,x2:number,y2:number,color='#599782')=>`<path pathLength="1" d="M${x} ${y} L${x2} ${y2}" stroke="${color}" stroke-width="3" fill="none"/>`;
@@ -15,12 +28,13 @@ export function mountPossibilityLab(topic:LabTopic,container:HTMLElement,options
  const dot=(x:number,y:number,text:string,on=true)=>`<circle cx="${x}" cy="${y-5}" r="23" fill="${on?'#dceee4':'#f0efeb'}" stroke="#81a998"/>${label(x,y,text)}`;
  function stop(){delete container.dataset.unfolding;playing=false;cancelAnimationFrame(frame);lastTime=0;remainder=0;el('[data-action="play"]').textContent='반복 재생';}
  function render(){
-  const relation=topic==='binary-relations',summary=labSummary(state);
-  el('.lab-trials').toggleAttribute('hidden',relation);chart.toggleAttribute('hidden',relation||!state.count);
-  el('.lab-stage').textContent=`분기 ${state.stage} / 3`;
+  const summary=labSummary(state);
+   el('.lab-trials').toggleAttribute('hidden',relation);chart.toggleAttribute('hidden',relation||!state.count);chartLegend.hidden=relation||!state.count;
+  el('.lab-stage').textContent=`${relation?'분기':'계산'} ${state.stage} / 3`;
   el<HTMLButtonElement>('[data-action="branch"]').disabled=state.stage===3;
   el<HTMLInputElement>('.lab-count').value=String(state.count);el<HTMLInputElement>('.lab-seed').value=String(state.seed);
   if(relation){
+   if(!tree)throw new TypeError('Binary relation tree is required');
    for(const b of container.querySelectorAll<HTMLButtonElement>('[data-edge]'))b.setAttribute('aria-pressed',String(Boolean(state.edges&(1<<Number(b.dataset.edge)))));
    const edges=[0,1,2,3].filter(i=>state.edges&(1<<i));
    tree.innerHTML=(state.stage>0?edges.map(i=>line(130,60+Math.floor(i/2)*90,460,60+i%2*90)).join(''):'')+dot(105,65,'민')+dot(105,155,'수')+dot(490,65,'논리')+dot(490,155,'확률');
@@ -28,22 +42,21 @@ export function mountPossibilityLab(topic:LabTopic,container:HTMLElement,options
    el('.lab-status').textContent=relationPairs(state.edges).join(' · ')||'빈 관계: 연결 없음';
    el('.lab-note').textContent=`행: 민·수 / 열: 논리·확률 → [${[0,1,2,3].map(i=>Number(Boolean(state.edges&(1<<i)))).join(', ')}]. ${isFunction(state.edges)?'각 입력에 출력이 정확히 하나: 함수입니다.':'각 입력에 출력이 정확히 하나여야 함수입니다.'}`;
   }else{
-   el<HTMLSelectElement>('.lab-mode').value=state.mode;if(topic==='monty-hall')el<HTMLSelectElement>('.lab-choice').value=String(state.choice);
-   const family=topic==='two-children',names=family?['BB','BG','GB','GG']:['상품 1','상품 2','상품 3'],xs=names.map((_,i)=>60+i*480/(names.length-1)),theory=family?(state.mode==='filter'?'1/3':'1/2'):(state.mode==='informed'?'2/3':'1/2');
-   const latest=state.count&&state.revealed?labTrial(state,state.count-1):null;
-   tree.innerHTML=label(300,22,family?'가족 균등 추출 · B 아들 / G 딸':`상품 균등 배치 · 처음 선택 ${state.choice}번`)+(state.stage>=1?names.map((n,i)=>{const chosen=latest?.branch===(family?n:`상품 ${i+1}번`);return line(300,30,xs[i],70,chosen?'#c17a31':'#599782')+dot(xs[i],88,n,!latest||chosen)+label(xs[i],126,family?'사전 1/4':'사전 1/3');}).join(''):'')+(state.stage>=2?names.map((_,i)=>line(xs[i],137,xs[i],157)+label(xs[i],179,family?`관측 우도 ${i===3?'0':state.mode==='filter'||i===0?'1':'1/2'}`:`오답 우도 ${state.mode==='informed'||i+1===state.choice?'1':'1/2'}`)).join(''):'')+(state.stage>=3?label(300,207,`${family?'둘 다 아들':'항상 교환'} | 관측 조건 → 이론값 ${theory}`):'');
+    el<HTMLSelectElement>('.lab-mode').value=state.mode;if(topic==='monty-hall')el<HTMLSelectElement>('.lab-choice').value=String(state.choice);
+    const family=topic==='two-children',theory=family?(state.mode==='filter'?'1/3':'1/2'):(state.mode==='informed'?'2/3':'1/2');
+    renderProbabilityLedger(el('.lab-ledger'),probabilityLedgerView(topic,state),state.stage);
    const points=summary.points.map(p=>`${45+510*p.count/Math.max(1,state.count)},${150-120*p.rate}`).join(' '),y=150-120*summary.theoretical;
-   chart.innerHTML=line(45,20,45,150,'#a4aaa7')+line(45,150,560,150,'#a4aaa7')+`<path d="M45 ${y} H560" stroke="#ab7850" stroke-dasharray="6 4"/><polyline points="${points}" fill="none" stroke="#356bba" stroke-width="3"/>`+label(300,184,`시도 0 → ${state.count.toLocaleString()}회 · 파랑: 관측 비율 · 점선: 이론값 ${theory}`)+label(23,35,'1')+label(23,155,'0');
+    chart.innerHTML=line(45,20,45,150,'#a4aaa7')+line(45,150,560,150,'#a4aaa7')+`<path d="M45 ${y} H560" stroke="#ab7850" stroke-dasharray="6 4"/><polyline points="${points}" fill="none" stroke="#356bba" stroke-width="3"/>`+label(23,35,'1')+label(23,155,'0');
+    chartLegend.textContent=`가로: 시도 0 → ${state.count.toLocaleString()}회 · 세로: 조건 충족 시행의 성공 비율 0 → 1 · 파란 실선: 표본 비율 · 갈색 점선: 정확한 이론값 ${theory}`;
    const trial=state.revealed?labTrial(state,Math.max(0,state.count-1)):null;
    el('.lab-status').textContent=`시도 ${summary.attempted.toLocaleString()}회 · 조건 충족 ${summary.accepted.toLocaleString()}회 · ${family?'둘 다 아들':'교환 승리'} ${summary.successes.toLocaleString()}회 · 관측 비율 ${percent(summary.rate)}${trial?` — ${trial.branch}, ${trial.detail}: ${trial.accepted?trial.success?'성공':'실패':'조건 불충족 (집계 제외)'}`:''}`;
-   el('.lab-note').textContent=family?'독립·아들/딸 각각 1/2인 단순 모형. 조건을 충족한 가족만 분모에 포함합니다.':'교환 전략 고정. 공개한 문이 오답인 시행에 조건을 겁니다. 공개 번호 자체에는 조건을 걸지 않습니다. 오답 둘 중 하나는 균등 선택합니다.';
-   if(state.count)el('.lab-note').textContent+=' 표본 비율은 흔들리며, 매번 이론값에 더 가까워지지는 않습니다.';
+     el('.lab-note').textContent=family?'독립·아들/딸 각각 1/2인 단순 모형입니다. B는 아들, G는 딸이며 순서를 구분합니다.':'처음 선택은 고정하고 상품은 세 문에 균등하게 배치합니다. 모든 시행에서 교환하는 전략을 비교합니다.';
   }
   container.dataset.scene=scene;
  }
  function change(next:LabState){validateLabState(next,topic);state={...next};render();options.onChange?.();}
  function tick(time:number){if(!playing||!active||document.hidden){stop();return;}if(lastTime){remainder+=time-lastTime;const steps=Math.floor(remainder/50);if(steps){remainder%=50;change({...state,count:Math.min(MAX_TRIALS,state.count+steps),revealed:true,stage:3});}}lastTime=time;if(state.count===MAX_TRIALS){stop();return;}frame=requestAnimationFrame(tick);}
- function sceneBaseline():LabState{const mode=topic==='two-children'?(scene==='child'?'child':'filter'):(scene==='compare'?'blind':'informed');return{...initialLabState(topic),mode,stage:3};}
+  function sceneBaseline():LabState{return{...initialLabState(topic),mode:authoredMode(topic,scene),stage:3};}
  container.addEventListener('click',event=>{
   const button=(event.target as Element).closest<HTMLButtonElement>('button');if(!button)return;
   if(button.dataset.edge!==undefined){stop();change({...state,edges:state.edges^(1<<Number(button.dataset.edge)),stage:3});return;}
@@ -69,11 +82,14 @@ export function mountPossibilityLab(topic:LabTopic,container:HTMLElement,options
   inspect(){const available=({
    'binary-relations':['question','pairs','functions','close'],
    'monty-hall':['strategy','compare'],
-   'two-children':['model','filter','child']
-  }[topic]).includes(scene);const expected=topic==='two-children'?(scene==='child'?'child':'filter'):(scene==='compare'?'blind':'informed');return{customized:available&&topic!=='binary-relations'&&(state.count>0||state.mode!==expected),available,state:{...state},summary:labSummary(state),playing};},describe(scene:Scene){
-   const family=topic==='two-children',mode=state.mode,summary=labSummary(state);
-   const text=family?`${scene.id==='model'?'독립이고 아들·딸 확률이 각각 1/2인 단순 모형에서, 출생순 BB·BG·GB·GG는 각각 1/4입니다. ':''}${mode==='filter'?'가족을 균등 추출하고, 적어도 한 명이 아들인 가족을 남깁니다. BB·BG·GB의 관측 우도는 모두 1이므로 둘 다 아들일 이론 확률은 1/3입니다.':'가족을 균등 추출한 뒤 아이 한 명을 균등 선택합니다. 아들을 관측할 우도는 BB에서 1, BG·GB에서 1/2이므로, 둘 다 아들일 이론 확률은 1/2입니다.'}`:`${scene.id==='compare'?'정답을 알고 항상 오답을 공개하는 경우와 모르고 무작위로 공개한 경우는 관측 우도가 다릅니다. ':''}현재 실험은 ${mode==='informed'?'정답을 알고 항상 미선택 오답을 공개하는 규칙입니다. 처음 틀린 2/3의 경우에 교환하면 이기므로 교환 이론 승률은 2/3입니다.':'정답을 모르고 미선택 문 하나를 균등하게 엽니다. 상품이 나온 시행을 제외하고 오답 관측에 조건을 걸면 교환 이론 승률은 1/2입니다.'}`;
-    return{status:'adapted',text:(family?'현재 선택한 절차의 계산입니다. ':'')+text+` 반복 실험의 표본 비율은 ${percent(summary.rate)}이며, 이론값과 구분합니다.`};
-  }
+    'two-children':['filter','child']
+   }[topic]).includes(scene);const expected=authoredMode(topic,scene);return{customized:available&&topic!=='binary-relations'&&(state.count>0||state.mode!==expected||topic==='monty-hall'&&state.choice!==1),available,state:{...state},summary:labSummary(state),playing};},describe(scene:Scene){
+    if(topic==='binary-relations')return{status:'adapted',text:`현재 관계는 ${relationPairs(state.edges).join(' · ')||'빈 관계'}입니다.`};
+    const expected=authoredMode(topic,scene.id),summary=labSummary(state),sample=state.count?` 선택 사항인 표본 실험 ${summary.attempted.toLocaleString()}회에서 조건 충족 시행의 목표 성공 비율은 ${percent(summary.rate)}이며, 정확한 값과 구분합니다.`:'';
+    const choice=topic==='monty-hall'&&state.choice!==1?` 처음 고른 문은 ${state.choice}번으로 바꾸었습니다.`:'';
+    if(state.mode===expected)return{status:'adapted',text:`본문과 같은 ${modeLabel(expected)}입니다.${choice}${sample}`};
+    const view=probabilityLedgerView(topic,state);
+    return{status:'adapted',text:`본문의 ${modeLabel(expected)}와 달리, 현재 비교는 ${modeLabel(state.mode)}입니다.${choice} ${view.event}. ${view.target}. 남은 질량을 정규화하면 ${probabilityEquation(view)}입니다.${sample}`};
+   }
  };
 }
