@@ -1,0 +1,112 @@
+[
+  {
+    "id": "claim:mathematics.number-structures.extension-choice",
+    "kind": "synthesis",
+    "statement": "수 체계의 확장은 현재 체계에서 실패하는 연산이나 방정식을 해결하는 새 원소를 더하면서, 명시적으로 선택한 기존 연산과 포함 관계를 보존하는 구조적 선택이다.",
+    "scope": "ℕ→ℤ의 덧셈 역원, ℤ→ℚ의 0이 아닌 곱셈 역원, ℚ→ℝ의 최소상한 성질, ℝ→ℂ의 x²=−1 해를 비교하는 이 글의 연결 주장이다. 모든 확장이 집합 포함으로 주어지거나 유일하다는 주장은 아니며, 동형인 복사를 통한 보존도 허용한다.",
+    "assumptions": [
+      "각 단계에서 보존할 연산과 구조를 따로 명시한다",
+      "기존 체계는 새 체계 안의 부분구조 또는 그와 동형인 복사로 식별한다",
+      "해결할 장애가 다르면 적절한 확장도 달라질 수 있다"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:openstax-contemporary-integers",
+        "locator": "§3.2 Defining and Identifying Integers and Adding and Subtracting Integers: integers extend whole-number arithmetic with negatives and support subtraction"
+      },
+      {
+        "sourceId": "source:openstax-contemporary-rationals",
+        "locator": "§3.4 Defining and Identifying Numbers That Are Rational: integer ratios with nonzero denominator and the embedding n=n/1"
+      },
+      {
+        "sourceId": "source:beck-first-course-complex-analysis",
+        "locator": "§1.1, Definition 1.1.1 and Proposition 1.1.2: ordered-pair construction of C, embedding of R, and i²=-1"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:mathematics.number-structures.completeness-scope",
+    "kind": "scope-boundary",
+    "statement": "이 글에서 실수의 순서 완비성은 비어 있지 않고 위로 제한된 모든 부분집합이 최소 상한을 갖는다는 성질을 뜻하며, 대수와 순서 가정 없이 ‘완비성’ 또는 코시 완비성만 말해서는 완비 순서체의 유일성 결론을 얻을 수 없다.",
+    "scope": "최소상한 성질과 코시 수열 완비성을 같은 정의로 취급하지 않기 위한 경계다. 적절한 순서체 가정 아래 알려진 동치 정리 전체를 증명하거나 부정하지 않는다.",
+    "assumptions": [
+      "최소상한 성질의 우주는 해당 순서체다",
+      "유일성 정리에는 체 연산과 그에 양립하는 전순서가 함께 가정된다",
+      "코시 완비성의 동치에는 추가 구조와 정리가 필요하다"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:mit-18-100b-lecture-3",
+        "locator": "Lecture 3, opening definitions: completeness is stated as every bounded nonempty subset having a least upper bound, followed by the theorem that R is a complete ordered field containing Q"
+      },
+      {
+        "sourceId": "source:goldmakher-complete-ordered-field",
+        "locator": "Theorem 1.1 and §§2–4: the uniqueness conclusion is explicitly for complete ordered fields and the bijection preserves order, addition, and multiplication"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:mathematics.number-structures.complete-ordered-field-archimedean",
+    "kind": "formal",
+    "statement": "최소상한 성질을 만족하는 순서체에서 자연수의 복사는 위로 제한되지 않으므로 그 체는 아르키메데스적이다.",
+    "scope": "자연수가 위로 제한되면 s=sup ℕ에 대해 s−1이 상한이 아니어서 어떤 n에 s−1<n, 즉 s<n+1을 얻는 표준 모순 논증이다. 임의의 순서체가 아르키메데스적이라는 주장은 아니다.",
+    "assumptions": [
+      "체의 순서는 덧셈과 곱셈에 양립한다",
+      "비어 있지 않고 위로 제한된 부분집합에는 최소 상한이 존재한다",
+      "자연수의 복사는 1을 유한 번 더해 정의한다"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:mit-18-100b-lecture-3",
+        "locator": "Lecture 3, ‘Archimedean property’ and theorem ‘The set of natural number is not bounded from above,’ including the least-upper-bound contradiction immediately following"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:mathematics.number-structures.complete-ordered-field-uniqueness",
+    "kind": "formal",
+    "statement": "임의의 두 완비 순서체 사이에는 0과 1, 덧셈, 곱셈, 순서를 보존하는 체 동형이 존재하므로 완비 순서체는 동형까지 유일하다.",
+    "scope": "각 원소를 그보다 작은 유리수들의 절단으로 기록하고 상대 체에서 그 절단의 최소 상한을 취하는 표준 유일성 논증이다. 두 체가 문자 그대로 같은 원소 집합이라는 뜻이 아니며, 완비성만으로 얻는 결론도 아니다.",
+    "assumptions": [
+      "두 구조 모두 체이며 연산과 양립하는 전순서를 가진다",
+      "두 구조 모두 최소상한 성질을 만족한다",
+      "각 순서체 안의 유리수 복사를 0과 1을 보존하며 식별한다"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:goldmakher-complete-ordered-field",
+        "locator": "Theorem 1.1 and §§2–4: embeds the rationals, defines φ(α)=sup{φ(q):q<α}, proves bijectivity and preservation of order, addition, and multiplication"
+      },
+      {
+        "sourceId": "source:baggett-complete-ordered-field-appendix",
+        "locator": "Appendix, Theorem A.6, printed pp. 228–229: maps each element to its rational Dedekind cut, proves one-to-one and onto using completeness, then verifies addition, multiplication, and positivity"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  },
+  {
+    "id": "claim:mathematics.number-structures.larger-systems",
+    "kind": "formal",
+    "statement": "실수보다 큰 수 체계와 체는 존재하며, 예를 들어 실수계수 유리함수체 ℝ(t)는 모든 자연수 n에 t>n이 되는 순서를 가질 수 있으므로 비아르키메데스 순서체이고 최소상한 의미의 완비 순서체는 아니다.",
+    "scope": "‘실수나 복소수보다 큰 체가 없다’는 오해를 반박하는 한 예다. ℝ(t)의 모든 대수·순서 성질이나 가능한 모든 확장을 분류하지 않으며, 집합 크기의 ‘더 큼’과 체 확장의 ‘더 큼’을 동일시하지 않는다.",
+    "assumptions": [
+      "ℝ(t)는 실수계수 다항식 비의 체다",
+      "분자와 분모의 최고차항 계수 부호가 같을 때 양수로 정하는 순서를 사용한다",
+      "완비 순서체는 아르키메데스적이라는 앞선 결과를 사용한다"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:boas-ordered-fields",
+        "locator": "‘Another example of an ordered field,’ slides 2–3 of the consulted PDF: orders the rational-function field by leading-coefficient signs and derives x>n for every natural number n"
+      },
+      {
+        "sourceId": "source:mit-18-100b-lecture-3",
+        "locator": "Lecture 3, Archimedean theorem: natural numbers are unbounded above in a complete ordered field; used to infer that the displayed non-Archimedean field is not complete"
+      }
+    ],
+    "reviewStatus": "draft-source-aligned"
+  }
+]

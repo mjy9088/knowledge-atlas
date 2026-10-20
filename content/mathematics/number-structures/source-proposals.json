@@ -1,0 +1,62 @@
+[
+  {
+    "id": "source:goldmakher-complete-ordered-field",
+    "title": "R Is the Only Complete Ordered Field",
+    "author": "Leo Goldmakher",
+    "kind": "author-university-note",
+    "canonicalUrl": "https://web.williams.edu/Mathematics/lg5/350/RUnique.pdf",
+    "providerRevision": "Undated live PDF; exact provider revision not established",
+    "retrievedAt": "2026-10-20",
+    "contentHash": null,
+    "license": "Not established from the consulted PDF; public access is not reuse permission",
+    "rightsReview": "pending-publication-audit",
+    "snapshotStatus": "reference-only; local working download is not an approved immutable source snapshot",
+    "readingScope": "Theorem 1.1 and §§2–4: rational embedding, supremum-defined map, bijectivity, and preservation of order, addition, and multiplication",
+    "note": "Used as a direct proof source for uniqueness up to order-preserving field isomorphism. Exact revision, immutable bytes, content hash, and reuse rights remain unresolved."
+  },
+  {
+    "id": "source:mit-18-100b-lecture-3",
+    "title": "18.100B/18.1002 Real Analysis, Spring 2025 — Lecture 3",
+    "author": "Tobias Holck Colding",
+    "kind": "university-course-note",
+    "canonicalUrl": "https://ocw.mit.edu/courses/18-100b-real-analysis-spring-2025/mit18_100b_s25_lec03.pdf",
+    "providerRevision": "Spring 2025 and Lecture 3 as printed; exact provider revision not frozen",
+    "retrievedAt": "2026-10-20",
+    "contentHash": null,
+    "license": "MIT OpenCourseWare terms require separate item-level confirmation; no reuse clearance recorded",
+    "rightsReview": "pending-publication-audit",
+    "snapshotStatus": "reference-only; local working download is not an approved immutable source snapshot",
+    "readingScope": "Opening completeness definition; positive square-root-of-two theorem; Archimedean property and proof that the natural numbers are unbounded above",
+    "note": "Used for the least-upper-bound formulation and the Archimedean consequence. Exact revision, immutable bytes, hash, item-level license, and publication approval remain unresolved."
+  },
+  {
+    "id": "source:boas-ordered-fields",
+    "title": "Ordered Fields — class notes for Math 409",
+    "author": "Harold P. Boas",
+    "kind": "author-university-course-note",
+    "canonicalUrl": "https://haroldpboas.gitlab.io/courses/409-2017a/class0119.pdf",
+    "providerRevision": "Course path 409-2017a and filename class0119.pdf; exact provider revision not established",
+    "retrievedAt": "2026-10-20",
+    "contentHash": null,
+    "license": "Not established from the consulted PDF; public access is not reuse permission",
+    "rightsReview": "pending-publication-audit",
+    "snapshotStatus": "reference-only; local working download is not an approved immutable source snapshot",
+    "readingScope": "Slides headed ‘Another example of an ordered field,’ ‘Upper bound,’ and ‘Completeness’: rational-function order, x>n for all natural n, and complete ordered field definition",
+    "note": "Used for the concrete larger non-Archimedean ordered-field example. No external prose or figure is reproduced. Exact revision, immutable bytes, hash, and rights remain unresolved."
+  },
+  {
+    "id": "source:baggett-complete-ordered-field-appendix",
+    "title": "Existence and Uniqueness of a Complete Ordered Field",
+    "author": "Lawrence W. Baggett",
+    "kind": "author-university-textbook-appendix",
+    "canonicalUrl": "https://spot.colorado.edu/~baggett/appendix.pdf",
+    "providerRevision": "Undated live appendix PDF; exact book edition and provider revision not established",
+    "retrievedAt": "2026-10-20",
+    "contentHash": null,
+    "license": "Not established from the consulted PDF; public access is not reuse permission",
+    "rightsReview": "pending-publication-audit",
+    "snapshotStatus": "reference-only; local working download is not an approved immutable source snapshot",
+    "readingScope": "Appendix opening definitions; Theorem A.5 on existence; Theorem A.6 on uniqueness up to isomorphism, printed pp. 228–229",
+    "note": "Used to corroborate the rational-cut uniqueness argument and its exact algebra/order hypotheses. Exact edition, immutable bytes, hash, and rights remain unresolved."
+  }
+]
