@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import {physicsHistorySuggestion} from '../apps/web/topics/physics/physics-history-suggestion.js';
-import {CONTENT_PAGES} from '../content/catalog.js';
-import {createHydrogenicField,validateOrbitalState} from '../packages/models/hydrogenic.js';
+import {physicsHistorySuggestion} from '../physics-history-suggestion.js';
+import {CONTENT_PAGES} from '../../../../../content/catalog.js';
+import {createHydrogenicField,validateOrbitalState} from '../../../../../packages/models/hydrogenic.js';
 
 test('physics history resolves only its two orbital detour examples',()=>{
   assert.deepEqual(physicsHistorySuggestion({example:'orbital-density'}),{n:2,basis:'px',Z:1,mode:'cloud'});

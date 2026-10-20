@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createLessonDialogue} from '../apps/web/pages/lesson/state.js';
+import {createLessonDialogue} from '../state.js';
 
 test('reader moves freely, skips known chapters and restores scene state without a clock',()=>{
   const reader=createLessonDialogue();

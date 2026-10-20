@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import {createFieldFrame,normalizedCameraDepth,projectFieldPoint,sortCloudBackToFront} from '../apps/web/components/spatial/field-camera.js';
-import {packCloudVertices,packSurfaceVertices} from '../apps/web/components/spatial/webgl-data.js';
+import {createFieldFrame,normalizedCameraDepth,projectFieldPoint,sortCloudBackToFront} from '../field-camera.js';
+import {packCloudVertices,packSurfaceVertices} from '../webgl-data.js';
 
 test('WebGL cloud packing preserves positions and caller field signs',()=>{
   // Given

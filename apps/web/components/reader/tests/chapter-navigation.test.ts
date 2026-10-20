@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createRelatedReader} from '../apps/web/components/reader/state.js';
-import {validateRelatedPages} from '../packages/site/related-site.js';
-import type {ContentCollection,ContentPage,Scene} from '../packages/content/types.js';
+import {createRelatedReader} from '../state.js';
+import {validateRelatedPages} from '../../../../../packages/site/related-site.js';
+import type {ContentCollection,ContentPage,Scene} from '../../../../../packages/content/types.js';
 
 const scene=(id:string,block:number):Scene=>({id,title:id,block,from:0,cards:[],known:id});
 const page:ContentPage={
