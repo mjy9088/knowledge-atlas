@@ -1,4 +1,5 @@
 import type { ContentPage } from '../../../packages/content/types.js';
+import {numberVisual} from './visual-scenes.js';
 
 const page = {
   slug: 'number-structures',
@@ -90,4 +91,4 @@ const page = {
   ],
 } satisfies ContentPage;
 
-export default page;
+export default {...page,scenes:page.scenes.map(numberVisual)} satisfies ContentPage;
