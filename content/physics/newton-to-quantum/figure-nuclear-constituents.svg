@@ -1,5 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img" aria-labelledby="title">
 <title id="title">서로 다른 실험으로 핵의 구성요소를 추론</title><rect width="600" height="400" rx="16" fill="#f7f8fb"/>
-<g font-family="system-ui,sans-serif" font-size="25" fill="#172033"><text x="25" y="45">핵의 위치와 핵의 재료는 다른 질문</text>
-<text x="25" y="110">질소에 알파 입자 → 빠른 수소 핵</text><path d="M40 155 H540" stroke="#b36a17" stroke-width="4"/><circle cx="280" cy="155" r="20" fill="#b36a17"/><text x="25" y="210">수소 핵이 구성요소일 수 있다는 추론</text>
-<text x="25" y="285">베릴륨 복사 → 다른 물질 핵의 반동</text><path d="M40 320 H540" stroke="#087f72" stroke-width="4"/><text x="25" y="380">중성 입자의 질량·전하를 비교로 추론</text></g></svg>
+<g font-family="system-ui,sans-serif" font-size="25" fill="#172033"><text x="25" y="40">서로 다른 실험이 남긴 단서</text>
+<text x="25" y="90">알파 입자</text><text x="235" y="90">질소</text><text x="410" y="90">검출한 수소 핵</text>
+<path d="M65 140 H220 M315 140 H470 M450 130 L470 140 L450 150" fill="none" stroke="#b36a17" stroke-width="4"/>
+<circle cx="55" cy="140" r="13" fill="#b36a17"/><circle cx="270" cy="140" r="35" fill="#dfe6ee" stroke="#536d7e" stroke-width="3"/><circle cx="490" cy="140" r="13" fill="#b36a17"/>
+<text x="25" y="210">반응 경로 전체를 그린 것은 아닙니다.</text>
+<text x="25" y="265">베릴륨 복사</text><text x="270" y="265">표적</text><text x="455" y="265">반동</text>
+<path d="M50 310 H260 M330 310 L490 350 M470 330 L490 350 L465 350" fill="none" stroke="#087f72" stroke-width="4" stroke-dasharray="7 4"/>
+<rect x="270" y="280" width="55" height="60" fill="#dfe6ee" stroke="#536d7e" stroke-width="3"/><circle cx="500" cy="355" r="12" fill="#087f72"/>
+<text x="25" y="390">보이는 것은 표적의 반동 · 개념도</text></g></svg>
