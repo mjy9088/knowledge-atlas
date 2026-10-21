@@ -13,5 +13,5 @@ const figures:Readonly<Record<string,readonly [string,string,string]>>={
 const motions:Readonly<Record<string,string>>={integers:'numbers-inverse',rationals:'numbers-fractions',rotation:'numbers-rotation'};
 export function numberVisual(scene:Scene):Scene{
   const figure=figures[scene.id],motion=motions[scene.id];
-  return {...scene,...(figure?{figure:{src:`/content/mathematics/number-structures/${figure[0]}`,alt:figure[1],caption:figure[2]}}:{}),...(motion?{motion:{id:motion}}:{})};
+  return {...scene,...(figure?{cards:[],figure:{src:`/content/mathematics/number-structures/${figure[0]}`,alt:figure[1],caption:figure[2]}}:{}),...(motion?{motion:{id:motion}}:{})};
 }
