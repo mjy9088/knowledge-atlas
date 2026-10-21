@@ -2,7 +2,7 @@
 
 This long-form Korean article asks why successful Newtonian prediction did not by itself supply an adequate atomic description, and what quantum theory changed. Its 16-scene mainline is self-sufficient: controlled classical prediction leads through electron evidence, restricted energy exchange, photoelectric energy per event, the nuclear atom, proton and neutron evidence, discrete spectra, matter waves, and finally quantum-state probability. Six optional two-scene detours add worked reasoning without becoming prerequisites. Each detour returns to its parent scene, and normal mainline navigation skips it.
 
-The work preserves five distinct layers: observation, physical model, deduction, history, and interpretation. It does not say Newtonian mechanics became useless, that Newton alone supplied all classical atomic assumptions, that one experiment proved quantum mechanics, or that authored arrows and distributions are photographs of particle paths. The seven SVGs are independently authored conceptual comparisons. They import no external prose, data, figures, or visual assets and are not empirical evidence.
+The work preserves five distinct layers: observation, physical model, deduction, history, and interpretation. It does not say Newtonian mechanics became useless, that Newton alone supplied all classical atomic assumptions, that one experiment proved quantum mechanics, or that authored arrows and distributions are photographs of particle paths. The owned SVGs are independently authored explanatory comparisons. They import no external prose, figures or visual assets; the selected spectral positions reuse the existing sourced numerical claims rather than introducing a new dataset.
 
 ## Scene and interaction contract
 
