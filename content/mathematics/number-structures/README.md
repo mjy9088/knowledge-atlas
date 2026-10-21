@@ -41,11 +41,15 @@ The uniqueness detour is intended as a reconstructable argument rather than an a
 
 ## Original and reused figures
 
-Three original SVGs are owned here:
+Current compact owned figures are selected by `visual-scenes.ts`:
 
-- `figure-obstruction-map.svg` separates local equation repairs from the global least-upper-bound choice;
-- `figure-property-ledger.svg` compares operation repairs, a local root extension, a universal completeness condition, and the cost of the complex extension;
-- `figure-cut-isomorphism.svg` shows the integer-part/density lemma, cut eligibility and strict order, rational fixing, reverse-cut surjectivity, supremum transport, and operation/sign preservation as distinct proof stages.
+- `figure-choices.svg` frames the distinct questions rather than an inevitable successor ladder;
+- `figure-undo.svg`, `figure-fractions.svg` and `figure-rotation.svg` are static alternatives to the operation sequences;
+- `figure-diagonal.svg` aligns the exact length with the reduced-fraction contradiction;
+- `figure-boundary.svg` distinguishes a least ceiling from a largest member;
+- `figure-cut-overview.svg` orients the optional proof's dependencies without claiming to prove them by arrows.
+
+The earlier `figure-obstruction-map.svg`, `figure-property-ledger.svg` and `figure-cut-isomorphism.svg` remain source provenance, not the current bound artwork or evidence of this revision's rendered quality.
 
 They use independently authored explanatory geometry and reproduce no external artwork, data, or measured diagram. The page also reuses existing owned number-system SVGs where those assets already express the exact simultaneous relation. Static diagrams have no hidden state. Their alternative text and captions carry the mathematical relation; screenshots cannot establish correctness or learner understanding.
 
