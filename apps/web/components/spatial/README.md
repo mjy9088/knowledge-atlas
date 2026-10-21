@@ -38,6 +38,8 @@ Grid sampling and geometry extraction remain synchronous CPU work. WebGL2 perfor
 
 Every redraw paints the entire rounded backing store, including the last physical pixel when CSS dimensions are fractional. Projection, slice geometry and GPU-frame composition use the same logical dimensions derived from that physical size, rather than resampling into a transient fractional CSS rectangle. Background alpha must not accumulate across repeated draws. A consuming reader that changes layout after setting scientific/view state must commit its final geometry through the reader's post-render hook; a later ResizeObserver callback is not a substitute for a complete synchronous restoration.
 
+Orientation axes use high-contrast 14 CSS-pixel labels in both native slices and composited GPU views. They describe the coordinate frame, not measured trajectories or a density scale. Label drawing remains deterministic under resize, restoration and repeated seeks.
+
 ## Reader integration
 
 An article may name an `interactive` adapter in `page.ts`; `apps/web/topics/registry.ts` maps known IDs to code. The reader continues to own stable scene titles, navigation, evidence panels and state restoration. The topic owns controls, suggestions, current-input narration, and scientific claim references. This is separate from the symbolic premise/proof adapter.

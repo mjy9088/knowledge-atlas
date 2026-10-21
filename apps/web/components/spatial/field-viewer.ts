@@ -44,12 +44,12 @@ export function mountFieldViewer(container:HTMLElement,{label='Spatial scalar fi
         const value=field.evaluate(point),weight=field.weight(value);ctx.globalAlpha=Math.min(1,Math.pow(weight/(grid.maxWeight||1),.3));
         ctx.fillStyle=color(value);ctx.fillRect(left+i*span/pixels,top+j*span/pixels,span/pixels+1,span/pixels+1);
       }
-      ctx.globalAlpha=1;ctx.fillStyle='#c7d9dc';ctx.font='11px system-ui';ctx.fillText(state.plane[0],left+span-10,top+span/2-8);ctx.fillText(state.plane[1],left+span/2+8,top+14);
+      ctx.globalAlpha=1;ctx.fillStyle='#e6f2f4';ctx.font='14px system-ui';ctx.fillText(state.plane[0],left+span-14,top+span/2-8);ctx.fillText(state.plane[1],left+span/2+8,top+18);
       ctx.strokeStyle='#a6c1c444';ctx.beginPath();ctx.moveTo(left,top+span/2);ctx.lineTo(left+span,top+span/2);ctx.moveTo(left+span/2,top);ctx.lineTo(left+span/2,top+span);ctx.stroke();
     }else{
       const level=state.iso*grid.maxWeight;if(state.mode==='surface'&&surfaceLevel!==level){surface=level?scalarIsosurface(grid,level):[];surfaceLevel=level;}
       const frame=createFieldFrame(grid.bounds);drawingGpu=true;const rendered=gpu.draw({width:w,height:h,dpr,frame,view:state,mode:state.mode,cloud,surface});drawingGpu=false;displayedWithWebGL=rendered;
-      if(rendered){ctx.drawImage(backing,0,0,backing.width,backing.height,0,0,w,h);ctx.globalAlpha=1;ctx.lineWidth=1;ctx.font='11px system-ui';const origin=pointProjection(frame.center,w,h);for(let axis=0;axis<3;axis++){const p:Point3=[...frame.center];p[axis]+=frame.half[axis]*.45;const end=pointProjection(p,w,h);ctx.strokeStyle='#c7e1e26b';ctx.beginPath();ctx.moveTo(origin[0],origin[1]);ctx.lineTo(end[0],end[1]);ctx.stroke();ctx.fillStyle='#d1e0e2';ctx.fillText('xyz'[axis],end[0]+4,end[1]);}}
+      if(rendered){ctx.drawImage(backing,0,0,backing.width,backing.height,0,0,w,h);ctx.globalAlpha=1;ctx.lineWidth=1;ctx.font='14px system-ui';const origin=pointProjection(frame.center,w,h);for(let axis=0;axis<3;axis++){const p:Point3=[...frame.center];p[axis]+=frame.half[axis]*.45;const end=pointProjection(p,w,h);ctx.strokeStyle='#c7e1e2cc';ctx.beginPath();ctx.moveTo(origin[0],origin[1]);ctx.lineTo(end[0],end[1]);ctx.stroke();ctx.fillStyle='#e6f2f4';ctx.fillText('xyz'[axis],end[0]+4,end[1]);}}
     }
     ctx.globalAlpha=1;publishBackend();
   }
