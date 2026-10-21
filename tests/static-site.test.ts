@@ -53,6 +53,8 @@ test('chaptered works expose long-form presentation and chapter-local progress',
     const html=docs.get(`/knowledge/${page.slug}/`)??'';
     if(!page.navigation){assert.ok(html.includes('data-presentation="bounded"'));continue;}
     assert.ok(html.includes('data-presentation="longform"'));
+    assert.ok(html.includes(`<p class="eyebrow">${escapeHTML(page.category)}</p>`));
+    assert.ok(!html.includes(`<p class="eyebrow">${escapeHTML(page.category)} / ${escapeHTML(page.label)}</p>`));
     const mainline=page.navigation.chapters.filter(chapter=>chapter.kind==='mainline').flatMap(chapter=>chapter.sceneIds);
     for(const chapter of page.navigation.chapters)chapter.sceneIds.forEach((sceneId,index)=>{
       const prefix=chapter.kind==='mainline'?'본문':'선택';
@@ -64,6 +66,29 @@ test('chaptered works expose long-form presentation and chapter-local progress',
   }
   // Then retained readers remain explicitly bounded instead of inheriting the exception.
   assert.equal(CONTENT_PAGES.filter(page=>!page.navigation).length,1);
+});
+test('chaptered cards render authored facts without causal connectors or dropped values',async()=>{
+  const docs=siteDocuments(await loadSiteContent());
+  for(const page of CONTENT_PAGES.filter(candidate=>candidate.navigation)){
+    const html=docs.get(`/knowledge/${page.slug}/`)??'';
+    assert.ok(!html.includes('class="concept-connector"'));
+    for(const card of page.scenes.flatMap(scene=>scene.figure?[]:scene.cards)){
+      const separator=card.indexOf(' | ');
+      if(separator<0){assert.ok(html.includes(`<span class="concept-fact-value">${escapeHTML(card)}</span>`));continue;}
+      assert.ok(html.includes(`<span class="concept-fact-label">${escapeHTML(card.slice(0,separator))}</span>`));
+      assert.ok(html.includes(`<span class="concept-fact-value">${escapeHTML(card.slice(separator+3))}</span>`));
+    }
+  }
+});
+test('static last-detour documents retain their declared no-JavaScript return link',async()=>{
+  const docs=siteDocuments(await loadSiteContent());
+  for(const page of CONTENT_PAGES.filter(candidate=>candidate.navigation))for(const chapter of page.navigation?.chapters??[]){
+    if(chapter.kind!=='detour')continue;
+    const lastScene=chapter.sceneIds.at(-1),html=lastScene?docs.get(`/knowledge/${page.slug}/${lastScene}/`)??'':'';
+    assert.ok(html.includes(`class="reader-branch-links"`));
+    assert.ok(html.includes(`href="/knowledge/${page.slug}/${chapter.returnSceneId}/"`));
+    assert.ok(html.includes('본문 돌아가기 ↩'));
+  }
 });
 test('site documents expose five active routes and omit retired readers',async()=>{
   // Given the source-complete catalog.

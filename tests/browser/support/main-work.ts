@@ -49,7 +49,17 @@ export async function expectLongformScene(page:Page,work:ActiveWork,sceneId:stri
   await expect(visible).toHaveAttribute('id',sceneId);
   await expect(visible.locator('h2')).toHaveText(scene.title);
   await expect(visible.locator('.scene-prose')).toHaveText(sceneText(work.article,scene));
-  if(!scene.figure)expect(await visible.locator('.concept-diagram>span:not(.concept-connector)').allTextContents()).toEqual(scene.cards);
+  if(!scene.figure&&scene.cards.length>0){
+    const rows=visible.locator('.concept-facts>li');
+    await expect(rows).toHaveCount(scene.cards.length);
+    await expect(visible.locator('.concept-connector')).toHaveCount(0);
+    for(const [index,card] of scene.cards.entries()){
+      const separator=card.indexOf(' | '),row=rows.nth(index);
+      if(separator<0){await expect(row.locator('.concept-fact-value')).toHaveText(card);continue;}
+      await expect(row.locator('.concept-fact-label')).toHaveText(card.slice(0,separator));
+      await expect(row.locator('.concept-fact-value')).toHaveText(card.slice(separator+3));
+    }
+  }
   const geometry=await visible.evaluate(element=>{
     const copy=element.querySelector<HTMLElement>('.reader-copy'),prose=element.querySelector<HTMLElement>('.scene-prose');
     if(!copy||!prose)throw new TypeError('Missing canonical reader copy');
@@ -111,9 +121,20 @@ export async function expectReaderStateBoundary(page:Page,sceneId:string):Promis
 export async function expectDetourReturn(page:Page,work:ActiveWork,detour:ContentDetourChapter):Promise<void>{
   await openMainWorkScene(page,work,detour.parentSceneId);
   await page.locator(`.reader-branch-links a[href$="/${detour.sceneIds[0]}/"]`).click();
-  for(const sceneId of detour.sceneIds){
+  for(const [index,sceneId] of detour.sceneIds.entries()){
     await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',sceneId);
     await expectLongformScene(page,work,sceneId);
+    const inlineReturn=page.locator('.reader-scene:visible .reader-branch-links a');
+    const footerReturn=page.locator('#reader-next');
+    const expectedPath=`/knowledge/${work.page.slug}/${detour.returnSceneId}/`;
+    if(index===detour.sceneIds.length-1){
+      await expect(inlineReturn).toBeHidden();
+      await expect(footerReturn).toBeVisible();
+      await expect(footerReturn).toHaveText('본문 돌아가기 →');
+    }else{
+      await expect(inlineReturn).toBeVisible();
+      expect(new URL(await inlineReturn.getAttribute('href')??'',page.url()).pathname).toBe(expectedPath);
+    }
     await page.locator('#reader-next').click();
   }
   await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',detour.returnSceneId);

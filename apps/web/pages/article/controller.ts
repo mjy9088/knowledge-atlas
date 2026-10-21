@@ -78,12 +78,14 @@ function renderInput(){
   }
   const nextId=readerDestination(page,current.sceneId,'next'),next=nextId===current.sceneId?undefined:page.scenes.find(scene=>scene.id===nextId);
   const chapter=page.navigation?.chapters.find(item=>item.sceneIds.includes(current.sceneId));
+  const finalDetourScene=chapter?.kind==='detour'&&current.sceneId===chapter.sceneIds.at(-1);
+  const inlineReturn=node.querySelector<HTMLElement>('.reader-branch-links');if(inlineReturn)inlineReturn.hidden=Boolean(finalDetourScene);
   const opening=page.interactive==='weekday-worlds'&&!coverVisible&&current.sceneId==='question';
   const reflecting=opening&&topicInfo&&'challenge'in topicInfo&&['answered','expired','skipped'].includes(topicInfo.challenge.phase);
   if(opening)root.dataset.opening=reflecting?'reflection':'challenge';else delete root.dataset.opening;
   // Article scenes have no authored multi-scene skip destination.
   required('.skip-context',node).hidden=true;
-  $('reader-prev').disabled=readerDestination(page,current.sceneId,'previous')===current.sceneId&&!page.cover;$('reader-prev').hidden=coverVisible;$('reader-next').textContent=coverVisible?'내용 보기 →':page.interactive==='weekday-worlds'&&current.sceneId==='question'&&!reflecting?'건너뛰기 →':chapter?.kind==='detour'&&current.sceneId===chapter.sceneIds.at(-1)?'본문 돌아가기 →':next?'다음 →':'연관 지식 →';const skip=!coverVisible?readerSkip(page,current.sceneId):null;$('reader-skip').hidden=!skip;
+  $('reader-prev').disabled=readerDestination(page,current.sceneId,'previous')===current.sceneId&&!page.cover;$('reader-prev').hidden=coverVisible;$('reader-next').textContent=coverVisible?'내용 보기 →':page.interactive==='weekday-worlds'&&current.sceneId==='question'&&!reflecting?'건너뛰기 →':finalDetourScene?'본문 돌아가기 →':next?'다음 →':'연관 지식 →';const skip=!coverVisible?readerSkip(page,current.sceneId):null;$('reader-skip').hidden=!skip;
   if(skip){const button=$('reader-skip');button.textContent=skip.label+' ↗';button.title='건너뛸 내용: '+skip.scope+' · 이동: '+skip.destination;button.setAttribute('aria-label',skip.label+' · 이동: '+skip.destination);const heading=node.querySelector<HTMLElement>('.reader-scene-heading');if(heading)heading.insertBefore(button,required('.eyebrow',heading));else $('reader-controls').insertBefore(button,$('reader-next'));}
   if(page.cover){root.dataset.cover=String(coverVisible);cover.hidden=!coverVisible;$('reader-workbench').hidden=coverVisible||!interaction;$('reader-scenes').hidden=coverVisible||opening;}
   interaction?.setActive?.(!coverVisible&&(page.interactive!=='weekday-worlds'||current.sceneId==='question')&&(!labTopic||root.dataset.mode==='interactive'||root.dataset.mode==='spatial'));
