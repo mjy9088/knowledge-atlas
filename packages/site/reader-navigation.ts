@@ -3,7 +3,7 @@ import {scenePath} from '../content/scene-routing.js';
 import {escapeHTML as e} from './html.js';
 
 export function chapterMenu(page:ContentPage):string{
-  if(!page.navigation)return page.scenes.map(scene=>`<a href="#${scene.id}">${e(scene.title)}</a>`).join('');
+  if(!page.navigation)return page.scenes.map(scene=>`<a href="${scenePath(page.slug,scene.id)}">${e(scene.title)}</a>`).join('');
   return page.navigation.chapters.map(chapter=>{
     const links=chapter.sceneIds.map(id=>{
       const scene=page.scenes.find(item=>item.id===id);

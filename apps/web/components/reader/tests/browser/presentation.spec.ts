@@ -47,5 +47,8 @@ test('reduced motion is paused and the selected scene is readable without JavaSc
     await expect(staticPage.locator('.reader-scene:not([hidden])')).toHaveCount(1);
     await expect(staticPage.locator('#bohr .scene-prose')).toBeVisible();
     await expect(staticPage.locator('#bohr .scene-figure img')).toBeVisible();
+    await staticPage.goto('http://127.0.0.1:4190/knowledge/weekday-worlds/conditional/');
+    await expect(staticPage.locator('.reader-scene:not([hidden])')).toHaveAttribute('id','conditional');
+    await expect(staticPage.locator('.reader-menu a[href="/knowledge/weekday-worlds/notation/"]')).toHaveCount(1);
   }finally{await context.close();}
 });

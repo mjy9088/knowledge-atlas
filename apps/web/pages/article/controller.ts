@@ -24,12 +24,16 @@ function parseRelatedState(value:unknown):ParsedRelatedState{
 const $=<K extends string & keyof ArticleElements>(id:K)=>byId<ArticleElements[K]>(id),root=required('[data-page]');
 const page=(()=>{const found=CONTENT_PAGES.find(page=>page.slug===root.dataset.page);if(!found)throw new Error('Unknown article');return found;})();
 const longform=Boolean(page.navigation);
+if(!longform)for(const link of document.querySelectorAll<HTMLAnchorElement>('.reader-menu a')){
+  const route=parseKnowledgePath(link.pathname);
+  if(!link.hash&&route?.slug===page.slug&&route.sceneId)link.href='#'+route.sceneId;
+}
 const spatial=page.interactive==='physics-history';
 root.dataset.mode=spatial?'spatial':page.interactive?'interactive':'reading';
 const resolveSceneId=(id:string)=>page.interactive==='weekday-worlds'&&id==='reason'?'question':id;
 const requestedHash=location.hash==='#reason'&&page.interactive==='weekday-worlds'?'#question':location.hash,scenes=[...document.querySelectorAll<HTMLElement>('.reader-scene')];
 const cover=document.createElement('section');cover.className='reader-cover';cover.setAttribute('aria-label','제목 슬라이드');
-let coverVisible=Boolean(page.cover&&(!requestedHash||requestedHash==='#title'));
+let coverVisible=Boolean(page.cover&&!parseKnowledgePath(location.pathname)?.sceneId&&(!requestedHash||requestedHash==='#title'));
 if(page.cover){cover.append(required('.reader-intro>.eyebrow'),required('.reader-intro h1'));root.insertBefore(cover,$('reader-workbench'));const titleLink=document.createElement('a');titleLink.href='#title';titleLink.textContent='제목';required('.reader-menu nav').prepend(titleLink);}
 if(page.cover&&page.coverArtwork){const artwork=document.createElement('img');artwork.className='reader-cover-artwork';artwork.src=page.coverArtwork.src;artwork.alt=page.coverArtwork.alt;artwork.width=1200;artwork.height=1000;cover.classList.add('reader-cover-illustrated');cover.append(artwork);}
 if(page.interactive==='weekday-worlds'){
