@@ -24,7 +24,9 @@ test('catalog gives every active topic the same entry information and visual tre
     return{width:entry.getBoundingClientRect().width,padding:style.padding,background:style.backgroundColor,border:style.border,fontSize:title.fontSize,fontWeight:title.fontWeight};
   }));
   // Then no topic gains a larger card, privileged typography, or extra entry information.
-  for(const item of appearance)expect(item).toEqual(appearance[0]);
+  const firstAppearance=appearance[0];
+  if(!firstAppearance)throw new TypeError('Missing catalog appearance');
+  for(const item of appearance){expect(item.width).toBeCloseTo(firstAppearance.width,3);expect({...item,width:firstAppearance.width}).toEqual(firstAppearance);}
   for(const [index,topic]of CONTENT_PAGES.entries()){
     const card=cards.nth(index),first=topic.scenes[0];
     const finalId=topic.navigation?.chapters.filter(chapter=>chapter.kind==='mainline').at(-1)?.sceneIds.at(-1);
