@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" role="img" aria-labelledby="title">
+<title id="title">i의 곱셈으로 (2,−1)이 (1,2)로 회전</title><rect width="600" height="360" rx="16" fill="#f7f8fb"/>
+<path d="M60 210 H530 M250 60 V310 M250 210 L350 260 M250 210 L300 110" fill="none" stroke="#536d7e" stroke-width="3"/>
+<circle cx="350" cy="260" r="11" fill="#b36a17"/><circle cx="300" cy="110" r="11" fill="#087f72"/>
+<g font-family="system-ui,sans-serif" font-size="26" fill="#172033"><text x="25" y="40">i를 곱하면 반시계 방향 90°</text><text x="365" y="280">(2,−1)</text><text x="320" y="105">(1,2)</text><text x="25" y="345">가로·세로 좌표는 바뀌고 길이는 같음</text></g></svg>

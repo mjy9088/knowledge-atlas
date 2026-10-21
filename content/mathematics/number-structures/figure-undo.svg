@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" role="img" aria-labelledby="title">
+<title id="title">2에서 다섯 칸 왼쪽으로 가면 −3</title><rect width="600" height="360" rx="16" fill="#f7f8fb"/>
+<g font-family="system-ui,sans-serif" font-size="28" fill="#172033"><text x="30" y="55">더한 일을 되돌리는 수</text>
+<path d="M60 190 H550 M150 175 V205 M300 175 V205 M400 175 V205" fill="none" stroke="#536d7e" stroke-width="3"/>
+<path d="M400 150 H150 L170 130 M150 150 L170 170" fill="none" stroke="#087f72" stroke-width="5"/>
+<text x="130" y="245">−3</text><text x="290" y="245">0</text><text x="390" y="245">2</text>
+<text x="130" y="115">← 5칸</text><text x="35" y="315">2 − 5 = 2 + (−5) = −3</text></g></svg>

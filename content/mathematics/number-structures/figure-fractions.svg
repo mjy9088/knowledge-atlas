@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" role="img" aria-labelledby="title">
+<title id="title">1/2와 2/4는 같은 전체의 같은 양</title><rect width="600" height="360" rx="16" fill="#f7f8fb"/>
+<path d="M50 90 H300 V170 H50 Z M50 210 H300 V290 H50 Z" fill="#087f72"/>
+<path d="M300 90 H550 V170 H300 Z M300 210 H550 V290 H300 Z" fill="#dfe6ee"/>
+<path d="M175 210 V290 M425 210 V290" stroke="white" stroke-width="5"/>
+<g font-family="system-ui,sans-serif" font-size="28" fill="#172033"><text x="30" y="45">쪼개는 방법과 양을 구별해요</text><text x="70" y="145" fill="white">1/2</text><text x="70" y="265" fill="white">2/4</text><text x="80" y="340">2 × (1/2) = 1 · 1/2 = 2/4</text></g></svg>
