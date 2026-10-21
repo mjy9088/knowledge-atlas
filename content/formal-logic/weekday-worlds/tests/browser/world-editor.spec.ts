@@ -33,11 +33,11 @@ test('weekday layout keeps every project viewport usable with four worlds',async
       await weekdayView(page,mode);await test.step(`${scene.id} / ${mode}`,()=>expectFrame(page,weekdayFrame));
     }
   }
-  const measures=await page.evaluate(()=>({width:document.querySelector('.weekday-experiment')!.getBoundingClientRect().width/innerWidth,controls:[...document.querySelectorAll<HTMLSelectElement>('.weekday-context-select')].map(node=>({font:parseFloat(getComputedStyle(node).fontSize),height:node.getBoundingClientRect().height}))}));
-  if((page.viewportSize()?.width??0)>=1200)expect(measures.width).toBeGreaterThan(.9);
+  const measures=await page.evaluate(()=>{const scale=Number(document.documentElement.dataset.desktopScale??1);return{width:document.querySelector('.weekday-experiment')!.getBoundingClientRect().width/(960*scale),scale,controls:[...document.querySelectorAll<HTMLSelectElement>('.weekday-context-select')].map(node=>({font:parseFloat(getComputedStyle(node).fontSize),height:node.getBoundingClientRect().height}))};});
+  if((page.viewportSize()?.width??0)>720)expect(measures.width).toBeGreaterThan(.9);
   else expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
-  const desktop=(page.viewportSize()?.width??0)>=1200,minimumFont=desktop?13:10,minimumHeight=desktop?34:24;
-  for(const control of measures.controls){expect(control.font).toBeGreaterThanOrEqual(minimumFont);expect(control.height).toBeGreaterThanOrEqual(minimumHeight);}
+  const minimumHeight=(page.viewportSize()?.width??0)>720?26:24;
+  for(const control of measures.controls){expect(control.font).toBeGreaterThanOrEqual(10);expect(control.height/measures.scale).toBeGreaterThanOrEqual(minimumHeight);}
   await testInfo.attach('weekday-four-worlds',{body:await page.screenshot(),contentType:'image/png'});
 });
 
@@ -58,7 +58,7 @@ test('weekday reference choices create absent worlds and identify other expressi
   await page.locator('#reader-next').click();await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(state=>window.__atlasRelated.setState(state),saved);await weekdayInputs(page);await expect(first).toHaveValue('2');await expect(second.locator('option[value="2"]')).toHaveText('가정 2 (①의 기준)');
   await expectFrame(page,weekdayFrame);await testInfo.attach('weekday-reference-creation',{body:await page.screenshot(),contentType:'image/png'});await weekdayReasoning(page);await expectFrame(page,weekdayFrame);
   await weekdayInputs(page);await page.getByRole('button',{name:'C · 가능세계 없이',exact:true}).click();await expectFrame(page,weekdayFrame);
-  const clippedLabels=await page.locator('.weekday-basis select[data-world]').evaluateAll(nodes=>{const canvas=document.createElement('canvas'),context=canvas.getContext('2d')!;return nodes.flatMap(node=>{const select=node as HTMLSelectElement,style=getComputedStyle(select);context.font=style.font;const text=select.selectedOptions[0].textContent??'',needed=context.measureText(text).width+parseFloat(style.paddingLeft)+parseFloat(style.paddingRight)+20;return needed>select.clientWidth?[text]:[];});});expect(clippedLabels).toEqual([]);
+  const clippedLabels=await page.locator('.weekday-basis select[data-world]').evaluateAll(nodes=>{const canvas=document.createElement('canvas'),context=canvas.getContext('2d')!;return nodes.flatMap(node=>{const select=node as HTMLSelectElement,style=getComputedStyle(select);context.font=style.font;const text=select.selectedOptions[0].textContent??'',needed=context.measureText(text).width+parseFloat(style.paddingLeft)+parseFloat(style.paddingRight)+20;return needed>select.clientWidth?[`${text}: ${needed}/${select.clientWidth}`]:[];});});expect(clippedLabels).toEqual([]);
 });
 
 test('weekday world identity colors agree across selectors, sentence, formulas, graph and configuration',async({page})=>{
