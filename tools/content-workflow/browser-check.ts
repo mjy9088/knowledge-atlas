@@ -73,10 +73,19 @@ try{
       await page.screenshot({path:artifact,fullPage:true});
       records.push({scene:scene.id,width,bounds,atomic,restored:true,changedInput,motion,artifact});
     }
+    await page.emulateMedia({reducedMotion:'reduce'});
+    for(const scene of pageDefinition.scenes.filter(item=>item.motion)){
+      await page.goto(`http://127.0.0.1:4174/knowledge/${slug}/${scene.id}/`);
+      await page.waitForFunction(()=>window.__atlasRelated);
+      const before=await page.evaluate(()=>JSON.stringify(window.__atlasRelated.getState()));
+      await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve(null)))));
+      if(await page.evaluate(()=>JSON.stringify(window.__atlasRelated.getState()))!==before)throw new TypeError('Reduced-motion scene advanced automatically');
+      records.push({scene:scene.id,width,reducedMotionPaused:true});
+    }
     await page.close();
   }
 }finally{await browser.close();}
 if(errors.length)throw new TypeError(`Browser errors: ${errors.join('; ')}`);
 const result={slug,directory,records,errors,authority:'Executed browser behavior only; not scientific, learner, expert, rights or publication approval'};
 await writeFile(path.join(directory,'evidence.json'),JSON.stringify(result,null,2));
-console.log(JSON.stringify({slug,directory,scenes:records.length,errors,checks:'bounds, invalid state, reset, restoration; motion scenes also seek, keyboard scrub and immediate Next',evidence:path.join(directory,'evidence.json')},null,2));
+console.log(JSON.stringify({slug,directory,scenes:pageDefinition.scenes.length,viewports:2,states:records.length,errors,checks:'bounds, invalid state, reset, restoration; motion scenes also seek, keyboard scrub, immediate Next and paused reduced motion',evidence:path.join(directory,'evidence.json')},null,2));
