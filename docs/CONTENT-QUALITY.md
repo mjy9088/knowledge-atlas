@@ -50,6 +50,8 @@ Before calling a claim source-aligned, verify that its exact locator actually co
 
 Work in small increments: inspect related consumers; author a candidate; run structural/semantic checks; use the actual reader; obtain an independent critique; revise; commit the coherent unit. Existing accepted human text is protected. Propose conflicts as diffs. An agent may not resolve human feedback, declare expert approval, or publish on the strength of its own checks.
 
+Create verified Git checkpoints during longer implementation and correction work, without waiting for an article-wide or multi-topic `reviewed` gate. The checkpoint records implemented/tested work while unresolved source, content, learner or approval judgments remain explicit. Read-only evaluators must not commit; that role restriction does not prohibit the author from making intermediate commits. A known-broken increment is not a checkpoint, and neither a commit nor a green suite resolves an outstanding review finding.
+
 ## Evaluation rubric
 
 For each row, return **blocking**, **revise**, **adequate**, or **not applicable**, with a concrete block/scene/claim locator and reason. `Not applicable` needs a reason. Do not average numerical scores: an incorrect result cannot be compensated by an attractive opening. A missing observation is **unverified**, not a pass. The reviewer should independently work the example and the transfer problem before reading their proposed answers.
