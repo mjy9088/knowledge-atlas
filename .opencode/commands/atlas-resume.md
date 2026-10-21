@@ -15,3 +15,5 @@ Read `tools/content-workflow/README.md`, the identified run's `run.json`, packet
 - If `needs-revision`, fix the earliest located explanatory/representation finding and its invariant, updating owning scene intent before substantive changes. Follow the full correction/check/build/freeze/separate-review/record loop in `.opencode/commands/atlas-improve.md`.
 
 No report overwrites, synthetic approval rows, automatic publication or unlimited loops. At most two correction rounds per invocation. Always identify the current run, source/build scope, concrete remaining gaps and next action.
+
+Commit verified coherent increments during correction; an unresolved broader review is not a reason to accumulate all work uncommitted. Preserve its unresolved status separately. `reviewed` gates the claim that review is complete, not the creation of intermediate Git checkpoints.
