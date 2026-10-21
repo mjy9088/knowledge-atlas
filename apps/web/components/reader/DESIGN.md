@@ -42,6 +42,10 @@ Topic-owned teaching figures keep Korean words intact in their prose and caption
 
 ## 6. Responsive and motion behavior
 
+Chaptered routes select their authored scene and layout before JavaScript. Keep initial and enhanced text, image ratio and column geometry consistent. Compact figures and nearby prose use two minmax columns above 850px and a single document-flow column below it. Normal body copy remains 17px or larger. Motion scenes reserve the 44px control row plus its 24px margins before initialization, retain their caption, and replace only the static image with an inline 600×360 visual.
+
+Registered presentation sequences use a 4000ms explanatory sweep, not a minimum slide duration. They start paused, support direct range input and replay/pause/reset, and never disable Previous/Next. Reduced motion starts at the comparison poster and remains paused. State stores absolute positions independently of scientific input. Presentation tokens are ink `#172033`, paper `#f7f8fb`, rule `#536d7e`, teal `#087f72`, blue `#2c63b5` and amber `#b36a17`; labels use the existing Korean-capable system stack at 25 SVG units or more. Colors are redundant with labels and geometry.
+
 Test desktop and 390×844 narrow against the actual static build, including long-form opening and longest-proof scenes, detour entry/return, restored state, the last scene, open menu and CH's full default goal. Retain native focus and the existing reduced-motion rule. These corrections add no animation. Readers without chapter navigation keep their current bounded geometry.
 
 ## 7. Accessibility constraints

@@ -1,5 +1,11 @@
 # Reader component contracts
 
+## Static scene routes and authored motion
+
+Chaptered explanations have materialized `/knowledge/<slug>/<scene>/` documents with one server-selected visible scene, layout class and intrinsic SVG dimensions before the controller loads. The base route selects the opening. Existing scene fragments normalize to the route; evidence/connections fragments retain panel semantics. The bounded weekday reader retains its fragment behavior and timed-challenge scope. Progressive scene links use browser history without discarding scientific input; reload and no-JavaScript scene entry remain readable.
+
+`presentation-contract.ts`, `presentation-state.ts` and `presentation.ts` separate authored explanatory motion from scientific adapters. Registered factories own absolute `renderAt(timeMs)` geometry and disposal; the shared runner owns playback and validated detached position snapshots. `relatedAPI` optionally adds `presentation` state, validates it before changing scene/input, and seeks active scientific and presentation projections independently. Old snapshots without this field remain valid. No arbitrary executable path is loaded from content. Every motion scene needs a static figure and a caption that survives enhancement.
+
 ## Availability feedback
 
 `mountEvaluationFeedback({content, message})` in [evaluation-feedback.ts](evaluation-feedback.ts) accepts `{available, summary, detail}`. The caller owns scientific evaluation and wording. Keep topic/scene headings stable when an input is invalid, unavailable or a counterexample; show its outcome separately. The component hides/disables only dependent content and renders a polite live status. Editing/navigation and useful counterexample views remain available; valid recovery restores content. Default conceptual prose need not depend on a customized evaluation.
