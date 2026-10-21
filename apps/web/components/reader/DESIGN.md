@@ -20,7 +20,9 @@ Topic-owned teaching figures keep Korean words intact in their prose and caption
 
 - Shared navigation and menu-summary minimum hit area: 44×44 CSS px, including narrow viewports.
 - Narrow CH default-goal column: 148 CSS px. At the existing 18 px symbolic size this reserves room for `Ind(CH,ZFC)` plus the input's padding/border, instead of the current 96 px column that clips it.
+- The weekday selection row gives its evaluation-world control 1.15 shares and the shorter world-list filter 0.85 shares at desktop, preserving the full normal selected-world label inside the 960px composition.
 - Keep the existing 720 px narrow breakpoint and desktop/narrow container insets. A change must not hide overflow or reduce body copy to recover space.
+- The shared desktop composition is 960×540 CSS px. Larger desktop windows uniformly fit the complete live DOM with `min(viewport width / 960, viewport height / 540)`, centered with unused letterbox space. Viewport units and media rules keep the base logical dimensions; never crop, stretch one axis, or apply wide-screen-only typography or grids.
 - Static teaching-figure images use their intrinsic aspect ratio and a 6 px image-to-caption gap. The image box must not stretch to fill the figure slot because `object-fit` letterboxing separates the artwork from its caption.
 - Narrow Explosion dialogue budget: 176 CSS px, retaining the bounded long-input exception. Its normal invalid-input explanation needs 162 px with the installed fonts and must not be clipped by the older 160 px cap.
 - For standard narrow readers with a visible authored multi-scene Skip, the keyboard hint owns a complete first row and Previous/Skip/Next share the second row. Keep 4px gaps, full labels and 44px targets; the hint must not collapse into a one-character-wide column. Focus-reader rails retain their separately owned layout.
@@ -53,7 +55,7 @@ The compact single-row final-action budget applies only to bounded readers. A na
 
 Canvas orientation labels use 14 CSS pixels with light ink `#e6f2f4` and guide strokes `#c7e1e2cc` on the viewer's dark surface. The coordinate axes remain orientation aids, not particle tracks or density calibration.
 
-Test desktop and 390×844 narrow against the actual static build, including long-form opening and longest-proof scenes, detour entry/return, restored state, the last scene, open menu and CH's full default goal. Retain native focus and the existing reduced-motion rule. These corrections add no animation. Readers without chapter navigation keep their current bounded geometry.
+Test 960×540 base desktop, 1920×940 uniformly fitted desktop, and 390×844 mobile against the actual static build, including long-form opening and longest-proof scenes, detour entry/return, restored state, the last scene, open menu and CH's full default goal. Retain native focus and the existing reduced-motion rule. These corrections add no animation. Readers without chapter navigation keep their current bounded geometry. Long-form documents preserve natural page scrolling after scale; bounded readers, fixed panels, canvas hit testing and accessible dialogs remain live in the same logical coordinate space.
 
 ## 7. Accessibility constraints
 
