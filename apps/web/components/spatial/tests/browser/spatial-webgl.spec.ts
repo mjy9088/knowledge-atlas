@@ -48,13 +48,13 @@ test('equivalent unit, large, and translated fields keep cloud and surface masks
       const modeResults=[];
       for(const mode of ['cloud','surface'] as const){
         viewer.setState({mode,iso:.5});const canvas=container.querySelector('.field-canvas');if(!(canvas instanceof HTMLCanvasElement))throw new Error('Missing visible canvas');const context=canvas.getContext('2d');if(!context)throw new Error('Missing visible context');const pixels=context.getImageData(0,0,canvas.width,canvas.height).data;
-        let count=0,minX=canvas.width,minY=canvas.height,maxX=0,maxY=0;for(let index=0;index<pixels.length;index+=4){const red=pixels[index]??0,green=pixels[index+1]??0,blue=pixels[index+2]??0;if(red===16&&green===30&&blue===41)continue;const pixel=index/4,x=pixel%canvas.width,y=Math.floor(pixel/canvas.width);count++;minX=Math.min(minX,x);minY=Math.min(minY,y);maxX=Math.max(maxX,x);maxY=Math.max(maxY,y);}modeResults.push({mode,count,bounds:[minX,minY,maxX,maxY],backend:viewer.inspect().backend});
+        let count=0,minX=canvas.width,minY=canvas.height,maxX=0,maxY=0;for(let index=0;index<pixels.length;index+=4){const red=pixels[index]??0,green=pixels[index+1]??0,blue=pixels[index+2]??0;if(red===16&&green===30&&blue===41)continue;const pixel=index/4,x=pixel%canvas.width,y=Math.floor(pixel/canvas.width);count++;minX=Math.min(minX,x);minY=Math.min(minY,y);maxX=Math.max(maxX,x);maxY=Math.max(maxY,y);}modeResults.push({mode,count,width:canvas.width,height:canvas.height,bounds:[minX,minY,maxX,maxY],backend:viewer.inspect().backend});
       }
       viewer.dispose();container.remove();results.push(modeResults);
     }
     return results;
   });
-  for(const fixture of masks)for(const mask of fixture){const evidence=JSON.stringify(mask);expect(mask.backend,evidence).toEqual({requested:'webgl2',active:'webgl2',status:'ready'});expect(mask.count,evidence).toBeGreaterThan(100);expect(mask.bounds[0],evidence).toBeGreaterThan(0);expect(mask.bounds[1],evidence).toBeGreaterThan(0);expect(mask.bounds[2],evidence).toBeLessThan(319);expect(mask.bounds[3],evidence).toBeLessThan(239);}
+  for(const fixture of masks)for(const mask of fixture){const evidence=JSON.stringify(mask);expect(mask.backend,evidence).toEqual({requested:'webgl2',active:'webgl2',status:'ready'});expect(mask.count,evidence).toBeGreaterThan(100);expect(mask.bounds[0],evidence).toBeGreaterThan(0);expect(mask.bounds[1],evidence).toBeGreaterThan(0);expect(mask.bounds[2],evidence).toBeLessThan(mask.width-1);expect(mask.bounds[3],evidence).toBeLessThan(mask.height-1);}
   for(const modeIndex of [0,1]){const counts=masks.map(fixture=>fixture[modeIndex]?.count??0);expect(Math.max(...counts)-Math.min(...counts)).toBeLessThan(80);}
 });
 

@@ -32,6 +32,9 @@ test('a fractional-size field canvas clears every backing-store pixel before red
     container.style.cssText='position:fixed;left:0;top:0;width:321.25px;height:180.5px';
     document.body.append(container);
     const viewer=mountFieldViewer(container);
+    const fixtureCanvas=container.querySelector('canvas');
+    if(!(fixtureCanvas instanceof HTMLCanvasElement))throw new Error('Missing fixture canvas');
+    fixtureCanvas.style.cssText='width:100%;height:100%';
     viewer.setField({evaluate:()=>1,weight:()=>1,bounds:[[-1,1],[-1,1],[-1,1]],resolution:4});
     const canvas=container.querySelector('canvas');
     if(!(canvas instanceof HTMLCanvasElement))throw new Error('Missing fixture canvas');
