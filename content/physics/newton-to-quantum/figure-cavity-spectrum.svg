@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 500" role="img" aria-labelledby="title"><title id="title">공동 속 진동 무늬와 열복사 스펙트럼의 비교</title><rect width="600" height="500" rx="16" fill="#f7f8fb"/>
+<path d="M175 70 H30 V185 H175 V145 M175 70 V110" fill="none" stroke="#536d7e" stroke-width="7"/><path d="M40 125 C60 80 80 170 100 125 S140 80 160 125" stroke="#087f72" fill="none" stroke-width="4"/>
+<g font-family="system-ui,sans-serif" font-size="24" fill="#172033"><text x="25" y="35">빈 공간의 무늬에서 빛의 분포로</text><text x="205" y="85">벽과 빛: 같은 온도 T</text><text x="205" y="130">모드: 가능한 진동 무늬</text><text x="205" y="175">고전 계산: 같은 평균 에너지</text><text x="25" y="230">플랑크: 전체 에너지를 hν로 나누어 세기</text>
+<path d="M65 270 V420 H550" stroke="#536d7e" fill="none" stroke-width="3"/><path d="M70 415 C140 410 170 285 250 315 S360 410 540 415" stroke="#087f72" fill="none" stroke-width="5"/><path d="M70 415 Q320 405 500 275" stroke="#b36a17" stroke-dasharray="8 5" fill="none" stroke-width="5"/>
+<text x="345" y="285">고전 계산 ↗</text><text x="100" y="365">관측: 봉우리 뒤 감소</text><text x="365" y="455">진동수 →</text><text x="25" y="490">정성 도식 · 역사적 해석과 현대 모형 구별</text></g></svg>
