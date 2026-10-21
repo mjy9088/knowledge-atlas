@@ -89,6 +89,28 @@ test('orbitals: each authored scene fits with its corresponding field state',asy
   expect(errors).toEqual([]);
 });
 
+test('customized phase narration keeps color pairs and density formulas on one line',async({page},testInfo)=>{
+  // Given the phase detour, when a control activates its adapted narration.
+  await page.goto('/knowledge/newton-to-quantum/orbital-phase/');
+  await page.waitForFunction(()=>window.__atlasRelated);
+  await page.getByRole('combobox',{name:'주양자수 n',exact:true}).selectOption('3');
+  // Then each short semantic unit occupies one rendered line, including punctuation.
+  const lines=await page.locator('.reader-scene:visible .scene-prose').evaluate(element=>{
+    const node=element.firstChild;
+    if(!(node instanceof Text))throw new TypeError('Expected narration text');
+    return [/청록\u2060?·\u2060?주황/g,/\|\u2060?ψ\u2060?\|\u2060?²/g].map(pattern=>{
+      const match=[...node.data.matchAll(pattern)].at(-1);
+      if(!match)throw new TypeError('Missing semantic unit');
+      const range=document.createRange();
+      range.setStart(node,match.index);range.setEnd(node,match.index+match[0].length);
+      return new Set([...range.getClientRects()].filter(rect=>rect.width>0).map(rect=>Math.round(rect.top))).size;
+    });
+  });
+  expect(lines).toEqual([1,1]);
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  await testInfo.attach('customized-phase',{body:await page.screenshot({fullPage:true}),contentType:'image/png'});
+});
+
 test('orbital controls, camera, modes, state persistence and restoration use current input',async({page},testInfo)=>{
   await page.goto('/knowledge/newton-to-quantum/#orbital-density');await page.waitForFunction(()=>window.__atlasRelated);
   await page.getByRole('combobox',{name:'주양자수 n',exact:true}).selectOption('3');
