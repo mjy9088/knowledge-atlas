@@ -121,8 +121,9 @@ export const relatedAPI={
     if(hasCover&&!page.cover)throw new RangeError('Unsupported cover state');
     if(hasInteraction){if(!interaction)throw new RangeError('This article has no interaction');interaction.validateState(state.interaction);}
     if(Object.hasOwn(state,'presentation')){if(!presentation.available)throw new RangeError('No presentation on this article');presentation.validateState(state.presentation);}
-    coverVisible=state.cover??false;reader.setState({sceneId});if(state.interaction)interaction?.setState(state.interaction);
-    if(state.presentation)presentation.setState(state.presentation);
+    const priorHistory=followingHistory;followingHistory=true;
+    try{coverVisible=state.cover??false;reader.setState({sceneId});if(state.interaction)interaction?.setState(state.interaction);if(state.presentation)presentation.setState(state.presentation);}
+    finally{followingHistory=priorHistory;}
   },
   reset(){coverVisible=Boolean(page.cover);interaction?.reset();presentation.reset();reader.reset();},seek(timeMs:number){if(!interaction&&!presentation.available)throw new RangeError('No seekable interaction');interaction?.seek(timeMs);presentation.seek(timeMs);},
   getInspectionSnapshot(){const node=scenes[current.index],evaluation=feedback[current.index].getState();return {...reader.inspect(),...(page.cover?{cover:coverVisible}:{}),model:page.interactive??null,experiment:null,interaction:interaction?.inspect()??null,visual:null,evaluation,displayedDialogue:{title:required('h2',node).textContent,text:evaluation.available?required('.scene-prose',node).textContent:evaluation.detail,status:required('.reader-copy',node).dataset.status}};}

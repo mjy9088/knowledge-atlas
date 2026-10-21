@@ -15,6 +15,10 @@ test('authored motion supports independent seek, atomic restore and immediate na
     return false;
   });
   expect(rejected).toBe(true);
+  const historyLength=await page.evaluate(()=>history.length);
+  await page.evaluate(state=>window.__atlasRelated.setState({...state,sceneId:'rotation'}),saved);
+  expect(await page.evaluate(()=>history.length)).toBe(historyLength);
+  await page.evaluate(state=>window.__atlasRelated.setState(state),saved);
   await page.locator('.scene-motion [data-play]').click();
   await page.locator('#reader-next').click();
   await expect(page).toHaveURL(/\/rationals\/$/);
