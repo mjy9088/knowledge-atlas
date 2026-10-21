@@ -17,9 +17,11 @@ await mkdir(directory,{recursive:true});
 const browser=await chromium.launch({args:['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
 const errors:string[]=[];
 const records:unknown[]=[];
+const viewports=[{width:960,height:540},{width:1920,height:940},{width:390,height:844}] as const;
 try{
-  for(const width of [390,1280]){
-    const page=await browser.newPage({viewport:{width,height:width===390?844:900}});
+  for(const viewport of viewports){
+    const {width,height}=viewport;
+    const page=await browser.newPage({viewport});
     page.on('pageerror',error=>errors.push(error.message));
     for(const scene of pageDefinition.scenes){
       await page.goto(`http://127.0.0.1:4174/knowledge/${slug}/${scene.id}/`);
@@ -30,6 +32,7 @@ try{
         return {width:innerWidth,scrollWidth:document.documentElement.scrollWidth,maxHeight:getComputedStyle(node).maxHeight,overflow:getComputedStyle(node).overflowY,clientHeight:node.clientHeight,scrollHeight:node.scrollHeight};
       });
       if(bounds.scrollWidth>width||pageDefinition.navigation&&(bounds.maxHeight!=='none'||bounds.scrollHeight>bounds.clientHeight+1))throw new TypeError(`Clipped scene ${scene.id}`);
+      if(pageDefinition.interactive==='weekday-worlds')await page.evaluate(()=>window.__atlasRelated.seek(0));
       const saved=await page.evaluate(()=>window.__atlasRelated.getState());
       let changedInput='static';
       const select=page.locator('.lab-mode:visible, #reader-workbench select:visible').first();
@@ -39,8 +42,9 @@ try{
         const next=alternatives.find(option=>option!==value);
         if(next!==undefined){
           await select.selectOption(next);
-          if(await select.inputValue()!==next)throw new TypeError('Changed input was not reflected');
-          changedInput=`select ${value} -> ${next}`;
+          const selected=await select.inputValue();
+          if(selected===value)throw new TypeError('Changed input was not reflected');
+          changedInput=`select ${value} -> ${next}; selected value ${selected}`;
           await page.screenshot({path:path.join(directory,`${width}-${scene.id}-changed.png`),fullPage:true});
           await page.evaluate(state=>window.__atlasRelated.setState(state),saved);
         }
@@ -71,7 +75,7 @@ try{
       if(JSON.stringify(saved)!==JSON.stringify(restored))throw new TypeError('Saved state did not restore');
       const artifact=path.join(directory,`${width}-${scene.id}.png`);
       await page.screenshot({path:artifact,fullPage:true});
-      records.push({scene:scene.id,width,bounds,atomic,restored:true,changedInput,motion,artifact});
+       records.push({scene:scene.id,width,height,bounds,atomic,restored:true,changedInput,motion,artifact});
     }
     await page.emulateMedia({reducedMotion:'reduce'});
     for(const scene of pageDefinition.scenes.filter(item=>item.motion)){
@@ -86,6 +90,6 @@ try{
   }
 }finally{await browser.close();}
 if(errors.length)throw new TypeError(`Browser errors: ${errors.join('; ')}`);
-const result={slug,directory,records,errors,authority:'Executed browser behavior only; not scientific, learner, expert, rights or publication approval'};
+const result={slug,directory,records,errors,...(pageDefinition.interactive==='weekday-worlds'?{clock:'Paused with seek(0) for deterministic snapshot comparisons; live deadline behavior is covered by the topic browser suite'}:{}),authority:'Executed browser behavior only; not scientific, learner, expert, rights or publication approval'};
 await writeFile(path.join(directory,'evidence.json'),JSON.stringify(result,null,2));
-console.log(JSON.stringify({slug,directory,scenes:pageDefinition.scenes.length,viewports:2,states:records.length,errors,checks:'bounds, invalid state, reset, restoration; motion scenes also seek, keyboard scrub, immediate Next and paused reduced motion',evidence:path.join(directory,'evidence.json')},null,2));
+console.log(JSON.stringify({slug,directory,scenes:pageDefinition.scenes.length,viewports:viewports.length,states:records.length,errors,checks:'bounds, invalid state, reset, restoration; motion scenes also seek, keyboard scrub, immediate Next and paused reduced motion',evidence:path.join(directory,'evidence.json')},null,2));
