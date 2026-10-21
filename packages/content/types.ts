@@ -16,6 +16,7 @@ export interface Article {
 export interface Scene {
   id: string; title: string; block: number; from: number; to?: number;
   figure?: {src:string;alt:string;caption:string};
+  motion?: {id:string};
   cards: string[]; known: string;
   skip?: {to:string;label:string};
   suggestion?: { example: string } | { n: number; basis: string; Z: number; mode?: string };
@@ -38,6 +39,6 @@ export interface CollectionMetadata {
   articleRefs?: string[]; published?: boolean; schemaVersion?: number; title?: string;
 }
 export interface ContentCollection extends CollectionMetadata { articles: Article[] }
-export interface SiteContent { collection: ContentCollection; claims: Claim[]; sources: SourceRecord[] }
+export interface SiteContent { collection: ContentCollection; claims: Claim[]; sources: SourceRecord[]; figureDimensions?:Readonly<Record<string,{readonly width:number;readonly height:number}>> }
 export interface Concept { id: string; title: string; summary: string; reviewStatus: string; externalIds: string[] }
 export interface KnowledgeRelation { from: string; to: string; type: string; context: string; status: string; sourceRefs?: string[] }
