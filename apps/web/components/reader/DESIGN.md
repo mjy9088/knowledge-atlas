@@ -48,6 +48,8 @@ Registered presentation sequences use a 4000ms explanatory sweep, not a minimum 
 
 Long-form figure captions use 13px and keyboard hints use 12px, both with ink `#3f5b48`; do not inherit the compact bounded-reader's 9px hint or 11px narrow caption. Long proofs use normal document scrolling with uncapped `.reader-copy` height and visible overflow, verified from computed geometry rather than the earlier base CSS rule in isolation.
 
+The compact single-row final-action budget applies only to bounded readers. A narrow chaptered document places Previous/Next in a primary row, the full readable hint below, and final auxiliary links in their own row. Natural document flow permits this height; links must not be squeezed against the hint. Long-form orbital labels, status, legends and hints also use at least 13px, rather than inheriting the bounded viewer's 8–10px labels.
+
 Test desktop and 390×844 narrow against the actual static build, including long-form opening and longest-proof scenes, detour entry/return, restored state, the last scene, open menu and CH's full default goal. Retain native focus and the existing reduced-motion rule. These corrections add no animation. Readers without chapter navigation keep their current bounded geometry.
 
 ## 7. Accessibility constraints
