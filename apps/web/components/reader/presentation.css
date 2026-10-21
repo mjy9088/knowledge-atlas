@@ -1,0 +1,18 @@
+.scene-motion{width:100%;min-width:0}
+.reader-scene[data-motion] .concept-diagram{display:block}
+.reader-scene[data-motion] .scene-figure{padding-bottom:68px}
+.reader-scene[data-motion] .concept-diagram:has(.scene-motion) .scene-figure{padding-bottom:0}
+.reader-scene[data-motion] .scene-figure img[hidden]{display:none}
+.scene-motion svg{display:block;width:100%;height:auto;max-height:430px}
+.scene-motion-controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:12px 0}
+.scene-motion-controls button{font:inherit;min-height:44px;padding:8px 16px;border:1px solid #b9c9d1;border-radius:8px;background:#fff;color:#172033;cursor:pointer}
+.scene-motion-controls input{flex:1;min-width:120px;accent-color:#087f72}
+.scene-motion-controls :focus-visible{outline:3px solid #317f66;outline-offset:3px}
+.server-scene-selected{overflow-anchor:none}
+.server-scene-selected[data-presentation=longform] .reader-scene{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:start;gap:24px}
+.server-scene-selected[data-presentation=longform] .reader-scene[data-visual=none]{grid-template-columns:1fr}
+.server-scene-selected[data-presentation=longform] .reader-scene[hidden]{display:none}
+.server-scene-selected[data-presentation=longform] .reader-dialogue{padding:20px}
+.server-scene-selected[data-presentation=longform] .reader-copy h2{font-size:24px}
+.server-scene-selected[data-presentation=longform] .scene-prose{font-size:17px;line-height:1.8}
+@media(max-width:850px){.server-scene-selected[data-presentation=longform] .reader-scene{grid-template-columns:1fr;gap:16px}.server-scene-selected[data-presentation=longform] .reader-dialogue{padding:16px}.scene-motion svg{max-height:none}}
