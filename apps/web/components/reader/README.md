@@ -18,7 +18,7 @@ The shared [topic registry](../../topics/registry.ts) explicitly selects adapter
 
 Every registered topic adapter supplies a mutation-free `validateState(unknown)` preflight before its `setState(unknown)` boundary. The reader treats a saved domain snapshot as opaque untrusted data until that adapter validates it; an arbitrary object is not asserted to be a `TopicState`. Never use a setter as a trial validator before choosing the scene, since that can fire callbacks or rebuild a scientific view prematurely.
 
-Chaptered non-figure scenes present authored cards as fact/condition rows rather than a connected-node diagram. A card using the authored `label | value` convention exposes both parts in separate readable cells and preserves mathematical bars inside either part; cards without that delimiter remain one full-width fact. Bounded readers retain their existing compact card treatment.
+Chaptered non-figure scenes present authored card strings as full-width fact/condition rows rather than a connected-node diagram. Preserve each complete string literally: a spaced `|` may be a mathematical divisibility operator, not a label delimiter. The renderer must not infer structure by deleting mathematical punctuation. Bounded readers retain their existing compact card treatment.
 
 An optional `afterRender` hook synchronously commits presentation that depends on the reader's final geometry after prose, control visibility and navigation update. It must not change scientific state, reset input or notify another change. The spatial adapter uses it to redraw the static field at its final canvas size, rather than leave a stale backing store until a later ResizeObserver callback. External resizes still use the viewer's observer.
 
