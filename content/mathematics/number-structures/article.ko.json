@@ -43,7 +43,7 @@
     },
     {
       "id": "block:mathematics.number-structures.negative-square",
-      "text": "완비 순서체 ℝ도 x²=−1은 풀지 못합니다. x>0이면 양수의 곱이 양수라서 x²>0입니다. x<0이면 −x>0이고 x²=(−x)²>0입니다. x=0이면 x²=0입니다. 따라서 실수의 어떤 제곱도 −1이 아닙니다. 이번 목표는 경계를 모두 채우는 순서 조건이 아니라 새 다항방정식의 해를 넣는 것입니다. 이 선택은 실수의 표준 순서를 확장하면서 체 연산과 양립하는 전순서를 보존할 수 없다는 비용을 냅니다.",
+      "text": "실수에서도 제곱해서 −1이 되는 수는 없습니다. 양수의 제곱은 양수, 음수도 부호가 두 번 곱해져 제곱은 양수이며, 0의 제곱은 0입니다. 이번 목표는 경계를 채우는 일이 아니라 이 새 방정식의 해를 넣는 것입니다. 다만 예전의 계산을 유지하면서 실수의 크기 순서까지 그대로 늘릴 수는 없습니다. 새 수를 얻을 때 무엇을 포기하는지도 봐야 합니다.",
       "claimRefs": ["claim:number-systems.complex.i-square", "claim:number-systems.complex.not-ordered-field", "claim:mathematics.number-structures.extension-choice"]
     },
     {
