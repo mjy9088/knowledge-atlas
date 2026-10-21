@@ -51,7 +51,7 @@ The explosion pilot retains its `episode.ts`, original content/scene/storyboard 
 6. For a new kind of experiment, add its pure scientific model under `packages/models/` and its domain-specific UI configuration under `apps/web/topics/`. Reuse generic reader/status components. The existing premise editor is specifically a symbolic/formal-reasoning editor, not a universal physical-unit or dataset input component. Add an appropriate input adapter rather than relabel it.
 7. Run `pnpm check` and inspect the new article at the supported viewports. Extend meaningful semantic fixtures and browser cases for its boundaries. Review source alignment and rights independently of these checks.
 
-Public articles use `/knowledge/<slug>/`, with unique slugs. The home page `/` and `/knowledge/` render the catalog. `CONTENT_PAGES` selects routable readers and normally aliases the flat `INDEX_PAGES` catalog; source-only articles and the retired `/lesson.html` reader are not emitted. A private Studio worktree may append a draft route without changing the host catalog. Nested domain URLs and automatic redirects are not implemented.
+Public articles use `/knowledge/<slug>/`, with unique slugs; static scene documents use `/knowledge/<slug>/<scene>/`. Chaptered navigation uses these paths and accepts old scene fragments as compatibility links. This is scene routing, not nested domain taxonomy. The home page `/` and `/knowledge/` render the catalog. `CONTENT_PAGES` selects routable readers and normally aliases the flat `INDEX_PAGES` catalog; source-only articles and the retired `/lesson.html` reader are not emitted. A private Studio worktree may append a draft route without changing the host catalog.
 
 ## Authoring a question-led article
 
