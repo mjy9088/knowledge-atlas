@@ -4,6 +4,8 @@
 
 The reader should leave able to construct the observation denominator, not merely remember that two versions have answers 1/3 and 1/2. The central distinction is between a true family property and the procedure that produces a report of that property. No quiz or random experiment is required to obtain the explanation. The [scene plan](slide-plan.json) and the representation rationale below are authoring proposals, not evidence of learner attainment or editorial approval.
 
+First-use language in `filter` explains observation likelihood as the chance of hearing “yes” if a particular family were the true case, with BB and GG as the local 1/0 examples. `child` then changes the BG example to 1/2 before using the ledger's short label. The reader must not confuse this report probability with the family's probability after hearing the report. This terminology correction preserves all prior weights, procedures and results.
+
 | Scene | Content and purpose | Representation and meaningful interaction | Success check |
 | --- | --- | --- | --- |
 | `question` | The same true sentence can arrive through different procedures; identify what information is missing before calculating. | Static question/process comparison, without an answer reveal or required prediction. | Reader can ask how the family or child was selected rather than choose an answer from wording alone. |
