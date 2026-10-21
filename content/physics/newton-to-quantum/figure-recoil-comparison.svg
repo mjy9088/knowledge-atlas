@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 460" role="img" aria-labelledby="title"><title id="title">같은 중성 입사체를 가정한 두 표적의 반동 비교</title><rect width="600" height="460" rx="16" fill="#f7f8fb"/>
+<g font-family="system-ui,sans-serif" font-size="25" fill="#172033"><text x="25" y="40">보이지 않는 입자: 다른 표적을 비교</text><text x="25" y="90">같은 입사 속도 · 정면 탄성충돌 모형</text><text x="25" y="145">수소 핵</text><text x="25" y="285">질소 핵</text>
+<path d="M200 170 H290 M350 170 H540 M520 160 L540 170 L520 180 M200 310 H290 M350 310 H405 M385 300 L405 310 L385 320" fill="none" stroke="#087f72" stroke-width="4"/>
+<circle cx="320" cy="170" r="18" fill="#b36a17"/><circle cx="320" cy="310" r="35" fill="#b36a17"/><text x="365" y="215">큰 반동 속도</text><text x="370" y="370">작은 반동 속도</text><text x="25" y="420">입사체의 질량을 표적의 반동에서 추론</text><text x="25" y="455">설명용 모형 · 1932년 측정값 도표 아님</text></g></svg>
