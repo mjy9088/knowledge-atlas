@@ -35,7 +35,7 @@ const page={
   ],
   navigation: {
     chapters: [
-      {kind: 'mainline', id: 'classical-prediction', title: '움직임의 예측에서 전자의 발견으로', sceneIds: ['question', 'newton', 'classical-confidence', 'electron-1897', 'atomic-evidence']},
+      {kind: 'mainline', id: 'classical-prediction', title: '움직임의 예측에서 전자의 발견으로', sceneIds: ['question', 'newton', 'classical-confidence', 'atomic-evidence', 'electron-1897']},
       {kind: 'mainline', id: 'new-constraints', title: '빛의 에너지와 원자핵을 찾다', sceneIds: ['light-and-heat', 'photoelectric', 'nuclear-atom', 'spectral-lines', 'bohr', 'proton-1919']},
       {kind: 'mainline', id: 'quantum-description', title: '양자 상태와 계속되는 핵의 발견', sceneIds: ['matter-waves', 'quantum-state', 'neutron-1932', 'classical-limit', 'payoff']},
       {kind: 'detour', id: 'forces-and-frames', title: '힘과 기준계', sceneIds: ['force-balance', 'frame-comparison'], parentSceneId: 'newton', returnSceneId: 'newton'},
