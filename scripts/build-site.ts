@@ -79,8 +79,9 @@ export async function buildSite(){
   const contentAssets=new Set(CONTENT_PAGES.flatMap(page=>[page.coverArtwork?.src,...page.scenes.map(scene=>scene.figure?.src)].filter((src):src is string=>src!==undefined)));
   for(const asset of contentAssets)await emit(asset.slice(1),await readFile(path.join(root,asset.slice(1))));
   for(const dir of ['knowledge','sources','packages/models','packages/experiments','packages/content','packages/spatial'])await copyTree(dir,dir,['.json','.ts']);
-  for(const [url,html]of siteDocuments(content))await emit(url.slice(1)+'index.html',html);
-  const pages=[...siteDocuments(content).keys()];
+  const documents=siteDocuments(content);
+  for(const [url,html]of documents)await emit(url.slice(1)+'index.html',html);
+  const pages=[...documents.keys()];
   await emit('404.html','<!doctype html><html lang="ko"><meta charset="utf-8"><title>페이지를 찾지 못했습니다</title><h1>페이지를 찾지 못했습니다</h1><a href="/knowledge/">지식 목록으로</a></html>');
   files.sort((a,b)=>a.path.localeCompare(b.path));
   const buildInputs=[];
