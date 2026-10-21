@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" role="img" aria-labelledby="title">
+<title id="title">수소 3에서 2로 전이하는 에너지 차이</title><rect width="600" height="360" rx="16" fill="#f7f8fb"/>
+<path d="M50 100 H340 M50 240 H340 M190 110 V220 L177 200 M190 220 L203 200" fill="none" stroke="#087f72" stroke-width="4"/>
+<g font-family="system-ui,sans-serif" font-size="26" fill="#172033"><text x="25" y="45">공간의 낙하가 아니라 에너지 차이</text><text x="355" y="110">3: −1.51 eV</text><text x="355" y="250">2: −3.40 eV</text><text x="25" y="310">차이 약 1.89 eV → 파장 약 656 nm</text><text x="25" y="350">보어 모형의 선택된 수소 선 계산</text></g></svg>

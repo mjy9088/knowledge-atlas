@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" role="img" aria-labelledby="title">
+<title id="title">얇은 금속박과 산란 무늬의 비교</title><rect width="600" height="360" rx="16" fill="#f7f8fb"/>
+<rect x="290" y="70" width="9" height="200" fill="#b36a17"/>
+<path d="M30 110 H555 M30 160 H555 M30 210 H555 M30 260 H250 Q300 260 200 315" fill="none" stroke="#087f72" stroke-width="4"/>
+<g font-family="system-ui,sans-serif" font-size="26" fill="#172033"><text x="20" y="40">통과하는 입자와 크게 꺾이는 입자</text><text x="335" y="270">얇은 금속박</text><text x="20" y="350">개념 비교 · 실제 궤적·크기·비율 아님</text></g></svg>

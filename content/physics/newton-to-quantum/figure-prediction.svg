@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" role="img" aria-labelledby="title">
+<title id="title">알짜 힘이 0이면 같은 시간마다 같은 이동</title><rect width="600" height="360" rx="16" fill="#f7f8fb"/>
+<path d="M50 190 H550" stroke="#536d7e" stroke-width="3"/>
+<g fill="#2c63b5"><circle cx="80" cy="160" r="13"/><circle cx="190" cy="160" r="13"/><circle cx="300" cy="160" r="13"/><circle cx="410" cy="160" r="13"/><circle cx="520" cy="160" r="13"/></g>
+<g font-family="system-ui,sans-serif" font-size="27" fill="#172033"><text x="25" y="50">지금의 위치·속도에서 다음 위치로</text><text x="50" y="240">0초</text><text x="270" y="240">2초</text><text x="490" y="240">4초</text><text x="30" y="320">등속 운동의 예 · 저항을 제외한 모형</text></g></svg>
