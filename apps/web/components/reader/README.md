@@ -18,6 +18,8 @@ The shared [topic registry](../../topics/registry.ts) explicitly selects adapter
 
 Every registered topic adapter supplies a mutation-free `validateState(unknown)` preflight before its `setState(unknown)` boundary. The reader treats a saved domain snapshot as opaque untrusted data until that adapter validates it; an arbitrary object is not asserted to be a `TopicState`. Never use a setter as a trial validator before choosing the scene, since that can fire callbacks or rebuild a scientific view prematurely.
 
+Chaptered non-figure scenes present authored cards as fact/condition rows rather than a connected-node diagram. A card using the authored `label | value` convention exposes both parts in separate readable cells and preserves mathematical bars inside either part; cards without that delimiter remain one full-width fact. Bounded readers retain their existing compact card treatment.
+
 An optional `afterRender` hook synchronously commits presentation that depends on the reader's final geometry after prose, control visibility and navigation update. It must not change scientific state, reset input or notify another change. The spatial adapter uses it to redraw the static field at its final canvas size, rather than leave a stale backing store until a later ResizeObserver callback. External resizes still use the viewer's observer.
 
 In long-form works, customized domain feedback supplements rather than removes the canonical worked explanation. An adapter reporting `available: false` for the selected scene must not replace its manuscript, even when a different scene left customized input in that adapter. Preserve the edited input for a return to its applicable detour, but restore the inactive scene's original prose, claim references, and visual treatment.
@@ -25,6 +27,8 @@ In long-form works, customized domain feedback supplements rather than removes t
 Treat saved reader state as untrusted input. Accept only a non-array record with the declared reader keys and exact nested experiment/visual shapes; reject unknown keys, present-but-invalid optional fields and fields that do not apply to the current page. Validate the final target state before mutation: scene presets and the experiment `customized` flag determine the proof against which a saved visual step is checked. After preflight succeeds, restore the declared scene before explicit experiment or interaction state so scene suggestions cannot silently replace saved user input. Any rejection leaves the complete reader, experiment, visual and interaction snapshot unchanged.
 
 An authored skip names a forward nonadjacent scene. Reject missing, backward and adjacent destinations. Hide skip when it would duplicate Next. Derive skipped scope from covered scenes' `known` descriptions, expose destination/scope in help/accessibility copy and preserve experiment state. Content owns skip targets and labels. Verify normal/skip navigation, editing, restoration, key handling and fixed control access against [Product](../../../../docs/PRODUCT.md).
+
+Static and no-JavaScript detour documents always expose the declared inline return link. After enhancement, earlier detour scenes retain it, while the final detour scene hides that duplicate and uses the common visible Next control labelled `본문 돌아가기`; both paths resolve through the same declared return identity.
 
 ## Static scene figures
 
