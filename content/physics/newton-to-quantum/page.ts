@@ -1,10 +1,11 @@
 import type {ContentPage} from '../../../packages/content/types.js';
+import {historyScenes,historyVisual} from './history-scenes.js';
 
-export default {
+const page={
   slug: 'newton-to-quantum',
   articleId: 'article:physics.newton-to-quantum.ko',
   label: '뉴턴에서 양자로',
-  category: '물리 · 긴 설명',
+  category: '물리 · 발견의 역사',
   interactive: 'physics-history',
   styles: ['/components/spatial/field-viewer.css', '/topics/quantum/orbitals.css'],
   claimRefs: [
@@ -34,9 +35,9 @@ export default {
   ],
   navigation: {
     chapters: [
-      {kind: 'mainline', id: 'classical-prediction', title: '고전적 예측과 보이지 않는 물질', sceneIds: ['question', 'newton', 'classical-confidence', 'atomic-evidence']},
-      {kind: 'mainline', id: 'new-constraints', title: '에너지와 원자에 생긴 새 제약', sceneIds: ['light-and-heat', 'photoelectric', 'nuclear-atom', 'spectral-lines', 'bohr']},
-      {kind: 'mainline', id: 'quantum-description', title: '경로에서 양자 상태로', sceneIds: ['matter-waves', 'quantum-state', 'classical-limit', 'payoff']},
+      {kind: 'mainline', id: 'classical-prediction', title: '움직임의 예측에서 전자의 발견으로', sceneIds: ['question', 'newton', 'classical-confidence', 'electron-1897', 'atomic-evidence']},
+      {kind: 'mainline', id: 'new-constraints', title: '빛의 에너지와 원자핵을 찾다', sceneIds: ['light-and-heat', 'photoelectric', 'nuclear-atom', 'spectral-lines', 'bohr', 'proton-1919']},
+      {kind: 'mainline', id: 'quantum-description', title: '양자 상태와 계속되는 핵의 발견', sceneIds: ['matter-waves', 'quantum-state', 'neutron-1932', 'classical-limit', 'payoff']},
       {kind: 'detour', id: 'forces-and-frames', title: '힘과 기준계', sceneIds: ['force-balance', 'frame-comparison'], parentSceneId: 'newton', returnSceneId: 'newton'},
       {kind: 'detour', id: 'unseen-matter', title: '보이지 않는 물질의 증거', sceneIds: ['brownian-proxy', 'brownian-bridge'], parentSceneId: 'atomic-evidence', returnSceneId: 'atomic-evidence'},
       {kind: 'detour', id: 'photon-ledger', title: '한 사건의 에너지 장부', sceneIds: ['below-threshold', 'above-threshold'], parentSceneId: 'photoelectric', returnSceneId: 'photoelectric'},
@@ -74,3 +75,4 @@ export default {
     {id: 'orbital-phase', title: '상대 부호가 보강과 상쇄를 바꿉니다', block: 24, from: 0, cards: ['보강 | 1+1=2', '상쇄 | 1−1=0', '주의 | 4는 정규화된 확률 아님', '불변 | 전체 부호 반전 뒤 |ψ|² 동일'], known: '오비탈 상대 위상의 간섭 의미', suggestion: {example: 'orbital-phase'}},
   ],
 } satisfies ContentPage;
+export default {...page,scenes:[...page.scenes,...historyScenes].map(historyVisual)} satisfies ContentPage;
