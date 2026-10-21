@@ -24,8 +24,8 @@ const server=http.createServer(async(req,res)=>{
  try {
   if(req.method!=='GET'&&req.method!=='HEAD'){res.writeHead(405);res.end('Method not allowed');return;}
   const url=new URL(req.url??'/','http://localhost');
-  if(url.pathname==='/knowledge'||/^\/knowledge\/[a-z-]+$/.test(url.pathname)){res.writeHead(308,{Location:url.pathname+'/'+url.search});res.end();return;}
-  if(url.pathname==='/'||url.pathname==='/knowledge/'||/^\/knowledge\/[a-z-]+\/$/.test(url.pathname)){
+   if(url.pathname==='/knowledge'||/^\/knowledge\/[a-z0-9-]+(?:\/[a-z0-9-]+)?$/.test(url.pathname)){res.writeHead(308,{Location:url.pathname+'/'+url.search});res.end();return;}
+   if(url.pathname==='/'||url.pathname==='/knowledge/'||/^\/knowledge\/[a-z0-9-]+(?:\/[a-z0-9-]+)?\/$/.test(url.pathname)){
     const html=siteDocuments(await loadSiteContent()).get(url.pathname);
     if(!html){res.writeHead(404);res.end('Not found');return;}
     res.writeHead(200,{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store','Content-Security-Policy':"default-src 'self'; style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'none'"});res.end(req.method==='HEAD'?undefined:html);return;

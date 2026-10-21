@@ -20,7 +20,7 @@ for(const slug of slugs)test(`${slug}: long-form progress, natural scrolling, re
   if(canScroll)await expect.poll(()=>page.evaluate(()=>scrollY)).toBeGreaterThan(0);else expect(await page.evaluate(()=>scrollY)).toBe(0);
   await testInfo.attach(`${slug}-long-scene`,{body:await page.screenshot({fullPage:true}),contentType:'image/png'});
   await openMainWorkScene(page,work,branch.parentSceneId);
-  await page.locator(`.reader-branch-links a[href="#${branch.sceneIds[0]}"]`).click();
+    await page.locator(`.reader-branch-links a[href$="/${branch.sceneIds[0]}/"]`).click();
   await expect(page.locator('.reader-scene:visible>.reader-dialogue>.eyebrow')).toHaveText(`선택 1 / ${branch.sceneIds.length}`);
   const saved=await page.evaluate(()=>window.__atlasRelated.getState());await page.evaluate(()=>window.__atlasRelated.setState({sceneId:'payoff'}));await page.evaluate(state=>window.__atlasRelated.setState(state),saved);
   expect(await page.evaluate(()=>window.__atlasRelated.getState())).toEqual(saved);

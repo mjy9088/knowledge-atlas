@@ -16,6 +16,15 @@ for(const slug of slugs)test(`${slug}: every owned teaching figure loads with ca
       const source=await (await page.request.get(scene.figure?.src??'')).text();
       // Then the current source asset, canonical prose, metadata alt/caption, and proportional image are real.
       expect(source).toContain('<svg');
+      if(scene.motion){
+        await expect(image).toBeHidden();
+        await expect(page.locator('.reader-scene:visible .scene-figure figcaption')).toBeVisible();
+        const visual=page.locator('.scene-motion svg');
+        await expect(visual).toBeVisible();
+        const ratio=await visual.evaluate(node=>{const bounds=node.getBoundingClientRect();return bounds.width/bounds.height;});
+        expect(Math.abs(ratio-600/360)).toBeLessThan(0.02);
+        return;
+      }
       const ratios=await image.evaluate(node=>{if(!(node instanceof HTMLImageElement))throw new TypeError('Expected teaching image');const bounds=node.getBoundingClientRect();return{rendered:bounds.width/bounds.height,intrinsic:node.naturalWidth/node.naturalHeight};});
       expect(Math.abs(ratios.rendered-ratios.intrinsic)).toBeLessThan(0.02);
     });

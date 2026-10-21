@@ -27,14 +27,19 @@ test('related scenes preserve every source sentence, claim reference and review 
   const broken=structuredClone(data.collection);broken.articles[0].blocks[0].claimRefs.push('claim:missing');
   assert.ok(validateRelatedPages(broken,data.claims).some(e=>e.includes('Unknown page claim')));
 });
-test('pre-rendered pages contain complete readable prose and escaped evidence without running JavaScript',async()=>{
+test('pre-rendered scene routes select exactly the requested scene before JavaScript',async()=>{
   const data=await loadSiteContent(),docs=siteDocuments(data);
-  assert.equal(docs.size,CONTENT_PAGES.length+2);
+  assert.equal(docs.size,CONTENT_PAGES.reduce((count,page)=>count+page.scenes.length+1,2));
   for(const page of CONTENT_PAGES){
     const html=docs.get(`/knowledge/${page.slug}/`)!,article=data.collection.articles.find(a=>a.id===page.articleId)!;
-    for(const scene of page.scenes)assert.ok(html.includes(escapeHTML(sceneText(article,scene))));
+    assert.ok(html.includes(`data-server-scene="${page.scenes[0]?.id}"`));
+    for(const scene of page.scenes){
+      const sceneHTML=docs.get(`/knowledge/${page.slug}/${scene.id}/`)??'';
+      assert.ok(sceneHTML.includes(`data-server-scene="${scene.id}"`));
+      assert.ok(sceneHTML.includes(`id="${scene.id}"`));
+      assert.ok(sceneHTML.includes(escapeHTML(sceneText(article,scene))));
+    }
     assert.ok(html.includes('주장별 조건과 근거 위치'));assert.ok(html.includes('내용 검토 전 초안'));
-    assert.ok(!html.includes('reader-scene" hidden'));
   }
   const untrusted=structuredClone(data);untrusted.collection.articles.find(a=>a.id==='article:physics.newton-to-quantum.ko')!.title='<script>alert("x")</script>';
   const html=siteDocuments(untrusted).get('/knowledge/newton-to-quantum/')!;
@@ -65,7 +70,7 @@ test('site documents expose five active routes and omit retired readers',async()
   const docs=siteDocuments(await loadSiteContent());
   // When static route documents are derived.
   // Then only the two main works and three retained subjects receive article routes.
-  assert.deepEqual([...docs.keys()],['/','/knowledge/','/knowledge/newton-to-quantum/','/knowledge/number-structures/','/knowledge/weekday-worlds/','/knowledge/monty-hall/','/knowledge/two-children/']);
+   assert.deepEqual([...docs.keys()].filter(url=>url.split('/').filter(Boolean).length<=2),['/','/knowledge/','/knowledge/newton-to-quantum/','/knowledge/number-structures/','/knowledge/weekday-worlds/','/knowledge/monty-hall/','/knowledge/two-children/']);
   for(const retired of ['/lesson.html','/knowledge/binary-search/','/knowledge/atomic-orbitals/','/knowledge/real-completeness/'])assert.equal(docs.has(retired),false);
 });
 test('every catalog card names its authored payoff without substituting a trailing detour',async()=>{

@@ -1,21 +1,25 @@
 import {required,byId,eventElement} from '../../components/dom.js';
 import type {ReaderView} from '../../components/reader/state.js';
 interface ArticleElements {[id:string]:HTMLElement;'reader-prev':HTMLButtonElement;'reader-next':HTMLButtonElement;'reader-reset':HTMLButtonElement;'reader-skip':HTMLButtonElement}
-export interface RelatedState {readonly sceneId:string;readonly cover?:boolean;readonly interaction?:TopicState}
-type ParsedRelatedState=Omit<RelatedState,'interaction'>&{readonly interaction?:unknown};
+import type {PresentationState} from '../../components/reader/presentation-contract.js';
+export interface RelatedState {readonly sceneId:string;readonly cover?:boolean;readonly interaction?:TopicState;readonly presentation?:PresentationState}
+type ParsedRelatedState=Omit<RelatedState,'interaction'|'presentation'>&{readonly interaction?:unknown;readonly presentation?:unknown};
 import {CONTENT_PAGES} from '/content/catalog.js';
 import {readerDestination,readerSkip,createRelatedReader} from '../../components/reader/state.js';
 import {mountReaderPanels} from '../../components/reader/panels.js';
 import {mountEvaluationFeedback} from '../../components/reader/evaluation-feedback.js';
 import {mountTopicInteraction,type TopicState} from '../../topics/registry.js';
-const RELATED_STATE_KEYS=['sceneId','cover','interaction'] as const;
+import {scenePath,parseKnowledgePath} from '/packages/content/scene-routing.js';
+import {mountPresentation} from '../../components/reader/presentation.js';
+const RELATED_STATE_KEYS=['sceneId','cover','interaction','presentation'] as const;
 function assertExactRecord(value:unknown,keys:readonly string[],message:string):asserts value is Record<string,unknown>{if(!value||typeof value!=='object'||Array.isArray(value)||!Object.keys(value).every(key=>keys.some(allowed=>allowed===key)))throw new RangeError(message);}
 function isTopicStateCandidate(value:unknown):value is Record<string,unknown>{return Boolean(value)&&typeof value==='object'&&!Array.isArray(value);}
 function parseRelatedState(value:unknown):ParsedRelatedState{
   assertExactRecord(value,RELATED_STATE_KEYS,'Invalid related state');if(typeof value['sceneId']!=='string')throw new RangeError('Invalid related state');
   const cover=value['cover'];if(Object.hasOwn(value,'cover')&&typeof cover!=='boolean')throw new RangeError('Invalid cover state');
   const interaction=value['interaction'];if(Object.hasOwn(value,'interaction')&&!isTopicStateCandidate(interaction))throw new RangeError('Invalid interaction state');
-  return{sceneId:value['sceneId'],...(typeof cover==='boolean'?{cover}:{}),...(isTopicStateCandidate(interaction)?{interaction}:{})};
+  const presentation=value['presentation'];if(Object.hasOwn(value,'presentation')&&!isTopicStateCandidate(presentation))throw new RangeError('Invalid presentation state');
+  return{sceneId:value['sceneId'],...(typeof cover==='boolean'?{cover}:{}),...(isTopicStateCandidate(interaction)?{interaction}:{}),...(presentation!==undefined?{presentation}:{})};
 }
 const $=<K extends string & keyof ArticleElements>(id:K)=>byId<ArticleElements[K]>(id),root=required('[data-page]');
 const page=(()=>{const found=CONTENT_PAGES.find(page=>page.slug===root.dataset.page);if(!found)throw new Error('Unknown article');return found;})();
@@ -47,6 +51,8 @@ if(page.interactive==='weekday-worlds'){
 const original=scenes.map(node=>({title:required('h2',node).textContent,text:required('.scene-prose',node).textContent,claims:node.dataset.claimRefs??''}));
 const feedback=scenes.map(node=>mountEvaluationFeedback({content:required('.scene-prose',node),message:required('.scene-result',node)}));
 const panels=mountReaderPanels([{element:$('connections'),title:'연관 지식'},{element:$('evidence'),title:'근거와 범위'}]);
+const presentation=mountPresentation(page);
+let historyReady=false,followingHistory=false;
 let current:ReaderView,interaction:ReturnType<typeof mountTopicInteraction>|undefined;
 function renderInput(){
   if(!current)return;
@@ -78,9 +84,10 @@ function renderInput(){
   if(page.cover){root.dataset.cover=String(coverVisible);cover.hidden=!coverVisible;$('reader-workbench').hidden=coverVisible||!interaction;$('reader-scenes').hidden=coverVisible||opening;}
   interaction?.setActive?.(!coverVisible&&(page.interactive!=='weekday-worlds'||current.sceneId==='question')&&(!labTopic||root.dataset.mode==='interactive'||root.dataset.mode==='spatial'));
   if(page.interactive!=='weekday-worlds'){const hint=$('reader-skip-scope');const text=spatial?'본문 ← → 장면 이동 · 시각화에 초점을 두면 방향키 회전':longform?'← → 장면 이동 · Space 문서 스크롤':'← → · Space/Enter';hint.textContent=text;hint.title=spatial?text:longform?text:'← → 방향키: 장면 이동 · Space 또는 Enter: 다음';$('reader-end-links').hidden=Boolean(next);}
-  interaction?.afterRender?.();
+   interaction?.afterRender?.();
+   presentation.activate(current.scene,node);
 }
-function render(view:ReaderView){current=view;renderInput();history.replaceState(null,'',coverVisible?'#title':'#'+view.sceneId);}
+function render(view:ReaderView){current=view;renderInput();const url=coverVisible?`/knowledge/${page.slug}/#title`:longform?scenePath(page.slug,view.sceneId):`/knowledge/${page.slug}/#${view.sceneId}`;if(location.pathname+location.hash!==url){if(historyReady&&!followingHistory)history.pushState(null,'',url);else history.replaceState(null,'',url);}}
 const reader=createRelatedReader(page,{onChange:render});
 if(page.interactive){
   required('.model-toolbar').hidden=true;
@@ -91,8 +98,8 @@ function next(){if(coverVisible){coverVisible=false;render(reader.inspect());}el
 function previous(){if(coverVisible)return;if(page.cover&&current.index===0){coverVisible=true;render(reader.inspect());}else reader.previous();}
 $('reader-skip').addEventListener('click',()=>{const skip=readerSkip(page,current.sceneId);if(skip){reader.setState({sceneId:skip.to});const title=required('h2',scenes[current.index]);title.tabIndex=-1;title.focus({preventScroll:true});}});
 $('reader-next').addEventListener('click',next);$('reader-prev').addEventListener('click',previous);
-$('reader-reset').hidden=false;$('reader-reset').addEventListener('click',()=>{coverVisible=Boolean(page.cover);interaction?.reset();reader.reset();required<HTMLDetailsElement>('.reader-menu').open=false;});
-required('.reader-menu nav').addEventListener('click',event=>{const link=eventElement(event)?.closest<HTMLAnchorElement>('a');if(!link||!(page.cover&&link.hash==='#title')&&!page.scenes.some(scene=>scene.id===link.hash.slice(1)))return;event.preventDefault();coverVisible=Boolean(page.cover&&link.hash==='#title');if(coverVisible)render(reader.inspect());else reader.setState({sceneId:link.hash.slice(1)});required<HTMLDetailsElement>('.reader-menu').open=false;});
+$('reader-reset').hidden=false;$('reader-reset').addEventListener('click',()=>{coverVisible=Boolean(page.cover);interaction?.reset();presentation.reset();reader.reset();required<HTMLDetailsElement>('.reader-menu').open=false;});
+document.addEventListener('click',event=>{const link=eventElement(event)?.closest<HTMLAnchorElement>('a');if(!link||event.defaultPrevented||event.metaKey||event.ctrlKey||event.shiftKey||link.origin!==location.origin)return;const route=parseKnowledgePath(link.pathname),id=link.hash.slice(1)||route?.sceneId;if(route?.slug!==page.slug||!id||!page.scenes.some(scene=>scene.id===id))return;event.preventDefault();coverVisible=false;reader.setState({sceneId:id});required<HTMLDetailsElement>('.reader-menu').open=false;window.scrollTo(0,0);});
 document.addEventListener('keydown',event=>{
   if(event.defaultPrevented||event.repeat||event.altKey||event.ctrlKey||event.metaKey||event.shiftKey||document.querySelector('dialog[open]'))return;
   if(eventElement(event)?.closest('input,textarea,select,summary,details,[contenteditable]'))return;
@@ -102,19 +109,22 @@ document.addEventListener('keydown',event=>{
 });
 function followHash(){const id=resolveSceneId(location.hash.slice(1));if(page.cover&&id==='title'){coverVisible=true;render(reader.inspect());}else if(page.scenes.some(scene=>scene.id===id)){coverVisible=false;reader.setState({sceneId:id});}else panels.openHash(location.hash);}
 window.addEventListener('hashchange',followHash);
+window.addEventListener('popstate',()=>{const id=parseKnowledgePath(location.pathname)?.sceneId;if(id&&page.scenes.some(scene=>scene.id===id)){followingHistory=true;coverVisible=false;reader.setState({sceneId:id});followingHistory=false;}else followHash();});
 $('reader-controls').hidden=false;if(page.interactive!=='weekday-worlds')$('reader-skip-scope').hidden=false;
-const requestedScene=requestedHash.slice(1);if(page.scenes.some(scene=>scene.id===requestedScene))reader.setState({sceneId:requestedScene});else render(reader.inspect());
-document.documentElement.classList.add('reader-enhanced');window.scrollTo(0,0);panels.openHash(requestedHash);
+const requestedScene=requestedHash.slice(1)||parseKnowledgePath(location.pathname)?.sceneId||root.dataset.serverScene;if(page.scenes.some(scene=>scene.id===requestedScene))reader.setState({sceneId:requestedScene??page.scenes[0].id});else render(reader.inspect());
+document.documentElement.classList.add('reader-enhanced');window.scrollTo(0,0);historyReady=true;panels.openHash(requestedHash);
 export const relatedAPI={
-  getState:()=>({...reader.getState(),...(page.cover?{cover:coverVisible}:{}),...(interaction?{interaction:interaction.getState()}:{})}),
+  getState:()=>({...reader.getState(),...(page.cover?{cover:coverVisible}:{}),...(interaction?{interaction:interaction.getState()}:{}),...(presentation.available?{presentation:presentation.getState()}:{})}),
   setState(value:unknown){
     const state=parseRelatedState(value),sceneId=resolveSceneId(state.sceneId),hasCover=Object.hasOwn(state,'cover'),hasInteraction=Object.hasOwn(state,'interaction');
     if(!page.scenes.some(scene=>scene.id===sceneId))throw new RangeError('Unknown related scene');
     if(hasCover&&!page.cover)throw new RangeError('Unsupported cover state');
     if(hasInteraction){if(!interaction)throw new RangeError('This article has no interaction');interaction.validateState(state.interaction);}
+    if(Object.hasOwn(state,'presentation')){if(!presentation.available)throw new RangeError('No presentation on this article');presentation.validateState(state.presentation);}
     coverVisible=state.cover??false;reader.setState({sceneId});if(state.interaction)interaction?.setState(state.interaction);
+    if(state.presentation)presentation.setState(state.presentation);
   },
-  reset(){coverVisible=Boolean(page.cover);interaction?.reset();reader.reset();},seek(timeMs:number){if(!interaction)throw new RangeError('No seekable interaction');interaction.seek(timeMs);},
+  reset(){coverVisible=Boolean(page.cover);interaction?.reset();presentation.reset();reader.reset();},seek(timeMs:number){if(!interaction&&!presentation.available)throw new RangeError('No seekable interaction');interaction?.seek(timeMs);presentation.seek(timeMs);},
   getInspectionSnapshot(){const node=scenes[current.index],evaluation=feedback[current.index].getState();return {...reader.inspect(),...(page.cover?{cover:coverVisible}:{}),model:page.interactive??null,experiment:null,interaction:interaction?.inspect()??null,visual:null,evaluation,displayedDialogue:{title:required('h2',node).textContent,text:evaluation.available?required('.scene-prose',node).textContent:evaluation.detail,status:required('.reader-copy',node).dataset.status}};}
 };
 

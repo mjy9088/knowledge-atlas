@@ -110,7 +110,7 @@ export async function expectReaderStateBoundary(page:Page,sceneId:string):Promis
 
 export async function expectDetourReturn(page:Page,work:ActiveWork,detour:ContentDetourChapter):Promise<void>{
   await openMainWorkScene(page,work,detour.parentSceneId);
-  await page.locator(`.reader-branch-links a[href="#${detour.sceneIds[0]}"]`).click();
+  await page.locator(`.reader-branch-links a[href$="/${detour.sceneIds[0]}/"]`).click();
   for(const sceneId of detour.sceneIds){
     await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',sceneId);
     await expectLongformScene(page,work,sceneId);

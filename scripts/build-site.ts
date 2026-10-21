@@ -8,6 +8,8 @@ import {fileURLToPath} from 'node:url';
 import {CONTENT_ENTRIES,CONTENT_PAGES,pageURL} from '../content/catalog.js';
 import {renderRelatedIndex,renderRelatedPage,validateRelatedPages} from '../packages/site/related-site.js';
 import {loadContentCatalog} from '../packages/content/load-catalog.js';
+import {scenePath} from '../packages/content/scene-routing.js';
+import {svgViewBoxDimensions,type FigureDimensions} from '../packages/site/svg-dimensions.js';
 export const projectRoot=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 // Reader-facing assets only. Local production tools must be explicitly excluded from publication.
 export const PUBLIC_ASSET_ROOTS=['components','styles'];
@@ -16,10 +18,19 @@ export async function loadSiteContent(){
   const {collection,claims,sources}=await loadContentCatalog(readJSON),errors=validateRelatedPages(collection,claims);
   if(sources.some(source=>!source.canonicalUrl?.startsWith('https://')))errors.push('Source links must use HTTPS');
   if(errors.length)throw new Error(errors.join('\n'));
-  return {collection,claims,sources};
+  const figureDimensions:Record<string,FigureDimensions>={};
+  for(const asset of new Set(CONTENT_PAGES.flatMap(page=>page.scenes.flatMap(scene=>scene.figure?[scene.figure.src]:[])))){
+    figureDimensions[asset]=svgViewBoxDimensions(await readFile(path.join(projectRoot,asset.slice(1)),'utf8'));
+  }
+  return {collection,claims,sources,figureDimensions};
 }
-export function siteDocuments({collection,claims,sources}:SiteContent):Map<string,string>{
-  return new Map([['/',renderRelatedIndex(collection)],['/knowledge/',renderRelatedIndex(collection)],...CONTENT_PAGES.map((page):[string,string]=>[pageURL(page),renderRelatedPage(page,collection,claims,sources)])]);
+export function siteDocuments({collection,claims,sources,figureDimensions={}}:SiteContent):Map<string,string>{
+  const documents=new Map([['/',renderRelatedIndex(collection)],['/knowledge/',renderRelatedIndex(collection)]]);
+  for(const page of CONTENT_PAGES){
+    documents.set(pageURL(page),renderRelatedPage(page,collection,claims,sources,undefined,figureDimensions));
+    for(const scene of page.scenes)documents.set(scenePath(page.slug,scene.id),renderRelatedPage(page,collection,claims,sources,scene.id,figureDimensions));
+  }
+  return documents;
 }
 // Fixed, workspace-contained destination. Never accept an arbitrary recursive-delete target.
 export async function buildSite(){
@@ -46,6 +57,7 @@ export async function buildSite(){
   for(const dir of PUBLIC_ASSET_ROOTS)await copyTree(`apps/web/${dir}`,dir,['.ts','.css']);
   for(const dir of ['article','catalog'])await copyTree(`apps/web/pages/${dir}`,`pages/${dir}`,['.ts','.css']);
   await copyTree('apps/web/topics/quantum','topics/quantum',['.ts','.css']);
+  await copyTree('apps/web/topics/presentation','topics/presentation',['.ts','.css']);
   for(const file of ['weekday-alignment.ts','weekday-bridge.ts','weekday-challenge.ts','weekday-congruence.css','weekday-intro.ts','weekday-logic.ts','weekday-modal-introduction.ts','weekday-modal.ts','weekday-reference-contrast.ts','weekday-sentence.ts','weekday-systems.ts','weekday-world-style.ts','weekday-worlds.css','weekday-worlds.ts']){
     const sourcePath=path.join(root,'apps/web/topics/formal-reasoning',file);
     const data=await readFile(sourcePath);
