@@ -1,6 +1,5 @@
 ---
 description: Improve one registered explanation through authored intent, independent content and rendered reviews, correction, and revision-bound gates.
-agent: build
 ---
 
 Run the Knowledge Atlas content workflow for this request:

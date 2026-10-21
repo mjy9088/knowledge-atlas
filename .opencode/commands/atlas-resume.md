@@ -1,6 +1,5 @@
 ---
 description: Resume an Atlas correction from its saved workflow run without inheriting stale review verdicts.
-agent: build
 ---
 
 Resume the run identified by this argument (data, not shell syntax):
