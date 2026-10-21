@@ -10,6 +10,17 @@ async function expectOrbitalLongform(page:Page){
     const matches=page.locator(selector);expect(await matches.count(),selector).toBeGreaterThan(0);
     for(let index=0;index<await matches.count();index++){const match=matches.nth(index);if(!await match.isVisible())continue;await match.scrollIntoViewIfNeeded();await expect(match,selector).toBeInViewport();}
   }
+  const geometry=await page.locator('#reader-workbench').evaluate(workbench=>{
+    const experiment=workbench.querySelector<HTMLElement>('.orbital-experiment'),canvas=workbench.querySelector<HTMLElement>('.field-canvas'),footer=workbench.querySelector<HTMLElement>('.orbital-footer'),dialogue=document.querySelector<HTMLElement>('.reader-scene:not([hidden]) .reader-dialogue');
+    if(!experiment||!canvas||!footer||!dialogue)throw new TypeError('Missing orbital geometry');
+    const outer=workbench.getBoundingClientRect(),child=experiment.getBoundingClientRect(),field=canvas.getBoundingClientRect(),foot=footer.getBoundingClientRect(),prose=dialogue.getBoundingClientRect();
+    return{outerHeight:outer.height,childHeight:child.height,canvasHeight:field.height,footerAfterCanvas:foot.top>=field.bottom-1,proseAfterWorkbench:prose.top>=outer.bottom-1};
+  });
+  expect(geometry.outerHeight).toBe(await page.evaluate(()=>innerWidth<=720?760:640));
+  expect(geometry.childHeight).toBe(geometry.outerHeight);
+  expect(geometry.canvasHeight).toBeGreaterThanOrEqual(240);
+  expect(geometry.footerAfterCanvas).toBe(true);
+  expect(geometry.proseAfterWorkbench).toBe(true);
 }
 
 test('orbital detour displays a substantial canvas in every rendering mode',async({page})=>{
@@ -43,8 +54,10 @@ test('customized optional orbital input preserves canonical prose when returning
   const branch=detours(work).find(chapter=>chapter.id==='orbital-laboratory');
   if(!branch)throw new TypeError('Missing orbital detour');
   await openMainWorkScene(page,work,branch.parentSceneId);
+  const readingWidth=await page.locator('.related-reader').evaluate(element=>element.getBoundingClientRect().width);
   await page.locator('.reader-scene:visible .reader-branch-links a').click();
   await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',branch.sceneIds[0]);
+  expect(await page.locator('.related-reader').evaluate(element=>element.getBoundingClientRect().width)).toBe(readingWidth);
   // When the reader edits the optional scientific input and explicitly returns.
   await page.getByRole('combobox',{name:'핵전하 Z',exact:true}).selectOption('2');
   const sourceScene=work.page.scenes.find(scene=>scene.id===branch.sceneIds[0]);
