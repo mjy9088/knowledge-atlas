@@ -14,11 +14,12 @@ async function expectOrbitalLongform(page:Page){
     const experiment=workbench.querySelector<HTMLElement>('.orbital-experiment'),canvas=workbench.querySelector<HTMLElement>('.field-canvas'),footer=workbench.querySelector<HTMLElement>('.orbital-footer'),dialogue=document.querySelector<HTMLElement>('.reader-scene:not([hidden]) .reader-dialogue');
     if(!experiment||!canvas||!footer||!dialogue)throw new TypeError('Missing orbital geometry');
     const outer=workbench.getBoundingClientRect(),child=experiment.getBoundingClientRect(),field=canvas.getBoundingClientRect(),foot=footer.getBoundingClientRect(),prose=dialogue.getBoundingClientRect();
-    return{outerHeight:outer.height,childHeight:child.height,canvasHeight:field.height,footerAfterCanvas:foot.top>=field.bottom-1,proseAfterWorkbench:prose.top>=outer.bottom-1};
+    const scale=Number(document.documentElement.dataset.desktopScale??1);
+    return{scale,outerHeight:outer.height,childHeight:child.height,canvasHeight:field.height,footerAfterCanvas:foot.top>=field.bottom-scale,proseAfterWorkbench:prose.top>=outer.bottom-scale};
   });
-  expect(geometry.outerHeight).toBe(await page.evaluate(()=>innerWidth<=720?760:640));
+  expect(geometry.outerHeight/geometry.scale).toBeCloseTo(await page.evaluate(()=>innerWidth<=720?760:640),3);
   expect(geometry.childHeight).toBe(geometry.outerHeight);
-  expect(geometry.canvasHeight).toBeGreaterThanOrEqual(240);
+  expect(geometry.canvasHeight/geometry.scale).toBeGreaterThanOrEqual(240);
   expect(geometry.footerAfterCanvas).toBe(true);
   expect(geometry.proseAfterWorkbench).toBe(true);
 }
