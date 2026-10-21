@@ -1,0 +1,4 @@
+html.atlas-desktop-fit{overflow-x:hidden;background:#f6f8f0}
+html.atlas-desktop-fit body{width:960px;min-height:540px;margin-inline:auto;transform:scale(var(--atlas-desktop-scale));transform-origin:top center}
+html.atlas-desktop-fit :is(dialog:modal,[popover]:popover-open){zoom:var(--atlas-desktop-scale)}
+html.atlas-desktop-fit :is(dialog:modal,[popover]:popover-open):not(.inline-select-popup){translate:0 var(--atlas-top-layer-shift-y)}
