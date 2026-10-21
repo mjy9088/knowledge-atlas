@@ -54,10 +54,7 @@ export async function expectLongformScene(page:Page,work:ActiveWork,sceneId:stri
     await expect(rows).toHaveCount(scene.cards.length);
     await expect(visible.locator('.concept-connector')).toHaveCount(0);
     for(const [index,card] of scene.cards.entries()){
-      const separator=card.indexOf(' | '),row=rows.nth(index);
-      if(separator<0){await expect(row.locator('.concept-fact-value')).toHaveText(card);continue;}
-      await expect(row.locator('.concept-fact-label')).toHaveText(card.slice(0,separator));
-      await expect(row.locator('.concept-fact-value')).toHaveText(card.slice(separator+3));
+      await expect(rows.nth(index).locator('.concept-fact-value')).toHaveText(card);
     }
   }
   const geometry=await visible.evaluate(element=>{

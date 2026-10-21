@@ -69,14 +69,13 @@ test('chaptered works expose long-form presentation and chapter-local progress',
 });
 test('chaptered cards render authored facts without causal connectors or dropped values',async()=>{
   const docs=siteDocuments(await loadSiteContent());
+  const parity=docs.get('/knowledge/number-structures/sqrt-parity-contradiction/')??'';
+  assert.ok(parity.includes('>2 | gcd(p,q): 모순<'),'The mathematical divisibility operator must survive rendering');
   for(const page of CONTENT_PAGES.filter(candidate=>candidate.navigation)){
     const html=docs.get(`/knowledge/${page.slug}/`)??'';
     assert.ok(!html.includes('class="concept-connector"'));
     for(const card of page.scenes.flatMap(scene=>scene.figure?[]:scene.cards)){
-      const separator=card.indexOf(' | ');
-      if(separator<0){assert.ok(html.includes(`<span class="concept-fact-value">${escapeHTML(card)}</span>`));continue;}
-      assert.ok(html.includes(`<span class="concept-fact-label">${escapeHTML(card.slice(0,separator))}</span>`));
-      assert.ok(html.includes(`<span class="concept-fact-value">${escapeHTML(card.slice(separator+3))}</span>`));
+      assert.ok(html.includes(`<span class="concept-fact-value">${escapeHTML(card)}</span>`));
     }
   }
 });
