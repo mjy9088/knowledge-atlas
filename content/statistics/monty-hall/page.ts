@@ -2,7 +2,7 @@ import type {ContentPage} from '../../../packages/content/types.js';
 export default {
   "slug": "monty-hall",
   "articleId": "article:statistics.monty-hall.ko",
-  "label": "몬티 홀: 문 하나보다 공개 규칙",
+  "label": "문 두 개, 정말 반반일까요?",
   "category": "statistics",
   "model": null,
   "experiment": false,
@@ -34,7 +34,7 @@ export default {
     },
     {
       "id": "protocol",
-      "title": "표준 규칙을 빠짐없이",
+      "title": "유명한 몬티 홀 문제라면?",
       "block": 1,
       "from": 0,
       "cards": [],
@@ -66,7 +66,7 @@ export default {
     },
     {
       "id": "shortened",
-      "title": "축약판에서 사라진 조건",
+      "title": "과연 그럴까요? 처음 문제는 달랐습니다",
       "block": 3,
       "from": 0,
       "cards": [],
@@ -114,7 +114,7 @@ export default {
     },
     {
       "id": "close",
-      "title": "정보가 참이라는 것만으로는",
+      "title": "진행자의 선택 규칙이 중요한 이유",
       "block": 6,
       "from": 0,
       "cards": [],

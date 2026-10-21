@@ -2,7 +2,11 @@
 
 ## Explanatory purpose and scene plan
 
-The payoff is the ability to recalculate after changing the host rule or the evidence event, not merely remember the switching answer. Distinguish an always-switch strategy over all games, conditioning on any goat reveal, and conditioning on one numbered reveal. The [scene plan](slide-plan.json) is a proposed authoring contract; learner attainment and independent approval remain unassessed.
+The opening deliberately presents an incomplete three-door problem without naming Monty Hall. `protocol` then introduces the named standard problem and its extra rules; `strategy` earns its 2/3 answer. `shortened` returns with “But is that our original problem?” and identifies the omitted premise rather than calling a conditionally correct calculation wrong. `compare`, `specific` and `close` then separate host knowledge, always-goat/switch obligations, random door preference and the actual evidence event. The payoff is the ability to recalculate under stated rules, not merely remember a surprise or the switching answer. The [scene plan](slide-plan.json) is a proposed authoring contract; learner attainment and independent approval remain unassessed.
+
+Do not claim absence of door preference is required for the unconditional always-switch 2/3 result. It matters for conditioning on a named reveal; the parameter t makes that dependency visible. The blind-host comparison separately requires its declared uniform random reveal. This distinction is essential to the requested final explanation of why the host's prescribed choice rule matters.
+
+At the first ledger scene, `strategy`, explain likelihood as the chance of the stated goat observation given a specified prize location, not the chance of that prize location after the observation. `compare` supplies the changed 1/2 reporting chance when an unchosen door contains the prize. Keep this plain-language example next to the calculation, not only in a glossary or tooltip.
 
 | Scene | Content and purpose | Representation or interaction | Success check |
 | --- | --- | --- | --- |
