@@ -11,6 +11,7 @@ The catalog offers equal possible starting points across subjects. Newtonian-to-
 ## Reading and interaction
 
 - Reading is self-paced, with Previous/Next, direct scene selection and keyboard navigation; no playback waits or compulsory extra expansion action.
+- Ordinary scenes have no minimum dwell or disabled navigation while an animation runs. Replay/pause and reduced-motion treatment support understanding; decorative motion and a fixed duration are not reasons to keep a reader on a scene.
 - Show skip only for a meaningful forward jump beyond Next. Name the skipped topic/scope and destination accessibly. Content owns its authored destinations.
 - Preserve reader edits across navigation. Reset suggested examples only explicitly. Dialogue, diagrams, proof rows and availability must follow the same current input/model result or invalidate together.
 - Keep scene identity stable during errors/counterexamples. Show a separate status, clear stale results and keep editing/navigation available. Do not choose a different reader goal to obtain a successful result.
@@ -30,6 +31,8 @@ Keep chrome small. Detailed evidence/connections belong on demand; assumptions, 
 ## Explanation design
 
 Identify the opening question, intended explanation and minimum background before introducing terminology. Each control should make clear what changes, what to observe and what the observation supports. Optional predictions/reveals must not gate progress. The primary path independently answers its question; proofs, observations and uncertainty need appropriate forms rather than one compulsory narrative template. A static explanation is valid when manipulation adds little.
+
+Explain unfamiliar field-specific words in the visible first-use sentence with a concrete example, not only in a glossary or tooltip. Present a simple operation or mechanism with its meaningful visual comparison while the short explanation is in view; do not make a reader traverse a large summary image before discovering the scene's question. Longer proofs may remain optional depth without withholding the mainline's necessary reasoning.
 
 Use changed-condition/transfer questions with explanatory feedback where useful. Preserve essential conditions and declare authored analogies. Observed comprehension requires reader research; clicks, elapsed time and geometry checks cannot establish it.
 
