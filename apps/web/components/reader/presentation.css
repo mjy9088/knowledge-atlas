@@ -24,7 +24,7 @@
   .reader-enhanced .related-reader.server-scene-selected[data-presentation=longform] #reader-controls{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto;gap:8px}
   .reader-enhanced .related-reader.server-scene-selected[data-presentation=longform] #reader-prev{grid-column:1;grid-row:1;justify-self:start;margin:0}
   .reader-enhanced .related-reader.server-scene-selected[data-presentation=longform] #reader-next{grid-column:2;grid-row:1;justify-self:end;margin:0}
-  .reader-enhanced .related-reader.server-scene-selected[data-presentation=longform] #reader-skip-scope{grid-column:1/-1;grid-row:2;font-size:12px}
+  .reader-enhanced .related-reader.server-scene-selected[data-presentation=longform] #reader-skip-scope{grid-column:1/-1;grid-row:2;font-size:13px}
   .reader-enhanced .related-reader.server-scene-selected[data-presentation=longform] #reader-end-links{grid-column:1/-1;grid-row:3;display:flex;flex-direction:row;justify-content:space-between;gap:16px;font-size:13px;margin:0}
   .reader-enhanced .related-reader.server-scene-selected[data-presentation=longform] #reader-end-links[hidden]{display:none}
 }
