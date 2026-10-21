@@ -18,6 +18,8 @@ An ordered field here means a field with a total order such that `a<b` implies `
 
 ## Mainline plan
 
+The current revision changes the introductory reading contract: ordinary scenes pair short worked explanations with compact visual operations rather than putting a tall proof summary before the question. `integers` animates undoing addition, `rationals` animates repartitioning the same half, and `rotation` connects a point's quarter-turn to multiplication by i. Every motion has a static owned poster, direct scrubbing, replay/pause/reset and immediate navigation; the shared presentation runner owns timing and saved positions. `diagonal` includes the complete short parity contradiction on the required path. Optional proofs retain their independent scope. First-use inverse, density, bound, field and state vocabulary receives a visible everyday meaning and local example. These are proposed authoring criteria, not observed learner outcomes.
+
 | Scene | Content / purpose | Prerequisite and success check | Representation rationale |
 | --- | --- | --- | --- |
 | `question` | Present subtraction, division, a missing length, and a missing square root as different kinds of obstruction. | Elementary arithmetic; reader asks whether the desired repair is local or universal and what must be preserved. Semantic figure check: the `d²=2` branch must visibly separate adjoining the named root `ℚ(√2)` from imposing the least-upper-bound property; neither branch may appear forced by the obstruction. | Use one universally stacked SVG: each obstruction precedes its selected repair, while `d²=2` expands into two separately labelled destination panels. Keep directional arrows, but label them as choices rather than a successor ladder. |

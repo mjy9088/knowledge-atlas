@@ -18,6 +18,8 @@ The detours are:
 
 [slide-plan.json](slide-plan.json) records purposes and success checks but no duration. This is self-paced long-form content; narration timing, audio, and video projection remain unmeasured and unapproved.
 
+The introductory revision explains inverse operations in plain language, supplies the short irrationality contradiction on the required path, and pairs compact posters with number-line, fraction-partition and quarter-turn presentation sequences. `visual-scenes.ts` owns these bindings; the shared runner provides deterministic seeking, saved positions, replay/pause/reset, direct scrubbing and a paused reduced-motion comparison. No controls delay navigation. Every chaptered scene has its own static `/knowledge/number-structures/<scene>/` route. Existing source IDs and draft states remain unchanged.
+
 ## Claims and mathematical boundaries
 
 The page reuses existing claims from the number-system topics rather than copying their definitions into a new claim store. [new-claims.json](new-claims.json) contains eight topic-owned records: the extension-choice bridge, general well-definedness of rational addition, the generated field `ℚ(√2)`, the completeness terminology boundary, the Archimedean consequence, the integer-part/density deduction, complete-ordered-field uniqueness, and the larger-system example.
