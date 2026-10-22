@@ -2,7 +2,7 @@
 
 ## Setup
 
-Use Node.js 22 or later and pnpm. `mise.toml` records the local tool choices; where needed, prefix commands with `mise exec --`. Install the locked development dependencies and Chromium once:
+Use Node.js 22 or later and pnpm. Install [just](https://just.systems/) for background server control. `mise.toml` records the local tool choices, including just; run `mise install` and, where needed, prefix commands with `mise exec --`. Install the locked development dependencies and Chromium once:
 
 ```sh
 pnpm install --frozen-lockfile
@@ -17,6 +17,30 @@ The GitHub Actions browser job uses Ubuntu 24.04 and explicitly installs these f
 For page-bounded PDF source consultation, optional Poppler tools (`poppler-utils`) can extract a selected page with `pdftotext -f N -l N source.pdf -`. Check the actual page when extraction loses mathematical glyphs; text extraction alone does not verify a source revision, scientific argument, or reuse permission.
 
 The development server defaults to `http://127.0.0.1:4173`; set `PORT` to choose another port. It serves the working tree, including local media helpers. Opening a local server or building files does not publish content.
+
+## Server control with just
+
+Run `just` to list recipes. Server lifecycle commands require a POSIX environment with `ps` (Linux/macOS); existing foreground pnpm commands remain unchanged.
+
+```sh
+just start               # background development server, port 4173
+just status              # managed process identity and URL, or stopped
+just logs                # last 80 log lines; not a live stream
+just restart             # stop, then start with the current environment
+just stop                # safe to repeat
+just start studio        # private studio, port 4180
+just stop studio
+just build               # existing validated static build
+just start preview       # serve the existing dist/, port 4174
+just stop preview
+just check               # existing full verification suite
+```
+
+All five lifecycle commands accept `dev` (default), `studio`, or `preview`. `PORT=4300 just start` and `PORT=4301 just start preview` select public-server ports; Studio uses `STUDIO_PORT=4302 just start studio`. There is one managed instance per server kind per checkout. Starting an already running instance reports its existing URL without changing its environment; use restart to apply changes. Preview requires `just build` first and does not rebuild automatically.
+
+Processes survive the invoking terminal. Private PID/launch-token records and logs live under ignored `.local/servers/`; starting an instance replaces its previous log. Status reports process identity, not HTTP health. Stop verifies the unique launch argument before sending SIGTERM to that exact Node process; it never kills by port or adopts a foreground/externally started server. An occupied port is a startup error, not permission to stop its owner. A crashed server's stale record is ignored and replaced on the next start.
+
+Concurrent lifecycle changes for the same kind are rejected using a lock directory. If the controller itself is forcibly killed, remove only `.local/servers/<kind>.lock` after confirming that no controller remains active, then retry. Stop waits up to ten seconds and reports an error rather than forcibly killing a server that has not exited. These commands control local services only; they do not publish or upload content.
 
 ## Commands
 
