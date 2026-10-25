@@ -345,3 +345,69 @@
 .weekday-challenge-skip{display:block;margin:16px 0 0 auto}
 @media(min-width:721px) and (max-height:650px){.reader-enhanced [data-focus-reader][data-opening]>.reader-action-rail{height:96px}}
 @media(max-width:720px){.reader-enhanced [data-focus-reader][data-opening]>.reader-action-rail{height:136px}.weekday-challenge-reflection h2{font-size:26px}.weekday-intro-source[data-opening=reflection]{padding:12px}}
+
+/* Two calendars keep the equality endpoints and each world's today visible. */
+.weekday-calendar { margin:0; width:100%; color:#293f35; }
+.weekday-calendar svg { display:block; width:100%; height:auto; }
+.weekday-calendar-world { font-size:22px; font-weight:700; }
+.weekday-calendar-role { font-size:20px; text-anchor:middle; fill:#526858; }
+.weekday-calendar-day { font-size:30px; font-weight:700; text-anchor:middle; fill:#203f37; }
+.weekday-calendar figcaption { margin-top:8px; font-size:14px; line-height:1.5; text-align:center; }
+.weekday-calendar figcaption strong { color:#86551e; }
+.weekday-intro-reasoning:has(.weekday-calendar) { max-width:720px; }
+@media(max-width:720px){
+ .weekday-experiment:is([data-lesson-stage=sunday],[data-lesson-stage=wednesday]) { grid-template-rows:max-content max-content; align-content:center; gap:22px; }
+ .weekday-experiment:is([data-lesson-stage=sunday],[data-lesson-stage=wednesday]) .weekday-input-panel { justify-content:start; }
+ .weekday-calendar figcaption { font-size:12px; margin-top:6px; }
+}
+
+/* Accessibility links and witness tokens encode different relations. */
+.weekday-modal-intro-worlds { position:relative; padding-top:34px; }
+.weekday-modal-intro-rail { position:absolute; inset:0 0 auto; width:100%; height:34px; overflow:visible; }
+.weekday-modal-intro-world { border-radius:50% 50% 14px 14px; padding-top:12px; }
+.weekday-modal-intro-world[data-example-world="0"] { box-shadow:0 0 0 2px #fff,0 0 0 4px #526f5a; }
+.weekday-quantifier-evidence { display:flex; align-items:center; gap:9px; }
+.weekday-quantifier-dots { display:flex; gap:3px; }
+.weekday-quantifier-dots i { display:grid; place-items:center; width:19px; height:19px; border-radius:50%; border:1px solid #84948b; color:#56685c; background:#fff; font-size:12px; font-style:normal; }
+.weekday-quantifier-dots [data-truth=true] { color:#fff; border-color:#357758; background:#357758; }
+@media(max-width:720px){
+ .weekday-modal-intro-worlds { padding-top:25px; }
+ .weekday-modal-intro-rail { height:25px; }
+ .weekday-modal-intro-world { padding-top:8px; }
+ .weekday-quantifier-evidence { gap:5px; }
+ .weekday-quantifier-dots i { width:15px; height:15px; font-size:10px; }
+}
+.weekday-relation-pattern { display:inline-flex; width:72px; height:38px; vertical-align:middle; margin-right:8px; }
+.weekday-relation-pattern svg { width:100%; height:100%; }
+@media(max-width:720px){.weekday-relation-pattern{width:48px;height:29px;margin-right:4px}}
+@media(min-width:721px){
+ .weekday-modal-intro-case { padding:12px; }
+ .weekday-modal-intro-case h2 { margin-bottom:6px; }
+ .weekday-modal-intro-actual { margin-bottom:4px; }
+ .weekday-modal-intro-access { margin-bottom:4px; }
+ .weekday-modal-intro-world { padding-block:8px; }
+ .weekday-modal-intro-verdicts { margin-top:8px; gap:6px; }
+ .weekday-modal-intro-verdicts p { padding-block:7px; }
+ .weekday-system-table td { padding-block:3px; }
+ .weekday-relation-pattern { height:30px; }
+}
+/* Before enhancement, the owned figures participate in normal document flow. */
+html.reader-enhanced:has([data-page=weekday-worlds]):not(:has(.weekday-experiment)),
+html.reader-enhanced:has([data-page=weekday-worlds]):not(:has(.weekday-experiment)) body { height:auto; overflow:visible; }
+.reader-enhanced [data-page=weekday-worlds]:not([data-focus-reader]) { height:auto; min-height:100dvh; overflow:visible; display:block; }
+.reader-enhanced [data-page=weekday-worlds]:not([data-focus-reader]) .reader-scene { display:grid; grid-template-columns:minmax(0,1fr); margin:20px auto; max-width:780px; }
+.reader-enhanced [data-page=weekday-worlds]:not([data-focus-reader]) .reader-copy { max-height:none; overflow:visible; }
+/* Static figure fallback styling must not change the enhanced dialogue frame. */
+.reader-enhanced [data-focus-reader] .reader-scene[data-visual=figure] .reader-dialogue { padding:6px 12px; }
+.reader-enhanced [data-focus-reader] .reader-scene[data-visual=figure] .reader-copy h2 { font-size:21px; }
+.reader-enhanced [data-focus-reader] .reader-scene[data-visual=figure] .scene-prose { font-size:16px; }
+@media(min-width:721px) and (max-height:650px){
+ .reader-enhanced [data-focus-reader] .reader-scene[data-visual=figure] .reader-dialogue { padding:4px 10px; }
+ .reader-enhanced [data-focus-reader] .reader-scene[data-visual=figure] .reader-copy h2 { font-size:16px; }
+ .reader-enhanced [data-focus-reader] .reader-scene[data-visual=figure] .scene-prose { font-size:12px; }
+}
+@media(max-width:720px){
+ .reader-enhanced [data-focus-reader] .reader-scene[data-visual=figure] .reader-dialogue { padding:5px 8px; }
+ .reader-enhanced [data-focus-reader] .reader-scene[data-visual=figure] .reader-copy h2 { font-size:14px; }
+ .reader-enhanced [data-focus-reader] .reader-scene[data-visual=figure] .scene-prose { font-size:11px; }
+}

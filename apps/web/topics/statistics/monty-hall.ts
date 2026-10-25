@@ -1,3 +1,4 @@
+import {renderDoors, switchingArrow, doorDrawing} from './monty-visuals.js';
 import {MAX_TRIALS} from '/packages/models/possibility-lab.js';
 import {renderMontyTree, renderPairedSampling} from './monty-probability.js';
 import type {Scene} from '/packages/content/types.js';
@@ -16,15 +17,7 @@ export function mountMontyHall(container: HTMLElement, options: {onChange?: () =
   const lab = mountPossibilityLab('monty-hall', laboratory, {onChange() { render(); options.onChange?.(); }});
 
   function doors(choice: number, opened?: Door, prize?: Door, selectable = false) {
-    const state = lab.getState();
-    return `<div class="monty-doors">${DOORS.map(value => {
-      const chosen = value === choice && (!selectable || state.processSelected);
-      const label = value === opened ? prize === opened ? '상품 공개' : '꽝 공개' : value === prize ? '상품' : '닫힌 문';
-      const content = `<strong>${value}번</strong><span class="monty-door-face">${label}</span><span class="monty-door-tag">${chosen ? '내 선택' : value === opened ? '진행자가 엶' : ' '}</span>`;
-      return selectable
-        ? `<button type="button" class="monty-door" data-door="${value}" aria-label="${value}번 문 선택" aria-pressed="${chosen}">${content}</button>`
-        : `<div class="monty-door" data-door="${value}" data-chosen="${chosen}" data-open="${value === opened}" data-prize="${value === prize}">${content}</div>`;
-    }).join('')}</div>`;
+    return renderDoors(choice, opened, prize, selectable, lab.getState().processSelected);
   }
 
 
@@ -48,16 +41,16 @@ export function mountMontyHall(container: HTMLElement, options: {onChange?: () =
       const others = otherDoors(state.choice);
       const prize = scene === 'case-hit' ? state.choice : others[scene === 'case-miss-a' ? 0 : 1];
       const row = informedCase(state.choice, prize, state.seed);
-      content = doors(state.choice, row.opened, row.prize);
+      content = doors(state.choice, row.opened, row.prize) + switchingArrow(row.choice, row.remaining);
       note = `가정: 상품이 ${row.prize}번에 있다면 · ${row.remaining}번으로 바꾸면 ${row.switchWins ? '상품을 얻습니다' : '꽝입니다'}.`;
     } else if (scene === 'strategy') {
       content = `<div class="monty-summary">${DOORS.map(prize => {
         const row = informedCase(state.choice, prize, state.seed);
-        return `<p><strong>상품 ${prize}번</strong><span>${prize === state.choice ? '처음 맞음' : '처음 틀림'}</span><b>${row.switchWins ? '바꾸면 상품' : '바꾸면 꽝'}</b></p>`;
+        return `<p><strong>상품 ${prize}번</strong><span>${prize === state.choice ? '처음 맞음' : '처음 틀림'}</span><b class="monty-outcome" data-win="${row.switchWins}"><i aria-hidden="true">${row.switchWins ? '✓' : '×'}</i>${row.switchWins ? '바꾸면 상품' : '바꾸면 꽝'}</b></p>`;
       }).join('')}</div>`;
       note = `처음 선택 ${state.choice}번 · 같은 확률의 세 경우 중 두 경우에서 교환 승리: 2/3`;
     } else if (scene === 'tie-rule') {
-      content = `<div class="monty-tie"><strong>가정: 고른 ${state.choice}번에 상품</strong><div>${otherDoors(state.choice).map(opened => `<p>${opened}번 꽝 공개 <b>1/2</b></p>`).join('')}</div></div>`;
+      content = `<div class="monty-tie"><strong>가정: 고른 ${state.choice}번에 상품</strong><div>${otherDoors(state.choice).map(opened => `<p><span class="monty-tie-door">${doorDrawing(true,false)}</span>${opened}번 꽝 공개 <b>1/2</b></p>`).join('')}</div></div>`;
       note = '열 수 있는 두 꽝 문 사이에서는 선호 없이 고릅니다.';
     } else if (scene === 'informed-tree') {
       content = renderMontyTree(state.choice, 'informed');

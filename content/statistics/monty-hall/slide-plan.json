@@ -9,7 +9,7 @@
       "title": "문 셋 중 하나를 골라 보세요",
       "purpose": "Pick one of three closed doors before any goat or prize is exposed.",
       "successCheck": "Can distinguish chosen door from still-hidden prize.",
-      "representation": "Three accessible closed-door buttons; no probability result or prize clue.",
+      "representation": "A fixed three-door stage uses drawn door leaves/handles, explicit chosen/open/prize labels, and a switching connection in hypothetical cases. Positions and numbers persist across scenes; no prize or winning hint appears in the opening.",
       "prerequisites": [],
       "interaction": "Choose 1/2/3; preserve choice on navigation/restoration; no selection gate, default example is door1."
     },
@@ -19,7 +19,7 @@
       "title": "다른 문 하나는 꽝이었습니다",
       "purpose": "Expose one unchosen goat in a fixed seeded illustrative round, without revealing the winner.",
       "successCheck": "Can name the chosen, opened and remaining doors and consider staying versus switching.",
-      "representation": "Same three doors retain selected identity; exactly one unchosen goat is visible.",
+      "representation": "A fixed three-door stage uses drawn door leaves/handles, explicit chosen/open/prize labels, and a switching connection in hypothetical cases. Positions and numbers persist across scenes; no prize or winning hint appears in the opening.",
       "prerequisites": [
         "question"
       ],
@@ -43,7 +43,7 @@
       "title": "꽝 문이 둘이면 반반으로 고릅니다",
       "purpose": "Declare fair tie-breaking for the concrete informed-host example without claiming it is required for overall switching success.",
       "successCheck": "Can state that both available goats are chosen with probability1/2 and separate this from the always-goat obligation.",
-      "representation": "Two equally weighted opening branches when the initially chosen door hides the prize; no inferred host preference.",
+      "representation": "Draw the two legal goat-opening alternatives with equal1/2 labels under the explicit assumption that the initially chosen door holds the prize. Alternatives are separate possibilities, not two simultaneous openings.",
       "prerequisites": [
         "protocol"
       ],
@@ -55,7 +55,7 @@
       "title": "처음 고른 문에 상품이 있다면?",
       "purpose": "Work the initially correct prize location.",
       "successCheck": "Can explain why switching leaves the prize.",
-      "representation": "Three doors show prize behind selected door, goat opened elsewhere and switching loss.",
+      "representation": "A fixed three-door stage uses drawn door leaves/handles, explicit chosen/open/prize labels, and a switching connection in hypothetical cases. Positions and numbers persist across scenes; no prize or winning hint appears in the opening.",
       "prerequisites": [
         "protocol"
       ],
@@ -67,7 +67,7 @@
       "title": "상품이 다른 한쪽 문에 있다면?",
       "purpose": "Work the first unchosen prize location.",
       "successCheck": "Can identify the only goat the informed host may open and why switching wins.",
-      "representation": "Same door identities, prize at first unchosen door, forced goat opening.",
+      "representation": "A fixed three-door stage uses drawn door leaves/handles, explicit chosen/open/prize labels, and a switching connection in hypothetical cases. Positions and numbers persist across scenes; no prize or winning hint appears in the opening.",
       "prerequisites": [
         "case-hit"
       ],
@@ -79,7 +79,7 @@
       "title": "나머지 문에 상품이 있어도?",
       "purpose": "Work the other unchosen prize location.",
       "successCheck": "Can explain why the second initially wrong case also switches to the prize.",
-      "representation": "Prize and forced goat exchange positions while selected door stays fixed.",
+      "representation": "A fixed three-door stage uses drawn door leaves/handles, explicit chosen/open/prize labels, and a switching connection in hypothetical cases. Positions and numbers persist across scenes; no prize or winning hint appears in the opening.",
       "prerequisites": [
         "case-miss-a"
       ],
@@ -91,7 +91,7 @@
       "title": "가지 끝의 확률은 같지 않습니다",
       "purpose": "Expose informed-host prize→opening branches and multiply their stated probabilities.",
       "successCheck": "Derive joint path weights1/6,1/6,1/3,1/3 and switching mass2/3; do not count four leaves equally.",
-      "representation": "A connected semantic probability tree labels prior1/3, each opening chance1/2 or1, joint path weight, and switching outcome.",
+      "representation": "Connected prior→opening tree retains every relevant path, with joint masses additionally encoded as six exact visual units: one unit for1/6, two for1/3. Excluded paths remain visible and labelled outside the observed-goat condition; units are exact weights, never measured trials.",
       "prerequisites": [
         "case-miss-b",
         "tie-rule"
@@ -104,7 +104,7 @@
       "title": "세 경우 중 두 경우에서 이깁니다",
       "purpose": "Combine the three equiprobable prize locations.",
       "successCheck": "Can count two switching wins out of three without a tie-fairness assumption.",
-      "representation": "Compact three-row result comparison around current choice; no full lab controls.",
+      "representation": "Three equal-width prize-location cases use door identities and one outcome token each; two switching-win tokens versus one loss make the equiprobable count visible.",
       "prerequisites": [
         "case-miss-b"
       ],
@@ -140,7 +140,7 @@
       "title": "열 수 있는 문은 두 개씩입니다",
       "purpose": "Enumerate prize location times uniformly opened door.",
       "successCheck": "Can reconstruct six equally probable pairs, not six guaranteed sample outcomes.",
-      "representation": "A connected prize→opened-door probability tree displays all six paths with opening chance1/2 and joint path weight1/6; prize reveals are labelled but not crossed out yet.",
+      "representation": "Connected prior→opening tree retains every relevant path, with joint masses additionally encoded as six exact visual units: one unit for1/6, two for1/3. Excluded paths remain visible and labelled outside the observed-goat condition; units are exact weights, never measured trials.",
       "prerequisites": [
         "blind-rule"
       ],
@@ -152,7 +152,7 @@
       "title": "처음 맞혔던 경우는 모두 남습니다",
       "purpose": "Restrict to the initially correct prize row.",
       "successCheck": "Can explain why either unchosen opening shows a goat and both switching results lose.",
-      "representation": "The initially correct prize branch and its two equal opening paths remain connected; both paths show goats and switching losses.",
+      "representation": "Connected prior→opening tree retains every relevant path, with joint masses additionally encoded as six exact visual units: one unit for1/6, two for1/3. Excluded paths remain visible and labelled outside the observed-goat condition; units are exact weights, never measured trials.",
       "prerequisites": [
         "blind-paths"
       ],
@@ -164,7 +164,7 @@
       "title": "처음 틀렸다면 절반만 남습니다",
       "purpose": "Show why prize reveals in initially wrong games do not match the stated goat-reveal condition.",
       "successCheck": "Can identify the two prize paths as possible games outside the question condition, with two goat paths inside it.",
-      "representation": "Two initially wrong prize branches retain their connections and four opening paths, with each prize-reveal path visibly dashed and crossed out.",
+      "representation": "Connected prior→opening tree retains every relevant path, with joint masses additionally encoded as six exact visual units: one unit for1/6, two for1/3. Excluded paths remain visible and labelled outside the observed-goat condition; units are exact weights, never measured trials.",
       "prerequisites": [
         "blind-keep-hit"
       ],
@@ -176,7 +176,7 @@
       "title": "남은 네 경우 중 두 경우에서 이깁니다",
       "purpose": "Answer switching success among the four paths matching the observed goat reveal.",
       "successCheck": "Can justify the denominator four from the problem condition before computing two wins out of four.",
-      "representation": "The full connected six-path tree retains two visibly excluded prize reveals alongside the four accepted paths and their switching outcomes.",
+      "representation": "Connected prior→opening tree retains every relevant path, with joint masses additionally encoded as six exact visual units: one unit for1/6, two for1/3. Excluded paths remain visible and labelled outside the observed-goat condition; units are exact weights, never measured trials.",
       "prerequisites": [
         "blind-keep-miss"
       ],
@@ -212,7 +212,7 @@
       "title": "2번을 우선 여는 진행자",
       "purpose": "Declare a separate fixed-choice1 informed host that opens2 whenever allowed.",
       "successCheck": "Can state this numbered-door scenario separately from their own chosen-door example.",
-      "representation": "Static diagram explicitly labelled separate fixed-choice1 example.",
+      "representation": "Separate fixed-choice1 door stage draws door2 as the preferred legal goat opening, with choice1 visibly fixed and the rule explicitly labelled.",
       "prerequisites": [
         "strategy",
         "compare"
@@ -225,7 +225,7 @@
       "title": "2번이 열린 경우만 남겨 봅시다",
       "purpose": "List opened doors 2/3/2 for prize1/2/3 and retain door2 reveals.",
       "successCheck": "Can identify retained prize1 and prize3 cases.",
-      "representation": "Static three-case opened-door table; two retained rows.",
+      "representation": "Three equal prize rows show actual door positions and the opened-door identity. Keep only door2 reveals, while the door3 reveal remains visible outside the named-door condition.",
       "prerequisites": [
         "specific"
       ],
@@ -237,7 +237,7 @@
       "title": "이때는 두 경우 중 한 경우입니다",
       "purpose": "Distinguish the numbered subset success1/2 from overall always-switch2/3.",
       "successCheck": "Can explain why restricting to door2 changes the counted games.",
-      "representation": "Compact retained-case versus all-case comparison.",
+      "representation": "Compare two retained prize-case tokens (one switching win) against three original prize-case tokens (two wins); labels distinguish named-door conditioning from all-game success.",
       "prerequisites": [
         "specific-cases"
       ],
@@ -300,5 +300,22 @@
       "label": "2번이 열린 게임만 고르면? 건너뛰기"
     }
   ],
-  "navigationPurpose": "Every authored scene is included in Previous/Next order at its relevant context. Existing per-scene content, purpose, representation and success checks remain. Readers may explicitly skip a named multi-scene section; direct entry and restoration continue from that scene without a hidden return path."
+  "navigationPurpose": "Every authored scene is included in Previous/Next order at its relevant context. Existing per-scene content, purpose, representation and success checks remain. Readers may explicitly skip a named multi-scene section; direct entry and restoration continue from that scene without a hidden return path.",
+  "visualTrial": {
+    "status": "prospective-unapproved",
+    "purpose": "Apply the same proposed visual-explanation criteria to both requested topics. Neither topic nor scene is a reference exemplar or approval standard.",
+    "alternatives": [
+      {
+        "representation": "Door drawings versus text cards",
+        "choice": "Door stage",
+        "reason": "Preserves object positions and makes selection, opening and remaining destination observable."
+      },
+      {
+        "representation": "Numerical leaves alone versus connected tree with exact mass units",
+        "choice": "Connected tree plus exact units",
+        "reason": "Makes unequal informed path weights visible without counting four leaves equally."
+      }
+    ],
+    "review": "Separately assess scientific correspondence, visual inference, craft/readability, interaction and rendered bounds. Tests do not certify comprehension or visual quality."
+  }
 }

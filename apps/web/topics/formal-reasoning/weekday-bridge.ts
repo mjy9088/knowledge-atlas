@@ -3,6 +3,7 @@ import {worldLabel} from './weekday-world-style.js';
 import {markAlignment} from '../../components/alignment/semantic-alignment.js';
 import {weekdayClassicalProof} from '/packages/models/weekday-classical.js';
 import {SYSTEM_ROWS} from './weekday-systems.js';
+import {relationPattern} from './weekday-relation-patterns.js';
 import {conditionalReading} from './weekday-alignment.js';
 
 // Short authored steps before exposing the full world editor.
@@ -15,7 +16,7 @@ export function mountWeekdayBridge(container:HTMLElement){
     if(scene==='modal-systems'){
       const systems=card('가능세계 ≠ 공리 체계',[]),table=doc.createElement('table');table.className='weekday-system-table';const thead=doc.createElement('thead'),head=doc.createElement('tr');
       for(const text of ['체계','K에 더하는 공리','접근 관계 R의 조건']){const th=doc.createElement('th');th.textContent=text;head.append(th);}thead.append(head);table.append(thead);const body=doc.createElement('tbody');
-      for(const row of SYSTEM_ROWS){const tr=doc.createElement('tr');for(const text of row){const td=doc.createElement('td');td.textContent=text;tr.append(td);}body.append(tr);}table.append(body);systems.append(table,p('공통 바탕: 고전 논리 + K 공리 + 전건 긍정 + 정리에 대한 필연화.'),p('같은 가능세계 방법도 관계 조건에 따라 달라집니다. B 체계는 여기서 K + T + B입니다.'));container.append(systems);return;
+      for(const row of SYSTEM_ROWS){const tr=doc.createElement('tr');for(const [index,text]of row.entries()){const td=doc.createElement('td');if(index===2){const motif=doc.createElement('span');motif.className='weekday-relation-pattern';motif.innerHTML=relationPattern(row[0]);td.append(motif);}td.append(doc.createTextNode(text));tr.append(td);}body.append(tr);}table.append(body);systems.append(table,p('작은 그림은 관계 조건의 예시입니다. 전체 조건은 각 행의 설명을 따릅니다.'),p('공통 바탕: 고전 논리 + K 공리 + 전건 긍정 + 정리에 대한 필연화.'),p('같은 가능세계 방법도 관계 조건에 따라 달라집니다. B 체계는 여기서 K + T + B입니다.'));container.append(systems);return;
     }
     if(scene==='modal-rules'){
       container.append(card('이 편집기의 기본 추론 체계: K',[

@@ -1,0 +1,185 @@
+{
+  "articleId": "article:logic.weekday-worlds.ko",
+  "status": "prospective-visual-revision-unapproved",
+  "readingOrderSceneIds": [
+    "question",
+    "conditional",
+    "sunday",
+    "wednesday",
+    "notation",
+    "inference",
+    "nonmodal-proof",
+    "contexts",
+    "modal-comparison",
+    "alethic",
+    "modal-expansion",
+    "modal-rules",
+    "modal-systems",
+    "frame-system",
+    "transfer",
+    "literal",
+    "conclusion"
+  ],
+  "representationContract": "README.md#visual-revision-trial",
+  "visualTrial": {
+    "purpose": "Apply the same proposed visual-explanation criteria to both requested topics. Neither topic nor scene is a reference exemplar or approval standard.",
+    "alternatives": [
+      {
+        "representation": "Sequential day cards versus simultaneous calendars",
+        "choice": "Simultaneous calendars",
+        "reason": "Shows which date is equal across two references and where each today lies."
+      },
+      {
+        "representation": "Truth verdict cards alone versus connected worlds with quantified truth tokens",
+        "choice": "Connected worlds and quantified tokens",
+        "reason": "Exposes a witness, a counterexample, and the counted range before the verdict."
+      }
+    ],
+    "review": "Separately assess scientific correspondence, visual inference, craft/readability, interaction and rendered bounds. Tests do not certify comprehension or visual quality."
+  },
+  "slides": [
+    {
+      "sceneId": "question",
+      "block": 0,
+      "purpose": "Preserve the optional attempt and distinguish a choice from a graded answer.",
+      "representation": "Existing riddle/choice layout; retain user-accepted timer and reflection behavior.",
+      "successCheck": "The opening reveals no computed answer and retains immediate skip/reflection.",
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+    },
+    {
+      "sceneId": "conditional",
+      "block": 9,
+      "purpose": "State the explicitly simplified conditional.",
+      "representation": "Retain the concise source sentence and semantic alignment; no gratuitous drawing for a linguistic declaration.",
+      "successCheck": "The assumption is explicit and is not presented as a complete translation of the original wish.",
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+    },
+    {
+      "sceneId": "sunday",
+      "block": 2,
+      "purpose": "Follow the usual date-reference direction to Sunday.",
+      "representation": "Two aligned three-day calendars join assumed tomorrow to real yesterday with a labelled equality connector.",
+      "successCheck": "Can trace assumed Friday→shared Saturday→real Sunday, while world identities and today positions stay distinct.",
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+    },
+    {
+      "sceneId": "wednesday",
+      "block": 3,
+      "purpose": "Contrast the reverse date-reference direction.",
+      "representation": "Reuse the same two calendars and world colors, moving the equality endpoints to assumed yesterday and real tomorrow.",
+      "successCheck": "Can explain why the shared Thursday leads to real Wednesday rather than Sunday; no accessibility relation is implied.",
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+    },
+    {
+      "sceneId": "notation",
+      "block": 7,
+      "purpose": "Connect the original clauses to explicit calendar expressions.",
+      "representation": "Retain aligned source/formula projection and fixed reference identities.",
+      "successCheck": "Hover/focus still identifies the whole corresponding expression without changing saved input.",
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+    },
+    {
+      "sceneId": "inference",
+      "block": 10,
+      "purpose": "Identify the inference rules used in the worked proof.",
+      "representation": "Retain the compact rule table; a table is appropriate for exact premises/conclusions.",
+      "successCheck": "Can distinguish MP from MT and identify the rule used next.",
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+    },
+    {
+      "sceneId": "nonmodal-proof",
+      "block": 13,
+      "purpose": "Follow the complete existing classical/calendar proof.",
+      "representation": "Retain numbered proof steps and exact congruence reasons; do not replace the proof with a decorative diagram.",
+      "successCheck": "All formula/rule references and unsupported-input behavior remain complete.",
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+    },
+    {
+      "sceneId": "contexts",
+      "block": 1,
+      "purpose": "Inspect separately referenced calendars.",
+      "representation": "Retain model-backed date cells, with stable world colors and clearer calendar headings/shared-date markers.",
+      "successCheck": "Changing references updates days or invalidates the result; arrows alone never determine calendar days.",
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+    },
+    {
+      "sceneId": "modal-comparison",
+      "block": 11,
+      "purpose": "Distinguish actuality, possibility and necessity.",
+      "representation": "Two concept fixtures use connected accessible-world rows and three explicit truth tokens per quantifier; show one versus all matching worlds.",
+      "successCheck": "Can identify the actual world, the witness for◇ and the counterexample to□ in the first fixture, and all three witnesses in the second.",
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+    },
+    {
+      "sceneId": "alethic",
+      "block": 8,
+      "purpose": "Apply modal operators to the existing deduced calendars.",
+      "representation": "Retain the editable direct-access graph and explicit verdicts; visual identity remains separate from truth and access.",
+      "successCheck": "Changing direct edges changes the quantifier range while retaining calendar constraints.",
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+    },
+    {
+      "sceneId": "modal-expansion",
+      "block": 16,
+      "purpose": "Relate finite expansion to compact operators.",
+      "representation": "Retain the live world editor and literal disjunction/conjunction expansions.",
+      "successCheck": "Every displayed term corresponds to one current direct successor, including empty access.",
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+    },
+    {
+      "sceneId": "modal-rules",
+      "block": 12,
+      "purpose": "Explain K and restricted necessitation.",
+      "representation": "Retain the stated rule/assumption limits; use typography to distinguish premise, rule and conclusion.",
+      "successCheck": "No local-assumption necessitation or unsupported whole-riddle modal translation is introduced.",
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+    },
+    {
+      "sceneId": "modal-systems",
+      "block": 14,
+      "purpose": "Compare relation requirements of modal systems.",
+      "representation": "Keep the exact axiom table and add small explicitly illustrative relation motifs for seriality, loops, symmetry and transitivity.",
+      "successCheck": "Can point to the required edge pattern; motifs are examples, not complete frame-class definitions.",
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+    },
+    {
+      "sceneId": "frame-system",
+      "block": 15,
+      "purpose": "Inspect properties of the reader-edited relation.",
+      "representation": "Retain model-backed graph, property checks and system badges with stable identity colors.",
+      "successCheck": "Verdicts still quantify over the complete edited relation and do not silently add closure edges.",
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+    },
+    {
+      "sceneId": "transfer",
+      "block": 5,
+      "purpose": "Apply changed target to the same interpretation.",
+      "representation": "Retain current-input calendar/graph projections and labels; no fixed Friday answers.",
+      "successCheck": "Target edits update every displayed day/result without resetting references.",
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+    },
+    {
+      "sceneId": "literal",
+      "block": 4,
+      "purpose": "Distinguish inconsistent date constraints from actual truth.",
+      "representation": "Retain explicit no-solution status and suspended answer extraction.",
+      "successCheck": "No invented calendar or actual weekday is displayed for inconsistent constraints.",
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+    },
+    {
+      "sceneId": "conclusion",
+      "block": 6,
+      "purpose": "Return to interpretation limits.",
+      "representation": "Retain the current-input comparison and short synthesis; no new visual proposition.",
+      "successCheck": "The ending preserves the limits of the authored interpretation and ungraded attempt.",
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+    }
+  ],
+  "pending": [
+    "reader visual assessment",
+    "independent scientific/expert review",
+    "learner comprehension",
+    "rights/revision verification",
+    "publication authorization"
+  ]
+}

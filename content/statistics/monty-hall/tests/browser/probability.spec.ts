@@ -88,3 +88,16 @@ test('sampling playback pauses on navigation and caps a bounded restored sample'
   await page.getByRole('button', {name: '횟수 지우기', exact: true}).click();
   await expect(page.getByRole('button', {name: '반복 뽑기', exact: true})).toBeEnabled();
 });
+
+test('drawn tree weights preserve exact masses and excluded paths for a changed initial door',async({page})=>{
+  await page.goto('/knowledge/monty-hall/');await page.waitForFunction(()=>window.__atlasRelated);
+  await page.getByRole('button',{name:'3번 문 선택',exact:true}).click();
+  await page.evaluate(()=>window.__atlasRelated.setState({sceneId:'informed-tree'}));
+  await expect(page.locator('.monty-weight-units i')).toHaveCount(6);
+  await expect(page.locator('.monty-tree-path[data-win=true] .monty-weight-units i')).toHaveCount(4);
+  await page.evaluate(()=>window.__atlasRelated.setState({sceneId:'compare'}));
+  await expect(page.locator('.monty-weight-units i')).toHaveCount(6);
+  await expect(page.locator('.monty-tree-path[data-accepted=true] .monty-weight-units i')).toHaveCount(4);
+  await expect(page.locator('.monty-tree-path[data-excluded=true] .monty-weight-units i')).toHaveCount(2);
+  await expect(page.locator('.monty-tree-path[data-win=true] .monty-weight-units i')).toHaveCount(2);
+});

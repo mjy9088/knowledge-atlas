@@ -1,3 +1,4 @@
+import {calendarCorrespondence} from './weekday-calendar.js';
 import {WEEKDAYS,weekdayDeductions,type WeekdayInterpretation} from '/packages/models/weekday-worlds.js';
 
 // An ordinary-language projection of the same calendar result, before terminology.
@@ -15,6 +16,8 @@ export function mountWeekdayIntro(source:HTMLElement,reasoning:HTMLElement){
 
     reasoning.replaceChildren();
     if(scene==='question'||scene==='reason')return;
+    const calendar=calendarCorrespondence(input);
+    if(calendar){reasoning.innerHTML=calendar;return;}
     function step(label:string,day:string){const card=make('div','','weekday-intro-step');card.append(make('span',label,'weekday-intro-label'),make('strong',day,'weekday-intro-day'));if(reasoning.childElementCount)reasoning.append(make('span','↓','weekday-intro-arrow'));reasoning.append(card);}
     const a=c.yesterday===0&&c.tomorrow===1&&c.consequent===1&&c.question===0;
     const b=c.yesterday===1&&c.tomorrow===0&&c.consequent===1&&c.question===0;

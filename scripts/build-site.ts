@@ -58,12 +58,12 @@ export async function buildSite(){
   for(const dir of ['article','catalog'])await copyTree(`apps/web/pages/${dir}`,`pages/${dir}`,['.ts','.css']);
   await copyTree('apps/web/topics/quantum','topics/quantum',['.ts','.css']);
   await copyTree('apps/web/topics/presentation','topics/presentation',['.ts','.css']);
-  for(const file of ['weekday-alignment.ts','weekday-bridge.ts','weekday-challenge.ts','weekday-congruence.css','weekday-intro.ts','weekday-logic.ts','weekday-modal-introduction.ts','weekday-modal.ts','weekday-reference-contrast.ts','weekday-sentence.ts','weekday-systems.ts','weekday-world-style.ts','weekday-worlds.css','weekday-worlds.ts']){
+  for(const file of ['weekday-alignment.ts','weekday-calendar.ts','weekday-bridge.ts','weekday-challenge.ts','weekday-congruence.css','weekday-intro.ts','weekday-logic.ts','weekday-modal-introduction.ts','weekday-modal.ts','weekday-reference-contrast.ts','weekday-relation-patterns.ts','weekday-sentence.ts','weekday-systems.ts','weekday-world-style.ts','weekday-worlds.css','weekday-worlds.ts']){
     const sourcePath=path.join(root,'apps/web/topics/formal-reasoning',file);
     const data=await readFile(sourcePath);
     await emit(`topics/formal-reasoning/${file.replace(/\.ts$/,'.js')}`,file.endsWith('.ts')?browserJavaScript(data.toString('utf8'),sourcePath):data);
   }
-  for(const relative of ['statistics/monty-probability.ts','statistics/monty-hall.ts','statistics/monty-hall.css','statistics/possibility-lab.ts','statistics/possibility-ledger.ts','statistics/possibility-lab.css','physics/physics-history.ts','physics/physics-history-suggestion.ts']){
+  for(const relative of ['statistics/monty-visuals.ts','statistics/monty-probability.ts','statistics/monty-hall.ts','statistics/monty-hall.css','statistics/possibility-lab.ts','statistics/possibility-ledger.ts','statistics/possibility-lab.css','physics/physics-history.ts','physics/physics-history-suggestion.ts']){
     const sourcePath=path.join(root,'apps/web/topics',relative);
     const data=await readFile(sourcePath);
     await emit(`topics/${relative.replace(/\.ts$/,'.js')}`,relative.endsWith('.ts')?browserJavaScript(data.toString('utf8'),sourcePath):data);

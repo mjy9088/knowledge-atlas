@@ -94,7 +94,7 @@
     },
     {
       "id": "block:logic.weekday-worlds.modal-comparison",
-      "text": "하나라도 금요일인 세계가 있으면 가능합니다. 살펴볼 세계가 모두 금요일이면 필연적입니다. 두 예시에서 “현실에서 참”과 “가능하다”, “필연적이다”를 비교해 보세요.",
+      "text": "살펴볼 세계 중 하나라도 금요일이면 가능, 모두 금요일이면 필연입니다. 현실에서 참인지는 별도로 비교하세요.",
       "claimRefs": [
         "claim:logic.weekday-worlds.modal-examples"
       ]
