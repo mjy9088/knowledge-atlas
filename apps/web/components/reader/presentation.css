@@ -5,9 +5,9 @@
 .reader-scene[data-motion] .scene-figure img[hidden]{display:none}
 .scene-motion svg{display:block;width:100%;height:auto;max-height:430px}
 .scene-motion-controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:12px 0}
-.scene-motion-controls button{font:inherit;min-height:44px;padding:8px 16px;border:1px solid #b9c9d1;border-radius:8px;background:#fff;color:#172033;cursor:pointer}
-.scene-motion-controls input{flex:1;min-width:120px;accent-color:#087f72}
-.scene-motion-controls :focus-visible{outline:3px solid #317f66;outline-offset:3px}
+.scene-motion-controls button{font:inherit;min-height:44px;padding:8px 16px;border:1px solid var(--ds-border);border-radius:var(--ds-radius);background:#fff;color:var(--ds-text);cursor:pointer}
+.scene-motion-controls input{flex:1;min-width:120px;accent-color:var(--ds-primary)}
+.scene-motion-controls :focus-visible{outline:3px solid var(--ds-primary);outline-offset:3px}
 .server-scene-selected{overflow-anchor:none}
 .server-scene-selected[data-presentation=longform] .reader-scene{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:start;gap:24px}
 .server-scene-selected[data-presentation=longform] .reader-scene:has(>.concept-diagram[hidden]){grid-template-columns:1fr}
@@ -16,9 +16,9 @@
 .server-scene-selected[data-presentation=longform] .reader-dialogue{padding:20px}
 .server-scene-selected[data-presentation=longform] .reader-copy h2{font-size:24px}
 .server-scene-selected[data-presentation=longform] .scene-prose{font-size:17px;line-height:1.8}
-.reader-enhanced .server-scene-selected[data-presentation=longform] .reader-intro>.eyebrow,.reader-enhanced .server-scene-selected[data-presentation=longform] .reader-dialogue>.eyebrow{font-size:12px;color:#3f5b48}
-.reader-enhanced .server-scene-selected[data-presentation=longform] .scene-figure figcaption{font-size:14px;line-height:1.6;color:#3f5b48}
-.reader-enhanced .server-scene-selected[data-presentation=longform] .reader-hint{font-size:13px;color:#3f5b48}
+.reader-enhanced .server-scene-selected[data-presentation=longform] .reader-intro>.eyebrow,.reader-enhanced .server-scene-selected[data-presentation=longform] .reader-dialogue>.eyebrow{font-size:12px;color:var(--ds-text-secondary)}
+.reader-enhanced .server-scene-selected[data-presentation=longform] .scene-figure figcaption{font-size:14px;line-height:1.6;color:var(--ds-text-secondary)}
+.reader-enhanced .server-scene-selected[data-presentation=longform] .reader-hint{font-size:13px;color:var(--ds-text-secondary)}
 @media(max-width:850px){.server-scene-selected[data-presentation=longform] .reader-scene{grid-template-columns:1fr;gap:16px}.server-scene-selected[data-presentation=longform] .reader-dialogue{padding:16px}.scene-motion svg{max-height:none}}
 @media(max-width:720px){
   .reader-enhanced .related-reader.server-scene-selected[data-presentation=longform] #reader-controls{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto;gap:8px}
@@ -32,5 +32,5 @@
 .reader-enhanced .related-reader[data-presentation=longform][data-mode=spatial] .reader-workbench:not([hidden]){height:640px;min-height:0;grid-template-rows:minmax(0,1fr)}
 .reader-enhanced .related-reader[data-presentation=longform] .orbital-experiment{height:100%;min-height:0}
 .reader-enhanced .related-reader[data-presentation=longform] :is(.orbital-controls label,.orbital-controls select,.orbital-controls button,.orbital-summary,.orbital-renderer-status,.orbital-footer .field-legend,.orbital-footer .field-hint){font-size:13px;line-height:1.5}
-.reader-enhanced .related-reader[data-presentation=longform] :is(.orbital-controls label,.orbital-footer .field-legend,.orbital-footer .field-hint){color:#3f5b48}
+.reader-enhanced .related-reader[data-presentation=longform] :is(.orbital-controls label,.orbital-footer .field-legend,.orbital-footer .field-hint){color:var(--ds-text-secondary)}
 @media(max-width:720px){.reader-enhanced .related-reader[data-presentation=longform][data-mode=spatial] .reader-workbench:not([hidden]){height:760px;min-height:0}}

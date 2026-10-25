@@ -39,14 +39,16 @@ export function mountWeekdaySentence(container:HTMLElement){
     const queryLine=doc.createElement('span');queryLine.className='weekday-symbol-query';queryLine.append(' · 질문: ',calendarQuery(doc,input));
     const conditional=paragraph('조건문: ','weekday-symbol-conditional');conditional.dataset.claimRefs='claim:logic.weekday-worlds.conditional-reading';conditional.append(conditionalReading(doc),queryLine);
     const glossary=paragraph('','weekday-symbol-definition'),sameDay=markAlignment(doc.createElement('span'),'weekday-equivalence','symbol');sameDay.classList.add('weekday-equivalence-definition');sameDay.textContent='≡₇: 같은 요일';glossary.append(sameDay);
+    const definitions=paragraph(`${worldSet} · tᵢ: 각 세계의 오늘 · 월=0 … 일=6`,'weekday-symbol-definition');definitions.append(' · ',sameDay);
     formal.replaceChildren(
-      paragraph(`${worldSet} · tᵢ: wᵢ의 오늘 · 월=0, …, 일=6`,'weekday-symbol-definition'),
-      conditional,clauses,glossary,
-      ...(logicMode==='calendar'?[paragraph('A → B만으로 A나 B가 참인 것은 아님 · 계산은 A와 B를 함께 가정','weekday-symbol-limit')]:[]),
+      definitions,
+      conditional,clauses,
+      ...(logicMode==='calendar'?[paragraph('A → B만으로 A나 B가 참인 것은 아님','weekday-symbol-limit')]:[]),
     );
     if(logicMode==='alethic'||compare){
       const proposition=paragraph('P: ','weekday-symbol-definition');proposition.append(markAlignment(doc.createElement('span'),'consequent','symbol'));proposition.lastChild!.textContent='이 세계의 오늘은 '+WEEKDAYS[input.target];
-      formal.append(proposition,paragraph('◇P: 접근 세계 중 하나 이상에서 P · □P: 모두에서 P','weekday-symbol-definition'),paragraph('요일 명제 P를 세계마다 평가하는 예시 · 조건문 전체의 양상 번역은 아님','weekday-symbol-limit'));
+      proposition.append(' · ◇P 하나 이상 · □P 모두');
+      formal.append(proposition,paragraph('세계별 P의 예시 · 조건문 전체의 양상 번역은 아님','weekday-symbol-limit'));
     }
     container.dataset.representation=representation;
     source.hidden=false;formal.hidden=false;

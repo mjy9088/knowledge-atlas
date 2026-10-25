@@ -1,0 +1,9 @@
+/* Captured native-choice alternatives, shared by inline select consumers. */
+.inline-select-popup { position:fixed; inset:auto; margin:0; padding:4px; border:1px solid var(--ds-border-strong); border-radius:0; background:var(--ds-surface); color:var(--ds-text); box-shadow:var(--ds-shadow-overlay); overflow:auto; overscroll-behavior:contain; }
+.inline-select-popup::backdrop { background:transparent; }
+.inline-select-popup button { display:block; width:100%; min-height:36px; padding:8px 12px; margin:0; text-align:left; border:0; border-inline-start:3px solid var(--world-stroke,transparent); border-bottom:1px solid var(--ds-border); border-radius:0; background:var(--ds-surface); color:var(--world-ink,var(--ds-text)); font:inherit; font-size:12px; cursor:pointer; }
+.inline-select-popup button:hover { background:var(--ds-surface-hover); }
+.inline-select-popup button[aria-selected=true] { background:var(--ds-primary-soft); font-weight:600; }
+.inline-select-popup button:disabled { opacity:.45; cursor:default; }
+.inline-select-popup button:focus-visible { outline:2px solid var(--ds-focus); outline-offset:-2px; }
+.inline-select-group { padding:8px 12px 4px; margin:0; font-size:12px; color:var(--ds-text-secondary); }

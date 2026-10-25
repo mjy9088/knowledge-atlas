@@ -43,6 +43,7 @@ The public web has no npm runtime dependencies. TypeScript (strict), tsx, esbuil
 | --- | --- |
 | [Vision](docs/VISION.md) | Platform purpose, knowledge-first priorities, non-goals |
 | [Product](docs/PRODUCT.md) | Reading, inline experiments, viewport and navigation contracts |
+| [Visual foundations](apps/web/styles/README.md) | Shared Carbon-based tokens, typography, controls and diagram conventions |
 | [Content structure](docs/CONTENT-STRUCTURE.md) | Topic ownership, folders, registration, and authoring steps |
 | [Architecture](docs/ARCHITECTURE.md) | Entities, module boundaries, deterministic state, build/media boundary |
 | [Logic and types](content/computing/README.md) | Function proofs, substitution, typed experiment scope |

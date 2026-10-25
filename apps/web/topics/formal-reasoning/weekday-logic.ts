@@ -10,8 +10,8 @@ export function mountWeekdayLogic(container:HTMLElement){
   return {render(input:WeekdayInterpretation,modal=false){
     const n=weekdayNotation(input);container.dataset.kind=n.kind;container.replaceChildren();
     const premises=markAlignment(element('div','','weekday-logic-premises'),'constraints','symbol');
-    const a=markAlignment(element('section','','weekday-logic-node'),'antecedent','symbol');a.setAttribute('aria-label','전제 A');const aFormula=element('p','','weekday-logic-formula');aFormula.append(calendarClause(doc,input,'A',false));a.append(element('h3','A · ①어제 = ②내일','weekday-logic-title'),aFormula);
-    const b=markAlignment(element('section','','weekday-logic-node'),'consequent','symbol');b.setAttribute('aria-label','조건 B');const bFormula=element('p','','weekday-logic-formula');bFormula.append(calendarClause(doc,input,'B',false));b.append(element('h3',`B · ③오늘 = ${WEEKDAYS[input.target]}(${input.target})`,'weekday-logic-title'),bFormula);
+    const a=markAlignment(element('section','','weekday-logic-node'),'antecedent','symbol');a.setAttribute('aria-label','전제 A');const aFormula=element('p','','weekday-logic-formula');aFormula.append(calendarClause(doc,input,'A',false));a.append(element('h3','A','weekday-logic-title'),aFormula);
+    const b=markAlignment(element('section','','weekday-logic-node'),'consequent','symbol');b.setAttribute('aria-label','조건 B');const bFormula=element('p','','weekday-logic-formula');bFormula.append(calendarClause(doc,input,'B',false));b.append(element('h3','B','weekday-logic-title'),bFormula);
     const and=element('span','∧','weekday-logic-and');and.setAttribute('aria-label','두 조건을 함께 요구');premises.append(a,and,b);
     const join=element('p',n.kind==='impossible'?'↓ 조건을 함께 만족하는 달력이 없음':'↓ 두 조건을 함께 만족하는 달력에서','weekday-logic-join');
     const conclusion=element('section','','weekday-logic-conclusion');conclusion.setAttribute('aria-label','질문에 대한 결과');

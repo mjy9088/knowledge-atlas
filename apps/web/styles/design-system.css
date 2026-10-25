@@ -1,0 +1,54 @@
+/* Carbon White theme roles; local DOM components, no runtime package. */
+:root {
+  color-scheme: light;
+  --ds-canvas: #f4f4f4;
+  --ds-surface: #ffffff;
+  --ds-surface-hover: #e8e8e8;
+  --ds-text: #161616;
+  --ds-text-secondary: #525252;
+  --ds-text-helper: #6f6f6f;
+  --ds-border: #e0e0e0;
+  --ds-border-strong: #8d8d8d;
+  --ds-primary: #0f62fe;
+  --ds-primary-hover: #0043ce;
+  --ds-primary-soft: #edf5ff;
+  --ds-positive: #007d79;
+  --ds-positive-soft: #d9fbfb;
+  --ds-negative: #da1e28;
+  --ds-negative-soft: #fff1f1;
+  --ds-warning: #8a3800;
+  --ds-font-sans: "IBM Plex Sans", "Noto Sans KR", "Noto Sans CJK KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --ds-font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+  --ds-space-1: 4px;
+  --ds-space-2: 8px;
+  --ds-space-3: 12px;
+  --ds-space-4: 16px;
+  --ds-space-6: 24px;
+  --ds-space-8: 32px;
+  --ds-space-12: 48px;
+  --ds-type-label: 12px;
+  --ds-type-body: 14px;
+  --ds-type-heading: 20px;
+  --ds-type-title: 28px;
+  --ds-type-display: 40px;
+  --ds-leading-body: 1.6;
+  --ds-shadow-overlay: 0 8px 24px #16161626;
+  --ds-radius: 0px;
+  --ds-focus: #0f62fe;
+  font-family: var(--ds-font-sans);
+  font-synthesis: none;
+  color: var(--ds-text);
+  background: var(--ds-canvas);
+}
+* { box-sizing: border-box; }
+body { margin: 0; color: var(--ds-text); background: var(--ds-canvas); }
+a { color: var(--ds-primary); text-underline-offset: 3px; }
+button, input, select, textarea { font-family: inherit; }
+input[type=checkbox], input[type=radio], input[type=range] { accent-color: var(--ds-primary); }
+button, summary { -webkit-tap-highlight-color: transparent; }
+button { cursor: pointer; }
+button:disabled { opacity: .45; cursor: default; }
+:focus-visible { outline: 2px solid var(--ds-focus); outline-offset: 3px; }
+[hidden] { display: none !important; }
+::selection { background: #d0e2ff; color: #001d6c; }
+@media(prefers-reduced-motion:reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }

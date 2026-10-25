@@ -20,6 +20,6 @@ export function mountWeekdayFrameSystems(container:HTMLElement){
     for(const [name]of SYSTEM_ROWS){const badge=element('span',name+(result.systems[name]?' ✓':' ×'));badge.dataset.system=name;badge.dataset.satisfied=String(result.systems[name]);systems.append(badge);}container.append(systems);
     const properties=element('div','');properties.className='weekday-frame-properties';
     for(const [key,label]of [['serial','모든 세계에서 어딘가로'],['reflexive','모든 자기 고리'],['symmetric','화살표마다 역방향'],['transitive','두 단계면 직접 연결도']] as const){const line=element('p',(result[key]?'✓ ':'× ')+label);line.dataset.property=key;properties.append(line);}container.append(properties);
-    container.append(element('p','기본 설정은 S4 조건을 만족합니다. 현재 체크는 편집된 관계 전체의 조건입니다.'),element('small','요일 해·특정 P의 값과 별개인 프레임 판정입니다. 가능세계 자체나 이 유한 모형을 한 체계와 동일시하지 않습니다.'));
+    container.append(element('p','기본 설정: S4 · 체크: 현재 관계 전체의 조건'),element('small','요일 해·P와 별개인 프레임 판정이며, 가능세계나 유한 모형 자체가 한 공리 체계인 것은 아닙니다.'));
   }};
 }

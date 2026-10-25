@@ -67,20 +67,20 @@ test('weekday world identity colors agree across selectors, sentence, formulas, 
   const control=page.getByRole('combobox',{name:'④ 묻는 오늘의 기준',exact:true});
   for(let id=0;id<4;id++){
     await control.selectOption(String(id));await weekdayView(page,'달력');
-    const sentenceColor=await page.locator('.weekday-sentence-question .weekday-word').evaluate(e=>getComputedStyle(e).backgroundColor);
-    expect(await control.evaluate(e=>getComputedStyle(e).backgroundColor)).toBe(sentenceColor);
-    await weekdayReasoning(page);expect(await page.locator(`.world-card[data-world="${id}"]`).evaluate(e=>getComputedStyle(e).backgroundColor)).toBe(sentenceColor);await weekdayInputs(page);
-    await weekdayView(page,'달력');expect(await page.locator(`.weekday-symbol-query [data-world="${id}"]`).evaluate(e=>getComputedStyle(e).backgroundColor)).toBe(sentenceColor);
+    const sentenceColor=await page.locator('.weekday-sentence-question .weekday-word').evaluate(e=>getComputedStyle(e).getPropertyValue('--world-stroke').trim());
+    expect(await control.evaluate(e=>getComputedStyle(e).getPropertyValue('--world-stroke').trim())).toBe(sentenceColor);
+    await weekdayReasoning(page);expect(await page.locator(`.world-card[data-world="${id}"]`).evaluate(e=>getComputedStyle(e).getPropertyValue('--world-stroke').trim())).toBe(sentenceColor);await weekdayInputs(page);
+    await weekdayView(page,'달력');expect(await page.locator(`.weekday-symbol-query [data-world="${id}"]`).evaluate(e=>getComputedStyle(e).getPropertyValue('--world-stroke').trim())).toBe(sentenceColor);
   }
-  const colors=await control.locator('option').evaluateAll(options=>options.map(e=>getComputedStyle(e).backgroundColor));expect(new Set(colors).size).toBe(4);
-  expect(await page.locator('.world-cell[data-linked=true]').evaluateAll(nodes=>nodes.every(e=>getComputedStyle(e).backgroundColor===getComputedStyle(e.closest('.world-card')!).backgroundColor))).toBe(true);
+  const colors=await control.locator('option').evaluateAll(options=>options.map(e=>getComputedStyle(e).getPropertyValue('--world-stroke').trim()));expect(new Set(colors).size).toBe(4);
+  expect(await page.locator('.world-cell[data-linked=true]').evaluateAll(nodes=>nodes.every(e=>getComputedStyle(e).getPropertyValue('--world-stroke')===getComputedStyle(e.closest('.world-card')!).getPropertyValue('--world-stroke')))).toBe(true);
   await weekdayView(page,'양상');await weekdayReasoning(page);
-  expect(await page.locator('.weekday-modal-diagram circle[data-world]').evaluateAll(nodes=>nodes.map(e=>getComputedStyle(e).fill))).toEqual(colors);
+  expect(await page.locator('.weekday-modal-diagram rect[data-world]').evaluateAll(nodes=>nodes.map(e=>e.getAttribute('stroke')))).toEqual(colors);
   await weekdayInputs(page);await page.getByRole('button',{name:'세계 · 접근 관계',exact:true}).click();
-  expect(await page.locator('.weekday-dialog-world').evaluateAll(nodes=>nodes.map(e=>getComputedStyle(e).backgroundColor))).toEqual(colors);
+  expect(await page.locator('.weekday-dialog-world').evaluateAll(nodes=>nodes.map(e=>getComputedStyle(e).getPropertyValue('--world-stroke').trim()))).toEqual(colors);
   await page.getByRole('button',{name:'가정 2 삭제',exact:true}).click();
-  expect(await page.locator('.weekday-dialog-world[data-world="3"]').evaluate(e=>getComputedStyle(e).backgroundColor)).toBe(colors[3]);
-  await page.getByRole('button',{name:'설정 닫기',exact:true}).click();await control.selectOption('3');expect(await control.evaluate(e=>getComputedStyle(e).backgroundColor)).toBe(colors[3]);
+  expect(await page.locator('.weekday-dialog-world[data-world="3"]').evaluate(e=>getComputedStyle(e).getPropertyValue('--world-stroke').trim())).toBe(colors[3]);
+  await page.getByRole('button',{name:'설정 닫기',exact:true}).click();await control.selectOption('3');expect(await control.evaluate(e=>getComputedStyle(e).getPropertyValue('--world-stroke').trim())).toBe(colors[3]);
   await weekdayReasoning(page);await expectFrame(page,weekdayFrame);
 });
 
@@ -133,14 +133,14 @@ test('weekday original expressions own the choices and every displayed day follo
 test('weekday editable worlds and accessibility preserve reference choices during modal translation',async({page},testInfo)=>{
   await page.goto('/knowledge/weekday-worlds/#modal-expansion');await page.waitForFunction(()=>window.__atlasRelated);await weekdayInputs(page);
   await weekdayView(page,'양상');
-  await expect(page.locator('.weekday-modal-proposition')).toHaveText('P: 이 세계의 오늘은 금요일');await expect(page.locator('.weekday-modal-limit')).toContainText('◇ 하나 이상');
+  await expect(page.locator('.weekday-symbol-definition').filter({hasText:'P: 이 세계'})).toContainText('P: 이 세계의 오늘은 금요일');await expect(page.locator('.weekday-symbol-definition').filter({hasText:'P: 이 세계'})).toContainText('◇P 하나 이상');
   await page.getByRole('button',{name:'세계 추가',exact:true}).click();await page.getByRole('button',{name:'세계 추가',exact:true}).click();await expect(page.getByRole('combobox',{name:'④ 묻는 오늘의 기준',exact:true}).locator('option')).toHaveCount(4);await expect(page.getByRole('button',{name:'세계 추가',exact:true})).toBeDisabled();
   await page.getByRole('combobox',{name:'④ 묻는 오늘의 기준',exact:true}).selectOption('2');await expect(page.locator('.weekday-result')).toContainText('가능한 요일 7개');
   await page.getByRole('button',{name:'세계 · 접근 관계',exact:true}).click();await expect(page.locator('dialog[open]')).toBeVisible();
   await page.getByRole('checkbox',{name:'현실 → 현실',exact:true}).uncheck();await page.getByRole('checkbox',{name:'현실 → 가정 2',exact:true}).uncheck();await page.getByRole('checkbox',{name:'현실 → 가정 3',exact:true}).uncheck();await page.getByRole('button',{name:'설정 닫기',exact:true}).click();
   await page.getByRole('combobox',{name:'세계 선택 목록',exact:true}).selectOption('accessible');
   const question=page.getByRole('combobox',{name:'④ 묻는 오늘의 기준',exact:true});await expect(question.locator('option:enabled')).toHaveText(['가정 1 (②·③의 기준)']);await expect(question).toHaveValue('2');await expect(question.locator('option:disabled')).toContainText('범위 밖');
-  await expect(page.locator('.weekday-modal-proposition')).toHaveText('P: 이 세계의 오늘은 금요일');
+  await expect(page.locator('.weekday-symbol-definition').filter({hasText:'P: 이 세계'})).toContainText('P: 이 세계의 오늘은 금요일');
   await page.getByRole('button',{name:'세계 · 접근 관계',exact:true}).click();await page.getByRole('checkbox',{name:'현실 → 가정 1',exact:true}).uncheck();await page.getByRole('button',{name:'설정 닫기',exact:true}).click();await expect(page.locator('.weekday-modal-limit')).toContainText('접근 세계 없음');
   await page.getByRole('combobox',{name:'평가·접근 기준',exact:true}).selectOption('1');await expect(question.locator('option:enabled')).toHaveText(['가정 1 (②·③의 기준)']);
   await page.getByRole('button',{name:'세계 · 접근 관계',exact:true}).click();await page.getByRole('button',{name:'가정 2 삭제',exact:true}).click();await page.getByRole('button',{name:'설정 닫기',exact:true}).click();await expect(question).toHaveValue('0');

@@ -35,7 +35,7 @@ const requestedHash=location.hash==='#reason'&&page.interactive==='weekday-world
 const cover=document.createElement('section');cover.className='reader-cover';cover.setAttribute('aria-label','제목 슬라이드');
 let coverVisible=Boolean(page.cover&&!parseKnowledgePath(location.pathname)?.sceneId&&(!requestedHash||requestedHash==='#title'));
 if(page.cover){cover.append(required('.reader-intro>.eyebrow'),required('.reader-intro h1'));root.insertBefore(cover,$('reader-workbench'));const titleLink=document.createElement('a');titleLink.href='#title';titleLink.textContent='제목';required('.reader-menu nav').prepend(titleLink);}
-if(page.cover&&page.coverArtwork){const artwork=document.createElement('img');artwork.className='reader-cover-artwork';artwork.src=page.coverArtwork.src;artwork.alt=page.coverArtwork.alt;artwork.width=1200;artwork.height=1000;cover.classList.add('reader-cover-illustrated');cover.append(artwork);}
+if(page.cover&&page.coverArtwork){const artwork=document.createElement('img');artwork.className='reader-cover-artwork';artwork.src=page.coverArtwork.src;artwork.alt=page.coverArtwork.alt;cover.classList.add('reader-cover-illustrated');cover.append(artwork);}
 if(page.interactive==='weekday-worlds'){
   root.dataset.focusReader='true';
   for(const scene of scenes){const copy=required('.reader-copy',scene),title=required('h2',copy),heading=document.createElement('div');heading.className='reader-scene-heading';copy.prepend(heading);heading.append(title,required('.reader-dialogue>.eyebrow',scene));}
@@ -45,6 +45,13 @@ if(page.interactive==='weekday-worlds'){
   const chrome=required('.page-chrome');chrome.classList.add('reader-reveal-chrome');chrome.setAttribute('aria-label','상단 탐색 메뉴');
   const menu=required<HTMLDetailsElement>('.reader-menu'),summary=required<HTMLElement>('summary',menu),closeMenu=document.createElement('button');closeMenu.type='button';closeMenu.className='reader-menu-close';closeMenu.textContent='목차 닫기 ×';required('nav',menu).prepend(closeMenu);
   const menuNav=required('nav',menu),indexLink=required<HTMLAnchorElement>('#reader-end-links a[href="/knowledge/"]');menuNav.append(indexLink);
+  // Canvas readers keep global routes in the explicit menu, clear of source controls.
+  for(const link of required('nav',chrome).querySelectorAll<HTMLAnchorElement>('a')){
+    const duplicate=[...menuNav.querySelectorAll<HTMLAnchorElement>('a')].some(item=>item.getAttribute('href')===link.getAttribute('href'));
+    if(duplicate)link.remove();else menuNav.append(link);
+  }
+  chrome.hidden=true;
+  const skipActions=document.createElement('div');skipActions.className='reader-skip-actions';skipActions.hidden=true;$('reader-workbench').append(skipActions);
   $('reader-end-links').remove();$('reader-skip-scope').remove();
   $('reader-prev').title='← 방향키: 이전 장면';$('reader-prev').setAttribute('aria-keyshortcuts','ArrowLeft');
   $('reader-next').title='→ 방향키 · Space / Enter: 다음';$('reader-next').setAttribute('aria-keyshortcuts','ArrowRight Space Enter');
@@ -83,7 +90,8 @@ function renderInput(){
   // The named skip control exposes the scope and destination.
   required('.skip-context',node).hidden=true;
   $('reader-prev').disabled=readerDestination(page,current.sceneId,'previous')===current.sceneId&&!page.cover;$('reader-prev').hidden=coverVisible;$('reader-next').textContent=coverVisible?'시작 →':page.interactive==='weekday-worlds'&&current.sceneId==='question'&&!reflecting?'건너뛰기 →':next?'다음 →':'연관 지식 →';const skip=!coverVisible?readerSkip(page,current.sceneId):null;$('reader-skip').hidden=!skip;
-  if(skip){const button=$('reader-skip');button.textContent=skip.label+' ↗';button.title='건너뛸 내용: '+skip.scope+' · 이동: '+skip.destination;button.setAttribute('aria-label',skip.label+' · 이동: '+skip.destination);const heading=node.querySelector<HTMLElement>('.reader-scene-heading')??(longform?node.querySelector<HTMLElement>('.reader-dialogue'):null);if(heading)heading.insertBefore(button,required('.eyebrow',heading));else $('reader-controls').insertBefore(button,$('reader-next'));}
+  if(page.interactive==='weekday-worlds')required('.reader-skip-actions').hidden=!skip;
+  if(skip){const button=$('reader-skip');button.textContent=skip.label+' ↗';button.title='건너뛸 내용: '+skip.scope+' · 이동: '+skip.destination;button.setAttribute('aria-label',skip.label+' · 이동: '+skip.destination);const heading=node.querySelector<HTMLElement>('.reader-scene-heading')??(longform?node.querySelector<HTMLElement>('.reader-dialogue'):null);if(page.interactive==='weekday-worlds')required('.reader-skip-actions').append(button);else if(heading)heading.insertBefore(button,required('.eyebrow',heading));else $('reader-controls').insertBefore(button,$('reader-next'));}
   if(page.cover){root.dataset.cover=String(coverVisible);cover.hidden=!coverVisible;$('reader-workbench').hidden=coverVisible||!interaction;$('reader-scenes').hidden=coverVisible||opening;}
   interaction?.setActive?.(!coverVisible&&(page.interactive!=='weekday-worlds'||current.sceneId==='question')&&(!labTopic||root.dataset.mode==='interactive'||root.dataset.mode==='spatial'));
   if(page.interactive!=='weekday-worlds'){const hint=$('reader-skip-scope');const text=spatial?'본문 ← → 장면 이동 · 시각화에 초점을 두면 방향키 회전':longform?'← → 장면 이동 · Space 문서 스크롤':'← → · Space/Enter';hint.textContent=text;hint.title=spatial?text:longform?text:'← → 방향키: 장면 이동 · Space 또는 Enter: 다음';$('reader-end-links').hidden=Boolean(next);}
@@ -95,6 +103,7 @@ const reader=createRelatedReader(page,{onChange:render});
 if(page.interactive){
   required('.model-toolbar').hidden=true;
   const container=document.createElement('div');$('reader-workbench').append(container);
+  if(page.interactive==='weekday-worlds')$('reader-workbench').append(required('.reader-skip-actions'));
   interaction=mountTopicInteraction(page.interactive,container,{onChange:renderInput,onSceneRequest(sceneId){if(!page.scenes.some(scene=>scene.id===sceneId))throw new RangeError('Unknown requested scene');coverVisible=false;reader.setState({sceneId});const title=root.dataset.opening==='reflection'?required('.weekday-challenge-reflection h2',root):root.dataset.opening==='challenge'?required('.weekday-intro-question',root):required('h2',scenes[current.index]);title.tabIndex=-1;title.focus({preventScroll:true});}});
 }else $('reader-workbench').hidden=true;
 function next(){if(coverVisible){coverVisible=false;render(reader.inspect());}else if(readerDestination(page,current.sceneId,'next')===current.sceneId)panels.openHash('#connections',$('reader-next'));else{if(!interaction?.beforeNext?.())reader.next();}}

@@ -51,3 +51,13 @@ test('quantifier evidence shows a witness and a counterexample without changing 
   await expectFrame(page,weekdayFrame);
   expect(await page.evaluate(()=>window.__atlasRelated.getState())).toEqual(saved);
 });
+
+
+test('world names and weekdays remain readable on separate lines',async({page})=>{
+  await page.goto('/knowledge/weekday-worlds/#alethic');await page.waitForFunction(()=>window.__atlasRelated);await page.evaluate(()=>document.fonts.ready);
+  const labels=await page.locator('.weekday-modal-diagram svg').evaluate(svg=>{
+    const names=[...svg.querySelectorAll<SVGTextElement>('.weekday-modal-label')],days=[...svg.querySelectorAll<SVGTextElement>('.weekday-modal-day')];
+    return names.map((name,index)=>{const day=days[index],a=name.getBoundingClientRect(),b=day.getBoundingClientRect();return {nameSize:parseFloat(getComputedStyle(name).fontSize)*name.getScreenCTM()!.a,daySize:parseFloat(getComputedStyle(day).fontSize)*day.getScreenCTM()!.a,separation:b.top-a.bottom};});
+  });
+  expect(labels).toHaveLength(2);for(const label of labels){expect(label.nameSize).toBeGreaterThanOrEqual(12);expect(label.daySize).toBeGreaterThanOrEqual(12);expect(label.separation).toBeGreaterThanOrEqual(0);}
+});

@@ -3,10 +3,10 @@ export const worldLabel=(id:WorldIndex)=>id===0?'현실':`가정 ${id}`;
 
 // Identity colors are independent of valuation, accessibility and array position.
 export const WORLD_COLORS = [
-  {tint:'#e7f2df',ink:'#35542b',stroke:'#73985c',name:'연한 초록'},
-  {tint:'#e3effb',ink:'#214f7c',stroke:'#628eb9',name:'파랑'},
-  {tint:'#fff2c9',ink:'#705417',stroke:'#b7973e',name:'노랑'},
-  {tint:'#fbe4e3',ink:'#873c3c',stroke:'#bd7774',name:'빨강'},
+  {tint:'#edf5ff',ink:'#0043ce',stroke:'#0f62fe',name:'파랑'},
+  {tint:'#d9fbfb',ink:'#005d5d',stroke:'#007d79',name:'청록'},
+  {tint:'#f6f2ff',ink:'#6929c4',stroke:'#8a3ffc',name:'보라'},
+  {tint:'#e5f6ff',ink:'#00539a',stroke:'#1192e8',name:'하늘색'},
 ] as const;
 
 export function colorWorld(node:HTMLElement,id:WorldIndex){

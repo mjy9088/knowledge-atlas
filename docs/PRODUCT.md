@@ -30,6 +30,10 @@ Uniform desktop fitting does not change scroll ownership. A bounded reader remai
 
 Keep chrome small. Detailed evidence/connections belong on demand; assumptions, result status and representation limits remain visible. Navigation should remain reachable across scenes/restoration. Never intercept editing/menu/dialog keys or native link/button activation. Topic-specific focus frames and geometry belong in the [owning content specification](../content/formal-logic/weekday-worlds/README.md), not platform-wide pixel rules.
 
+## Visual foundation
+
+Rebuild public surfaces against the [shared Carbon-based design foundations](../apps/web/styles/README.md): semantic tokens, neutral surfaces, blue actions, typography and spacing hierarchy, square geometry and consistent scientific diagrams. Existing colors, rounded shapes and topic-specific appearance are not preservation requirements. Apply the same criteria to every work without a reference exemplar. Preserve scientific and interaction contracts through visual revisions.
+
 ## Explanation design
 
 Identify the opening question, intended explanation and minimum background before introducing terminology. Each control should make clear what changes, what to observe and what the observation supports. Optional predictions/reveals must not gate progress. The primary path independently answers its question; proofs, observations and uncertainty need appropriate forms rather than one compulsory narrative template. A static explanation is valid when manipulation adds little.

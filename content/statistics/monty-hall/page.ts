@@ -4,7 +4,7 @@ const page = {
   "slug": "monty-hall",
   "articleId": "article:statistics.monty-hall.ko",
   "label": "문 두 개, 정말 반반일까요?",
-  "category": "statistics",
+  "category": "확률 · 통계",
   "model": null,
   "experiment": false,
   "navigation": {

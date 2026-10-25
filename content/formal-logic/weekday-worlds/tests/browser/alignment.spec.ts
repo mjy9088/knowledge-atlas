@@ -22,7 +22,7 @@ test('weekday alignment highlights complete paths bidirectionally and refreshes 
   await expect(page.locator('.weekday-source [data-alignment-node="yesterday-base"] select')).toHaveValue('2');expect(await ids('source')).toEqual([]);
   await page.locator('.weekday-source [data-alignment-node="yesterday-base"]').focus();expect(await ids('symbol')).toEqual(yesterday);
   await weekdayView(page,'양상');
-  await expect(page.locator('.weekday-modal-proposition')).toContainText('P:');
+  await expect(page.locator('.weekday-symbol-definition').filter({hasText:'P: 이 세계'})).toContainText('P:');
   await page.locator('.weekday-source [data-alignment-node="yesterday-base"]').focus();expect(await ids('symbol')).toEqual(yesterday);
   await expect(page.locator('.weekday-symbolic-summary [data-alignment-node="yesterday-base"]')).toHaveAttribute('data-alignment-current','');
   await expectFrame(page,weekdayFrame);await weekdayReasoning(page);await expectFrame(page,weekdayFrame);

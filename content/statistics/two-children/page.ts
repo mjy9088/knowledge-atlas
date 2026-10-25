@@ -3,7 +3,7 @@ export default {
   "slug": "two-children",
   "articleId": "article:statistics.two-children.ko",
   "label": "적어도 한 명이 아들: 그걸 어떻게 알았나요?",
-  "category": "statistics",
+  "category": "확률 · 통계",
   "model": null,
   "experiment": false,
   "navigation": {

@@ -1,5 +1,31 @@
-:root{color-scheme:light;--ink:#233b36;--muted:#65756e;--line:#dce4dd;--green:#23624d;--soft:#f4f6f0;--paper:#fcfcf8;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Noto Sans KR','Apple SD Gothic Neo',sans-serif;font-synthesis:none;line-height:1.65}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:var(--paper);color:var(--ink)}a{color:var(--green);text-underline-offset:4px}button,input,select{font:inherit}button{cursor:pointer}button,select,input[type=checkbox]{min-height:30px}button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #317f66;outline-offset:4px}h1,h2,p{margin-top:0}h2{font-size:21px;letter-spacing:-.035em;line-height:1.45}strong{font-weight:700}.skip-link{position:fixed;left:12px;top:-100px;background:white;z-index:99;padding:12px}.skip-link:focus{top:12px}
-.eyebrow{font-size:10px;font-weight:750;letter-spacing:.13em;color:var(--green);margin-bottom:12px}h1{font-size:clamp(29px,3vw,40px);font-weight:700;letter-spacing:-.055em;line-height:1.42;margin-bottom:17px}.math{font-family:Cambria Math,Georgia,serif}
-#inference-visual{min-height:290px}.inference-visual-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.inference-visual-head h3{margin:0;font-size:16px;color:#526e45}.inference-visual-progress{font-size:11px;color:#91a183}.inference-visual-context,.inference-visual-goal,.inference-visual-status{font-size:11px;color:#7b8c6c;line-height:1.9;overflow-wrap:anywhere}.inference-visual-flow{display:flex;flex-direction:column;align-items:stretch;justify-content:center;gap:12px;background:#f5f8ef;border:1px solid #e0e9d6;border-radius:9px;padding:24px;margin:15px 0;min-height:255px}.inference-visual-dependencies{display:flex;justify-content:center;flex-wrap:wrap;gap:12px}.inference-visual-card{background:#fff;border:1px solid #cedec2;border-radius:8px;padding:14px 24px;text-align:center;min-width:110px;max-width:100%;overflow-wrap:anywhere}.inference-visual-card-result{background:#e4efda;border-color:#8dab78}.inference-visual-label{display:block;font-size:10px;color:#8b9c7b;margin-bottom:5px}.inference-visual-formula{font:36px/1.5 'Cambria Math',Georgia,serif;color:#365c2d;overflow-wrap:anywhere;white-space:normal}.inference-visual-rule{font-size:12px;color:#6f8a59;text-align:center}.inference-visual-arrow{text-align:center;font-size:27px;color:#9cb18d;line-height:1}.inference-visual-premise-note,.inference-visual-explanation,.inference-visual-limitation{font-size:11px;line-height:1.8;color:#75876a;overflow-wrap:anywhere}.inference-visual-premise-note{background:#eef4e7;padding:10px;border-radius:5px}
-.inference-visual-result{background:#e4efda;border-color:#8dab78}.inference-visual-formula{margin:0}.inference-visual-rule .inference-visual-arrow{display:block;transform:rotate(90deg);margin:5px auto;width:28px}.inference-visual-context p{margin:5px 0}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@import url("/styles/design-system.css");
+/* Shared local projection/lesson primitives use the public foundation too. */
+:root { --ink:var(--ds-text); --muted:var(--ds-text-secondary); --line:var(--ds-border); --green:var(--ds-primary); --soft:var(--ds-canvas); --paper:var(--ds-surface); line-height:1.6; }
+html { scroll-behavior:smooth; scroll-padding-top:90px; }
+a { color:var(--ds-primary); }
+button,input,select { font:inherit; }
+button,select,input[type=checkbox] { min-height:30px; }
+h1,h2,p { margin-top:0; }
+h1 { font-size:clamp(28px,3vw,40px); font-weight:400; letter-spacing:-.035em; line-height:1.3; margin-bottom:24px; }
+h2 { font-size:20px; font-weight:500; letter-spacing:-.025em; line-height:1.45; }
+strong { font-weight:600; }
+.skip-link { position:fixed; left:12px; top:-100px; background:var(--ds-surface); z-index:99; padding:12px; }
+.skip-link:focus { top:12px; }
+.eyebrow { font-size:12px; font-weight:500; letter-spacing:.08em; color:var(--ds-text-secondary); margin-bottom:12px; }
+.math { font-family:"Cambria Math",Georgia,serif; }
+#inference-visual { min-height:290px; }
+.inference-visual-head { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.inference-visual-head h3 { margin:0; font-size:16px; color:var(--ds-text); }
+.inference-visual-progress,.inference-visual-context,.inference-visual-goal,.inference-visual-status { font-size:12px; color:var(--ds-text-secondary); line-height:1.6; overflow-wrap:anywhere; }
+.inference-visual-flow { display:flex; flex-direction:column; align-items:stretch; justify-content:center; gap:16px; background:var(--ds-surface); border-top:1px solid var(--ds-border); border-bottom:1px solid var(--ds-border); padding:24px; margin:16px 0; min-height:255px; }
+.inference-visual-dependencies { display:flex; justify-content:center; flex-wrap:wrap; gap:16px; }
+.inference-visual-card { background:var(--ds-surface); border:1px solid var(--ds-border); padding:16px 24px; text-align:center; min-width:110px; max-width:100%; overflow-wrap:anywhere; }
+.inference-visual-card-result,.inference-visual-result { background:var(--ds-primary-soft); border-color:var(--ds-primary); }
+.inference-visual-label { display:block; font-size:12px; color:var(--ds-text-secondary); margin-bottom:8px; }
+.inference-visual-formula { font:36px/1.5 "Cambria Math",Georgia,serif; color:var(--ds-text); overflow-wrap:anywhere; white-space:normal; margin:0; }
+.inference-visual-rule { font-size:12px; color:var(--ds-text-secondary); text-align:center; }
+.inference-visual-arrow { text-align:center; font-size:28px; color:var(--ds-primary); line-height:1; }
+.inference-visual-premise-note,.inference-visual-explanation,.inference-visual-limitation { font-size:12px; line-height:1.6; color:var(--ds-text-secondary); overflow-wrap:anywhere; }
+.inference-visual-premise-note { background:var(--ds-canvas); padding:12px; }
+.inference-visual-rule .inference-visual-arrow { display:block; transform:rotate(90deg); margin:8px auto; width:28px; }
+.inference-visual-context p { margin:8px 0; }

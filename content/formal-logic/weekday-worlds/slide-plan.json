@@ -1,6 +1,6 @@
 {
   "articleId": "article:logic.weekday-worlds.ko",
-  "status": "prospective-visual-revision-unapproved",
+  "status": "prospective-system-redesign-unapproved",
   "readingOrderSceneIds": [
     "question",
     "conditional",
@@ -22,7 +22,7 @@
   ],
   "representationContract": "README.md#visual-revision-trial",
   "visualTrial": {
-    "purpose": "Apply the same proposed visual-explanation criteria to both requested topics. Neither topic nor scene is a reference exemplar or approval standard.",
+    "purpose": "Rebuild both requested topics from a coherent Carbon white-theme design system. Existing colors, shapes and layout are not protected by this user-authorized redesign. Neither topic is an exemplar; models, objectives and stable state/navigation contracts remain.",
     "alternatives": [
       {
         "representation": "Sequential day cards versus simultaneous calendars",
@@ -42,137 +42,154 @@
       "sceneId": "question",
       "block": 0,
       "purpose": "Preserve the optional attempt and distinguish a choice from a graded answer.",
-      "representation": "Existing riddle/choice layout; retain user-accepted timer and reflection behavior.",
+      "representation": "Editorial full-canvas challenge: a typographic riddle, horizontal time ledger and rectangular seven-day controls. White/gray surfaces and blue primary actions; no answer clue or new response gate.",
       "successCheck": "The opening reveals no computed answer and retains immediate skip/reflection.",
-      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate.",
+      "visualSuccessCheck": "Use white/gray surfaces, consistent world identity, square/2px forms, 4/8/16/24 spacing and the shared 12/14/16/20/28/40 type scale. Verify semantic labels, complete content bounds, reset/restoration and stable 44px navigation at960×540 and390×844; rendering and learner attainment remain unverified until independently checked."
     },
     {
       "sceneId": "conditional",
       "block": 9,
       "purpose": "State the explicitly simplified conditional.",
-      "representation": "Retain the concise source sentence and semantic alignment; no gratuitous drawing for a linguistic declaration.",
+      "representation": "A quiet document panel with a blue rule marker distinguishes the explicitly simplified sentence from the original wish. Typography, not decoration, expresses the assumption.",
       "successCheck": "The assumption is explicit and is not presented as a complete translation of the original wish.",
-      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate.",
+      "visualSuccessCheck": "Use white/gray surfaces, consistent world identity, square/2px forms, 4/8/16/24 spacing and the shared 12/14/16/20/28/40 type scale. Verify semantic labels, complete content bounds, reset/restoration and stable 44px navigation at960×540 and390×844; rendering and learner attainment remain unverified until independently checked."
     },
     {
       "sceneId": "sunday",
       "block": 2,
       "purpose": "Follow the usual date-reference direction to Sunday.",
-      "representation": "Two aligned three-day calendars join assumed tomorrow to real yesterday with a labelled equality connector.",
+      "representation": "Two rectangular calendar strips with numbered column headings, shared equality endpoints and distinct blue/teal world identity rails. Today positions stay visible; connector is equality, not time travel or accessibility.",
       "successCheck": "Can trace assumed Friday→shared Saturday→real Sunday, while world identities and today positions stay distinct.",
-      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate.",
+      "visualSuccessCheck": "Use white/gray surfaces, consistent world identity, square/2px forms, 4/8/16/24 spacing and the shared 12/14/16/20/28/40 type scale. Verify semantic labels, complete content bounds, reset/restoration and stable 44px navigation at960×540 and390×844; rendering and learner attainment remain unverified until independently checked."
     },
     {
       "sceneId": "wednesday",
       "block": 3,
       "purpose": "Contrast the reverse date-reference direction.",
-      "representation": "Reuse the same two calendars and world colors, moving the equality endpoints to assumed yesterday and real tomorrow.",
+      "representation": "The same calendar grid, identity rails and typography with the equality endpoints relocated to assumed yesterday and actual tomorrow. Geometry exposes changed reference assignment.",
       "successCheck": "Can explain why the shared Thursday leads to real Wednesday rather than Sunday; no accessibility relation is implied.",
-      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate.",
+      "visualSuccessCheck": "Use white/gray surfaces, consistent world identity, square/2px forms, 4/8/16/24 spacing and the shared 12/14/16/20/28/40 type scale. Verify semantic labels, complete content bounds, reset/restoration and stable 44px navigation at960×540 and390×844; rendering and learner attainment remain unverified until independently checked."
     },
     {
       "sceneId": "notation",
       "block": 7,
       "purpose": "Connect the original clauses to explicit calendar expressions.",
-      "representation": "Retain aligned source/formula projection and fixed reference identities.",
+      "representation": "A compact document/formula grid with consistent colored world reference underlines and exact alignment paths; no rounded badges or duplicated ornamental labels.",
       "successCheck": "Hover/focus still identifies the whole corresponding expression without changing saved input.",
-      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate.",
+      "visualSuccessCheck": "Use white/gray surfaces, consistent world identity, square/2px forms, 4/8/16/24 spacing and the shared 12/14/16/20/28/40 type scale. Verify semantic labels, complete content bounds, reset/restoration and stable 44px navigation at960×540 and390×844; rendering and learner attainment remain unverified until independently checked."
     },
     {
       "sceneId": "inference",
       "block": 10,
       "purpose": "Identify the inference rules used in the worked proof.",
-      "representation": "Retain the compact rule table; a table is appropriate for exact premises/conclusions.",
+      "representation": "A compact ruled inference table, with premises/conclusion aligned in columns and clear row hierarchy. Static because symbolic shape is the comparison.",
       "successCheck": "Can distinguish MP from MT and identify the rule used next.",
-      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate.",
+      "visualSuccessCheck": "Use white/gray surfaces, consistent world identity, square/2px forms, 4/8/16/24 spacing and the shared 12/14/16/20/28/40 type scale. Verify semantic labels, complete content bounds, reset/restoration and stable 44px navigation at960×540 and390×844; rendering and learner attainment remain unverified until independently checked."
     },
     {
       "sceneId": "nonmodal-proof",
       "block": 13,
       "purpose": "Follow the complete existing classical/calendar proof.",
-      "representation": "Retain numbered proof steps and exact congruence reasons; do not replace the proof with a decorative diagram.",
+      "representation": "Two-column proof desk: stated conditions and congruence rules on the left, numbered derivation with reasons on the right; narrow stacks retain the complete argument without internal prose scrolling.",
       "successCheck": "All formula/rule references and unsupported-input behavior remain complete.",
-      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate.",
+      "visualSuccessCheck": "Use white/gray surfaces, consistent world identity, square/2px forms, 4/8/16/24 spacing and the shared 12/14/16/20/28/40 type scale. Verify semantic labels, complete content bounds, reset/restoration and stable 44px navigation at960×540 and390×844; rendering and learner attainment remain unverified until independently checked."
     },
     {
       "sceneId": "contexts",
       "block": 1,
       "purpose": "Inspect separately referenced calendars.",
-      "representation": "Retain model-backed date cells, with stable world colors and clearer calendar headings/shared-date markers.",
+      "representation": "An input document and a rectangular calendar matrix share stable world identity rails, exact date labels and an explicit equality statement. Selection is a bounded configuration area.",
       "successCheck": "Changing references updates days or invalidates the result; arrows alone never determine calendar days.",
-      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate.",
+      "visualSuccessCheck": "Use white/gray surfaces, consistent world identity, square/2px forms, 4/8/16/24 spacing and the shared 12/14/16/20/28/40 type scale. Verify semantic labels, complete content bounds, reset/restoration and stable 44px navigation at960×540 and390×844; rendering and learner attainment remain unverified until independently checked."
     },
     {
       "sceneId": "modal-comparison",
       "block": 11,
       "purpose": "Distinguish actuality, possibility and necessity.",
-      "representation": "Two concept fixtures use connected accessible-world rows and three explicit truth tokens per quantifier; show one versus all matching worlds.",
+      "representation": "Two flat comparison panels: square world nodes connected by access rails, explicit P values, and aligned quantified truth rows. Actual truth, accessible range and witness evidence use distinct marks.",
       "successCheck": "Can identify the actual world, the witness for◇ and the counterexample to□ in the first fixture, and all three witnesses in the second.",
-      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate.",
+      "visualSuccessCheck": "Use white/gray surfaces, consistent world identity, square/2px forms, 4/8/16/24 spacing and the shared 12/14/16/20/28/40 type scale. Verify semantic labels, complete content bounds, reset/restoration and stable 44px navigation at960×540 and390×844; rendering and learner attainment remain unverified until independently checked."
     },
     {
       "sceneId": "alethic",
       "block": 8,
       "purpose": "Apply modal operators to the existing deduced calendars.",
-      "representation": "Retain the editable direct-access graph and explicit verdicts; visual identity remains separate from truth and access.",
+      "representation": "A horizontal directed graph with square world nodes and clear identity rail, evaluation outline and access dash. Each node has two separated lines (world name and weekday), at least 12px actual text on narrow screens; reference assignments remain in the canonical source/formulas. Natural aspect ratio replaces miniature height limits. Quantifier results sit below as ruled facts.",
       "successCheck": "Changing direct edges changes the quantifier range while retaining calendar constraints.",
-      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate.",
+      "visualSuccessCheck": "Use white/gray surfaces, consistent world identity, square/2px forms, 4/8/16/24 spacing and the shared 12/14/16/20/28/40 type scale. Verify semantic labels, complete content bounds, reset/restoration and stable 44px navigation at960×540 and390×844; rendering and learner attainment remain unverified until independently checked."
     },
     {
       "sceneId": "modal-expansion",
       "block": 16,
       "purpose": "Relate finite expansion to compact operators.",
-      "representation": "Retain the live world editor and literal disjunction/conjunction expansions.",
+      "representation": "A document editor beside an exact expansion ledger; direct-successor disjunction/conjunction and modal operators align on ruled rows. Reference dialog uses the same surface/spacing system.",
       "successCheck": "Every displayed term corresponds to one current direct successor, including empty access.",
-      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate.",
+      "visualSuccessCheck": "Use white/gray surfaces, consistent world identity, square/2px forms, 4/8/16/24 spacing and the shared 12/14/16/20/28/40 type scale. Verify semantic labels, complete content bounds, reset/restoration and stable 44px navigation at960×540 and390×844; rendering and learner attainment remain unverified until independently checked."
     },
     {
       "sceneId": "modal-rules",
       "block": 12,
       "purpose": "Explain K and restricted necessitation.",
-      "representation": "Retain the stated rule/assumption limits; use typography to distinguish premise, rule and conclusion.",
+      "representation": "A flat rule sheet gives K, MP and theorem-only necessitation typographic hierarchy; local assumptions remain visually distinct from theorems.",
       "successCheck": "No local-assumption necessitation or unsupported whole-riddle modal translation is introduced.",
-      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate.",
+      "visualSuccessCheck": "Use white/gray surfaces, consistent world identity, square/2px forms, 4/8/16/24 spacing and the shared 12/14/16/20/28/40 type scale. Verify semantic labels, complete content bounds, reset/restoration and stable 44px navigation at960×540 and390×844; rendering and learner attainment remain unverified until independently checked."
     },
     {
       "sceneId": "modal-systems",
       "block": 14,
       "purpose": "Compare relation requirements of modal systems.",
-      "representation": "Keep the exact axiom table and add small explicitly illustrative relation motifs for seriality, loops, symmetry and transitivity.",
+      "representation": "A six-row axiom/frame table with square-node illustrative motifs; exact text defines conditions and motifs remain examples. B lacks transitivity and S5 need not be universally connected.",
       "successCheck": "Can point to the required edge pattern; motifs are examples, not complete frame-class definitions.",
-      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate.",
+      "visualSuccessCheck": "Use white/gray surfaces, consistent world identity, square/2px forms, 4/8/16/24 spacing and the shared 12/14/16/20/28/40 type scale. Verify semantic labels, complete content bounds, reset/restoration and stable 44px navigation at960×540 and390×844; rendering and learner attainment remain unverified until independently checked."
     },
     {
       "sceneId": "frame-system",
       "block": 15,
       "purpose": "Inspect properties of the reader-edited relation.",
-      "representation": "Retain model-backed graph, property checks and system badges with stable identity colors.",
+      "representation": "A rectangular graph and an audit-like property ledger separate current frame facts from particular P truth. No rounded success chips or automatic closure edges.",
       "successCheck": "Verdicts still quantify over the complete edited relation and do not silently add closure edges.",
-      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate.",
+      "visualSuccessCheck": "Use white/gray surfaces, consistent world identity, square/2px forms, 4/8/16/24 spacing and the shared 12/14/16/20/28/40 type scale. Verify semantic labels, complete content bounds, reset/restoration and stable 44px navigation at960×540 and390×844; rendering and learner attainment remain unverified until independently checked."
     },
     {
       "sceneId": "transfer",
       "block": 5,
       "purpose": "Apply changed target to the same interpretation.",
-      "representation": "Retain current-input calendar/graph projections and labels; no fixed Friday answers.",
+      "representation": "The same source controls, calendar matrix and square-node graph update the target while preserving references, world identities and direct R.",
       "successCheck": "Target edits update every displayed day/result without resetting references.",
-      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate.",
+      "visualSuccessCheck": "Use white/gray surfaces, consistent world identity, square/2px forms, 4/8/16/24 spacing and the shared 12/14/16/20/28/40 type scale. Verify semantic labels, complete content bounds, reset/restoration and stable 44px navigation at960×540 and390×844; rendering and learner attainment remain unverified until independently checked."
     },
     {
       "sceneId": "literal",
       "block": 4,
       "purpose": "Distinguish inconsistent date constraints from actual truth.",
-      "representation": "Retain explicit no-solution status and suspended answer extraction.",
+      "representation": "A restrained warning boundary and explicit no-model result replace any calendar or truth extraction under inconsistent conditions. Contradiction is not a real-world weekday claim.",
       "successCheck": "No invented calendar or actual weekday is displayed for inconsistent constraints.",
-      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate.",
+      "visualSuccessCheck": "Use white/gray surfaces, consistent world identity, square/2px forms, 4/8/16/24 spacing and the shared 12/14/16/20/28/40 type scale. Verify semantic labels, complete content bounds, reset/restoration and stable 44px navigation at960×540 and390×844; rendering and learner attainment remain unverified until independently checked."
     },
     {
       "sceneId": "conclusion",
       "block": 6,
       "purpose": "Return to interpretation limits.",
-      "representation": "Retain the current-input comparison and short synthesis; no new visual proposition.",
+      "representation": "The current-input comparison remains beside a short typographic synthesis. No new derived result or visual proposition is introduced.",
       "successCheck": "The ending preserves the limits of the authored interpretation and ungraded attempt.",
-      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate."
+      "interaction": "Preserve validated state, direct navigation, reset and restoration. Use the existing source/model and accepted disclosure; no new mandatory quiz or playback gate.",
+      "visualSuccessCheck": "Use white/gray surfaces, consistent world identity, square/2px forms, 4/8/16/24 spacing and the shared 12/14/16/20/28/40 type scale. Verify semantic labels, complete content bounds, reset/restoration and stable 44px navigation at960×540 and390×844; rendering and learner attainment remain unverified until independently checked."
     }
   ],
   "pending": [
@@ -181,5 +198,19 @@
     "learner comprehension",
     "rights/revision verification",
     "publication authorization"
-  ]
+  ],
+  "designSystem": {
+    "status": "prospective-user-authorized-redesign",
+    "foundation": "Carbon white theme",
+    "tokens": [
+      "--ds-canvas",
+      "--ds-surface",
+      "--ds-text",
+      "--ds-text-secondary",
+      "--ds-border",
+      "--ds-primary"
+    ],
+    "identity": "Reality blue; assumptions teal/purple/cyan, stable IDs across source/calendar/graph/formula/matrix",
+    "existingAppearance": "No existing palette, shape or layout constraint is preserved; only semantic/input/state/navigation requirements remain."
+  }
 }

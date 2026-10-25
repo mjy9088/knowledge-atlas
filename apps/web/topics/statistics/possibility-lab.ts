@@ -23,9 +23,9 @@ export function mountPossibilityLab(topic:LabTopic,container:HTMLElement,options
   const chartLegend=document.createElement('p');chartLegend.className='lab-chart-legend';chart.after(chartLegend);
  if(topic==='binary-relations')inputs.innerHTML=['민 → 논리','민 → 확률','수 → 논리','수 → 확률'].map((label,i)=>`<button type="button" data-edge="${i}" aria-pressed="false">${label}</button>`).join('');
  else inputs.innerHTML=topic==='monty-hall'?`<label>공개 규칙 <select class="lab-mode"><option value="informed">정답을 알고 항상 오답 공개</option><option value="blind">모르고 미선택 문 무작위 공개</option></select></label><label>처음 고를 문 <select class="lab-choice"><option value="1">1번</option><option value="2">2번</option><option value="3">3번</option></select></label><button type="button" data-action="reveal">선택 후 문 열기</button>`:`<label>정보를 얻는 과정 <select class="lab-mode"><option value="filter">가족에게 적어도 한 명이 아들인지 질문</option><option value="child">아이 한 명을 균등하게 골라 아들 관측</option></select></label><button type="button" data-action="reveal">한 가족 살펴보기</button>`;
- const line=(x:number,y:number,x2:number,y2:number,color='#599782')=>`<path pathLength="1" d="M${x} ${y} L${x2} ${y2}" stroke="${color}" stroke-width="3" fill="none"/>`;
+ const line=(x:number,y:number,x2:number,y2:number,color='var(--ds-primary,#0f62fe)')=>`<path pathLength="1" d="M${x} ${y} L${x2} ${y2}" stroke="${color}" stroke-width="3" fill="none"/>`;
  const label=(x:number,y:number,text:string)=>`<text x="${x}" y="${y}" text-anchor="middle">${text}</text>`;
- const dot=(x:number,y:number,text:string,on=true)=>`<circle cx="${x}" cy="${y-5}" r="23" fill="${on?'#dceee4':'#f0efeb'}" stroke="#81a998"/>${label(x,y,text)}`;
+ const dot=(x:number,y:number,text:string,on=true)=>`<circle cx="${x}" cy="${y-5}" r="23" fill="${on?'var(--ds-surface,#fff)':'var(--ds-canvas,#f4f4f4)'}" stroke="var(--ds-border-strong,#8d8d8d)"/>${label(x,y,text)}`;
  function stop(){delete container.dataset.unfolding;playing=false;cancelAnimationFrame(frame);lastTime=0;remainder=0;el('[data-action="play"]').textContent='반복 재생';}
  function render(){
   const summary=labSummary(state);
@@ -38,7 +38,7 @@ export function mountPossibilityLab(topic:LabTopic,container:HTMLElement,options
    for(const b of container.querySelectorAll<HTMLButtonElement>('[data-edge]'))b.setAttribute('aria-pressed',String(Boolean(state.edges&(1<<Number(b.dataset.edge)))));
    const edges=[0,1,2,3].filter(i=>state.edges&(1<<i));
    tree.innerHTML=(state.stage>0?edges.map(i=>line(130,60+Math.floor(i/2)*90,460,60+i%2*90)).join(''):'')+dot(105,65,'민')+dot(105,155,'수')+dot(490,65,'논리')+dot(490,155,'확률');
-   tree.insertAdjacentHTML('afterbegin','<defs><marker id="lab-edge-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7" fill="#599782"/></marker></defs>');for(const edge of tree.querySelectorAll(':scope > path'))edge.setAttribute('marker-end','url(#lab-edge-arrow)');
+   tree.insertAdjacentHTML('afterbegin','<defs><marker id="lab-edge-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7" fill="var(--ds-primary,#0f62fe)"/></marker></defs>');for(const edge of tree.querySelectorAll(':scope > path'))edge.setAttribute('marker-end','url(#lab-edge-arrow)');
    el('.lab-status').textContent=relationPairs(state.edges).join(' · ')||'빈 관계: 연결 없음';
    el('.lab-note').textContent=`행: 민·수 / 열: 논리·확률 → [${[0,1,2,3].map(i=>Number(Boolean(state.edges&(1<<i)))).join(', ')}]. ${isFunction(state.edges)?'각 입력에 출력이 정확히 하나: 함수입니다.':'각 입력에 출력이 정확히 하나여야 함수입니다.'}`;
   }else{
@@ -46,8 +46,8 @@ export function mountPossibilityLab(topic:LabTopic,container:HTMLElement,options
     const family=topic==='two-children',theory=family?(state.mode==='filter'?'1/3':'1/2'):(state.mode==='informed'?'2/3':'1/2');
     renderProbabilityLedger(el('.lab-ledger'),probabilityLedgerView(topic,state),state.stage);
    const points=summary.points.map(p=>`${45+510*p.count/Math.max(1,state.count)},${150-120*p.rate}`).join(' '),y=150-120*summary.theoretical;
-    chart.innerHTML=line(45,20,45,150,'#a4aaa7')+line(45,150,560,150,'#a4aaa7')+`<path d="M45 ${y} H560" stroke="#ab7850" stroke-dasharray="6 4"/><polyline points="${points}" fill="none" stroke="#356bba" stroke-width="3"/>`+label(23,35,'1')+label(23,155,'0');
-    chartLegend.textContent=`가로: 시도 0 → ${state.count.toLocaleString()}회 · 세로: 조건 충족 시행의 성공 비율 0 → 1 · 파란 실선: 표본 비율 · 갈색 점선: 정확한 이론값 ${theory}`;
+    chart.innerHTML=line(45,20,45,150,'var(--ds-border-strong,#8d8d8d)')+line(45,150,560,150,'var(--ds-border-strong,#8d8d8d)')+`<path d="M45 ${y} H560" stroke="var(--ds-positive,#007d79)" stroke-dasharray="6 4"/><polyline points="${points}" fill="none" stroke="var(--ds-primary,#0f62fe)" stroke-width="3"/>`+label(23,35,'1')+label(23,155,'0');
+    chartLegend.textContent=`가로: 시도 0 → ${state.count.toLocaleString()}회 · 세로: 조건 충족 시행의 성공 비율 0 → 1 · 파란 실선: 표본 비율 · 청록 점선: 정확한 이론값 ${theory}`;
    const trial=state.revealed?labTrial(state,Math.max(0,state.count-1)):null;
    el('.lab-status').textContent=`시도 ${summary.attempted.toLocaleString()}회 · 조건 충족 ${summary.accepted.toLocaleString()}회 · ${family?'둘 다 아들':'교환 승리'} ${summary.successes.toLocaleString()}회 · 관측 비율 ${percent(summary.rate)}${trial?` — ${trial.branch}, ${trial.detail}: ${trial.accepted?trial.success?'성공':'실패':'조건 불충족 (집계 제외)'}`:''}`;
      el('.lab-note').textContent=family?'독립·아들/딸 각각 1/2인 단순 모형입니다. B는 아들, G는 딸이며 순서를 구분합니다.':'처음 선택은 고정하고 상품은 세 문에 균등하게 배치합니다. 모든 시행에서 교환하는 전략을 비교합니다.';

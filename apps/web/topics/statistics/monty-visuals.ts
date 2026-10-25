@@ -1,8 +1,8 @@
 import {DOORS,type Door} from '/content/statistics/monty-hall/scenarios.js';
 
 export function doorDrawing(opened:boolean,prize:boolean):string {
-  const inside=prize?'<path d="M60 40l8 17 19 3-14 13 3 19-16-9-17 9 4-19-14-13 19-3z" fill="#d5a23d" stroke="#8b6220" stroke-width="2"/>':'<circle cx="67" cy="69" r="19" fill="#f1eee7" stroke="#b2a995"/><path d="M58 60l18 18m0-18L58 78" stroke="#827861" stroke-width="4" stroke-linecap="round"/>';
-  return `<svg viewBox="0 0 120 142" aria-hidden="true" focusable="false"><path d="M16 132h88" stroke="#a9b9aa" stroke-width="3"/><rect x="21" y="8" width="78" height="123" rx="3" fill="#f9fbf4" stroke="#6b8776" stroke-width="3"/>${opened||prize?inside:''}${opened?'<path d="M23 11l27 15v91l-27 12z" fill="#d5dfcf" stroke="#6b8776" stroke-width="2"/><circle cx="42" cy="74" r="3" fill="#597763"/>':prize?'':'<rect x="25" y="12" width="70" height="115" rx="2" fill="#dce7d6" stroke="#75917d"/><rect x="33" y="23" width="54" height="35" rx="2" fill="#eaf0e4" stroke="#9db09a"/><rect x="33" y="68" width="54" height="47" rx="2" fill="#eaf0e4" stroke="#9db09a"/><circle cx="84" cy="66" r="4" fill="#9c7739"/>'}</svg>`;
+  const inside=prize?'<path d="M60 41l21 28-21 28-21-28z" fill="var(--ds-positive,#007d79)"/><path d="M49 69l8 8 15-17" fill="none" stroke="#fff" stroke-width="4"/>':'<path d="M48 56l25 25m0-25L48 81" fill="none" stroke="var(--ds-negative,#da1e28)" stroke-width="5"/>';
+  return `<svg viewBox="0 0 120 142" aria-hidden="true" focusable="false"><path d="M12 132h96" stroke="var(--ds-border-strong,#8d8d8d)" stroke-width="2"/><rect x="22" y="10" width="76" height="120" fill="var(--ds-surface,#fff)" stroke="var(--ds-text,#161616)" stroke-width="2"/>${opened||prize?inside:''}${opened?'<path d="M23 12l22 14v91l-22 12z" fill="var(--ds-canvas,#f4f4f4)" stroke="var(--ds-text,#161616)" stroke-width="2"/>':prize?'':'<rect x="27" y="15" width="66" height="110" fill="var(--ds-canvas,#f4f4f4)"/><path d="M73 72h12" stroke="var(--ds-text,#161616)" stroke-width="3"/>'}</svg>`;
 }
 
 export function renderDoors(choice:number,opened:Door|undefined,prize:Door|undefined,selectable:boolean,selected:boolean):string {
@@ -16,5 +16,5 @@ export function renderDoors(choice:number,opened:Door|undefined,prize:Door|undef
 
 export function switchingArrow(from:Door,to:Door):string {
   const x=(from-1)*200+100,y=(to-1)*200+100;
-  return `<svg class="monty-switch-arrow" viewBox="0 0 600 56" role="img" aria-label="${from}번에서 ${to}번으로 교환"><defs><marker id="monty-switch-tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#39775e"/></marker></defs><path d="M${x} 6Q${(x+y)/2} 66 ${y} 6" fill="none" stroke="#39775e" stroke-width="3" marker-end="url(#monty-switch-tip)"/><text x="${(x+y)/2}" y="49" text-anchor="middle" fill="#365c42" font-size="20">교환</text></svg>`;
+  return `<svg class="monty-switch-arrow" viewBox="0 0 600 56" role="img" aria-label="${from}번에서 ${to}번으로 교환"><defs><marker id="monty-switch-tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="var(--ds-primary,#0f62fe)"/></marker></defs><path d="M${x} 6Q${(x+y)/2} 66 ${y} 6" fill="none" stroke="var(--ds-primary,#0f62fe)" stroke-width="3" marker-end="url(#monty-switch-tip)"/><text x="${(x+y)/2}" y="49" text-anchor="middle" fill="var(--ds-primary,#0f62fe)" font-size="20">교환</text></svg>`;
 }

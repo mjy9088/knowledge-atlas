@@ -15,7 +15,7 @@ export function mountWeekdayModalIntroduction(container:HTMLElement){
     const worlds=make('div','','weekday-modal-intro-worlds');
     const rail=doc.createElementNS('http://www.w3.org/2000/svg','svg');
     rail.setAttribute('viewBox','0 0 600 80');rail.setAttribute('preserveAspectRatio','none');rail.setAttribute('class','weekday-modal-intro-rail');rail.setAttribute('aria-hidden','true');
-    rail.innerHTML=`<defs><marker id="intro-arrow-${example.id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#627e73"/></marker></defs>${[100,300,500].map(x=>`<path d="M100 72 C${x===100?30:100} ${x===100?8:2} ${x===100?170:x} ${x===100?8:2} ${x} 72" fill="none" stroke="#627e73" stroke-width="2" marker-end="url(#intro-arrow-${example.id})"/>`).join('')}`;
+    rail.innerHTML=`<defs><marker id="intro-arrow-${example.id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#8d8d8d"/></marker></defs>${[100,300,500].map(x=>`<path d="M100 72 C${x===100?30:100} ${x===100?8:2} ${x===100?170:x} ${x===100?8:2} ${x} 72" fill="none" stroke="#8d8d8d" stroke-width="2" marker-end="url(#intro-arrow-${example.id})"/>`).join('')}`;
     worlds.append(rail);
     for(const w of example.worlds){const chip=make('div','','weekday-modal-intro-world');colorWorld(chip,w.id);delete chip.dataset.world;chip.dataset.exampleWorld=String(w.id);chip.dataset.truth=String(w.today===4);chip.append(make('span',worldLabel(w.id)),make('strong',WEEKDAYS[w.today]),make('small',w.today===4?'✓ P 참':'× P 거짓'));worlds.append(chip);}card.append(worlds);
     const verdicts=make('div','','weekday-modal-intro-verdicts');

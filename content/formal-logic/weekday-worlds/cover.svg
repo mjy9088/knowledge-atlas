@@ -1,36 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1000" viewBox="0 0 1200 1000" role="img" aria-labelledby="title description">
-  <title id="title">IQ 좀 높다면 도전!</title>
-  <desc id="description">어제가 내일이었으면 좋겠다. 그럼 오늘이 금요일일 텐데… 그렇다면 오늘은 무슨 요일일까? 수요일, 목요일, 금요일, 일요일. 요일 수수께끼를 함께 풀어 보는 글의 표지.</desc>
-  <metadata>asset:logic.weekday-worlds.cover. Independently drawn editable SVG, 2026-10-17, inspired by the user-supplied puzzle meme. The challenge heading and 20-second motif reproduce its rhetorical framing for discussion, not a validated IQ assessment or an enforced timer. No reference pixels or logos are imported. This is cover artwork, not a catalog thumbnail. Rights review and publication remain pending.</metadata>
-  <defs>
-    <pattern id="paper" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r=".6" fill="#bfae91" opacity=".2"/></pattern>
-    <linearGradient id="card" x2="1" y2="1"><stop stop-color="#f4dcc4"/><stop offset="1" stop-color="#fae9d5"/></linearGradient>
-  </defs>
-  <rect width="1200" height="1000" fill="#f6f0df"/>
-  <rect width="1200" height="210" fill="#503d30"/>
-  <g font-family="'Malgun Gothic','Apple SD Gothic Neo',sans-serif">
-    <text x="600" y="137" text-anchor="middle" font-size="94" font-weight="900" fill="#fffbed" letter-spacing="-4">IQ 좀 높다면 도전!</text>
-    <rect y="210" width="1200" height="790" fill="url(#paper)"/>
-    <rect x="86" y="350" width="1032" height="292" rx="5" fill="#c3ac8d" opacity=".12"/>
-    <rect x="78" y="340" width="1032" height="292" rx="5" fill="url(#card)"/>
-    <g transform="translate(155 351) rotate(-13)">
-      <path d="M-167 13l71-8 29-45q10-11 21-3l16 14 35-19q14-6 19 4 4 9-8 17l-24 15 19 17q11 12-2 24l-20 22q-14 17-39 17l-97 1z" fill="#efc29b"/>
-      <path d="M-167 13l62-7 10 71-72 3" fill="#fffaf0"/>
-      <path d="M-180 20l59-5 7 57-66 5" fill="#503d30"/>
-      <rect x="-13" y="-86" width="26" height="21" rx="4" fill="#919b9d"/>
-      <rect x="-23" y="-91" width="46" height="10" rx="4" fill="#d8dddd"/>
-      <path d="M49-55l15 12" stroke="#919b9d" stroke-width="14"/>
-      <circle r="67" fill="#ee7275"/>
-      <circle r="54" fill="#fffdf4" stroke="#e2e1d7" stroke-width="3"/>
-      <path d="M0-46v9M46 0h-8M0 46v-8M-46 0h8M-32-32l6 6M32-32l-6 6M0-29V-8l22-14" fill="none" stroke="#788d91" stroke-width="4" stroke-linecap="round"/>
-      <text x="0" y="27" text-anchor="middle" font-size="33" font-weight="900" fill="#db5b67">20초</text>
-    </g>
-    <text x="270" y="457" font-size="49" font-weight="500" fill="#74482e" letter-spacing="-2">어제가 내일이었으면 좋겠다.</text>
-    <text x="270" y="543" font-size="49" font-weight="500" fill="#74482e" letter-spacing="-2">그럼 오늘이 금요일일 텐데…</text>
-    <text x="80" y="756" font-size="53" font-weight="700" fill="#322f28" letter-spacing="-2">Q. 그렇다면 오늘은 무슨 요일일까?</text>
-    <g font-size="40" font-weight="500" fill="#484238" text-anchor="middle" letter-spacing="-1">
-      <text x="205" y="855">① 수요일</text><text x="470" y="855">② 목요일</text>
-      <text x="735" y="855">③ 금요일</text><text x="1000" y="855">④ 일요일</text>
-    </g>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="660" viewBox="0 0 600 660" role="img" aria-labelledby="title description"><title id="title">어제가 내일이라면</title><desc id="description">20초 선택을 제안하는 요일 수수께끼. 원문과 네 요일 선택지를 제시하며 풀이의 답은 표시하지 않습니다.</desc><metadata>Original owned SVG. User-authorized Carbon white-theme system redesign, 2026-10-25. Existing mathematical interpretation retained; no source pixels, logos or external artwork. No learner/expert/rights/publication approval asserted.</metadata><g font-family="Noto Sans KR,Malgun Gothic,sans-serif"><rect width="600" height="660" fill="#fff"/><rect width="600" height="6" fill="#0f62fe"/>
+<text x="28" y="46" font-size="20" fill="#525252">LOGIC / LANGUAGE</text><text x="572" y="46" font-size="20" fill="#525252" text-anchor="end">20초 · 선택은 자유롭게</text>
+<text x="28" y="134" font-size="58" fill="#161616">어제가</text><text x="28" y="206" font-size="58" fill="#161616">내일이라면.</text><path d="M28 244H572" stroke="#161616"/>
+<text x="28" y="294" font-size="28" fill="#161616">“어제가 내일이었으면 좋겠다.</text><text x="28" y="338" font-size="28" fill="#161616">그럼 오늘이 금요일일 텐데…”</text><text x="28" y="402" font-size="28" fill="#161616">그렇다면 오늘은 무슨 요일일까?</text>
+<rect x="28" y="450" width="124" height="84" fill="#f4f4f4" stroke="#e0e0e0"/><text x="40" y="478" font-size="20" fill="#525252">01</text><text x="40" y="516" font-size="24" fill="#161616">수요일</text><rect x="168" y="450" width="124" height="84" fill="#f4f4f4" stroke="#e0e0e0"/><text x="180" y="478" font-size="20" fill="#525252">02</text><text x="180" y="516" font-size="24" fill="#161616">목요일</text><rect x="308" y="450" width="124" height="84" fill="#f4f4f4" stroke="#e0e0e0"/><text x="320" y="478" font-size="20" fill="#525252">03</text><text x="320" y="516" font-size="24" fill="#161616">금요일</text><rect x="448" y="450" width="124" height="84" fill="#f4f4f4" stroke="#e0e0e0"/><text x="460" y="478" font-size="20" fill="#525252">04</text><text x="460" y="516" font-size="24" fill="#161616">일요일</text><text x="28" y="590" font-size="22" fill="#525252">하나의 문장, 서로 다른 기준.</text><text x="28" y="628" font-size="22" fill="#525252">지금은 정답을 판정하지 않습니다.</text></g></svg>

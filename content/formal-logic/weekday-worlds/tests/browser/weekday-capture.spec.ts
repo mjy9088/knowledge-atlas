@@ -41,8 +41,8 @@ test('200% capture fits title, every scene, both translations, four worlds and r
   const saved=await page.evaluate(()=>window.__atlasRelated.getState());await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(state=>window.__atlasRelated.setState(state),saved);await fit(page);
   const crossings=await page.evaluate(()=>{
     const state=window.__atlasRelated.getState().interaction;if(!state||!('worlds'in state))throw new Error('Expected worlds');
-    const circles=[...document.querySelectorAll<SVGCircleElement>('.weekday-modal-diagram circle[data-world]')],edges=[...document.querySelectorAll<SVGPathElement>('.weekday-modal-diagram svg>path')];
-    return edges.flatMap((edge,index)=>{const [from,to]=state.access[index],length=edge.getTotalLength();return circles.flatMap(circle=>{const id=Number(circle.dataset.world);if(id===from||id===to)return [];for(let step=0;step<=100;step++){const p=edge.getPointAtLength(length*step/100);if(Math.hypot(p.x-circle.cx.baseVal.value,p.y-circle.cy.baseVal.value)<circle.r.baseVal.value)return [`${from}→${to} crosses ${id}`];}return [];});});
+    const nodes=[...document.querySelectorAll<SVGRectElement>('.weekday-modal-diagram rect[data-world]')],edges=[...document.querySelectorAll<SVGPathElement>('.weekday-modal-diagram svg>path')];
+    return edges.flatMap((edge,index)=>{const [from,to]=state.access[index],length=edge.getTotalLength();return nodes.flatMap(node=>{const id=Number(node.dataset.world);if(id===from||id===to)return [];for(let step=0;step<=100;step++){const p=edge.getPointAtLength(length*step/100);if(p.x>node.x.baseVal.value&&p.x<node.x.baseVal.value+node.width.baseVal.value&&p.y>node.y.baseVal.value&&p.y<node.y.baseVal.value+node.height.baseVal.value)return [`${from}→${to} crosses ${id}`];}return [];});});
   });expect(crossings).toEqual([]);
   await testInfo.attach('youtube-1920x1080-at-200-percent',{body:await page.screenshot(),contentType:'image/png'});expect(errors).toEqual([]);
 });
@@ -67,7 +67,7 @@ test('20-second challenge and reflection fit the 200% recording layout',async({p
   await testInfo.attach('challenge-reflection-200',{body:await page.screenshot(),contentType:'image/png'});
 });
 
-test('focus chrome reveals on top hover and keyboard focus; side menu and scrolling choices stay accessible',async({page},testInfo)=>{
+test('explicit navigation and scrolling choices stay accessible without obscuring source controls',async({page},testInfo)=>{
   await page.goto('/knowledge/weekday-worlds/#modal-expansion');await page.waitForFunction(()=>window.__atlasRelated);
   await expect(page.locator('#reader-end-links,#reader-skip-scope')).toHaveCount(0);
   const actions=await Promise.all(['.reader-menu summary','#reader-prev','#reader-next'].map(selector=>page.locator(selector).boundingBox()));
@@ -76,10 +76,10 @@ test('focus chrome reveals on top hover and keyboard focus; side menu and scroll
   const menuGap=previousAction.y-menuAction.y-menuAction.height,horizontalGap=nextAction.x-previousAction.x-previousAction.width;
   expect(menuGap).toBeGreaterThanOrEqual(0);expect(menuGap).toBeLessThanOrEqual(5);expect(nextAction.y).toBe(previousAction.y);expect(horizontalGap).toBeGreaterThanOrEqual(0);expect(horizontalGap).toBeLessThanOrEqual(5);
   await expect(page.locator('#reader-next')).toHaveAttribute('title','→ 방향키 · Space / Enter: 다음');
-  const chrome=page.locator('.reader-reveal-chrome'),link=chrome.getByRole('link',{name:'지식 지도',exact:true});
-  await page.mouse.move(480,270);await expect(chrome.locator('nav')).toHaveCSS('opacity','0');
-  await page.mouse.move(480,2);await expect(chrome.locator('nav')).toHaveCSS('opacity','1');await expect(chrome).toHaveCSS('height','40px');
-  await page.mouse.move(480,270);await expect(chrome.locator('nav')).toHaveCSS('opacity','0');await link.focus();await expect(chrome.locator('nav')).toHaveCSS('opacity','1');await link.blur();
+  await page.mouse.move(0,0);await expect(page.locator('.reader-reveal-chrome')).toBeHidden();await fit(page);
+  for(const select of await page.locator('.weekday-context-select,.weekday-target-select').all()){
+    expect(await select.evaluate(e=>{const r=e.getBoundingClientRect(),hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return Boolean(hit&&(e.contains(hit)||hit.contains(e)));})).toBe(true);
+  }
   await page.locator('.reader-menu summary').click();await expect(page.locator('.reader-menu nav')).toBeVisible();
   const menuBounds=await page.locator('.reader-menu nav').boundingBox();expect(menuBounds!.y).toBeGreaterThanOrEqual(0);expect(menuBounds!.y+menuBounds!.height).toBeLessThanOrEqual(540);expect(menuBounds!.x).toBeGreaterThanOrEqual(0);expect(menuBounds!.x+menuBounds!.width).toBeLessThanOrEqual(960);
   const closeMenu=page.getByRole('button',{name:'목차 닫기 ×',exact:true});await expect(closeMenu).toBeVisible();await page.locator('.reader-menu nav').evaluate(e=>e.scrollTop=e.scrollHeight);await closeMenu.click();await expect(page.locator('.reader-menu')).not.toHaveAttribute('open','');
