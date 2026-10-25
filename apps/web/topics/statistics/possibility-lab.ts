@@ -89,7 +89,8 @@ export function mountPossibilityLab(topic:LabTopic,container:HTMLElement,options
     const choice=topic==='monty-hall'&&state.choice!==1?` 처음 고른 문은 ${state.choice}번으로 바꾸었습니다.`:'';
     if(state.mode===expected)return{status:'adapted',text:`본문과 같은 ${modeLabel(expected)}입니다.${choice}${sample}`};
     const view=probabilityLedgerView(topic,state);
-    return{status:'adapted',text:`본문의 ${modeLabel(expected)}와 달리, 현재 비교는 ${modeLabel(state.mode)}입니다.${choice} ${view.event}. ${view.target}. 남은 질량을 정규화하면 ${probabilityEquation(view)}입니다.${sample}`};
+    const result=topic==='monty-hall'?`같은 확률의 여섯 칸 중 꽝을 본 칸만 남기고, 바꾸면 이기는 칸을 세면 ${probabilityEquation(view)}입니다.`:`남은 질량을 정규화하면 ${probabilityEquation(view)}입니다.`;
+    return{status:'adapted',text:`본문의 ${modeLabel(expected)}와 달리, 현재 비교는 ${modeLabel(state.mode)}입니다.${choice} ${view.event} ${view.target} ${result}${sample}`};
    }
  };
 }

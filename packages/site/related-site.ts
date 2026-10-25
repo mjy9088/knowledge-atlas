@@ -20,6 +20,7 @@ export function validateRelatedPages(collection:ContentCollection,claims:Claim[]
   for(const page of pages){
     if(!/^[a-z][a-z-]+$/.test(page.slug)||slugs.has(page.slug))errors.push('Invalid or duplicate page slug');
     slugs.add(page.slug);
+    if(page.workbenchPlacement!==undefined&&(page.workbenchPlacement!=='after-explanation'||!page.navigation||!page.interactive))errors.push(`Workbench placement requires a chaptered interactive reader ${page.articleId}`);
     const article=collection.articles.find(item=>item.id===page.articleId);
     if(!article){errors.push(`Missing article ${page.articleId}`);continue;}
     if(page.coverArtwork&&(!/^\/content\/(?:[a-z][a-z0-9-]*\/)+[a-z][a-z0-9-]*\.svg$/.test(page.coverArtwork.src)||!page.coverArtwork.alt.trim()))errors.push(`Invalid article cover artwork ${page.articleId}`);
@@ -87,7 +88,9 @@ export function renderRelatedPage(page:ContentPage,collection:ContentCollection,
   const claimHTML=evidence.map(claim=>`<article><h3>${e(claim.id)}</h3><p>${e(claim.statement)}</p><small>범위: ${e(claim.scope)} · 검토: ${e(claim.reviewStatus)}</small><ul>${claim.sourceRefs.map(reference=>`<li>${e(reference.sourceId)} — ${e(reference.locator)}</li>`).join('')}</ul></article>`).join('');
   const presentation=page.navigation?'longform':'bounded';
   const hiddenWorkbench=workbench.replace('class="reader-workbench"','class="reader-workbench" hidden');
-  const body=`<main id="main" class="related-reader server-scene-selected" data-mode="reading" data-page="${e(page.slug)}" data-server-scene="${e(selectedSceneId)}" data-presentation="${presentation}">${intro}${hiddenWorkbench}<div id="reader-scenes" aria-live="polite" aria-atomic="true">${scenes}</div>${controls}</main><section id="connections" class="reader-connections"><h2>연관 지식</h2><nav>${links}</nav></section><section id="evidence" class="reader-evidence"><h2>근거와 범위</h2><p class="review-note">내용 검토 전 초안입니다. 출처별 확인 범위와 미확인 항목은 아래 기록에서 확인할 수 있습니다.</p>${sourceHTML}<details><summary>주장별 조건과 근거 위치</summary>${claimHTML}</details></section>`;
+  const sceneContainer=`<div id="reader-scenes" aria-live="polite" aria-atomic="true">${scenes}</div>`;
+  const reading=page.workbenchPlacement==='after-explanation'?sceneContainer+hiddenWorkbench:hiddenWorkbench+sceneContainer;
+  const body=`<main id="main" class="related-reader server-scene-selected" data-mode="reading" data-page="${e(page.slug)}" data-server-scene="${e(selectedSceneId)}" data-presentation="${presentation}">${intro}${reading}${controls}</main><section id="connections" class="reader-connections"><h2>연관 지식</h2><nav>${links}</nav></section><section id="evidence" class="reader-evidence"><h2>근거와 범위</h2><p class="review-note">내용 검토 전 초안입니다. 출처별 확인 범위와 미확인 항목은 아래 기록에서 확인할 수 있습니다.</p>${sourceHTML}<details><summary>주장별 조건과 근거 위치</summary>${claimHTML}</details></section>`;
   const head=(page.styles??[]).map(href=>`<link rel="stylesheet" href="${e(href)}">`).join('')+'<link rel="stylesheet" href="/components/reader/presentation.css"><script type="module" src="/pages/article/controller.js"></script>';
   return shell(article.title,sceneText(article,page.scenes[0]),body,head).replace('<html lang="ko">','<html lang="ko" class="reader-enhanced">');
 }

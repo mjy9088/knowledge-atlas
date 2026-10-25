@@ -30,6 +30,7 @@ export interface ContentPage {
   coverArtwork?: {src:string;alt:string};
   experiment?: boolean; model?: 'classical' | 'fde' | 'sets' | 'ch' | null;
   interactive?: 'hydrogenic-orbitals' | 'physics-history' | 'typed-lambda' | 'binary-search' | 'sphere-slices' | 'base-rates' | 'nuclear-evidence' | 'weekday-worlds' | 'binary-relations' | 'monty-hall' | 'two-children';
+  workbenchPlacement?: 'after-explanation';
   navigation?: {chapters:ContentChapter[];relatedArticleIds?:string[]};
   styles?: string[]; claimRefs?: string[]; scenes: Scene[];
 }

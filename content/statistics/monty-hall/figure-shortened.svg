@@ -1,3 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 230" role="img" aria-labelledby="title"><title id="title">관측 사실과 빠진 공개 규칙</title><rect width="600" height="230" rx="16" fill="#f4f8f3"/>
-<g fill="white" stroke="#c4d7cc" stroke-width="2"><rect x="20" y="85" width="165" height="105" rx="12"/><rect x="215" y="85" width="165" height="105" rx="12"/><rect x="410" y="85" width="165" height="105" rx="12"/></g>
-<g font-family="system-ui,sans-serif" font-size="24" fill="#263e36" text-anchor="middle"><text x="300" y="40">처음 설명에 없던 정보는?</text><text x="103" y="145">꽝을 보았다</text><text x="298" y="130">어떤 규칙으로</text><text x="298" y="165">열었을까?</text><text x="493" y="130">그 장면 뒤의</text><text x="493" y="165">확률은?</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 310" role="img" aria-labelledby="title desc">
+<title id="title">같은 꽝 공개, 서로 다른 두 규칙</title>
+<desc id="desc">왼쪽 진행자는 정답을 알아서 반드시 꽝을 엽니다. 오른쪽 진행자는 정답을 모르고 두 문 중 하나를 똑같은 확률로 엽니다. 오른쪽에서는 상품이 나올 수도 있지만 이번에는 꽝이 나왔습니다. 꽝을 보았다는 장면만으로 어느 규칙인지 알 수 없습니다.</desc>
+<rect width="600" height="310" rx="16" fill="#f4f8f3"/>
+<g font-family="system-ui,Malgun Gothic,sans-serif" fill="#263e36" text-anchor="middle">
+<text x="300" y="36" font-size="24" font-weight="700">꽝이 나온 장면만으로는 규칙을 알 수 없습니다</text>
+<rect x="20" y="62" width="270" height="166" rx="12" fill="#fff" stroke="#b8cfc2"/>
+<rect x="310" y="62" width="270" height="166" rx="12" fill="#fff" stroke="#b8cfc2"/>
+<text x="155" y="98" font-size="23" font-weight="700">정답을 아는 진행자</text>
+<text x="155" y="140" font-size="22">상품을 피해서 엽니다</text>
+<text x="155" y="186" font-size="24" font-weight="700">반드시 꽝</text>
+<text x="445" y="98" font-size="23" font-weight="700">정답을 모르는 진행자</text>
+<text x="445" y="140" font-size="22">두 문 중 아무거나 엽니다</text>
+<text x="445" y="186" font-size="24" font-weight="700">이번에는 꽝</text>
+<text x="445" y="215" font-size="18">상품이 나올 수도 있습니다</text>
+<text x="300" y="271" font-size="22">처음 질문은 이 두 진행 방식을 구별하지 않았습니다</text>
+</g></svg>

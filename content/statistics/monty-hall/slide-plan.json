@@ -2,16 +2,109 @@
   "articleId": "article:statistics.monty-hall.ko",
   "status": "prospective-unmeasured-review-required",
   "projection": "self-paced-worked-explanation",
-  "mainlineSceneIds": ["question", "protocol", "strategy", "shortened", "compare", "specific", "close"],
+  "mainlineSceneIds": [
+    "question",
+    "protocol",
+    "strategy",
+    "shortened",
+    "compare",
+    "close"
+  ],
   "slides": [
-    {"sceneId":"question","blockRef":"block:statistics.monty-hall.question","purpose":"Present the incomplete three-door question without the Monty Hall name or supplied host policy.","successCheck":"Reader can state the observed event and notices that a suggested answer may require extra rules; no response or dwell is compulsory."},
-    {"sceneId":"protocol","blockRef":"block:statistics.monty-hall.protocol","purpose":"State the complete finite experiment and identify which assumptions matter.","successCheck":"Reader distinguishes always revealing an unchosen goat and offering a switch from optional fair tie-breaking."},
-    {"sceneId":"strategy","blockRef":"block:statistics.monty-hall.strategy","purpose":"Derive unconditional switching success by enumerating three prize positions.","successCheck":"Reader maps the two initially wrong cases to switching wins and derives 2/3 independently of tie policy."},
-    {"sceneId":"shortened","blockRef":"block:statistics.monty-hall.shortened","purpose":"Return to the opening after the standard explanation and expose the omitted premise rather than deny the conditional calculation.","successCheck":"Reader explains why the standard Monty Hall answer does not follow from the incomplete opening alone."},
-    {"sceneId":"compare","blockRef":"block:statistics.monty-hall.compare","purpose":"Compute a blind host's retained masses and observation denominator.","successCheck":"Reader derives (1/3)/(1/3+1/6+1/6)=1/2 and identifies excluded prize reveals."},
-    {"sceneId":"specific","blockRef":"block:statistics.monty-hall.specific","purpose":"Condition on numbered event D2 rather than any goat reveal.","successCheck":"Reader derives 1/(1+t) from t/3,0,1/3, checks t=1/2,1,0, and separates this conditional result from overall 2/3."},
-    {"sceneId":"close","blockRef":"block:statistics.monty-hall.close","purpose":"Recover the opening answer from prior, procedure and evidence event.","successCheck":"Reader names the quantities that must be recalculated after a protocol or observation change."}
+    {
+      "sceneId": "question",
+      "blockRef": "block:statistics.monty-hall.question",
+      "purpose": "Present the incomplete three-door choice; ask whether two remaining doors imply equal chances.",
+      "successCheck": "State what was seen without assuming the host always reveals a goat.",
+      "representation": "Static unmarked doors preserve the unanswered question; no sampling or reveal gate.",
+      "prerequisites": [],
+      "interaction": "Static setup; navigation is immediate."
+    },
+    {
+      "sceneId": "protocol",
+      "blockRef": "block:statistics.monty-hall.protocol",
+      "purpose": "Fix uniform prize placement, an independent initial choice, an informed always-goat host and an always-offered switch.",
+      "successCheck": "Identify the rules used in the next calculation.",
+      "representation": "A concise static rule diagram is sufficient; no unknown result is animated.",
+      "prerequisites": [
+        "question"
+      ],
+      "interaction": "Static rule declaration; fair tie-breaking is reserved for the concrete experiment."
+    },
+    {
+      "sceneId": "strategy",
+      "blockRef": "block:statistics.monty-hall.strategy",
+      "purpose": "Enumerate all three prize locations; show the opened door and switching result for each.",
+      "successCheck": "Explain why both initially wrong choices become wins and obtain 2/3.",
+      "representation": "Read the worked explanation before the live ledger, in visual and DOM order. Three explicit door cases; the live ledger splits each equally likely prize case into two equal probability units. These six units are a calculation, not six observed games.",
+      "prerequisites": [
+        "protocol"
+      ],
+      "interaction": "Change initial door or host policy; the same case identities and retained units update. Initial/reset is informed, zero samples, complete stage 3. Unsupported snapshots are rejected atomically; selected inputs survive navigation and restoration."
+    },
+    {
+      "sceneId": "shortened",
+      "blockRef": "block:statistics.monty-hall.shortened",
+      "purpose": "Return to the opening and distinguish seeing a goat once from a host who always reveals goats.",
+      "successCheck": "Explain why the valid 2/3 argument needs rules absent from the opening.",
+      "representation": "Side-by-side always-goat versus accidental-goat procedures, without asserting a new answer.",
+      "prerequisites": [
+        "strategy"
+      ],
+      "interaction": "Static transition; the changed-rule calculation follows immediately."
+    },
+    {
+      "sceneId": "compare",
+      "blockRef": "block:statistics.monty-hall.compare",
+      "purpose": "Use the same six equal probability units; blind random opening retains two initially correct units and one per initially wrong prize location.",
+      "successCheck": "Identify the two excluded prize reveals and derive 2/4=1/2 from the remaining four units.",
+      "representation": "Read the worked explanation before the live ledger, in visual and DOM order. Visible retained and crossed-out units alongside an explicit per-row reason; the denominator is the number of remaining equal units.",
+      "prerequisites": [
+        "strategy",
+        "shortened"
+      ],
+      "interaction": "Switch host policy while holding initial choice fixed to compare 4/6=2/3 with 2/4=1/2. Reset is blind, zero samples, stage 3; preserve input and synchronize added feedback. Sampling remains optional."
+    },
+    {
+      "sceneId": "specific",
+      "blockRef": "block:statistics.monty-hall.specific",
+      "purpose": "Optionally restrict to door 2 being opened under an informed host who prefers door 2 whenever allowed.",
+      "successCheck": "Reconstruct the retained prize cases 1 and 3, derive 1/2, and distinguish this subset from overall switching success 2/3.",
+      "representation": "A static three-case table with explicit opened doors supplies the complete changed-rule deduction; no t parameter or likelihood vocabulary is required.",
+      "prerequisites": [
+        "strategy",
+        "compare"
+      ],
+      "interaction": "Static worked transfer: the existing experiment conditions on any goat reveal and cannot simulate this numbered-door restriction. Return explicitly to compare."
+    },
+    {
+      "sceneId": "close",
+      "blockRef": "block:statistics.monty-hall.close",
+      "purpose": "Answer the opening by comparing guaranteed-goat and accidental-goat procedures.",
+      "successCheck": "Explain why eliminating a door does not by itself make the two remaining possibilities equally likely.",
+      "representation": "A compact comparison of which initially wrong games survive; no new formula or prerequisite.",
+      "prerequisites": [
+        "compare"
+      ],
+      "interaction": "Static synthesis; optional numbered-door branch is unnecessary for this payoff."
+    }
   ],
   "representationContract": "README.md#explanatory-purpose-and-scene-plan",
-  "pending": ["independent content and source review", "learner comprehension", "accessibility", "source revision and rights review", "narration timing and publication authorization"]
+  "pending": [
+    "independent content and source review",
+    "learner comprehension",
+    "accessibility",
+    "source revision and rights review",
+    "narration timing and publication authorization"
+  ],
+  "detours": [
+    {
+      "id": "numbered-reveal",
+      "sceneIds": [
+        "specific"
+      ],
+      "parentSceneId": "compare",
+      "returnSceneId": "compare"
+    }
+  ]
 }

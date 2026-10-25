@@ -79,6 +79,10 @@
 .lab-ledger tr[data-retained=false] { background: var(--lab-excluded); color: var(--lab-muted); }
 .lab-ledger tr[data-target=true][data-retained=true] { background: var(--lab-retained); }
 .lab-pending { color: var(--lab-muted); }
+.lab-units { display: flex; justify-content: center; gap: .375rem; margin-block-end: .25rem; }
+.lab-unit { display: inline-grid; place-items: center; width: 1.75rem; height: 1.75rem; border: 1px solid var(--lab-accent); border-radius: .25rem; color: var(--lab-accent); background: var(--lab-retained); font-weight: 700; }
+.lab-unit[data-kept=false] { border-style: dashed; border-color: var(--lab-muted); color: var(--lab-muted); background: var(--lab-excluded); }
+.lab-mass small { display: block; margin-block-start: .25rem; font-size: .8rem; line-height: 1.5; word-break: keep-all; overflow-wrap: normal; }
 .lab-normalization { display: flex; align-items: center; gap: var(--lab-space-4); flex-wrap: wrap; padding: var(--lab-space-3); background: var(--lab-soft); border-radius: var(--lab-radius-sm); font-size: .85rem; }
 .lab-normalization > span { color: var(--lab-muted); }
 .lab-normalization > span strong { color: var(--lab-ink); }

@@ -2,6 +2,8 @@
 
 ## Static scene routes and authored motion
 
+Chaptered interactive pages may declare `workbenchPlacement: 'after-explanation'` to place the scene container before the workbench in actual DOM, reading and keyboard order. Omission retains the workbench-first layout. The setting requires both chapter navigation and a registered interaction; it changes neither state ownership nor which scenes expose an experiment. This supports a worked explanation followed by its editable comparison without making readers traverse a large experiment first.
+
 Chaptered explanations have materialized `/knowledge/<slug>/<scene>/` documents with one server-selected visible scene, layout class and intrinsic SVG dimensions before the controller loads. The base route selects the opening. Existing scene fragments normalize to the route; evidence/connections fragments retain panel semantics. The bounded weekday reader retains its fragment behavior and timed-challenge scope. Progressive scene links use browser history without discarding scientific input; reload and no-JavaScript scene entry remain readable.
 
 `presentation-contract.ts`, `presentation-state.ts` and `presentation.ts` separate authored explanatory motion from scientific adapters. Registered factories own absolute `renderAt(timeMs)` geometry and disposal; the shared runner owns playback and validated detached position snapshots. `relatedAPI` optionally adds `presentation` state, validates it before changing scene/input, and seeks active scientific and presentation projections independently. Old snapshots without this field remain valid. No arbitrary executable path is loaded from content. Every motion scene needs a static figure and a caption that survives enhancement.
