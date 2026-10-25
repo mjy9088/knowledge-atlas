@@ -1,12 +1,20 @@
 {
   "articleId": "article:statistics.monty-hall.ko",
   "status": "prospective-unmeasured-review-required",
-  "projection": "self-paced-worked-explanation",
+  "projection": "self-paced-one-reasoning-step-per-scene",
   "mainlineSceneIds": [
     "question",
+    "reveal",
     "protocol",
+    "case-hit",
+    "case-miss-a",
+    "case-miss-b",
     "strategy",
     "shortened",
+    "blind-rule",
+    "blind-paths",
+    "blind-keep-hit",
+    "blind-keep-miss",
     "compare",
     "close"
   ],
@@ -14,79 +22,218 @@
     {
       "sceneId": "question",
       "blockRef": "block:statistics.monty-hall.question",
-      "purpose": "Present the incomplete three-door choice; ask whether two remaining doors imply equal chances.",
-      "successCheck": "State what was seen without assuming the host always reveals a goat.",
-      "representation": "Static unmarked doors preserve the unanswered question; no sampling or reveal gate.",
+      "title": "문 셋 중 하나를 골라 보세요",
+      "purpose": "Pick one of three closed doors before any goat or prize is exposed.",
+      "successCheck": "Can distinguish chosen door from still-hidden prize.",
+      "representation": "Three accessible closed-door buttons; no probability result or prize clue.",
       "prerequisites": [],
-      "interaction": "Static setup; navigation is immediate."
+      "interaction": "Choose 1/2/3; preserve choice on navigation/restoration; no selection gate, default example is door1."
+    },
+    {
+      "sceneId": "reveal",
+      "blockRef": "block:statistics.monty-hall.reveal",
+      "title": "다른 문 하나는 꽝이었습니다",
+      "purpose": "Expose one unchosen goat in a fixed seeded illustrative round, without revealing the winner.",
+      "successCheck": "Can name the chosen, opened and remaining doors and consider staying versus switching.",
+      "representation": "Same three doors retain selected identity; exactly one unchosen goat is visible.",
+      "prerequisites": [
+        "question"
+      ],
+      "interaction": "Opening choice carries through; no new click required. The illustration uses an informed host internally but cannot prove an omitted host rule."
     },
     {
       "sceneId": "protocol",
       "blockRef": "block:statistics.monty-hall.protocol",
-      "purpose": "Fix uniform prize placement, an independent initial choice, an informed always-goat host and an always-offered switch.",
-      "successCheck": "Identify the rules used in the next calculation.",
-      "representation": "A concise static rule diagram is sufficient; no unknown result is animated.",
+      "title": "진행자는 반드시 꽝을 엽니다",
+      "purpose": "Declare equal prize placement, independent initial choice, informed always-goat and always-offer rules.",
+      "successCheck": "Can state which rule guarantees that the host avoids the prize.",
+      "representation": "Static concise rule sequence; no full probability ledger.",
       "prerequisites": [
-        "question"
+        "reveal"
       ],
-      "interaction": "Static rule declaration; fair tie-breaking is reserved for the concrete experiment."
+      "interaction": "Static declaration; immediate navigation."
+    },
+    {
+      "sceneId": "case-hit",
+      "blockRef": "block:statistics.monty-hall.case-hit",
+      "title": "처음 고른 문에 상품이 있다면?",
+      "purpose": "Work the initially correct prize location.",
+      "successCheck": "Can explain why switching leaves the prize.",
+      "representation": "Three doors show prize behind selected door, goat opened elsewhere and switching loss.",
+      "prerequisites": [
+        "protocol"
+      ],
+      "interaction": "Use current chosen door; preserve it, never infer a probability from this one case."
+    },
+    {
+      "sceneId": "case-miss-a",
+      "blockRef": "block:statistics.monty-hall.case-miss-a",
+      "title": "상품이 다른 한쪽 문에 있다면?",
+      "purpose": "Work the first unchosen prize location.",
+      "successCheck": "Can identify the only goat the informed host may open and why switching wins.",
+      "representation": "Same door identities, prize at first unchosen door, forced goat opening.",
+      "prerequisites": [
+        "case-hit"
+      ],
+      "interaction": "Current chosen door retained; this is an explicit hypothetical prize case, not a new sampled outcome."
+    },
+    {
+      "sceneId": "case-miss-b",
+      "blockRef": "block:statistics.monty-hall.case-miss-b",
+      "title": "나머지 문에 상품이 있어도?",
+      "purpose": "Work the other unchosen prize location.",
+      "successCheck": "Can explain why the second initially wrong case also switches to the prize.",
+      "representation": "Prize and forced goat exchange positions while selected door stays fixed.",
+      "prerequisites": [
+        "case-miss-a"
+      ],
+      "interaction": "Current choice retained; deterministic hypothetical comparison."
     },
     {
       "sceneId": "strategy",
       "blockRef": "block:statistics.monty-hall.strategy",
-      "purpose": "Enumerate all three prize locations; show the opened door and switching result for each.",
-      "successCheck": "Explain why both initially wrong choices become wins and obtain 2/3.",
-      "representation": "Read the worked explanation before the live ledger, in visual and DOM order. Three explicit door cases; the live ledger splits each equally likely prize case into two equal probability units. These six units are a calculation, not six observed games.",
+      "title": "세 경우 중 두 경우에서 이깁니다",
+      "purpose": "Combine the three equiprobable prize locations.",
+      "successCheck": "Can count two switching wins out of three without a tie-fairness assumption.",
+      "representation": "Compact three-row result comparison around current choice; no full lab controls.",
       "prerequisites": [
-        "protocol"
+        "case-miss-b"
       ],
-      "interaction": "Change initial door or host policy; the same case identities and retained units update. Initial/reset is informed, zero samples, complete stage 3. Unsupported snapshots are rejected atomically; selected inputs survive navigation and restoration."
+      "interaction": "Choice-dependent labels update; optional full experiment is separate."
     },
     {
       "sceneId": "shortened",
       "blockRef": "block:statistics.monty-hall.shortened",
-      "purpose": "Return to the opening and distinguish seeing a goat once from a host who always reveals goats.",
-      "successCheck": "Explain why the valid 2/3 argument needs rules absent from the opening.",
-      "representation": "Side-by-side always-goat versus accidental-goat procedures, without asserting a new answer.",
+      "title": "그런데 처음에 규칙을 말했나요?",
+      "purpose": "Distinguish observing a goat from knowing the host always reveals goats.",
+      "successCheck": "Can identify the missing rule rather than reject a valid conditional calculation.",
+      "representation": "Static side-by-side guaranteed versus accidental goat procedures.",
       "prerequisites": [
         "strategy"
       ],
-      "interaction": "Static transition; the changed-rule calculation follows immediately."
+      "interaction": "Static conceptual transition; no answer gate."
+    },
+    {
+      "sceneId": "blind-rule",
+      "blockRef": "block:statistics.monty-hall.blind-rule",
+      "title": "이번 진행자는 정답을 모릅니다",
+      "purpose": "Change only the host policy to uniform opening of an unchosen door; retain goat-reveal games.",
+      "successCheck": "Can say why prize reveals can now occur and will be excluded.",
+      "representation": "Two possible openings with an explicit prize-reveal possibility.",
+      "prerequisites": [
+        "shortened"
+      ],
+      "interaction": "Current choice retained; hypothetical blind protocol is independent of any selected optional lab policy."
+    },
+    {
+      "sceneId": "blind-paths",
+      "blockRef": "block:statistics.monty-hall.blind-paths",
+      "title": "열 수 있는 문은 두 개씩입니다",
+      "purpose": "Enumerate prize location times uniformly opened door.",
+      "successCheck": "Can reconstruct six equally probable pairs, not six guaranteed sample outcomes.",
+      "representation": "Three rows times two compact opening cards, all six visible without exclusion yet.",
+      "prerequisites": [
+        "blind-rule"
+      ],
+      "interaction": "Relabel actual doors around selected choice; deterministic enumeration."
+    },
+    {
+      "sceneId": "blind-keep-hit",
+      "blockRef": "block:statistics.monty-hall.blind-keep-hit",
+      "title": "처음 맞혔던 경우는 모두 남습니다",
+      "purpose": "Restrict to the initially correct prize row.",
+      "successCheck": "Can explain why either unchosen opening shows a goat and both switching results lose.",
+      "representation": "Only the two equal opening cards for the chosen-prize row.",
+      "prerequisites": [
+        "blind-paths"
+      ],
+      "interaction": "Keep selected identity; static per-row inspection."
+    },
+    {
+      "sceneId": "blind-keep-miss",
+      "blockRef": "block:statistics.monty-hall.blind-keep-miss",
+      "title": "처음 틀렸다면 절반만 남습니다",
+      "purpose": "Work both initially wrong prize rows and exclude prize reveals.",
+      "successCheck": "Can name the two excluded pairs and two surviving switching wins.",
+      "representation": "Four compact opening cards: one retained and one crossed out per wrong-prize row; labels explain exclusion.",
+      "prerequisites": [
+        "blind-keep-hit"
+      ],
+      "interaction": "No hidden prior clicks; all identities and exclusion follow the named protocol."
     },
     {
       "sceneId": "compare",
       "blockRef": "block:statistics.monty-hall.compare",
-      "purpose": "Use the same six equal probability units; blind random opening retains two initially correct units and one per initially wrong prize location.",
-      "successCheck": "Identify the two excluded prize reveals and derive 2/4=1/2 from the remaining four units.",
-      "representation": "Read the worked explanation before the live ledger, in visual and DOM order. Visible retained and crossed-out units alongside an explicit per-row reason; the denominator is the number of remaining equal units.",
+      "title": "남은 네 경우 중 두 경우에서 이깁니다",
+      "purpose": "Assemble the retained blind-host cases.",
+      "successCheck": "Can derive 2/4=1/2 using the retained denominator.",
+      "representation": "Six compact cards with the two prize reveals crossed out and two switching wins labelled.",
       "prerequisites": [
-        "strategy",
-        "shortened"
+        "blind-keep-miss"
       ],
-      "interaction": "Switch host policy while holding initial choice fixed to compare 4/6=2/3 with 2/4=1/2. Reset is blind, zero samples, stage 3; preserve input and synchronize added feedback. Sampling remains optional."
-    },
-    {
-      "sceneId": "specific",
-      "blockRef": "block:statistics.monty-hall.specific",
-      "purpose": "Optionally restrict to door 2 being opened under an informed host who prefers door 2 whenever allowed.",
-      "successCheck": "Reconstruct the retained prize cases 1 and 3, derive 1/2, and distinguish this subset from overall switching success 2/3.",
-      "representation": "A static three-case table with explicit opened doors supplies the complete changed-rule deduction; no t parameter or likelihood vocabulary is required.",
-      "prerequisites": [
-        "strategy",
-        "compare"
-      ],
-      "interaction": "Static worked transfer: the existing experiment conditions on any goat reveal and cannot simulate this numbered-door restriction. Return explicitly to compare."
+      "interaction": "Current choice retained; full editable ledger is optional."
     },
     {
       "sceneId": "close",
       "blockRef": "block:statistics.monty-hall.close",
-      "purpose": "Answer the opening by comparing guaranteed-goat and accidental-goat procedures.",
-      "successCheck": "Explain why eliminating a door does not by itself make the two remaining possibilities equally likely.",
-      "representation": "A compact comparison of which initially wrong games survive; no new formula or prerequisite.",
+      "title": "같은 두 문인데, 답이 달라집니다",
+      "purpose": "Answer the opening by comparing all wrong games retained versus half excluded.",
+      "successCheck": "Can explain 2/3 versus 1/2 from the host rule instead of the count of closed doors.",
+      "representation": "Compact two-policy summary; no new prerequisite or full ledger.",
       "prerequisites": [
         "compare"
       ],
-      "interaction": "Static synthesis; optional numbered-door branch is unnecessary for this payoff."
+      "interaction": "Static synthesis; no detour is needed for the payoff."
+    },
+    {
+      "sceneId": "specific",
+      "blockRef": "block:statistics.monty-hall.specific",
+      "title": "선택: 2번을 우선 여는 진행자",
+      "purpose": "Declare a separate fixed-choice1 informed host that opens2 whenever allowed.",
+      "successCheck": "Can state this numbered-door scenario separately from their own chosen-door example.",
+      "representation": "Static diagram explicitly labelled separate fixed-choice1 example.",
+      "prerequisites": [
+        "strategy",
+        "compare"
+      ],
+      "interaction": "Optional static branch; no reset of reader choice."
+    },
+    {
+      "sceneId": "specific-cases",
+      "blockRef": "block:statistics.monty-hall.specific-cases",
+      "title": "선택: 2번이 열린 경우만 남겨 봅시다",
+      "purpose": "List opened doors 2/3/2 for prize1/2/3 and retain door2 reveals.",
+      "successCheck": "Can identify retained prize1 and prize3 cases.",
+      "representation": "Static three-case opened-door table; two retained rows.",
+      "prerequisites": [
+        "specific"
+      ],
+      "interaction": "Optional static comparison; does not claim the free experiment supports a preferred-door policy."
+    },
+    {
+      "sceneId": "specific-result",
+      "blockRef": "block:statistics.monty-hall.specific-result",
+      "title": "선택: 이때는 두 경우 중 한 경우입니다",
+      "purpose": "Distinguish the numbered subset success1/2 from overall always-switch2/3.",
+      "successCheck": "Can explain why restricting to door2 changes the counted games.",
+      "representation": "Compact retained-case versus all-case comparison.",
+      "prerequisites": [
+        "specific-cases"
+      ],
+      "interaction": "Optional branch returns to compare; original specific URL preserved."
+    },
+    {
+      "sceneId": "experiment",
+      "blockRef": "block:statistics.monty-hall.experiment",
+      "title": "선택: 규칙을 바꾸며 더 실험해 보세요",
+      "purpose": "Offer the existing full deterministic host-rule ledger and optional seeded sampling.",
+      "successCheck": "Can compare informed4/6 and blind2/4 while distinguishing exact units from samples.",
+      "representation": "Existing full model-backed ledger and sampling disclosure; excluded from mainline.",
+      "prerequisites": [
+        "strategy",
+        "compare"
+      ],
+      "interaction": "Retain validated LabState: changed host/choice/seed/count, invalid-input rejection, reset, restoration, navigation and independent seek. No rule/choice or sampling gate."
     }
   ],
   "representationContract": "README.md#explanatory-purpose-and-scene-plan",
@@ -101,10 +248,20 @@
     {
       "id": "numbered-reveal",
       "sceneIds": [
-        "specific"
+        "specific",
+        "specific-cases",
+        "specific-result"
       ],
       "parentSceneId": "compare",
       "returnSceneId": "compare"
+    },
+    {
+      "id": "free-experiment",
+      "sceneIds": [
+        "experiment"
+      ],
+      "parentSceneId": "strategy",
+      "returnSceneId": "strategy"
     }
   ]
 }

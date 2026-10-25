@@ -1,3 +1,4 @@
+import {mountMontyHall} from './statistics/monty-hall.js';
 import {mountPossibilityLab} from './statistics/possibility-lab.js';
 import type {LabState} from '/packages/models/possibility-lab.js';
 import {mountWeekdayWorldsExperiment,type WeekdayWorldsState} from './formal-reasoning/weekday-worlds.js';
@@ -23,7 +24,7 @@ export interface TopicInteraction {
 }
 
 // Explicitly registered topic adapters; source metadata cannot execute arbitrary modules.
-const interactions:Record<string,(container:HTMLElement,options:{onChange?:()=>void;onSceneRequest?:(sceneId:string)=>void})=>TopicInteraction>={'monty-hall':(c,o)=>mountPossibilityLab('monty-hall',c,o),'two-children':(c,o)=>mountPossibilityLab('two-children',c,o),'physics-history':mountPhysicsHistory,'weekday-worlds':mountWeekdayWorldsExperiment};
+const interactions:Record<string,(container:HTMLElement,options:{onChange?:()=>void;onSceneRequest?:(sceneId:string)=>void})=>TopicInteraction>={'monty-hall':mountMontyHall,'two-children':(c,o)=>mountPossibilityLab('two-children',c,o),'physics-history':mountPhysicsHistory,'weekday-worlds':mountWeekdayWorldsExperiment};
 export function mountTopicInteraction(id:string,container:HTMLElement,options:{onChange?:()=>void;onSceneRequest?:(sceneId:string)=>void}={}):TopicInteraction{
   if(!Object.hasOwn(interactions,id))throw new RangeError('Unknown topic interaction');
   return interactions[id](container,options);

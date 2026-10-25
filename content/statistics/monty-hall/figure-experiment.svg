@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220" role="img" aria-labelledby="title desc">
+<title id="title">두 공개 규칙을 비교합니다</title><desc id="desc">정답을 알고 항상 꽝을 여는 경우에는 여섯 단위가 남고 네 단위에서 바꾸면 승리합니다. 정답을 모르고 무작위로 여는 경우에는 네 단위가 남고 두 단위에서 바꾸면 승리합니다. 단위는 같은 확률의 계산 단위이며 실제 표본 결과가 아닙니다.</desc>
+<metadata>Original authored teaching illustration. Default first choice is door 1. Not measured data, learner evidence or publication approval.</metadata>
+<rect width="600" height="220" rx="16" fill="#f4f8f3"/><g font-family="system-ui,Malgun Gothic,sans-serif" fill="#293f35"><text x="300" y="40" font-size="25" text-anchor="middle">꽝이 나온 게임만 비교</text><text x="300" y="95" font-size="26" text-anchor="middle">반드시 꽝 공개: 4/6 = 2/3</text><text x="300" y="148" font-size="26" text-anchor="middle">모르고 무작위 공개: 2/4 = 1/2</text><text x="300" y="194" font-size="20" text-anchor="middle">계산 단위와 표본 결과를 구별합니다</text></g></svg>

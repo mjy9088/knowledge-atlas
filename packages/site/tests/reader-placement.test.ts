@@ -35,3 +35,14 @@ test('explanation-first placement requires a chaptered interactive page', () => 
     assert.ok(validateRelatedPages(collection, [], [invalid]).some(error => error.includes('Workbench placement requires')));
   }
 });
+
+
+test('authored scene visual placement changes source reading order and requires chapter navigation', () => {
+  const placed = {...page, sceneVisualPlacement: 'after-explanation' as const};
+  for (const candidate of [page, placed]) {
+    const html = renderRelatedPage(candidate, collection, [], []);
+    assert.equal(html.indexOf('class="reader-dialogue"') < html.indexOf('class="concept-diagram"'), candidate === placed);
+  }
+  assert.deepEqual(validateRelatedPages(collection, [], [placed]), []);
+  assert.ok(validateRelatedPages(collection, [], [{...placed, navigation: undefined}]).some(error => error.includes('Scene visual placement requires')));
+});

@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test';
+import montyPage from '../../page.js';
 
-const scenes = ['question', 'protocol', 'strategy', 'shortened', 'compare', 'specific', 'close'];
+const scenes = montyPage.scenes.map(scene => scene.id);
 
 test('monty-hall: every scene keeps prose, cases and navigation readable and reachable', async ({ page }, testInfo) => {
   for (const scene of scenes) {
@@ -9,19 +10,24 @@ test('monty-hall: every scene keeps prose, cases and navigation readable and rea
     await page.evaluate(() => document.fonts.ready);
     const active = page.locator('.reader-scene:not([hidden])');
     await expect(active.locator('.scene-prose')).toBeVisible();
-    if (scene === 'strategy' || scene === 'compare') {
+    if (scene !== 'protocol' && scene !== 'shortened' && scene !== 'close' && !scene.startsWith('specific')) {
       const order = await page.evaluate(() => {
         const prose = document.querySelector('.reader-scene:not([hidden]) .reader-dialogue')!;
         const experiment = document.querySelector('#reader-workbench')!;
         return {
           dom: Boolean(prose.compareDocumentPosition(experiment) & Node.DOCUMENT_POSITION_FOLLOWING),
-          visual: prose.getBoundingClientRect().bottom <= experiment.getBoundingClientRect().top,
+          visual: prose.getBoundingClientRect().right <= experiment.getBoundingClientRect().left + 1 || prose.getBoundingClientRect().bottom <= experiment.getBoundingClientRect().top + 1,
         };
       });
       expect(order).toEqual({dom: true, visual: true});
     }
+    expect(await active.evaluate(element => {
+      const prose = element.querySelector('.reader-dialogue')!;
+      const diagram = element.querySelector('.concept-diagram')!;
+      return Boolean(prose.compareDocumentPosition(diagram) & Node.DOCUMENT_POSITION_FOLLOWING);
+    })).toBe(true);
     const bounds = await page.evaluate(() => {
-      const visible = Array.from(document.querySelectorAll<HTMLElement>('.reader-scene:not([hidden]) .scene-prose, .reader-scene:not([hidden]) .scene-figure, .lab-ledger, .lab-inputs, .lab-normalization'))
+      const visible = Array.from(document.querySelectorAll<HTMLElement>('.reader-scene:not([hidden]) .scene-prose, .reader-scene:not([hidden]) .scene-figure, .monty-story, .monty-doors, .monty-paths, .lab-ledger, .lab-inputs, .lab-normalization'))
         .filter(element => element.getClientRects().length > 0);
       return {
         documentWidth: document.documentElement.scrollWidth,
@@ -30,6 +36,9 @@ test('monty-hall: every scene keeps prose, cases and navigation readable and rea
       };
     });
     expect(bounds.documentWidth).toBeLessThanOrEqual(bounds.viewportWidth + 1);
+    if (montyPage.navigation.chapters[0].sceneIds.includes(scene)) {
+      expect(await page.evaluate(() => document.documentElement.scrollHeight)).toBeLessThanOrEqual((page.viewportSize()?.height ?? 0) + 1);
+    }
     for (const element of bounds.elements) {
       expect(element.scrollWidth, element.className).toBeLessThanOrEqual(element.width + 1);
       expect(element.scrollHeight, element.className).toBeLessThanOrEqual(element.height + 1);
@@ -52,7 +61,7 @@ test('monty-hall: every scene keeps prose, cases and navigation readable and rea
 
 test('monty-hall: reduced-motion calculation stays immediately available and restores a saved intermediate stage', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto('/knowledge/monty-hall/strategy/');
+  await page.goto('/knowledge/monty-hall/experiment/');
   await page.waitForFunction(() => window.__atlasRelated);
   await expect(page.locator('.lab-equation')).toContainText('4 ÷ 6 = 2/3');
   await page.getByRole('button', {name: '계산 펼쳐 보기', exact: true}).click();

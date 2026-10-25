@@ -21,6 +21,7 @@ export function validateRelatedPages(collection:ContentCollection,claims:Claim[]
     if(!/^[a-z][a-z-]+$/.test(page.slug)||slugs.has(page.slug))errors.push('Invalid or duplicate page slug');
     slugs.add(page.slug);
     if(page.workbenchPlacement!==undefined&&(page.workbenchPlacement!=='after-explanation'||!page.navigation||!page.interactive))errors.push(`Workbench placement requires a chaptered interactive reader ${page.articleId}`);
+    if(page.sceneVisualPlacement!==undefined&&(page.sceneVisualPlacement!=='after-explanation'||!page.navigation))errors.push(`Scene visual placement requires a chaptered reader ${page.articleId}`);
     const article=collection.articles.find(item=>item.id===page.articleId);
     if(!article){errors.push(`Missing article ${page.articleId}`);continue;}
     if(page.coverArtwork&&(!/^\/content\/(?:[a-z][a-z0-9-]*\/)+[a-z][a-z0-9-]*\.svg$/.test(page.coverArtwork.src)||!page.coverArtwork.alt.trim()))errors.push(`Invalid article cover artwork ${page.articleId}`);
@@ -69,7 +70,9 @@ function sceneHTML(page:ContentPage,article:Article,scene:ContentPage['scenes'][
   if(scene.figure&&!size)throw new RangeError(`Missing SVG dimensions ${scene.figure.src}`);
   const cards=page.navigation?`<ul class="concept-facts">${scene.cards.map(card=>`<li><span class="concept-fact-value">${e(card)}</span></li>`).join('')}</ul>`:scene.cards.map(card=>`<span>${e(card)}</span>`).join('<span class="concept-connector" aria-hidden="true">·</span>');
   const diagram=scene.figure?`<figure class="scene-figure"><img src="${e(scene.figure.src)}" alt="${e(scene.figure.alt)}" width="${size?.width}" height="${size?.height}"><figcaption>${e(scene.figure.caption)}</figcaption></figure>`:cards;
-  return `<section class="reader-scene" data-visual="${visual}"${progress.attribute} id="${scene.id}"${scene.motion?` data-motion="${e(scene.motion.id)}"`:''} data-claim-refs="${e(block.claimRefs.join(' '))}" aria-labelledby="${scene.id}-title"${scene.id===selectedId?'':' hidden'}><div class="concept-diagram"${visual==='none'?' hidden':''} aria-label="${e(scene.title)}의 ${page.navigation?'핵심 사실과 조건':'개념 관계'}">${diagram}</div><div class="reader-dialogue"><p class="eyebrow">${progress.label}</p><div class="reader-copy"><h2 id="${scene.id}-title">${e(scene.title)}</h2><p class="scene-prose">${e(sceneText(article,scene))}</p><p class="scene-result" hidden></p>${branchLinks(page,scene.id)}</div><p class="skip-context" hidden>건너뛸 내용: ${e(scene.known)}</p></div></section>`;
+  const figure=`<div class="concept-diagram"${visual==='none'?' hidden':''} aria-label="${e(scene.title)}의 ${page.navigation?'핵심 사실과 조건':'개념 관계'}">${diagram}</div>`;
+  const dialogue=`<div class="reader-dialogue"><p class="eyebrow">${progress.label}</p><div class="reader-copy"><h2 id="${scene.id}-title">${e(scene.title)}</h2><p class="scene-prose">${e(sceneText(article,scene))}</p><p class="scene-result" hidden></p>${branchLinks(page,scene.id)}</div><p class="skip-context" hidden>건너뛸 내용: ${e(scene.known)}</p></div>`;
+  return `<section class="reader-scene" data-visual="${visual}"${progress.attribute} id="${scene.id}"${scene.motion?` data-motion="${e(scene.motion.id)}"`:''} data-claim-refs="${e(block.claimRefs.join(' '))}" aria-labelledby="${scene.id}-title"${scene.id===selectedId?'':' hidden'}>${page.sceneVisualPlacement==='after-explanation'?dialogue+figure:figure+dialogue}</section>`;
 }
 
 export function renderRelatedPage(page:ContentPage,collection:ContentCollection,claims:Claim[],sources:SourceRecord[],selectedSceneId=page.scenes[0]?.id,dimensions:Readonly<Record<string,{readonly width:number;readonly height:number}>>={}){
