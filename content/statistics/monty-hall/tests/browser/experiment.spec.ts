@@ -81,5 +81,7 @@ test('the numbered-door detour separates each step and returns to the mainline',
   await page.locator('#reader-next').click();
   await expect(page).toHaveURL(/\/compare\/$/);
   await page.locator('#reader-next').click();
+  await expect(page).toHaveURL(/\/sampling\/$/);
+  await page.locator('#reader-next').click();
   await expect(page).toHaveURL(/\/close\/$/);
 });

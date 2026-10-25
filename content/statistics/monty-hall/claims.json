@@ -60,5 +60,24 @@
       }
     ],
     "reviewStatus": "needs-content-review"
+  },
+  {
+    "id": "claim:statistics.monty-hall.monty-tree",
+    "kind": "authored-finite-deduction",
+    "statement": "상품 위치 균등·초기 선택 독립이며 정답을 아는 진행자가 항상 미선택 꽝을 열고 둘 다 꽝이면 균등 선택할 때, 상품 위치→공개 문 트리의 네 경로 확률은 1/6,1/6,1/3,1/3이다. 정답을 모르는 균등 공개에서는 상품 공개를 포함한 여섯 경로가 각각 1/6이고, 상품을 연 두 경로를 제외하면 네 경로 중 두 경로에서 교환으로 이긴다.",
+    "scope": "Three doors, one prize, explicit host rules; branch chances and full-path probabilities are different. These are exact model cases, not recorded draws.",
+    "assumptions": [
+      "Uniform prize and independent initial choice",
+      "Informed host always reveals an unchosen goat, always offers switching, and breaks goat ties uniformly",
+      "Blind host opens either unchosen door uniformly; prize reveals are excluded only when conditioning on a goat",
+      "Overall informed always-switch2/3 does not require uniform goat tie-breaking; numbered reveals can depend on that rule"
+    ],
+    "sourceRefs": [
+      {
+        "sourceId": "source:iyer-conditional-probability-2026",
+        "locator": "Definition 2 and Propositions 5–6. Path weights and the retained-case comparison are independently authored finite deductions under the declared host rules, not examples from this source."
+      }
+    ],
+    "reviewStatus": "needs-content-review"
   }
 ]

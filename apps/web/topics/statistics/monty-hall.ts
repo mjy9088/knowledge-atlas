@@ -1,8 +1,10 @@
+import {MAX_TRIALS} from '/packages/models/possibility-lab.js';
+import {renderMontyTree, renderPairedSampling} from './monty-probability.js';
 import type {Scene} from '/packages/content/types.js';
 import {mountPossibilityLab} from './possibility-lab.js';
-import {DOORS, otherDoors, informedCase, openingRound, blindCases, type Door} from '/content/statistics/monty-hall/scenarios.js';
+import {DOORS, otherDoors, informedCase, openingRound, type Door} from '/content/statistics/monty-hall/scenarios.js';
 
-const storyScenes = new Set(['question', 'reveal', 'case-hit', 'case-miss-a', 'case-miss-b', 'strategy', 'blind-rule', 'blind-paths', 'blind-keep-hit', 'blind-keep-miss', 'compare']);
+const storyScenes = new Set(['question', 'tie-rule', 'informed-tree', 'sampling', 'reveal', 'case-hit', 'case-miss-a', 'case-miss-b', 'strategy', 'blind-rule', 'blind-paths', 'blind-keep-hit', 'blind-keep-miss', 'compare']);
 export function mountMontyHall(container: HTMLElement, options: {onChange?: () => void} = {}) {
   container.className = 'monty-reader';
   const story = document.createElement('section');
@@ -25,17 +27,10 @@ export function mountMontyHall(container: HTMLElement, options: {onChange?: () =
     }).join('')}</div>`;
   }
 
-  function paths(filter: 'all' | 'hit' | 'miss', excluded: boolean) {
-    const choice = lab.getState().choice;
-    const rows = blindCases(choice).filter(row => filter === 'all' || (filter === 'hit' ? row.prize === choice : row.prize !== choice));
-    return `<div class="monty-paths" aria-label="같은 확률의 공개 경우" >${rows.map(row => {
-      const removed = excluded && !row.accepted;
-      return `<article class="monty-path" data-prize="${row.prize}" data-opened="${row.opened}" data-excluded="${removed}"><strong>상품 ${row.prize}번</strong><span>${row.opened}번 문을 엶 → ${row.accepted ? '꽝' : '상품'}</span>${excluded ? `<b>${removed ? '× 상품 공개로 제외' : row.switchWins ? '✓ 남김 · 바꾸면 상품' : '✓ 남김 · 바꾸면 꽝'}</b>` : ''}</article>`;
-    }).join('')}</div>`;
-  }
 
   function render() {
-    const focused = story.contains(document.activeElement) && document.activeElement instanceof HTMLElement ? document.activeElement.dataset.door : undefined;
+    const focused = story.contains(document.activeElement) && document.activeElement instanceof HTMLElement
+      ? {door: document.activeElement.dataset.door, step: document.activeElement.dataset.sampleStep, action: document.activeElement.dataset.sampleAction} : undefined;
     const state = lab.getState();
     story.hidden = !storyScenes.has(scene);
     laboratory.hidden = scene !== 'experiment';
@@ -61,21 +56,63 @@ export function mountMontyHall(container: HTMLElement, options: {onChange?: () =
         return `<p><strong>상품 ${prize}번</strong><span>${prize === state.choice ? '처음 맞음' : '처음 틀림'}</span><b>${row.switchWins ? '바꾸면 상품' : '바꾸면 꽝'}</b></p>`;
       }).join('')}</div>`;
       note = `처음 선택 ${state.choice}번 · 같은 확률의 세 경우 중 두 경우에서 교환 승리: 2/3`;
+    } else if (scene === 'tie-rule') {
+      content = `<div class="monty-tie"><strong>가정: 고른 ${state.choice}번에 상품</strong><div>${otherDoors(state.choice).map(opened => `<p>${opened}번 꽝 공개 <b>1/2</b></p>`).join('')}</div></div>`;
+      note = '열 수 있는 두 꽝 문 사이에서는 선호 없이 고릅니다.';
+    } else if (scene === 'informed-tree') {
+      content = renderMontyTree(state.choice, 'informed');
+      note = '상품 위치 → 공개 문 · 경로의 확률은 가지의 확률을 곱합니다.';
+    } else if (scene === 'sampling') {
+      content = renderPairedSampling(state, lab.inspect().playing);
     } else if (scene === 'blind-rule') {
       content = `<div class="monty-rule"><strong>처음 선택 ${state.choice}번은 열지 않습니다.</strong><span>${otherDoors(state.choice).join('번 또는 ')}번 중 하나를 각각 1/2의 확률로 엽니다.</span><span>상품을 열 수도 있습니다.</span></div>`;
     } else {
-      content = paths(scene === 'blind-keep-hit' ? 'hit' : scene === 'blind-keep-miss' ? 'miss' : 'all', scene !== 'blind-paths');
+      content = renderMontyTree(state.choice, 'blind', scene === 'blind-keep-hit' ? 'hit' : scene === 'blind-keep-miss' ? 'miss' : 'all', scene !== 'blind-paths');
       note = scene === 'compare' ? '남은 네 경우 중 두 경우에서 교환 승리: 2/4 = 1/2' : '상품 배치와 문 공개를 합친, 같은 확률의 경우입니다.';
     }
-    story.innerHTML = `${scene === 'question' ? '' : `<p class="monty-choice-context">처음 고른 문: ${state.choice}번</p>`}${content}<p class="monty-story-note" role="status">${note}</p>`;
-    if (focused) story.querySelector<HTMLButtonElement>(`button[data-door="${focused}"]`)?.focus({preventScroll: true});
+    const html = `${scene === 'question' ? '' : `<p class="monty-choice-context">처음 고른 문: ${state.choice}번</p>`}${content}${note ? `<p class="monty-story-note" role="status">${note}</p>` : ''}`;
+    if (scene === 'sampling' && story.querySelector('.monty-sampler')) {
+      // Playback updates results while keeping touch and keyboard targets mounted.
+      const template = document.createElement('template');
+      template.innerHTML = html;
+      for (const selector of ['.monty-choice-context', '.monty-sample-total', '.monty-sample-cards', '.monty-pool', '.monty-sample-note']) {
+        story.querySelector(selector)!.replaceWith(template.content.querySelector(selector)!);
+      }
+      const nextButtons = [...template.content.querySelectorAll<HTMLButtonElement>('.monty-sample-controls button')];
+      story.querySelectorAll<HTMLButtonElement>('.monty-sample-controls button').forEach((button, index) => {
+        button.disabled = nextButtons[index].disabled;
+        if (button.textContent !== nextButtons[index].textContent) button.textContent = nextButtons[index].textContent;
+      });
+    } else story.innerHTML = html;
+    if (focused) {
+      const buttons = [...story.querySelectorAll<HTMLButtonElement>('button')];
+      buttons.find(button => focused.door ? button.dataset.door === focused.door : focused.step ? button.dataset.sampleStep === focused.step : focused.action ? button.dataset.sampleAction === focused.action : false)?.focus({preventScroll: true});
+    }
   }
 
   story.addEventListener('click', event => {
-    const button = event.target instanceof Element ? event.target.closest<HTMLButtonElement>('button[data-door]') : null;
-    if (!button || scene !== 'question') return;
-    lab.setState({...lab.getState(), choice: Number(button.dataset.door), count: 0, revealed: false, processSelected: true});
+    const button = event.target instanceof Element ? event.target.closest<HTMLButtonElement>('button') : null;
+    if (!button) return;
+    if (scene === 'question' && button.dataset.door) {
+      lab.setState({...lab.getState(), choice: Number(button.dataset.door), count: 0, revealed: false, processSelected: true});
+    } else if (scene === 'sampling') {
+      const state = lab.getState();
+      if (button.dataset.sampleStep) {
+        const step = Number(button.dataset.sampleStep);
+        if (![1, 100, 1000].includes(step)) return;
+        lab.setState({...state, count: Math.min(MAX_TRIALS, state.count + step), stage: 3, revealed: true});
+      } else if (button.dataset.sampleAction === 'clear') {
+        lab.setState({...state, count: 0, revealed: false});
+      } else if (button.dataset.sampleAction === 'new') {
+        lab.setState({...state, seed: (state.seed + 1) >>> 0, count: 0, revealed: false, processSelected: true});
+      } else if (button.dataset.sampleAction === 'play') {
+        laboratory.querySelector<HTMLButtonElement>('[data-action="play"]')!.click();
+        render();
+      }
+    }
   });
+
+  document.addEventListener('visibilitychange', () => { if (document.hidden) render(); });
 
   return {
     getState: lab.getState,
@@ -83,10 +120,12 @@ export function mountMontyHall(container: HTMLElement, options: {onChange?: () =
     setState(value: unknown) { lab.setState(value); render(); },
     reset() { lab.reset(); render(); },
     seek(ms: number) { lab.seek(ms); render(); },
-    setActive(value: boolean) { lab.setActive(value && scene === 'experiment'); },
+    setActive(value: boolean) { lab.setActive(value && (scene === 'experiment' || scene === 'sampling')); if (!value) render(); },
     suggest(suggestion?: Scene['suggestion']) {
-      scene = suggestion && 'example' in suggestion ? suggestion.example : '';
-      lab.suggest({example: scene === 'experiment' ? 'strategy' : scene});
+      const next = suggestion && 'example' in suggestion ? suggestion.example : '';
+      if (next !== scene) lab.setActive(false);
+      scene = next;
+      lab.suggest({example: scene === 'experiment' || scene === 'sampling' ? 'strategy' : scene});
       render();
     },
     inspect() {

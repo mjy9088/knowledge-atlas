@@ -63,7 +63,7 @@ export async function buildSite(){
     const data=await readFile(sourcePath);
     await emit(`topics/formal-reasoning/${file.replace(/\.ts$/,'.js')}`,file.endsWith('.ts')?browserJavaScript(data.toString('utf8'),sourcePath):data);
   }
-  for(const relative of ['statistics/monty-hall.ts','statistics/monty-hall.css','statistics/possibility-lab.ts','statistics/possibility-ledger.ts','statistics/possibility-lab.css','physics/physics-history.ts','physics/physics-history-suggestion.ts']){
+  for(const relative of ['statistics/monty-probability.ts','statistics/monty-hall.ts','statistics/monty-hall.css','statistics/possibility-lab.ts','statistics/possibility-ledger.ts','statistics/possibility-lab.css','physics/physics-history.ts','physics/physics-history-suggestion.ts']){
     const sourcePath=path.join(root,'apps/web/topics',relative);
     const data=await readFile(sourcePath);
     await emit(`topics/${relative.replace(/\.ts$/,'.js')}`,relative.endsWith('.ts')?browserJavaScript(data.toString('utf8'),sourcePath):data);

@@ -16,9 +16,11 @@ export default {
           "question",
           "reveal",
           "protocol",
+          "tie-rule",
           "case-hit",
           "case-miss-a",
           "case-miss-b",
+          "informed-tree",
           "strategy",
           "shortened",
           "blind-rule",
@@ -26,6 +28,7 @@ export default {
           "blind-keep-hit",
           "blind-keep-miss",
           "compare",
+          "sampling",
           "close"
         ]
       },
@@ -59,7 +62,8 @@ export default {
   "claimRefs": [
     "claim:statistics.monty-hall.monty-strategy",
     "claim:statistics.monty-hall.monty-observation",
-    "claim:statistics.monty-hall.monty-epistemic"
+    "claim:statistics.monty-hall.monty-epistemic",
+    "claim:statistics.monty-hall.monty-tree"
   ],
   "scenes": [
     {
@@ -111,9 +115,25 @@ export default {
       }
     },
     {
+      "id": "tie-rule",
+      "title": "꽝 문이 둘이면 반반으로 고릅니다",
+      "from": 0,
+      "cards": [],
+      "known": "열 수 있는 꽝이 둘일 때 각각 1/2로 고르는 규칙을 확인한다.",
+      "figure": {
+        "src": "/content/statistics/monty-hall/figure-tie-rule.svg",
+        "alt": "처음 고른 문이 당첨이면, 남은 두 문은 모두 꽝입니다. 이 예시에서는 진행자가 어느 쪽도 선호하지 않고 각각 1/2로 고릅니다. 나머지 두 경우에는 열 수 있는 꽝이 하나뿐입니다.",
+        "caption": "상품 배치와 진행자 공개 규칙을 구별합니다."
+      },
+      "suggestion": {
+        "example": "tie-rule"
+      },
+      "block": 3
+    },
+    {
       "id": "case-hit",
       "title": "처음 고른 문에 상품이 있다면?",
-      "block": 3,
+      "block": 4,
       "from": 0,
       "cards": [],
       "known": "처음 맞힌 경우에는 바꾸면 지는 이유를 설명한다.",
@@ -129,7 +149,7 @@ export default {
     {
       "id": "case-miss-a",
       "title": "상품이 다른 한쪽 문에 있다면?",
-      "block": 4,
+      "block": 5,
       "from": 0,
       "cards": [],
       "known": "다른 한쪽에 상품이 있으면 바꾸면 이기는 이유를 설명한다.",
@@ -145,7 +165,7 @@ export default {
     {
       "id": "case-miss-b",
       "title": "나머지 문에 상품이 있어도?",
-      "block": 5,
+      "block": 6,
       "from": 0,
       "cards": [],
       "known": "또 다른 상품 위치에서도 바꾸면 이기는 이유를 설명한다.",
@@ -159,9 +179,25 @@ export default {
       }
     },
     {
+      "id": "informed-tree",
+      "title": "가지 끝의 확률은 같지 않습니다",
+      "from": 0,
+      "cards": [],
+      "known": "가지마다 나뉘는 확률을 곱해 전체 경로의 확률을 구별한다.",
+      "figure": {
+        "src": "/content/statistics/monty-hall/figure-informed-tree.svg",
+        "alt": "상품 위치는 각각 1/3입니다. 처음 맞힌 경우만 다시 두 갈래로 나뉘어 각 경로가 1/6이 됩니다. 나머지 경로는 각각 1/3이므로, 네 말단을 똑같이 세면 안 됩니다.",
+        "caption": "상품 배치와 진행자 공개 규칙을 구별합니다."
+      },
+      "suggestion": {
+        "example": "informed-tree"
+      },
+      "block": 7
+    },
+    {
       "id": "strategy",
       "title": "세 경우 중 두 경우에서 이깁니다",
-      "block": 6,
+      "block": 8,
       "from": 0,
       "cards": [],
       "known": "같은 확률의 세 경우 중 두 경우를 센다.",
@@ -177,7 +213,7 @@ export default {
     {
       "id": "shortened",
       "title": "그런데 처음에 규칙을 말했나요?",
-      "block": 7,
+      "block": 9,
       "from": 0,
       "cards": [],
       "known": "한 번 본 장면과 항상 따르는 규칙을 구별한다.",
@@ -193,7 +229,7 @@ export default {
     {
       "id": "blind-rule",
       "title": "이번 진행자는 정답을 모릅니다",
-      "block": 8,
+      "block": 10,
       "from": 0,
       "cards": [],
       "known": "모르는 진행자는 상품을 열 수도 있음을 확인한다.",
@@ -209,7 +245,7 @@ export default {
     {
       "id": "blind-paths",
       "title": "열 수 있는 문은 두 개씩입니다",
-      "block": 9,
+      "block": 11,
       "from": 0,
       "cards": [],
       "known": "상품 위치와 문 공개를 합친 여섯 경우를 만든다.",
@@ -225,7 +261,7 @@ export default {
     {
       "id": "blind-keep-hit",
       "title": "처음 맞혔던 경우는 모두 남습니다",
-      "block": 10,
+      "block": 12,
       "from": 0,
       "cards": [],
       "known": "처음 맞힌 경우는 두 가지 공개가 모두 남음을 확인한다.",
@@ -241,7 +277,7 @@ export default {
     {
       "id": "blind-keep-miss",
       "title": "처음 틀렸다면 절반만 남습니다",
-      "block": 11,
+      "block": 13,
       "from": 0,
       "cards": [],
       "known": "처음 틀린 경우는 상품을 연 절반이 제외됨을 확인한다.",
@@ -257,7 +293,7 @@ export default {
     {
       "id": "compare",
       "title": "남은 네 경우 중 두 경우에서 이깁니다",
-      "block": 12,
+      "block": 14,
       "from": 0,
       "cards": [],
       "known": "남은 네 경우 중 교환으로 이기는 두 경우를 센다.",
@@ -271,9 +307,25 @@ export default {
       }
     },
     {
+      "id": "sampling",
+      "title": "같은 뽑기에서 무엇이 빠질까요?",
+      "from": 0,
+      "cards": [],
+      "known": "전체 시행과 제외, 남은 게임, 교환 승리를 나란히 비교한다.",
+      "figure": {
+        "src": "/content/statistics/monty-hall/figure-sampling.svg",
+        "alt": "같은 상품 배치를 두 진행 방식에 적용해 보세요. 정답을 모르는 쪽에서 상품을 공개한 게임은 집계에서 빠집니다. 전체 뽑기 수와 남은 게임 수를 구별하고, 승률을 어느 쪽으로 나누는지 확인해 보세요.",
+        "caption": "상품 배치와 진행자 공개 규칙을 구별합니다."
+      },
+      "suggestion": {
+        "example": "sampling"
+      },
+      "block": 15
+    },
+    {
       "id": "close",
       "title": "같은 두 문인데, 답이 달라집니다",
-      "block": 13,
+      "block": 16,
       "from": 0,
       "cards": [],
       "known": "문 개수 대신 진행자 규칙으로 두 답의 차이를 설명한다.",
@@ -289,7 +341,7 @@ export default {
     {
       "id": "specific",
       "title": "선택: 2번을 우선 여는 진행자",
-      "block": 14,
+      "block": 17,
       "from": 0,
       "cards": [],
       "known": "별도 예시의 처음 선택과 진행자 선호를 고정한다.",
@@ -305,7 +357,7 @@ export default {
     {
       "id": "specific-cases",
       "title": "선택: 2번이 열린 경우만 남겨 봅시다",
-      "block": 15,
+      "block": 18,
       "from": 0,
       "cards": [],
       "known": "2번이 열린 게임만 남겨 두 상품 위치를 찾는다.",
@@ -321,7 +373,7 @@ export default {
     {
       "id": "specific-result",
       "title": "선택: 이때는 두 경우 중 한 경우입니다",
-      "block": 16,
+      "block": 19,
       "from": 0,
       "cards": [],
       "known": "골라 남긴 게임과 전체 게임의 승률을 구별한다.",
@@ -337,7 +389,7 @@ export default {
     {
       "id": "experiment",
       "title": "선택: 규칙을 바꾸며 더 실험해 보세요",
-      "block": 17,
+      "block": 20,
       "from": 0,
       "cards": [],
       "known": "정확한 계산과 표본 실험을 구별하며 규칙을 바꾸어 본다.",

@@ -27,7 +27,7 @@ test('monty-hall: every scene keeps prose, cases and navigation readable and rea
       return Boolean(prose.compareDocumentPosition(diagram) & Node.DOCUMENT_POSITION_FOLLOWING);
     })).toBe(true);
     const bounds = await page.evaluate(() => {
-      const visible = Array.from(document.querySelectorAll<HTMLElement>('.reader-scene:not([hidden]) .scene-prose, .reader-scene:not([hidden]) .scene-figure, .monty-story, .monty-doors, .monty-paths, .lab-ledger, .lab-inputs, .lab-normalization'))
+      const visible = Array.from(document.querySelectorAll<HTMLElement>('.reader-scene:not([hidden]) .scene-prose, .reader-scene:not([hidden]) .scene-figure, .monty-story, .monty-doors, .monty-tree, .monty-tree-level, .monty-tree-path, .monty-sampler, .monty-sample-card, .monty-sample-controls, .lab-ledger, .lab-inputs, .lab-normalization'))
         .filter(element => element.getClientRects().length > 0);
       return {
         documentWidth: document.documentElement.scrollWidth,

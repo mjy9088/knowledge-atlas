@@ -6,9 +6,11 @@
     "question",
     "reveal",
     "protocol",
+    "tie-rule",
     "case-hit",
     "case-miss-a",
     "case-miss-b",
+    "informed-tree",
     "strategy",
     "shortened",
     "blind-rule",
@@ -16,6 +18,7 @@
     "blind-keep-hit",
     "blind-keep-miss",
     "compare",
+    "sampling",
     "close"
   ],
   "slides": [
@@ -54,6 +57,18 @@
       "interaction": "Static declaration; immediate navigation."
     },
     {
+      "sceneId": "tie-rule",
+      "blockRef": "block:statistics.monty-hall.tie-rule",
+      "title": "꽝 문이 둘이면 반반으로 고릅니다",
+      "purpose": "Declare fair tie-breaking for the concrete informed-host example without claiming it is required for overall switching success.",
+      "successCheck": "Can state that both available goats are chosen with probability1/2 and separate this from the always-goat obligation.",
+      "representation": "Two equally weighted opening branches when the initially chosen door hides the prize; no inferred host preference.",
+      "prerequisites": [
+        "protocol"
+      ],
+      "interaction": "Uses current chosen door; this explicit standard protocol is fixed in the mainline."
+    },
+    {
       "sceneId": "case-hit",
       "blockRef": "block:statistics.monty-hall.case-hit",
       "title": "처음 고른 문에 상품이 있다면?",
@@ -90,6 +105,19 @@
       "interaction": "Current choice retained; deterministic hypothetical comparison."
     },
     {
+      "sceneId": "informed-tree",
+      "blockRef": "block:statistics.monty-hall.informed-tree",
+      "title": "가지 끝의 확률은 같지 않습니다",
+      "purpose": "Expose informed-host prize→opening branches and multiply their stated probabilities.",
+      "successCheck": "Derive joint path weights1/6,1/6,1/3,1/3 and switching mass2/3; do not count four leaves equally.",
+      "representation": "A connected semantic probability tree labels prior1/3, each opening chance1/2 or1, joint path weight, and switching outcome.",
+      "prerequisites": [
+        "case-miss-b",
+        "tie-rule"
+      ],
+      "interaction": "Reuses current chosen door with deterministic complete branches; no unfold or sampling requirement."
+    },
+    {
       "sceneId": "strategy",
       "blockRef": "block:statistics.monty-hall.strategy",
       "title": "세 경우 중 두 경우에서 이깁니다",
@@ -105,7 +133,7 @@
       "sceneId": "shortened",
       "blockRef": "block:statistics.monty-hall.shortened",
       "title": "그런데 처음에 규칙을 말했나요?",
-      "purpose": "Distinguish observing a goat from knowing the host always reveals goats.",
+      "purpose": "State that missing host information does not itself imply1/2; compare a separately specified blind uniform-opening protocol.",
       "successCheck": "Can identify the missing rule rather than reject a valid conditional calculation.",
       "representation": "Static side-by-side guaranteed versus accidental goat procedures.",
       "prerequisites": [
@@ -119,7 +147,7 @@
       "title": "이번 진행자는 정답을 모릅니다",
       "purpose": "Change only the host policy to uniform opening of an unchosen door; retain goat-reveal games.",
       "successCheck": "Can say why prize reveals can now occur and will be excluded.",
-      "representation": "Two possible openings with an explicit prize-reveal possibility.",
+      "representation": "A concise rule panel names the two unchosen doors, their equal opening probabilities, and the possibility of revealing the prize before the full tree is introduced.",
       "prerequisites": [
         "shortened"
       ],
@@ -131,7 +159,7 @@
       "title": "열 수 있는 문은 두 개씩입니다",
       "purpose": "Enumerate prize location times uniformly opened door.",
       "successCheck": "Can reconstruct six equally probable pairs, not six guaranteed sample outcomes.",
-      "representation": "Three rows times two compact opening cards, all six visible without exclusion yet.",
+      "representation": "A connected prize→opened-door probability tree displays all six paths with opening chance1/2 and joint path weight1/6; prize reveals are labelled but not crossed out yet.",
       "prerequisites": [
         "blind-rule"
       ],
@@ -143,7 +171,7 @@
       "title": "처음 맞혔던 경우는 모두 남습니다",
       "purpose": "Restrict to the initially correct prize row.",
       "successCheck": "Can explain why either unchosen opening shows a goat and both switching results lose.",
-      "representation": "Only the two equal opening cards for the chosen-prize row.",
+      "representation": "The initially correct prize branch and its two equal opening paths remain connected; both paths show goats and switching losses.",
       "prerequisites": [
         "blind-paths"
       ],
@@ -155,7 +183,7 @@
       "title": "처음 틀렸다면 절반만 남습니다",
       "purpose": "Work both initially wrong prize rows and exclude prize reveals.",
       "successCheck": "Can name the two excluded pairs and two surviving switching wins.",
-      "representation": "Four compact opening cards: one retained and one crossed out per wrong-prize row; labels explain exclusion.",
+      "representation": "Two initially wrong prize branches retain their connections and four opening paths, with each prize-reveal path visibly dashed and crossed out.",
       "prerequisites": [
         "blind-keep-hit"
       ],
@@ -167,11 +195,23 @@
       "title": "남은 네 경우 중 두 경우에서 이깁니다",
       "purpose": "Assemble the retained blind-host cases.",
       "successCheck": "Can derive 2/4=1/2 using the retained denominator.",
-      "representation": "Six compact cards with the two prize reveals crossed out and two switching wins labelled.",
+      "representation": "The full connected six-path tree retains two visibly excluded prize reveals alongside the four accepted paths and their switching outcomes.",
       "prerequisites": [
         "blind-keep-miss"
       ],
       "interaction": "Current choice retained; full editable ledger is optional."
+    },
+    {
+      "sceneId": "sampling",
+      "blockRef": "block:statistics.monty-hall.sampling",
+      "title": "같은 뽑기에서 무엇이 빠질까요?",
+      "purpose": "Let readers compare both host policies on paired seeded prize draws and watch exclusions change the denominator.",
+      "successCheck": "Identify total attempts, excluded prize reveals, retained goat observations and switching wins; distinguish empirical ratios from exact values.",
+      "representation": "A compact paired simulator and sample-pool bar label initially-correct retained, initially-wrong retained, and initially-wrong excluded counts. Cards divide successes by retained counts, never all attempts.",
+      "prerequisites": [
+        "compare"
+      ],
+      "interaction": "Add1/100/1000 attempts, play/pause, clear attempts and select a new sample sequence. Reuse existing validated seed/count/choice, preserve state across navigation/restoration, reject invalid snapshots atomically, pause on scene/visibility change, and support independent seek/reset. No forced experiment or prediction gate."
     },
     {
       "sceneId": "close",

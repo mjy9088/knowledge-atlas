@@ -1,4 +1,4 @@
-import {draw} from '../../../packages/models/possibility-lab.js';
+import {draw, labSummary, validateLabState, type LabState} from '../../../packages/models/possibility-lab.js';
 
 export const DOORS = [1, 2, 3] as const;
 export type Door = typeof DOORS[number];
@@ -35,4 +35,32 @@ export function blindCases(choiceValue: number) {
     const remaining = DOORS.find(value => value !== choice && value !== opened)!;
     return {choice, prize, opened, remaining, accepted: opened !== prize, switchWins: remaining === prize};
   }));
+}
+
+/** Branch probabilities are conditional opening chances; mass is the whole path. */
+export function montyTree(choiceValue: number, mode: 'informed' | 'blind') {
+  const choice = door(choiceValue);
+  if (mode !== 'informed' && mode !== 'blind') throw new RangeError('Invalid host rule');
+  return DOORS.map(prize => {
+    const available = otherDoors(choice).filter(opened => mode === 'blind' || opened !== prize);
+    const chance = 1 / available.length;
+    return {prize, prior: 1 / 3, paths: available.map(opened => ({
+      opened, chance, mass: chance / 3,
+      accepted: opened !== prize,
+      switchWins: prize !== choice && opened !== prize,
+    }))};
+  });
+}
+
+/** Both hosts use the same indexed prize draws, not independent populations. */
+export function pairedMontySample(state: LabState) {
+  validateLabState(state, 'monty-hall');
+  const informed = labSummary({...state, mode: 'informed'});
+  const blind = labSummary({...state, mode: 'blind'});
+  return {
+    attempted: state.count, informed, blind,
+    initiallyCorrect: state.count - informed.successes,
+    wrongRetained: blind.successes,
+    excluded: state.count - blind.accepted,
+  };
 }
