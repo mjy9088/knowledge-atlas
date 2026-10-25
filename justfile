@@ -3,21 +3,21 @@ default:
     @just --list
 
 # Start a background server: dev (default), studio, or preview (build first).
-start server="dev":
-    @node --import tsx scripts/server-control.ts start {{quote(server)}}
+start server="dev" host=env_var_or_default("HOST", ""):
+    @HOST={{quote(host)}} node --import tsx scripts/server-control.ts start {{quote(server)}}
 
 # Stop only a server started by this controller.
 stop server="dev":
     @node --import tsx scripts/server-control.ts stop {{quote(server)}}
 
 # Stop and start the selected server with the current environment.
-restart server="dev":
-    @node --import tsx scripts/server-control.ts restart {{quote(server)}}
+restart server="dev" host=env_var_or_default("HOST", ""):
+    @HOST={{quote(host)}} node --import tsx scripts/server-control.ts restart {{quote(server)}}
 
 # Apply working-tree changes; rebuild preview before restarting it.
-update server="dev":
+update server="dev" host=env_var_or_default("HOST", ""):
     @case {{quote(server)}} in preview) just build ;; dev|studio) ;; *) echo 'Usage: just update [dev|studio|preview]' >&2; exit 1 ;; esac
-    @just restart {{quote(server)}}
+    @just restart {{quote(server)}} {{quote(host)}}
 
 # Show the selected server's managed process and URL.
 status server="dev":

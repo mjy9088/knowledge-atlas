@@ -16,7 +16,7 @@ The GitHub Actions browser job uses Ubuntu 24.04 and explicitly installs these f
 
 For page-bounded PDF source consultation, optional Poppler tools (`poppler-utils`) can extract a selected page with `pdftotext -f N -l N source.pdf -`. Check the actual page when extraction loses mathematical glyphs; text extraction alone does not verify a source revision, scientific argument, or reuse permission.
 
-The development server defaults to `http://127.0.0.1:4173`; set `PORT` to choose another port. It serves the working tree, including local media helpers. Opening a local server or building files does not publish content.
+The development server defaults to `http://127.0.0.1:4173`; set `PORT` to choose another port and `HOST` to choose a bind IP (default `127.0.0.1`). It serves the working tree, including local media helpers. Opening a local server or building files does not publish content.
 
 ## Server control with just
 
@@ -24,6 +24,8 @@ Run `just` to list recipes. Server lifecycle commands require a POSIX environmen
 
 ```sh
 just start               # background development server, port 4173
+just start dev 100.66.142.4 # bind the development server to this machine's tailnet IP
+just restart dev 127.0.0.1 # change the bind IP back to loopback
 just status              # managed process identity and URL, or stopped
 just logs                # last 80 log lines; not a live stream
 just restart             # stop, then start with the current environment
@@ -41,6 +43,10 @@ just check               # existing full verification suite
 All five lifecycle commands accept `dev` (default), `studio`, or `preview`. `PORT=4300 just start` and `PORT=4301 just start preview` select public-server ports; Studio uses `STUDIO_PORT=4302 just start studio`. There is one managed instance per server kind per checkout. Starting an already running instance reports its existing URL without changing its environment; use restart to apply changes. Preview requires `just build` first and does not rebuild automatically.
 
 Use `just update [dev|studio|preview]` to apply local edits and start the selected server if stopped. Dev and Studio restart to reload imported TypeScript modules. Dev reads browser assets and JSON content per request, but server-imported page/catalog modules remain cached until restart. Preview runs `just build` first and restarts only if that succeeds; a failed check does not stop its existing process. The builder writes directly to `dist/`, so a failure during file emission can leave partial output. Refresh the browser after updating (use a hard refresh if preview assets are cached). There is no automatic browser reload or file watcher. These commands use the current environment and control only their own managed processes.
+
+`just start`, `just restart` and `just update` accept a second `host` argument for dev and preview, for example `just update dev 100.66.142.4` or `just start preview 100.66.142.4`. `HOST=<IP>` is the equivalent environment option, including foreground `pnpm dev` / `pnpm preview`. Accept an IPv4/IPv6 literal or `localhost`; URLs and arbitrary hostnames are rejected. A bind IP must belong to this machine. IPv6 status URLs use brackets. Studio remains bound to `127.0.0.1` and rejects other host selections.
+
+With no host override, start/restart/update reuse the existing managed record's bind IP. A new instance without a record defaults to `127.0.0.1`; old records without a host field also mean loopback. Explicit stop removes the record, so specify the host again on the next start. Status reports the actual recorded address even if the current environment differs. A host override on an already running start does not rebind it; use restart/update. Host validation happens before stopping a running server, and stop is independent of `HOST`. Ports continue to use the current environment/defaults. A wildcard bind such as `0.0.0.0` is displayed as a bind address; use an actual interface IP when connecting from another device.
 
 Processes survive the invoking terminal. Private PID/launch-token records and logs live under ignored `.local/servers/`; starting an instance replaces its previous log. Status reports process identity, not HTTP health. Stop verifies the unique launch argument before sending SIGTERM to that exact Node process; it never kills by port or adopts a foreground/externally started server. An occupied port is a startup error, not permission to stop its owner. A crashed server's stale record is ignored and replaced on the next start.
 

@@ -5,6 +5,7 @@ import {access,mkdir,open,readFile,rm,writeFile} from 'node:fs/promises';
 import path from 'node:path';
 import {setTimeout as delay} from 'node:timers/promises';
 import {fileURLToPath} from 'node:url';
+import {bindHost,serverURL} from './server-address.js';
 
 const root=fileURLToPath(new URL('../',import.meta.url));
 const directory=path.join(root,'.local/servers');
@@ -14,7 +15,7 @@ const servers={
   preview:{script:'scripts/serve-static.ts',variable:'PORT',port:4174},
 } as const;
 type Server=keyof typeof servers;
-type State={pid:number;token:string;port:number};
+type State={pid:number;token:string;port:number;host:string};
 const [action,name='dev',...extra]=process.argv.slice(2);
 
 function running(state:State):boolean{
@@ -35,7 +36,8 @@ async function load(file:string):Promise<State|undefined>{
   if(!value||typeof value!=='object')throw new Error(`Invalid server state: ${file}`);
   const state=value as Partial<State>;
   if(typeof state.pid!=='number'||!Number.isSafeInteger(state.pid)||state.pid<=1||typeof state.token!=='string'||!/^atlas-managed-[0-9a-f-]{36}$/.test(state.token)||typeof state.port!=='number'||!Number.isInteger(state.port)||state.port<1||state.port>65535)throw new Error(`Invalid server state: ${file}`);
-  return state as State;
+  if(state.host!==undefined&&typeof state.host!=='string')throw new Error(`Invalid server state: ${file}`);
+  return {pid:state.pid,token:state.token,port:state.port,host:bindHost(state.host??'127.0.0.1')};
 }
 
 async function stop(file:string):Promise<void>{
@@ -51,10 +53,10 @@ async function stop(file:string):Promise<void>{
   throw new Error(`${name}: still running (PID ${state.pid}); inspect logs before retrying stop.`);
 }
 
-async function start(server:Server,file:string,log:string):Promise<void>{
+async function start(server:Server,file:string,log:string,host:string):Promise<void>{
   const previous=await load(file);
   if(previous&&running(previous)){
-    console.log(`${name}: already running (PID ${previous.pid}) at http://127.0.0.1:${previous.port}`);return;
+    console.log(`${name}: already running (PID ${previous.pid}) at ${serverURL(previous.host,previous.port)}`);return;
   }
   const config=servers[server],port=Number(process.env[config.variable]??config.port);
   if(!Number.isInteger(port)||port<1||port>65535)throw new Error(`${config.variable} must be an integer from 1 to 65535.`);
@@ -63,14 +65,14 @@ async function start(server:Server,file:string,log:string):Promise<void>{
   let state:State;
   try{
     const child=spawn(process.execPath,['--import','tsx',path.join(root,config.script),token],{
-      cwd:root,env:{...process.env,[config.variable]:String(port)},detached:true,stdio:['ignore',output.fd,output.fd],
+      cwd:root,env:{...process.env,HOST:host,[config.variable]:String(port)},detached:true,stdio:['ignore',output.fd,output.fd],
     });
     await once(child,'spawn');
-    state={pid:child.pid!,token,port};child.unref();
+    state={pid:child.pid!,token,port,host};child.unref();
     try{await writeFile(file,JSON.stringify(state)+'\n',{mode:0o600});}
     catch(error){if(running(state))process.kill(state.pid,'SIGTERM');throw error;}
   }finally{await output.close();}
-  const url=`http://127.0.0.1:${port}`;
+  const url=serverURL(host,port);
   for(let attempt=0;attempt<150;attempt++){
     const alive=running(state),text=await readFile(log,'utf8');
     if(!alive){await rm(file,{force:true});throw new Error(`${name}: startup failed.\n${text}`);}
@@ -88,7 +90,7 @@ async function main():Promise<void>{
   await mkdir(directory,{recursive:true,mode:0o700});
   if(action==='status'){
     const state=await load(file);
-    console.log(state&&running(state)?`${name}: running (PID ${state.pid}) at http://127.0.0.1:${state.port}`:`${name}: stopped`);return;
+    console.log(state&&running(state)?`${name}: running (PID ${state.pid}) at ${serverURL(state.host,state.port)}`:`${name}: stopped`);return;
   }
   if(action==='logs'){
     try{console.log((await readFile(log,'utf8')).trimEnd().split('\n').slice(-80).join('\n'));}
@@ -98,8 +100,12 @@ async function main():Promise<void>{
   try{await mkdir(lock);}
   catch(error){if((error as NodeJS.ErrnoException).code!=='EEXIST')throw error;throw new Error(`${name}: another controller is active. If it was killed, remove the stale lock ${lock} only after it exits.`);}
   try{
-    if(action==='stop'||action==='restart')await stop(file);
-    if(action==='start'||action==='restart')await start(server,file,log);
+    if(action==='stop'){await stop(file);return;}
+    const previous=await load(file);
+    const host=bindHost(process.env.HOST||previous?.host||'127.0.0.1');
+    if(server==='studio'&&host!=='127.0.0.1')throw new Error('Studio requires host 127.0.0.1; host selection is supported for dev and preview.');
+    if(action==='restart')await stop(file);
+    await start(server,file,log,host);
   }finally{await rm(lock,{recursive:true,force:true});}
 }
 

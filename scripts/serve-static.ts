@@ -2,8 +2,10 @@ import http from 'node:http';
 import path from 'node:path';
 import {readFile,lstat,stat} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
+import {bindHost,serverURL} from './server-address.js';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../dist');
 const port=Number(process.env.PORT)||4174;
+const host=bindHost(process.env.HOST??'127.0.0.1');
 const mime:Record<string,string>={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.json':'application/json; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml'};
 const server=http.createServer(async(req,res)=>{
   if(!['GET','HEAD'].includes(req.method??'')){res.writeHead(405);res.end('Static hosting: no server APIs');return;}
@@ -19,4 +21,4 @@ const server=http.createServer(async(req,res)=>{
     const data=await readFile(file);res.writeHead(200,{'Content-Type':mime[path.extname(file)],'Content-Security-Policy':"default-src 'self'; style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'none'"});res.end(req.method==='HEAD'?undefined:data);
   }catch{res.writeHead(404,{'Content-Type':'text/html; charset=utf-8'});res.end(req.method==='HEAD'?undefined:await readFile(path.join(root,'404.html')).catch(()=>'Build first: npm run build'));}
 });
-server.listen(port,'127.0.0.1',()=>console.log(`Static build preview: http://127.0.0.1:${port}`));
+server.listen(port,host,()=>console.log(`Static build preview: ${serverURL(host,port)}`));
