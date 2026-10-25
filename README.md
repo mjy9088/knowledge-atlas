@@ -14,7 +14,7 @@ just start
 
 Open http://127.0.0.1:4173/ for the knowledge catalog. Every active explanation is an equal possible starting point, not a flagship or secondary product. `/knowledge/newton-to-quantum/` and `/knowledge/number-structures/` are examples of chaptered explanations with a self-contained mainline and optional detours; they do not define the platform's subject scope or receive special catalog treatment.
 
-`just start` runs the development server in the background. Use `just status`, `just logs`, `just restart`, and `just stop` to control it; `just` lists recipes. Add `studio` or `preview` to select another server (for example, `just start studio`; run `just build` before `just start preview`). `pnpm dev` remains available for foreground development. See [server control](docs/DEVELOPMENT.md#server-control-with-just) for ports, logs, and ownership limits.
+`just start` runs the development server in the background. Use `just status`, `just logs`, `just restart`, and `just stop` to control it; `just` lists recipes. Apply working-tree changes with `just update`, then refresh the browser. Add `studio` or `preview` to select another server (for example, `just start studio`; run `just build` before `just start preview`). `just update preview` rebuilds before restarting. `pnpm dev` remains available for foreground development. See [server control](docs/DEVELOPMENT.md#server-control-with-just) for ports, logs, and ownership limits.
 
 Other current starting points include `/knowledge/weekday-worlds/`, `/knowledge/monty-hall/`, and `/knowledge/two-children/`. The [weekday topic specification](content/formal-logic/weekday-worlds/README.md) owns its narrative, interpretation limits, world editor, and timed opening.
 

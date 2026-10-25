@@ -27,16 +27,20 @@ just start               # background development server, port 4173
 just status              # managed process identity and URL, or stopped
 just logs                # last 80 log lines; not a live stream
 just restart             # stop, then start with the current environment
+just update              # restart dev to apply working-tree changes
 just stop                # safe to repeat
 just start studio        # private studio, port 4180
 just stop studio
 just build               # existing validated static build
 just start preview       # serve the existing dist/, port 4174
+just update preview      # validated rebuild, then restart preview
 just stop preview
 just check               # existing full verification suite
 ```
 
 All five lifecycle commands accept `dev` (default), `studio`, or `preview`. `PORT=4300 just start` and `PORT=4301 just start preview` select public-server ports; Studio uses `STUDIO_PORT=4302 just start studio`. There is one managed instance per server kind per checkout. Starting an already running instance reports its existing URL without changing its environment; use restart to apply changes. Preview requires `just build` first and does not rebuild automatically.
+
+Use `just update [dev|studio|preview]` to apply local edits and start the selected server if stopped. Dev and Studio restart to reload imported TypeScript modules. Dev reads browser assets and JSON content per request, but server-imported page/catalog modules remain cached until restart. Preview runs `just build` first and restarts only if that succeeds; a failed check does not stop its existing process. The builder writes directly to `dist/`, so a failure during file emission can leave partial output. Refresh the browser after updating (use a hard refresh if preview assets are cached). There is no automatic browser reload or file watcher. These commands use the current environment and control only their own managed processes.
 
 Processes survive the invoking terminal. Private PID/launch-token records and logs live under ignored `.local/servers/`; starting an instance replaces its previous log. Status reports process identity, not HTTP health. Stop verifies the unique launch argument before sending SIGTERM to that exact Node process; it never kills by port or adopts a foreground/externally started server. An occupied port is a startup error, not permission to stop its owner. A crashed server's stale record is ignored and replaced on the next start.
 

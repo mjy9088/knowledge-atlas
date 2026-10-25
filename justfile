@@ -14,6 +14,11 @@ stop server="dev":
 restart server="dev":
     @node --import tsx scripts/server-control.ts restart {{quote(server)}}
 
+# Apply working-tree changes; rebuild preview before restarting it.
+update server="dev":
+    @case {{quote(server)}} in preview) just build ;; dev|studio) ;; *) echo 'Usage: just update [dev|studio|preview]' >&2; exit 1 ;; esac
+    @just restart {{quote(server)}}
+
 # Show the selected server's managed process and URL.
 status server="dev":
     @node --import tsx scripts/server-control.ts status {{quote(server)}}
