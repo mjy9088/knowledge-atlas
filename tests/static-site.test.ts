@@ -45,7 +45,7 @@ test('pre-rendered scene routes select exactly the requested scene before JavaSc
   const html=siteDocuments(untrusted).get('/knowledge/newton-to-quantum/')!;
   assert.ok(html.includes('&lt;script&gt;'));assert.ok(!html.includes('<script>alert'));
 });
-test('chaptered works expose long-form presentation and chapter-local progress',async()=>{
+test('chaptered works expose long-form presentation and complete-sequence progress',async()=>{
   // Given the complete static documents for main works and retained readers.
   const docs=siteDocuments(await loadSiteContent());
   // When each page's presentation and scene progress are inspected.
@@ -55,13 +55,8 @@ test('chaptered works expose long-form presentation and chapter-local progress',
     assert.ok(html.includes('data-presentation="longform"'));
     assert.ok(html.includes(`<p class="eyebrow">${escapeHTML(page.category)}</p>`));
     assert.ok(!html.includes(`<p class="eyebrow">${escapeHTML(page.category)} / ${escapeHTML(page.label)}</p>`));
-    const mainline=page.navigation.chapters.filter(chapter=>chapter.kind==='mainline').flatMap(chapter=>chapter.sceneIds);
-    for(const chapter of page.navigation.chapters)chapter.sceneIds.forEach((sceneId,index)=>{
-      const prefix=chapter.kind==='mainline'?'본문':'선택';
-      const position=chapter.kind==='mainline'?mainline.indexOf(sceneId):index;
-      const total=chapter.kind==='mainline'?mainline.length:chapter.sceneIds.length;
-      assert.ok(html.includes(`data-chapter-kind="${chapter.kind}" id="${sceneId}"`));
-      assert.ok(html.includes(`<p class="eyebrow">${prefix} ${position+1} / ${total}</p>`));
+    page.scenes.forEach((scene,index)=>{
+      assert.ok(html.includes(`<p class="eyebrow">본문 ${index+1} / ${page.scenes.length}</p>`));
     });
   }
   // Then retained readers remain explicitly bounded instead of inheriting the exception.
@@ -79,14 +74,15 @@ test('chaptered cards render authored facts without causal connectors or dropped
     }
   }
 });
-test('static last-detour documents retain their declared no-JavaScript return link',async()=>{
+test('static scene documents link to adjacent included scenes and authored forward skips',async()=>{
   const docs=siteDocuments(await loadSiteContent());
-  for(const page of CONTENT_PAGES.filter(candidate=>candidate.navigation))for(const chapter of page.navigation?.chapters??[]){
-    if(chapter.kind!=='detour')continue;
-    const lastScene=chapter.sceneIds.at(-1),html=lastScene?docs.get(`/knowledge/${page.slug}/${lastScene}/`)??'':'';
-    assert.ok(html.includes(`class="reader-branch-links"`));
-    assert.ok(html.includes(`href="/knowledge/${page.slug}/${chapter.returnSceneId}/"`));
-    assert.ok(html.includes('본문 돌아가기 ↩'));
+  for(const page of CONTENT_PAGES)for(const [index,scene] of page.scenes.entries()){
+    const html=docs.get(`/knowledge/${page.slug}/${scene.id}/`)??'';
+    const selected=html.split(` id="${scene.id}"`)[1]??'';
+    const nav=selected.match(/<noscript>(.*?)<\/noscript>/s)?.[1]??'';
+    if(page.scenes[index+1])assert.ok(nav.includes(`href="/knowledge/${page.slug}/${page.scenes[index+1].id}/"`));
+    if(page.scenes[index-1])assert.ok(nav.includes(`href="/knowledge/${page.slug}/${page.scenes[index-1].id}/"`));
+    if(scene.skip)assert.ok(nav.includes(`href="/knowledge/${page.slug}/${scene.skip.to}/"`));
   }
 });
 test('site documents expose five active routes and omit retired readers',async()=>{
@@ -100,8 +96,7 @@ test('site documents expose five active routes and omit retired readers',async()
 test('every catalog card names its authored payoff without substituting a trailing detour',async()=>{
   const data=await loadSiteContent(),html=siteDocuments(data).get('/knowledge/')??'';
   for(const page of CONTENT_PAGES){
-    const finalChapter=page.navigation?.chapters.filter(chapter=>chapter.kind==='mainline').at(-1),finalId=finalChapter?.sceneIds.at(-1),finalScene=page.scenes.find(scene=>scene.id===finalId);
-    const payoff=finalScene??page.scenes.at(-1);
+    const payoff=page.scenes.at(-1);
     assert.ok(payoff&&html.includes(`도착점 · ${escapeHTML(payoff.title)}\u00a0→`));
   }
 });
@@ -116,7 +111,7 @@ test('related navigation links only to active reader routes',async()=>{
 });
 test('reader supports direct jumps, detached states, reset and rejection without mutation',()=>{
   for(const page of CONTENT_PAGES){
-    const reader=createRelatedReader(page),initial=reader.getState(),mainline=page.navigation?.chapters.filter(chapter=>chapter.kind==='mainline').flatMap(chapter=>chapter.sceneIds),lastId=mainline?.at(-1)??page.scenes.at(-1)?.id;
+    const reader=createRelatedReader(page),initial=reader.getState(),lastId=page.scenes.at(-1)?.id;
     assert.ok(lastId);reader.setState({sceneId:lastId});const last=reader.inspect().index;
     reader.next();assert.equal(reader.inspect().index,last);reader.previous();assert.notEqual(reader.inspect().index,last);
     const detached=reader.inspect();detached.scene.cards[0]='changed';assert.notEqual(reader.inspect().scene.cards[0],'changed');

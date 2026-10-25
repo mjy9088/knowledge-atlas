@@ -49,7 +49,8 @@ test('direct paired sampling preserves denominators, choice and reproducible pre
   await page.evaluate(state => window.__atlasRelated.setState(state), saved);
   expect(await sampler.locator('.monty-sample-cards').innerText()).toBe(prefix);
   await page.evaluate(() => window.__atlasRelated.setState({sceneId: 'compare'}));
-  await page.locator('#reader-next').click();
+  for (let step = 0; step < 4; step++) await page.locator('#reader-next').click();
+  await expect(page).toHaveURL(/\/sampling\/$/);
   expect(await sampler.locator('.monty-sample-cards').innerText()).toBe(prefix);
   await page.getByRole('button', {name: '새 표본', exact: true}).click();
   const fresh = await snapshot(page);

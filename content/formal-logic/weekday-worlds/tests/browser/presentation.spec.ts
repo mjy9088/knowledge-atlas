@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { CONTENT_PAGES } from "../../../../catalog.js";
-import { activeWork, mainlineSceneIds } from "../../../../../tests/browser/support/main-work.js";
+import { activeWork, readingSceneIds } from "../../../../../tests/browser/support/main-work.js";
 import { expectFrame, weekdayFrame, weekdayInputs, weekdayReasoning, weekdayView } from "./support.js";
 
 test('weekday Next keeps the same bounds on title, every scene, both modes and final links',async({page},testInfo)=>{
@@ -35,7 +35,7 @@ test('weekday actions stay compact with menu links and tooltip-only keyboard hel
   await page.evaluate(state=>window.__atlasRelated.setState(state),snapshot);await expectFrame(page,weekdayFrame);await testInfo.attach('weekday-compact-actions',{body:await page.screenshot(),contentType:'image/png'});
   await page.locator('.reader-menu').evaluate(e=>(e as HTMLDetailsElement).open=true);await page.locator('.reader-menu a[href="/knowledge/"]').click();await expect(page).toHaveURL(/\/knowledge\/$/);
   await page.goto('/knowledge/number-structures/#question');await page.waitForFunction(()=>window.__atlasRelated);
-  const finalMainline=mainlineSceneIds(activeWork('number-structures')).at(-1);if(!finalMainline)throw new TypeError('Missing number-structures mainline');
+  const finalMainline=readingSceneIds(activeWork('number-structures')).at(-1);if(!finalMainline)throw new TypeError('Missing number-structures mainline');
   await expect(hint).toBeVisible();await expect(links).toBeHidden();
   await page.evaluate(sceneId=>window.__atlasRelated.setState({sceneId}),finalMainline);await expect(links).toBeVisible();await expect(links.locator('a')).toHaveText(['지식 목록 ↗','근거와 범위']);
 });

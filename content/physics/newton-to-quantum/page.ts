@@ -1,3 +1,4 @@
+import {orderScenes} from '../../../packages/content/reading-order.js';
 import type {ContentPage} from '../../../packages/content/types.js';
 import {historyScenes,historyVisual} from './history-scenes.js';
 
@@ -35,15 +36,15 @@ const page={
   ],
   navigation: {
     chapters: [
-      {kind: 'mainline', id: 'classical-prediction', title: '움직임의 예측에서 전자의 발견으로', sceneIds: ['question', 'newton', 'classical-confidence', 'atomic-evidence', 'electron-1897']},
-      {kind: 'mainline', id: 'new-constraints', title: '빛의 에너지와 원자핵을 찾다', sceneIds: ['light-and-heat', 'photoelectric', 'nuclear-atom', 'spectral-lines', 'bohr', 'proton-1919']},
-      {kind: 'mainline', id: 'quantum-description', title: '양자 상태와 계속되는 핵의 발견', sceneIds: ['matter-waves', 'quantum-state', 'neutron-1932', 'classical-limit', 'payoff']},
-      {kind: 'detour', id: 'forces-and-frames', title: '힘과 기준계', sceneIds: ['force-balance', 'frame-comparison'], parentSceneId: 'newton', returnSceneId: 'newton'},
-      {kind: 'detour', id: 'unseen-matter', title: '보이지 않는 물질의 증거', sceneIds: ['brownian-proxy', 'brownian-bridge'], parentSceneId: 'atomic-evidence', returnSceneId: 'atomic-evidence'},
-      {kind: 'detour', id: 'photon-ledger', title: '한 사건의 에너지 장부', sceneIds: ['below-threshold', 'above-threshold'], parentSceneId: 'photoelectric', returnSceneId: 'photoelectric'},
-      {kind: 'detour', id: 'probing-the-atom', title: '원자를 탐침으로 읽기', sceneIds: ['charge-mass-ratio', 'scattering-inference'], parentSceneId: 'nuclear-atom', returnSceneId: 'nuclear-atom'},
-      {kind: 'detour', id: 'line-energy', title: '파장에서 에너지로', sceneIds: ['wavelength-energy', 'hydrogen-prediction'], parentSceneId: 'spectral-lines', returnSceneId: 'spectral-lines'},
-      {kind: 'detour', id: 'orbital-laboratory', title: '오비탈 실험실', sceneIds: ['orbital-density', 'orbital-phase'], parentSceneId: 'quantum-state', returnSceneId: 'quantum-state'},
+      {id: 'classical-prediction', title: '움직임의 예측에서 전자의 발견으로', sceneIds: ['question', 'newton', 'classical-confidence', 'atomic-evidence', 'electron-1897']},
+      {id: 'new-constraints', title: '빛의 에너지와 원자핵을 찾다', sceneIds: ['light-and-heat', 'photoelectric', 'nuclear-atom', 'spectral-lines', 'bohr', 'proton-1919']},
+      {id: 'quantum-description', title: '양자 상태와 계속되는 핵의 발견', sceneIds: ['matter-waves', 'quantum-state', 'neutron-1932', 'classical-limit', 'payoff']},
+      {id: 'forces-and-frames', title: '힘과 기준계', sceneIds: ['force-balance', 'frame-comparison']},
+      {id: 'unseen-matter', title: '보이지 않는 물질의 증거', sceneIds: ['brownian-proxy', 'brownian-bridge']},
+      {id: 'photon-ledger', title: '한 사건의 에너지 장부', sceneIds: ['below-threshold', 'above-threshold']},
+      {id: 'probing-the-atom', title: '원자를 탐침으로 읽기', sceneIds: ['charge-mass-ratio', 'scattering-inference']},
+      {id: 'line-energy', title: '파장에서 에너지로', sceneIds: ['wavelength-energy', 'hydrogen-prediction']},
+      {id: 'orbital-laboratory', title: '오비탈 실험실', sceneIds: ['orbital-density', 'orbital-phase']},
     ],
     relatedArticleIds: [],
   },
@@ -61,18 +62,18 @@ const page={
     {id: 'quantum-state', title: '수소 결합 상태가 안정성과 선 위치를 함께 설명합니다', block: 10, from: 0, cards: ['공간 | |ψ|² 확률밀도', '에너지 | 결합 정상 상태는 이산', '범위 | 이온화 연속 상태 제외', '안정성 | 결합 바닥 상태 아래 없음', '빛 | hν=결합 상태 에너지 차이'], known: '한 전자 수소 결합 상태로 설명한 안정성과 선택된 선'},
     {id: 'classical-limit', title: '같은 물질파 식도 규모에 따라 다르게 드러납니다', block: 11, from: 0, cards: ['p=0.1 kg·m/s | 6.6×10⁻³³ m', 'p=9.1×10⁻²⁵ kg·m/s | 7.3×10⁻¹⁰ m', '주의 | 파장만으로 보편 문턱 아님'], known: '드브로이 파장 규모와 고전 근사의 조건'},
     {id: 'payoff', title: '안정성과 선 주파수에 직접 답합니다', block: 12, from: 0, cards: [], known: '후대 양자 틀에서 함께 다룬 서로 다른 질문과 제한된 수소 결론', figure: {src: '/content/physics/newton-to-quantum/figure-reasoning-chain.svg', alt: '후대의 양자 틀에서 함께 다룬 세 질문을 나란히 놓습니다. 열복사는 고전 모드 등분배와 늘어나는 모드 수가 만든 고주파 발산, 광전효과는 사건별 문턱, 원자와 스펙트럼은 고전 붕괴와 고정 선 위치, 전자 회절은 방향별 진폭 가중치를 제기합니다. 중앙에는 에너지 양자, 전이 규칙, 결과 진폭이라는 일반 도구가 있고, 별도 결과 상자는 비상대론적 한 전자 수소 모형에서의 바닥 상태 안정성과 선택된 선 위치만을 표시합니다.', caption: '원본 후대적 종합 · 에너지 양자·전이 규칙·결과 진폭으로 질문들을 함께 다룸 · 유일한 역사 경로나 단일 ψ 설명 아님'}},
-    {id: 'force-balance', title: '알짜 힘 0은 힘이 없다는 뜻이 아닙니다', block: 13, from: 0, cards: ['수평 | +4 N − 4 N', '수직 | 수직항력 − 중력', '알짜 | 0 N'], known: '균형 힘과 일정한 속도의 양립'},
+    {id: 'force-balance', skip: {"to": "classical-confidence", "label": "힘과 기준계 건너뛰기"}, title: '알짜 힘 0은 힘이 없다는 뜻이 아닙니다', block: 13, from: 0, cards: ['수평 | +4 N − 4 N', '수직 | 수직항력 − 중력', '알짜 | 0 N'], known: '균형 힘과 일정한 속도의 양립'},
     {id: 'frame-comparison', title: '버스가 감속하면 상대속도가 0에서 2 m/s가 됩니다', block: 14, from: 0, cards: ['처음 | 4−4=0 m/s', '제동 뒤 | 4−2=2 m/s', '원인 | 물체의 새 힘이 아니라 가속 기준계'], known: '상대속도 계산과 기준계의 구별'},
-    {id: 'brownian-proxy', title: '보이는 점은 분자가 아니라 탐침입니다', block: 15, from: 0, cards: ['보임 | 콜로이드 입자', '보이지 않음 | 분자', '통제 | 대류·진동·온도 구배'], known: '탐침과 추론 대상의 구별'},
+    {id: 'brownian-proxy', skip: {"to": "electron-1897", "label": "보이지 않는 물질의 증거 건너뛰기"}, title: '보이는 점은 분자가 아니라 탐침입니다', block: 15, from: 0, cards: ['보임 | 콜로이드 입자', '보이지 않음 | 분자', '통제 | 대류·진동·온도 구배'], known: '탐침과 추론 대상의 구별'},
     {id: 'brownian-bridge', title: '온도·점도·탐침 반지름을 바꾸어 예측합니다', block: 16, from: 0, cards: ['측정 | ⟨(Δx)²⟩=2Dt', 'a | 구형 탐침 반지름', '비례 | D∝T/(ηa)', '조건 | 평형·희석·벽 효과'], known: '바뀐 조건으로 시험하는 브라운 운동 모형'},
-    {id: 'below-threshold', title: '정확한 문턱은 Kmax=0인 경계입니다', block: 17, from: 0, cards: ['φ=hf | 2.30 eV', 'fthreshold | 약 5.56×10¹⁴ Hz', 'Kmax | 0 eV', '한계 | 관측 전류는 보장되지 않음'], known: '문턱 에너지 조건과 검출 전류 조건의 구별'},
+    {id: 'below-threshold', skip: {"to": "nuclear-atom", "label": "한 사건의 에너지 장부 건너뛰기"}, title: '정확한 문턱은 Kmax=0인 경계입니다', block: 17, from: 0, cards: ['φ=hf | 2.30 eV', 'fthreshold | 약 5.56×10¹⁴ Hz', 'Kmax | 0 eV', '한계 | 관측 전류는 보장되지 않음'], known: '문턱 에너지 조건과 검출 전류 조건의 구별'},
     {id: 'above-threshold', title: '문턱 위에서는 남은 에너지가 운동에너지입니다', block: 18, from: 0, cards: ['hf | 3.31 eV', 'Kmax | 1.01 eV', '이상적 정지전압 | −1.01 V'], known: '문턱 위 가상 에너지와 전압 장부'},
-    {id: 'charge-mass-ratio', title: '힘 평형과 곡률에서 |q|/m을 유도합니다', block: 19, from: 0, cards: ['상쇄 | |q|E=|q|vB', '속도 | v=E/B', '곡률 | |q|vB=mv²/r', '결과 | |q|/m=v/(Br)'], known: '속도 선택과 전하 대 질량비 유도'},
+    {id: 'charge-mass-ratio', skip: {"to": "spectral-lines", "label": "원자를 탐침으로 읽기 건너뛰기"}, title: '힘 평형과 곡률에서 |q|/m을 유도합니다', block: 19, from: 0, cards: ['상쇄 | |q|E=|q|vB', '속도 | v=E/B', '곡률 | |q|vB=mv²/r', '결과 | |q|/m=v/(Br)'], known: '속도 선택과 전하 대 질량비 유도'},
     {id: 'scattering-inference', title: '산란 무늬는 핵의 사진이 아닙니다', block: 20, from: 0, cards: ['자료 | 각도별 사건 패턴', '비교 | 퍼진 전하와 집중 전하', '한계 | 선은 측정 궤적이 아님'], known: '장치·패턴·모형 추론의 분리'},
-    {id: 'wavelength-energy', title: '짧은 파장은 더 큰 한 광자 에너지입니다', block: 21, from: 0, cards: ['식 | E≈1239.84/λair eV', '410.2 nm | 3.02 eV', '656.3 nm | 1.89 eV'], known: '파장-에너지 환산과 밝기 한계'},
+    {id: 'wavelength-energy', skip: {"to": "proton-1919", "label": "파장에서 에너지로 건너뛰기"}, title: '짧은 파장은 더 큰 한 광자 에너지입니다', block: 21, from: 0, cards: ['식 | E≈1239.84/λair eV', '410.2 nm | 3.02 eV', '656.3 nm | 1.89 eV'], known: '파장-에너지 환산과 밝기 한계'},
     {id: 'hydrogen-prediction', title: '6→2 전이는 약 410\u00a0nm를 예측합니다', block: 22, from: 0, cards: ['E6 | −0.378\u00a0eV', 'E2 | −3.40\u00a0eV', '|ΔE| | 3.02\u00a0eV', 'λvac | 약 410\u00a0nm'], known: '두 전이의 선 위치 비교와 밝기 한계'},
-    {id: 'orbital-density', title: '점 밀도는 전자 궤적이 아닙니다', block: 23, from: 0, cards: ['표현 | |ψ|²의 유한 표본', '마디 | 밀도 0 영역', '한계 | 등밀도면 ≠ 물리적 경계'], known: '오비탈 밀도 표현의 의미', suggestion: {example: 'orbital-density'}},
+    {id: 'orbital-density', skip: {"to": "neutron-1932", "label": "오비탈 실험실 건너뛰기"}, title: '점 밀도는 전자 궤적이 아닙니다', block: 23, from: 0, cards: ['표현 | |ψ|²의 유한 표본', '마디 | 밀도 0 영역', '한계 | 등밀도면 ≠ 물리적 경계'], known: '오비탈 밀도 표현의 의미', suggestion: {example: 'orbital-density'}},
     {id: 'orbital-phase', title: '상대 부호가 보강과 상쇄를 바꿉니다', block: 24, from: 0, cards: ['보강 | 1+1=2', '상쇄 | 1−1=0', '주의 | 4는 정규화된 확률 아님', '불변 | 전체 부호 반전 뒤 |ψ|² 동일'], known: '오비탈 상대 위상의 간섭 의미', suggestion: {example: 'orbital-phase'}},
   ],
 } satisfies ContentPage;
-export default {...page,scenes:[...page.scenes,...historyScenes].map(historyVisual)} satisfies ContentPage;
+export default orderScenes({...page,scenes:[...page.scenes,...historyScenes].map(historyVisual)}, ["question", "newton", "force-balance", "frame-comparison", "classical-confidence", "atomic-evidence", "brownian-proxy", "brownian-bridge", "electron-1897", "light-and-heat", "photoelectric", "below-threshold", "above-threshold", "nuclear-atom", "charge-mass-ratio", "scattering-inference", "spectral-lines", "bohr", "wavelength-energy", "hydrogen-prediction", "proton-1919", "matter-waves", "quantum-state", "orbital-density", "orbital-phase", "neutron-1932", "classical-limit", "payoff"]);

@@ -7,7 +7,7 @@ export default {
   "model": null,
   "experiment": false,
   "navigation": {
-    "chapters": [{"kind": "mainline", "id": "observation-denominators", "title": "관측이 남기는 경우를 세기", "sceneIds": ["question", "model", "filter", "child", "missing", "transfer"]}],
+    "chapters": [{"id": "observation-denominators", "title": "관측이 남기는 경우를 세기", "sceneIds": ["question", "model", "filter", "child", "missing", "transfer"]}],
     "relatedArticleIds": ["article:statistics.monty-hall.ko"]
   },
   "claimRefs": [

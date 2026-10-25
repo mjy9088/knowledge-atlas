@@ -1,26 +1,7 @@
 {
   "articleId": "article:statistics.monty-hall.ko",
   "status": "prospective-unmeasured-review-required",
-  "projection": "self-paced-one-reasoning-step-per-scene",
-  "mainlineSceneIds": [
-    "question",
-    "reveal",
-    "protocol",
-    "tie-rule",
-    "case-hit",
-    "case-miss-a",
-    "case-miss-b",
-    "informed-tree",
-    "strategy",
-    "shortened",
-    "blind-rule",
-    "blind-paths",
-    "blind-keep-hit",
-    "blind-keep-miss",
-    "compare",
-    "sampling",
-    "close"
-  ],
+  "projection": "self-paced-complete-sequence-with-explicit-forward-skips",
   "slides": [
     {
       "sceneId": "question",
@@ -127,7 +108,7 @@
       "prerequisites": [
         "case-miss-b"
       ],
-      "interaction": "Choice-dependent labels update; optional full experiment is separate."
+      "interaction": "Choice-dependent labels update; full experiment appears after sampling."
     },
     {
       "sceneId": "shortened",
@@ -223,12 +204,12 @@
       "prerequisites": [
         "compare"
       ],
-      "interaction": "Static synthesis; no detour is needed for the payoff."
+      "interaction": "Static synthesis after every included example and experiment."
     },
     {
       "sceneId": "specific",
       "blockRef": "block:statistics.monty-hall.specific",
-      "title": "선택: 2번을 우선 여는 진행자",
+      "title": "2번을 우선 여는 진행자",
       "purpose": "Declare a separate fixed-choice1 informed host that opens2 whenever allowed.",
       "successCheck": "Can state this numbered-door scenario separately from their own chosen-door example.",
       "representation": "Static diagram explicitly labelled separate fixed-choice1 example.",
@@ -236,39 +217,39 @@
         "strategy",
         "compare"
       ],
-      "interaction": "Optional static branch; no reset of reader choice."
+      "interaction": "Included static section; no reset of reader choice."
     },
     {
       "sceneId": "specific-cases",
       "blockRef": "block:statistics.monty-hall.specific-cases",
-      "title": "선택: 2번이 열린 경우만 남겨 봅시다",
+      "title": "2번이 열린 경우만 남겨 봅시다",
       "purpose": "List opened doors 2/3/2 for prize1/2/3 and retain door2 reveals.",
       "successCheck": "Can identify retained prize1 and prize3 cases.",
       "representation": "Static three-case opened-door table; two retained rows.",
       "prerequisites": [
         "specific"
       ],
-      "interaction": "Optional static comparison; does not claim the free experiment supports a preferred-door policy."
+      "interaction": "Included static comparison; does not claim the free experiment supports a preferred-door policy."
     },
     {
       "sceneId": "specific-result",
       "blockRef": "block:statistics.monty-hall.specific-result",
-      "title": "선택: 이때는 두 경우 중 한 경우입니다",
+      "title": "이때는 두 경우 중 한 경우입니다",
       "purpose": "Distinguish the numbered subset success1/2 from overall always-switch2/3.",
       "successCheck": "Can explain why restricting to door2 changes the counted games.",
       "representation": "Compact retained-case versus all-case comparison.",
       "prerequisites": [
         "specific-cases"
       ],
-      "interaction": "Optional branch returns to compare; original specific URL preserved."
+      "interaction": "Included numbered comparison continues to sampling; original specific URL preserved."
     },
     {
       "sceneId": "experiment",
       "blockRef": "block:statistics.monty-hall.experiment",
-      "title": "선택: 규칙을 바꾸며 더 실험해 보세요",
+      "title": "규칙을 바꾸며 더 실험해 보세요",
       "purpose": "Offer the existing full deterministic host-rule ledger and optional seeded sampling.",
       "successCheck": "Can compare informed4/6 and blind2/4 while distinguishing exact units from samples.",
-      "representation": "Existing full model-backed ledger and sampling disclosure; excluded from mainline.",
+      "representation": "Existing full model-backed ledger and sampling disclosure; included after sampling before close.",
       "prerequisites": [
         "strategy",
         "compare"
@@ -284,7 +265,30 @@
     "source revision and rights review",
     "narration timing and publication authorization"
   ],
-  "detours": [
+  "readingOrderSceneIds": [
+    "question",
+    "reveal",
+    "protocol",
+    "tie-rule",
+    "case-hit",
+    "case-miss-a",
+    "case-miss-b",
+    "informed-tree",
+    "strategy",
+    "shortened",
+    "blind-rule",
+    "blind-paths",
+    "blind-keep-hit",
+    "blind-keep-miss",
+    "compare",
+    "specific",
+    "specific-cases",
+    "specific-result",
+    "sampling",
+    "experiment",
+    "close"
+  ],
+  "skippableSections": [
     {
       "id": "numbered-reveal",
       "sceneIds": [
@@ -292,16 +296,9 @@
         "specific-cases",
         "specific-result"
       ],
-      "parentSceneId": "compare",
-      "returnSceneId": "compare"
-    },
-    {
-      "id": "free-experiment",
-      "sceneIds": [
-        "experiment"
-      ],
-      "parentSceneId": "strategy",
-      "returnSceneId": "strategy"
+      "to": "sampling",
+      "label": "2번이 열린 게임만 고르면? 건너뛰기"
     }
-  ]
+  ],
+  "navigationPurpose": "Every authored scene is included in Previous/Next order at its relevant context. Existing per-scene content, purpose, representation and success checks remain. Readers may explicitly skip a named multi-scene section; direct entry and restoration continue from that scene without a hidden return path."
 }

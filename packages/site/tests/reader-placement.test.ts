@@ -12,7 +12,7 @@ const collection: ContentCollection = {id: 'collection:placement', reviewStatus:
 const page: ContentPage = {
   slug: 'placement', articleId: article.id, label: article.title, category: 'fixture',
   interactive: 'monty-hall',
-  navigation: {chapters: [{kind: 'mainline', id: 'argument', title: 'Argument', sceneIds: ['question']}], relatedArticleIds: []},
+  navigation: {chapters: [{id: 'argument', title: 'Argument', sceneIds: ['question']}], relatedArticleIds: []},
   scenes: [{id: 'question', title: 'Question', block: 0, from: 0, cards: [], known: 'Worked reasoning'}],
 };
 

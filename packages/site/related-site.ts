@@ -2,7 +2,7 @@ import type {Article,Claim,ContentCollection,ContentPage,SourceRecord} from '../
 import {articleDisplayTitle} from '../content/presentation.js';
 import {CONTENT_PAGES,INDEX_PAGES,pageURL,sceneText} from '../../content/catalog.js';
 import {isURLSafeSceneId} from '../content/scene-routing.js';
-import {chapterMenu,branchLinks,sceneProgress} from './reader-navigation.js';
+import {chapterMenu,staticSceneNavigation,sceneProgress} from './reader-navigation.js';
 import {escapeHTML} from './html.js';
 export {escapeHTML} from './html.js';
 
@@ -40,11 +40,9 @@ export function validateRelatedPages(collection:ContentCollection,claims:Claim[]
     if(page.navigation){
       const chapterIds=page.navigation.chapters.flatMap(chapter=>chapter.sceneIds);
       const identities=page.navigation.chapters.map(chapter=>chapter.id);
-      const mainlineIds=new Set(page.navigation.chapters.filter(chapter=>chapter.kind==='mainline').flatMap(chapter=>chapter.sceneIds));
       if(chapterIds.length!==page.scenes.length||new Set(chapterIds).size!==chapterIds.length||chapterIds.some(id=>!sceneIds.has(id)))errors.push(`Invalid chapter coverage ${page.articleId}`);
       if(new Set(identities).size!==identities.length)errors.push(`Duplicate chapter identities ${page.articleId}`);
       if(page.navigation.chapters.some(chapter=>chapter.sceneIds.length===0))errors.push(`Invalid empty chapter ${page.articleId}`);
-      for(const chapter of page.navigation.chapters)if(chapter.kind==='detour'&&(!mainlineIds.has(chapter.parentSceneId)||!mainlineIds.has(chapter.returnSceneId)))errors.push(`Detour parent and return must be mainline scenes ${chapter.id}`);
     }
     article.blocks.forEach((block,index)=>{if(coverage[index].join(' ')!==block.text)errors.push(`Scene coverage differs from source ${block.id}`);});
   }
@@ -52,7 +50,7 @@ export function validateRelatedPages(collection:ContentCollection,claims:Claim[]
 }
 
 function knowledgeCard(page:ContentPage,article:Article){
-  const opening=page.scenes[0],finalMainlineId=page.navigation?.chapters.filter(chapter=>chapter.kind==='mainline').at(-1)?.sceneIds.at(-1),payoff=page.scenes.find(scene=>scene.id===finalMainlineId)??page.scenes.at(-1);
+  const opening=page.scenes[0],payoff=page.scenes.at(-1);
   return `<a class="knowledge-card" href="${pageURL(page)}" title="${e(article.title)}"><span>${e(page.category)}</span><h3>${e(articleDisplayTitle(article))}</h3><p>${e(opening?.title??page.label)}</p><small>도착점 · ${e(payoff?.title??page.label)}\u00a0→</small></a>`;
 }
 export function renderRelatedIndex(collection:ContentCollection){
@@ -71,8 +69,8 @@ function sceneHTML(page:ContentPage,article:Article,scene:ContentPage['scenes'][
   const cards=page.navigation?`<ul class="concept-facts">${scene.cards.map(card=>`<li><span class="concept-fact-value">${e(card)}</span></li>`).join('')}</ul>`:scene.cards.map(card=>`<span>${e(card)}</span>`).join('<span class="concept-connector" aria-hidden="true">·</span>');
   const diagram=scene.figure?`<figure class="scene-figure"><img src="${e(scene.figure.src)}" alt="${e(scene.figure.alt)}" width="${size?.width}" height="${size?.height}"><figcaption>${e(scene.figure.caption)}</figcaption></figure>`:cards;
   const figure=`<div class="concept-diagram"${visual==='none'?' hidden':''} aria-label="${e(scene.title)}의 ${page.navigation?'핵심 사실과 조건':'개념 관계'}">${diagram}</div>`;
-  const dialogue=`<div class="reader-dialogue"><p class="eyebrow">${progress.label}</p><div class="reader-copy"><h2 id="${scene.id}-title">${e(scene.title)}</h2><p class="scene-prose">${e(sceneText(article,scene))}</p><p class="scene-result" hidden></p>${branchLinks(page,scene.id)}</div><p class="skip-context" hidden>건너뛸 내용: ${e(scene.known)}</p></div>`;
-  return `<section class="reader-scene" data-visual="${visual}"${progress.attribute} id="${scene.id}"${scene.motion?` data-motion="${e(scene.motion.id)}"`:''} data-claim-refs="${e(block.claimRefs.join(' '))}" aria-labelledby="${scene.id}-title"${scene.id===selectedId?'':' hidden'}>${page.sceneVisualPlacement==='after-explanation'?dialogue+figure:figure+dialogue}</section>`;
+  const dialogue=`<div class="reader-dialogue"><p class="eyebrow">${progress.label}</p><div class="reader-copy"><h2 id="${scene.id}-title">${e(scene.title)}</h2><p class="scene-prose">${e(sceneText(article,scene))}</p><p class="scene-result" hidden></p></div><p class="skip-context" hidden>건너뛸 내용: ${e(scene.known)}</p></div>`;
+  return `<section class="reader-scene" data-visual="${visual}"${progress.attribute} id="${scene.id}"${scene.motion?` data-motion="${e(scene.motion.id)}"`:''} data-claim-refs="${e(block.claimRefs.join(' '))}" aria-labelledby="${scene.id}-title"${scene.id===selectedId?'':' hidden'}>${page.sceneVisualPlacement==='after-explanation'?dialogue+figure:figure+dialogue}${staticSceneNavigation(page,index)}</section>`;
 }
 
 export function renderRelatedPage(page:ContentPage,collection:ContentCollection,claims:Claim[],sources:SourceRecord[],selectedSceneId=page.scenes[0]?.id,dimensions:Readonly<Record<string,{readonly width:number;readonly height:number}>>={}){

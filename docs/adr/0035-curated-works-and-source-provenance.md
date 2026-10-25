@@ -10,13 +10,13 @@ The canonical catalog loader, public route generation, shared reader navigation,
 
 ## Alternatives
 
-Keeping every old reader behind a hidden catalog card would preserve executable products the user rejected. Deleting their article/claim evidence would destroy provenance and reusable scientific work. A general lifecycle database or arbitrary graph-navigation engine would add infrastructure beyond the current file-first need.
+Keeping every old reader behind a hidden catalog card would preserve executable products the user rejected. Deleting their article/claim evidence would destroy provenance and reusable scientific work. A general lifecycle database or arbitrary graph-navigation engine would add infrastructure beyond the current file-first need. Automatically bypassing deeper chapters makes part of an explanation undiscoverable during ordinary reading; a complete sequence with explicit skips keeps that choice with the reader.
 
 ## Decision
 
 Keep canonical article/claim records in `CONTENT_ENTRIES`, explicitly choose routable readers through `CONTENT_PAGES`, and supply equal catalog entrances through a flat `INDEX_PAGES` list. Preserve source identities separately from route membership. Omit retired screens and their page/adaptor assets from static reader output rather than shipping executable archive pages.
 
-Represent a chaptered explanation as one canonical article and shared-reader route. Its mainline chapters supply a complete answer; optional non-nested detours declare parent and return scenes. Mainline navigation bypasses detours, while direct detour entry, previous/next, return, reset, and restoration are derived from declared identities without a hidden history stack. Chapter support is a reading structure, not a catalog rank.
+Represent a chaptered explanation as one canonical article and shared-reader route. Its canonical scene order includes the central argument, deeper proofs and experiments by default. Chapter groups do not create excluded paths. Readers may explicitly skip a named forward section, while Previous/Next, direct entry, reset and restoration use the same complete order without a hidden history stack. Chapter support is a reading structure, not a catalog rank.
 
 ## Consequences
 

@@ -1,14 +1,14 @@
 # Why these number systems?
 
-This long-form Korean article asks what kind of failure is being repaired and which structure the repair must preserve. Its 11-scene mainline distinguishes three moves rather than presenting `ℕ→ℤ→ℚ→ℝ→ℂ` as an inevitable ladder: repairing an operation, generating a field from a named solution, and imposing a global structural property. In particular, `√2∉ℚ` is one premise for the independently checked construction of `ℚ(√2)` inside an already supplied real field, but it does not construct or force `ℝ`; the least-upper-bound property is a separate universal requirement.
+This long-form Korean article asks what kind of failure is being repaired and which structure the repair must preserve. Its central argument distinguishes three moves rather than presenting `ℕ→ℤ→ℚ→ℝ→ℂ` as an inevitable ladder: repairing an operation, generating a field from a named solution, and imposing a global structural property. In particular, `√2∉ℚ` is one premise for the independently checked construction of `ℚ(√2)` inside an already supplied real field, but it does not construct or force `ℝ`; the least-upper-bound property is a separate universal requirement.
 
 The convention is `ℕ={0,1,2,…}`; other conventions are acknowledged. Integers add additive inverses, rationals add multiplicative inverses for nonzero values, `ℚ(√2)` locally supplies one missing root, a Dedekind-cut construction supplies one complete ordered field `ℝ`, and complex numbers solve `x²=−1` while giving up any total order that both extends the real order and satisfies the ordered-field laws. None is claimed to be a largest field.
 
 ## Scene and navigation contract
 
-[DESIGN.md](DESIGN.md) is a prospective authoring contract, not an approved content decision. [article.ko.json](article.ko.json) gives one canonical block to each of 26 scenes, and [page.ts](page.ts) exposes three mainline chapters plus five optional detours. Normal Next navigation follows only the 11 mainline scenes; the other 15 scenes are optional proof paths. Every detour has identical parent and return scene IDs, so direct entry and restoration require no hidden navigation history.
+[DESIGN.md](DESIGN.md) is a prospective authoring contract, not an approved content decision. [article.ko.json](article.ko.json) gives one canonical block to each of 26 scenes, and [page.ts](page.ts) includes every scene in one ordered reading sequence. Proof sections follow their introducing scenes; readers may explicitly skip a named section. Next and Previous never omit a section or return to its introduction automatically. Direct entry and restoration use the same sequence.
 
-The detours are:
+The included proof sections are:
 
 - `fraction-construction`: defines the nonzero-denominator expression domain and proves cross-product transitivity using integer cancellation rather than rational division;
 - `irrationality-proof`: completes both parity branches of the reduced-fraction contradiction while keeping real existence of `√2` separate;
@@ -37,7 +37,7 @@ The article keeps these distinctions explicit:
 - `ℂ(t)` is used as a separately derived field containing `ℂ` as a proper subfield; it is not attributed to the consulted real rational-function source and is not assigned the real eventual-sign order;
 - complex numbers retain a field structure, including the nonzero inverse `(a,-b)/(a²+b²)`, but admit no ordered-field total order extending the real order.
 
-The uniqueness detour is intended as a reconstructable argument rather than an allusion to a proof. It derives an integer-part lemma from natural-number unboundedness plus the standard well-ordering principle, uses it for rational density, establishes cut eligibility, separates ordered elements with two rationals, proves `φ(aF)=aG` and `qF<x ⇔ qG<φ(x)`, constructs a preimage from the target's lower cut, proves that order isomorphisms preserve suprema, and treats rational sums and positive products as cofinal below their targets against arbitrary elements of `F` and `G`, not merely rational targets. It then derives `φ(-x)=-φ(x)` and reduces zero and every negative-sign case to the positive case. Independent mathematical review is still required; this description is not approval.
+The uniqueness section is intended as a reconstructable argument rather than an allusion to a proof. It derives an integer-part lemma from natural-number unboundedness plus the standard well-ordering principle, uses it for rational density, establishes cut eligibility, separates ordered elements with two rationals, proves `φ(aF)=aG` and `qF<x ⇔ qG<φ(x)`, constructs a preimage from the target's lower cut, proves that order isomorphisms preserve suprema, and treats rational sums and positive products as cofinal below their targets against arbitrary elements of `F` and `G`, not merely rational targets. It then derives `φ(-x)=-φ(x)` and reduces zero and every negative-sign case to the positive case. Independent mathematical review is still required; this description is not approval.
 
 ## Original and reused figures
 

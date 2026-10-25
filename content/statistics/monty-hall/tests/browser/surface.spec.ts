@@ -36,7 +36,7 @@ test('monty-hall: every scene keeps prose, cases and navigation readable and rea
       };
     });
     expect(bounds.documentWidth).toBeLessThanOrEqual(bounds.viewportWidth + 1);
-    if (montyPage.navigation.chapters[0].sceneIds.includes(scene)) {
+    if (scene !== 'experiment') {
       expect(await page.evaluate(() => document.documentElement.scrollHeight)).toBeLessThanOrEqual((page.viewportSize()?.height ?? 0) + 1);
     }
     for (const element of bounds.elements) {

@@ -12,13 +12,13 @@ pnpm exec playwright install chromium
 just start
 ~~~
 
-Open http://127.0.0.1:4173/ for the knowledge catalog. Every active explanation is an equal possible starting point, not a flagship or secondary product. `/knowledge/newton-to-quantum/` and `/knowledge/number-structures/` are examples of chaptered explanations with a self-contained mainline and optional detours; they do not define the platform's subject scope or receive special catalog treatment.
+Open http://127.0.0.1:4173/ for the knowledge catalog. Every active explanation is an equal possible starting point, not a flagship or secondary product. `/knowledge/newton-to-quantum/` and `/knowledge/number-structures/` are examples of chaptered explanations with a complete reading sequence with explicitly skippable sections; they do not define the platform's subject scope or receive special catalog treatment.
 
 `just start` runs the development server in the background. To bind a specific interface, use `just start dev <IP>` (for example, `just start dev 100.66.142.4`); `HOST=<IP> pnpm dev` also works. Use `just status`, `just logs`, `just restart`, and `just stop` to control it; `just` lists recipes. Apply working-tree changes with `just update`, then refresh the browser. Add `studio` or `preview` to select another server (for example, `just start studio`; run `just build` before `just start preview`). `just update preview` rebuilds before restarting. `pnpm dev` remains available for foreground development. See [server control](docs/DEVELOPMENT.md#server-control-with-just) for ports, logs, and ownership limits.
 
 Other current starting points include `/knowledge/weekday-worlds/`, `/knowledge/monty-hall/`, and `/knowledge/two-children/`. The [weekday topic specification](content/formal-logic/weekday-worlds/README.md) owns its narrative, interpretation limits, world editor, and timed opening.
 
-The Newton-to-quantum orbital detour reuses the deterministic hydrogenic spatial viewer. Reader state, optional interaction state, reset, and direct scene restoration remain validated contracts; retired topics remain available as source records rather than public routes.
+The Newton-to-quantum orbital section reuses the deterministic hydrogenic spatial viewer. Reader state, optional interaction state, reset, and direct scene restoration remain validated contracts; retired topics remain available as source records rather than public routes.
 
 Run `pnpm studio` for the [private content studio](tools/studio/README.md) at `http://127.0.0.1:4180`: edit manuscripts, export revision-bound implementation/review packets for OpenCode or another external agent, acknowledge external work against a computed source fingerprint, import review results with user-supplied provenance, and track feedback. No embedded chat or Codex executable is required. Workspaces, legacy chat history, feedback and build snapshots stay local and ignored; imported reports do not certify independent execution or publication approval.
 

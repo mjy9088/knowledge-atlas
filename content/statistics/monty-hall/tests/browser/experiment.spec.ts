@@ -54,8 +54,8 @@ test('optional lab retains exact counts, changed inputs, samples, reset and rest
   await expectCase(page.locator('[data-case="door-2"]'), 2, false);
   const changed = await page.evaluate(() => window.__atlasRelated.getState());
   await page.locator('#reader-prev').click();
-  await expect(page).toHaveURL(/\/strategy\/$/);
-  await page.locator('.reader-branch-links a[href$="/experiment/"]').click();
+  await expect(page).toHaveURL(/\/sampling\/$/);
+  await page.locator('#reader-next').click();
   expect(await page.evaluate(() => window.__atlasRelated.getState())).toEqual(changed);
   await page.locator('.lab-sampling summary').click();
   await page.getByRole('button', {name: '10회', exact: true}).click();
@@ -70,7 +70,7 @@ test('optional lab retains exact counts, changed inputs, samples, reset and rest
   expect(await page.evaluate(() => window.__atlasRelated.getState())).toEqual(saved);
 });
 
-test('the numbered-door detour separates each step and returns to the mainline', async ({page}) => {
+test('the numbered-door section proceeds to paired sampling and the full experiment', async ({page}) => {
   await page.goto('/knowledge/monty-hall/specific/');
   await page.waitForFunction(() => window.__atlasRelated);
   await expect(page.locator('.reader-scene:not([hidden]) .scene-prose')).toContainText('별도 예시');
@@ -79,9 +79,9 @@ test('the numbered-door detour separates each step and returns to the mainline',
   await page.locator('#reader-next').click();
   await expect(page).toHaveURL(/\/specific-result\/$/);
   await page.locator('#reader-next').click();
-  await expect(page).toHaveURL(/\/compare\/$/);
-  await page.locator('#reader-next').click();
   await expect(page).toHaveURL(/\/sampling\/$/);
+  await page.locator('#reader-next').click();
+  await expect(page).toHaveURL(/\/experiment\/$/);
   await page.locator('#reader-next').click();
   await expect(page).toHaveURL(/\/close\/$/);
 });

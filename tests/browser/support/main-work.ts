@@ -2,7 +2,7 @@ import {expect,type APIRequestContext,type Page} from '@playwright/test';
 import newtonArticle from '../../../content/physics/newton-to-quantum/article.ko.json' with {type:'json'};
 import numberArticle from '../../../content/mathematics/number-structures/article.ko.json' with {type:'json'};
 import {CONTENT_PAGES,sceneText} from '../../../content/catalog.js';
-import type {Article,ContentDetourChapter,ContentPage,Scene} from '../../../packages/content/types.js';
+import type {Article,ContentChapter,ContentPage,Scene} from '../../../packages/content/types.js';
 
 export type MainWorkSlug='newton-to-quantum'|'number-structures';
 export type ActiveWork=Readonly<{page:ContentPage;article:Article}>;
@@ -26,12 +26,18 @@ export function requireScene(work:ActiveWork,sceneId:string):Scene{
   return scene;
 }
 
-export function mainlineSceneIds(work:ActiveWork):readonly string[]{
-  return work.page.navigation?.chapters.flatMap(chapter=>chapter.kind==='mainline'?chapter.sceneIds:[])??work.page.scenes.map(scene=>scene.id);
+export function readingSceneIds(work:ActiveWork):readonly string[]{
+  return work.page.scenes.map(scene=>scene.id);
 }
-
-export function detours(work:ActiveWork):readonly ContentDetourChapter[]{
-  return work.page.navigation?.chapters.filter((chapter):chapter is ContentDetourChapter=>chapter.kind==='detour')??[];
+export function skippableSections(work:ActiveWork):readonly ContentChapter[]{
+  return work.page.navigation?.chapters.filter(chapter=>work.page.scenes.find(scene=>scene.id===chapter.sceneIds[0])?.skip)??[];
+}
+export function sectionBounds(work:ActiveWork,chapter:ContentChapter){
+  const start=work.page.scenes.findIndex(scene=>scene.id===chapter.sceneIds[0]);
+  const end=work.page.scenes.findIndex(scene=>scene.id===chapter.sceneIds.at(-1));
+  const before=work.page.scenes[start-1],after=work.page.scenes[end+1];
+  if(!before||!after)throw new RangeError('Section needs surrounding scenes');
+  return {before:before.id,after:after.id};
 }
 
 export async function openMainWorkScene(page:Page,work:ActiveWork,sceneId:string):Promise<void>{
@@ -115,26 +121,16 @@ export async function expectReaderStateBoundary(page:Page,sceneId:string):Promis
   })).toBe(true);
 }
 
-export async function expectDetourReturn(page:Page,work:ActiveWork,detour:ContentDetourChapter):Promise<void>{
-  await openMainWorkScene(page,work,detour.parentSceneId);
-  await page.locator(`.reader-branch-links a[href$="/${detour.sceneIds[0]}/"]`).click();
-  for(const [index,sceneId] of detour.sceneIds.entries()){
+export async function expectSectionContinuation(page:Page,work:ActiveWork,section:ContentChapter):Promise<void>{
+  const bounds=sectionBounds(work,section);
+  await openMainWorkScene(page,work,bounds.before);
+  await page.locator('#reader-next').click();
+  for(const sceneId of section.sceneIds){
     await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',sceneId);
     await expectLongformScene(page,work,sceneId);
-    const inlineReturn=page.locator('.reader-scene:visible .reader-branch-links a');
-    const footerReturn=page.locator('#reader-next');
-    const expectedPath=`/knowledge/${work.page.slug}/${detour.returnSceneId}/`;
-    if(index===detour.sceneIds.length-1){
-      await expect(inlineReturn).toBeHidden();
-      await expect(footerReturn).toBeVisible();
-      await expect(footerReturn).toHaveText('본문 돌아가기 →');
-    }else{
-      await expect(inlineReturn).toBeVisible();
-      expect(new URL(await inlineReturn.getAttribute('href')??'',page.url()).pathname).toBe(expectedPath);
-    }
     await page.locator('#reader-next').click();
   }
-  await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',detour.returnSceneId);
+  await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',bounds.after);
 }
 
 export async function expectRetiredRoute(page:Page,request:APIRequestContext,route:string,oldControls:string):Promise<void>{

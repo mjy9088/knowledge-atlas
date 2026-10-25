@@ -36,11 +36,11 @@ The current revision changes the introductory reading contract: ordinary scenes 
 
 Removed standalone `counting`, `subtraction`, `division`, and routine `fraction-addition` material remains source provenance in the reused claims; it is not active navigation or extra vocabulary.
 
-## Optional detours
+## Included skippable sections
 
-Detours are addressable chapters inside this article. Normal Next bypasses them. Parent and return IDs are identical, so restoration requires no hidden navigation history.
+Detours are addressable chapters inside this article. Normal Next includes every section. A named forward skip is available at each multi-scene section entry; the destination is the next scene after that section, with ordinary reverse adjacency and no parent-return stack.
 
-| Chapter | Scenes | Parent / return | Added value / success check |
+| Chapter | Scenes | Introduction | Added value / success check |
 | --- | --- | --- | --- |
 | `fraction-construction` | `fraction-domain`, `fraction-transitivity` | `rationals` | Define the nonzero-denominator domain and prove transitivity by integer cancellation without assuming rational division. |
 | `irrationality-proof` | `sqrt-lowest-terms`, `sqrt-parity-contradiction` | `diagonal` | Prove the parity lemma explicitly with `n=2k+1`, complete both parity branches, and preserve the separate real-existence assumption. |

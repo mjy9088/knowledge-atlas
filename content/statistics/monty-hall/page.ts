@@ -1,5 +1,6 @@
+import {orderScenes} from '../../../packages/content/reading-order.js';
 import type {ContentPage} from '../../../packages/content/types.js';
-export default {
+const page = {
   "slug": "monty-hall",
   "articleId": "article:statistics.monty-hall.ko",
   "label": "문 두 개, 정말 반반일까요?",
@@ -9,7 +10,6 @@ export default {
   "navigation": {
     "chapters": [
       {
-        "kind": "mainline",
         "id": "host-and-observation",
         "title": "문을 고르고, 경우를 하나씩 비교하기",
         "sceneIds": [
@@ -33,26 +33,20 @@ export default {
         ]
       },
       {
-        "kind": "detour",
         "id": "numbered-reveal",
         "title": "2번이 열린 게임만 고르면?",
         "sceneIds": [
           "specific",
           "specific-cases",
           "specific-result"
-        ],
-        "parentSceneId": "compare",
-        "returnSceneId": "compare"
+        ]
       },
       {
-        "kind": "detour",
         "id": "free-experiment",
         "title": "규칙을 바꾸며 더 실험하기",
         "sceneIds": [
           "experiment"
-        ],
-        "parentSceneId": "strategy",
-        "returnSceneId": "strategy"
+        ]
       }
     ],
     "relatedArticleIds": [
@@ -340,7 +334,8 @@ export default {
     },
     {
       "id": "specific",
-      "title": "선택: 2번을 우선 여는 진행자",
+      "skip": {"to": "sampling", "label": "2번이 열린 게임만 고르면? 건너뛰기"},
+      "title": "2번을 우선 여는 진행자",
       "block": 17,
       "from": 0,
       "cards": [],
@@ -356,7 +351,7 @@ export default {
     },
     {
       "id": "specific-cases",
-      "title": "선택: 2번이 열린 경우만 남겨 봅시다",
+      "title": "2번이 열린 경우만 남겨 봅시다",
       "block": 18,
       "from": 0,
       "cards": [],
@@ -372,7 +367,7 @@ export default {
     },
     {
       "id": "specific-result",
-      "title": "선택: 이때는 두 경우 중 한 경우입니다",
+      "title": "이때는 두 경우 중 한 경우입니다",
       "block": 19,
       "from": 0,
       "cards": [],
@@ -388,7 +383,7 @@ export default {
     },
     {
       "id": "experiment",
-      "title": "선택: 규칙을 바꾸며 더 실험해 보세요",
+      "title": "규칙을 바꾸며 더 실험해 보세요",
       "block": 20,
       "from": 0,
       "cards": [],
@@ -411,3 +406,5 @@ export default {
     "/topics/statistics/monty-hall.css"
   ]
 } satisfies ContentPage;
+
+export default orderScenes(page, ["question", "reveal", "protocol", "tie-rule", "case-hit", "case-miss-a", "case-miss-b", "informed-tree", "strategy", "shortened", "blind-rule", "blind-paths", "blind-keep-hit", "blind-keep-miss", "compare", "specific", "specific-cases", "specific-result", "sampling", "experiment", "close"]);

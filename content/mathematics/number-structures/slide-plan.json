@@ -1,35 +1,228 @@
 {
   "articleId": "article:mathematics.number-structures.ko",
   "status": "prospective-unmeasured-review-required",
-  "projection": "long-form-natural-scroll-with-optional-detours",
-  "mainlineSceneIds": ["question", "integers", "rationals", "representative-independence", "diagonal", "local-vs-global", "real-completion", "negative-square", "complex-pairs", "rotation", "payoff"],
+  "projection": "self-paced-complete-sequence-with-explicit-forward-skips",
   "slides": [
-    {"sceneId":"question","purpose":"Frame extensions as selected local or structural repairs rather than an inevitable ladder.","successCheck":"Reader asks what failed, what kind of repair is wanted, and what must be preserved."},
-    {"sceneId":"integers","purpose":"Inline the natural-number convention and repair 2−5 with additive inverses.","successCheck":"Reader reconstructs 2−5=2+(−5)=−3 and identifies preservation of prior addition and order as a chosen constraint."},
-    {"sceneId":"rationals","purpose":"Repair 2x=1 while explaining integer parity, the zero-inverse boundary, and equivalent fraction names.","successCheck":"Reader explains why 2x is never 1 in ℤ, why zero has no inverse, and why 1/2=2/4."},
-    {"sceneId":"representative-independence","purpose":"Show that rational addition is independent of representatives, first by one check and then in general.","successCheck":"Reader verifies 5/6=10/12 and derives (ad+bc)b'd'=(a'd'+b'c')bd from ab'=a'b and cd'=c'd."},
-    {"sceneId":"diagonal","purpose":"Expose an exact missing length and earn its irrationality on the required path before distinguishing adjoining one root from constructing all reals.","successCheck":"Reader uses odd squares and p²=2q² to force numerator and denominator even, identifies the reduced-fraction contradiction, and distinguishes the local ℚ(√2) repair from the global real requirement."},
-    {"sceneId":"local-vs-global","purpose":"Contrast one generated-field repair with a boundary property required for every eligible set, using only density of ℚ in ℝ on the mainline.","successCheck":"Reader distinguishes density in ℝ from completeness and local repair from the universal least-upper-bound requirement."},
-    {"sceneId":"real-completion","purpose":"Define upper bound, least upper bound, and maximum before stating the ordered-field and existence/uniqueness packages.","successCheck":"Reader states both quantifiers in the least-upper-bound definition, explains why a supremum need not lie in the set, and knows the article takes existence from a separate construction rather than performing it."},
-    {"sceneId":"negative-square","purpose":"Show that ordered real arithmetic cannot solve x²=−1.","successCheck":"Reader closes all sign cases using the positive-product law and identifies the new algebraic goal."},
-    {"sceneId":"complex-pairs","purpose":"Construct the complex field operations and nonzero inverses on real pairs.","successCheck":"Reader identifies 0 and 1, checks i²=−1, and verifies the inverse formula using a²+b²>0."},
-    {"sceneId":"rotation","purpose":"Interpret multiplication by i through one exact coordinate and norm calculation.","successCheck":"Reader maps (2,−1) to (1,2), checks equal squared lengths, and handles zero separately."},
-    {"sceneId":"payoff","purpose":"Answer the opening through local/global repair choices and conditional structure theorems.","successCheck":"Reader explains why neither ℝ nor ℂ is forced by one obstruction and why proper extensions need not preserve every property."},
-    {"sceneId":"fraction-domain","purpose":"Make the nonzero-denominator domain part of the quotient construction.","successCheck":"Reader reconstructs the (0,0) counterexample to transitivity of the naively enlarged relation."},
-    {"sceneId":"fraction-transitivity","purpose":"Prove transitivity without presupposing rational division.","successCheck":"Reader derives d(af−be)=0 and applies the no-zero-divisors property of ℤ with d≠0."},
-    {"sceneId":"sqrt-lowest-terms","purpose":"Prove the parity lemma and begin the reduced-fraction contradiction.","successCheck":"Reader derives odd n=2k+1 ⇒ n²=4k(k+1)+1 and then p² even ⇒ p even."},
-    {"sceneId":"sqrt-parity-contradiction","purpose":"Complete the second parity branch.","successCheck":"Reader proves q is even and identifies the contradiction with gcd(p,q)=1 while preserving the separate existence assumption."},
-    {"sceneId":"bounds-and-ambient","purpose":"Make the ambient ordered universe control eligible bounds.","successCheck":"Reader explains why √2 is eligible in ℝ but not ℚ and why this comparison diagnoses ℚ rather than constructs ℝ."},
-    {"sceneId":"rational-boundary","purpose":"Eliminate every rational least-upper-bound candidate.","successCheck":"Reader handles r≤0, 0<r<√2, r=√2, and r>√2 without skipping a case."},
-    {"sceneId":"archimedean-consequence","purpose":"Derive unboundedness of the natural-number copy from the least-upper-bound property.","successCheck":"Reader starts from s=sup ℕ and obtains the contradiction s<n+1∈ℕ."},
-    {"sceneId":"integer-part-density","purpose":"Prove the generic ordered-field integer-part lemma and then rational density.","successCheck":"Reader uses well-ordering on {k∈ℕ:k>z+N} to obtain z<m≤z+1, then derives x<m/n<y from n(y−x)>1."},
-    {"sceneId":"cut-definition-order","purpose":"Define the cut map only after proving its source set nonempty and bounded, then prove strict order with two rationals.","successCheck":"Reader chooses m<x<n and x<r<s<y, identifies rG as an upper bound of the defining set, and reconstructs φ(x)≤rG<sG≤φ(y)."},
-    {"sceneId":"cut-rational-fixing","purpose":"Prove that the cut map fixes every rational and establish the rational comparison equivalence.","successCheck":"Reader proves φ(aF)=aG and qF<x iff qG<φ(x), including one inserted rational in the forward direction."},
-    {"sceneId":"cut-surjectivity","purpose":"Construct an inverse element from the lower rational cut of a target element.","successCheck":"Reader proves q<x iff qG<y, including the extra-rational step, and concludes φ(x)=y."},
-    {"sceneId":"cut-operations","purpose":"Prove order isomorphisms preserve suprema, then preserve addition and multiplication through rational sets cofinal against arbitrary field elements.","successCheck":"Reader proves the supremum transport lemma, constructs sum/product approximants for arbitrary u in F and G, derives φ(−x)=−φ(x), and covers zero and every sign case."},
-    {"sceneId":"larger-systems","purpose":"Justify the eventual-sign total order on a proper non-Archimedean field extension and clarify the separate complex-coefficient example.","successCheck":"Reader explains leading-coefficient eventual signs, closure of the positive cone under addition and multiplication, derives t>n, rejects least-upper-bound completeness, and treats ℂ(t) as independently derived."},
-    {"sceneId":"ordered-field-contradiction","purpose":"Prove the exact order structure unavailable on ℂ.","successCheck":"Reader closes both i>0 and −i>0 branches without banning arbitrary comparisons."},
-    {"sceneId":"choice-of-properties","purpose":"Compare the ordered-complete and algebraic-extension property bundles.","successCheck":"Reader states the hypotheses needed for real-field uniqueness and the algebraic gain/order cost of ℂ."}
+    {
+      "sceneId": "question",
+      "purpose": "Frame extensions as selected local or structural repairs rather than an inevitable ladder.",
+      "successCheck": "Reader asks what failed, what kind of repair is wanted, and what must be preserved."
+    },
+    {
+      "sceneId": "integers",
+      "purpose": "Inline the natural-number convention and repair 2−5 with additive inverses.",
+      "successCheck": "Reader reconstructs 2−5=2+(−5)=−3 and identifies preservation of prior addition and order as a chosen constraint."
+    },
+    {
+      "sceneId": "rationals",
+      "purpose": "Repair 2x=1 while explaining integer parity, the zero-inverse boundary, and equivalent fraction names.",
+      "successCheck": "Reader explains why 2x is never 1 in ℤ, why zero has no inverse, and why 1/2=2/4."
+    },
+    {
+      "sceneId": "representative-independence",
+      "purpose": "Show that rational addition is independent of representatives, first by one check and then in general.",
+      "successCheck": "Reader verifies 5/6=10/12 and derives (ad+bc)b'd'=(a'd'+b'c')bd from ab'=a'b and cd'=c'd."
+    },
+    {
+      "sceneId": "diagonal",
+      "purpose": "Expose an exact missing length and earn its irrationality on the required path before distinguishing adjoining one root from constructing all reals.",
+      "successCheck": "Reader uses odd squares and p²=2q² to force numerator and denominator even, identifies the reduced-fraction contradiction, and distinguishes the local ℚ(√2) repair from the global real requirement."
+    },
+    {
+      "sceneId": "local-vs-global",
+      "purpose": "Contrast one generated-field repair with a boundary property required for every eligible set, using only density of ℚ in ℝ on the mainline.",
+      "successCheck": "Reader distinguishes density in ℝ from completeness and local repair from the universal least-upper-bound requirement."
+    },
+    {
+      "sceneId": "real-completion",
+      "purpose": "Define upper bound, least upper bound, and maximum before stating the ordered-field and existence/uniqueness packages.",
+      "successCheck": "Reader states both quantifiers in the least-upper-bound definition, explains why a supremum need not lie in the set, and knows the article takes existence from a separate construction rather than performing it."
+    },
+    {
+      "sceneId": "negative-square",
+      "purpose": "Show that ordered real arithmetic cannot solve x²=−1.",
+      "successCheck": "Reader closes all sign cases using the positive-product law and identifies the new algebraic goal."
+    },
+    {
+      "sceneId": "complex-pairs",
+      "purpose": "Construct the complex field operations and nonzero inverses on real pairs.",
+      "successCheck": "Reader identifies 0 and 1, checks i²=−1, and verifies the inverse formula using a²+b²>0."
+    },
+    {
+      "sceneId": "rotation",
+      "purpose": "Interpret multiplication by i through one exact coordinate and norm calculation.",
+      "successCheck": "Reader maps (2,−1) to (1,2), checks equal squared lengths, and handles zero separately."
+    },
+    {
+      "sceneId": "payoff",
+      "purpose": "Answer the opening through local/global repair choices and conditional structure theorems.",
+      "successCheck": "Reader explains why neither ℝ nor ℂ is forced by one obstruction and why proper extensions need not preserve every property."
+    },
+    {
+      "sceneId": "fraction-domain",
+      "purpose": "Make the nonzero-denominator domain part of the quotient construction.",
+      "successCheck": "Reader reconstructs the (0,0) counterexample to transitivity of the naively enlarged relation."
+    },
+    {
+      "sceneId": "fraction-transitivity",
+      "purpose": "Prove transitivity without presupposing rational division.",
+      "successCheck": "Reader derives d(af−be)=0 and applies the no-zero-divisors property of ℤ with d≠0."
+    },
+    {
+      "sceneId": "sqrt-lowest-terms",
+      "purpose": "Prove the parity lemma and begin the reduced-fraction contradiction.",
+      "successCheck": "Reader derives odd n=2k+1 ⇒ n²=4k(k+1)+1 and then p² even ⇒ p even."
+    },
+    {
+      "sceneId": "sqrt-parity-contradiction",
+      "purpose": "Complete the second parity branch.",
+      "successCheck": "Reader proves q is even and identifies the contradiction with gcd(p,q)=1 while preserving the separate existence assumption."
+    },
+    {
+      "sceneId": "bounds-and-ambient",
+      "purpose": "Make the ambient ordered universe control eligible bounds.",
+      "successCheck": "Reader explains why √2 is eligible in ℝ but not ℚ and why this comparison diagnoses ℚ rather than constructs ℝ."
+    },
+    {
+      "sceneId": "rational-boundary",
+      "purpose": "Eliminate every rational least-upper-bound candidate.",
+      "successCheck": "Reader handles r≤0, 0<r<√2, r=√2, and r>√2 without skipping a case."
+    },
+    {
+      "sceneId": "archimedean-consequence",
+      "purpose": "Derive unboundedness of the natural-number copy from the least-upper-bound property.",
+      "successCheck": "Reader starts from s=sup ℕ and obtains the contradiction s<n+1∈ℕ."
+    },
+    {
+      "sceneId": "integer-part-density",
+      "purpose": "Prove the generic ordered-field integer-part lemma and then rational density.",
+      "successCheck": "Reader uses well-ordering on {k∈ℕ:k>z+N} to obtain z<m≤z+1, then derives x<m/n<y from n(y−x)>1."
+    },
+    {
+      "sceneId": "cut-definition-order",
+      "purpose": "Define the cut map only after proving its source set nonempty and bounded, then prove strict order with two rationals.",
+      "successCheck": "Reader chooses m<x<n and x<r<s<y, identifies rG as an upper bound of the defining set, and reconstructs φ(x)≤rG<sG≤φ(y)."
+    },
+    {
+      "sceneId": "cut-rational-fixing",
+      "purpose": "Prove that the cut map fixes every rational and establish the rational comparison equivalence.",
+      "successCheck": "Reader proves φ(aF)=aG and qF<x iff qG<φ(x), including one inserted rational in the forward direction."
+    },
+    {
+      "sceneId": "cut-surjectivity",
+      "purpose": "Construct an inverse element from the lower rational cut of a target element.",
+      "successCheck": "Reader proves q<x iff qG<y, including the extra-rational step, and concludes φ(x)=y."
+    },
+    {
+      "sceneId": "cut-operations",
+      "purpose": "Prove order isomorphisms preserve suprema, then preserve addition and multiplication through rational sets cofinal against arbitrary field elements.",
+      "successCheck": "Reader proves the supremum transport lemma, constructs sum/product approximants for arbitrary u in F and G, derives φ(−x)=−φ(x), and covers zero and every sign case."
+    },
+    {
+      "sceneId": "larger-systems",
+      "purpose": "Justify the eventual-sign total order on a proper non-Archimedean field extension and clarify the separate complex-coefficient example.",
+      "successCheck": "Reader explains leading-coefficient eventual signs, closure of the positive cone under addition and multiplication, derives t>n, rejects least-upper-bound completeness, and treats ℂ(t) as independently derived."
+    },
+    {
+      "sceneId": "ordered-field-contradiction",
+      "purpose": "Prove the exact order structure unavailable on ℂ.",
+      "successCheck": "Reader closes both i>0 and −i>0 branches without banning arbitrary comparisons."
+    },
+    {
+      "sceneId": "choice-of-properties",
+      "purpose": "Compare the ordered-complete and algebraic-extension property bundles.",
+      "successCheck": "Reader states the hypotheses needed for real-field uniqueness and the algebraic gain/order cost of ℂ."
+    }
   ],
-  "pending": ["independent re-review of content value", "independent re-review of every uniqueness step", "Korean copy review", "source revision and rights review", "rendered desktop and narrow review", "accessibility and learner comprehension review", "narration timing and media production", "publication approval"]
+  "pending": [
+    "independent re-review of content value",
+    "independent re-review of every uniqueness step",
+    "Korean copy review",
+    "source revision and rights review",
+    "rendered desktop and narrow review",
+    "accessibility and learner comprehension review",
+    "narration timing and media production",
+    "publication approval"
+  ],
+  "readingOrderSceneIds": [
+    "question",
+    "integers",
+    "rationals",
+    "fraction-domain",
+    "fraction-transitivity",
+    "representative-independence",
+    "diagonal",
+    "sqrt-lowest-terms",
+    "sqrt-parity-contradiction",
+    "local-vs-global",
+    "real-completion",
+    "bounds-and-ambient",
+    "rational-boundary",
+    "archimedean-consequence",
+    "integer-part-density",
+    "cut-definition-order",
+    "cut-rational-fixing",
+    "cut-surjectivity",
+    "cut-operations",
+    "larger-systems",
+    "negative-square",
+    "complex-pairs",
+    "ordered-field-contradiction",
+    "choice-of-properties",
+    "rotation",
+    "payoff"
+  ],
+  "skippableSections": [
+    {
+      "id": "fraction-construction",
+      "sceneIds": [
+        "fraction-domain",
+        "fraction-transitivity"
+      ],
+      "to": "representative-independence",
+      "label": "분수 표기를 일관되게 묶기 건너뛰기"
+    },
+    {
+      "id": "irrationality-proof",
+      "sceneIds": [
+        "sqrt-lowest-terms",
+        "sqrt-parity-contradiction"
+      ],
+      "to": "local-vs-global",
+      "label": "√2의 비유리성 증명 건너뛰기"
+    },
+    {
+      "id": "complete-order",
+      "sceneIds": [
+        "bounds-and-ambient",
+        "rational-boundary"
+      ],
+      "to": "archimedean-consequence",
+      "label": "유리수 경계의 모든 경우 건너뛰기"
+    },
+    {
+      "id": "why-real-field",
+      "sceneIds": [
+        "archimedean-consequence",
+        "integer-part-density",
+        "cut-definition-order",
+        "cut-rational-fixing",
+        "cut-surjectivity",
+        "cut-operations",
+        "larger-systems"
+      ],
+      "to": "negative-square",
+      "label": "왜 완비 순서체는 동형까지 유일한가 건너뛰기"
+    },
+    {
+      "id": "complex-order",
+      "sceneIds": [
+        "ordered-field-contradiction",
+        "choice-of-properties"
+      ],
+      "to": "rotation",
+      "label": "복소수에서 포기하는 순서 건너뛰기"
+    }
+  ],
+  "navigationPurpose": "Every authored scene is included in Previous/Next order at its relevant context. Existing per-scene content, purpose, representation and success checks remain. Readers may explicitly skip a named multi-scene section; direct entry and restoration continue from that scene without a hidden return path."
 }

@@ -1,24 +1,21 @@
 import {expect,test} from '@playwright/test';
-import {activeWork,detours,expectLongformScene,openMainWorkScene} from '../../../../../tests/browser/support/main-work.js';
+import {activeWork,skippableSections,sectionBounds,openMainWorkScene} from '../../../../../tests/browser/support/main-work.js';
 
 const work=activeWork('number-structures');
 
-test('number-structure detours use inline chapter entry, native history, and declared returns',async({page})=>{
-  // Given every detour declared by the current number-structure metadata.
-  for(const detour of detours(work)){
-    await test.step(detour.id,async()=>{
-      await openMainWorkScene(page,work,detour.parentSceneId);
-    const entry=page.locator(`.reader-branch-links a[href$="/${detour.sceneIds[0]}/"]`);
-      await expect(entry).toBeVisible();
-      // When an inline branch link is followed, traversed by native history, and explicitly returned.
-      await entry.click();
-    await expect(page).toHaveURL(new RegExp(`/${detour.sceneIds[0]}/$`));
-      await expectLongformScene(page,work,detour.sceneIds[0]??'');
-      await page.goBack();await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',detour.parentSceneId);
-      await page.goForward();await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',detour.sceneIds[0]??'');
-    await page.locator(`.reader-scene:visible .reader-branch-links a[href$="/${detour.returnSceneId}/"]`).click();
-      // Then the authored parent, first detour scene, and return target—not retired route chains—own navigation.
-      await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',detour.returnSceneId);
+test('number sections are included normally and explicit skips preserve history and reverse traversal',async({page})=>{
+  for(const section of skippableSections(work)){
+    await test.step(section.id,async()=>{
+      const bounds=sectionBounds(work,section);
+      await openMainWorkScene(page,work,bounds.before);
+      await page.locator('#reader-next').click();
+      await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',section.sceneIds[0]);
+      await page.goBack();await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',bounds.before);
+      await page.goForward();await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',section.sceneIds[0]);
+      await page.locator('#reader-skip').click();
+      await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',bounds.after);
+      await page.locator('#reader-prev').click();
+      await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',section.sceneIds.at(-1)!);
     });
   }
 });

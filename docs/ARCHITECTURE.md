@@ -41,7 +41,7 @@ The browser application has no runtime npm dependencies. TypeScript, tsx, esbuil
 
 ## State and adapters
 
-Canonical provenance does not imply a public product. `CONTENT_ENTRIES` retains article/claim ownership and identities; `CONTENT_PAGES` alone selects public readers, and the flat `INDEX_PAGES` list supplies equal catalog entrances without topic tiers. A retired reader is not emitted as an executable archive. Chaptered explanations use explicit mainline and non-nested detour chapters; declared parent/return identities make direct entry and restoration deterministic without a hidden navigation stack. See [ADR 0035](adr/0035-curated-works-and-source-provenance.md).
+Canonical provenance does not imply a public product. `CONTENT_ENTRIES` retains article/claim ownership and identities; `CONTENT_PAGES` alone selects public readers, and the flat `INDEX_PAGES` list supplies equal catalog entrances without topic tiers. A retired reader is not emitted as an executable archive. Each explanation has one canonical ordered scene array covering every authored slide. Chapter membership groups the contents but never excludes scenes or changes adjacency. Authored forward skips are explicit actions over that array; direct entry and restoration continue from the selected scene without a hidden navigation stack. See [ADR 0035](adr/0035-curated-works-and-source-provenance.md).
 
 Scene APIs expose `getState`, validated `setState`, and `reset`; time-based adapters expose `seek` or `frameAt`. Return detached snapshots and reject invalid state without partially mutating the previous state. Seeking must not depend on hidden prior clicks; randomness, if introduced, needs a recorded seed.
 

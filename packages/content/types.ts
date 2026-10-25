@@ -21,9 +21,7 @@ export interface Scene {
   skip?: {to:string;label:string};
   suggestion?: { example: string } | { n: number; basis: string; Z: number; mode?: string };
 }
-export interface ContentMainlineChapter { kind: 'mainline'; id: string; title: string; sceneIds: string[] }
-export interface ContentDetourChapter { kind: 'detour'; id: string; title: string; sceneIds: string[]; parentSceneId: string; returnSceneId: string }
-export type ContentChapter=ContentMainlineChapter|ContentDetourChapter;
+export interface ContentChapter { id: string; title: string; sceneIds: string[] }
 export interface ContentPage {
   slug: string; articleId: string; label: string; category: string;
   cover?: boolean;

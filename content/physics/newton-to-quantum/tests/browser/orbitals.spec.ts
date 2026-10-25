@@ -1,6 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 import { CONTENT_PAGES, sceneText } from "../../../../catalog.js";
-import { activeWork, detours, expectLongformScene, openMainWorkScene } from "../../../../../tests/browser/support/main-work.js";
+import { activeWork, skippableSections, sectionBounds, expectLongformScene, openMainWorkScene } from "../../../../../tests/browser/support/main-work.js";
 
 const orbitalFrame={content:['.reader-copy:not([hidden])','.orbital-controls','.orbital-footer','.orbital-view'],controls:['#reader-controls button','.orbital-controls select','.orbital-controls button','.field-canvas','.reader-menu summary']} as const;
 async function expectOrbitalLongform(page:Page){
@@ -52,11 +52,12 @@ test('orbital detour displays a substantial canvas in every rendering mode',asyn
 test('customized optional orbital input preserves canonical prose when returning to the mainline',async({page})=>{
   // Given the main argument and its optional orbital chapter.
   const work=activeWork('newton-to-quantum');
-  const branch=detours(work).find(chapter=>chapter.id==='orbital-laboratory');
+  const branch=skippableSections(work).find(chapter=>chapter.id==='orbital-laboratory');
   if(!branch)throw new TypeError('Missing orbital detour');
-  await openMainWorkScene(page,work,branch.parentSceneId);
+  const bounds=sectionBounds(work,branch);
+  await openMainWorkScene(page,work,bounds.before);
   const readingWidth=await page.locator('.related-reader').evaluate(element=>element.getBoundingClientRect().width);
-  await page.locator('.reader-scene:visible .reader-branch-links a').click();
+  await page.locator('#reader-next').click();
   await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',branch.sceneIds[0]);
   expect(await page.locator('.related-reader').evaluate(element=>element.getBoundingClientRect().width)).toBe(readingWidth);
   // When the reader edits the optional scientific input and explicitly returns.
@@ -65,10 +66,11 @@ test('customized optional orbital input preserves canonical prose when returning
   if(!sourceScene)throw new TypeError('Missing orbital source scene');
   await expect(page.locator('.reader-scene:visible .scene-prose')).toContainText(sceneText(work.article,sourceScene));
   const edited=await page.evaluate(()=>window.__atlasRelated.getState().interaction);
-  await page.locator('.reader-scene:visible .reader-branch-links a').click();
-  await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',branch.returnSceneId);
+  await page.locator('#reader-next').click();
+  await page.locator('#reader-next').click();
+  await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id',bounds.after);
   // Then the inactive adapter cannot replace the mainline's complete manuscript.
-  await expectLongformScene(page,work,branch.returnSceneId);
+  await expectLongformScene(page,work,bounds.after);
   await expect(page.locator('#reader-workbench')).toBeHidden();
   expect(await page.evaluate(()=>window.__atlasRelated.getState().interaction)).toEqual(edited);
 });

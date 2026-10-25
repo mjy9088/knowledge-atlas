@@ -1,5 +1,5 @@
 import {expect,test} from '@playwright/test';
-import {activeWork,detours,expectDetourReturn,expectLongformScene,expectReaderStateBoundary,openMainWorkScene} from '../../../../../tests/browser/support/main-work.js';
+import {activeWork,skippableSections,expectSectionContinuation,expectLongformScene,expectReaderStateBoundary,openMainWorkScene} from '../../../../../tests/browser/support/main-work.js';
 
 const work=activeWork('newton-to-quantum');
 const scenes=['atomic-evidence','brownian-proxy','brownian-bridge'] as const;
@@ -10,9 +10,9 @@ test('atom evidence remains complete in the active mainline and Brownian detour'
   // When every mapped evidence scene is opened from its real static route.
   for(const sceneId of scenes){await openMainWorkScene(page,work,sceneId);await expectLongformScene(page,work,sceneId);}
   await expectReaderStateBoundary(page,scenes.at(-1)??'brownian-bridge');
-  const detour=detours(work).find(chapter=>chapter.id==='unseen-matter');
+  const detour=skippableSections(work).find(chapter=>chapter.id==='unseen-matter');
   if(!detour)throw new TypeError('Missing unseen-matter detour');
-  await expectDetourReturn(page,work,detour);
+  await expectSectionContinuation(page,work,detour);
   // Then full source copy, evidence cards, controls, restoration, and return remain operational.
   expect(errors).toEqual([]);
 });

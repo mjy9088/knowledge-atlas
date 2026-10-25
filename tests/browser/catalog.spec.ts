@@ -29,7 +29,7 @@ test('catalog gives every active topic the same entry information and visual tre
   for(const item of appearance){expect(item.width).toBeCloseTo(firstAppearance.width,3);expect({...item,width:firstAppearance.width}).toEqual(firstAppearance);}
   for(const [index,topic]of CONTENT_PAGES.entries()){
     const card=cards.nth(index),first=topic.scenes[0];
-    const finalId=topic.navigation?.chapters.filter(chapter=>chapter.kind==='mainline').at(-1)?.sceneIds.at(-1);
+    const finalId=topic.scenes.at(-1)?.id;
     const last=topic.scenes.find(scene=>scene.id===finalId)??topic.scenes.at(-1);
     if(!first||!last)throw new TypeError('Missing topic opening or payoff');
     await expect(card.locator('p')).toHaveText(first.title);

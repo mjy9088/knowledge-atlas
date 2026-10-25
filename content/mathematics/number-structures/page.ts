@@ -1,3 +1,4 @@
+import {orderScenes} from '../../../packages/content/reading-order.js';
 import type { ContentPage } from '../../../packages/content/types.js';
 import {numberVisual} from './visual-scenes.js';
 
@@ -45,14 +46,14 @@ const page = {
   ],
   navigation: {
     chapters: [
-      { kind: 'mainline', id: 'local-repairs', title: '막힌 계산을 하나씩 고치기', sceneIds: ['question', 'integers', 'rationals', 'representative-independence', 'diagonal'] },
-      { kind: 'mainline', id: 'global-structure', title: '빠진 경계를 모두 갖추려면', sceneIds: ['local-vs-global', 'real-completion'] },
-      { kind: 'mainline', id: 'algebraic-extension', title: '새 해를 얻고 다른 성질을 포기하다', sceneIds: ['negative-square', 'complex-pairs', 'rotation', 'payoff'] },
-      { kind: 'detour', id: 'fraction-construction', title: '분수 표기를 일관되게 묶기', sceneIds: ['fraction-domain', 'fraction-transitivity'], parentSceneId: 'rationals', returnSceneId: 'rationals' },
-      { kind: 'detour', id: 'irrationality-proof', title: '√2의 비유리성 증명', sceneIds: ['sqrt-lowest-terms', 'sqrt-parity-contradiction'], parentSceneId: 'diagonal', returnSceneId: 'diagonal' },
-      { kind: 'detour', id: 'complete-order', title: '유리수 경계의 모든 경우', sceneIds: ['bounds-and-ambient', 'rational-boundary'], parentSceneId: 'real-completion', returnSceneId: 'real-completion' },
-      { kind: 'detour', id: 'why-real-field', title: '왜 완비 순서체는 동형까지 유일한가', sceneIds: ['archimedean-consequence', 'integer-part-density', 'cut-definition-order', 'cut-rational-fixing', 'cut-surjectivity', 'cut-operations', 'larger-systems'], parentSceneId: 'real-completion', returnSceneId: 'real-completion' },
-      { kind: 'detour', id: 'complex-order', title: '복소수에서 포기하는 순서', sceneIds: ['ordered-field-contradiction', 'choice-of-properties'], parentSceneId: 'complex-pairs', returnSceneId: 'complex-pairs' },
+      { id: 'local-repairs', title: '막힌 계산을 하나씩 고치기', sceneIds: ['question', 'integers', 'rationals', 'representative-independence', 'diagonal'] },
+      { id: 'global-structure', title: '빠진 경계를 모두 갖추려면', sceneIds: ['local-vs-global', 'real-completion'] },
+      { id: 'algebraic-extension', title: '새 해를 얻고 다른 성질을 포기하다', sceneIds: ['negative-square', 'complex-pairs', 'rotation', 'payoff'] },
+      { id: 'fraction-construction', title: '분수 표기를 일관되게 묶기', sceneIds: ['fraction-domain', 'fraction-transitivity'] },
+      { id: 'irrationality-proof', title: '√2의 비유리성 증명', sceneIds: ['sqrt-lowest-terms', 'sqrt-parity-contradiction'] },
+      { id: 'complete-order', title: '유리수 경계의 모든 경우', sceneIds: ['bounds-and-ambient', 'rational-boundary'] },
+      { id: 'why-real-field', title: '왜 완비 순서체는 동형까지 유일한가', sceneIds: ['archimedean-consequence', 'integer-part-density', 'cut-definition-order', 'cut-rational-fixing', 'cut-surjectivity', 'cut-operations', 'larger-systems'] },
+      { id: 'complex-order', title: '복소수에서 포기하는 순서', sceneIds: ['ordered-field-contradiction', 'choice-of-properties'] },
     ],
     relatedArticleIds: [
       'article:number-systems.rational-representations.ko',
@@ -73,22 +74,23 @@ const page = {
     { id: 'complex-pairs', title: '복소수를 계산할 규칙을 정해요', block: 8, from: 0, cards: ['(a,b)+(c,d)=(a+c,b+d)', '(a,b)(c,d)=(ac−bd,ad+bc)', '(a,b)⁻¹=(a,−b)/(a²+b²)', 'i²=−1'], known: '복소수 쌍의 덧셈·곱셈·항등원·비영 역원' },
     { id: 'rotation', title: 'i 곱셈은 사분 회전이에요', block: 9, from: 0, cards: ['(a,b)→(−b,a)', '(2,−1)→(1,2)', '길이²: 5→5'], known: '구체 좌표에서 확인한 회전과 길이 보존', figure: { src: '/content/number-systems/complex-numbers/figure-transfer-rotation.svg', alt: '같은 눈금의 복소평면에서 (2,−1)이 i를 곱해 (1,2)로 반시계 90도 회전하고 두 제곱 길이가 5인 그림.', caption: 'i(2−i)=1+2i: 좌표와 길이로 회전을 검산합니다.' } },
     { id: 'payoff', title: '다음 체계는 목표와 보존 조건이 정해요', block: 10, from: 0, cards: ['연산 수리: ℤ,ℚ', '한 근으로 생성한 체: ℚ(√2)', '보편 최소상한 조건: ℝ', '다른 대수 선택: ℂ,ℂ(t)'], known: '국소/보편, 존재/유일성, 진부분체 확장의 종합', figure: { src: '/content/mathematics/number-structures/figure-property-ledger.svg', alt: '정수와 유리수의 연산 수리, 제곱근 2를 붙인 국소 수리, 실수의 보편 최소상한 조건, 복소수의 대수적 수리와 포기한 순서를 비교한 장부.', caption: '무엇을 해결하고 무엇을 지킬지 정해야 확장의 의미가 정해집니다.' } },
-    { id: 'fraction-domain', title: '분모가 0이 아닌 표현만 묶어요', block: 11, from: 0, cards: ['D={(a,b)∈Z²:b≠0}', '(a,b)~(c,d) ⇔ ad=bc', '(0,0)은 추이성을 깨뜨림'], known: '몫구성 전 표현 영역과 분모 제한' },
+    { id: 'fraction-domain', skip: {"to": "representative-independence", "label": "분수 표기를 일관되게 묶기 건너뛰기"}, title: '분모가 0이 아닌 표현만 묶어요', block: 11, from: 0, cards: ['D={(a,b)∈Z²:b≠0}', '(a,b)~(c,d) ⇔ ad=bc', '(0,0)은 추이성을 깨뜨림'], known: '몫구성 전 표현 영역과 분모 제한' },
     { id: 'fraction-transitivity', title: '정수 소거만으로 추이성을 증명해요', block: 12, from: 0, cards: ['ad=bc', 'cf=de', 'd(af−be)=0', 'd≠0, ℤ에는 영인수가 없음'], known: '유리수 나눗셈을 전제하지 않는 추이성 증명' },
-    { id: 'sqrt-lowest-terms', title: '홀수 제곱을 계산해 짝홀수 보조정리를 세워요', block: 13, from: 0, cards: ['n=2k+1', 'n²=4k(k+1)+1', 'p²=2q²', 'p=2k'], known: '보조정리를 포함한 귀류법의 첫 절반' },
+    { id: 'sqrt-lowest-terms', skip: {"to": "local-vs-global", "label": "√2의 비유리성 증명 건너뛰기"}, title: '홀수 제곱을 계산해 짝홀수 보조정리를 세워요', block: 13, from: 0, cards: ['n=2k+1', 'n²=4k(k+1)+1', 'p²=2q²', 'p=2k'], known: '보조정리를 포함한 귀류법의 첫 절반' },
     { id: 'sqrt-parity-contradiction', title: 'q도 짝수여서 서로소와 모순이에요', block: 14, from: 0, cards: ['p=2k', 'q²=2k²', 'q도 짝수', '2 | gcd(p,q): 모순'], known: '두 짝수 가지를 모두 닫은 비유리성 증명' },
-    { id: 'bounds-and-ambient', title: '이미 주어진 우주에서 상한 후보를 정해요', block: 15, from: 0, cards: ['A⊆U', '상한 u∈U', '최소 상한 ≠ 최대 원소', '진단 ≠ ℝ 구성'], known: 'Q와 R의 후보 차이와 논증 범위' },
+    { id: 'bounds-and-ambient', skip: {"to": "archimedean-consequence", "label": "유리수 경계의 모든 경우 건너뛰기"}, title: '이미 주어진 우주에서 상한 후보를 정해요', block: 15, from: 0, cards: ['A⊆U', '상한 u∈U', '최소 상한 ≠ 최대 원소', '진단 ≠ ℝ 구성'], known: 'Q와 R의 후보 차이와 논증 범위' },
     { id: 'rational-boundary', title: '유리수 후보의 모든 경우를 배제해요', block: 16, from: 0, cards: ['r≤0: 1∈A', '0<r<√2: 더 큰 q∈A', 'r=√2: Q 밖', 'r>√2: 더 작은 상한 s'], known: 'Q 내부 최소 상한 부재의 완전한 경우 분할', figure: { src: '/content/number-systems/real-completeness/figure-rational-gap.svg', alt: '유리수 후보 r을 √2 아래, 같음, 위의 경우로 나누어 상한 또는 최소성 실패를 보이는 그림.', caption: '모든 유리수 후보가 상한성이나 최소성에서 탈락합니다.' } },
-    { id: 'archimedean-consequence', title: '완비성에서 자연수의 비유계성을 얻어요', block: 17, from: 0, cards: ['s=supF ℕ 가정', 's−1<n', 's<n+1∈ℕ: 모순'], known: '최소상한 성질에서 얻는 아르키메데스 전제' },
+    { id: 'archimedean-consequence', skip: {"to": "negative-square", "label": "왜 완비 순서체는 동형까지 유일한가 건너뛰기"}, title: '완비성에서 자연수의 비유계성을 얻어요', block: 17, from: 0, cards: ['s=supF ℕ 가정', 's−1<n', 's<n+1∈ℕ: 모순'], known: '최소상한 성질에서 얻는 아르키메데스 전제' },
     { id: 'integer-part-density', title: '정수부분을 증명한 뒤 유리수 격자를 만들어요', block: 18, from: 0, cards: ['N>−z', 'E={k∈ℕ:k>z+N}', '최소 k ⇒ z<m≤z+1', 'n(y−x)>1 ⇒ x<m/n<y'], known: '표준 자연수 정렬 원리와 아르키메데스 성질에서 유리수 조밀성 유도' },
     { id: 'cut-definition-order', title: '절단의 상한을 확인하고 두\u00a0유리수로 순서를 벌려요', block: 19, from: 0, cards: ['m<x<n', 'φ(x)=supG{qG:qF<x}', 'rG는 정의 집합의 상한', 'φ(x)≤rG<sG≤φ(y)'], known: '정의 가능성과 엄격한 순서 보존', figure: { src: '/content/mathematics/number-structures/figure-cut-isomorphism.svg', alt: '완비 순서체 F의 x 아래 유리수 절단이 정수 m과 n으로 비어 있지 않고 위로 제한됨을 확인하고, 두 유리수 r과 s로 φ(x)와 φ(y)를 엄격히 분리한 뒤 유리수 고정과 연산 보존으로 가는 흐름.', caption: '정수 경계, 두 유리수 분리, 유리수 고정, 최소 상한 보존을 차례로 증명합니다.' } },
     { id: 'cut-rational-fixing', title: 'φ가 유리수를 고정하고 비교를 옮김을 증명해요', block: 20, from: 0, cards: ['φ(aF)=aG', 'z<aG ⇒ z<qG<aG', 'qF<x ⇔ qG<φ(x)', 'φ(0)=0, φ(1)=1'], known: '유리수 고정과 F/G 유리수 비교 동치' },
     { id: 'cut-surjectivity', title: '목표 원소의 아래 유리수에서 역상을 만들어요', block: 21, from: 0, cards: ['Ay={qF:qG<y}', 'x=supF Ay', 'qF<x ⇔ qG<y', '같은 아래 유리수 ⇒ φ(x)=y'], known: '추가 유리수를 포함한 역절단과 전사성 증명' },
     { id: 'cut-operations', title: '임의 원소까지 덮는 유리수 합·\u2060곱으로 연산을 보존해요', block: 22, from: 0, cards: ['순서 동형은 최소 상한 보존', '모든 u<x+y에 u<r+s', '모든 u<xy에 u<rs (x,y>0)', '0과 모든 부호 경우 환원'], known: 'F와 G 양쪽의 공종성과 최소 상한을 연결한 연산 보존' },
     { id: 'larger-systems', title: 'ℝ(t)는 ℝ을 진부분체로 포함하지만 최소상한 성질이 없어요', block: 23, from: 0, cards: ['최종 부호로 전순서 정의', '양수 부분은 +,×에 닫힘', '모든 n∈ℕ에 t>n', 'ℂ(t)는 별도 독립 구성'], known: '진부분체 포함, 원소 수 비주장, 포기한 완비성' },
-    { id: 'ordered-field-contradiction', title: 'i와 −i 두 순서 가지가 모두 모순이에요', block: 24, from: 0, cards: ['i>0 → i²=−1>0', '−i>0 → (−i)²=−1>0', '실수 순서: −1<0'], known: '삼분법의 양쪽을 닫은 순서체 불가능성', figure: { src: '/content/number-systems/complex-numbers/figure-order-contradiction.svg', alt: 'i가 양수인 경우와 −i가 양수인 경우가 모두 −1이 양수라는 결론을 내어 실수 순서와 모순되는 두 갈래 그림.', caption: '불가능한 것은 모든 비교가 아니라 실수 순서를 확장하는 순서체 전순서입니다.' } },
+    { id: 'ordered-field-contradiction', skip: {"to": "rotation", "label": "복소수에서 포기하는 순서 건너뛰기"}, title: 'i와 −i 두 순서 가지가 모두 모순이에요', block: 24, from: 0, cards: ['i>0 → i²=−1>0', '−i>0 → (−i)²=−1>0', '실수 순서: −1<0'], known: '삼분법의 양쪽을 닫은 순서체 불가능성', figure: { src: '/content/number-systems/complex-numbers/figure-order-contradiction.svg', alt: 'i가 양수인 경우와 −i가 양수인 경우가 모두 −1이 양수라는 결론을 내어 실수 순서와 모순되는 두 갈래 그림.', caption: '불가능한 것은 모든 비교가 아니라 실수 순서를 확장하는 순서체 전순서입니다.' } },
     { id: 'choice-of-properties', title: '완비·순서·대수의 조건 묶음을 비교해요', block: 25, from: 0, cards: ['완비 순서체 ⇒ ℝ과 동형', 'ℂ ⇒ 새 대수방정식의 해와 체', '임의의 비교 ≠ 체 연산과 맞는 순서'], known: '조건 묶음에 따른 서로 다른 확장 결론' },
   ],
 } satisfies ContentPage;
 
-export default {...page,scenes:page.scenes.map(numberVisual)} satisfies ContentPage;
+
+export default orderScenes({...page,scenes:page.scenes.map(numberVisual)}, ["question", "integers", "rationals", "fraction-domain", "fraction-transitivity", "representative-independence", "diagonal", "sqrt-lowest-terms", "sqrt-parity-contradiction", "local-vs-global", "real-completion", "bounds-and-ambient", "rational-boundary", "archimedean-consequence", "integer-part-density", "cut-definition-order", "cut-rational-fixing", "cut-surjectivity", "cut-operations", "larger-systems", "negative-square", "complex-pairs", "ordered-field-contradiction", "choice-of-properties", "rotation", "payoff"]);

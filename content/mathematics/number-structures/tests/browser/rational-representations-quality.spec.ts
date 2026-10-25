@@ -1,5 +1,5 @@
 import {expect,test} from '@playwright/test';
-import {activeWork,detours,expectDetourReturn,expectLongformScene,expectReaderStateBoundary,openMainWorkScene} from '../../../../../tests/browser/support/main-work.js';
+import {activeWork,skippableSections,expectSectionContinuation,expectLongformScene,expectReaderStateBoundary,openMainWorkScene} from '../../../../../tests/browser/support/main-work.js';
 
 const work=activeWork('number-structures');
 const scenes=['representative-independence','fraction-domain','fraction-transitivity'] as const;
@@ -10,9 +10,9 @@ test('rational representatives retain independence, domain, and transitivity rea
   // When the mapped construction is entered directly and through its declared branch.
   for(const sceneId of scenes){await openMainWorkScene(page,work,sceneId);await expectLongformScene(page,work,sceneId);}
   await expectReaderStateBoundary(page,'fraction-transitivity');
-  const detour=detours(work).find(chapter=>chapter.id==='fraction-construction');
+  const detour=skippableSections(work).find(chapter=>chapter.id==='fraction-construction');
   if(!detour)throw new TypeError('Missing fraction-construction detour');
-  await expectDetourReturn(page,work,detour);
+  await expectSectionContinuation(page,work,detour);
   // Then exact source prose, cross-product cards, state atomicity, and parent return remain intact.
   expect(errors).toEqual([]);
 });
