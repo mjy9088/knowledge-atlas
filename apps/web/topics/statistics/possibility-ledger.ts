@@ -102,7 +102,7 @@ export function probabilityLedgerView(topic: ProbabilityTopic, state: LabState):
     topic,
     title: `처음 고른 문 ${state.choice}번 · ${state.mode === 'informed' ? '정답을 아는 진행자' : '정답을 모르는 진행자'}`,
     context: state.mode === 'informed' ? '진행자는 상품을 피해서 반드시 꽝을 엽니다. 두 꽝 중에는 똑같은 확률로 고릅니다.' : '진행자는 정답을 모르고, 고르지 않은 두 문 중 하나를 똑같은 확률로 엽니다.',
-    event: '꽝을 본 게임만 남깁니다. 몇 번 문을 열었는지는 가리지 않습니다.',
+    event: '문제는 꽝이 열린 뒤의 승률을 묻습니다. 그 조건에 맞는 게임만 셉니다.',
     target: '남은 게임에서 바꾸면 이길까요?', caseHeading: '상품 위치', rows, numerator, denominator: model.denominator,
     posterior: model.switchProbability ?? 0,
   };

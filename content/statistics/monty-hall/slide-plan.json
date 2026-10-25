@@ -133,8 +133,8 @@
       "sceneId": "shortened",
       "blockRef": "block:statistics.monty-hall.shortened",
       "title": "그런데 처음에 규칙을 말했나요?",
-      "purpose": "State that missing host information does not itself imply1/2; compare a separately specified blind uniform-opening protocol.",
-      "successCheck": "Can identify the missing rule rather than reject a valid conditional calculation.",
+      "purpose": "Retain the observed goat-reveal scene while distinguishing it from an unspecified host policy.",
+      "successCheck": "Can state that the question still concerns a goat reveal even when a different host policy is stipulated.",
       "representation": "Static side-by-side guaranteed versus accidental goat procedures.",
       "prerequisites": [
         "strategy"
@@ -145,9 +145,9 @@
       "sceneId": "blind-rule",
       "blockRef": "block:statistics.monty-hall.blind-rule",
       "title": "이번 진행자는 정답을 모릅니다",
-      "purpose": "Change only the host policy to uniform opening of an unchosen door; retain goat-reveal games.",
-      "successCheck": "Can say why prize reveals can now occur and will be excluded.",
-      "representation": "A concise rule panel names the two unchosen doors, their equal opening probabilities, and the possibility of revealing the prize before the full tree is introduced.",
+      "purpose": "Specify blind uniform opening and explicitly recover the opening question: switching after a goat was revealed.",
+      "successCheck": "Can explain that counting only goat reveals follows from the problem condition, not a host restriction or an arbitrary discard.",
+      "representation": "A concise rule panel names uniform unchosen-door opening separately from the problem condition: switching after a goat reveal. No new interaction is needed; the condition precedes filtering in the connected tree.",
       "prerequisites": [
         "shortened"
       ],
@@ -181,8 +181,8 @@
       "sceneId": "blind-keep-miss",
       "blockRef": "block:statistics.monty-hall.blind-keep-miss",
       "title": "처음 틀렸다면 절반만 남습니다",
-      "purpose": "Work both initially wrong prize rows and exclude prize reveals.",
-      "successCheck": "Can name the two excluded pairs and two surviving switching wins.",
+      "purpose": "Show why prize reveals in initially wrong games do not match the stated goat-reveal condition.",
+      "successCheck": "Can identify the two prize paths as possible games outside the question condition, with two goat paths inside it.",
       "representation": "Two initially wrong prize branches retain their connections and four opening paths, with each prize-reveal path visibly dashed and crossed out.",
       "prerequisites": [
         "blind-keep-hit"
@@ -193,8 +193,8 @@
       "sceneId": "compare",
       "blockRef": "block:statistics.monty-hall.compare",
       "title": "남은 네 경우 중 두 경우에서 이깁니다",
-      "purpose": "Assemble the retained blind-host cases.",
-      "successCheck": "Can derive 2/4=1/2 using the retained denominator.",
+      "purpose": "Answer switching success among the four paths matching the observed goat reveal.",
+      "successCheck": "Can justify the denominator four from the problem condition before computing two wins out of four.",
       "representation": "The full connected six-path tree retains two visibly excluded prize reveals alongside the four accepted paths and their switching outcomes.",
       "prerequisites": [
         "blind-keep-miss"
@@ -205,9 +205,9 @@
       "sceneId": "sampling",
       "blockRef": "block:statistics.monty-hall.sampling",
       "title": "같은 뽑기에서 무엇이 빠질까요?",
-      "purpose": "Let readers compare both host policies on paired seeded prize draws and watch exclusions change the denominator.",
-      "successCheck": "Identify total attempts, excluded prize reveals, retained goat observations and switching wins; distinguish empirical ratios from exact values.",
-      "representation": "A compact paired simulator and sample-pool bar label initially-correct retained, initially-wrong retained, and initially-wrong excluded counts. Cards divide successes by retained counts, never all attempts.",
+      "purpose": "Compare both host policies on paired draws while retaining only games matching the stated goat-reveal question.",
+      "successCheck": "Can name prize-reveal and goat-reveal counts, explain why only the latter form the denominator, and distinguish sample rates from exact values.",
+      "representation": "The existing compact paired simulator labels prize-reveal versus goat-reveal counts and divides switching wins by goat-reveal games. The full sample pool remains visible; exclusion is a match to the stated question, not deletion from history.",
       "prerequisites": [
         "compare"
       ],
@@ -217,8 +217,8 @@
       "sceneId": "close",
       "blockRef": "block:statistics.monty-hall.close",
       "title": "같은 두 문인데, 답이 달라집니다",
-      "purpose": "Answer the opening by comparing all wrong games retained versus half excluded.",
-      "successCheck": "Can explain 2/3 versus 1/2 from the host rule instead of the count of closed doors.",
+      "purpose": "Answer the original goat-reveal question under each explicit host policy.",
+      "successCheck": "Can explain that both2/3 and1/2 concern goat-reveal games and that host policy determines which possible games match that condition.",
       "representation": "Compact two-policy summary; no new prerequisite or full ledger.",
       "prerequisites": [
         "compare"

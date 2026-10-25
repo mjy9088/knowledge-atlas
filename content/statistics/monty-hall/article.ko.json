@@ -71,14 +71,14 @@
     },
     {
       "id": "block:statistics.monty-hall.shortened",
-      "text": "처음 장면에는 진행자의 규칙이 없었습니다. 정보가 빠졌다고 답이 곧 1/2이 되는 것은 아닙니다. 다른 규칙을 정하고, 어떤 게임이 빠지는지 보겠습니다.",
+      "text": "처음 장면에는 진행자의 규칙이 없었습니다. 정보가 빠졌다고 답이 곧 1/2이 되는 것은 아닙니다. 다른 규칙에서도 같은 ‘꽝이 열린 장면’이 나온 게임을 살펴보겠습니다.",
       "claimRefs": [
         "claim:statistics.monty-hall.monty-epistemic"
       ]
     },
     {
       "id": "block:statistics.monty-hall.blind-rule",
-      "text": "이번 진행자는 정답을 모릅니다. 내가 고르지 않은 두 문 중 하나를 똑같은 확률로 엽니다. 상품이 나온 게임은 빼고, 꽝이 나온 게임만 비교하겠습니다.",
+      "text": "이번 진행자는 정답을 모르고, 고르지 않은 두 문 중 하나를 무작위로 엽니다. 단, 문제는 처음처럼 ‘꽝이 열린 뒤 바꾸면?’입니다. 그래서 꽝이 나온 게임만 셉니다.",
       "claimRefs": [
         "claim:statistics.monty-hall.monty-observation"
       ]
@@ -99,28 +99,28 @@
     },
     {
       "id": "block:statistics.monty-hall.blind-keep-miss",
-      "text": "상품이 다른 문에 있으면, 진행자는 상품을 열 수도 있고 꽝을 열 수도 있습니다. 상품을 연 경우는 제외합니다. 꽝을 연 경우만 남으므로, 처음 틀린 경우의 절반이 빠집니다.",
+      "text": "상품이 다른 문에 있으면, 진행자는 상품이나 꽝을 열 수 있습니다. 상품을 연 게임은 문제의 ‘꽝이 열렸다’는 조건에 맞지 않습니다. 그래서 꽝을 연 절반만 남습니다.",
       "claimRefs": [
         "claim:statistics.monty-hall.monty-observation"
       ]
     },
     {
       "id": "block:statistics.monty-hall.compare",
-      "text": "상품을 연 두 경로를 빼면 네 경로가 남습니다. 이 중 교환 승리는 둘이므로 2/4=1/2입니다. 전체 여섯 경로가 아닌, 꽝을 본 네 경로에서 센 값입니다.",
+      "text": "문제는 ‘꽝이 열린 뒤’의 승률을 묻습니다. 상품을 연 두 경로는 이 조건에 맞지 않아, 네 경로만 셉니다. 이 중 교환 승리는 둘이므로 2/4=1/2입니다.",
       "claimRefs": [
         "claim:statistics.monty-hall.monty-observation"
       ]
     },
     {
       "id": "block:statistics.monty-hall.sampling",
-      "text": "두 진행자에게 같은 상품 배치를 적용합니다. 모르는 진행자가 상품을 열면 집계에서 뺍니다. 승률은 전체 뽑기 수와 남긴 게임 수 중 무엇으로 나눠야 할까요?",
+      "text": "두 진행자에게 같은 상품 배치를 적용합니다. 문제는 ‘꽝이 열린 뒤’의 승률을 묻습니다. 그래서 꽝이 나온 게임만 세고, 그중 교환 승리를 셉니다.",
       "claimRefs": [
         "claim:statistics.monty-hall.monty-observation"
       ]
     },
     {
       "id": "block:statistics.monty-hall.close",
-      "text": "반드시 꽝을 여는 진행자라면, 처음 틀린 경우가 모두 남아 교환 승률은 2/3입니다. 모르고 무작위로 열었다면, 처음 틀린 경우의 절반이 제외되어 1/2입니다. 남은 문 개수만이 아니라 문을 연 규칙을 봐야 합니다.",
+      "text": "반드시 꽝을 여는 진행자는 모든 게임이 조건에 맞아, 교환 승률이 2/3입니다. 무작위로 여는 진행자는 ‘꽝이 열린 게임’만 보면 1/2입니다. 처음 틀린 게임의 절반이 상품을 열어 이 조건에서 빠지기 때문입니다.",
       "claimRefs": [
         "claim:statistics.monty-hall.monty-epistemic"
       ]

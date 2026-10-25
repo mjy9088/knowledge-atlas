@@ -65,10 +65,10 @@ export function mountMontyHall(container: HTMLElement, options: {onChange?: () =
     } else if (scene === 'sampling') {
       content = renderPairedSampling(state, lab.inspect().playing);
     } else if (scene === 'blind-rule') {
-      content = `<div class="monty-rule"><strong>처음 선택 ${state.choice}번은 열지 않습니다.</strong><span>${otherDoors(state.choice).join('번 또는 ')}번 중 하나를 각각 1/2의 확률로 엽니다.</span><span>상품을 열 수도 있습니다.</span></div>`;
+      content = `<div class="monty-rule"><strong>처음 선택 ${state.choice}번은 열지 않습니다.</strong><span>${otherDoors(state.choice).join('번 또는 ')}번 중 하나를 각각 1/2의 확률로 엽니다.</span><span>문제의 조건: 꽝이 열린 뒤의 승률을 구합니다.</span></div>`;
     } else {
       content = renderMontyTree(state.choice, 'blind', scene === 'blind-keep-hit' ? 'hit' : scene === 'blind-keep-miss' ? 'miss' : 'all', scene !== 'blind-paths');
-      note = scene === 'compare' ? '남은 네 경우 중 두 경우에서 교환 승리: 2/4 = 1/2' : '상품 배치와 문 공개를 합친, 같은 확률의 경우입니다.';
+      note = scene === 'compare' ? '꽝이 열린 네 경우 중 교환 승리: 2/4 = 1/2' : scene === 'blind-keep-miss' ? '상품 공개는 문제의 ‘꽝이 열렸다’는 조건과 다릅니다.' : '상품 배치와 문 공개를 합친, 같은 확률의 경우입니다.';
     }
     const html = `${scene === 'question' ? '' : `<p class="monty-choice-context">처음 고른 문: ${state.choice}번</p>`}${content}${note ? `<p class="monty-story-note" role="status">${note}</p>` : ''}`;
     if (scene === 'sampling' && story.querySelector('.monty-sampler')) {
