@@ -6,7 +6,7 @@ Articles must remain readable without a running client application or SPA fallba
 
 ## Project impact
 
-Catalog routing, build/dev HTML generation and browser entry share article identity and content ranges. Every reader uses materialized scene paths, with legacy fragment compatibility.
+Catalog routing, build/dev HTML generation and browser entry share article identity and content ranges. Every reader uses materialized scene paths.
 
 ## Alternatives
 
@@ -14,8 +14,8 @@ Continue visible progressive enhancement and accept a source-to-interactive layo
 
 ## Decision
 
-Keep the small Node static builder and shared HTML renderer. Use domain-root directory routes and stable block/sentence references. Deliver the interactive source in an inert template, load the shared controller, and mount its resolved scene and adapters synchronously before the first reader paint. Supply a separate readable no-script document and recover static navigation if controller loading fails. Normalize legacy scene fragments without adding history entries.
+Keep the small Node static builder and shared HTML renderer. Use domain-root directory routes and stable block/sentence references. Deliver the interactive source in an inert template, load the shared controller, and mount its resolved scene and adapters synchronously before the first reader paint. Supply a separate readable no-script document and recover static navigation if controller loading fails. Select scenes only from their directory paths.
 
 ## Consequences
 
-Hosting needs directory indexes/root-relative paths, without a client-router fallback. Interactive readers wait for their modules before appearing, rather than painting an incompatible temporary layout. Static fallback remains readable; interactive state uses validated browser adapters and survives client scene navigation. No-script clients cannot resolve a fragment-selected scene server-side and should use scene paths. Build hashes identify review candidates, not publication approval.
+Hosting needs directory indexes/root-relative paths, without a client-router fallback. Interactive readers wait for their modules before appearing, rather than painting an incompatible temporary layout. Static fallback remains readable; interactive state uses validated browser adapters and survives client scene navigation. Fragments address document anchors and panels, rather than scenes. Build hashes identify review candidates, not publication approval.

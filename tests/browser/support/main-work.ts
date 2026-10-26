@@ -42,7 +42,7 @@ export function sectionBounds(work:ActiveWork,chapter:ContentChapter){
 
 export async function openMainWorkScene(page:Page,work:ActiveWork,sceneId:string):Promise<void>{
   requireScene(work,sceneId);
-  const response=await page.goto(`/knowledge/${work.page.slug}/#${sceneId}`);
+  const response=await page.goto(`/knowledge/${work.page.slug}/${sceneId}/`);
   if(response)expect(response.status(),`${work.page.slug}/${sceneId} response`).toBe(200);
   else expect(new URL(page.url()).pathname).toBe(`/knowledge/${work.page.slug}/`);
   await page.waitForFunction(()=>window.__atlasRelated);

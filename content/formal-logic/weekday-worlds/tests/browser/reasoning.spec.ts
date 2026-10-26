@@ -3,7 +3,7 @@ import { CONTENT_PAGES } from "../../../../catalog.js";
 import { expectFrame, weekdayFrame, weekdayInputs, weekdayReasoning, weekdayView } from "./support.js";
 
 test('weekday review skip keeps edits and lands on a nonmodal worked proof before possible worlds',async({page})=>{
-  await page.goto('/knowledge/weekday-worlds/#modal-expansion');await page.waitForFunction(()=>window.__atlasRelated);
+  await page.goto('/knowledge/weekday-worlds/modal-expansion/');await page.waitForFunction(()=>window.__atlasRelated);
   await page.getByRole('combobox',{name:'문장 속 목표 요일',exact:true}).selectOption('0');
   const saved=await page.evaluate(()=>window.__atlasRelated.getState());
   await page.evaluate(()=>window.__atlasRelated.setState({sceneId:'notation'}));
@@ -25,7 +25,7 @@ test('weekday review skip keeps edits and lands on a nonmodal worked proof befor
 });
 
 test('weekday modality introduction shows only separate possibility and necessity examples and preserves edits',async({page})=>{
-  await page.goto('/knowledge/weekday-worlds/#modal-comparison');await page.waitForFunction(()=>window.__atlasRelated);
+  await page.goto('/knowledge/weekday-worlds/modal-comparison/');await page.waitForFunction(()=>window.__atlasRelated);
   for(const selector of ['.weekday-source','.weekday-settings','.weekday-logic-diagram','.weekday-interpretation-comparison','.weekday-modal-diagram'])await expect(page.locator(selector)).toBeHidden();
   const intro=page.locator('.weekday-modal-introduction');await expect(intro).toBeVisible();await expect(intro.locator('.weekday-modal-intro-world')).toHaveCount(6);
   for(const [id,actual,necessary]of [['possible','거짓','false'],['necessary','참','true']]){const card=intro.locator(`[data-example="${id}"]`);await expect(card.locator('.weekday-modal-intro-actual')).toHaveText('현실에서 P: '+actual);await expect(card.locator('[data-operator="◇P"]')).toHaveAttribute('data-truth','true');await expect(card.locator('[data-operator="□P"]')).toHaveAttribute('data-truth',necessary);}
@@ -36,7 +36,7 @@ test('weekday modality introduction shows only separate possibility and necessit
 });
 
 test('weekday nonmodal model allows presets and keeps antecedent and consequent on separate unbroken lines',async({page})=>{
-  await page.goto('/knowledge/weekday-worlds/#contexts');await page.waitForFunction(()=>window.__atlasRelated);
+  await page.goto('/knowledge/weekday-worlds/contexts/');await page.waitForFunction(()=>window.__atlasRelated);
   await expect(page.getByRole('button',{name:'세계 · 접근 관계',exact:true})).toBeHidden();await expect(page.getByRole('button',{name:'세계 추가',exact:true})).toBeHidden();
   for(const preset of ['B · 현실 내일 고정','C · 가능세계 없이','A · 현실 어제 고정']){
     const button=page.getByRole('button',{name:preset,exact:true});await button.click();await expect(button).toHaveAttribute('aria-pressed','true');
@@ -47,7 +47,7 @@ test('weekday nonmodal model allows presets and keeps antecedent and consequent 
 });
 
 test('weekday modal systems distinguish the K editor from current S4 or S5 frame conditions',async({page})=>{
-  await page.goto('/knowledge/weekday-worlds/#modal-systems');await page.waitForFunction(()=>window.__atlasRelated);
+  await page.goto('/knowledge/weekday-worlds/modal-systems/');await page.waitForFunction(()=>window.__atlasRelated);
   await expect(page.locator('.weekday-system-table tbody tr')).toHaveCount(6);await expect(page.locator('.weekday-system-table')).toContainText('K');await expect(page.locator('.weekday-system-table')).toContainText('T + B');
   await page.locator('#reader-next').click();await expect(page).toHaveURL(/\/frame-system\/$/);
   const status=page.locator('.weekday-frame-systems');await expect(status).toContainText('편집기의 기본 보장: K');await expect(status.locator('[data-system="S4"]')).toHaveAttribute('data-satisfied','true');await expect(status.locator('[data-system="S5"]')).toHaveAttribute('data-satisfied','false');
@@ -60,7 +60,7 @@ test('weekday modal systems distinguish the K editor from current S4 or S5 frame
 });
 
 test('weekday modal notation expands over exactly the current accessible worlds',async({page})=>{
-  await page.goto('/knowledge/weekday-worlds/#modal-expansion');await page.waitForFunction(()=>window.__atlasRelated);
+  await page.goto('/knowledge/weekday-worlds/modal-expansion/');await page.waitForFunction(()=>window.__atlasRelated);
   const some=page.locator('[data-modal-expansion="◇P"]'),all=page.locator('[data-modal-expansion="□P"]');
   await expect(some).toHaveText('하나 이상: P(w₀) ∨ P(w₁) ↔ ◇P');await expect(all).toHaveText('모두: P(w₀) ∧ P(w₁) ↔ □P');
   await page.getByRole('button',{name:'세계 추가',exact:true}).click();await page.getByRole('button',{name:'세계 추가',exact:true}).click();
@@ -72,7 +72,7 @@ test('weekday modal notation expands over exactly the current accessible worlds'
 });
 
 test('weekday target stays transparent and optional reference comparison separates date contexts from accessibility',async({page})=>{
-  await page.goto('/knowledge/weekday-worlds/#modal-expansion');await page.waitForFunction(()=>window.__atlasRelated);
+  await page.goto('/knowledge/weekday-worlds/modal-expansion/');await page.waitForFunction(()=>window.__atlasRelated);
   for(const selector of ['.weekday-target-trigger','.weekday-target-select'])expect(await page.locator(selector).evaluate(e=>getComputedStyle(e).backgroundColor)).toBe('rgba(0, 0, 0, 0)');
   await page.getByRole('combobox',{name:'문장 속 목표 요일',exact:true}).selectOption('0');
   const saved=await page.evaluate(()=>window.__atlasRelated.getState()),opener=page.getByRole('button',{name:'기준 변경과 양상 비교 ↗',exact:true});await opener.click();
@@ -87,7 +87,7 @@ test('weekday target stays transparent and optional reference comparison separat
 });
 
 test('weekday bridge symbols and their A/B meaning lines highlight along the same paths',async({page})=>{
-  await page.goto('/knowledge/weekday-worlds/#notation');await page.waitForFunction(()=>window.__atlasRelated);
+  await page.goto('/knowledge/weekday-worlds/notation/');await page.waitForFunction(()=>window.__atlasRelated);
   for(const [role,text]of [['antecedent','A: t − 1 ≡₇ h + 1'],['consequent','B: h ≡₇ 4']]){
     const letter=page.locator(`.weekday-bridge-formula [data-alignment-node="${role}"]`),meaning=page.locator(`.weekday-bridge-definition[data-alignment-node="${role}"]`);
     await letter.hover();await expect(meaning).toHaveText(text);await expect(meaning).toHaveAttribute('data-alignment-current','');await expect(page.locator('.weekday-bridge [data-alignment-side="source"][data-alignment-node="constraints"]')).toHaveAttribute('data-alignment-on-path','');
@@ -98,7 +98,7 @@ test('weekday bridge symbols and their A/B meaning lines highlight along the sam
 });
 
 test('weekday contradiction briefly explains classical explosion and keeps its evidence reachable',async({page},testInfo)=>{
-  await page.goto('/knowledge/weekday-worlds/#modal-expansion');await page.waitForFunction(()=>window.__atlasRelated);await weekdayInputs(page);
+  await page.goto('/knowledge/weekday-worlds/modal-expansion/');await page.waitForFunction(()=>window.__atlasRelated);await weekdayInputs(page);
   const note=page.locator('.weekday-explosion-note');await expect(note).toHaveCount(0);
   // A sample mismatch is not an inconsistent constraint set.
   await page.evaluate(()=>{const saved=window.__atlasRelated.getState();if(!saved.interaction||!('worlds'in saved.interaction))throw new Error('Expected worlds');saved.interaction.actual=0;saved.interaction.worlds[0].today=0;window.__atlasRelated.setState(saved);});await expect(note).toHaveCount(0);await expect(page.locator('.weekday-result')).toContainText('현실 답: 일요일');
@@ -113,12 +113,12 @@ test('weekday contradiction briefly explains classical explosion and keeps its e
   await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(state=>window.__atlasRelated.setState(state),saved);await weekdayReasoning(page);await expect(note).toBeVisible();
   await testInfo.attach('weekday-explosion-connection',{body:await page.screenshot(),contentType:'image/png'});
   await note.getByRole('link',{name:'근거와 범위 ↗',exact:true}).click();await expect(page.locator('dialog[open]')).toContainText('주장별 조건과 근거 위치');
-  await page.keyboard.press('Escape');await page.goto('/knowledge/weekday-worlds/#literal');await page.waitForFunction(()=>window.__atlasRelated);await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id','literal');await weekdayReasoning(page);await expect(note).toBeVisible();
+  await page.keyboard.press('Escape');await page.goto('/knowledge/weekday-worlds/literal/');await page.waitForFunction(()=>window.__atlasRelated);await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id','literal');await weekdayReasoning(page);await expect(note).toBeVisible();
   await weekdayInputs(page);await page.getByRole('button',{name:'A · 현실 어제 고정',exact:true}).click();await expect(note).toHaveCount(0);
 });
 
 test('weekday introduces worlds with Wednesday, then symbols and classical inference before modalities',async({page})=>{
-  await page.goto('/knowledge/weekday-worlds/#question');await page.waitForFunction(()=>window.__atlasRelated);
+  await page.goto('/knowledge/weekday-worlds/question/');await page.waitForFunction(()=>window.__atlasRelated);
   const scenes=CONTENT_PAGES.find(p=>p.slug==='weekday-worlds')!.scenes;
   const beforeWorlds=['question','reason','conditional','sunday','wednesday','notation','inference','nonmodal-proof','contexts'];
   for(const [index,scene]of scenes.entries()){
@@ -147,7 +147,7 @@ test('weekday introduces worlds with Wednesday, then symbols and classical infer
     if(scene.id==='modal-rules'){await expect(page.locator('.weekday-bridge')).toContainText('K 공리');await expect(page.locator('.weekday-bridge')).toContainText('가정 없이 증명한 정리');}
     await expectFrame(page,weekdayFrame);
   }
-  await page.goto('/knowledge/weekday-worlds/#modal-expansion');await page.waitForFunction(()=>window.__atlasRelated);
+  await page.goto('/knowledge/weekday-worlds/modal-expansion/');await page.waitForFunction(()=>window.__atlasRelated);
   const target=page.getByRole('combobox',{name:'문장 속 목표 요일',exact:true});await target.selectOption('2');
   const saved=await page.evaluate(()=>window.__atlasRelated.getState());
   for(const sceneId of ['question','notation','inference','contexts','alethic']){await page.evaluate(sceneId=>window.__atlasRelated.setState({sceneId}),sceneId);const current=(await page.evaluate(()=>window.__atlasRelated.getState())).interaction;expect({...current,logicMode:'calendar',challenge:undefined}).toEqual({...saved.interaction,logicMode:'calendar',challenge:undefined});}

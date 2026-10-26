@@ -12,10 +12,10 @@ export function mountWeekdayIntro(source:HTMLElement,reasoning:HTMLElement){
   return {render(input:WeekdayInterpretation,scene:string){
     worlds.hidden=scene!=='wednesday';
     const value=weekdayDeductions(input),c=input.contexts;
-    quote.textContent=scene==='question'||scene==='reason'?`“어제가 내일이었으면 좋겠다. 그럼 오늘이 ${WEEKDAYS[input.target]}일 텐데…”`:`“만약 어제가 내일이라면, 오늘이 ${WEEKDAYS[input.target]}이다.”`;
+    quote.textContent=scene==='question'?`“어제가 내일이었으면 좋겠다. 그럼 오늘이 ${WEEKDAYS[input.target]}일 텐데…”`:`“만약 어제가 내일이라면, 오늘이 ${WEEKDAYS[input.target]}이다.”`;
 
     reasoning.replaceChildren();
-    if(scene==='question'||scene==='reason')return;
+    if(scene==='question')return;
     const calendar=calendarCorrespondence(input);
     if(calendar){reasoning.innerHTML=calendar;return;}
     function step(label:string,day:string){const card=make('div','','weekday-intro-step');card.append(make('span',label,'weekday-intro-label'),make('strong',day,'weekday-intro-day'));if(reasoning.childElementCount)reasoning.append(make('span','↓','weekday-intro-arrow'));reasoning.append(card);}

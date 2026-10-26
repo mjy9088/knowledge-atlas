@@ -2,7 +2,7 @@ import {expect,test} from '@playwright/test';
 import {expectFrame,weekdayFrame} from './support.js';
 
 test('calendar equality joins the correct date roles for every target and both interpretations',async({page})=>{
-  await page.goto('/knowledge/weekday-worlds/#sunday');await page.waitForFunction(()=>window.__atlasRelated);
+  await page.goto('/knowledge/weekday-worlds/sunday/');await page.waitForFunction(()=>window.__atlasRelated);
   const saved=await page.evaluate(()=>window.__atlasRelated.getState());
   for(const target of [0,1,2,3,4,5,6])for(const reverse of [false,true]){
     await page.evaluate(({saved,target,reverse})=>{
@@ -24,7 +24,7 @@ test('calendar equality joins the correct date roles for every target and both i
 });
 
 test('inconsistent references clear the calendar and restoration does not retain stale days',async({page})=>{
-  await page.goto('/knowledge/weekday-worlds/#sunday');await page.waitForFunction(()=>window.__atlasRelated);
+  await page.goto('/knowledge/weekday-worlds/sunday/');await page.waitForFunction(()=>window.__atlasRelated);
   const saved=await page.evaluate(()=>window.__atlasRelated.getState());
   await page.evaluate(saved=>{
     const state=saved.interaction;if(!state||!('contexts'in state))throw new Error('Expected weekday state');
@@ -38,7 +38,7 @@ test('inconsistent references clear the calendar and restoration does not retain
 });
 
 test('quantifier evidence shows a witness and a counterexample without changing the saved editor',async({page})=>{
-  await page.goto('/knowledge/weekday-worlds/#modal-comparison');await page.waitForFunction(()=>window.__atlasRelated);
+  await page.goto('/knowledge/weekday-worlds/modal-comparison/');await page.waitForFunction(()=>window.__atlasRelated);
   const saved=await page.evaluate(()=>window.__atlasRelated.getState());
   for(const [id,trueCount,falseCount]of [['possible',1,2],['necessary',3,0]] as const){
     const card=page.locator(`.weekday-modal-intro-case[data-example="${id}"]`);
@@ -54,7 +54,7 @@ test('quantifier evidence shows a witness and a counterexample without changing 
 
 
 test('world names and weekdays remain readable on separate lines',async({page})=>{
-  await page.goto('/knowledge/weekday-worlds/#alethic');await page.waitForFunction(()=>window.__atlasRelated);await page.evaluate(()=>document.fonts.ready);
+  await page.goto('/knowledge/weekday-worlds/alethic/');await page.waitForFunction(()=>window.__atlasRelated);await page.evaluate(()=>document.fonts.ready);
   const labels=await page.locator('.weekday-modal-diagram svg').evaluate(svg=>{
     const names=[...svg.querySelectorAll<SVGTextElement>('.weekday-modal-label')],days=[...svg.querySelectorAll<SVGTextElement>('.weekday-modal-day')];
     return names.map((name,index)=>{const day=days[index],a=name.getBoundingClientRect(),b=day.getBoundingClientRect();return {nameSize:parseFloat(getComputedStyle(name).fontSize)*name.getScreenCTM()!.a,daySize:parseFloat(getComputedStyle(day).fontSize)*day.getScreenCTM()!.a,separation:b.top-a.bottom};});

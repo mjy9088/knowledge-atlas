@@ -48,7 +48,7 @@ test('200% capture fits title, every scene, both translations, four worlds and r
 });
 
 test('explicit congruence rules and the longer reverse proof fit the 200% recording layout',async({page},testInfo)=>{
-  await page.goto('/knowledge/weekday-worlds/#nonmodal-proof');await page.waitForFunction(()=>window.__atlasRelated);await fit(page);
+  await page.goto('/knowledge/weekday-worlds/nonmodal-proof/');await page.waitForFunction(()=>window.__atlasRelated);await fit(page);
   await expect(page.locator('.weekday-classical-proof ol li')).toHaveCount(7);
   await page.evaluate(()=>{const state=window.__atlasRelated.getState();if(!state.interaction||!('contexts'in state.interaction))throw new Error('Expected weekday state');window.__atlasRelated.setState({...state,interaction:{...state.interaction,target:0,contexts:{yesterday:1,tomorrow:0,consequent:1,question:0},customized:true}});});
   await expect(page.locator('.weekday-classical-proof ol li')).toHaveCount(8);await expect(page.locator('.weekday-classical-proof')).toContainText('2: 대칭');await expect(page.locator('.weekday-classical-answer')).toContainText('토요일');await fit(page);
@@ -56,7 +56,7 @@ test('explicit congruence rules and the longer reverse proof fit the 200% record
 });
 
 test('20-second challenge and reflection fit the 200% recording layout',async({page},testInfo)=>{
-  await page.clock.install();await page.goto('/knowledge/weekday-worlds/#question');await page.waitForFunction(()=>window.__atlasRelated);
+  await page.clock.install();await page.goto('/knowledge/weekday-worlds/question/');await page.waitForFunction(()=>window.__atlasRelated);
   await page.clock.fastForward(8_000);await expect(page.getByRole('timer')).toHaveText('12초');await fit(page);
   await testInfo.attach('challenge-12-seconds-200',{body:await page.screenshot(),contentType:'image/png'});
   // Hiding the question pauses accumulation; restoring a live snapshot resumes it.
@@ -68,7 +68,7 @@ test('20-second challenge and reflection fit the 200% recording layout',async({p
 });
 
 test('explicit navigation and scrolling choices stay accessible without obscuring source controls',async({page},testInfo)=>{
-  await page.goto('/knowledge/weekday-worlds/#modal-expansion');await page.waitForFunction(()=>window.__atlasRelated);
+  await page.goto('/knowledge/weekday-worlds/modal-expansion/');await page.waitForFunction(()=>window.__atlasRelated);
   await expect(page.locator('#reader-end-links,#reader-skip-scope')).toHaveCount(0);
   const actions=await Promise.all(['.reader-menu summary','#reader-prev','#reader-next'].map(selector=>page.locator(selector).boundingBox()));
   const [menuAction,previousAction,nextAction]=actions;if(!menuAction||!previousAction||!nextAction)throw new TypeError('Expected visible weekday actions');
@@ -97,7 +97,7 @@ test('explicit navigation and scrolling choices stay accessible without obscurin
 });
 
 test('compact expressions open captured choices and the video frame keeps input and reasoning together',async({page},testInfo)=>{
-  await page.goto('/knowledge/weekday-worlds/#modal-expansion');await page.waitForFunction(()=>window.__atlasRelated);
+  await page.goto('/knowledge/weekday-worlds/modal-expansion/');await page.waitForFunction(()=>window.__atlasRelated);
   await expect(page.getByRole('button',{name:'입력 보기',exact:true})).toHaveCount(0);await expect(page.getByRole('button',{name:'추론 보기',exact:true})).toHaveCount(0);
   await expect(page.locator('.weekday-input-panel')).toBeVisible();await expect(page.locator('.weekday-reasoning-panel')).toBeVisible();
   const term=page.locator('.weekday-sentence-line .weekday-reference-trigger').first(),bounds=await term.boundingBox();expect(bounds!.width).toBeLessThan(150);expect(bounds!.height).toBeGreaterThanOrEqual(26);
@@ -114,7 +114,7 @@ test('compact expressions open captured choices and the video frame keeps input 
 
 
 test('the modal introduction bridge and its authored transition fit the 200% video frame',async({page},testInfo)=>{
-  await page.goto('/knowledge/weekday-worlds/#modal-comparison');await page.waitForFunction(()=>window.__atlasRelated);await expect(page.locator('.weekday-modal-introduction')).toBeVisible();await expect(page.locator('.weekday-input-panel')).toBeHidden();await fit(page);await testInfo.attach('possibility-necessity-examples-200',{body:await page.screenshot(),contentType:'image/png'});
+  await page.goto('/knowledge/weekday-worlds/modal-comparison/');await page.waitForFunction(()=>window.__atlasRelated);await expect(page.locator('.weekday-modal-introduction')).toBeVisible();await expect(page.locator('.weekday-input-panel')).toBeHidden();await fit(page);await testInfo.attach('possibility-necessity-examples-200',{body:await page.screenshot(),contentType:'image/png'});
   await page.locator('#reader-next').click();await expect(page).toHaveURL(/\/alethic\/$/);await expect(page.locator('.weekday-modal-diagram')).toBeVisible();await fit(page);await page.locator('#reader-next').click();await expect(page).toHaveURL(/\/modal-expansion\/$/);
   await expect(page.locator('.weekday-interpretation-comparison')).toBeVisible();await fit(page);
   await testInfo.attach('modal-introduction-comparison-200',{body:await page.screenshot(),contentType:'image/png'});

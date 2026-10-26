@@ -1,6 +1,6 @@
 import {test,expect} from '@playwright/test';
 
-for(const route of ['/knowledge/weekday-worlds/#modal-expansion','/knowledge/weekday-worlds/modal-expansion/','/knowledge/monty-hall/#sampling']){
+for(const route of ['/knowledge/weekday-worlds/modal-expansion/','/knowledge/monty-hall/sampling/']){
   test(`cold entry displays only the initialized requested scene: ${route}`,async({page},testInfo)=>{
     let release!:()=>void;
     const gate=new Promise<void>(resolve=>{release=resolve;});
@@ -73,4 +73,14 @@ test('without JavaScript the requested scene, global navigation and adjacent lin
   const next=reader.locator('#sampling .reader-static-navigation a[href="/knowledge/monty-hall/experiment/"]');
   await next.click();await expect(reader.locator('#experiment')).toBeVisible();
   await context.close();
+});
+
+test('a document fragment cannot override the scene selected by its path',async({page})=>{
+  await page.goto('/knowledge/weekday-worlds/conditional/#modal-expansion');
+  await page.waitForFunction(()=>window.__atlasRelated);
+  expect(await page.evaluate(()=>window.__atlasRelated.getState().sceneId)).toBe('conditional');
+  await expect(page.locator('#conditional')).toBeVisible();
+  await page.locator('#reader-next').click();
+  await page.goBack();
+  await expect(page.locator('#conditional')).toBeVisible();
 });

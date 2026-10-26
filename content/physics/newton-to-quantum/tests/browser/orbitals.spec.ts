@@ -26,7 +26,7 @@ async function expectOrbitalLongform(page:Page){
 
 test('orbital detour displays a substantial canvas in every rendering mode',async({page})=>{
   // Given the actual optional orbital reader, not a standalone viewer harness.
-  await page.goto('/knowledge/newton-to-quantum/#orbital-density');
+  await page.goto('/knowledge/newton-to-quantum/orbital-density/');
   await page.waitForFunction(()=>window.__atlasRelated);
   // When each supported representation is selected.
   for(const mode of ['cloud','slice','surface']){
@@ -77,7 +77,7 @@ test('customized optional orbital input preserves canonical prose when returning
 
 test('orbitals: each authored scene fits with its corresponding field state',async({page},testInfo)=>{
   const errors: string[]=[];page.on('pageerror',error=>errors.push(error.message));
-  await page.goto('/knowledge/newton-to-quantum/#orbital-density');await page.waitForFunction(()=>window.__atlasRelated);
+  await page.goto('/knowledge/newton-to-quantum/orbital-density/');await page.waitForFunction(()=>window.__atlasRelated);
   const metadata=CONTENT_PAGES.find(p=>p.slug==='newton-to-quantum')!,orbitalScenes=metadata.scenes.filter(scene=>scene.id==='orbital-density'||scene.id==='orbital-phase');
   for(const scene of orbitalScenes){
     await page.evaluate(sceneId=>window.__atlasRelated.setState({sceneId}),scene.id);
@@ -115,7 +115,7 @@ test('customized phase narration keeps color pairs and density formulas on one l
 });
 
 test('orbital controls, camera, modes, state persistence and restoration use current input',async({page},testInfo)=>{
-  await page.goto('/knowledge/newton-to-quantum/#orbital-density');await page.waitForFunction(()=>window.__atlasRelated);
+  await page.goto('/knowledge/newton-to-quantum/orbital-density/');await page.waitForFunction(()=>window.__atlasRelated);
   await page.getByRole('combobox',{name:'주양자수 n',exact:true}).selectOption('3');
   await page.getByRole('combobox',{name:'오비탈 종류·방향',exact:true}).selectOption('dxy');
   await page.getByRole('combobox',{name:'핵전하 Z',exact:true}).selectOption('2');

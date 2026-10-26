@@ -9,7 +9,7 @@ async function expectWeights(row: Locator, expected: readonly [string, string, s
 }
 
 test("two-children: exact reasoning is visible before sampling and after reset", async ({ page }) => {
-	await page.goto("/knowledge/two-children/#filter");
+	await page.goto("/knowledge/two-children/filter/");
 	await page.waitForFunction(() => window.__atlasRelated);
 	const cases = page.locator(".lab-ledger tbody tr");
 	await expect(cases).toHaveCount(4);

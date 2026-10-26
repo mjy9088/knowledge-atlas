@@ -59,7 +59,7 @@ test('base composition applies when one desktop dimension exceeds the baseline',
 test('top layers stay inside the logical frame at scale-one letterbox boundaries',async({page},testInfo)=>{
   test.skip(testInfo.project.name==='mobile','Desktop top-layer contract');
   await page.setViewportSize(BASE_VIEWPORT);
-  await page.goto('/knowledge/weekday-worlds/#modal-expansion');
+  await page.goto('/knowledge/weekday-worlds/modal-expansion/');
   await page.waitForFunction(()=>window.__atlasRelated);
   await page.evaluate(()=>{const popover=document.createElement('div');popover.id='boundary-popover';popover.popover='manual';popover.style.cssText='width:120px;height:60px;padding:0;border:0';document.body.append(popover);popover.showPopover();});
   const baselinePopover=await rectangle(page,'#boundary-popover');
@@ -87,7 +87,7 @@ test('top layers stay inside the logical frame at scale-one letterbox boundaries
 test('open anchored popover closes and restores native focus across viewport modes',async({page},testInfo)=>{
   test.skip(testInfo.project.name==='mobile','Desktop-to-mobile resize contract');
   await page.setViewportSize(BASE_VIEWPORT);
-  await page.goto('/knowledge/weekday-worlds/#modal-expansion');
+  await page.goto('/knowledge/weekday-worlds/modal-expansion/');
   await page.waitForFunction(()=>window.__atlasRelated);
   const trigger=page.locator('.weekday-target-trigger'),select=page.locator('.weekday-target-select'),popover=page.getByRole('listbox',{name:'문장 속 목표 요일',exact:true});
   for(const viewport of [LARGE_VIEWPORT,{width:1000,height:800},{width:390,height:844}]){
@@ -112,7 +112,7 @@ test('open anchored popover closes and restores native focus across viewport mod
 test('larger desktop uniformly fits the 960 by 540 composition and keeps controls clickable',async({page})=>{
   // Given the bounded reader rendered at its authored desktop composition.
   await page.setViewportSize(BASE_VIEWPORT);
-  await page.goto('/knowledge/weekday-worlds/#modal-expansion');
+  await page.goto('/knowledge/weekday-worlds/modal-expansion/');
   await page.waitForFunction(()=>window.__atlasRelated);
   const baseline=await rectangles(page);
   const baselineFont=await page.locator('.weekday-context-select').first().evaluate(node=>getComputedStyle(node).fontSize);

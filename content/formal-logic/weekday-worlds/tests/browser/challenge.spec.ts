@@ -28,7 +28,7 @@ for(const topic of questionTopics)test(`${topic.slug}: question-led scenes fit a
 });
 
 test('weekday choice and reflection are one page without a fixed caption or writing field',async({page})=>{
-  await page.clock.install();await page.goto('/knowledge/weekday-worlds/#question');await page.waitForFunction(()=>window.__atlasRelated);
+  await page.clock.install();await page.goto('/knowledge/weekday-worlds/question/');await page.waitForFunction(()=>window.__atlasRelated);
   const timer=page.getByRole('timer',{name:'남은 시간'}),answer=page.getByRole('button',{name:'수요일',exact:true});
   await expect(page.locator('#reader-scenes')).toBeHidden();expect(await page.locator('#reader-workbench').evaluate(e=>e.getBoundingClientRect().height/innerHeight)).toBeGreaterThan(.9);await expect(timer).toHaveText('20초');await expect(answer).toBeEnabled();
   await page.clock.fastForward(7_000);await expect(timer).toHaveText('13초');
@@ -39,13 +39,12 @@ test('weekday choice and reflection are one page without a fixed caption or writ
   const saved=await page.evaluate(()=>window.__atlasRelated.getState());await page.clock.fastForward(30_000);expect(await page.evaluate(()=>window.__atlasRelated.getState())).toEqual(saved);
   await page.locator('#reader-next').click();await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id','conditional');await expect(page.locator('.reader-scene:visible .eyebrow')).toHaveText('2 / 17');
   await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(state=>window.__atlasRelated.setState(state),saved);await expect(page.getByRole('heading',{name:'왜 그렇게 생각하셨나요?',exact:true})).toBeVisible();
-  await page.evaluate(state=>window.__atlasRelated.setState({...state,sceneId:'reason'}),saved);await expect(page).toHaveURL(/\/question\/$/);await expect(page.getByRole('heading',{name:'왜 그렇게 생각하셨나요?',exact:true})).toBeVisible();
-  await expect(page.locator('.reader-menu a[href="/knowledge/weekday-worlds/question/"]')).toHaveCount(1);await expect(page.locator('.reader-menu a[href="#reason"]')).toHaveCount(0);await expectFrame(page,weekdayFrame);
+  await expect(page.locator('.reader-menu a[href="/knowledge/weekday-worlds/question/"]')).toHaveCount(1);await expectFrame(page,weekdayFrame);
   const rejected=await page.evaluate(()=>{const before=window.__atlasRelated.getState();try{window.__atlasRelated.setState({...before,interaction:{...before.interaction,challenge:{phase:'expired',elapsedMs:10}}} as never);}catch{return JSON.stringify(before)===JSON.stringify(window.__atlasRelated.getState());}return false;});expect(rejected).toBe(true);
 });
 
 test('weekday expiry, explicit skip and keyboard skip reveal the same in-page question',async({page})=>{
-  await page.clock.install();await page.goto('/knowledge/weekday-worlds/#question');await page.waitForFunction(()=>window.__atlasRelated);
+  await page.clock.install();await page.goto('/knowledge/weekday-worlds/question/');await page.waitForFunction(()=>window.__atlasRelated);
   const question=page.getByRole('heading',{name:'어떤 기준으로 풀면 좋을까요?',exact:true});
   await page.clock.fastForward(20_000);await expect(question).toBeVisible();await expect(question).toBeFocused();await expect(page).toHaveURL(/\/question\/$/);
   await expect(page.getByRole('heading',{name:'왜 그렇게 생각하셨나요?',exact:true})).toBeHidden();await expect(page.getByRole('button',{name:'설명 보기 →',exact:true})).toBeVisible();

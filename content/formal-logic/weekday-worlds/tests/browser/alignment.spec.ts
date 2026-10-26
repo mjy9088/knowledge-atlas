@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import { expectFrame, weekdayFrame, weekdayInputs, weekdayReasoning, weekdayView } from "./support.js";
 
 test('weekday alignment highlights complete paths bidirectionally and refreshes with inputs',async({page},testInfo)=>{
-  await page.goto('/knowledge/weekday-worlds/#modal-expansion');await page.waitForFunction(()=>window.__atlasRelated);await weekdayInputs(page);
+  await page.goto('/knowledge/weekday-worlds/modal-expansion/');await page.waitForFunction(()=>window.__atlasRelated);await weekdayInputs(page);
   const saved=await page.evaluate(()=>window.__atlasRelated.getState());
   const nextBounds=await page.locator('#reader-next').boundingBox(),selectionBounds=await page.locator('.weekday-settings').boundingBox();
   const ids=async(side:string)=>page.locator(`[data-alignment-side="${side}"][data-alignment-on-path]`).evaluateAll(nodes=>[...new Set(nodes.map(n=>(n as HTMLElement).dataset.alignmentNode))].sort());
@@ -29,7 +29,7 @@ test('weekday alignment highlights complete paths bidirectionally and refreshes 
 });
 
 test('weekday conditional connectives map both ways in the world model, comparison and modal stages without a mode toggle',async({page},testInfo)=>{
-  await page.goto('/knowledge/weekday-worlds/#modal-expansion');await page.waitForFunction(()=>window.__atlasRelated);await weekdayInputs(page);
+  await page.goto('/knowledge/weekday-worlds/modal-expansion/');await page.waitForFunction(()=>window.__atlasRelated);await weekdayInputs(page);
   for(const sceneId of ['contexts','modal-expansion','alethic']){
     await page.evaluate(sceneId=>window.__atlasRelated.setState({sceneId}),sceneId);await weekdayInputs(page);
     const mode=sceneId==='alethic'?'양상':'달력';
@@ -57,7 +57,7 @@ test('weekday conditional connectives map both ways in the world model, comparis
 });
 
 test('weekday equivalence tokens and their explanation highlight together in both translations',async({page})=>{
-  await page.goto('/knowledge/weekday-worlds/#modal-expansion');await page.waitForFunction(()=>window.__atlasRelated);
+  await page.goto('/knowledge/weekday-worlds/modal-expansion/');await page.waitForFunction(()=>window.__atlasRelated);
   for(const mode of ['달력','양상']){
     await weekdayView(page,mode);
     const glossary=page.locator('.weekday-equivalence-definition'),tokens=page.locator('.weekday-symbol-constraints [data-alignment-node="weekday-equivalence"]');

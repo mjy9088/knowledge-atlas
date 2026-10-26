@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 test("the physics-history orbital adapter exposes mutation-free preflight before reader restoration", async ({ page }) => {
-	await page.goto("/knowledge/newton-to-quantum/#orbital-density");
+	await page.goto("/knowledge/newton-to-quantum/orbital-density/");
 	const result = await page.evaluate(async () => {
 		const { mountTopicInteraction } = await import("/topics/registry.js");
 		const container = document.createElement("div");

@@ -1,7 +1,7 @@
 import {test,expect} from '@playwright/test';
 
 test('spatial restoration synchronously draws the final reader layout before any resize callback',async({page})=>{
-  await page.goto('/knowledge/newton-to-quantum/#orbital-density');
+  await page.goto('/knowledge/newton-to-quantum/orbital-density/');
   await page.waitForFunction(()=>window.__atlasRelated);
   await page.getByRole('combobox',{name:'주양자수 n',exact:true}).selectOption('3');
   await page.getByRole('combobox',{name:'오비탈 종류·방향',exact:true}).selectOption('dxy');
@@ -51,7 +51,7 @@ test('a fractional-size field canvas clears every backing-store pixel before red
 });
 
 test('malformed saved camera values cannot silently reset a valid orbital view',async({page})=>{
-  await page.goto('/knowledge/newton-to-quantum/#orbital-phase');
+  await page.goto('/knowledge/newton-to-quantum/orbital-phase/');
   await page.waitForFunction(()=>window.__atlasRelated);
   await page.getByRole('combobox',{name:'표시 방식',exact:true}).selectOption('slice');
   const results=await page.evaluate(()=>{

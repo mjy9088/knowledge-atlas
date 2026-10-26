@@ -27,7 +27,6 @@ const page=(()=>{const found=CONTENT_PAGES.find(page=>page.slug===root.dataset.p
 const longform=Boolean(page.navigation);
 const spatial=page.interactive==='physics-history';
 root.dataset.mode=spatial?'spatial':page.interactive?'interactive':'reading';
-const resolveSceneId=(id:string)=>page.interactive==='weekday-worlds'&&id==='reason'?'question':id;
 const scenes=[...document.querySelectorAll<HTMLElement>('.reader-scene')];
 const cover=document.createElement('section');cover.className='reader-cover';cover.setAttribute('aria-label','제목 슬라이드');
 let coverVisible=false;
@@ -108,7 +107,7 @@ function previous(){if(coverVisible)return;if(page.cover&&current.index===0){cov
 $('reader-skip').addEventListener('click',()=>{const skip=readerSkip(page,current.sceneId);if(skip){reader.setState({sceneId:skip.to});const title=required('h2',scenes[current.index]);title.tabIndex=-1;title.focus({preventScroll:true});}});
 $('reader-next').addEventListener('click',next);$('reader-prev').addEventListener('click',previous);
 $('reader-reset').hidden=false;$('reader-reset').addEventListener('click',()=>{coverVisible=Boolean(page.cover);interaction?.reset();presentation.reset();reader.reset();required<HTMLDetailsElement>('.reader-menu').open=false;});
-document.addEventListener('click',event=>{const link=eventElement(event)?.closest<HTMLAnchorElement>('a');if(!link||event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey||link.target||link.origin!==location.origin)return;const route=parseKnowledgePath(link.pathname),id=resolveSceneId(link.hash.slice(1)||route?.sceneId||'');if(route?.slug!==page.slug)return;const title=Boolean(page.cover&&!route.sceneId&&(!link.hash||link.hash==='#title'));if(!title&&!page.scenes.some(scene=>scene.id===id))return;event.preventDefault();coverVisible=title;if(title)render(reader.inspect());else reader.setState({sceneId:id});required<HTMLDetailsElement>('.reader-menu').open=false;window.scrollTo(0,0);});
+document.addEventListener('click',event=>{const link=eventElement(event)?.closest<HTMLAnchorElement>('a');if(!link||event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey||link.target||link.origin!==location.origin)return;const route=parseKnowledgePath(link.pathname),id=route?.sceneId??'';if(route?.slug!==page.slug||link.hash)return;const title=Boolean(page.cover&&!route.sceneId);if(!title&&!page.scenes.some(scene=>scene.id===id))return;event.preventDefault();coverVisible=title;if(title)render(reader.inspect());else reader.setState({sceneId:id});required<HTMLDetailsElement>('.reader-menu').open=false;window.scrollTo(0,0);});
 document.addEventListener('keydown',event=>{
   if(event.defaultPrevented||event.repeat||event.altKey||event.ctrlKey||event.metaKey||event.shiftKey||document.querySelector('dialog[open]'))return;
   if(eventElement(event)?.closest('input,textarea,select,summary,details,[contenteditable]'))return;
@@ -118,10 +117,9 @@ document.addEventListener('keydown',event=>{
 });
 function followLocation(){
   panels.close();
-  const route=parseKnowledgePath(location.pathname),id=resolveSceneId(location.hash.slice(1));
-  const scene=page.scenes.find(scene=>scene.id===id)?.id??route?.sceneId??page.scenes[0].id;
+  const route=parseKnowledgePath(location.pathname),scene=route?.sceneId??page.scenes[0].id;
   followingHistory=true;
-  try{coverVisible=Boolean(page.cover&&!route?.sceneId&&(!location.hash||location.hash==='#title'));reader.setState({sceneId:page.scenes.some(item=>item.id===scene)?scene:page.scenes[0].id});}
+  try{coverVisible=Boolean(page.cover&&!route?.sceneId);reader.setState({sceneId:page.scenes.some(item=>item.id===scene)?scene:page.scenes[0].id});}
   finally{followingHistory=false;}
   panels.openHash(location.hash);
 }
@@ -135,7 +133,7 @@ document.documentElement.classList.add('reader-enhanced');window.scrollTo(0,0);h
 const relatedAPI={
   getState:()=>({...reader.getState(),...(page.cover?{cover:coverVisible}:{}),...(interaction?{interaction:interaction.getState()}:{}),...(presentation.available?{presentation:presentation.getState()}:{})}),
   setState(value:unknown){
-    const state=parseRelatedState(value),sceneId=resolveSceneId(state.sceneId),hasCover=Object.hasOwn(state,'cover'),hasInteraction=Object.hasOwn(state,'interaction');
+    const state=parseRelatedState(value),sceneId=state.sceneId,hasCover=Object.hasOwn(state,'cover'),hasInteraction=Object.hasOwn(state,'interaction');
     if(!page.scenes.some(scene=>scene.id===sceneId))throw new RangeError('Unknown related scene');
     if(hasCover&&!page.cover)throw new RangeError('Unsupported cover state');
     if(hasInteraction){if(!interaction)throw new RangeError('This article has no interaction');interaction.validateState(state.interaction);}

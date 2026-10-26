@@ -62,7 +62,7 @@ test('retired reader routes return not found while active routes render',async({
     expect(testSource.status()).toBe(404);
   }
   await test.step('nuclear constituents screen is deliberately retired without leaving process controls',async()=>{
-    await expectRetiredRoute(page,request,'/knowledge/nuclear-constituents/#proton','.nuclear-evidence,[data-stage],#reader-controls');
+    await expectRetiredRoute(page,request,'/knowledge/nuclear-constituents/proton/','.nuclear-evidence,[data-stage],#reader-controls');
   });
   await test.step('quark evidence screen is deliberately retired without leaving old controls',async()=>{
     await expectRetiredRoute(page,request,'/knowledge/quark-evidence/','.quark-evidence,#reader-controls');
@@ -76,7 +76,7 @@ test('every public article restores a direct scene and reset deterministically',
   for(const topic of CONTENT_PAGES){
     // Given direct entry to the final authored scene.
     const scene=topic.scenes.at(-1);if(!scene)throw new TypeError('Expected article scene');
-    await page.goto(`/knowledge/${topic.slug}/#${scene.id}`);await page.waitForFunction(()=>window.__atlasRelated);
+    await page.goto(`/knowledge/${topic.slug}/${scene.id}/`);await page.waitForFunction(()=>window.__atlasRelated);
     const direct=await page.evaluate(()=>window.__atlasRelated.getState());
     // When reset and explicit restoration are applied.
     await page.evaluate(()=>window.__atlasRelated.reset());await page.evaluate(state=>window.__atlasRelated.setState(state),direct);

@@ -13,11 +13,11 @@ test('the exact 20-second deadline rejects a late answer and long timer gaps do 
 });
 test('independent challenge frames are frozen and do not inherit earlier answers or reflection',()=>{
   const later=weekdayChallengeAt(18_000,0),earlier=weekdayChallengeAt(5_000,4);
-  assert.equal(later.elapsedMs,18_000);assert.equal(earlier.elapsedMs,5_000);assert.equal(earlier.playback,'paused');assert.equal(earlier.answer,null);assert.equal(earlier.reason,'');assert.equal(earlier.promptTarget,4);
+  assert.equal(later.elapsedMs,18_000);assert.equal(earlier.elapsedMs,5_000);assert.equal(earlier.playback,'paused');assert.equal(earlier.answer,null);assert.equal(earlier.promptTarget,4);
   assert.equal(weekdayChallengeAt(100_000).phase,'expired');assert.equal(weekdayChallengeAt(100_000).elapsedMs,20_000);
 });
-test('challenge restoration validates phase, elapsed time, prompt, choice and bounded reflection without aliasing',()=>{
-  const original={...answerWeekdayChallenge(advanceWeekdayChallenge(live(),1234),6),reason:'어제와 내일을 비교했다.'},restored=validateWeekdayChallenge(original);restored.reason='changed';assert.notEqual(original.reason,restored.reason);
-  for(const patch of [{elapsedMs:NaN},{elapsedMs:-1},{elapsedMs:20_001},{phase:'unknown'},{phase:'running',answer:2},{answer:7},{promptTarget:null},{promptTarget:7},{reason:'x'.repeat(1001)},{playback:'live'},{phase:'expired',elapsedMs:10,answer:null}])assert.throws(()=>validateWeekdayChallenge({...original,...patch}));
+test('challenge restoration validates phase, elapsed time, prompt, choice without aliasing',()=>{
+  const original=answerWeekdayChallenge(advanceWeekdayChallenge(live(),1234),6),restored=validateWeekdayChallenge(original);restored.answer=2;assert.notEqual(original.answer,restored.answer);
+  for(const patch of [{elapsedMs:NaN},{elapsedMs:-1},{elapsedMs:20_001},{phase:'unknown'},{phase:'running',answer:2},{answer:7},{promptTarget:null},{promptTarget:7},{unexpected:true},{playback:'live'},{phase:'expired',elapsedMs:10,answer:null}])assert.throws(()=>validateWeekdayChallenge({...original,...patch}));
   for(const ms of [-1,NaN,Infinity])assert.throws(()=>weekdayChallengeAt(ms));
 });

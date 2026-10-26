@@ -10,7 +10,7 @@ The catalog offers equal possible starting points across subjects. Newtonian-to-
 
 ## Reading and interaction
 
-- Direct scene entry must first display the requested, initialized reader layout. Do not paint a temporary opening scene or static source layout before replacing it. Legacy scene fragments remain usable and normalize to scene paths without adding a browser-history step. Keep a readable source document and ordinary navigation when JavaScript is disabled or interactive modules fail.
+- Direct scene entry must first display the requested, initialized reader layout. Do not paint a temporary opening scene or static source layout before replacing it. Scene selection uses path URLs only; fragments address document anchors and panels. Keep a readable source document and ordinary navigation when JavaScript is disabled or interactive modules fail.
 - Reading is self-paced, with Previous/Next, direct scene selection and keyboard navigation; no playback waits or compulsory extra expansion action. Every authored slide belongs to the default Previous/Next sequence. Deeper proofs and experiments appear at their relevant context; they are never omitted behind a separate entry/return path.
 - Ordinary scenes have no minimum dwell or disabled navigation while an animation runs. Replay/pause and reduced-motion treatment support understanding; decorative motion and a fixed duration are not reasons to keep a reader on a scene.
 - Show skip only for a meaningful forward jump beyond Next. Name the skipped topic/scope and destination accessibly. Content owns its authored destinations.
