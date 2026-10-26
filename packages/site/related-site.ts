@@ -7,7 +7,15 @@ import {escapeHTML} from './html.js';
 export {escapeHTML} from './html.js';
 
 const e=escapeHTML;
-const shell=(title:string,description:string,body:string,head='')=>`<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="${e(description)}"><title>${e(title)} · Knowledge Atlas</title><meta property="og:title" content="${e(title)}"><link rel="stylesheet" href="/pages/article/article.css"><link rel="stylesheet" href="/components/experiment/premise-editor.css"><link rel="stylesheet" href="/components/reader/frame.css"><link rel="stylesheet" href="/components/reader/cover.css"><link rel="stylesheet" href="/components/viewport/desktop-fit.css"><script type="module" src="/components/viewport/desktop-fit.js"></script>${head}</head><body><a class="skip-link" href="#main">본문으로 건너뛰기</a><header class="page-chrome"><a href="/knowledge/" aria-label="지식 목록">Knowledge Atlas</a><nav><a href="/">지식 지도</a><a href="#connections">연관 지식</a></nav></header>${body}</body></html>`;
+const shell=(title:string,description:string,body:string,head='',interactive=false)=>{
+  const content=`<a class="skip-link" href="#main">본문으로 건너뛰기</a><header class="page-chrome"><a href="/knowledge/" aria-label="지식 목록">Knowledge Atlas</a><nav><a href="/">지식 지도</a><a href="#connections">연관 지식</a></nav></header>${body}`;
+  // The two documents are mutually exclusive. Nested no-script navigation becomes
+  // ordinary markup in the outer no-script document, including the shared chrome.
+  const documentBody=interactive
+    ?`<template id="reader-document">${content}</template><noscript>${content.replaceAll('<noscript>','').replaceAll('</noscript>','')}</noscript>`
+    :content;
+  return `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="${e(description)}"><title>${e(title)} · Knowledge Atlas</title><meta property="og:title" content="${e(title)}"><link rel="stylesheet" href="/pages/article/article.css"><link rel="stylesheet" href="/components/experiment/premise-editor.css"><link rel="stylesheet" href="/components/reader/frame.css"><link rel="stylesheet" href="/components/reader/cover.css"><link rel="stylesheet" href="/components/viewport/desktop-fit.css"><script type="module" src="/components/viewport/desktop-fit.js"></script>${head}</head><body>${documentBody}</body></html>`;
+};
 
 function articleFor(collection:ContentCollection,articleId:string):Article{
   const article=collection.articles.find(item=>item.id===articleId);
@@ -92,6 +100,6 @@ export function renderRelatedPage(page:ContentPage,collection:ContentCollection,
   const sceneContainer=`<div id="reader-scenes" aria-live="polite" aria-atomic="true">${scenes}</div>`;
   const reading=page.workbenchPlacement==='after-explanation'?sceneContainer+hiddenWorkbench:hiddenWorkbench+sceneContainer;
   const body=`<main id="main" class="related-reader server-scene-selected" data-mode="reading" data-page="${e(page.slug)}" data-server-scene="${e(selectedSceneId)}" data-presentation="${presentation}">${intro}${reading}${controls}</main><section id="connections" class="reader-connections"><h2>연관 지식</h2><nav>${links}</nav></section><section id="evidence" class="reader-evidence"><h2>근거와 범위</h2><p class="review-note">내용 검토 전 초안입니다. 출처별 확인 범위와 미확인 항목은 아래 기록에서 확인할 수 있습니다.</p>${sourceHTML}<details><summary>주장별 조건과 근거 위치</summary>${claimHTML}</details></section>`;
-  const head=(page.styles??[]).map(href=>`<link rel="stylesheet" href="${e(href)}">`).join('')+'<link rel="stylesheet" href="/components/reader/presentation.css"><script type="module" src="/pages/article/controller.js"></script>';
-  return shell(article.title,sceneText(article,page.scenes[0]),body,head).replace('<html lang="ko">','<html lang="ko" class="reader-enhanced">');
+  const head=(page.styles??[]).map(href=>`<link rel="stylesheet" href="${e(href)}">`).join('')+'<link rel="stylesheet" href="/components/reader/presentation.css"><script type="module" src="/pages/article/entry.js"></script>';
+  return shell(article.title,sceneText(article,page.scenes[0]),body,head,true).replace('<html lang="ko">','<html lang="ko" class="reader-enhanced">');
 }

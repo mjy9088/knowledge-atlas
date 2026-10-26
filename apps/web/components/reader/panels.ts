@@ -20,5 +20,5 @@ export function mountReaderPanels(entries:{element:HTMLElement|null;title:string
     panel.open(trigger);return true;
   }
   document.addEventListener('click',event=>{const link=eventElement(event)?.closest<HTMLAnchorElement>('a[href^="#"]');if(link&&openHash(link.hash,link))event.preventDefault();});
-  return {openHash};
+  return {openHash,close(){for(const {dialog}of panels)if(dialog.open)dialog.close();}};
 }

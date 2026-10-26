@@ -10,7 +10,7 @@ test('weekday review skip keeps edits and lands on a nonmodal worked proof befor
   const skip=page.locator('#reader-skip');await expect(skip).toContainText('고전 논리 복습 건너뛰기');await expect(skip).toHaveAttribute('title',/조건문.*후건 부정.*이동: 양상 논리 없이/);
   await expectFrame(page,{...weekdayFrame,controls:[...weekdayFrame.controls,'#reader-skip']});
   await page.locator('#reader-next').click();await expect(page.locator('.reader-scene:visible')).toHaveAttribute('id','inference');await expect(skip).toBeHidden();
-  await page.evaluate(()=>window.__atlasRelated.setState({sceneId:'notation'}));await skip.click();await expect(page).toHaveURL(/#nonmodal-proof$/);
+  await page.evaluate(()=>window.__atlasRelated.setState({sceneId:'notation'}));await skip.click();await expect(page).toHaveURL(/\/nonmodal-proof\/$/);
   await expect(page.locator('.weekday-classical-proof')).toContainText('문제가 묻는 A인 경우를 가정');await expect(page.locator('.weekday-classical-proof')).toContainText('전건 긍정');await expect(page.locator('.weekday-classical-proof')).toContainText('t ≡₇ 0 + 2');await expect(page.locator('.weekday-classical-answer')).toHaveText('따라서 현실의 오늘은 수요일.');
   await expect(page.locator('.weekday-classical-inputs')).toContainText('차이가 7의 정수배');await expect(page.locator('.weekday-congruence-rules')).toContainText('x + c ≡₇ y + c');await expect(page.locator('.weekday-classical-proof ol li')).toHaveCount(7);await expect(page.locator('.weekday-classical-proof')).toContainText('2·4: 추이');
   await expect(page.locator('.weekday-classical-inputs')).toContainText('만약 어제가 내일이라면, 오늘이 월요일이다.');await expect(page.locator('.weekday-classical-inputs')).toContainText('A → B');
@@ -29,7 +29,7 @@ test('weekday modality introduction shows only separate possibility and necessit
   for(const selector of ['.weekday-source','.weekday-settings','.weekday-logic-diagram','.weekday-interpretation-comparison','.weekday-modal-diagram'])await expect(page.locator(selector)).toBeHidden();
   const intro=page.locator('.weekday-modal-introduction');await expect(intro).toBeVisible();await expect(intro.locator('.weekday-modal-intro-world')).toHaveCount(6);
   for(const [id,actual,necessary]of [['possible','거짓','false'],['necessary','참','true']]){const card=intro.locator(`[data-example="${id}"]`);await expect(card.locator('.weekday-modal-intro-actual')).toHaveText('현실에서 P: '+actual);await expect(card.locator('[data-operator="◇P"]')).toHaveAttribute('data-truth','true');await expect(card.locator('[data-operator="□P"]')).toHaveAttribute('data-truth',necessary);}
-  await expectFrame(page,weekdayFrame);await page.locator('#reader-next').click();await expect(page).toHaveURL(/#alethic$/);await expect(page.locator('.weekday-modal-diagram')).toBeVisible();
+  await expectFrame(page,weekdayFrame);await page.locator('#reader-next').click();await expect(page).toHaveURL(/\/alethic\/$/);await expect(page.locator('.weekday-modal-diagram')).toBeVisible();
   await page.getByRole('combobox',{name:'문장 속 목표 요일',exact:true}).selectOption('0');const saved=(await page.evaluate(()=>window.__atlasRelated.getState())).interaction;
   await page.evaluate(()=>window.__atlasRelated.setState({sceneId:'modal-comparison'}));expect({...((await page.evaluate(()=>window.__atlasRelated.getState())).interaction),logicMode:undefined}).toEqual({...saved,logicMode:undefined});await expect(intro.locator('.weekday-modal-intro-proposition')).toContainText('금요일');
   await page.evaluate(()=>window.__atlasRelated.setState({sceneId:'modal-expansion'}));await expect(page.getByRole('combobox',{name:'문장 속 목표 요일',exact:true})).toHaveValue('0');await expect(page.locator('.weekday-interpretation-comparison')).toBeVisible();await expect(intro).toBeHidden();
@@ -49,7 +49,7 @@ test('weekday nonmodal model allows presets and keeps antecedent and consequent 
 test('weekday modal systems distinguish the K editor from current S4 or S5 frame conditions',async({page})=>{
   await page.goto('/knowledge/weekday-worlds/#modal-systems');await page.waitForFunction(()=>window.__atlasRelated);
   await expect(page.locator('.weekday-system-table tbody tr')).toHaveCount(6);await expect(page.locator('.weekday-system-table')).toContainText('K');await expect(page.locator('.weekday-system-table')).toContainText('T + B');
-  await page.locator('#reader-next').click();await expect(page).toHaveURL(/#frame-system$/);
+  await page.locator('#reader-next').click();await expect(page).toHaveURL(/\/frame-system\/$/);
   const status=page.locator('.weekday-frame-systems');await expect(status).toContainText('편집기의 기본 보장: K');await expect(status.locator('[data-system="S4"]')).toHaveAttribute('data-satisfied','true');await expect(status.locator('[data-system="S5"]')).toHaveAttribute('data-satisfied','false');
   await page.getByRole('button',{name:'세계 · 접근 관계',exact:true}).click();await page.getByRole('checkbox',{name:'가정 1 → 현실',exact:true}).check();await page.getByRole('button',{name:'설정 닫기',exact:true}).click();
   await expect(status.locator('[data-system="S5"]')).toHaveAttribute('data-satisfied','true');

@@ -13,7 +13,7 @@ Every active ADR requires Context, Project impact, Alternatives, Decision and Co
 | [0001](0001-web-canonical-projection.md) | Shared web/video source |
 | [0002](0002-file-first-provenance.md) | File-first provenance |
 | [0006](0006-local-video-renderer.md) | Local Canvas/WebCodecs rendering |
-| [0009](0009-static-related-pages.md) | Static articles with progressive enhancement |
+| [0009](0009-static-related-pages.md) | Static routes with atomic interactive entry |
 | [0010](0010-local-media-cli.md) | Public web and local media boundary |
 | [0011](0011-viewport-and-rule-adapters.md) | Explicit domain adapters |
 | [0012](0012-browser-regression-and-documentation.md) | Documentation ownership and browser verification |

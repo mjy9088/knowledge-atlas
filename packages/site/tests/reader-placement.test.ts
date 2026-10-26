@@ -18,7 +18,10 @@ const page: ContentPage = {
 
 test('authored experiment placement changes actual reading order while retaining one state-owning workbench', () => {
   for (const placement of [undefined, 'after-explanation'] as const) {
-    const html = renderRelatedPage({...page, workbenchPlacement: placement}, collection, [], []);
+    const document = renderRelatedPage({...page, workbenchPlacement: placement}, collection, [], []);
+    // The interactive template and no-script fallback are mutually exclusive documents.
+    const html = document.match(/<template id="reader-document">([\s\S]*?)<\/template>/u)?.[1];
+    assert.ok(html);
     const explanation = html.indexOf('id="reader-scenes"');
     const workbench = html.indexOf('id="reader-workbench"');
     assert.equal(explanation < workbench, placement === 'after-explanation');

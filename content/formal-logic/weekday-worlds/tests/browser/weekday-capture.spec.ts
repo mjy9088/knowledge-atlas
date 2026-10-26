@@ -62,7 +62,7 @@ test('20-second challenge and reflection fit the 200% recording layout',async({p
   // Hiding the question pauses accumulation; restoring a live snapshot resumes it.
   const saved=await page.evaluate(()=>window.__atlasRelated.getState());await page.evaluate(()=>window.__atlasRelated.setState({sceneId:'notation'}));
   await page.clock.fastForward(40_000);await page.evaluate(()=>window.__atlasRelated.setState({sceneId:'question'}));await expect(page.getByRole('timer')).toHaveText('12초');await page.evaluate(state=>window.__atlasRelated.setState(state),saved);await expect(page.getByRole('timer')).toHaveText('12초');
-  await page.clock.fastForward(12_000);await expect(page.getByRole('heading',{name:'어떤 기준으로 풀면 좋을까요?',exact:true})).toBeVisible();await expect(page).toHaveURL(/#question$/);
+  await page.clock.fastForward(12_000);await expect(page.getByRole('heading',{name:'어떤 기준으로 풀면 좋을까요?',exact:true})).toBeVisible();await expect(page).toHaveURL(/\/question\/$/);
   await expect(page.getByRole('textbox')).toHaveCount(0);await expect(page.locator('#reader-scenes')).toBeHidden();await fit(page);
   await testInfo.attach('challenge-reflection-200',{body:await page.screenshot(),contentType:'image/png'});
 });
@@ -115,7 +115,7 @@ test('compact expressions open captured choices and the video frame keeps input 
 
 test('the modal introduction bridge and its authored transition fit the 200% video frame',async({page},testInfo)=>{
   await page.goto('/knowledge/weekday-worlds/#modal-comparison');await page.waitForFunction(()=>window.__atlasRelated);await expect(page.locator('.weekday-modal-introduction')).toBeVisible();await expect(page.locator('.weekday-input-panel')).toBeHidden();await fit(page);await testInfo.attach('possibility-necessity-examples-200',{body:await page.screenshot(),contentType:'image/png'});
-  await page.locator('#reader-next').click();await expect(page).toHaveURL(/#alethic$/);await expect(page.locator('.weekday-modal-diagram')).toBeVisible();await fit(page);await page.locator('#reader-next').click();await expect(page).toHaveURL(/#modal-expansion$/);
+  await page.locator('#reader-next').click();await expect(page).toHaveURL(/\/alethic\/$/);await expect(page.locator('.weekday-modal-diagram')).toBeVisible();await fit(page);await page.locator('#reader-next').click();await expect(page).toHaveURL(/\/modal-expansion\/$/);
   await expect(page.locator('.weekday-interpretation-comparison')).toBeVisible();await fit(page);
   await testInfo.attach('modal-introduction-comparison-200',{body:await page.screenshot(),contentType:'image/png'});
   await page.getByRole('button',{name:'기준 변경과 양상 비교 ↗',exact:true}).click();const dialog=page.getByRole('dialog',{name:'기준 변경과 양상 논리 비교',exact:true}),bounds=await dialog.boundingBox();expect(bounds!.y).toBeGreaterThanOrEqual(0);expect(bounds!.y+bounds!.height).toBeLessThanOrEqual(540);await dialog.locator('.weekday-reference-contrast-body').evaluate(e=>e.scrollTop=e.scrollHeight);await expect(dialog.getByRole('button',{name:'비교 자료 닫기',exact:true})).toBeInViewport();await testInfo.attach('reference-and-modal-contrast-200',{body:await page.screenshot(),contentType:'image/png'});await dialog.getByRole('button',{name:'비교 자료 닫기',exact:true}).click();await fit(page);
